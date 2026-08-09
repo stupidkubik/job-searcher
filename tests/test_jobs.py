@@ -17,7 +17,8 @@ class JobsCliTests(unittest.TestCase):
         for directory in ("data", "applications", "scripts"):
             (self.root / directory).mkdir()
         shutil.copy2(PROJECT / "scripts" / "jobs.py", self.root / "scripts" / "jobs.py")
-        shutil.copy2(PROJECT / "data" / "jobs.csv", self.root / "data" / "jobs.csv")
+        header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
+        (self.root / "data" / "jobs.csv").write_text(header + "\n", encoding="utf-8")
         shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
 
     def tearDown(self):
@@ -40,6 +41,14 @@ class JobsCliTests(unittest.TestCase):
         result = self.invoke("validate")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("проверено записей: 0; ошибок: 0", result.stdout)
+
+    def test_new_job_board_sources_are_accepted(self):
+        for source in ("Welcome to the Jungle", "We Work Remotely"):
+            result = self.invoke(
+                "add", "--company", f"{source} Co", "--role", "Frontend Developer",
+                "--source", source, "--no-file",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_add_issues_id_and_creates_application_file(self):
         result = self.add("Example Co", "Frontend Engineer", "--status", "Reviewing")

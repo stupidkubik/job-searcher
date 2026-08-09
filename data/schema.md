@@ -36,7 +36,7 @@
 | Поле | Значения |
 |---|---|
 | `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` |
-| `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Company Careers`, `Referral`, `Manual`, `Other` |
+| `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `Company Careers`, `Referral`, `Manual`, `Other` |
 | `remote_policy` | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` |
 | `status` | `New`, `Reviewing`, `Apply`, `Applied`, `Interviewing`, `Offer`, `Rejected`, `Ghosted`, `Skipped`, `Closed`, `Duplicate`, `Withdrawn` |
 | `stage_reached` | `None` → `Applied` → `Recruiter screen` → `Tech interview` → `Test task` → `Final interview` → `Offer` |
