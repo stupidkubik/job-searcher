@@ -41,6 +41,14 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("проверено записей: 0; ошибок: 0", result.stdout)
 
+    def test_new_job_board_sources_are_accepted(self):
+        for source in ("Welcome to the Jungle", "We Work Remotely"):
+            result = self.invoke(
+                "add", "--company", f"{source} Co", "--role", "Frontend Developer",
+                "--source", source, "--no-file",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+
     def test_add_issues_id_and_creates_application_file(self):
         result = self.add("Example Co", "Frontend Engineer", "--status", "Reviewing")
         self.assertEqual(result.returncode, 0, result.stderr)
