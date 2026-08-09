@@ -28,7 +28,7 @@
 
 - LinkedIn: https://www.linkedin.com/in/evgenii-rubin-60804724b/
 - Портфолио: https://evgenii-rubin.vercel.app/
-- Основное резюме: `evgenii-rubin-cv-08-2026.pdf`
+- Основное резюме: `cv/current/cv-frontend-2026-08.pdf`
 - Дополнительные кейсы / GitHub / публикации: https://github.com/stupidkubik
 
 ## Источники вакансий
@@ -59,5 +59,5 @@
 
 | Материал | Для каких ролей | Последнее изменение | Ссылка |
 |---|---|---|---|
-| Основное резюме | Frontend Engineer / Software Engineer | 2026-08-05 | `evgenii-rubin-cv-08-2026.pdf` |
+| Основное резюме | Frontend Engineer / Software Engineer | 2026-08-05 | `cv/current/cv-frontend-2026-08.pdf` |
 | Портфолио | Frontend / UI Engineer | 2026-08-05 | https://evgenii-rubin.vercel.app/ |
