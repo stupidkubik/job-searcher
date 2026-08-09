@@ -1,7 +1,7 @@
 # План развертывания `job-searcher`
 
-Дата: 2026-08-08
-Статус: план к исполнению, ничего ещё не применено.
+Дата: 2026-08-09
+Статус: план готов к исполнению; preflight-решения внесены в профиль, реорганизация ещё не начиналась.
 
 Документ рассчитан на то, что основным исполнителем работы по вакансиям будет ИИ-агент, а человек принимает решения. Поэтому приоритет — не богатство схемы, а **однозначность правил**: агент не должен угадывать, куда писать и какие значения допустимы.
 
@@ -29,7 +29,7 @@ README предлагает `normalized-company|normalized-role` (`exequt|front-
 
 `Rejected` после автоотказа на этапе скрининга и `Rejected` после финального интервью — это два принципиально разных исхода, и именно их различие отвечает на вопрос «что у меня ломается: попадание в воронку или прохождение по ней». Нужны два поля: текущее состояние и максимально достигнутая стадия.
 
-### 0.4. `cv/` — 26 файлов без системы
+### 0.4. `cv/` — 24 PDF без системы
 
 - дубликаты: `Evgenii Rubin CV.pdf`, `... copy.pdf`, `... copy 2.pdf`, `Rubin Evgenii CV.pdf`, `Rubin_Evgenii.pdf`, `Rubin_Evgenii_CV.pdf`, `evgenii-rubin-cv.pdf`;
 - company-specific: `... CV Percona.pdf`, `... CV WG.pdf`, `... CV CRM manager.pdf`;
@@ -45,13 +45,14 @@ README предлагает `normalized-company|normalized-role` (`exequt|front-
 
 - `.gitignore` отсутствует;
 - `.DS_Store` и `cv/.DS_Store` **закоммичены** (видно в `git log --stat`);
-- remote настроен: `https://github.com/stupidkubik/job-searcher.git`, ветка `main`, 2 коммита;
+- remote настроен: `https://github.com/stupidkubik/job-searcher.git`, ветка `main`, 3 коммита;
+- через GitHub подтверждено: репозиторий private, у текущего подключения есть admin/push-доступ;
 - `gh` CLI не установлен (нужен только для v2-интеграций, не блокер);
 - локально доступны Python 3.14.6 и Node 24.18 → скрипты можно писать на Python **без зависимостей**.
 
-### 0.6. Расхождение в позиционировании
+### 0.6. Позиционирование зафиксировано
 
-README задаёт целевой уровень `Junior / Strong Junior / Graduate`, а `01-profile-context.md` — «около 3 лет опыта, Junior / Middle-». `linkedin-audit` отдельно фиксирует, что не выбрано главное направление (Frontend Engineer vs Creative Developer). Это влияет на поисковые запросы агента, поэтому выносится в `config/profile.md` как единственное место истины.
+Основное направление — Frontend; Creative Developer и UI Engineer остаются дополнительными вариантами. Целевой уровень — Junior / Junior+, потому что прямой коммерческий опыт продуктовой frontend-разработки ограничен. Graduate и Associate допустимы, Junior/Middle рассматривается только как stretch. Эти решения уже внесены в `01-profile-context.md`, который переезжает в `config/profile.md` и становится единственным источником истины.
 
 ---
 
@@ -68,7 +69,7 @@ README задаёт целевой уровень `Junior / Strong Junior / Grad
 | Длинный текст (`why_fit`, риски, JD, вопросы формы) → `applications/<id>.md` | CSV остаётся аналитическим и не ломается от переводов строк в ячейках |
 | Значения в CSV — **только английский**, документация — русский | Агент не должен выбирать между `Applied` и `Отправлено` |
 | Скрипты — Python 3, **stdlib only** | Ноль установки, работает в CI из коробки |
-| `CLAUDE.md` в корне — операционный контракт для агента | Ключевой файл проекта: README для человека, `CLAUDE.md` для агента |
+| `AGENTS.md` в корне — канонический операционный контракт | Codex читает его автоматически; `CLAUDE.md` остаётся коротким указателем для Claude Code |
 
 Главный принцип, который я сохраняю из вашего README: **ни одна найденная вакансия не исчезает без записи**. Всё остальное подчинено ему.
 
@@ -79,7 +80,8 @@ README задаёт целевой уровень `Junior / Strong Junior / Grad
 ```text
 job-searcher/
 ├── README.md                       # короткий: что это, как пользоваться, ссылки
-├── CLAUDE.md                       # операционные правила для ИИ-агента
+├── AGENTS.md                       # канонические операционные правила для ИИ-агента
+├── CLAUDE.md                       # указатель на AGENTS.md для Claude Code
 ├── .gitignore
 ├── config/
 │   ├── profile.md                  # ← из 01-profile-context.md, единственный источник о кандидате
@@ -102,6 +104,8 @@ job-searcher/
 │   └── audits/                     # linkedin-2026-08-02.md
 ├── scripts/
 │   └── jobs.py                     # add / validate / dupes / set / report
+├── tests/
+│   └── test_jobs.py                # stdlib unittest для write-path и инвариантов
 ├── docs/
 │   ├── setup-plan.md               # этот файл
 │   ├── architecture.md             # решения и их обоснование
@@ -120,11 +124,11 @@ job-searcher/
 | `03-outreach-templates.md` | `templates/outreach.md` |
 | `04-weekly-review.md` | `templates/weekly-review.md` |
 | `linkedin-audit-2026-08-02.md` | `reports/audits/linkedin-2026-08-02.md` |
-| `README.md` (1080 строк) | разделяется: правила → `CLAUDE.md`, схема → `data/schema.md`, обоснования → `docs/architecture.md`, автоматизация → `docs/roadmap.md`; в README остаётся ~120 строк навигации |
+| `README.md` (1080 строк) | разделяется: правила → `AGENTS.md`, схема → `data/schema.md`, обоснования → `docs/architecture.md`, автоматизация → `docs/roadmap.md`; в README остаётся ~120 строк навигации |
 | `evgenii-rubin-cv-08-2026.pdf` (корень) | `cv/current/cv-frontend-2026-08.pdf` |
 | `deep-research-report.md` | `docs/architecture.md` (как основа) |
 
-README не удаляется — он разбирается на части. Это важно: в нём много содержательного (dedup-иерархия, workflow из 8 шагов, decision reasons), и всё это переезжает в `CLAUDE.md`, где будет реально применяться агентом.
+README не удаляется — он разбирается на части. Это важно: в нём много содержательного (dedup-иерархия, workflow из 8 шагов, decision reasons), и всё это переезжает в `AGENTS.md`, где будет реально применяться агентом.
 
 ---
 
@@ -138,7 +142,7 @@ id,company,role,level,original_url,source_url,source,location,remote_policy,stac
 
 ### Обязательные при создании записи
 
-`id`, `company`, `role`, `source`, `found_at`, `status`, `last_update`
+`id`, `company`, `role`, `source`, `found_at`, `status`, `stage_reached`, `last_update`
 
 Всё остальное может быть пустым — это осознанно: вакансия со `status=Skipped, decision_reason=geo_restriction` должна добавляться за 20 секунд, без анализа.
 
@@ -149,7 +153,7 @@ id,company,role,level,original_url,source_url,source,location,remote_policy,stac
 | `id` | `job-NNNN` | immutable, выдаётся `jobs.py add` |
 | `company` | текст | как в оригинальном источнике |
 | `role` | текст | как в оригинальном источнике |
-| `level` | `Intern` \| `Graduate` \| `Junior` \| `Associate` \| `Junior/Middle` \| `Middle` \| `Senior` \| `Unknown` | |
+| `level` | `Intern` \| `Graduate` \| `Junior` \| `Junior+` \| `Associate` \| `Junior/Middle` \| `Middle` \| `Senior` \| `Unknown` | |
 | `original_url` | URL | ATS/careers-страница. Основной ключ dedupe |
 | `source_url` | URL | где нашли (агрегатор) |
 | `source` | `Hirify` \| `Jaabz` \| `LinkedIn` \| `Company Careers` \| `Referral` \| `Manual` \| `Other` | для аналитики по площадкам |
@@ -162,9 +166,9 @@ id,company,role,level,original_url,source_url,source,location,remote_policy,stac
 | `match_score` | `1`–`10`, допускается `7.5` | субъективно, не автоматическое решение |
 | `status` | см. ниже | текущее состояние |
 | `stage_reached` | см. ниже | максимально достигнутая стадия |
-| `decision_reason` | enum, см. ниже | обязателен для `Skipped` / `Closed` / `Duplicate` |
-| `applied_at` | `YYYY-MM-DD` | ставится **только** после фактической отправки |
-| `response_at` | `YYYY-MM-DD` | дата первого ответа компании (любого) |
+| `decision_reason` | enum, см. ниже | обязателен для `Skipped` / `Closed` / `Duplicate` / `Withdrawn` |
+| `applied_at` | `YYYY-MM-DD` | ставится **только** после фактической отправки; обязателен от `Applied` и для `Withdrawn` |
+| `response_at` | `YYYY-MM-DD` | дата первого ответа компании; обязателен для `Interviewing` / `Offer` / `Rejected` |
 | `next_action` | короткий текст | `follow-up`, `prepare test task`, `answer recruiter` |
 | `next_action_date` | `YYYY-MM-DD` | по нему строится «что делать сегодня» |
 | `cv_version` | slug | `frontend-2026-08`, соответствует файлу в `cv/current/` |
@@ -235,15 +239,22 @@ withdrawn_by_me         other
 ```bash
 cd /Users/evgenii/Desktop/JOB
 
-# полная копия рядом с проектом, вне git
-cp -R . ../JOB-backup-2026-08-08
+# не перезаписываем уже существующий бэкап
+test ! -e ../JOB-backup-2026-08-09
+
+# полная копия рядом с проектом, вне git, включая незакоммиченные решения в плане
+cp -pR . ../JOB-backup-2026-08-09
+
+# проверяем, что Git-история копии читается
+git -C ../JOB-backup-2026-08-09 fsck --no-dangling
 
 # работаем в ветке, main остаётся нетронутым
-git checkout -b restructure
+git switch -c codex/restructure
 ```
 
-Отдельно **проверьте вручную**, что репозиторий действительно приватный:
-`https://github.com/stupidkubik/job-searcher/settings` → блок Danger Zone должен предлагать «Change visibility → Public». Локально это проверить нечем, а в репозитории лежат персональные данные — включая данные другого человека.
+Проверено 2026-08-09 через GitHub: репозиторий `stupidkubik/job-searcher` — private, у текущего подключения есть admin/push-доступ. Перед пушем всё равно не добавлять новые чувствительные документы без осознанного решения.
+
+**Проверка шага:** `git branch --show-current` выводит `codex/restructure`, а `git status --short` показывает только два заранее известных изменения: `docs/setup-plan.md` и `01-profile-context.md`.
 
 ---
 
@@ -270,6 +281,7 @@ __pycache__/
 
 # черновики и приватное, что не должно уезжать даже в приватный репо
 *.local.md
+.claude/settings.local.json
 scratch/
 tmp/
 ```
@@ -283,32 +295,22 @@ find . -name .DS_Store -not -path './.git/*' -delete
 
 **Проверка:** `git status --short` не показывает `.DS_Store`.
 
----
-
-### Шаг 3. Персональные данные третьего лица — ваше решение
-
-`cv/MargaritaSavonevskayaCV.pdf` — резюме другого человека, закоммичено в `init commit`. Это единственный шаг, который я не могу решить за вас, потому что варианты необратимы по-разному. Плюс: содержимое этого файла и психометрического PDF я не открывал.
-
-**Вариант A — удалить из истории (рекомендую, если файл попал случайно).** В репозитории всего 2 коммита и один автор, поэтому проще всего пересобрать историю с нуля, без установки `git-filter-repo`:
+Сразу зафиксировать этап, пока последующие `git mv` ещё не добавлены в индекс:
 
 ```bash
-git checkout --orphan clean-main
-git add -A                      # .gitignore уже действует
-git rm --cached "cv/MargaritaSavonevskayaCV.pdf"
-rm "cv/MargaritaSavonevskayaCV.pdf"     # или mv ~/Desktop/ если файл нужен
-git commit -m "chore: clean repository baseline"
-git branch -D main
-git branch -m main
-git push --force origin main
+git add .gitignore
+git commit -m "chore: add gitignore and drop DS_Store"
 ```
 
-Это уничтожает историю (2 коммита, оба технические — `init commit` и `first commit` с README). Форс-пуш безопасен: репозиторий приватный и без коллабораторов.
+---
 
-**Вариант B — оставить, признав осознанно.** Тогда файл переезжает в `cv/archive/` и в `docs/architecture.md` фиксируется, почему он там.
+### Шаг 3. Персональные данные — решение зафиксировано
 
-С `Evgenii-Rubin-1769505962835-Psychometric.pdf` — ваши данные, риска для третьих лиц нет; по умолчанию переносится в `cv/archive/`.
+Выбрано осознанно: `cv/MargaritaSavonevskayaCV.pdf` остаётся в приватном репозитории и на шаге 6 переезжает в `cv/archive/`. Это **не** удаляет персональные данные третьего лица из Git-истории и не уменьшает круг доступа при появлении новых collaborators; решение нужно пересмотреть, если приватность или состав участников репозитория изменятся.
 
-**Дальнейшие шаги не зависят от выбора A/B** — можно исполнять план и вернуться к этому шагу отдельно.
+`Evgenii-Rubin-1769505962835-Psychometric.pdf` также переезжает в `cv/archive/`. Содержимое обоих PDF не требуется открывать для реорганизации.
+
+Force-push и переписывание истории в этом плане не выполняются.
 
 ---
 
@@ -316,7 +318,16 @@ git push --force origin main
 
 ```bash
 mkdir -p config data applications cv/current cv/archive cv/cover-letters \
-         templates reports/weekly reports/audits scripts docs .github/workflows
+         templates reports/weekly reports/audits scripts tests docs .github/workflows
+```
+
+Пустые директории Git не хранит. Создать `reports/weekly/README.md`:
+
+```markdown
+# Weekly reports
+
+Автоматические и ручные отчёты `YYYY-Www.md`, созданные командой
+`python3 scripts/jobs.py report`.
 ```
 
 ---
@@ -328,7 +339,6 @@ git mv 01-profile-context.md        config/profile.md
 git mv 03-outreach-templates.md     templates/outreach.md
 git mv 04-weekly-review.md          templates/weekly-review.md
 git mv linkedin-audit-2026-08-02.md reports/audits/linkedin-2026-08-02.md
-git mv evgenii-rubin-cv-08-2026.pdf cv/current/cv-frontend-2026-08.pdf
 git mv deep-research-report.md      docs/architecture.md   # затем дописать руками
 ```
 
@@ -338,9 +348,49 @@ git mv deep-research-report.md      docs/architecture.md   # затем допи
 git rm 02-applications.csv
 ```
 
-После перемещения обязательно поправить `config/profile.md` — там два устаревших пути:
-`evgenii-rubin-cv-08-2026.pdf` → `cv/current/cv-frontend-2026-08.pdf`,
-`cv/Evgenii Rubin UX Engineer.pdf` → `cv/current/cv-ux-engineer-2026-02.pdf`.
+После перемещения обязательно поправить устаревший путь в `config/profile.md`:
+`evgenii-rubin-cv-08-2026.pdf` → `cv/current/cv-frontend-2026-08.pdf`.
+UX Engineer version не является актуальной и уже удалена из таблицы активных материалов; на шаге 6 она уходит в архив.
+
+Создать `config/search-queries.md` как исполнимую матрицу поиска:
+
+```markdown
+# Поисковые запросы
+
+Единственный источник приоритетов — `profile.md`. Перед изменением запросов сначала
+обновить профиль.
+
+## Основные — Frontend Junior / Junior+
+
+- `junior frontend developer React TypeScript remote Europe`
+- `junior frontend engineer React Serbia`
+- `graduate frontend engineer React`
+- `associate frontend developer TypeScript`
+- `junior React developer remote EMEA`
+- `junior Next.js developer remote`
+
+## Stretch
+
+- `frontend developer React TypeScript 2 years remote Europe`
+- `software engineer frontend React junior remote`
+- `fullstack React Next.js Node.js junior remote`
+
+## Дополнительные варианты
+
+- `junior UI engineer design systems React`
+- `creative developer HTML CSS JavaScript remote`
+
+Для каждого источника сохранять ссылку выдачи как `source_url`, но актуальность и
+ограничения проверять только в `original_url` работодателя/ATS.
+```
+
+Сразу закоммитить структурные перемещения. На этом этапе в индексе находятся
+только выполненные выше `git mv` / `git rm` и новые структурные файлы:
+
+```bash
+git add config templates reports docs/architecture.md
+git commit -m "refactor: move tracker files into target structure"
+```
 
 ---
 
@@ -349,10 +399,9 @@ git rm 02-applications.csv
 Файлы с пробелами и кириллицей в именах — плохо для скриптов и ссылок. Приводим `cv/current/` к slug-схеме `cv-<фокус>-<YYYY-MM>.pdf`; архив переименовывать не обязательно.
 
 ```bash
-cd cv
+git mv evgenii-rubin-cv-08-2026.pdf cv/current/cv-frontend-2026-08.pdf
 
-# актуальные версии
-git mv "Evgenii Rubin UX Engineer.pdf" current/cv-ux-engineer-2026-02.pdf
+cd cv
 
 # cover letters — отдельно от резюме
 git mv Ciklum_Cover_Letter_Evgenii_Rubin.pdf                       cover-letters/
@@ -368,7 +417,7 @@ cd ..
 
 Порядок важен: `for`-цикл идёт последним и подбирает всё, что осталось в корне `cv/`, включая файлы с кириллицей и `copy`/`copy 2`.
 
-`cv/current/` в итоге содержит ровно 2 файла — то, что реально отправляется. Правило: **если резюме не в `current/`, оно не используется для откликов.**
+`cv/current/` в итоге содержит ровно 1 PDF — то, что реально отправляется. `Evgenii Rubin UX Engineer.pdf` подберёт архивный `for`-цикл. Правило: **если резюме не в `current/`, оно не используется для откликов.**
 
 Создать `cv/current/README.md`:
 
@@ -378,7 +427,6 @@ cd ..
 | Файл | Для каких ролей | `cv_version` в jobs.csv | Обновлено |
 |---|---|---|---|
 | `cv-frontend-2026-08.pdf` | Frontend / Software Engineer | `frontend-2026-08` | 2026-08-05 |
-| `cv-ux-engineer-2026-02.pdf` | UI Engineer / Design Systems | `ux-engineer-2026-02` | 2026-02-04 |
 
 Правила:
 - в `cv_version` пишется slug из третьей колонки, не имя файла;
@@ -387,6 +435,13 @@ cd ..
 ```
 
 Значения `cv_version` в CSV должны совпадать с третьей колонкой этой таблицы — иначе аналитика «какая версия CV даёт больше ответов» не соберётся.
+
+Сразу зафиксировать весь CV-блок:
+
+```bash
+git add -A cv
+git commit -m "chore(cv): split into current archive and cover letters"
+```
 
 ---
 
@@ -412,7 +467,6 @@ id: job-0000
 company:
 role:
 original_url:
-status: New
 ---
 
 # {{company}} — {{role}}
@@ -451,6 +505,7 @@ status: New
 ```
 
 Таблица «требование → доказательство → метрика» намеренно повторяет структуру раздела «Доказательства для откликов» из `config/profile.md` — агент заполняет её, копируя оттуда, а не выдумывая.
+Статус намеренно не дублируется во front matter: он живёт только в `data/jobs.csv` и меняется через `jobs.py set`.
 
 ---
 
@@ -461,9 +516,9 @@ status: New
 | Команда | Что делает |
 |---|---|
 | `add` | выдаёт следующий `id`, проверяет дубли, дописывает строку, создаёт файл в `applications/` |
-| `validate` | проверяет схему, enum, даты, уникальность, монотонность `stage_reached`; код возврата 1 при ошибке → годится для CI |
+| `validate` | проверяет текущую схему, enum, даты, уникальность и межполевые инварианты; код возврата 1 при ошибке → годится для CI |
 | `dupes` | fuzzy-поиск дублей по `company` + `role` |
-| `set` | меняет поля существующей записи, сам поднимает `stage_reached` и `last_update` |
+| `set` | меняет разрешённые поля, запрещает правку `id`/`stage_reached`/`last_update`, не даёт понижать стадию |
 | `report` | воронка, эффективность источников, конверсия по `match_score`, просроченные `next_action` |
 
 ```python
@@ -472,12 +527,16 @@ status: New
 
 import argparse
 import csv
+import math
+import os
 import re
 import sys
+import tempfile
 import unicodedata
-from datetime import date, datetime, timedelta
+from datetime import date, datetime
 from difflib import SequenceMatcher
 from pathlib import Path
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "data" / "jobs.csv"
@@ -492,7 +551,8 @@ FIELDS = [
     "cover_letter", "contact_name", "contact_url", "last_update", "notes",
 ]
 
-REQUIRED = ["id", "company", "role", "source", "found_at", "status", "last_update"]
+REQUIRED = ["id", "company", "role", "source", "found_at", "status",
+            "stage_reached", "last_update"]
 DATE_FIELDS = ["posted_at", "found_at", "applied_at", "response_at",
                "next_action_date", "last_update"]
 
@@ -502,8 +562,8 @@ STATUSES = ["New", "Reviewing", "Apply", "Applied", "Interviewing", "Offer",
 STAGES = ["None", "Applied", "Recruiter screen", "Tech interview", "Test task",
           "Final interview", "Offer"]
 
-LEVELS = ["Intern", "Graduate", "Junior", "Associate", "Junior/Middle",
-          "Middle", "Senior", "Unknown"]
+LEVELS = ["Intern", "Graduate", "Junior", "Junior+", "Associate",
+          "Junior/Middle", "Middle", "Senior", "Unknown"]
 
 REMOTE = ["Global", "Europe", "EMEA", "Serbia", "Country-specific", "Hybrid",
           "On-site", "Unclear"]
@@ -520,7 +580,11 @@ REASONS = ["geo_restriction", "work_authorization", "seniority_too_high",
 # статусы, требующие непустой decision_reason
 NEEDS_REASON = {"Skipped", "Closed", "Duplicate", "Withdrawn"}
 # статусы, требующие непустой applied_at
-NEEDS_APPLIED_AT = {"Applied", "Interviewing", "Offer", "Rejected", "Ghosted"}
+NEEDS_APPLIED_AT = {"Applied", "Interviewing", "Offer", "Rejected", "Ghosted",
+                    "Withdrawn"}
+RESPONDED_STATUSES = {"Interviewing", "Offer", "Rejected"}
+ADD_STATUSES = ["New", "Reviewing", "Apply", "Skipped", "Closed"]
+SET_PROTECTED = {"id", "stage_reached", "last_update"}
 
 GHOST_AFTER_DAYS = 30
 
@@ -547,11 +611,19 @@ def load():
 
 
 def save(rows):
-    with CSV_PATH.open("w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
-        writer.writeheader()
-        for row in rows:
-            writer.writerow({k: (row.get(k) or "") for k in FIELDS})
+    """Атомарно заменить CSV, не оставляя обрезанный файл при сбое."""
+    fd, tmp_name = tempfile.mkstemp(prefix="jobs-", suffix=".csv",
+                                    dir=CSV_PATH.parent)
+    try:
+        with os.fdopen(fd, "w", newline="", encoding="utf-8") as f:
+            writer = csv.DictWriter(f, fieldnames=FIELDS, lineterminator="\n")
+            writer.writeheader()
+            for row in rows:
+                writer.writerow({k: (row.get(k) or "") for k in FIELDS})
+        os.replace(tmp_name, CSV_PATH)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
 
 
 def die(msg):
@@ -564,8 +636,24 @@ def norm(text):
     text = unicodedata.normalize("NFKD", text or "")
     text = "".join(c for c in text if not unicodedata.combining(c))
     text = text.lower()
-    text = re.sub(r"[^a-z0-9\s]", " ", text)
+    text = "".join(c if c.isalnum() else " " for c in text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def norm_url(value):
+    """Убрать fragment, trailing slash и известные tracking-параметры."""
+    if not value:
+        return ""
+    try:
+        parts = urlsplit(value.strip())
+    except ValueError:
+        return value.strip()
+    query = [(k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
+             if not k.lower().startswith("utm_")
+             and k.lower() not in {"ref", "referrer", "source"}]
+    path = parts.path.rstrip("/") or "/"
+    return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), path,
+                       urlencode(query), ""))
 
 
 COMPANY_NOISE = {"ltd", "limited", "inc", "incorporated", "llc", "llp", "plc",
@@ -616,11 +704,11 @@ def cmd_add(args):
     rows = load()
     company, role = args.company.strip(), args.role.strip()
 
-    hits = []
+    hits = {}
     if args.original_url:
         for r in rows:
-            if r["original_url"] and r["original_url"] == args.original_url:
-                hits.append((r, "точное совпадение original_url"))
+            if r["original_url"] and norm_url(r["original_url"]) == norm_url(args.original_url):
+                hits[r["id"]] = (r, "совпадение canonical original_url")
     nc, nr = norm_company(company), norm_role(role)
     for r in rows:
         cs = similar(nc, norm_company(r["company"]))
@@ -628,13 +716,24 @@ def cmd_add(args):
             continue
         rs = similar(nr, norm_role(r["role"]))
         if rs >= 0.75:
-            hits.append((r, f"похоже: company {cs:.2f}, role {rs:.2f}"))
+            hits.setdefault(r["id"], (r, f"похоже: company {cs:.2f}, role {rs:.2f}"))
 
-    if hits and not args.force:
+    if args.duplicate_of:
+        original = find(rows, args.duplicate_of)
+        status = "Duplicate"
+        decision_reason = "duplicate_listing"
+        duplicate_note = f"duplicate of {original['id']}"
+        notes = f"{duplicate_note}; {args.notes}" if args.notes else duplicate_note
+    else:
+        status = args.status
+        decision_reason = args.decision_reason or ""
+        notes = args.notes or ""
+
+    if hits and not args.force and not args.duplicate_of:
         print("возможные дубли:")
-        for r, why in hits:
+        for r, why in hits.values():
             print(f"  {r['id']}  {r['company']} — {r['role']}  [{r['status']}]  ({why})")
-        print("\nэто дубль -> добавьте запись со status=Duplicate и id оригинала в notes")
+        print("\nэто дубль -> повторите с --duplicate-of job-NNNN")
         print("это другая вакансия -> повторите с --force")
         sys.exit(2)
 
@@ -647,27 +746,31 @@ def cmd_add(args):
         "location": args.location or "", "remote_policy": args.remote_policy,
         "stack": args.stack or "", "salary": args.salary or "Unknown",
         "posted_at": args.posted_at or "", "found_at": args.found_at or today(),
-        "match_score": args.match_score or "", "status": args.status,
-        "stage_reached": "None", "decision_reason": args.decision_reason or "",
-        "last_update": today(), "notes": (args.notes or "").replace("\n", " "),
+        "match_score": args.match_score or "", "status": status,
+        "stage_reached": "None", "decision_reason": decision_reason,
+        "last_update": today(), "notes": notes.replace("\n", " "),
     })
     rows.append(row)
+    app_path = APPS_DIR / f"{job_id}-{slug(company)}-{slug(role)}.md"
+    create_file = not args.no_file and status not in {"Duplicate", "Skipped", "Closed"}
+    if create_file and not TEMPLATE_PATH.exists():
+        die(f"не найден шаблон {TEMPLATE_PATH}")
+
+    ensure_valid(rows)
     save(rows)
 
-    app_path = APPS_DIR / f"{job_id}-{slug(company)}-{slug(role)}.md"
-    if not args.no_file and TEMPLATE_PATH.exists() and not app_path.exists():
+    if create_file and not app_path.exists():
         body = (TEMPLATE_PATH.read_text(encoding="utf-8")
                 .replace("job-0000", job_id)
                 .replace("{{company}}", company)
                 .replace("{{role}}", role)
                 .replace("company:", f"company: {company}", 1)
                 .replace("role:", f"role: {role}", 1)
-                .replace("original_url:", f"original_url: {args.original_url or ''}", 1)
-                .replace("status: New", f"status: {args.status}", 1))
+                .replace("original_url:", f"original_url: {args.original_url or ''}", 1))
         app_path.write_text(body, encoding="utf-8")
         print(f"создан {app_path.relative_to(ROOT)}")
 
-    print(f"{job_id}  {company} — {role}  [{args.status}]")
+    print(f"{job_id}  {company} — {role}  [{status}]")
 
 
 # ---------- set ----------
@@ -684,6 +787,10 @@ def cmd_set(args):
         key, value = pair.split("=", 1)
         if key not in FIELDS:
             die(f"неизвестное поле: {key}")
+        if key in SET_PROTECTED:
+            die(f"поле {key} управляется скриптом и не меняется через field=value")
+        if key == "status" and value == "Duplicate" and row["status"] != "Duplicate":
+            die("Duplicate создаётся только командой add --duplicate-of JOB_ID")
         if key in ENUMS and value and value not in ENUMS[key]:
             die(f"{key}: недопустимое значение {value!r}\nдопустимо: {', '.join(ENUMS[key])}")
         row[key] = value.replace("\n", " ")
@@ -693,33 +800,49 @@ def cmd_set(args):
         if args.stage not in STAGES:
             die(f"недопустимая стадия: {args.stage}")
         current = row["stage_reached"] or "None"
-        if STAGES.index(args.stage) > STAGES.index(current):
-            row["stage_reached"] = args.stage
+        if STAGES.index(args.stage) < STAGES.index(current):
+            die(f"stage_reached нельзя понижать: {current} -> {args.stage}")
+        row["stage_reached"] = args.stage
+
+        stage_index = STAGES.index(args.stage)
+        if (STAGES.index("Recruiter screen") <= stage_index
+                <= STAGES.index("Final interview")
+                and row["status"] == "Applied"):
+            row["status"] = "Interviewing"
+        if args.stage == "Offer" and row["status"] in {"Applied", "Interviewing"}:
+            row["status"] = "Offer"
 
     # автоматика для Applied
     if row["status"] in NEEDS_APPLIED_AT and not row["applied_at"]:
         row["applied_at"] = today()
     if row["status"] in NEEDS_APPLIED_AT and (row["stage_reached"] or "None") == "None":
         row["stage_reached"] = "Applied"
+    if row["status"] == "Offer":
+        row["stage_reached"] = "Offer"
+    if row["status"] in RESPONDED_STATUSES and not row["response_at"]:
+        row["response_at"] = today()
 
     row["last_update"] = today()
+    ensure_valid(rows)
     save(rows)
     print(f"{row['id']}  status={row['status']}  stage={row['stage_reached']}")
 
 
 # ---------- validate ----------
 
-def cmd_validate(args):
-    rows = load()
+def validate_rows(rows):
     errors, warnings = [], []
 
     def err(i, msg):
         errors.append(f"строка {i}: {msg}")
 
-    seen_ids, seen_urls = {}, {}
+    seen_ids, urls, duplicate_refs = {}, {}, []
 
     for i, row in enumerate(rows, start=2):
         rid = row["id"] or "<пусто>"
+
+        if None in row:
+            err(i, f"{rid}: лишние CSV-колонки: {row[None]}")
 
         for field in REQUIRED:
             if not (row[field] or "").strip():
@@ -751,33 +874,56 @@ def cmd_validate(args):
         score = (row["match_score"] or "").strip()
         if score:
             try:
-                if not 1 <= float(score) <= 10:
+                parsed_score = float(score)
+                if not math.isfinite(parsed_score) or not 1 <= parsed_score <= 10:
                     err(i, f"{rid}: match_score вне диапазона 1–10")
             except ValueError:
                 err(i, f"{rid}: match_score не число: {score!r}")
 
         url = (row["original_url"] or "").strip()
         if url:
-            if url in seen_urls and row["status"] != "Duplicate":
-                err(i, f"{rid}: original_url повторяется (строка {seen_urls[url]}), "
-                       f"но status != Duplicate")
-            seen_urls.setdefault(url, i)
+            try:
+                parts = urlsplit(url)
+                if parts.scheme not in {"http", "https"} or not parts.netloc:
+                    raise ValueError
+                canonical_url = norm_url(url)
+            except ValueError:
+                err(i, f"{rid}: original_url не является http(s) URL: {url!r}")
+            else:
+                urls.setdefault(canonical_url, []).append((i, row))
 
         status = row["status"]
         if status in NEEDS_REASON and not (row["decision_reason"] or "").strip():
             err(i, f"{rid}: status={status} требует decision_reason")
         if status in NEEDS_APPLIED_AT and not (row["applied_at"] or "").strip():
             err(i, f"{rid}: status={status} требует applied_at")
+        if status in RESPONDED_STATUSES and not (row["response_at"] or "").strip():
+            err(i, f"{rid}: status={status} требует response_at")
         if row["decision_reason"] == "other" and not (row["notes"] or "").strip():
             err(i, f"{rid}: decision_reason=other требует пояснения в notes")
+
+        if status == "Duplicate":
+            if row["decision_reason"] != "duplicate_listing":
+                err(i, f"{rid}: Duplicate требует decision_reason=duplicate_listing")
+            match = re.search(r"\bjob-\d{4,}\b", row["notes"] or "")
+            if not match:
+                err(i, f"{rid}: Duplicate требует id оригинала в notes")
+            else:
+                duplicate_refs.append((i, rid, match.group(0)))
 
         if status in NEEDS_APPLIED_AT and (row["stage_reached"] or "None") == "None":
             err(i, f"{rid}: status={status}, но stage_reached=None")
         if row["stage_reached"] == "Offer" and status not in {"Offer", "Rejected", "Withdrawn"}:
             warnings.append(f"строка {i}: {rid}: stage=Offer при status={status}")
 
-        if row["response_at"] and row["applied_at"] and row["response_at"] < row["applied_at"]:
-            err(i, f"{rid}: response_at раньше applied_at")
+        if row["response_at"] and row["applied_at"]:
+            try:
+                response_date = datetime.strptime(row["response_at"], "%Y-%m-%d").date()
+                applied_date = datetime.strptime(row["applied_at"], "%Y-%m-%d").date()
+                if response_date < applied_date:
+                    err(i, f"{rid}: response_at раньше applied_at")
+            except ValueError:
+                pass
 
         cv = (row["cv_version"] or "").strip()
         if status in NEEDS_APPLIED_AT and not cv:
@@ -794,6 +940,36 @@ def cmd_validate(args):
                     warnings.append(f"строка {i}: {rid}: {gap} дней без ответа → status=Ghosted?")
             except ValueError:
                 pass
+
+    for canonical_url, entries in urls.items():
+        if len(entries) < 2:
+            continue
+        originals = [(i, r) for i, r in entries if r["status"] != "Duplicate"]
+        if len(originals) != 1:
+            labels = ", ".join(f"{r['id']}@{i}" for i, r in entries)
+            errors.append(f"canonical original_url={canonical_url!r}: ожидается ровно "
+                          f"одна оригинальная запись, получено: {labels}")
+
+    for i, rid, original_id in duplicate_refs:
+        if original_id == rid:
+            err(i, f"{rid}: Duplicate ссылается сам на себя")
+        elif original_id not in seen_ids:
+            err(i, f"{rid}: оригинал {original_id} не найден")
+
+    return errors, warnings
+
+
+def ensure_valid(rows):
+    errors, warnings = validate_rows(rows)
+    if errors:
+        die("изменение отклонено:\n  " + "\n  ".join(errors))
+    for warning in warnings:
+        print(f"warn:  {warning}")
+
+
+def cmd_validate(args):
+    rows = load()
+    errors, warnings = validate_rows(rows)
 
     for w in warnings:
         print(f"warn:  {w}")
@@ -923,7 +1099,8 @@ def main():
     a.add_argument("--company", required=True)
     a.add_argument("--role", required=True)
     a.add_argument("--source", required=True, choices=SOURCES)
-    a.add_argument("--status", default="New", choices=STATUSES)
+    a.add_argument("--status", default="New", choices=ADD_STATUSES,
+                   help="Applied и более поздние статусы ставятся через set")
     a.add_argument("--level", default="Unknown", choices=LEVELS)
     a.add_argument("--remote-policy", dest="remote_policy", default="Unclear", choices=REMOTE)
     a.add_argument("--original-url", dest="original_url")
@@ -936,6 +1113,8 @@ def main():
     a.add_argument("--match-score", dest="match_score")
     a.add_argument("--decision-reason", dest="decision_reason", choices=REASONS)
     a.add_argument("--notes")
+    a.add_argument("--duplicate-of", dest="duplicate_of", metavar="JOB_ID",
+                   help="создать Duplicate со ссылкой на оригинальную запись")
     a.add_argument("--no-file", action="store_true", help="не создавать applications/*.md")
     a.add_argument("--force", action="store_true", help="добавить, несмотря на дубли")
     a.set_defaults(func=cmd_add)
@@ -988,6 +1167,12 @@ python3 scripts/jobs.py add \
   --level "Junior/Middle" --remote-policy Unclear \
   --stack "Next.js; TypeScript; REST; CI/CD" --match-score 7.5 --status Reviewing
 
+# подтверждённый дубль: создаст status=Duplicate, reason и ссылку на оригинал
+python3 scripts/jobs.py add \
+  --company "ExeQut" --role "Frontend Developer" --source LinkedIn \
+  --original-url "https://example.com/mirror/exequt-frontend" \
+  --duplicate-of job-0001
+
 # отклик отправлен
 python3 scripts/jobs.py set job-0001 status=Applied cv_version=frontend-2026-08 \
   next_action=follow-up next_action_date=2026-08-18
@@ -1006,27 +1191,46 @@ python3 scripts/jobs.py report > reports/weekly/2026-W32.md
 
 ### Что уже проверено
 
-Скрипт прогнан на тестовом наборе перед включением в план (Python 3.14.6, macOS). Подтверждено:
+Скрипт повторно извлечён из этого документа и прогнан в изолированной временной
+структуре после исправления блокеров (Python 3.14.6, macOS). Подтверждено:
 
 - `add` выдаёт последовательные `job-NNNN`, создаёт файл в `applications/` из шаблона, `--no-file` его подавляет;
-- дедупликация ловит и точное совпадение `original_url`, и `ExeQut` / `EXEQUT Ltd.` + `Front-End Software Developer` / `Frontend Engineer` (код возврата 2, обход через `--force`);
+- дедупликация ловит canonical URL с trailing slash / fragment / `utm_*`, а также `ExeQut` / `EXEQUT Ltd.` + похожую роль; подтверждённый дубль создаётся только через `--duplicate-of`, а отдельная вакансия — через `--force`;
 - `dupes` находит именно тот случай из README — `CoinsPaid / Frontend Developer` ≈ `Coins Paid / Software Engineer, Frontend`;
-- `set` сам подставляет `applied_at` и поднимает `stage_reached` до `Applied`, отказывается понижать стадию, отклоняет значения вне enum (`status=Отправлено`) и неизвестные поля (`fit_score`);
-- `validate` на специально испорченном CSV поймал все 17 внесённых дефектов: битый `id`, дубль `id`, пустое обязательное поле, 5 нарушений enum, 2 битые даты, `match_score=42`, `Skipped` без `decision_reason`, `Applied` без `applied_at`, `stage_reached=None` при `Applied`, `other` без `notes`, повтор `original_url` без `Duplicate`, `response_at` раньше `applied_at`;
+- `set` сам подставляет `applied_at` / `response_at`, поднимает стадию, автоматически переводит `Applied` в `Interviewing`, запрещает понижение и прямую правку `id`, `stage_reached`, `last_update`;
+- невалидные дата, `match_score=nan`, `Skipped` без причины и другие нарушения отклоняются **до** атомарной замены CSV; байты исходного файла при ошибке не меняются;
+- `add --status Applied` не допускается: исторический отклик добавляется сначала как `New`, затем переводится через `set` с явным `applied_at`;
 - предупреждения (не блокируют): отклик без `cv_version`, 30+ дней без ответа → кандидат в `Ghosted`, дата в будущем (защита от опечатки в годе);
 - `report` считает воронку, источники, конверсию по `match_score` и по версиям CV, причины отсева и просроченные `next_action`.
 
-Три дефекта, найденные при этом прогоне, уже исправлены в коде выше: нормализация юридических суффиксов компании (`Ltd`, `LLC`, `GmbH`, `d.o.o.` и др. — без неё `ExeQut Ltd` не матчился с `ExeQut`), возможность вызвать `set` только с `--stage`, и предупреждение о датах из будущего.
+Создать `tests/test_jobs.py` на `unittest` + `tempfile` + `subprocess`, без внешних
+зависимостей. Зафиксировать в нём перечисленные выше сценарии, включая проверку,
+что CSV не меняется после отклонённой команды. Тест запускается так:
 
-**Проверка шага:** `python3 scripts/jobs.py validate` на пустом CSV должен вывести `проверено записей: 0; ошибок: 0` и вернуть код 0.
+```bash
+python3 -m unittest discover -s tests -v
+```
+
+**Проверка шага:** unittest проходит, а `python3 scripts/jobs.py validate` на пустом
+CSV выводит `проверено записей: 0; ошибок: 0` и возвращает код 0.
+
+После успешной проверки зафиксировать write-path одним коммитом:
+
+```bash
+git add data applications scripts tests
+git commit -m "feat: add jobs schema validated CLI and tests"
+```
 
 ---
 
-### Шаг 10. `CLAUDE.md` — контракт для ИИ-агента
+### Шаг 10. `AGENTS.md` — контракт для ИИ-агента
 
-Самый важный файл проекта после `jobs.csv`. Claude Code читает его автоматически в начале каждой сессии, поэтому именно здесь должны лежать правила, а не в README. Он должен быть коротким и императивным.
+Самый важный файл проекта после `jobs.csv`. Codex читает корневой `AGENTS.md`
+автоматически перед работой, поэтому именно здесь должны лежать канонические
+правила, а не в README. Файл должен быть коротким и императивным. Основание:
+[официальная документация Codex](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
 
-```markdown
+````markdown
 # Правила работы с этим репозиторием
 
 Это личный трекер поиска работы. Единственный структурированный источник истины —
@@ -1065,6 +1269,8 @@ python3 scripts/jobs.py report > reports/weekly/2026-W32.md
 - Только через `scripts/jobs.py` (`add` / `set`). Ручная правка — исключение.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
+- Подтверждённый дубль создавать только через `add --duplicate-of job-NNNN`;
+  `--force` означает, что похожая запись является отдельной вакансией.
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
 - После любых изменений: `python3 scripts/jobs.py validate` — должно быть 0 ошибок.
@@ -1104,6 +1310,15 @@ jobs: add job-0042 SomeCo Frontend Developer (Reviewing)
 jobs: job-0031 -> Applied
 report: week 2026-W32
 ```
+````
+
+Для совместимости с Claude Code создать короткий `CLAUDE.md`, не дублируя контракт:
+
+```markdown
+# Project instructions
+
+Перед любой работой прочитать и соблюдать `AGENTS.md`. Он является единственным
+каноническим контрактом агента для этого репозитория.
 ```
 
 ---
@@ -1117,26 +1332,42 @@ name: validate
 
 on:
   push:
-    branches: [main, restructure]
+    branches: [main, codex/restructure]
   pull_request:
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - name: Проверка схемы jobs.csv
         run: python scripts/jobs.py validate
+      - name: Unit tests write-path
+        run: python -m unittest discover -s tests -v
       - name: Поиск дублей (не блокирует)
-        run: python scripts/jobs.py dupes
+        run: python scripts/jobs.py dupes --fail
         continue-on-error: true
 ```
 
 `validate` блокирует пуш с битыми данными, `dupes` только сообщает — fuzzy-совпадение часто ложное (`Frontend Developer` и `Frontend Engineer` в одной компании могут быть двумя разными вакансиями), и падать на этом нельзя.
+Major `v7` сверены 2026-08-09 с официальными README
+[`actions/checkout`](https://github.com/actions/checkout) и
+[`actions/setup-python`](https://github.com/actions/setup-python); `ubuntu-latest`
+использует совместимый GitHub-hosted runner.
+
+Основной workflow зафиксировать отдельно:
+
+```bash
+git add .github/workflows/validate.yml
+git commit -m "ci: validate jobs data and CLI on push"
+```
 
 Опционально (v2) — недельный отчёт по расписанию:
 
@@ -1152,8 +1383,8 @@ jobs:
   report:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: |
@@ -1174,36 +1405,50 @@ jobs:
 
 README сокращается до навигации (~120 строк). Всё содержательное уже разложено по местам, дублировать нельзя — иначе через месяц снова получится расхождение из раздела 0.1.
 
-Разделы: что это → быстрый старт (3 команды) → структура → куда что писать → ссылки на `CLAUDE.md`, `data/schema.md`, `config/profile.md`, `docs/architecture.md`.
+Разделы: что это → быстрый старт (3 команды) → структура → куда что писать → ссылки на `AGENTS.md`, `data/schema.md`, `config/profile.md`, `docs/architecture.md`.
 
 Из старого README **обязательно переносится и не теряется**:
-- dedup-иерархия (original_url → company+role → similar role) → `CLAUDE.md` + `docs/architecture.md`;
-- workflow из 8 шагов → `CLAUDE.md` (в сжатом виде);
+- dedup-иерархия (original_url → company+role → similar role) → `AGENTS.md` + `docs/architecture.md`;
+- workflow из 8 шагов → `AGENTS.md` (в сжатом виде);
 - определения полей и enum → `data/schema.md`;
 - принципы и философия → `docs/architecture.md`;
 - планы автоматизации (Stage 1–5) → `docs/roadmap.md`.
 
----
+`docs/roadmap.md` создаётся на этом же шаге, а не остаётся подразумеваемым файлом:
 
-### Шаг 13. Коммиты и пуш
+```markdown
+# Roadmap
 
-Раздельными коммитами — так по истории видно, что произошло:
-
-```bash
-git add .gitignore && git commit -m "chore: add .gitignore, drop .DS_Store from index"
-git add -A cv && git commit -m "chore(cv): split into current/archive/cover-letters"
-git add data scripts && git commit -m "feat: jobs.csv schema v1 + jobs.py CLI"
-git add applications templates config reports && git commit -m "refactor: move files into target structure"
-git add CLAUDE.md README.md docs && git commit -m "docs: CLAUDE.md contract, split README"
-git add .github && git commit -m "ci: validate jobs.csv on push"
-
-python3 scripts/jobs.py validate    # 0 ошибок перед пушем
-git push -u origin restructure
+Отложенные этапы автоматизации из прежнего README. Для каждого этапа сохранить:
+цель, условие старта, входы/выходы, риски и критерий готовности. SQLite, dashboard,
+GitHub Issues intake и внешние API не начинать до стабилизации write-path CSV.
 ```
 
-Затем на GitHub — merge `restructure` → `main` (можно через PR, чтобы увидеть работу CI), либо локально `git checkout main && git merge restructure`.
+Зафиксировать контракт и пользовательскую документацию:
 
-Если выбран **вариант A** из шага 3, порядок другой: сначала все правки, затем orphan-squash и `push --force`.
+```bash
+git add AGENTS.md CLAUDE.md README.md docs
+git commit -m "docs: add agent contract and split tracker documentation"
+```
+
+---
+
+### Шаг 13. Финальная проверка и пуш
+
+Коммиты уже сделаны сразу после логических этапов, пока индекс содержал только их
+изменения. Здесь остаётся общий preflight:
+
+```bash
+python3 -m unittest discover -s tests -v
+python3 scripts/jobs.py validate
+git diff --check
+test -z "$(git status --porcelain)"
+git push -u origin codex/restructure
+```
+
+Затем на GitHub открыть PR `codex/restructure` → `main`, дождаться зелёного CI и
+смержить. Локальный merge не использовать: PR оставляет проверяемый diff и результат
+workflow. Force-push не требуется.
 
 ---
 
@@ -1225,7 +1470,8 @@ python3 scripts/jobs.py report | head -40        # что просрочено, 
 # конец недели
 python3 scripts/jobs.py validate
 python3 scripts/jobs.py report > reports/weekly/2026-W33.md
-git commit -am "report: week 2026-W33" && git push
+git add reports/weekly/2026-W33.md
+git commit -m "report: week 2026-W33" && git push
 ```
 
 ---
@@ -1240,10 +1486,10 @@ git commit -am "report: week 2026-W33" && git push
 | Шаг 6 (`cv/`) | 30 мин |
 | Шаги 7–8 (CSV, schema.md, шаблон) | 30 мин |
 | Шаг 9 (`jobs.py` + прогон) | 45 мин |
-| Шаг 10 (`CLAUDE.md`) | 30 мин |
+| Шаг 10 (`AGENTS.md` + указатель `CLAUDE.md`) | 30 мин |
 | Шаг 11 (CI) | 15 мин |
 | Шаг 12 (README + docs) | 60 мин |
-| Шаг 13 (коммиты, пуш, проверка CI) | 15 мин |
+| Шаг 13 (общий preflight, пуш, проверка CI) | 15 мин |
 | **Итого** | **≈ 4,5 часа** |
 
 При исполнении агентом — существенно быстрее; основное время уходит на ваши решения по шагам 3 и 6 (какие резюме считать актуальными).
@@ -1265,12 +1511,12 @@ git commit -am "report: week 2026-W33" && git push
 
 ---
 
-## 8. Открытые вопросы к вам
+## 8. Зафиксированные пользовательские решения
 
-1. **`cv/MargaritaSavonevskayaCV.pdf`** — вариант A (удалить из истории, force-push) или B (оставить в `archive/`)? Шаг 3.
-2. **Какие резюме считать актуальными** — я предполагаю `evgenii-rubin-cv-08-2026.pdf` и `Evgenii Rubin UX Engineer.pdf`; остальные 20+ в архив. Подтвердите или назовите другие.
-3. **Целевой уровень** — README говорит `Junior/Graduate`, `config/profile.md` — «~3 года, Junior/Middle-». Второе выглядит точнее и заметно расширяет воронку; зафиксировать `Junior/Middle`?
-4. **Главное направление** — Frontend Engineer или Creative Developer? `linkedin-audit` отдельно отмечает, что смешивать их в позиционировании не стоит. Это влияет на `config/search-queries.md`.
-5. **Переименовывать ли файлы в `cv/archive/`** — или оставить как есть (архив, к нему не обращаются)? Я склоняюсь оставить.
+1. `cv/MargaritaSavonevskayaCV.pdf` остаётся в приватном репозитории и переезжает в `cv/archive/`; privacy-риск описан в шаге 3.
+2. Единственное актуальное резюме — `evgenii-rubin-cv-08-2026.pdf`; остальные версии CV архивные.
+3. Целевой уровень — Junior / Junior+ из-за ограниченного прямого коммерческого опыта продуктовой frontend-разработки.
+4. Frontend — основное направление; UI Engineer и Creative Developer используются как дополнительные варианты поиска.
+5. Файлы в `cv/archive/` не переименовываются.
 
-Вопросы 3–5 не блокируют шаги 1–13.
+Открытых решений, блокирующих шаги 1–13, нет.

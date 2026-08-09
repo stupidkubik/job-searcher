@@ -1,11 +1,12 @@
 # Единый контекст поиска работы
 
-> Заполните поля в квадратных скобках. Это ваш исходный бриф для каждой вакансии и нового диалога.
+> Это исходный бриф для каждой вакансии и нового диалога. При изменении приоритетов обновлять этот файл первым.
 
 ## Цель
 
-- Целевые роли: Frontend Web Developer, Frontend Engineer, React Developer, UI Engineer, Software Engineer
-- Уровень: уточнить (в резюме: около 3 лет frontend-опыта) Junior / Middle-
+- Основное направление: Frontend Web Developer, Frontend Engineer, React Developer
+- Дополнительные варианты: UI Engineer, Creative Developer и Software Engineer, если frontend остаётся основной частью роли
+- Целевой уровень: Junior / Junior+; Graduate и Associate допустимы, Junior/Middle — только как stretch
 - Предпочтительные индустрии: Software Development, продуктовые команды, media / CMS, interactive ads
 - Тип компаний: без жёсткого предпочтения
 - Формат: remote, hybrid, on-site
@@ -16,8 +17,8 @@
 
 ## Профессиональный профиль
 
-- Краткое позиционирование (2–3 предложения): Frontend Software Engineer, специализируюсь на React, TypeScript и Next.js. Создаю надёжные компонентные интерфейсы и улучшаю производственные системы для контентных продуктов.
-- Ключевой опыт: около 3 лет frontend / UI-разработки в high-traffic CMS и design-system среде; также Creative Developer для playable ads.
+- Краткое позиционирование (2–3 предложения): Frontend Developer, специализируюсь на React, TypeScript и Next.js. Создаю компонентные интерфейсы и улучшаю производственные системы для контентных продуктов; ищу Junior / Junior+ роль, потому что прямой коммерческий опыт именно в продуктовой frontend-разработке ограничен.
+- Ключевой опыт: около 3 лет работы с frontend / UI-задачами в high-traffic CMS и design-system среде; также Creative Developer для playable ads. Не представлять весь этот период как 3 года коммерческой продуктовой frontend-разработки.
 - Сильные стороны (3–5): component-driven UI, UI architecture, testing and QA, workflow automation, cross-functional collaboration.
 - Технологии / инструменты / методы: JavaScript, TypeScript, React, Next.js, Vite, Tailwind CSS, Zustand, Redux Toolkit / RTK Query, SWR, Vitest, Playwright, React Testing Library, HTML/CSS/SCSS, REST APIs, Git, GitHub Actions, Vercel, Figma handoff.
 - Языки и уровни: Russian — native; English — B2 / Professional Working Proficiency; Serbian — A1 / Elementary.
@@ -34,7 +35,7 @@
 
 | Источник | Роль в процессе | Ссылка | Как фиксировать в трекере |
 |---|---|---|---|
-| Hirify | Основной мета-поисковик; использовать для поиска и первичного отбора вакансий | https://hirify.me/account/profile/4/edit | В поле `source`: `Hirify`; в `job_url`: прямая ссылка на вакансию |
+| Hirify | Основной мета-поисковик; использовать для поиска и первичного отбора вакансий | https://hirify.me/account/profile/4/edit | `source=Hirify`; ссылка агрегатора → `source_url`, первоисточник → `original_url` |
 
 Примечание: ссылка ведёт в личный профиль Hirify и может требовать входа. В трекер добавляются только конкретные вакансии, а не ссылка на выдачу.
 
@@ -50,14 +51,13 @@
 ## Предпочтения и ограничения
 
 - Что для меня важно в следующей роли: frontend / UI-задачи с React и TypeScript; качество интерфейсов, тестирование, понятные продуктовые результаты.
-- Что не рассматриваю: уточнить.
+- Что не рассматриваю: Senior / Lead / Staff; backend-heavy роли; обязательная география или work authorization, несовместимые с проживанием и разрешением на работу в Сербии; закрытые вакансии.
 - Предпочтительный стиль сопроводительных писем: краткий, конкретный, на английском; одна деталь вакансии + одно подтверждённое доказательство.
-- Какие факты нельзя додумывать: [всегда: метрики, титулы, навыки, опыт]
+- Какие факты нельзя додумывать: метрики, титулы, навыки и продолжительность опыта — всегда только из подтверждённых материалов.
 
 ## Версии материалов
 
 | Материал | Для каких ролей | Последнее изменение | Ссылка |
 |---|---|---|---|
 | Основное резюме | Frontend Engineer / Software Engineer | 2026-08-05 | `evgenii-rubin-cv-08-2026.pdf` |
-| UX Engineer version | UI Engineer / Design Systems | 2026-08-05 | `cv/Evgenii Rubin UX Engineer.pdf` |
 | Портфолио | Frontend / UI Engineer | 2026-08-05 | https://evgenii-rubin.vercel.app/ |
