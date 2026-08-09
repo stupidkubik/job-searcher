@@ -17,7 +17,8 @@ class JobsCliTests(unittest.TestCase):
         for directory in ("data", "applications", "scripts"):
             (self.root / directory).mkdir()
         shutil.copy2(PROJECT / "scripts" / "jobs.py", self.root / "scripts" / "jobs.py")
-        shutil.copy2(PROJECT / "data" / "jobs.csv", self.root / "data" / "jobs.csv")
+        header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
+        (self.root / "data" / "jobs.csv").write_text(header + "\n", encoding="utf-8")
         shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
 
     def tearDown(self):
