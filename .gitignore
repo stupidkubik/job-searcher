@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# редакторы
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# черновики и приватное, что не должно уезжать даже в приватный репозиторий
+*.local.md
+.claude/settings.local.json
+scratch/
+tmp/
