@@ -137,7 +137,7 @@ README не удаляется — он разбирается на части. 
 27 колонок. Порядок фиксирован — `validate` проверяет его буквально, чтобы агент не мог перепутать колонки при ручной вставке строки.
 
 ```csv
-id,company,role,level,original_url,source_url,source,location,remote_policy,stack,salary,posted_at,found_at,match_score,status,stage_reached,decision_reason,applied_at,response_at,next_action,next_action_date,cv_version,cover_letter,contact_name,contact_url,last_update,notes
+id,status,company,role,level,original_url,source_url,source,location,remote_policy,stack,salary,posted_at,found_at,match_score,stage_reached,decision_reason,applied_at,response_at,next_action,next_action_date,cv_version,cover_letter,contact_name,contact_url,last_update,notes
 ```
 
 ### Обязательные при создании записи
@@ -450,7 +450,7 @@ git commit -m "chore(cv): split into current archive and cover letters"
 `data/jobs.csv` — только заголовок:
 
 ```csv
-id,company,role,level,original_url,source_url,source,location,remote_policy,stack,salary,posted_at,found_at,match_score,status,stage_reached,decision_reason,applied_at,response_at,next_action,next_action_date,cv_version,cover_letter,contact_name,contact_url,last_update,notes
+id,status,company,role,level,original_url,source_url,source,location,remote_policy,stack,salary,posted_at,found_at,match_score,stage_reached,decision_reason,applied_at,response_at,next_action,next_action_date,cv_version,cover_letter,contact_name,contact_url,last_update,notes
 ```
 
 `data/schema.md` — раздел 3 этого документа, перенесённый как есть. Это тот файл, который агент читает перед записью, поэтому он должен быть отдельным и коротким, без обоснований и истории решений.

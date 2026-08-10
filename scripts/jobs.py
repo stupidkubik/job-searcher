@@ -20,6 +20,13 @@ APPS_DIR = ROOT / "applications"
 TEMPLATE_PATH = APPS_DIR / "_TEMPLATE.md"
 
 FIELDS = [
+    "id", "status", "company", "role", "level", "original_url", "source_url", "source",
+    "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
+    "match_score", "stage_reached", "decision_reason", "applied_at",
+    "response_at", "next_action", "next_action_date", "cv_version",
+    "cover_letter", "contact_name", "contact_url", "last_update", "notes",
+]
+LEGACY_FIELDS = [
     "id", "company", "role", "level", "original_url", "source_url", "source",
     "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
     "match_score", "status", "stage_reached", "decision_reason", "applied_at",
@@ -52,12 +59,12 @@ def die(message):
     raise SystemExit(1)
 
 
-def load():
+def load(allow_legacy=False):
     if not CSV_PATH.exists():
         die(f"не найден {CSV_PATH}")
     with CSV_PATH.open(newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
-        if reader.fieldnames != FIELDS:
+        if reader.fieldnames != FIELDS and not (allow_legacy and reader.fieldnames == LEGACY_FIELDS):
             die("заголовок jobs.csv не совпадает со схемой; см. data/schema.md")
         return list(reader)
 
@@ -329,6 +336,13 @@ def cmd_validate(args):
         raise SystemExit(1)
 
 
+def cmd_migrate_columns(args):
+    rows = load(allow_legacy=True)
+    ensure_valid(rows)
+    save(rows)
+    print("порядок колонок jobs.csv обновлён")
+
+
 def cmd_dupes(args):
     rows, found = [row for row in load() if row["status"] != "Duplicate"], 0
     for index, first in enumerate(rows):
@@ -413,6 +427,8 @@ def main():
     set_parser.add_argument("id"); set_parser.add_argument("field", nargs="*"); set_parser.add_argument("--stage"); set_parser.set_defaults(func=cmd_set)
     validate = subparsers.add_parser("validate", help="проверить целостность")
     validate.add_argument("--strict", action="store_true"); validate.set_defaults(func=cmd_validate)
+    migrate = subparsers.add_parser("migrate-columns", help="перестроить CSV в текущем порядке колонок")
+    migrate.set_defaults(func=cmd_migrate_columns)
     dupes = subparsers.add_parser("dupes", help="fuzzy-поиск дублей")
     dupes.add_argument("--threshold", type=float, default=.85); dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=.75); dupes.add_argument("--fail", action="store_true"); dupes.set_defaults(func=cmd_dupes)
     report = subparsers.add_parser("report", help="markdown-отчёт в stdout"); report.set_defaults(func=cmd_report)
