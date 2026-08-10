@@ -213,8 +213,6 @@ def validate_rows(rows):
                 error(line, f"{identifier}: response_at раньше applied_at")
         except ValueError:
             pass
-        if status in NEEDS_APPLIED_AT and not (row["cv_version"] or "").strip():
-            warnings.append(f"строка {line}: {identifier}: отклик без cv_version — аналитика по CV не соберётся")
         if "\n" in (row["notes"] or ""):
             error(line, f"{identifier}: перевод строки в notes; длинный текст → applications/{identifier}.md")
         if status == "Applied" and row["applied_at"] and not row["response_at"]:
@@ -404,6 +402,10 @@ def cmd_report(_args):
         if applied_count:
             responses = count(lambda row, version=version: row["cv_version"] == version and row["response_at"])
             print(f"| {version} | {applied_count} | {responses} | {responses / applied_count * 100:.0f}% |")
+    unknown_cv_count = count(lambda row: row["applied_at"] and not (row["cv_version"] or "").strip())
+    if unknown_cv_count:
+        responses = count(lambda row: row["applied_at"] and not (row["cv_version"] or "").strip() and row["response_at"])
+        print(f"| not recorded | {unknown_cv_count} | {responses} | {responses / unknown_cv_count * 100:.0f}% |")
     print("\n## Причины отсева\n\n| decision_reason | Кол-во |\n|---|---:|")
     for reason in REASONS:
         if amount := count(lambda row, reason=reason: row["decision_reason"] == reason):

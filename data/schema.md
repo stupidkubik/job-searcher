@@ -28,7 +28,7 @@
 | `stage_reached` | упорядоченный enum | Максимально достигнутая стадия; может только расти. |
 | `decision_reason` | enum | Обязателен для `Skipped`, `Closed`, `Duplicate`, `Withdrawn`. |
 | `next_action` | короткий текст | Например: `follow-up`, `prepare test task`. |
-| `cv_version` | slug | Соответствует значению из `cv/current/README.md`. |
+| `cv_version` | необязательный slug | Соответствует значению из `cv/current/README.md`; если версия не была зафиксирована, оставить поле пустым. В отчёте это отображается как `not recorded`. |
 | `cover_letter` | `no` или путь | Например: `cv/cover-letters/job-0001-exequt.md`. |
 | `contact_name` | текст | Рекрутёр или сотрудник. |
 | `notes` | одна строка | Без переводов строк; длинный текст — в `applications/<id>.md`. |

@@ -96,6 +96,15 @@ class JobsCliTests(unittest.TestCase):
         self.assertNotEqual(lower.returncode, 0)
         self.assertIn("нельзя понижать", lower.stderr)
 
+    def test_missing_cv_version_is_reported_without_validation_warning(self):
+        self.assertEqual(self.add("HistoricalCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "status=Applied").returncode, 0)
+        validation = self.invoke("validate")
+        self.assertEqual(validation.returncode, 0, validation.stderr)
+        self.assertIn("предупреждений: 0", validation.stdout)
+        report = self.invoke("report")
+        self.assertIn("| not recorded | 1 | 0 | 0% |", report.stdout)
+
     def test_rejected_write_does_not_change_csv(self):
         self.assertEqual(self.add("SafeCo", "Frontend Developer", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
