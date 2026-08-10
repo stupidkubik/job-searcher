@@ -43,7 +43,12 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("проверено записей: 0; ошибок: 0", result.stdout)
 
     def test_new_job_board_sources_are_accepted(self):
-        for source in ("Welcome to the Jungle", "We Work Remotely"):
+        for source in (
+            "Welcome to the Jungle", "We Work Remotely", "HiringCafe",
+            "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
+            "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
+            "Find My Remote / Telegram", "Himalayas", "Startit Jobs",
+        ):
             result = self.invoke(
                 "add", "--company", f"{source} Co", "--role", "Frontend Developer",
                 "--source", source, "--no-file",

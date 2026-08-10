@@ -38,6 +38,16 @@
 | Hirify | Основной мета-поисковик; использовать для поиска и первичного отбора вакансий | https://hirify.me/account/profile/4/edit | `source=Hirify`; ссылка агрегатора → `source_url`, первоисточник → `original_url` |
 | Welcome to the Jungle | Джоб-борд для поиска и первичного отбора; проверять ограничения по локации в первоисточнике | https://www.welcometothejungle.com/ | `source=Welcome to the Jungle`; ссылка площадки → `source_url`, первоисточник → `original_url` |
 | We Work Remotely | Джоб-борд удалённых вакансий; remote-ограничения обязательно проверять в первоисточнике | https://weworkremotely.com/ | `source=We Work Remotely`; ссылка площадки → `source_url`, первоисточник → `original_url` |
+| HiringCafe | Широкий радар по вакансиям с careers pages и ATS; всегда перепроверять первоисточник и дату публикации | https://hiring.cafe/ | `source=HiringCafe`; ссылка агрегатора → `source_url`, первоисточник → `original_url` |
+| Hacker News — Who is Hiring? | Ежемесячный тред с прямыми публикациями команд; полезен для стартапов и небольших компаний | https://news.ycombinator.com/ | `source=Hacker News — Who is Hiring?`; ссылка треда → `source_url`, сайт работодателя / ATS → `original_url` |
+| Hacker News — Who Wants to Be Hired? | Канал видимости кандидата и входящих контактов, а не обычная лента вакансий | https://news.ycombinator.com/ | `source=Hacker News — Who Wants to Be Hired?`; для конкретного лида сохранять ссылку компании / ATS в `original_url` |
+| YC Work at a Startup | Вакансии стартапов Y Combinator; искать Product Engineer, Frontend, frontend-leaning Full-stack и Design Engineer | https://www.workatastartup.com/jobs | `source=YC Work at a Startup`; ссылка выдачи → `source_url`, вакансия работодателя / ATS → `original_url` |
+| Wellfound | Стартап-вакансии; использовать сигналы Actively Hiring и скорости ответа как приоритеты, но проверять географию | https://wellfound.com/jobs | `source=Wellfound`; ссылка выдачи → `source_url`, первоисточник → `original_url` |
+| HelloWorld.rs | Основной локальный IT-job board для Novi Sad, Belgrade и Serbia remote | https://www.helloworld.rs/oglasi-za-posao/ | `source=HelloWorld.rs`; ссылка площадки → `source_url`, первоисточник → `original_url` |
+| Reactiflux Discord | React-сообщество: job-board и карьерные каналы, а также прямые контакты с разработчиками | https://www.reactiflux.com/ | `source=Reactiflux Discord`; ссылка сообщения / канала → `source_url`, вакансия работодателя / ATS → `original_url` |
+| Find My Remote / Telegram | Радар удалённых frontend-вакансий из ATS; ожидать агрегаторы и дубли | https://t.me/s/findmyremote_frontend | `source=Find My Remote / Telegram`; ссылка поста или выдачи → `source_url`, первоисточник → `original_url` |
+| Himalayas | Remote-first job board с фильтрами по региону, frontend/React и уровню | https://himalayas.app/jobs | `source=Himalayas`; ссылка выдачи → `source_url`, первоисточник → `original_url` |
+| Startit Jobs | Небольшой сербский источник; достаточно периодической проверки | https://startit.rs/startit-poslovi/ | `source=Startit Jobs`; ссылка площадки → `source_url`, первоисточник → `original_url` |
 
 Примечание: ссылка ведёт в личный профиль Hirify и может требовать входа. В трекер добавляются только конкретные вакансии, а не ссылка на выдачу.
 

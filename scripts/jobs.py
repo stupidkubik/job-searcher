@@ -39,7 +39,13 @@ STATUSES = ["New", "Reviewing", "Apply", "Applied", "Interviewing", "Offer", "Re
 STAGES = ["None", "Applied", "Recruiter screen", "Tech interview", "Test task", "Final interview", "Offer"]
 LEVELS = ["Intern", "Graduate", "Junior", "Junior+", "Associate", "Junior/Middle", "Middle", "Senior", "Unknown"]
 REMOTE = ["Global", "Europe", "EMEA", "Serbia", "Country-specific", "Hybrid", "On-site", "Unclear"]
-SOURCES = ["Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely", "Company Careers", "Referral", "Manual", "Other"]
+SOURCES = [
+    "Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely",
+    "HiringCafe", "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
+    "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
+    "Find My Remote / Telegram", "Himalayas", "Startit Jobs", "Company Careers",
+    "Referral", "Manual", "Other",
+]
 REASONS = ["geo_restriction", "work_authorization", "seniority_too_high", "seniority_too_low", "stack_mismatch", "role_not_frontend", "salary_too_low", "company_not_interesting", "closed_before_application", "already_applied", "duplicate_listing", "no_response_timeout", "withdrawn_by_me", "other"]
 NEEDS_REASON = {"Skipped", "Closed", "Duplicate", "Withdrawn"}
 NEEDS_APPLIED_AT = {"Applied", "Interviewing", "Offer", "Rejected", "Ghosted", "Withdrawn"}
