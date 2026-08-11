@@ -47,6 +47,9 @@ filename. `expected` is a non-empty optimistic lock: any mismatch records a
 
 Allowed child commands:
 
+- `screen`: requires `decision_reason`; optional `notes`. It works only before
+  application, clears the next action, and leaves listing/verification fields
+  untouched. `closed_before_application` and `duplicate_listing` are forbidden.
 - `verify`: requires `listing_status`, `first_party_verified`, and
   `apply_verified`; optional fields are `original_url`, `decision_reason`,
   `notes`, `level`, `remote_policy`, `stack`, `salary`, and `match_score`.
@@ -74,30 +77,24 @@ atomic execution:
   "atomic": true,
   "operations": [
     {
-      "command": "verify",
+      "command": "screen",
       "job_id": "job-0099",
       "expected": {
         "application_status": "not_started",
-        "last_update": "2026-08-11"
+        "listing_status": "unknown"
       },
       "args": {
-        "listing_status": "open",
-        "first_party_verified": "no",
-        "apply_verified": "no",
         "decision_reason": "geo_restriction"
       }
     },
     {
-      "command": "verify",
+      "command": "screen",
       "job_id": "job-0117",
       "expected": {
         "application_status": "not_started",
-        "last_update": "2026-08-11"
+        "listing_status": "unknown"
       },
       "args": {
-        "listing_status": "open",
-        "first_party_verified": "no",
-        "apply_verified": "no",
         "decision_reason": "seniority_too_high"
       }
     }
@@ -121,6 +118,10 @@ Batch guarantees:
 
 `add` and declarative ingest are still outside the current agent gateway and can
 be added as later Phase B extensions without changing this batch contract.
+
+`screen` and `set` are low-risk. `verify` with enrichment or a transition to
+`reviewing`/`apply` is medium-risk. A batch inherits the highest risk of its
+children, so a screening-only batch remains low-risk.
 
 ## Runner contract
 

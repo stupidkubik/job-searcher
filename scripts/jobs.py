@@ -89,6 +89,7 @@ REASONS = [
 NEEDS_APPLIED_AT = {"applied", "interviewing", "offer", "rejected", "ghosted", "withdrawn"}
 RESPONDED_APPLICATION_STATUSES = {"interviewing", "offer", "rejected"}
 PRE_APPLICATION_REASONS = set(REASONS) - {"no_response_timeout", "withdrawn_by_me"}
+SCREEN_REASONS = PRE_APPLICATION_REASONS - {"closed_before_application", "duplicate_listing"}
 SET_PROTECTED = {"id", "stage_reached", "verified_at", "last_update"}
 VERIFY_ENRICHMENT_FIELDS = {"level", "remote_policy", "stack", "salary", "match_score"}
 ENUMS = {
@@ -1615,6 +1616,46 @@ def cmd_set(args):
     print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
 
 
+def apply_screen_decision(row, *, decision_reason, notes=None):
+    """Record a pre-application screening decision without claiming verification."""
+    decision_reason = clean_value(decision_reason).strip()
+    if decision_reason not in SCREEN_REASONS:
+        die(f"screen: недопустимая decision_reason {decision_reason!r}")
+    if row["application_status"] not in {"not_started", "reviewing", "apply"} or row["applied_at"]:
+        die("screen допустим только до фактической отправки заявки")
+    if notes is not None:
+        row["notes"] = clean_value(notes).strip()
+    if decision_reason == "other" and not row["notes"]:
+        die("screen decision_reason=other требует --notes")
+    row["application_status"] = "not_started"
+    row["decision_reason"] = decision_reason
+    row["next_action"] = ""
+    row["next_action_date"] = ""
+    row["last_update"] = today()
+    return "screened_out"
+
+
+def screen_job(job_id, *, decision_reason, notes=None):
+    rows = load()
+    source_rows = load_job_sources()
+    row = find(rows, job_id)
+    outcome = apply_screen_decision(row, decision_reason=decision_reason, notes=notes)
+    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+    apply_dataset_transaction(rows, source_rows)
+    return {"job": row, "warnings": warnings, "outcome": outcome}
+
+
+def cmd_screen(args):
+    result = screen_job(args.id, decision_reason=args.decision_reason, notes=args.notes)
+    if args.format == "json":
+        print_json({"ok": True, "command": "screen", **result})
+        return
+    for warning in result["warnings"]:
+        print(f"warn:  {warning}")
+    row = result["job"]
+    print(f"{row['id']}  Skipped: {row['decision_reason']}  listing_status={row['listing_status']}")
+
+
 def apply_verify_enrichment(row, **values):
     """Set non-lifecycle facts gathered alongside a completed verification."""
     for key, raw_value in values.items():
@@ -1628,14 +1669,11 @@ def apply_verify_enrichment(row, **values):
         row[key] = value
 
 
-def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
-               original_url=None, decision_reason=None, notes=None, level=None,
-               remote_policy=None, stack=None, salary=None, match_score=None,
-               application_status=None, next_action=None, next_action_date=None):
-    """Apply a completed first-party verification as one atomic dataset update."""
-    rows = load()
-    source_rows = load_job_sources()
-    row = find(rows, job_id)
+def apply_verify_changes(row, *, listing_status, first_party_verified, apply_verified,
+                         original_url=None, decision_reason=None, notes=None, level=None,
+                         remote_policy=None, stack=None, salary=None, match_score=None,
+                         application_status=None, next_action=None, next_action_date=None):
+    """Apply verification fields to an in-memory row and return its outcome."""
     if decision_reason == "duplicate_listing":
         die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
     if application_status is not None:
@@ -1705,19 +1743,53 @@ def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
     else:
         outcome = "verified_after_application"
     row["last_update"] = today()
-    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+    return {"outcome": outcome, "passed": passed}
 
+
+def prepare_verified_application_write(row, passed):
     application_path, application_body = (None, None)
     application_card_created = False
     if passed and row["application_status"] in {"reviewing", "apply"}:
         application_path, application_body = render_application_card(row, update_existing=True)
         application_card_created = application_body is not None and not application_path.exists()
+    return application_path, application_body, application_card_created
+
+
+def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
+               original_url=None, decision_reason=None, notes=None, level=None,
+               remote_policy=None, stack=None, salary=None, match_score=None,
+               application_status=None, next_action=None, next_action_date=None):
+    """Apply a completed first-party verification as one atomic dataset update."""
+    rows = load()
+    source_rows = load_job_sources()
+    row = find(rows, job_id)
+    change = apply_verify_changes(
+        row,
+        listing_status=listing_status,
+        first_party_verified=first_party_verified,
+        apply_verified=apply_verified,
+        original_url=original_url,
+        decision_reason=decision_reason,
+        notes=notes,
+        level=level,
+        remote_policy=remote_policy,
+        stack=stack,
+        salary=salary,
+        match_score=match_score,
+        application_status=application_status,
+        next_action=next_action,
+        next_action_date=next_action_date,
+    )
+    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+    application_path, application_body, application_card_created = prepare_verified_application_write(
+        row, change["passed"],
+    )
     application_writes = ((application_path, application_body),) if application_body is not None else ()
     apply_dataset_transaction(rows, source_rows, application_writes)
     return {
         "job": row,
         "warnings": warnings,
-        "outcome": outcome,
+        "outcome": change["outcome"],
         "application_path": application_path.relative_to(ROOT).as_posix() if application_path else None,
         "application_card_created": application_card_created,
     }
@@ -1830,6 +1902,30 @@ def is_active_candidate(row):
         and not row["decision_reason"]
         and row["application_status"] not in TERMINAL_APPLICATION_STATUSES
     )
+
+
+def derived_state(row):
+    """Return the primary human-facing state while keeping listing state separate."""
+    reason = row["decision_reason"]
+    if reason == "duplicate_listing":
+        return "Duplicate"
+    if row["application_status"] == "not_started" and (
+        reason == "closed_before_application" or row["listing_status"] == "closed"
+    ):
+        return "Closed"
+    if row["application_status"] == "not_started" and reason:
+        return f"Skipped: {reason}"
+    return {
+        "not_started": "Not started",
+        "reviewing": "Reviewing",
+        "apply": "Apply",
+        "applied": "Applied",
+        "interviewing": "Interviewing",
+        "offer": "Offer",
+        "rejected": "Rejected",
+        "ghosted": "Ghosted",
+        "withdrawn": "Withdrawn",
+    }[row["application_status"]]
 
 
 def stale_entries(rows, days, reference_date):
@@ -1972,6 +2068,15 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
         }
         for entry in sorted(stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"]))
     ]
+    state_order = [
+        "Not started", "Reviewing", "Apply", "Applied", "Interviewing", "Offer",
+        "Rejected", "Ghosted", "Withdrawn", "Closed", "Duplicate",
+        *(f"Skipped: {reason}" for reason in REASONS),
+    ]
+    derived_state_counts = {
+        state: sum(derived_state(row) == state for row in rows)
+        for state in state_order
+    }
     return {
         "ok": True,
         "command": "stats",
@@ -1984,6 +2089,9 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
         "listing_status": {
             status: sum(row["listing_status"] == status for row in rows)
             for status in LISTING_STATUSES
+        },
+        "derived_state": {
+            state: amount for state, amount in derived_state_counts.items() if amount
         },
         "derived": {
             "active_candidates": len(active),
@@ -2117,14 +2225,9 @@ def cmd_stats(args):
 def cmd_report(args):
     payload = stats_payload(load(), args.date or date.today(), stale_days=args.stale_days)
     print(f"# Отчёт job-searcher — {payload['as_of']}\n\nВсего записей: **{payload['jobs_total']}**")
-    print("\n## Состояния заявок\n\n| Application status | Кол-во |\n|---|---:|")
-    for status, amount in payload["application_status"].items():
-        if amount:
-            print(f"| {status} | {amount} |")
-    print("\n## Состояния объявлений\n\n| Listing status | Кол-во |\n|---|---:|")
-    for status, amount in payload["listing_status"].items():
-        if amount:
-            print(f"| {status} | {amount} |")
+    print("\n## Основной статус\n\n| Derived state | Кол-во |\n|---|---:|")
+    for state, amount in payload["derived_state"].items():
+        print(f"| {state} | {amount} |")
     verification = payload["verification"]
     coverage = f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
     print(
@@ -2149,6 +2252,11 @@ def cmd_report(args):
     for version in payload["cv_versions"]:
         rate = f"{version['response_rate']:g}%" if version["response_rate"] is not None else "—"
         print(f"| {version['cv_version']} | {version['applied']} | {version['responses']} | {rate} |")
+    print("\n## Свойства объявлений\n\n`listing_status` описывает объявление отдельно от основного статуса.\n")
+    print("| Listing status | Кол-во |\n|---|---:|")
+    for status, amount in payload["listing_status"].items():
+        if amount:
+            print(f"| {status} | {amount} |")
     print("\n## Причины отсева\n\n| decision_reason | Кол-во |\n|---|---:|")
     for reason, amount in payload["decision_reasons"].items():
         if amount:
@@ -2191,6 +2299,12 @@ def main():
     set_parser.add_argument("--stage")
     set_parser.add_argument("--format", choices=("text", "json"), default="text")
     set_parser.set_defaults(func=cmd_set)
+    screen = subparsers.add_parser("screen", help="зафиксировать pre-application screening decision")
+    screen.add_argument("id")
+    screen.add_argument("--decision-reason", required=True, choices=sorted(SCREEN_REASONS))
+    screen.add_argument("--notes")
+    screen.add_argument("--format", choices=("text", "json"), default="text")
+    screen.set_defaults(func=cmd_screen)
     verify = subparsers.add_parser("verify", help="зафиксировать completed first-party verification")
     verify.add_argument("id")
     verify.add_argument("--listing-status", required=True, choices=("open", "closed"))

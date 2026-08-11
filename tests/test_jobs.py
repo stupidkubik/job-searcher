@@ -337,6 +337,43 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction"))
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
 
+    def test_screen_records_a_skip_without_claiming_first_party_verification(self):
+        self.assertEqual(self.add("ScreenCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0001", "next_action=verify first-party",
+                "next_action_date=2026-08-12",
+            ).returncode,
+            0,
+        )
+        before = self.rows()[0]
+
+        screened = self.invoke(
+            "screen", "job-0001", "--decision-reason", "geo_restriction",
+            "--notes", "Discovery source restricts the role to Latin America.",
+            "--format", "json",
+        )
+
+        self.assertEqual(screened.returncode, 0, screened.stderr)
+        payload = json.loads(screened.stdout)
+        self.assertEqual((payload["command"], payload["outcome"]), ("screen", "screened_out"))
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction"))
+        self.assertEqual((row["next_action"], row["next_action_date"]), ("", ""))
+        for field in ("listing_status", "verified_at", "first_party_verified", "apply_verified"):
+            self.assertEqual(row[field], before[field])
+
+    def test_screen_rejects_a_job_after_application_without_writing(self):
+        self.assertEqual(self.add("AppliedCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        screened = self.invoke("screen", "job-0001", "--decision-reason", "geo_restriction")
+
+        self.assertEqual(screened.returncode, 1)
+        self.assertIn("только до фактической отправки", screened.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_verify_can_close_listing_after_application_without_rewriting_history(self):
         self.assertEqual(self.add("VerifiedCloseCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
@@ -492,6 +529,26 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("## Verification coverage", report.stdout)
         self.assertIn("## Stale verification", report.stdout)
         self.assertIn("## Воронка", report.stdout)
+
+    def test_report_leads_with_derived_state_and_lists_open_as_a_property(self):
+        self.assertEqual(
+            self.add(
+                "OpenButSkippedCo", "Frontend Developer", "--listing-status", "open",
+                "--decision-reason", "geo_restriction", "--no-file",
+            ).returncode,
+            0,
+        )
+
+        stats = self.invoke("stats", "--format", "json")
+        report = self.invoke("report")
+
+        self.assertEqual(stats.returncode, 0, stats.stderr)
+        self.assertEqual(json.loads(stats.stdout)["derived_state"], {"Skipped: geo_restriction": 1})
+        self.assertEqual(report.returncode, 0, report.stderr)
+        self.assertIn("## Основной статус", report.stdout)
+        self.assertIn("| Skipped: geo_restriction | 1 |", report.stdout)
+        self.assertIn("## Свойства объявлений", report.stdout)
+        self.assertLess(report.stdout.index("## Основной статус"), report.stdout.index("## Свойства объявлений"))
 
     def test_rejected_write_does_not_change_csv(self):
         self.assertEqual(self.add("SafeCo", "Frontend Developer", "--no-file").returncode, 0)

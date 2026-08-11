@@ -231,6 +231,109 @@ class AgentOperationsTests(unittest.TestCase):
             ("verify first-party", "2026-08-12"),
         )
 
+    def test_low_risk_screen_preserves_listing_and_verification_fields(self):
+        row = self.seed_job()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-screen-001",
+            "command": "screen",
+            "job_id": "job-0001",
+            "expected": {"application_status": "not_started", "listing_status": "unknown"},
+            "args": {
+                "decision_reason": "geo_restriction",
+                "notes": "Himalayas restricts this role to Latin America.",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "low"))
+        updated = self.rows()[0]
+        self.assertEqual((updated["application_status"], updated["decision_reason"]), ("not_started", "geo_restriction"))
+        for field in ("listing_status", "verified_at", "first_party_verified", "apply_verified"):
+            self.assertEqual(updated[field], row[field])
+
+    def test_atomic_batch_applies_multiple_screen_decisions_once(self):
+        first = self.seed_job()
+        created = self.invoke_jobs(
+            "add", "--company", "Second OperationCo", "--role", "Frontend Developer",
+            "--source", "Manual", "--force", "--no-file",
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        second = self.rows()[1]
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-screen-batch-001",
+            "command": "batch",
+            "atomic": True,
+            "operations": [
+                {
+                    "command": "screen",
+                    "job_id": "job-0001",
+                    "expected": {"application_status": "not_started", "last_update": first["last_update"]},
+                    "args": {"decision_reason": "geo_restriction"},
+                },
+                {
+                    "command": "screen",
+                    "job_id": "job-0002",
+                    "expected": {"application_status": "not_started", "last_update": second["last_update"]},
+                    "args": {"decision_reason": "seniority_too_high"},
+                },
+            ],
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "low"))
+        self.assertEqual(payload["result"]["result"]["outcome"], "atomic_batch_applied")
+        self.assertEqual(payload["result"]["result"]["count"], 2)
+        self.assertEqual(
+            [row["decision_reason"] for row in self.rows()],
+            ["geo_restriction", "seniority_too_high"],
+        )
+
+    def test_atomic_batch_rejects_every_write_if_a_later_screen_is_forbidden(self):
+        first = self.seed_job()
+        created = self.invoke_jobs(
+            "add", "--company", "Applied OperationCo", "--role", "Frontend Developer",
+            "--source", "Manual", "--force", "--no-file",
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        self.assertEqual(self.invoke_jobs("set", "job-0002", "application_status=applied").returncode, 0)
+        second = self.rows()[1]
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-screen-batch-reject-001",
+            "command": "batch",
+            "atomic": True,
+            "operations": [
+                {
+                    "command": "screen",
+                    "job_id": "job-0001",
+                    "expected": {"application_status": "not_started", "last_update": first["last_update"]},
+                    "args": {"decision_reason": "geo_restriction"},
+                },
+                {
+                    "command": "screen",
+                    "job_id": "job-0002",
+                    "expected": {"application_status": "applied", "last_update": second["last_update"]},
+                    "args": {"decision_reason": "seniority_too_high"},
+                },
+            ],
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("только до фактической отправки", result.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+        self.assertFalse((self.root / "data" / "operations" / "results" / "op-screen-batch-reject-001.json").exists())
+
     def test_verify_rejects_human_only_application_statuses_before_writing(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()

@@ -92,6 +92,11 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | Skipped | `application_status=not_started`, заполнена причина и она не `duplicate_listing`/`closed_before_application` |
 | Active candidate | нет terminal decision и `listing_status` не `closed` |
 
+`stats` и `report` используют эти правила для основного `derived_state`:
+например, `Skipped: geo_restriction`, `Closed`, `Reviewing`, `Apply` или
+`Applied`. `listing_status` остаётся отдельным свойством объявления и не
+заменяет человеческий статус решения/отклика.
+
 ## Source references: `data/job_sources.csv`
 
 ```text

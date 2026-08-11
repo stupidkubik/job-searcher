@@ -67,8 +67,9 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `validate`, `dupes`, `ingest`, `stale`, `todo` и `stats` поддерживают `--format text|json`; по
-умолчанию — `text`. Успешный JSON-ответ состоит ровно из одного object с `ok`,
+`add`, `set`, `screen`, `verify`, `validate`, `dupes`, `ingest`, `stale`, `todo`
+и `stats` поддерживают `--format text|json`; по умолчанию — `text`. Успешный
+JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
 
@@ -217,6 +218,25 @@ python3 scripts/jobs.py verify job-0001 \
   --application-status apply --next-action "complete AI interview"
 ```
 
+## Screening decision без verification
+
+`screen` фиксирует решение не откликаться, когда blocker уже виден в discovery
+source и нет оснований утверждать, что официальный careers/ATS источник или
+Apply были проверены:
+
+```bash
+python3 scripts/jobs.py screen job-0099 \
+  --decision-reason geo_restriction \
+  --notes "Himalayas restricts this role to Latin America." \
+  --format json
+```
+
+Команда работает только до фактической отправки заявки, переводит запись в
+`application_status=not_started`, записывает `decision_reason` и очищает
+`next_action`/`next_action_date`. Она намеренно не меняет `listing_status`,
+`verified_at`, `first_party_verified` и `apply_verified`. Причины
+`closed_before_application` и `duplicate_listing` через `screen` запрещены.
+
 ## Daily queue, stale и stats
 
 Все три команды только читают canonical dataset. Активной считается запись без
@@ -263,10 +283,14 @@ checkout через `jobs.py`; затем CI валидирует итоговы
 состояние файлов, но не может доказать, какой инструмент их записал.
 
 `stats --format json` — единственный структурированный источник weekly report:
-он содержит split application/listing statuses, derived active/skipped/closed
-views, verification coverage, stale records, funnel по `stage_reached` и response
-rate по `applied_at`, а также source и CV-version breakdowns. `report` ничего не
-записывает: он только рендерит этот snapshot в Markdown.
+он содержит основной `derived_state`, split application/listing statuses,
+derived active/skipped/closed views, verification coverage, stale records,
+funnel по `stage_reached` и response rate по `applied_at`, а также source и
+CV-version breakdowns. `report` ничего не записывает: он только рендерит этот
+snapshot в Markdown. В отчёте первым показывается человеческий derived state
+(`Skipped: geo_restriction`, `Closed`, `Reviewing`, `Apply`, `Applied` и
+остальные lifecycle states), а `listing_status` выводится отдельно как свойство
+объявления.
 
 ## Примеры обновления и проверки
 
