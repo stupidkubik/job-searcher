@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "phaseb-screen-smoke-0099-20260811",
+  "command": "screen",
+  "job_id": "job-0099",
+  "expected": {
+    "application_status": "not_started",
+    "listing_status": "unknown"
+  },
+  "args": {
+    "decision_reason": "geo_restriction",
+    "notes": "Himalayas restricts this role to Latin America; Serbia is outside the allowed geography."
+  }
+}
