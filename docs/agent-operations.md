@@ -203,6 +203,7 @@ set listing_status=closed для уже applied записи
 ```text
 add new job
 verify → reviewing
+verify → apply + next action for a human-started process
 match_score / level / stack enrichment
 explicit duplicate resolution
 batch с несколькими mutable операциями
@@ -226,6 +227,12 @@ response_at
 
 В первую очередь это касается `applied`: tracker уже использует принцип, что
 фактическую отправку заявки подтверждает человек.
+
+`application_status=apply` не относится к этому списку: это обратимое
+отслеживание начатого процесса, а не заявление об отправленной заявке. В Phase A
+он допустим только как часть успешной `verify` вместе с конкретным
+`next_action`, поэтому факт first-party страницы и незавершённый следующий шаг
+попадают в один audit diff.
 
 Поле вроде:
 

@@ -30,10 +30,11 @@ TOP_LEVEL_FIELDS = {"version", "operation_id", "command", "job_id", "expected", 
 VERIFY_REQUIRED_ARGS = {"listing_status", "first_party_verified", "apply_verified"}
 VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {
     "original_url", "decision_reason", "notes", "level", "remote_policy", "stack",
-    "salary", "match_score",
+    "salary", "match_score", "application_status", "next_action", "next_action_date",
 }
 SET_ALLOWED_ARGS = {"next_action", "next_action_date", "listing_status"}
 VERIFY_ENRICHMENT_ARGS = {"level", "remote_policy", "stack", "salary", "match_score"}
+VERIFY_WORKFLOW_ARGS = {"application_status", "next_action", "next_action_date"}
 
 
 class OperationError(ValueError):
@@ -136,6 +137,27 @@ def validate_verify_args(args):
             raise OperationError(f"args.{key} must be yes or no")
     if "decision_reason" in normalized and normalized["decision_reason"] not in jobs.PRE_APPLICATION_REASONS - {"duplicate_listing"}:
         raise OperationError("args.decision_reason is not allowed for verify")
+    workflow_args = VERIFY_WORKFLOW_ARGS & set(normalized)
+    if "decision_reason" in normalized and workflow_args:
+        raise OperationError("workflow args cannot be combined with decision_reason")
+    if "application_status" in normalized:
+        if normalized["application_status"] != "apply":
+            raise OperationError("verify may set application_status only to apply")
+        if not normalized.get("next_action", "").strip():
+            raise OperationError("application_status=apply requires a non-empty next_action")
+        if not (
+            normalized["listing_status"] == "open"
+            and normalized["first_party_verified"] == "yes"
+            and normalized["apply_verified"] == "yes"
+        ):
+            raise OperationError("application_status=apply requires a passed open verification")
+    elif workflow_args:
+        raise OperationError("next_action and next_action_date require application_status=apply")
+    if "next_action_date" in normalized:
+        try:
+            datetime.strptime(normalized["next_action_date"], "%Y-%m-%d")
+        except ValueError as error:
+            raise OperationError("args.next_action_date must be YYYY-MM-DD") from error
     if "level" in normalized and normalized["level"] not in jobs.LEVELS:
         raise OperationError("args.level is not a known level")
     if "remote_policy" in normalized and normalized["remote_policy"] not in jobs.REMOTE:
@@ -223,7 +245,7 @@ def classify_risk(operation, row):
         and args["first_party_verified"] == "yes"
         and args["apply_verified"] == "yes"
     )
-    if VERIFY_ENRICHMENT_ARGS & set(args):
+    if (VERIFY_ENRICHMENT_ARGS | VERIFY_WORKFLOW_ARGS) & set(args):
         return "medium"
     if passed and row["application_status"] == "not_started":
         return "medium"

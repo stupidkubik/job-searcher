@@ -207,6 +207,16 @@ python3 scripts/jobs.py verify job-0001 \
 без изменения application history; в этом случае не указывайте
 `--decision-reason`.
 
+Если проверка подтверждает, что человек уже начал процесс, но фактической
+отправки заявки ещё не было, `verify` может атомарно перевести запись в `apply`
+и задать следующий шаг. Значение `applied` эта команда по-прежнему не принимает:
+
+```bash
+python3 scripts/jobs.py verify job-0001 \
+  --listing-status open --first-party-verified yes --apply-verified yes \
+  --application-status apply --next-action "complete AI interview"
+```
+
 ## Daily queue, stale и stats
 
 Все три команды только читают canonical dataset. Активной считается запись без

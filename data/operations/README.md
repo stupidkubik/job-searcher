@@ -44,13 +44,17 @@ Allowed commands:
 - `verify`: requires `listing_status`, `first_party_verified`, and
   `apply_verified`; optional fields are `original_url`, `decision_reason`,
   `notes`, `level`, `remote_policy`, `stack`, `salary`, and `match_score`.
+  A passed open verification may additionally set
+  `application_status=apply` with a non-empty `next_action` (and optional
+  `next_action_date`) when evidence shows that a person has already begun,
+  but not submitted, the application process.
 - `set`: only `next_action`, `next_action_date`, and
   `listing_status=closed` after a human application already exists.
 
-`add`, batch operations, ingest and every human-event field are intentionally
-outside Phase A. In particular, a request cannot set `application_status` to
-`applied`, `interviewing`, `offer`, or `withdrawn`, nor change `applied_at` or
-`response_at`.
+`add`, batch operations, ingest and every submitted-application human-event
+field are intentionally outside Phase A. In particular, a request cannot set
+`application_status` to `applied`, `interviewing`, `offer`, or `withdrawn`, nor
+change `applied_at` or `response_at`.
 
 ## Runner contract
 

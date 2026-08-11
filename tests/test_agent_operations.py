@@ -146,6 +146,36 @@ class AgentOperationsTests(unittest.TestCase):
         )
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
 
+    def test_medium_risk_verify_can_record_a_human_started_application(self):
+        row = self.seed_job()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-active-application-001",
+            "command": "verify",
+            "job_id": "job-0001",
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {
+                "listing_status": "open",
+                "first_party_verified": "yes",
+                "apply_verified": "yes",
+                "original_url": "https://careers.example.test/jobs/operation",
+                "application_status": "apply",
+                "next_action": "complete the required interview",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
+        updated = self.rows()[0]
+        self.assertEqual(
+            (updated["application_status"], updated["next_action"], updated["applied_at"]),
+            ("apply", "complete the required interview", ""),
+        )
+        self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
+
     def test_stale_precondition_records_conflict_without_canonical_write(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
@@ -190,22 +220,28 @@ class AgentOperationsTests(unittest.TestCase):
             ("verify first-party", "2026-08-12"),
         )
 
-    def test_human_only_or_unknown_set_fields_are_rejected_before_writing(self):
+    def test_verify_rejects_human_only_application_statuses_before_writing(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
         request = self.write_operation({
             "version": 1,
             "operation_id": "op-human-only-001",
-            "command": "set",
+            "command": "verify",
             "job_id": "job-0001",
             "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {"application_status": "applied"},
+            "args": {
+                "listing_status": "open",
+                "first_party_verified": "yes",
+                "apply_verified": "yes",
+                "application_status": "applied",
+                "next_action": "submit application",
+            },
         })
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
         self.assertEqual(result.returncode, 1)
-        self.assertIn("unknown set args: application_status", result.stderr)
+        self.assertIn("verify may set application_status only to apply", result.stderr)
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         self.assertFalse(list((self.root / "data" / "operations" / "results").glob("*.json")))
 

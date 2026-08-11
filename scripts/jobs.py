@@ -1630,13 +1630,31 @@ def apply_verify_enrichment(row, **values):
 
 def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
                original_url=None, decision_reason=None, notes=None, level=None,
-               remote_policy=None, stack=None, salary=None, match_score=None):
+               remote_policy=None, stack=None, salary=None, match_score=None,
+               application_status=None, next_action=None, next_action_date=None):
     """Apply a completed first-party verification as one atomic dataset update."""
     rows = load()
     source_rows = load_job_sources()
     row = find(rows, job_id)
     if decision_reason == "duplicate_listing":
         die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+    if application_status is not None:
+        application_status = clean_value(application_status).strip()
+        if application_status != "apply":
+            die("verify может установить application_status только в apply")
+        next_action = clean_value(next_action or "").strip()
+        if not next_action:
+            die("application_status=apply требует --next-action")
+        if next_action_date is not None:
+            next_action_date = clean_value(next_action_date).strip()
+            try:
+                datetime.strptime(next_action_date, "%Y-%m-%d")
+            except ValueError:
+                die("--next-action-date должна иметь формат YYYY-MM-DD")
+    elif next_action is not None or next_action_date is not None:
+        die("--next-action и --next-action-date допустимы только с --application-status apply")
+    if decision_reason and application_status is not None:
+        die("--decision-reason нельзя сочетать с --application-status apply")
     if original_url is not None:
         row["original_url"] = clean_value(original_url).strip()
     if notes is not None:
@@ -1668,12 +1686,20 @@ def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
         row["next_action_date"] = ""
         outcome = "blocked"
     elif passed:
-        if row["application_status"] == "not_started":
-            row["application_status"] = "reviewing"
-        if row["next_action"] == "verify first-party":
-            row["next_action"] = ""
-            row["next_action_date"] = ""
-        outcome = "ready_for_review" if pre_application else "verified_after_application"
+        if application_status == "apply":
+            if not pre_application:
+                die("application_status=apply допустим только до фактической отправки заявки")
+            row["application_status"] = "apply"
+            row["next_action"] = next_action
+            row["next_action_date"] = next_action_date or ""
+            outcome = "ready_to_continue_application"
+        else:
+            if row["application_status"] == "not_started":
+                row["application_status"] = "reviewing"
+            if row["next_action"] == "verify first-party":
+                row["next_action"] = ""
+                row["next_action_date"] = ""
+            outcome = "ready_for_review" if pre_application else "verified_after_application"
     elif pre_application:
         die("для непрошедшей verification до отклика нужен --decision-reason")
     else:
@@ -1683,7 +1709,7 @@ def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
 
     application_path, application_body = (None, None)
     application_card_created = False
-    if passed and row["application_status"] == "reviewing":
+    if passed and row["application_status"] in {"reviewing", "apply"}:
         application_path, application_body = render_application_card(row, update_existing=True)
         application_card_created = application_body is not None and not application_path.exists()
     application_writes = ((application_path, application_body),) if application_body is not None else ()
@@ -1711,6 +1737,9 @@ def cmd_verify(args):
         stack=args.stack,
         salary=args.salary,
         match_score=args.match_score,
+        application_status=args.application_status,
+        next_action=args.next_action,
+        next_action_date=args.next_action_date,
     )
     if args.format == "json":
         print_json({"ok": True, "command": "verify", **result})
@@ -2175,6 +2204,9 @@ def main():
     verify.add_argument("--stack", help="стек через '; '")
     verify.add_argument("--salary", help="компенсация из первоисточника или Unknown")
     verify.add_argument("--match-score", help="оценка 1–10")
+    verify.add_argument("--application-status", choices=("apply",), help="зафиксировать начатый, но не отправленный процесс")
+    verify.add_argument("--next-action", help="следующий шаг для application_status=apply")
+    verify.add_argument("--next-action-date", help="дата следующего шага YYYY-MM-DD")
     verify.add_argument("--format", choices=("text", "json"), default="text")
     verify.set_defaults(func=cmd_verify)
     validate = subparsers.add_parser("validate", help="проверить целостность")
