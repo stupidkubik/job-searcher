@@ -1,7 +1,18 @@
 # Agent operations: безопасный write-path через GitHub Actions
 
 Дата: 2026-08-11
-Статус: proposal для Tracker v2.1
+Статус: Phase A implemented; Phase B/C остаются proposal для Tracker v2.1
+
+Реализация Phase A находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
+[`data/operations/`](../data/operations/) и workflow
+[`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
+поддерживает одну операцию `verify` или ограниченный `set`, обязательные
+field-level preconditions, immutable result и PR-only output. `add`, batch и
+ingest по-прежнему относятся к следующим фазам.
+
+Result Phase A не содержит `commit_sha`: runner пишет его в том же Git commit,
+что и canonical diff, поэтому этот commit сам является неизменяемой audit link
+между request и result.
 
 ## 1. Идея
 

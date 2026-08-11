@@ -54,6 +54,7 @@ python3 scripts/jobs.py add \
 | архитектурные решения | [docs/architecture.md](docs/architecture.md) |
 | дальнейшие улучшения | [docs/roadmap.md](docs/roadmap.md) |
 | подробный план Tracker v2 | [docs/tracker-v2-plan.md](docs/tracker-v2-plan.md) |
+| connector → tracker operation gateway | [data/operations/README.md](data/operations/README.md) |
 
 ## Правила в двух словах
 

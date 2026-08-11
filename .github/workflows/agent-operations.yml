@@ -1,0 +1,193 @@
+name: agent operations
+
+on:
+  push:
+    branches:
+      - "agent/**"
+    paths:
+      - "data/operations/requests/*.json"
+  workflow_dispatch:
+    inputs:
+      request:
+        description: "Existing request path on this agent/* branch"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  apply:
+    if: github.event.repository.fork == false
+    runs-on: ubuntu-latest
+    concurrency:
+      group: agent-operation-${{ github.ref_name }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Reject an unexpected branch
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_NAME}" != agent/* ]]; then
+            echo "agent operations may run only on an agent/* branch" >&2
+            exit 1
+          fi
+
+      - name: Find the one new request
+        id: request
+        if: github.event_name == 'push'
+        env:
+          EVENT_PATH: ${{ github.event_path }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import sys
+
+          event = json.load(open(os.environ["EVENT_PATH"], encoding="utf-8"))
+          added = event.get("head_commit", {}).get("added", [])
+          pattern = re.compile(r"data/operations/requests/[a-z0-9][a-z0-9._-]{2,79}\.json\Z")
+          candidates = [path for path in added if pattern.fullmatch(path)]
+          if len(candidates) != 1:
+              sys.exit("push must add exactly one data/operations/requests/<operation-id>.json file")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"path={candidates[0]}\n")
+          PY
+
+      - name: Accept a manually selected existing request
+        id: dispatch-request
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          REQUEST_INPUT: ${{ inputs.request }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+
+          path = os.environ["REQUEST_INPUT"]
+          if not re.fullmatch(r"data/operations/requests/[a-z0-9][a-z0-9._-]{2,79}\.json", path):
+              sys.exit("request must be data/operations/requests/<operation-id>.json")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"path={path}\n")
+          PY
+
+      - name: Ensure the branch contains only its request
+        env:
+          REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch-request.outputs.path }}
+        run: |
+          git fetch origin main --depth=1
+          python3 - <<'PY'
+          import os
+          import subprocess
+          import sys
+
+          expected = os.environ["REQUEST_PATH"]
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
+          ).splitlines()
+          if changed != [expected]:
+              sys.exit("agent branch may contain exactly one new operation request before execution")
+          PY
+
+      - name: Validate and apply the declarative operation
+        id: operation
+        env:
+          REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch-request.outputs.path }}
+        run: |
+          python3 scripts/agent_operations.py validate "$REQUEST_PATH" --format json
+          python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > operation-output.json
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import sys
+
+          payload = json.load(open("operation-output.json", encoding="utf-8"))
+          operation_id = payload.get("operation_id")
+          risk = payload.get("risk")
+          status = payload.get("status")
+          if not isinstance(operation_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{2,79}", operation_id):
+              sys.exit("runner returned an invalid operation_id")
+          if risk not in {"low", "medium"} or status not in {"completed", "conflict"}:
+              sys.exit("runner returned an invalid risk or status")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"id={operation_id}\n")
+              output.write(f"risk={risk}\n")
+              output.write(f"status={status}\n")
+          PY
+
+      - name: Validate resulting tracker state
+        run: |
+          python3 scripts/jobs.py validate --strict
+          python3 -m unittest discover -s tests -v
+          python3 scripts/jobs.py dupes --format json
+
+      - name: Enforce changed-file allowlist
+        env:
+          OPERATION_ID: ${{ steps.operation.outputs.id }}
+        run: |
+          python3 - <<'PY'
+          import os
+          import re
+          import subprocess
+          import sys
+
+          operation_id = os.environ["OPERATION_ID"]
+          expected_result = f"data/operations/results/{operation_id}.json"
+          raw = subprocess.check_output(["git", "status", "--porcelain=v1", "-z"])
+          paths = []
+          for entry in raw.split(b"\0"):
+              if not entry:
+                  continue
+              path = entry[3:].decode("utf-8")
+              paths.append(path)
+          allowed = {"data/jobs.csv", "data/job_sources.csv", expected_result}
+          for path in paths:
+              if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
+                  continue
+              sys.exit(f"operation changed forbidden path: {path}")
+          if expected_result not in paths:
+              sys.exit("operation did not write its immutable result")
+          PY
+
+      - name: Commit and push the audited result
+        env:
+          OPERATION_ID: ${{ steps.operation.outputs.id }}
+        run: |
+          git config user.name "job-tracker-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/jobs.csv data/job_sources.csv data/operations/results applications
+          git commit -m "jobs: apply agent operation ${OPERATION_ID}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Open or update the review PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPERATION_ID: ${{ steps.operation.outputs.id }}
+          RISK: ${{ steps.operation.outputs.risk }}
+          STATUS: ${{ steps.operation.outputs.status }}
+        run: |
+          existing="$(gh pr list --head "${GITHUB_REF_NAME}" --base main --json url --jq '.[0].url')"
+          if [[ -n "${existing}" ]]; then
+            echo "Operation PR already exists: ${existing}"
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head "${GITHUB_REF_NAME}" \
+            --title "jobs: apply agent operation ${OPERATION_ID}" \
+            --body "Operation: ${OPERATION_ID}
+Risk: ${RISK}
+Status: ${STATUS}
+Validation: passed
+Tests: passed"
