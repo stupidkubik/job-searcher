@@ -66,6 +66,11 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("steps.dispatch_request.outputs.path", workflow)
         self.assertNotIn("dispatch-request", workflow)
 
+    def test_workflow_discovers_a_push_request_from_the_branch_diff(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn('["git", "diff", "--name-only", "origin/main...HEAD"]', workflow)
+        self.assertNotIn('event.get("head_commit", {}).get("added", [])', workflow)
+
     def test_workflow_pr_body_stays_inside_the_run_block(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn('            Risk: ${RISK}', workflow)

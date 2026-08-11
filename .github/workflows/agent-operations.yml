@@ -44,23 +44,22 @@ jobs:
       - name: Find the one new request
         id: request
         if: github.event_name == 'push'
-        env:
-          EVENT_PATH: ${{ github.event_path }}
         run: |
+          git fetch origin main --depth=1
           python3 - <<'PY'
-          import json
           import os
           import re
+          import subprocess
           import sys
 
-          event = json.load(open(os.environ["EVENT_PATH"], encoding="utf-8"))
-          added = event.get("head_commit", {}).get("added", [])
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
+          ).splitlines()
           pattern = re.compile(r"data/operations/requests/[a-z0-9][a-z0-9._-]{2,79}\.json\Z")
-          candidates = [path for path in added if pattern.fullmatch(path)]
-          if len(candidates) != 1:
-              sys.exit("push must add exactly one data/operations/requests/<operation-id>.json file")
+          if len(changed) != 1 or not pattern.fullmatch(changed[0]):
+              sys.exit("agent branch must add exactly one data/operations/requests/<operation-id>.json file")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"path={candidates[0]}\n")
+              output.write(f"path={changed[0]}\n")
           PY
 
       - name: Accept a manually selected existing request
