@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "hirify-elevenlabs-growth-20260811",
+  "command": "add",
+  "args": {
+    "company": "ElevenLabs",
+    "role": "Growth Engineer, Website",
+    "source": "Hirify",
+    "source_url": "https://hirify.me/frontend-dev-jobs",
+    "original_url": "https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "location": "Remote worldwide",
+    "remote_policy": "Global",
+    "stack": "React; TypeScript; Next.js; Python; FastAPI; SEO; A/B Testing",
+    "found_at": "2026-08-11",
+    "match_score": 8,
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "notes": "Broad-filter Hirify find. Strong frontend/growth overlap; main stretch areas are deep SEO experience and backend/Python. Hirify discovery came from the frontend feed; first-party role and Apply were verified.",
+    "force": true
+  }
+}
