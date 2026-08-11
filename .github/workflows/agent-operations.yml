@@ -187,7 +187,7 @@ jobs:
             --head "${GITHUB_REF_NAME}" \
             --title "jobs: apply agent operation ${OPERATION_ID}" \
             --body "Operation: ${OPERATION_ID}
-Risk: ${RISK}
-Status: ${STATUS}
-Validation: passed
-Tests: passed"
+            Risk: ${RISK}
+            Status: ${STATUS}
+            Validation: passed
+            Tests: passed"

@@ -66,6 +66,13 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("steps.dispatch_request.outputs.path", workflow)
         self.assertNotIn("dispatch-request", workflow)
 
+    def test_workflow_pr_body_stays_inside_the_run_block(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn('            Risk: ${RISK}', workflow)
+        self.assertIn('            Status: ${STATUS}', workflow)
+        self.assertIn('            Validation: passed', workflow)
+        self.assertIn('            Tests: passed"', workflow)
+
     def test_low_risk_verify_uses_jobs_write_path_and_records_immutable_result(self):
         row = self.seed_job()
         request = self.write_operation({
