@@ -1,0 +1,251 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-11T18:10:06Z",
+  "jobs": [
+    "job-0099",
+    "job-0100",
+    "job-0101",
+    "job-0103",
+    "job-0104",
+    "job-0105",
+    "job-0106",
+    "job-0107",
+    "job-0108",
+    "job-0109",
+    "job-0110",
+    "job-0111",
+    "job-0112",
+    "job-0113",
+    "job-0114",
+    "job-0115",
+    "job-0116",
+    "job-0117",
+    "job-0118",
+    "job-0119",
+    "job-0120",
+    "job-0121",
+    "job-0122",
+    "job-0123",
+    "job-0125",
+    "job-0126"
+  ],
+  "operation_id": "himalayas-review-0099-0126-20260811",
+  "result": {
+    "count": 26,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0099",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0100",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0101",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0103",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0104",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0105",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0106",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0107",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0108",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0109",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0110",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0111",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0112",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0113",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0114",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0115",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0116",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0117",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0118",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0119",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0120",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0121",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0122",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0123",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0125",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0126",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
