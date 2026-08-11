@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-11T21:00:59Z",
+  "job_id": "job-0127",
+  "operation_id": "hirify-elevenlabs-growth-20260811",
+  "result": {
+    "application_path": "applications/job-0127-elevenlabs-growth-engineer-website.md",
+    "application_status": "reviewing",
+    "job_id": "job-0127",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-11",
+        "job_id": "job-0127",
+        "source": "Hirify",
+        "source_job_id": "",
+        "source_url": "https://hirify.me/frontend-dev-jobs"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
