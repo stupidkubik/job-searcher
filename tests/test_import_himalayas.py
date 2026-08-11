@@ -1,6 +1,7 @@
 import copy
 import io
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -171,6 +172,16 @@ class HimalayasAdapterCliTests(unittest.TestCase):
         records = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
         self.assertEqual(len(records), 1)
         self.assertIn("himalayas", records[0]["payload"])
+
+        validated = subprocess.run(
+            [sys.executable, "scripts/inbox.py", "validate", str(output)],
+            cwd=PROJECT,
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(validated.returncode, 0, validated.stderr)
+        self.assertTrue(json.loads(validated.stdout)["ok"])
+
         self.assertFalse((self.root / "data" / "jobs.csv").exists())
 
     def test_broad_dry_run_does_not_create_a_raw_batch(self):

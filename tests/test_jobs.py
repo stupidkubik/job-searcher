@@ -355,6 +355,20 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(payload["jobs"][0]["reason"], "never_verified")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
+    def test_daily_commands_reject_invalid_arguments_without_mutating_dataset(self):
+        result = self.add("Acme", "Frontend Engineer", "--application-status", "reviewing", "--no-file")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        stale = self.invoke("stale", "--days", "0", "--format", "json")
+        self.assertEqual(stale.returncode, 1)
+        self.assertIn("положительное целое", stale.stderr)
+
+        todo = self.invoke("todo", "--date", "not-a-date", "--format", "json")
+        self.assertEqual(todo.returncode, 1)
+        self.assertIn("ожидается дата", todo.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_todo_has_stable_sections_ordering_and_date_override(self):
         reference = date.today()
         yesterday = (reference.fromordinal(reference.toordinal() - 1)).isoformat()
