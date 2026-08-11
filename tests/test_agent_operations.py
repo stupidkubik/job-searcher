@@ -73,6 +73,12 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('            Validation: passed', workflow)
         self.assertIn('            Tests: passed"', workflow)
 
+    def test_workflow_keeps_its_operation_output_outside_the_checkout(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn('> "$RUNNER_TEMP/operation-output.json"', workflow)
+        self.assertIn('os.environ["RUNNER_TEMP"], "operation-output.json"', workflow)
+        self.assertNotIn('> operation-output.json', workflow)
+
     def test_low_risk_verify_uses_jobs_write_path_and_records_immutable_result(self):
         row = self.seed_job()
         request = self.write_operation({

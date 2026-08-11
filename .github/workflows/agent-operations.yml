@@ -105,14 +105,14 @@ jobs:
           REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch_request.outputs.path }}
         run: |
           python3 scripts/agent_operations.py validate "$REQUEST_PATH" --format json
-          python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > operation-output.json
+          python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > "$RUNNER_TEMP/operation-output.json"
           python3 - <<'PY'
           import json
           import os
           import re
           import sys
 
-          payload = json.load(open("operation-output.json", encoding="utf-8"))
+          payload = json.load(open(os.path.join(os.environ["RUNNER_TEMP"], "operation-output.json"), encoding="utf-8"))
           operation_id = payload.get("operation_id")
           risk = payload.get("risk")
           status = payload.get("status")
