@@ -38,6 +38,8 @@ class JobsCliTests(unittest.TestCase):
         shutil.copy2(PROJECT / "scripts" / "jobs.py", self.root / "scripts" / "jobs.py")
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
         (self.root / "data" / "jobs.csv").write_text(header + "\n", encoding="utf-8")
+        source_header = (PROJECT / "data" / "job_sources.csv").read_text(encoding="utf-8").splitlines()[0]
+        (self.root / "data" / "job_sources.csv").write_text(source_header + "\n", encoding="utf-8")
         shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
 
     def tearDown(self):
@@ -62,18 +64,18 @@ class JobsCliTests(unittest.TestCase):
     def test_empty_database_validates(self):
         result = self.invoke("validate")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn("проверено записей: 0; ошибок: 0", result.stdout)
+        self.assertIn("проверено записей: 0; source references: 0; ошибок: 0", result.stdout)
 
     def test_new_job_board_sources_are_accepted(self):
-        for source in (
+        for index, source in enumerate((
             "Welcome to the Jungle", "We Work Remotely", "HiringCafe",
             "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
             "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
             "Find My Remote / Telegram", "Himalayas", "Startit Jobs",
-        ):
+        ), start=1):
             result = self.invoke(
                 "add", "--company", f"{source} Co", "--role", "Frontend Developer",
-                "--source", source, "--no-file",
+                "--source", source, "--source-url", f"https://source.example.test/{index}", "--no-file",
             )
             self.assertEqual(result.returncode, 0, result.stderr)
 
@@ -184,7 +186,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((duplicate_payload["ok"], duplicate_payload["command"], duplicate_payload["candidates"]), (True, "dupes", []))
 
     def test_canonical_url_duplicate_requires_explicit_decision(self):
-        self.assertEqual(self.add("ExeQut", "Front-End Software Developer", "--original-url", "https://example.com/jobs/1/", "--no-file").returncode, 0)
+        self.assertEqual(self.add("ExeQut", "Front-End Software Developer", "--original-url", "https://example.com/jobs/1/", "--source-url", "https://source.example.test/exequt", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
         duplicate = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://example.com/jobs/1?utm_source=board#apply", "--no-file", "--format", "json")
         self.assertEqual(duplicate.returncode, 2)
@@ -192,14 +194,12 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((payload["ok"], payload["error"]), (False, "unresolved_duplicate"))
         self.assertEqual(payload["candidates"][0]["id"], "job-0001")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
-        confirmed = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://mirror.example/jobs/1", "--duplicate-of", "job-0001", "--no-file")
+        confirmed = self.add("EXEQUT Ltd.", "Frontend Developer", "--source-url", "https://mirror.example/jobs/1", "--duplicate-of", "job-0001", "--no-file")
         self.assertEqual(confirmed.returncode, 0, confirmed.stderr)
-        row = self.rows()[1]
-        self.assertEqual(
-            (row["application_status"], row["listing_status"], row["decision_reason"]),
-            ("not_started", "unknown", "duplicate_listing"),
-        )
-        self.assertIn("job-0001", row["notes"])
+        self.assertEqual(len(self.rows()), 1)
+        with (self.root / "data" / "job_sources.csv").open(newline="", encoding="utf-8") as file:
+            sources = list(csv.DictReader(file))
+        self.assertEqual((len(sources), sources[1]["job_id"], sources[1]["source_url"]), (2, "job-0001", "https://mirror.example/jobs/1"))
 
     def test_set_advances_lifecycle_and_cannot_lower_stage(self):
         self.assertEqual(self.add("FlowCo", "Frontend Developer", "--no-file").returncode, 0)

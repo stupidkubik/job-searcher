@@ -15,6 +15,7 @@
 # Найденная вакансия, которую нужно изучить
 python3 scripts/jobs.py add \
   --company "ExampleCo" --role "Frontend Developer" --source LinkedIn \
+  --source-url "https://www.linkedin.com/jobs/view/123" \
   --application-status reviewing --listing-status open \
   --original-url "https://careers.example.com/jobs/frontend" \
   --first-party-verified yes --apply-verified yes
@@ -32,6 +33,7 @@ python3 scripts/jobs.py validate
 ```bash
 python3 scripts/jobs.py add \
   --company "ExampleCo" --role "Frontend Developer" --source Hirify \
+  --source-url "https://hirify.example/jobs/123" \
   --application-status not_started --decision-reason geo_restriction --no-file
 ```
 
@@ -43,6 +45,7 @@ python3 scripts/jobs.py add \
 | профиль, приоритеты и доказательства | [config/profile.md](config/profile.md) |
 | поисковые запросы | [config/search-queries.md](config/search-queries.md) |
 | единый реестр вакансий | [data/jobs.csv](data/jobs.csv) |
+| provenance источников | [data/job_sources.csv](data/job_sources.csv) |
 | поля и допустимые значения | [data/schema.md](data/schema.md) |
 | подробности по вакансии | [applications/](applications/) |
 | актуальные версии резюме | [cv/current/](cv/current/) |

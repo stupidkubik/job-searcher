@@ -1,9 +1,10 @@
 # Схема `jobs.csv` (Tracker v2)
 
-`data/jobs.csv` — единственный структурированный источник истины: одна строка =
-одна уникальная вакансия и история нашей работы с ней. Все значения в CSV пишутся
-на английском. Порядок колонок фиксирован и проверяется
-`python3 scripts/jobs.py validate`.
+`data/jobs.csv` — canonical источник истины: одна строка = одна уникальная
+вакансия и история нашей работы с ней. `data/job_sources.csv` — вспомогательная
+many-to-one таблица provenance; она не содержит самостоятельных job/application
+facts и не существует без строки в `jobs.csv`. Все значения в CSV пишутся на
+английском. Обе таблицы проверяются `python3 scripts/jobs.py validate`.
 
 Первые три колонки — `id`, `application_status`, `listing_status`: состояние
 нашей заявки и состояние объявления хранятся независимо.
@@ -30,7 +31,7 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | `company`, `role`, `location`, `salary` | текст | Компания и роль — как в первоисточнике. Для неизвестной зарплаты — `Unknown`. |
 | `level` | enum | См. допустимые значения. |
 | `original_url`, `source_url`, `contact_url` | URL | `original_url` — официальный ATS/careers URL и главный ключ дедупликации; `source_url` — место находки. |
-| `source` | enum | Первичный источник для аналитики. Полная provenance появится в `data/job_sources.csv` в Phase 3. |
+| `source` | enum | Первичный источник для аналитики и обратной совместимости. Полная provenance хранится в `data/job_sources.csv`. |
 | `remote_policy` | enum | `Remote` сам по себе не означает `Global`. |
 | `stack` | текст | Технологии через `; `, не запятую. |
 | `posted_at`, `found_at`, `applied_at`, `response_at`, `next_action_date`, `verified_at`, `last_update` | `YYYY-MM-DD` | `verified_at` — дата последней проверки первоисточника/Apply; `last_update` меняется при каждом обновлении строки. |
@@ -91,6 +92,32 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | Skipped | `application_status=not_started`, заполнена причина и она не `duplicate_listing`/`closed_before_application` |
 | Active candidate | нет terminal decision и `listing_status` не `closed` |
 
+## Source references: `data/job_sources.csv`
+
+```text
+job_id,source,source_url,source_job_id,found_at
+```
+
+| Поле | Правило |
+|---|---|
+| `job_id` | Обязательный foreign key на существующий `jobs.csv:id`. |
+| `source` | Тот же source enum, что в `jobs.csv`. |
+| `source_url` | URL конкретной карточки или discovery page; нужен `source_url` или `source_job_id`. |
+| `source_job_id` | Стабильный ID карточки внутри источника, если он известен. |
+| `found_at` | Обязательная дата первого обнаружения reference, `YYYY-MM-DD`. |
+
+Пара `source + source_job_id` уникальна во всём dataset. Нормализованный
+`source_url` проверяется при записи: совпадение с другой canonical job требует
+явный `--force`, поскольку discovery page иногда действительно содержит несколько
+вакансий. Backfill исторических общих Wellfound discovery URL уже выполнил такое
+явное разрешение; это не влияет на уникальность stable source IDs.
+
+Для новой вакансии с внешним источником `jobs.py add` создаёт первичную source
+reference в той же операции. Нужен `--source-url` или `--source-job-id`; без
+reference допустимы только `Manual` и `Referral`. `--duplicate-of JOB_ID` больше
+не создаёт новый job ID: он добавляет source reference к canonical `JOB_ID` и
+идемпотентно завершается, если такая reference уже существует.
+
 ## Инварианты
 
 - `applied`, `interviewing`, `offer`, `rejected`, `ghosted`, `withdrawn` требуют `applied_at`.
@@ -103,6 +130,8 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 - Для `decision_reason=closed_before_application` обязательны `listing_status=closed` и пустой `applied_at`.
 - Pre-application причина отсева требует `application_status=not_started`.
 - Legacy `decision_reason=duplicate_listing` требует `application_status=not_started` и ID оригинальной строки в `notes`; новые duplicate rows прекращаются после появления source references в Phase 3.
+- Каждая source reference ссылается на существующий `jobs.csv:id`; её `source + source_job_id` не может принадлежать второй вакансии.
+- `validate` проверяет `jobs.csv` и `job_sources.csv` как единый dataset.
 - `stage_reached` не понижается и остаётся независимой исторической метрикой.
 - `application_status=applied` ставится только после фактической отправки человеком.
 
@@ -112,6 +141,7 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 # Проверенная открытая вакансия, которую нужно разобрать
 python3 scripts/jobs.py add \
   --company "ExampleCo" --role "Frontend Developer" --source LinkedIn \
+  --source-url "https://www.linkedin.com/jobs/view/123" \
   --application-status reviewing --listing-status open \
   --original-url "https://careers.example.com/jobs/frontend" \
   --first-party-verified yes --apply-verified yes
@@ -123,6 +153,12 @@ python3 scripts/jobs.py set job-0001 \
 # Человек фактически отправил заявку
 python3 scripts/jobs.py set job-0001 \
   application_status=applied cv_version=frontend-2026-08
+
+# Подтверждённый duplicate: новая job-строка не создаётся
+python3 scripts/jobs.py add \
+  --company "ExampleCo" --role "Frontend Developer" --source LinkedIn \
+  --source-url "https://www.linkedin.com/jobs/view/another-location" \
+  --duplicate-of job-0001 --no-file
 
 # После любого изменения
 python3 scripts/jobs.py validate --strict

@@ -1,6 +1,7 @@
 # `jobs.py` CLI
 
-`scripts/jobs.py` — единственный write path для canonical `data/jobs.csv`.
+`scripts/jobs.py` — единственный write path для canonical `data/jobs.csv` и
+provenance-таблицы `data/job_sources.csv`.
 Ручной CLI, JSON-ввод и будущие importers используют одинаковые функции
 построения записи, проверки дублей, validation и атомарной записи.
 
@@ -23,8 +24,13 @@ python3 scripts/jobs.py add \
 ```
 
 `--no-file`, `--force` и `--duplicate-of JOB_ID` — намеренные решения оператора;
-они не принимаются через JSON. До Phase 3 `--duplicate-of` создаёт legacy row;
-после появления source references изменится только это поведение.
+они не принимаются через JSON. Для любого нового внешнего источника обязательны
+`--source-url` или `--source-job-id`; исключение — только `Manual` и `Referral`.
+
+`--duplicate-of JOB_ID` не создаёт новую строку вакансии: он добавляет source
+reference к уже существующей canonical вакансии. Команда идемпотентна. Если
+нормализованный `source_url` уже привязан к другой вакансии, CLI завершится с
+кодом `2`; `--force` — явное разрешение для shared discovery page.
 
 ## Structured input для `add`
 
@@ -50,7 +56,7 @@ company, role, source
 
 ```text
 application_status, listing_status, first_party_verified, apply_verified,
-level, remote_policy, original_url, source_url, location, stack, salary,
+level, remote_policy, original_url, source_url, source_job_id, location, stack, salary,
 posted_at, found_at, match_score, decision_reason, notes
 ```
 
@@ -64,15 +70,34 @@ posted_at, found_at, match_score, decision_reason, notes
 `add`, `set`, `validate` и `dupes` поддерживают `--format text|json`; по
 умолчанию — `text`. Успешный JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
-`warnings` и путь к созданной application card (или `null`).
+`warnings`, `source_reference` и путь к созданной application card (или `null`).
 
 ```json
-{"application_path":"applications/job-0099-exampleco-frontend-developer.md","command":"add","job":{"id":"job-0099"},"ok":true,"warnings":[]}
+{"application_path":"applications/job-0099-exampleco-frontend-developer.md","command":"add","job":{"id":"job-0099"},"ok":true,"source_reference":{"created":true},"warnings":[]}
 ```
 
 При `add --format json` неразрешённый duplicate также возвращается JSON object с
 `ok=false`, `error="unresolved_duplicate"` и списком кандидатов, затем завершает
 процесс с кодом `2`. Validation-ошибки завершаются кодом `1`.
+
+## Source references и backfill
+
+`data/job_sources.csv` связывает canonical `job_id` с `source`, `source_url`,
+`source_job_id` и `found_at`. Уникальная пара `source + source_job_id` не может
+принадлежать двум вакансиям. `validate` всегда проверяет обе таблицы как единый
+dataset.
+
+Для разовой миграции legacy-данных используйте:
+
+```bash
+python3 scripts/jobs.py backfill-sources --check
+python3 scripts/jobs.py backfill-sources
+```
+
+Первая команда ничего не меняет. Вторая создаёт references из прежних
+`source_url`; legacy `duplicate_listing` перенаправляется на job ID оригинала из
+`notes`. В отчёте отдельно показано, сколько shared discovery URL было явно
+разрешено при backfill.
 
 ## Примеры обновления и проверки
 

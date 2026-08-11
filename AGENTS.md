@@ -35,20 +35,25 @@
 
 ## Как писать в CSV
 
-- Только через `scripts/jobs.py` (`add` / `set`). Ручная правка — исключение.
+- Только через `scripts/jobs.py` (`add` / `set` / `backfill-sources`). Ручная
+  правка canonical CSV — исключение.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
-- До Phase 3 подтверждённый legacy-дубль создавать только через
-  `add --duplicate-of job-NNNN`; `--force` означает, что похожая запись является
-  отдельной вакансией. После появления `data/job_sources.csv` duplicate добавляет
-  source reference к canonical job, а не новую job-строку.
+- `data/job_sources.csv` — provenance каждой вакансии. Для нового внешнего
+  источника передавать `--source-url` или `--source-job-id`; без reference
+  допустимы только `Manual` и `Referral`.
+- Подтверждённый дубль создавать только через `add --duplicate-of job-NNNN`:
+  команда добавляет source reference к canonical job и не создаёт новый ID.
+  `--force` означает, что совпадающий URL — осознанно shared discovery page или
+  похожая запись является отдельной вакансией.
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
 - После любых изменений: `python3 scripts/jobs.py validate` — должно быть 0 ошибок.
 
 ## Порядок обработки одной вакансии
 
-1. Проверить дубли в `data/jobs.csv`: сначала `original_url`, затем company + role.
+1. Проверить дубли: сначала `data/job_sources.csv` по `source + source_job_id`,
+   затем `original_url`, source URL и company + role.
 2. Открыть первоисточник, проверить доступность вакансии и работу кнопки Apply;
    записать `listing_status`, `first_party_verified`, `apply_verified` и дату
    проверки через CLI.
@@ -70,6 +75,7 @@
 | Задача | Файл |
 |---|---|
 | структурированные данные | `data/jobs.csv` |
+| provenance источников | `data/job_sources.csv` |
 | длинный контекст по вакансии | `applications/<id>.md` из `_TEMPLATE.md` |
 | профиль, приоритеты, доказательства | `config/profile.md` |
 | резюме для отправки | `cv/current/` — только оттуда |

@@ -19,6 +19,7 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "data" / "jobs.csv"
+JOB_SOURCES_PATH = ROOT / "data" / "job_sources.csv"
 APPS_DIR = ROOT / "applications"
 TEMPLATE_PATH = APPS_DIR / "_TEMPLATE.md"
 
@@ -44,6 +45,7 @@ FIELDS = [
     "next_action_date", "cv_version", "cover_letter", "contact_name", "contact_url",
     "verified_at", "first_party_verified", "apply_verified", "last_update", "notes",
 ]
+JOB_SOURCE_FIELDS = ["job_id", "source", "source_url", "source_job_id", "found_at"]
 REQUIRED = [
     "id", "company", "role", "source", "found_at", "application_status",
     "listing_status", "stage_reached", "first_party_verified", "apply_verified",
@@ -62,7 +64,7 @@ ADD_INPUT_FIELDS = {
     "company", "role", "source", "application_status", "listing_status",
     "first_party_verified", "apply_verified", "level", "remote_policy",
     "original_url", "source_url", "location", "stack", "salary", "posted_at",
-    "found_at", "match_score", "decision_reason", "notes",
+    "found_at", "match_score", "decision_reason", "notes", "source_job_id",
 }
 ADD_REQUIRED_INPUT_FIELDS = {"company", "role", "source"}
 LISTING_STATUSES = ["open", "closed", "unknown"]
@@ -99,6 +101,7 @@ ENUMS = {
     "decision_reason": REASONS,
 }
 GHOST_AFTER_DAYS = 30
+SOURCES_WITHOUT_EXTERNAL_REFERENCE = {"Manual", "Referral"}
 
 V1_STATUS_MAPPING = {
     "New": ("not_started", "unknown"),
@@ -131,13 +134,24 @@ class UnresolvedDuplicate(Exception):
         self.candidates = candidates
 
 
+class SourceReferenceConflict(Exception):
+    """Source reference already belongs to another canonical job."""
+
+    def __init__(self, message, existing):
+        self.message = message
+        self.existing = existing
+
+
 @dataclass
 class AddPlan:
     rows: list
+    source_rows: list
     row: dict
     warnings: list
     app_path: Path | None
     app_body: str | None
+    source_reference: dict | None
+    source_reference_created: bool
 
 
 def today():
@@ -161,6 +175,14 @@ def read_csv():
         return reader.fieldnames, list(reader)
 
 
+def read_job_sources_csv():
+    if not JOB_SOURCES_PATH.exists():
+        die(f"не найден {JOB_SOURCES_PATH}")
+    with JOB_SOURCES_PATH.open(newline="", encoding="utf-8") as file:
+        reader = csv.DictReader(file)
+        return reader.fieldnames, list(reader)
+
+
 def load():
     header, rows = read_csv()
     if header != FIELDS:
@@ -177,6 +199,15 @@ def load_v1():
     return rows
 
 
+def load_job_sources(allow_missing=False):
+    if allow_missing and not JOB_SOURCES_PATH.exists():
+        return []
+    header, rows = read_job_sources_csv()
+    if header != JOB_SOURCE_FIELDS:
+        die("заголовок job_sources.csv не совпадает со схемой; см. data/schema.md")
+    return rows
+
+
 def save(rows):
     """Атомарно заменяет CSV, чтобы ошибка не оставила обрезанный файл."""
     descriptor, temporary_name = tempfile.mkstemp(prefix="jobs-", suffix=".csv", dir=CSV_PATH.parent)
@@ -186,6 +217,19 @@ def save(rows):
             writer.writeheader()
             writer.writerows({key: row.get(key) or "" for key in FIELDS} for row in rows)
         os.replace(temporary_name, CSV_PATH)
+    except BaseException:
+        Path(temporary_name).unlink(missing_ok=True)
+        raise
+
+
+def save_job_sources(rows):
+    descriptor, temporary_name = tempfile.mkstemp(prefix="job-sources-", suffix=".csv", dir=JOB_SOURCES_PATH.parent)
+    try:
+        with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=JOB_SOURCE_FIELDS, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows({key: row.get(key) or "" for key in JOB_SOURCE_FIELDS} for row in rows)
+        os.replace(temporary_name, JOB_SOURCES_PATH)
     except BaseException:
         Path(temporary_name).unlink(missing_ok=True)
         raise
@@ -368,8 +412,76 @@ def validate_rows(rows):
     return errors, warnings
 
 
+def validate_job_sources(job_rows, source_rows):
+    errors, warnings = [], []
+    job_ids = {row["id"] for row in job_rows}
+    source_ids = {}
+    source_urls = {}
+
+    def error(line, message):
+        errors.append(f"job_sources.csv:{line}: {message}")
+
+    for line, row in enumerate(source_rows, start=2):
+        identifier = row.get("job_id") or "<пусто>"
+        if None in row:
+            error(line, f"{identifier}: лишние CSV-колонки: {row[None]}")
+        for key in ("job_id", "source", "found_at"):
+            if not (row.get(key) or "").strip():
+                error(line, f"{identifier}: пустое обязательное поле {key}")
+        job_id = (row.get("job_id") or "").strip()
+        source = (row.get("source") or "").strip()
+        source_url = (row.get("source_url") or "").strip()
+        source_job_id = (row.get("source_job_id") or "").strip()
+        found_at = (row.get("found_at") or "").strip()
+        if job_id and job_id not in job_ids:
+            error(line, f"{identifier}: job_id не найден в jobs.csv")
+        if source and source not in SOURCES:
+            error(line, f"{identifier}: source={source!r} не входит в {SOURCES}")
+        if not source_url and not source_job_id:
+            error(line, f"{identifier}: нужен source_url или source_job_id")
+        if source_url and not valid_http_url(source_url):
+            error(line, f"{identifier}: source_url не является http(s) URL: {source_url!r}")
+        if found_at:
+            try:
+                parsed = datetime.strptime(found_at, "%Y-%m-%d").date()
+            except ValueError:
+                error(line, f"{identifier}: found_at={found_at!r} — ожидается YYYY-MM-DD")
+            else:
+                if parsed > date.today():
+                    warnings.append(f"job_sources.csv:{line}: {identifier}: found_at={found_at} в будущем — опечатка в годе?")
+        if "\n" in source_job_id:
+            error(line, f"{identifier}: source_job_id содержит перевод строки")
+        if source_job_id:
+            key = (source, source_job_id)
+            if key in source_ids:
+                error(line, f"{identifier}: дубль source + source_job_id (уже в строке {source_ids[key]})")
+            source_ids[key] = line
+        if source_url:
+            key = (job_id, source, norm_url(source_url))
+            if key in source_urls:
+                error(line, f"{identifier}: дубль source_url для той же вакансии (уже в строке {source_urls[key]})")
+            source_urls[key] = line
+    return errors, warnings
+
+
+def validate_dataset(job_rows, source_rows):
+    job_errors, job_warnings = validate_rows(job_rows)
+    source_errors, source_warnings = validate_job_sources(job_rows, source_rows)
+    return job_errors + source_errors, job_warnings + source_warnings
+
+
 def ensure_valid(rows, emit_warnings=True):
     errors, warnings = validate_rows(rows)
+    if errors:
+        die("изменение отклонено:\n  " + "\n  ".join(errors))
+    if emit_warnings:
+        for warning in warnings:
+            print(f"warn:  {warning}")
+    return warnings
+
+
+def ensure_dataset_valid(job_rows, source_rows, emit_warnings=True):
+    errors, warnings = validate_dataset(job_rows, source_rows)
     if errors:
         die("изменение отклонено:\n  " + "\n  ".join(errors))
     if emit_warnings:
@@ -451,7 +563,7 @@ def print_duplicate_candidates(candidates):
     print("\nэто дубль -> повторите с --duplicate-of job-NNNN\nэто другая вакансия -> повторите с --force")
 
 
-def build_add_row(rows, values, duplicate_of=None):
+def build_add_row(rows, values):
     company = clean_value(values.get("company")).strip()
     role = clean_value(values.get("role")).strip()
     source = clean_value(values.get("source")).strip()
@@ -479,14 +591,7 @@ def build_add_row(rows, values, duplicate_of=None):
             die(f"{key}: недопустимое значение {value!r}")
     if decision_reason and decision_reason not in REASONS:
         die(f"decision_reason: недопустимое значение {decision_reason!r}")
-    if duplicate_of:
-        original = find(rows, duplicate_of)
-        application_status, listing_status = "not_started", "unknown"
-        decision_reason = "duplicate_listing"
-        notes = f"duplicate of {original['id']}" + (f"; {clean_value(values.get('notes'))}" if values.get("notes") else "")
-        first_party_verified, apply_verified = "unknown", "unknown"
-    else:
-        notes = clean_value(values.get("notes"))
+    notes = clean_value(values.get("notes"))
     identifier = next_id(rows)
     verification_touched = (
         listing_status != "unknown"
@@ -515,11 +620,120 @@ def build_add_row(rows, values, duplicate_of=None):
         "decision_reason": decision_reason,
         "first_party_verified": first_party_verified,
         "apply_verified": apply_verified,
-        "verified_at": today() if verification_touched and not duplicate_of else "",
+        "verified_at": today() if verification_touched else "",
         "last_update": today(),
         "notes": notes,
     })
     return row
+
+
+def build_source_reference(job_id, values, default_found_at):
+    source = clean_value(values.get("source")).strip()
+    source_url = clean_value(values.get("source_url")).strip()
+    source_job_id = clean_value(values.get("source_job_id")).strip()
+    found_at = clean_value(values.get("found_at")).strip() or default_found_at
+    if not source:
+        die("source обязателен для source reference")
+    if source not in SOURCES:
+        die(f"source: недопустимое значение {source!r}")
+    if not source_url and not source_job_id:
+        die("для внешнего источника нужен --source-url или --source-job-id")
+    return {
+        "job_id": job_id,
+        "source": source,
+        "source_url": source_url,
+        "source_job_id": source_job_id,
+        "found_at": found_at,
+    }
+
+
+def prepare_source_reference(source_rows, reference, force=False):
+    source = reference["source"]
+    source_url = reference["source_url"]
+    source_job_id = reference["source_job_id"]
+    if source_job_id:
+        for existing in source_rows:
+            if (existing["source"], existing["source_job_id"]) == (source, source_job_id):
+                if existing["job_id"] == reference["job_id"]:
+                    return existing, False
+                raise SourceReferenceConflict(
+                    f"source + source_job_id уже принадлежат {existing['job_id']}", existing,
+                )
+    if source_url:
+        normalized = norm_url(source_url)
+        for existing in source_rows:
+            if existing["source_url"] and norm_url(existing["source_url"]) == normalized:
+                if existing["job_id"] == reference["job_id"] and existing["source"] == source:
+                    return existing, False
+                if not force:
+                    raise SourceReferenceConflict(
+                        f"source_url уже принадлежит {existing['job_id']}; используйте --force для shared discovery URL",
+                        existing,
+                    )
+    return reference, True
+
+
+def source_reference_payload(reference, created):
+    return {"reference": reference, "created": created}
+
+
+def legacy_duplicate_origin(row):
+    match = re.search(r"\bjob-\d{4,}\b", row["notes"] or "")
+    if not match:
+        die(f"{row['id']}: legacy duplicate_listing не содержит id оригинала")
+    return match.group(0)
+
+
+def backfill_source_references(job_rows, source_rows):
+    prepared_rows = list(source_rows)
+    summary = {"scanned": 0, "created": 0, "existing": 0, "legacy_redirects": 0, "shared_urls": 0}
+    for job in job_rows:
+        summary["scanned"] += 1
+        if not job["source_url"]:
+            continue
+        job_id = job["id"]
+        if job["decision_reason"] == "duplicate_listing":
+            job_id = legacy_duplicate_origin(job)
+            summary["legacy_redirects"] += 1
+        reference = build_source_reference(job_id, job, job["found_at"])
+        normalized = norm_url(reference["source_url"])
+        shared_url = any(
+            existing["source_url"] and norm_url(existing["source_url"]) == normalized
+            and existing["job_id"] != job_id
+            for existing in prepared_rows
+        )
+        reference, created = prepare_source_reference(prepared_rows, reference, force=True)
+        if created:
+            prepared_rows.append(reference)
+            summary["created"] += 1
+            if shared_url:
+                summary["shared_urls"] += 1
+        else:
+            summary["existing"] += 1
+    return prepared_rows, summary
+
+
+def print_backfill_summary(summary, changed):
+    mode = "проверка" if not changed else "backfill выполнен"
+    print(f"source references: {mode}")
+    print(f"просмотрено job: {summary['scanned']}")
+    print(f"создано references: {summary['created']}")
+    print(f"существовало references: {summary['existing']}")
+    print(f"legacy duplicate redirects: {summary['legacy_redirects']}")
+    print(f"явно разрешено shared discovery URL: {summary['shared_urls']}")
+
+
+def cmd_backfill_sources(args):
+    job_rows = load()
+    source_rows = load_job_sources(allow_missing=True)
+    new_source_rows, summary = backfill_source_references(job_rows, source_rows)
+    ensure_dataset_valid(job_rows, new_source_rows)
+    print_backfill_summary(summary, changed=not args.check)
+    if args.check:
+        print("data/job_sources.csv не изменён")
+        return
+    save_job_sources(new_source_rows)
+    print("data/job_sources.csv атомарно обновлён")
 
 
 def should_create_application_card(row, no_file):
@@ -543,25 +757,41 @@ def render_application_card(row):
     return app_path, body
 
 
-def prepare_add(values, force=False, duplicate_of=None, no_file=False):
+def prepare_add(values, force=False, no_file=False):
     rows = load()
+    source_rows = load_job_sources()
     company = clean_value(values.get("company")).strip()
     role = clean_value(values.get("role")).strip()
     original_url = clean_value(values.get("original_url"))
     candidates = find_duplicate_candidates(rows, company, role, original_url)
-    if candidates and not force and not duplicate_of:
+    if candidates and not force:
         raise UnresolvedDuplicate(candidates)
-    row = build_add_row(rows, values, duplicate_of=duplicate_of)
+    row = build_add_row(rows, values)
     new_rows = [*rows, row]
+    new_source_rows = list(source_rows)
+    source_reference, source_reference_created = None, False
+    source_job_id = clean_value(values.get("source_job_id")).strip()
+    if row["source_url"] or source_job_id:
+        candidate_reference = build_source_reference(row["id"], values, row["found_at"])
+        source_reference, source_reference_created = prepare_source_reference(
+            source_rows, candidate_reference, force=force,
+        )
+        if source_reference_created:
+            new_source_rows.append(source_reference)
+    elif row["source"] not in SOURCES_WITHOUT_EXTERNAL_REFERENCE:
+        die(f"source={row['source']} требует source_url или source_job_id")
     app_path, app_body = (None, None)
     if should_create_application_card(row, no_file):
         app_path, app_body = render_application_card(row)
     return AddPlan(
         rows=new_rows,
+        source_rows=new_source_rows,
         row=row,
-        warnings=ensure_valid(new_rows, emit_warnings=False),
+        warnings=ensure_dataset_valid(new_rows, new_source_rows, emit_warnings=False),
         app_path=app_path,
         app_body=app_body,
+        source_reference=source_reference,
+        source_reference_created=source_reference_created,
     )
 
 
@@ -578,6 +808,7 @@ def persist_add(plan):
             temporary_path = None
             created_path = plan.app_path
         save(plan.rows)
+        save_job_sources(plan.source_rows)
     except BaseException:
         if temporary_path:
             temporary_path.unlink(missing_ok=True)
@@ -587,13 +818,36 @@ def persist_add(plan):
     return created_path
 
 
+def add_duplicate_source_reference(values, duplicate_of, force=False):
+    rows = load()
+    source_rows = load_job_sources()
+    canonical_job = find(rows, duplicate_of)
+    reference = build_source_reference(canonical_job["id"], values, canonical_job["found_at"])
+    reference, created = prepare_source_reference(source_rows, reference, force=force)
+    new_source_rows = [*source_rows, reference] if created else source_rows
+    warnings = ensure_dataset_valid(rows, new_source_rows, emit_warnings=False)
+    if created:
+        save_job_sources(new_source_rows)
+    return {
+        "job": canonical_job,
+        "warnings": warnings,
+        "application_path": None,
+        "duplicate_of": canonical_job["id"],
+        "source_reference": source_reference_payload(reference, created),
+    }
+
+
 def add_job(values, force=False, duplicate_of=None, no_file=False):
-    plan = prepare_add(values, force=force, duplicate_of=duplicate_of, no_file=no_file)
+    if duplicate_of:
+        return add_duplicate_source_reference(values, duplicate_of, force=force)
+    plan = prepare_add(values, force=force, no_file=no_file)
     created_path = persist_add(plan)
     return {
         "job": plan.row,
         "warnings": plan.warnings,
         "application_path": created_path.relative_to(ROOT).as_posix() if created_path else None,
+        "source_reference": source_reference_payload(plan.source_reference, plan.source_reference_created)
+        if plan.source_reference else None,
     }
 
 
@@ -610,6 +864,7 @@ def add_values_from_args(args):
         "remote_policy": args.remote_policy,
         "original_url": args.original_url,
         "source_url": args.source_url,
+        "source_job_id": args.source_job_id,
         "location": args.location,
         "stack": args.stack,
         "salary": args.salary,
@@ -695,11 +950,29 @@ def cmd_add(args):
         else:
             print_duplicate_candidates(error.candidates)
         raise SystemExit(2)
+    except SourceReferenceConflict as error:
+        if args.format == "json":
+            print_json({
+                "ok": False,
+                "command": "add",
+                "error": "source_reference_conflict",
+                "message": error.message,
+                "existing": error.existing,
+            })
+        else:
+            print(f"source reference conflict: {error.message}")
+            print("это отдельная reference -> повторите с --force")
+        raise SystemExit(2)
     if args.format == "json":
         print_json({"ok": True, "command": "add", **result})
         return
     for warning in result["warnings"]:
         print(f"warn:  {warning}")
+    if result.get("duplicate_of"):
+        reference = result["source_reference"]
+        state = "добавлена" if reference["created"] else "уже существует"
+        print(f"{result['duplicate_of']}  source reference {state}: {reference['reference']['source_url'] or reference['reference']['source_job_id']}")
+        return
     if result["application_path"]:
         print(f"создан {result['application_path']}")
     row = result["job"]
@@ -761,9 +1034,10 @@ def apply_job_changes(row, assignments, stage=None):
 
 def set_job(job_id, assignments, stage=None):
     rows = load()
+    source_rows = load_job_sources()
     row = find(rows, job_id)
     apply_job_changes(row, assignments, stage=stage)
-    warnings = ensure_valid(rows, emit_warnings=False)
+    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
     save(rows)
     return {"job": row, "warnings": warnings}
 
@@ -781,13 +1055,15 @@ def cmd_set(args):
 
 def cmd_validate(args):
     rows = load()
-    errors, warnings = validate_rows(rows)
+    source_rows = load_job_sources()
+    errors, warnings = validate_dataset(rows, source_rows)
     ok = not errors and not (warnings and args.strict)
     if args.format == "json":
         print_json({
             "ok": ok,
             "command": "validate",
             "checked": len(rows),
+            "source_references": len(source_rows),
             "errors": errors,
             "warnings": warnings,
         })
@@ -798,7 +1074,7 @@ def cmd_validate(args):
         print(f"warn:  {warning}")
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
-    print(f"\nпроверено записей: {len(rows)}; ошибок: {len(errors)}; предупреждений: {len(warnings)}")
+    print(f"\nпроверено записей: {len(rows)}; source references: {len(source_rows)}; ошибок: {len(errors)}; предупреждений: {len(warnings)}")
     if not ok:
         raise SystemExit(1)
 
@@ -919,6 +1195,7 @@ def main():
     add.add_argument("--remote-policy", dest="remote_policy", choices=REMOTE)
     for flag, destination in [
         ("--original-url", "original_url"), ("--source-url", "source_url"),
+        ("--source-job-id", "source_job_id"),
         ("--location", "location"), ("--stack", "stack"), ("--salary", "salary"),
         ("--posted-at", "posted_at"), ("--found-at", "found_at"),
         ("--match-score", "match_score"), ("--notes", "notes"),
@@ -946,6 +1223,9 @@ def main():
     migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
     migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
     migrate.set_defaults(func=cmd_migrate_v2)
+    backfill_sources = subparsers.add_parser("backfill-sources", help="создать source references из historical jobs")
+    backfill_sources.add_argument("--check", action="store_true", help="проверить backfill без записи")
+    backfill_sources.set_defaults(func=cmd_backfill_sources)
     dupes = subparsers.add_parser("dupes", help="fuzzy-поиск дублей")
     dupes.add_argument("--threshold", type=float, default=.85)
     dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=.75)
