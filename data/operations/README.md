@@ -42,10 +42,19 @@ The runner creates the matching result exactly once in either mode.
 ```
 
 `operation_id` uses lowercase letters, digits, `.`, `_`, `-` and must match the
-filename. `expected` is a non-empty optimistic lock: any mismatch records a
-`conflict` result without changing canonical data.
+filename. For commands that update an existing job, `expected` is a non-empty
+optimistic lock: any mismatch records a `conflict` result without changing
+canonical data.
 
-Allowed child commands:
+Allowed single commands:
+
+- `add`: has only `version`, `operation_id`, `command`, and `args`; `job_id` is
+  assigned by `jobs.py` and `expected` is not used. It requires `company`,
+  `role`, and `source`, accepts the canonical `jobs.py add` input fields, and
+  permits only `application_status=not_started|reviewing`. External sources
+  require `source_url` or `source_job_id`. Optional `duplicate_of` attaches the
+  new source reference to an existing canonical job; optional boolean `force`
+  explicitly resolves a fuzzy duplicate or shared discovery URL.
 
 - `screen`: requires `decision_reason`; optional `notes`. It works only before
   application, clears the next action, and leaves listing/verification fields
@@ -63,6 +72,34 @@ Allowed child commands:
 Submitted-application human-event fields remain forbidden. A request cannot set
 `application_status` to `applied`, `interviewing`, `offer`, or `withdrawn`, nor
 change `applied_at` or `response_at`.
+
+Example new-job request:
+
+```json
+{
+  "version": 1,
+  "operation_id": "add-exampleco-frontend-20260811",
+  "command": "add",
+  "args": {
+    "company": "ExampleCo",
+    "role": "Frontend Developer",
+    "source": "LinkedIn",
+    "source_url": "https://www.linkedin.com/jobs/view/123",
+    "original_url": "https://careers.example.com/jobs/frontend",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "remote_policy": "Europe",
+    "stack": "React; TypeScript",
+    "match_score": 8
+  }
+}
+```
+
+An unresolved fuzzy duplicate or a conflicting source reference produces an
+immutable `conflict` result without adding a row. A confirmed duplicate is sent
+as a new request with `duplicate_of`. Every `add` is classified as medium risk.
 
 ## Phase B: atomic batch
 
@@ -116,11 +153,11 @@ Batch guarantees:
 - one immutable result records either `atomic_batch_applied` or the complete
   stale-operation conflict list.
 
-`add` and declarative ingest are still outside the current agent gateway and can
-be added as later Phase B extensions without changing this batch contract.
+`add` is currently single-operation only and cannot be a batch child.
+Declarative ingest remains outside the current agent gateway.
 
-`screen` and `set` are low-risk. `verify` with enrichment or a transition to
-`reviewing`/`apply` is medium-risk. A batch inherits the highest risk of its
+`screen` and `set` are low-risk. `add` and `verify` with enrichment or a
+transition to `reviewing`/`apply` are medium-risk. A batch inherits the highest risk of its
 children, so a screening-only batch remains low-risk.
 
 ## Runner contract

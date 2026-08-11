@@ -1,17 +1,17 @@
 # Agent operations: безопасный write-path через GitHub Actions
 
 Дата: 2026-08-11
-Статус: Phase A implemented; Phase B partially implemented (`screen` + atomic
-batch); остальное остаётся proposal для Tracker v2.1
+Статус: Phase A implemented; Phase B partially implemented (`add`, `screen` +
+atomic batch); остальное остаётся proposal для Tracker v2.1
 
 Реализация находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
 [`data/operations/`](../data/operations/) и workflow
 [`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
-поддерживает `screen`, `verify`, ограниченный `set` и atomic batch из этих
-операций, обязательные field-level preconditions и immutable result. Request на
+поддерживает single `add`, `screen`, `verify`, ограниченный `set` и atomic batch
+из update-операций, обязательные field-level preconditions и immutable result. Request на
 `main`, созданный по явной команде пользователя, применяет canonical diff прямо
-в `main`; request на `agent/*` остаётся PR-only. `add` и ingest по-прежнему
-относятся к следующим этапам.
+в `main`; request на `agent/*` остаётся PR-only. Ingest по-прежнему относится к
+следующим этапам.
 
 Result Phase A не содержит `commit_sha`: runner пишет его в том же Git commit,
 что и canonical diff, поэтому этот commit сам является неизменяемой audit link
@@ -148,6 +148,7 @@ Runner читает `command`, проверяет schema и policy, а зате�
 Текущий allowlist:
 
 ```text
+add
 screen
 verify
 set
@@ -158,6 +159,20 @@ batch
 этого batch/ingest operation должна ссылаться только на известный immutable raw
 batch внутри `data/inbox/`, проверять его hash и использовать существующий
 resolution contract.
+
+### `add`
+
+Создаёт новую canonical запись через `jobs.add_job`, поэтому ID, dedupe,
+provenance, application card и dataset validation остаются в штатном write-path.
+Request не содержит `job_id` и `expected`: ID назначается в момент исполнения.
+Обязательны `company`, `role`, `source`; внешний source требует `source_url` или
+`source_job_id`. Разрешены только `application_status=not_started|reviewing`.
+Все `add` имеют medium risk.
+
+Неразрешённый fuzzy duplicate или source-reference conflict создаёт immutable
+result со статусом `conflict` без canonical записи. Для подтверждённого дубля
+следующий request передаёт `duplicate_of`; boolean `force` остаётся явным
+решением для отдельной похожей вакансии или shared discovery URL.
 
 ### `screen`
 
@@ -178,8 +193,8 @@ verification/listing fields.
 ### `batch`
 
 Контейнер из нескольких разрешённых операций, применяемых атомарно.
-
-`add` остаётся следующим расширением Phase B и пока не входит в allowlist.
+Сейчас его children ограничены `screen`, `verify` и `set`; `add` поддерживается
+только как single operation.
 
 ## 6. Risk policy
 
@@ -502,7 +517,7 @@ scripts/job_store.py     shared canonical functions
 - atomic `batch` для `screen` / `verify` / `set` — implemented;
 - operation result files — implemented;
 - explicit main delivery и review PR — implemented;
-- `add` — planned;
+- single `add` + duplicate conflict/resolution — implemented;
 - richer PR summaries — planned.
 
 ### Phase C

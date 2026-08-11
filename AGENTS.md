@@ -122,7 +122,7 @@ fuzzy-кандидатов.
 GitHub connector не исполняет эти shell-команды. Для него CLI выше описывает
 ожидаемую семантику, а запись выполняется только созданием одного нового
 immutable request по контракту `data/operations/README.md`. Разрешены `screen`,
-`verify`, ограниченный `set` и `batch` только с `atomic=true`; `add`, `ingest` и
+`add`, `verify`, ограниченный `set` и `batch` только с `atomic=true`; `ingest` и
 human-only события через request не поддерживаются. Не считать операцию
 завершённой, пока runner не создал соответствующий result и canonical diff.
 

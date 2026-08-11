@@ -47,6 +47,10 @@ class AgentOperationsTests(unittest.TestCase):
         with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
             return list(csv.DictReader(file))
 
+    def source_rows(self):
+        with (self.root / "data" / "job_sources.csv").open(newline="", encoding="utf-8") as file:
+            return list(csv.DictReader(file))
+
     def seed_job(self):
         created = self.invoke_jobs(
             "add", "--company", "OperationCo", "--role", "Frontend Developer",
@@ -89,6 +93,145 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('> "$RUNNER_TEMP/operation-output.json"', workflow)
         self.assertIn('os.environ["RUNNER_TEMP"], "operation-output.json"', workflow)
         self.assertNotIn('> operation-output.json', workflow)
+
+    def test_medium_risk_add_creates_job_provenance_card_and_result(self):
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-001",
+            "command": "add",
+            "args": {
+                "company": "ConnectorCo",
+                "role": "Frontend Engineer",
+                "source": "LinkedIn",
+                "source_url": "https://www.linkedin.com/jobs/view/12345",
+                "original_url": "https://careers.example.test/jobs/frontend",
+                "application_status": "reviewing",
+                "listing_status": "open",
+                "first_party_verified": "yes",
+                "apply_verified": "yes",
+                "remote_policy": "Europe",
+                "match_score": 8.5,
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
+        self.assertEqual(payload["result"]["result"]["outcome"], "job_added")
+        self.assertEqual(payload["result"]["job_id"], "job-0001")
+        row = self.rows()[0]
+        self.assertEqual(
+            (row["company"], row["application_status"], row["listing_status"], row["match_score"]),
+            ("ConnectorCo", "reviewing", "open", "8.5"),
+        )
+        self.assertEqual(self.source_rows()[0]["job_id"], "job-0001")
+        self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
+        self.assertTrue((self.root / payload["result_path"]).exists())
+
+    def test_add_with_screening_blocker_does_not_create_application_card(self):
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-blocked-001",
+            "command": "add",
+            "args": {
+                "company": "BlockedCo",
+                "role": "Frontend Developer",
+                "source": "Himalayas",
+                "source_job_id": "blocked-123",
+                "decision_reason": "geo_restriction",
+                "notes": "Remote is limited to the United States.",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["result"]["result"]["application_path"], None)
+        self.assertEqual(self.rows()[0]["decision_reason"], "geo_restriction")
+        self.assertFalse(list((self.root / "applications").glob("job-0001-*.md")))
+
+    def test_add_records_unresolved_duplicate_as_immutable_conflict(self):
+        self.seed_job()
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-conflict-001",
+            "command": "add",
+            "args": {
+                "company": "OperationCo",
+                "role": "Frontend Developer",
+                "source": "LinkedIn",
+                "source_url": "https://www.linkedin.com/jobs/view/duplicate",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("conflict", "medium"))
+        self.assertEqual(payload["result"]["result"]["reason"], "unresolved_duplicate")
+        self.assertEqual(payload["result"]["result"]["candidates"][0]["id"], "job-0001")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+        self.assertTrue((self.root / payload["result_path"]).exists())
+
+    def test_add_can_attach_a_confirmed_duplicate_source_reference(self):
+        self.seed_job()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-source-001",
+            "command": "add",
+            "args": {
+                "company": "OperationCo",
+                "role": "Frontend Developer",
+                "source": "LinkedIn",
+                "source_url": "https://www.linkedin.com/jobs/view/another-location",
+                "duplicate_of": "job-0001",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["result"]["result"]["outcome"], "source_reference_added")
+        self.assertEqual(len(self.rows()), 1)
+        self.assertEqual(self.source_rows()[0]["job_id"], "job-0001")
+
+    def test_add_rejects_human_only_status_and_missing_external_reference(self):
+        human_only = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-applied-001",
+            "command": "add",
+            "args": {
+                "company": "UnsafeCo",
+                "role": "Frontend Developer",
+                "source": "Manual",
+                "application_status": "applied",
+            },
+        })
+        missing_reference = self.write_operation({
+            "version": 1,
+            "operation_id": "op-add-no-source-001",
+            "command": "add",
+            "args": {
+                "company": "NoSourceCo",
+                "role": "Frontend Developer",
+                "source": "LinkedIn",
+            },
+        })
+
+        first = self.invoke_operation("validate", str(human_only), "--format", "json")
+        second = self.invoke_operation("validate", str(missing_reference), "--format", "json")
+
+        self.assertNotEqual(first.returncode, 0)
+        self.assertIn("only to not_started or reviewing", first.stderr)
+        self.assertNotEqual(second.returncode, 0)
+        self.assertIn("requires source_url or source_job_id", second.stderr)
+        self.assertEqual(self.rows(), [])
 
     def test_low_risk_verify_uses_jobs_write_path_and_records_immutable_result(self):
         row = self.seed_job()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, json, re, shutil, sys, tempfile
+import argparse, json, math, re, shutil, sys, tempfile
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,6 +16,7 @@ MAX_BATCH_OPERATIONS = 100
 OPERATION_ID_RE = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}\Z")
 JOB_ID_RE = re.compile(r"job-\d{4,}\Z")
 SINGLE_TOP_LEVEL_FIELDS = {"version","operation_id","command","job_id","expected","args"}
+ADD_TOP_LEVEL_FIELDS = {"version","operation_id","command","args"}
 BATCH_TOP_LEVEL_FIELDS = {"version","operation_id","command","atomic","operations"}
 CHILD_FIELDS = {"command","job_id","expected","args"}
 VERIFY_REQUIRED_ARGS = {"listing_status","first_party_verified","apply_verified"}
@@ -25,6 +26,13 @@ SCREEN_REQUIRED_ARGS = {"decision_reason"}
 SCREEN_ALLOWED_ARGS = SCREEN_REQUIRED_ARGS | {"notes"}
 VERIFY_ENRICHMENT_ARGS = {"level","remote_policy","stack","salary","match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status","next_action","next_action_date"}
+ADD_CONTROL_ARGS = {"duplicate_of","force"}
+ADD_ALLOWED_ARGS = set(jobs.ADD_INPUT_FIELDS) | ADD_CONTROL_ARGS
+ADD_REQUIRED_ARGS = set(jobs.ADD_REQUIRED_INPUT_FIELDS)
+ADD_APPLICATION_STATUSES = {"not_started","reviewing"}
+ADD_DUPLICATE_ARGS = ADD_REQUIRED_ARGS | {
+    "source_url","source_job_id","found_at","duplicate_of","force",
+}
 class OperationError(ValueError): pass
 def die(message):
     print(f"error: {message}", file=sys.stderr); raise SystemExit(1)
@@ -103,6 +111,66 @@ def validate_screen_args(args,prefix="args"):
     if out["decision_reason"] not in jobs.SCREEN_REASONS: raise OperationError(f"{prefix}.decision_reason is not allowed for screen")
     if out["decision_reason"]=="other" and not out.get("notes","").strip(): raise OperationError("screen decision_reason=other requires non-empty notes")
     return out
+def validate_add_args(args,prefix="args"):
+    if not isinstance(args,dict): raise OperationError(f"{prefix} must be an object")
+    unknown=sorted(set(args)-ADD_ALLOWED_ARGS); missing=sorted(ADD_REQUIRED_ARGS-set(args))
+    if unknown or missing:
+        parts=[]
+        if unknown: parts.append("unknown add args: "+", ".join(unknown))
+        if missing: parts.append("missing add args: "+", ".join(missing))
+        raise OperationError("; ".join(parts))
+    out={}
+    for k,v in args.items():
+        if k=="force":
+            if not isinstance(v,bool): raise OperationError(f"{prefix}.force must be a boolean")
+            out[k]=v
+        elif k=="match_score":
+            if not isinstance(v,(str,int,float)) or isinstance(v,bool): raise OperationError(f"{prefix}.match_score must be a string or number")
+            out[k]=str(v)
+        else: out[k]=clean_text(v,f"{prefix}.{k}")
+    for k in ADD_REQUIRED_ARGS:
+        if not out[k].strip(): raise OperationError(f"{prefix}.{k} must not be empty")
+    if out["source"] not in jobs.SOURCES: raise OperationError(f"{prefix}.source is not a known source")
+    if out.get("application_status","not_started") not in ADD_APPLICATION_STATUSES: raise OperationError("add may set application_status only to not_started or reviewing")
+    for k,allowed in (
+        ("listing_status",jobs.LISTING_STATUSES),
+        ("first_party_verified",jobs.VERIFICATION),
+        ("apply_verified",jobs.VERIFICATION),
+        ("level",jobs.LEVELS),
+        ("remote_policy",jobs.REMOTE),
+    ):
+        if k in out and out[k] not in allowed: raise OperationError(f"{prefix}.{k} is not a known value")
+    for k in ("original_url","source_url"):
+        if out.get(k) and not jobs.valid_http_url(out[k]): raise OperationError(f"{prefix}.{k} must be an absolute http(s) URL")
+    for k in ("posted_at","found_at"):
+        if out.get(k):
+            try: datetime.strptime(out[k],"%Y-%m-%d")
+            except ValueError as error: raise OperationError(f"{prefix}.{k} must be YYYY-MM-DD") from error
+    if out.get("match_score",""):
+        try: score=float(out["match_score"])
+        except ValueError as error: raise OperationError(f"{prefix}.match_score must be a number from 1 to 10") from error
+        if not math.isfinite(score) or not 1<=score<=10: raise OperationError(f"{prefix}.match_score must be a number from 1 to 10")
+    reason=out.get("decision_reason","")
+    if reason and reason not in jobs.PRE_APPLICATION_REASONS-{"duplicate_listing"}: raise OperationError(f"{prefix}.decision_reason is not allowed for add")
+    if reason=="other" and not out.get("notes","").strip(): raise OperationError("add decision_reason=other requires non-empty notes")
+    status=out.get("application_status","not_started")
+    if reason and status!="not_started": raise OperationError("add decision_reason requires application_status=not_started")
+    listing=out.get("listing_status","unknown")
+    if reason=="closed_before_application" and listing!="closed": raise OperationError("closed_before_application requires listing_status=closed")
+    if listing=="closed" and status=="not_started" and reason!="closed_before_application": raise OperationError("listing_status=closed before application requires decision_reason=closed_before_application")
+    first_party=out.get("first_party_verified","unknown")
+    apply_verified=out.get("apply_verified","unknown")
+    if first_party=="yes" and not out.get("original_url",""): raise OperationError("first_party_verified=yes requires original_url")
+    if apply_verified=="yes" and first_party!="yes": raise OperationError("apply_verified=yes requires first_party_verified=yes")
+    if out["source"] not in jobs.SOURCES_WITHOUT_EXTERNAL_REFERENCE and not (out.get("source_url","").strip() or out.get("source_job_id","").strip()): raise OperationError("external add requires source_url or source_job_id")
+    duplicate_of=out.get("duplicate_of","")
+    if "duplicate_of" in out and not duplicate_of: raise OperationError(f"{prefix}.duplicate_of must not be empty")
+    if duplicate_of:
+        if not JOB_ID_RE.fullmatch(duplicate_of): raise OperationError(f"{prefix}.duplicate_of must be job-NNNN")
+        ignored=sorted(set(out)-ADD_DUPLICATE_ARGS)
+        if ignored: raise OperationError("duplicate add contains canonical fields that would be ignored: "+", ".join(ignored))
+        if not (out.get("source_url","").strip() or out.get("source_job_id","").strip()): raise OperationError("duplicate add requires source_url or source_job_id")
+    return out
 def validate_child(value,index=None):
     prefix=f"operations[{index}]" if index is not None else "operation"
     if not isinstance(value,dict): raise OperationError(f"{prefix} must be an object")
@@ -127,6 +195,14 @@ def validate_operation(value):
     operation_id=clean_text(value.get("operation_id"),"operation_id") if "operation_id" in value else None
     if operation_id is None or not OPERATION_ID_RE.fullmatch(operation_id): raise OperationError("operation_id must use lowercase letters, digits, '.', '_' or '-'")
     command=clean_text(value.get("command"),"command") if "command" in value else None
+    if command=="add":
+        unknown=sorted(set(value)-ADD_TOP_LEVEL_FIELDS); missing=sorted(ADD_TOP_LEVEL_FIELDS-set(value))
+        if unknown or missing:
+            parts=[]
+            if unknown: parts.append("unknown top-level fields: "+", ".join(unknown))
+            if missing: parts.append("missing top-level fields: "+", ".join(missing))
+            raise OperationError("; ".join(parts))
+        return {"version":OPERATION_VERSION,"operation_id":operation_id,"command":"add","args":validate_add_args(value["args"])}
     if command=="batch":
         unknown=sorted(set(value)-BATCH_TOP_LEVEL_FIELDS); missing=sorted(BATCH_TOP_LEVEL_FIELDS-set(value))
         if unknown or missing:
@@ -148,7 +224,7 @@ def validate_operation(value):
         if unknown: parts.append("unknown top-level fields: "+", ".join(unknown))
         if missing: parts.append("missing top-level fields: "+", ".join(missing))
         raise OperationError("; ".join(parts))
-    if command not in {"screen","verify","set"}: raise OperationError("command must be screen, verify, set, or batch")
+    if command not in {"screen","verify","set"}: raise OperationError("command must be add, screen, verify, set, or batch")
     child=validate_child({"command":command,"job_id":value["job_id"],"expected":value["expected"],"args":value["args"]})
     return {"version":OPERATION_VERSION,"operation_id":operation_id,**child}
 def load_operation(path):
@@ -175,6 +251,7 @@ def classify_child_risk(operation,row):
     if passed and row["application_status"]=="not_started": return "medium"
     return "low"
 def classify_risk(operation,rows_by_id=None):
+    if operation["command"]=="add": return "medium"
     if operation["command"]!="batch":
         row=rows_by_id[operation["job_id"]] if rows_by_id is not None else read_job(operation["job_id"])
         return classify_child_risk(operation,row)
@@ -190,10 +267,12 @@ def apply_operation(operation,row):
     if "listing_status" in operation["args"] and row["application_status"] not in jobs.NEEDS_APPLIED_AT: raise OperationError("listing_status=closed through set is allowed only after an application exists")
     result=jobs.set_job(operation["job_id"],list(operation["args"].items()))
     return {"job":result["job"],"warnings":result["warnings"],"outcome":"updated","application_path":None}
-def operation_result(operation,*,status,risk,details):
+def operation_result(operation,*,status,risk,details,job_id=None):
     result={"version":OPERATION_VERSION,"operation_id":operation["operation_id"],"status":status,"executed_at":utc_now(),"risk":risk,"command":operation["command"],"result":details}
-    if operation["command"]!="batch": result["job_id"]=operation["job_id"]
-    else: result["jobs"]=[child["job_id"] for child in operation["operations"]]
+    if operation["command"]=="add":
+        if job_id: result["job_id"]=job_id
+    elif operation["command"]=="batch": result["jobs"]=[child["job_id"] for child in operation["operations"]]
+    else: result["job_id"]=operation["job_id"]
     return result
 def write_result(operation,result):
     path=result_path(operation["operation_id"])
@@ -244,6 +323,23 @@ def execute_batch(operation):
 def execute(path):
     operation=load_operation(path)
     if result_path(operation["operation_id"]).exists(): raise OperationError(f"operation_id already has a result: {result_path(operation['operation_id']).relative_to(ROOT)}")
+    if operation["command"]=="add":
+        risk="medium"; args=dict(operation["args"]); force=args.pop("force",False); duplicate_of=args.pop("duplicate_of",None)
+        if duplicate_of and not any(row["id"]==duplicate_of for row in jobs.load()): raise OperationError(f"job {duplicate_of} was not found")
+        try: applied=jobs.add_job(args,force=force,duplicate_of=duplicate_of,no_file=False)
+        except jobs.UnresolvedDuplicate as error:
+            candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason} for row,reason in error.candidates.values()]
+            result=operation_result(operation,status="conflict",risk=risk,details={"reason":"unresolved_duplicate","candidates":candidates})
+            return result,write_result(operation,result)
+        except jobs.SourceReferenceConflict as error:
+            result=operation_result(operation,status="conflict",risk=risk,details={"reason":"source_reference_conflict","message":error.message,"existing":error.existing})
+            return result,write_result(operation,result)
+        updated=applied["job"]; errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
+        if errors: raise OperationError("post-operation dataset validation failed: "+"; ".join(errors))
+        outcome="source_reference_added" if applied.get("duplicate_of") else "job_added"
+        details={"outcome":outcome,"job_id":updated["id"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"application_path":applied.get("application_path"),"source_reference":applied.get("source_reference"),"warnings":[*applied["warnings"],*validation_warnings]}
+        result=operation_result(operation,status="completed",risk=risk,details=details,job_id=updated["id"])
+        return result,write_result(operation,result)
     if operation["command"]=="batch":
         rows_by_id={row["id"]:row for row in jobs.load()}; conflicts=batch_preconditions(operation,rows_by_id); risk=classify_risk(operation,rows_by_id)
         if conflicts:
