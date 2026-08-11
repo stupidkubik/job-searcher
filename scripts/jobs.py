@@ -354,6 +354,10 @@ def migrate_v1_rows(rows):
             "first_party_verified": "unknown",
             "apply_verified": "unknown",
         })
+        if status == "Closed":
+            row["decision_reason"] = "closed_before_application"
+        elif status == "Duplicate":
+            row["decision_reason"] = "duplicate_listing"
         migrated.append(row)
     return migrated
 
@@ -453,7 +457,11 @@ def cmd_add(args):
     save(rows)
     if create_file and not app_path.exists():
         body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("job-0000", identifier).replace("{{company}}", company).replace("{{role}}", role)
-        body = body.replace("company:", f"company: {company}", 1).replace("role:", f"role: {role}", 1).replace("original_url:", f"original_url: {args.original_url or ''}", 1)
+        for key in (
+            "company", "role", "original_url", "verified_at", "listing_status",
+            "first_party_verified", "apply_verified",
+        ):
+            body = body.replace(f"{key}:", f"{key}: {row[key]}", 1)
         app_path.write_text(body, encoding="utf-8")
         print(f"создан {app_path.relative_to(ROOT)}")
     print(f"{identifier}  {company} — {role}  [{application_status}; {listing_status}]")

@@ -3,18 +3,23 @@ id: job-0000
 company:
 role:
 original_url:
+verified_at:
+listing_status:
+first_party_verified:
+apply_verified:
 ---
 
 # {{company}} — {{role}}
 
 ## Проверка первоисточника
 
-- [ ] вакансия открыта
-- [ ] Apply работает, нет «No longer accepting applications»
+- Структурированные поля выше должны совпадать с `data/jobs.csv`.
+- [ ] вакансия открыта (`listing_status=open`)
+- [ ] Apply работает, нет «No longer accepting applications» (`apply_verified=yes`)
 - [ ] локация и remote-ограничения проверены в тексте
 - [ ] seniority
 - [ ] work authorization
-- Дата проверки:
+- Результат проверки / причина `no`:
 
 ## Требования (выжимка)
 

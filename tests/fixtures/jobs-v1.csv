@@ -1,0 +1,13 @@
+id,status,company,role,level,original_url,source_url,source,location,remote_policy,stack,salary,posted_at,found_at,match_score,stage_reached,decision_reason,applied_at,response_at,next_action,next_action_date,cv_version,cover_letter,contact_name,contact_url,last_update,notes
+job-0001,New,ExampleNew,Frontend Developer,Junior,https://example.test/1,https://source.test/1,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,,,,,,,no,,,2026-08-01,
+job-0002,Reviewing,ExampleReviewing,Frontend Developer,Junior,https://example.test/2,https://source.test/2,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,,,,,,,no,,,2026-08-01,
+job-0003,Apply,ExampleApply,Frontend Developer,Junior,https://example.test/3,https://source.test/3,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,,,,,,,no,,,2026-08-01,
+job-0004,Applied,ExampleApplied,Frontend Developer,Junior,https://example.test/4,https://source.test/4,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Applied,,2026-08-02,,,,,no,,,2026-08-02,
+job-0005,Interviewing,ExampleInterviewing,Frontend Developer,Junior,https://example.test/5,https://source.test/5,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Recruiter screen,,2026-08-02,2026-08-03,,,,no,,,2026-08-03,
+job-0006,Offer,ExampleOffer,Frontend Developer,Junior,https://example.test/6,https://source.test/6,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Offer,,2026-08-02,2026-08-03,,,,no,,,2026-08-03,
+job-0007,Rejected,ExampleRejected,Frontend Developer,Junior,https://example.test/7,https://source.test/7,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Applied,,2026-08-02,2026-08-03,,,,no,,,2026-08-03,
+job-0008,Ghosted,ExampleGhosted,Frontend Developer,Junior,https://example.test/8,https://source.test/8,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Applied,,2026-08-02,,,,,no,,,2026-08-02,
+job-0009,Skipped,ExampleSkipped,Frontend Developer,Junior,https://example.test/9,https://source.test/9,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,geo_restriction,,,,,,no,,,2026-08-01,
+job-0010,Closed,ExampleClosed,Frontend Developer,Junior,https://example.test/10,https://source.test/10,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,closed_before_application,,,,,,no,,,2026-08-01,
+job-0011,Duplicate,ExampleDuplicate,Frontend Developer,Junior,https://example.test/11,https://source.test/11,Manual,Remote,Global,React,Unknown,,2026-08-01,7,None,duplicate_listing,,,,,,no,,,2026-08-01,duplicate of job-0001
+job-0012,Withdrawn,ExampleWithdrawn,Frontend Developer,Junior,https://example.test/12,https://source.test/12,Manual,Remote,Global,React,Unknown,,2026-08-01,7,Applied,withdrawn_by_me,2026-08-02,,,,,no,,,2026-08-03,
