@@ -1,0 +1,15 @@
+{
+  "command": "verify",
+  "executed_at": "2026-08-11T16:58:00Z",
+  "job_id": "job-0102",
+  "operation_id": "rew-0102-closed-20260811",
+  "result": {
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "outcome": "blocked",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
