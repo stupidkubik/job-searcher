@@ -1,0 +1,15 @@
+{
+  "command": "verify",
+  "executed_at": "2026-08-11T17:43:07Z",
+  "job_id": "job-0124",
+  "operation_id": "micro1-0124-ai-interview-20260811",
+  "result": {
+    "application_status": "apply",
+    "listing_status": "open",
+    "outcome": "ready_to_continue_application",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

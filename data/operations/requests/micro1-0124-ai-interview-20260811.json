@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "micro1-0124-ai-interview-20260811",
+  "command": "verify",
+  "job_id": "job-0124",
+  "expected": {
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "last_update": "2026-08-11"
+  },
+  "args": {
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "original_url": "https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f",
+    "remote_policy": "Global",
+    "stack": "TypeScript; CSS3; Responsive Web Design; Component Style Guides; Design Systems; Accessibility; UI Performance Optimization",
+    "salary": "$40 - $50/hour",
+    "match_score": 9,
+    "application_status": "apply",
+    "next_action": "complete micro1 AI interview",
+    "notes": "Micro1 emails on 2026-08-05 and 2026-08-06 confirm an incomplete application and pending AI interview; do not submit a duplicate application."
+  }
+}
