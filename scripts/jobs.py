@@ -3,6 +3,7 @@
 
 import argparse
 import csv
+import json
 import math
 import os
 import re
@@ -57,6 +58,13 @@ APPLICATION_STATUSES = [
     "rejected", "ghosted", "withdrawn",
 ]
 ADD_APPLICATION_STATUSES = ["not_started", "reviewing", "apply"]
+ADD_INPUT_FIELDS = {
+    "company", "role", "source", "application_status", "listing_status",
+    "first_party_verified", "apply_verified", "level", "remote_policy",
+    "original_url", "source_url", "location", "stack", "salary", "posted_at",
+    "found_at", "match_score", "decision_reason", "notes",
+}
+ADD_REQUIRED_INPUT_FIELDS = {"company", "role", "source"}
 LISTING_STATUSES = ["open", "closed", "unknown"]
 VERIFICATION = ["yes", "no", "unknown"]
 STAGES = ["None", "Applied", "Recruiter screen", "Tech interview", "Test task", "Final interview", "Offer"]
@@ -139,6 +147,10 @@ def today():
 def die(message):
     print(f"error: {message}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def print_json(payload):
+    print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
 
 
 def read_csv():
@@ -609,15 +621,83 @@ def add_values_from_args(args):
     }
 
 
+def parse_add_json(raw, source_name):
+    try:
+        values = json.loads(raw)
+    except json.JSONDecodeError as error:
+        die(f"{source_name}: некорректный JSON: {error.msg}")
+    if not isinstance(values, dict):
+        die(f"{source_name}: ожидается один JSON object")
+    unknown = sorted(set(values) - ADD_INPUT_FIELDS)
+    if unknown:
+        die(f"{source_name}: неизвестные или управляемые поля JSON: {', '.join(unknown)}")
+    missing = sorted(key for key in ADD_REQUIRED_INPUT_FIELDS if not values.get(key))
+    if missing:
+        die(f"{source_name}: обязательные JSON-поля: {', '.join(missing)}")
+    for key, value in values.items():
+        if key == "match_score":
+            valid_number = isinstance(value, (int, float)) and not isinstance(value, bool)
+            if not isinstance(value, str) and not valid_number:
+                die(f"{source_name}: match_score должен быть строкой или числом")
+        elif not isinstance(value, str):
+            die(f"{source_name}: {key} должен быть строкой")
+    return values
+
+
+def load_add_values(args):
+    cli_values = add_values_from_args(args)
+    if args.json_path or args.stdin:
+        supplied = sorted(key for key, value in cli_values.items() if value is not None)
+        if supplied:
+            die("--json/--stdin нельзя совмещать с полями вакансии из CLI: " + ", ".join(supplied))
+        if args.json_path:
+            path = Path(args.json_path)
+            try:
+                raw = path.read_text(encoding="utf-8")
+            except (OSError, UnicodeError) as error:
+                die(f"не удалось прочитать JSON {path}: {error}")
+            return parse_add_json(raw, str(path))
+        return parse_add_json(sys.stdin.read(), "stdin")
+    missing = sorted(key for key in ADD_REQUIRED_INPUT_FIELDS if not cli_values.get(key))
+    if missing:
+        die("для add без --json/--stdin обязательны: " + ", ".join(missing))
+    return cli_values
+
+
+def duplicate_candidates_payload(candidates):
+    return [
+        {
+            "id": row["id"],
+            "company": row["company"],
+            "role": row["role"],
+            "application_status": row["application_status"],
+            "listing_status": row["listing_status"],
+            "reason": reason,
+        }
+        for row, reason in candidates.values()
+    ]
+
+
 def cmd_add(args):
     try:
         result = add_job(
-            add_values_from_args(args), force=args.force, duplicate_of=args.duplicate_of,
+            load_add_values(args), force=args.force, duplicate_of=args.duplicate_of,
             no_file=args.no_file,
         )
     except UnresolvedDuplicate as error:
-        print_duplicate_candidates(error.candidates)
+        if args.format == "json":
+            print_json({
+                "ok": False,
+                "command": "add",
+                "error": "unresolved_duplicate",
+                "candidates": duplicate_candidates_payload(error.candidates),
+            })
+        else:
+            print_duplicate_candidates(error.candidates)
         raise SystemExit(2)
+    if args.format == "json":
+        print_json({"ok": True, "command": "add", **result})
+        return
     for warning in result["warnings"]:
         print(f"warn:  {warning}")
     if result["application_path"]:
@@ -690,6 +770,9 @@ def set_job(job_id, assignments, stage=None):
 
 def cmd_set(args):
     result = set_job(args.id, parse_field_assignments(args.field), stage=args.stage)
+    if args.format == "json":
+        print_json({"ok": True, "command": "set", **result})
+        return
     for warning in result["warnings"]:
         print(f"warn:  {warning}")
     row = result["job"]
@@ -699,31 +782,62 @@ def cmd_set(args):
 def cmd_validate(args):
     rows = load()
     errors, warnings = validate_rows(rows)
+    ok = not errors and not (warnings and args.strict)
+    if args.format == "json":
+        print_json({
+            "ok": ok,
+            "command": "validate",
+            "checked": len(rows),
+            "errors": errors,
+            "warnings": warnings,
+        })
+        if not ok:
+            raise SystemExit(1)
+        return
     for warning in warnings:
         print(f"warn:  {warning}")
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
     print(f"\nпроверено записей: {len(rows)}; ошибок: {len(errors)}; предупреждений: {len(warnings)}")
-    if errors or (warnings and args.strict):
+    if not ok:
         raise SystemExit(1)
 
 
-def cmd_dupes(args):
-    rows = [row for row in load() if row["decision_reason"] != "duplicate_listing"]
-    found = 0
+def find_fuzzy_duplicates(rows, company_threshold, role_threshold):
+    candidates = []
     for index, first in enumerate(rows):
         for second in rows[index + 1:]:
             company_score = similarity(without_noise(first["company"], COMPANY_NOISE), without_noise(second["company"], COMPANY_NOISE))
             role_score = similarity(without_noise(first["role"], ROLE_NOISE), without_noise(second["role"], ROLE_NOISE))
-            if company_score >= args.threshold and role_score >= args.role_threshold:
-                found += 1
-                print(
-                    f"company {company_score:.2f} / role {role_score:.2f}\n"
-                    f"  {first['id']}  {first['company']} — {first['role']}  [{first['application_status']}; {first['listing_status']}]\n"
-                    f"  {second['id']}  {second['company']} — {second['role']}  [{second['application_status']}; {second['listing_status']}]\n"
-                )
-    print(f"пар-кандидатов: {found}")
-    if found and args.fail:
+            if company_score >= company_threshold and role_score >= role_threshold:
+                candidates.append({
+                    "company_similarity": round(company_score, 4),
+                    "role_similarity": round(role_score, 4),
+                    "first": first,
+                    "second": second,
+                })
+    return candidates
+
+
+def cmd_dupes(args):
+    rows = [row for row in load() if row["decision_reason"] != "duplicate_listing"]
+    candidates = find_fuzzy_duplicates(rows, args.threshold, args.role_threshold)
+    if args.format == "json":
+        print_json({
+            "ok": not (candidates and args.fail),
+            "command": "dupes",
+            "candidates": candidates,
+        })
+    else:
+        for candidate in candidates:
+            first, second = candidate["first"], candidate["second"]
+            print(
+                f"company {candidate['company_similarity']:.2f} / role {candidate['role_similarity']:.2f}\n"
+                f"  {first['id']}  {first['company']} — {first['role']}  [{first['application_status']}; {first['listing_status']}]\n"
+                f"  {second['id']}  {second['company']} — {second['role']}  [{second['application_status']}; {second['listing_status']}]\n"
+            )
+        print(f"пар-кандидатов: {len(candidates)}")
+    if candidates and args.fail:
         raise SystemExit(1)
 
 
@@ -794,15 +908,15 @@ def main():
     parser = JobsArgumentParser(prog="jobs.py", description="CLI для data/jobs.csv")
     subparsers = parser.add_subparsers(dest="command", required=True, parser_class=JobsArgumentParser)
     add = subparsers.add_parser("add", help="добавить вакансию")
-    add.add_argument("--company", required=True)
-    add.add_argument("--role", required=True)
-    add.add_argument("--source", required=True, choices=SOURCES)
-    add.add_argument("--application-status", default="not_started", choices=ADD_APPLICATION_STATUSES)
-    add.add_argument("--listing-status", default="unknown", choices=LISTING_STATUSES)
-    add.add_argument("--first-party-verified", default="unknown", choices=VERIFICATION)
-    add.add_argument("--apply-verified", default="unknown", choices=VERIFICATION)
-    add.add_argument("--level", default="Unknown", choices=LEVELS)
-    add.add_argument("--remote-policy", dest="remote_policy", default="Unclear", choices=REMOTE)
+    add.add_argument("--company")
+    add.add_argument("--role")
+    add.add_argument("--source", choices=SOURCES)
+    add.add_argument("--application-status", choices=ADD_APPLICATION_STATUSES)
+    add.add_argument("--listing-status", choices=LISTING_STATUSES)
+    add.add_argument("--first-party-verified", choices=VERIFICATION)
+    add.add_argument("--apply-verified", choices=VERIFICATION)
+    add.add_argument("--level", choices=LEVELS)
+    add.add_argument("--remote-policy", dest="remote_policy", choices=REMOTE)
     for flag, destination in [
         ("--original-url", "original_url"), ("--source-url", "source_url"),
         ("--location", "location"), ("--stack", "stack"), ("--salary", "salary"),
@@ -811,17 +925,23 @@ def main():
     ]:
         add.add_argument(flag, dest=destination)
     add.add_argument("--decision-reason", dest="decision_reason", choices=REASONS)
+    input_source = add.add_mutually_exclusive_group()
+    input_source.add_argument("--json", dest="json_path", metavar="PATH")
+    input_source.add_argument("--stdin", action="store_true")
     add.add_argument("--duplicate-of", dest="duplicate_of", metavar="JOB_ID")
     add.add_argument("--no-file", action="store_true")
     add.add_argument("--force", action="store_true")
+    add.add_argument("--format", choices=("text", "json"), default="text")
     add.set_defaults(func=cmd_add)
     set_parser = subparsers.add_parser("set", help="изменить запись")
     set_parser.add_argument("id")
     set_parser.add_argument("field", nargs="*")
     set_parser.add_argument("--stage")
+    set_parser.add_argument("--format", choices=("text", "json"), default="text")
     set_parser.set_defaults(func=cmd_set)
     validate = subparsers.add_parser("validate", help="проверить целостность")
     validate.add_argument("--strict", action="store_true")
+    validate.add_argument("--format", choices=("text", "json"), default="text")
     validate.set_defaults(func=cmd_validate)
     migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
     migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
@@ -830,6 +950,7 @@ def main():
     dupes.add_argument("--threshold", type=float, default=.85)
     dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=.75)
     dupes.add_argument("--fail", action="store_true")
+    dupes.add_argument("--format", choices=("text", "json"), default="text")
     dupes.set_defaults(func=cmd_dupes)
     report = subparsers.add_parser("report", help="markdown-отчёт в stdout")
     report.set_defaults(func=cmd_report)

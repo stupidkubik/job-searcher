@@ -1,0 +1,8 @@
+{
+  "company": "Untrusted ExampleCo",
+  "role": "Frontend Engineer",
+  "source": "Manual",
+  "id": "job-9999",
+  "last_update": "2000-01-01",
+  "unexpected_field": "must be rejected"
+}

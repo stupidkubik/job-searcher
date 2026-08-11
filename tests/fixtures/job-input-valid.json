@@ -1,0 +1,15 @@
+{
+  "company": "Json ExampleCo",
+  "role": "Frontend Engineer",
+  "source": "Manual",
+  "application_status": "reviewing",
+  "listing_status": "open",
+  "first_party_verified": "yes",
+  "apply_verified": "yes",
+  "original_url": "https://careers.example.test/jobs/json",
+  "source_url": "https://source.example.test/jobs/json",
+  "remote_policy": "Global",
+  "stack": "React; TypeScript",
+  "match_score": 8.5,
+  "notes": "Fixture for structured CLI input."
+}

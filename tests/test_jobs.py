@@ -1,4 +1,5 @@
 import csv
+import json
 import shutil
 import subprocess
 import sys
@@ -10,6 +11,8 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
 V1_FIXTURE = PROJECT / "tests" / "fixtures" / "jobs-v1.csv"
+VALID_JSON_FIXTURE = PROJECT / "tests" / "fixtures" / "job-input-valid.json"
+INVALID_JSON_FIXTURE = PROJECT / "tests" / "fixtures" / "job-input-invalid.json"
 V1_STATUS_MAPPING = {
     "New": ("not_started", "unknown"),
     "Reviewing": ("reviewing", "unknown"),
@@ -40,10 +43,10 @@ class JobsCliTests(unittest.TestCase):
     def tearDown(self):
         self.temporary.cleanup()
 
-    def invoke(self, *arguments):
+    def invoke(self, *arguments, input_text=None):
         return subprocess.run(
             [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            text=True, input=input_text, capture_output=True,
         )
 
     def rows(self):
@@ -118,13 +121,76 @@ class JobsCliTests(unittest.TestCase):
     def test_invalid_cli_input_uses_exit_code_one(self):
         result = self.invoke("add", "--company", "MissingRoleAndSource")
         self.assertEqual(result.returncode, 1)
-        self.assertIn("the following arguments are required", result.stderr)
+        self.assertIn("для add без --json/--stdin обязательны", result.stderr)
+
+    def test_add_accepts_json_file_and_returns_canonical_json(self):
+        result = self.invoke("add", "--json", str(VALID_JSON_FIXTURE), "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["ok"], payload["command"]), (True, "add"))
+        self.assertEqual(payload["job"]["id"], "job-0001")
+        self.assertEqual(payload["job"]["company"], "Json ExampleCo")
+        self.assertEqual(payload["job"]["last_update"], date.today().isoformat())
+        self.assertTrue(payload["application_path"].startswith("applications/job-0001-"))
+        self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
+
+    def test_add_accepts_json_from_stdin_without_cli_field_merge(self):
+        input_text = json.dumps({
+            "company": "Stdin ExampleCo",
+            "role": "Frontend Developer",
+            "source": "Manual",
+        })
+        result = self.invoke("add", "--stdin", "--no-file", "--format", "json", input_text=input_text)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["job"]["company"], "Stdin ExampleCo")
+        self.assertIsNone(payload["application_path"])
+
+    def test_add_rejects_unknown_or_authoritative_json_fields_without_writing(self):
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        invalid = self.invoke("add", "--json", str(INVALID_JSON_FIXTURE), "--no-file")
+        self.assertEqual(invalid.returncode, 1)
+        self.assertIn("id, last_update, unexpected_field", invalid.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+        merged = self.invoke("add", "--json", str(VALID_JSON_FIXTURE), "--company", "ConflictingCo")
+        self.assertEqual(merged.returncode, 1)
+        self.assertIn("нельзя совмещать", merged.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+        mutually_exclusive = self.invoke(
+            "add", "--json", str(VALID_JSON_FIXTURE), "--stdin",
+            input_text='{"company":"Ignored","role":"Frontend Developer","source":"Manual"}',
+        )
+        self.assertEqual(mutually_exclusive.returncode, 1)
+        self.assertIn("not allowed with argument", mutually_exclusive.stderr)
+
+    def test_set_validate_and_dupes_support_single_json_output(self):
+        self.assertEqual(self.add("MachineCo", "Frontend Developer", "--no-file").returncode, 0)
+        updated = self.invoke("set", "job-0001", "listing_status=open", "--format", "json")
+        self.assertEqual(updated.returncode, 0, updated.stderr)
+        update_payload = json.loads(updated.stdout)
+        self.assertEqual((update_payload["ok"], update_payload["command"]), (True, "set"))
+        self.assertEqual(update_payload["job"]["listing_status"], "open")
+
+        validated = self.invoke("validate", "--strict", "--format", "json")
+        self.assertEqual(validated.returncode, 0, validated.stderr)
+        validation_payload = json.loads(validated.stdout)
+        self.assertEqual((validation_payload["ok"], validation_payload["checked"]), (True, 1))
+
+        dupes = self.invoke("dupes", "--format", "json")
+        self.assertEqual(dupes.returncode, 0, dupes.stderr)
+        duplicate_payload = json.loads(dupes.stdout)
+        self.assertEqual((duplicate_payload["ok"], duplicate_payload["command"], duplicate_payload["candidates"]), (True, "dupes", []))
 
     def test_canonical_url_duplicate_requires_explicit_decision(self):
         self.assertEqual(self.add("ExeQut", "Front-End Software Developer", "--original-url", "https://example.com/jobs/1/", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        duplicate = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://example.com/jobs/1?utm_source=board#apply", "--no-file")
+        duplicate = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://example.com/jobs/1?utm_source=board#apply", "--no-file", "--format", "json")
         self.assertEqual(duplicate.returncode, 2)
+        payload = json.loads(duplicate.stdout)
+        self.assertEqual((payload["ok"], payload["error"]), (False, "unresolved_duplicate"))
+        self.assertEqual(payload["candidates"][0]["id"], "job-0001")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         confirmed = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://mirror.example/jobs/1", "--duplicate-of", "job-0001", "--no-file")
         self.assertEqual(confirmed.returncode, 0, confirmed.stderr)
