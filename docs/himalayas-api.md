@@ -15,7 +15,7 @@ Himalayas exposes a public JSON jobs API that is well suited to discovery before
 
 Treat the API as a discovery layer only. `expiryDate` and an application link do **not** prove that the employer still has the role open. The repository rule remains unchanged: verify the first-party careers/ATS page before treating a vacancy as actionable.
 
-The public API is cached and refreshed roughly daily, so one narrow run per day is enough. Respect rate limits and back off on HTTP 429.
+The public API is cached and refreshed roughly daily. Respect rate limits and back off on HTTP 429. The canonical operating policy — cadence, age windows, geo, queries, verification gates and caveats — lives in [`config/sources.toml`](../config/sources.toml), not in this document.
 
 ## Endpoints
 
@@ -74,91 +74,22 @@ For imported jobs:
 - `source_url` = Himalayas job card
 - `original_url` = verified first-party careers/ATS URL, not the aggregator card
 
-## Narrow pass
+## Operating policy
 
-Cadence: daily.
+Use the validated registry rather than copying constants into an adapter:
 
-Run geography separately for Serbia and worldwide/Europe rather than trusting a generic Europe label.
-
-Example Serbia discovery query:
-
-```text
-https://himalayas.app/jobs/api/search?q=frontend&country=RS&sort=recent&page=1
+```bash
+python3 scripts/source_config.py
 ```
 
-Example worldwide discovery query:
+`sources.Himalayas` sets the narrow cadence (24 hours), broad cadence (72 hours),
+primary and fallback age windows (7 and 30 days), search geography, query sets,
+employment types, seniority and both mandatory verification gates. The adapter must
+keep `expiryDate` as a preliminary stale signal only; it must not make a decision
+about listing openness before first-party verification.
 
-```text
-https://himalayas.app/jobs/api/search?q=frontend&worldwide=true&sort=recent&page=1
-```
-
-Run separate queries for:
-
-- Frontend Developer
-- Frontend Engineer
-- React Developer
-- Web Developer
-- Frontend Engineer I
-- Junior Frontend
-- Graduate Frontend
-- Associate Frontend
-- React
-- TypeScript
-- Next.js
-- JavaScript
-
-Employment types to keep:
-
-- Full Time
-- Intern
-- Contractor
-
-Seniority:
-
-- prioritize `Entry-level`
-- also inspect `Mid-level`, because Himalayas labels can be broader than the actual years-of-experience requirement
-
-Local post-filtering:
-
-1. primary window: `pubDate` within 7 days
-2. if sparse, expand to 30 days
-3. `expiryDate` must be in the future as a preliminary check
-4. reject Senior / Staff / Lead / Principal / Manager titles and descriptions
-5. target roughly 0–2/3 years of required experience
-6. verify `locationRestrictions` plus free-text geography/work-authorization wording
-7. open the employer careers/ATS page and verify the role plus a working Apply path
-
-The API does not need to provide a native “posted within N days” filter: compute the 7/30-day window locally from `pubDate`.
-
-## Broad pass
-
-Cadence: 2–3 times per week.
-
-Run separate discovery queries for:
-
-- Software Engineer I
-- Product Engineer
-- Design Engineer
-- UI Engineer
-- Creative Developer
-- Technical Consultant
-- Web Developer
-- CMS
-- Content
-- Commerce
-- Marketing Engineer
-
-Keep a result only if it has at least two strong frontend signals among:
-
-- React
-- TypeScript
-- Next.js
-- HTML/CSS
-- Figma
-- CMS
-- component library / design system
-
-Reject backend-heavy roles before doing a full analysis.
+The API does not need to provide a native “posted within N days” filter: an
+adapter computes the registry's age window locally from `pubDate`.
 
 ## Deduplication
 
@@ -209,9 +140,5 @@ python3 scripts/jobs.py validate
 
 Start with `--dry-run`: print the shortlist plus rejection reasons without writing anything. Enable automatic writes only after several manual verification runs.
 
-## Recommended cadence
-
-- narrow: once daily
-- broad: 2–3 times per week
-
-Polling several times per day is unnecessary while the public dataset refresh cadence remains roughly daily.
+The registry's 24-hour narrow cadence intentionally avoids polling several times
+per day while the public dataset refresh cadence remains roughly daily.

@@ -1,0 +1,30 @@
+# Source registry for external discovery adapters. Candidate facts stay in profile.md.
+
+[sources.Himalayas]
+enabled = true
+type = "api"
+cadence_hours = 24
+broad_cadence_hours = 72
+max_age_days = 7
+fallback_max_age_days = 30
+geo = ["Serbia", "worldwide", "Europe"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "Discovery only: expiryDate and applicationLink do not prove that the role is open.",
+  "The public API is cached roughly daily; back off after HTTP 429.",
+]
+feed_url = "https://himalayas.app/jobs/api"
+search_url = "https://himalayas.app/jobs/api/search"
+narrow_queries = [
+  "Frontend Developer", "Frontend Engineer", "React Developer", "Web Developer",
+  "Frontend Engineer I", "Junior Frontend", "Graduate Frontend", "Associate Frontend",
+  "React", "TypeScript", "Next.js", "JavaScript",
+]
+broad_queries = [
+  "Software Engineer I", "Product Engineer", "Design Engineer", "UI Engineer",
+  "Creative Developer", "Technical Consultant", "Web Developer", "CMS", "Content",
+  "Commerce", "Marketing Engineer",
+]
+employment_types = ["Full Time", "Intern", "Contractor"]
+seniority = ["Entry-level", "Mid-level"]
