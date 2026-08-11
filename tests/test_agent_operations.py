@@ -10,6 +10,7 @@ from pathlib import Path
 
 
 PROJECT = Path(__file__).resolve().parents[1]
+WORKFLOW = PROJECT / ".github" / "workflows" / "agent-operations.yml"
 
 
 class AgentOperationsTests(unittest.TestCase):
@@ -58,6 +59,12 @@ class AgentOperationsTests(unittest.TestCase):
         path = self.root / "data" / "operations" / "requests" / f"{operation['operation_id']}.json"
         path.write_text(json.dumps(operation), encoding="utf-8")
         return path.relative_to(self.root)
+
+    def test_workflow_uses_an_expression_safe_dispatch_step_id(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("id: dispatch_request", workflow)
+        self.assertIn("steps.dispatch_request.outputs.path", workflow)
+        self.assertNotIn("dispatch-request", workflow)
 
     def test_low_risk_verify_uses_jobs_write_path_and_records_immutable_result(self):
         row = self.seed_job()
