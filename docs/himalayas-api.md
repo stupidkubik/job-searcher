@@ -114,9 +114,24 @@ Conclusion: `expiryDate`, freshness, and `applicationLink` are useful discovery 
 ## Adapter (Phase 5)
 
 `scripts/import_himalayas.py` is a fetch-only adapter. It validates and reads
-the Himalayas policy from `config/sources.toml`, then executes the selected
-query set with the registry seniority/employment filters and local age window.
-It retries only temporary network/429/5xx failures a bounded number of times.
+the Himalayas policy from `config/sources.toml`, then executes every selected
+query in each configured geography pass, with the registry seniority/employment
+filters and local age window. It retries only temporary network/429/5xx failures
+a bounded number of times.
+
+The configured `geo = ["Serbia", "worldwide", "Europe"]` is operational, not
+descriptive metadata:
+
+- Serbia sends `country=Serbia` and `exclude_worldwide=true`.
+- Worldwide sends `worldwide=true`.
+- Europe pages the unscoped query and keeps only European country/region values
+  in `locationRestrictions`; worldwide roles arrive through the Worldwide pass.
+
+Each query/pass starts at `page=1` and continues according to the API response's
+`totalCount` and `limit`. Results are deduplicated by `guid` across every query,
+geo pass and page, so a role returned by more than one pass remains one raw
+record. The JSON summary reports fetched pages and records excluded by the local
+Europe filter.
 
 ```bash
 # Fetch, normalize and report without creating a raw file.
@@ -136,7 +151,10 @@ an existing batch is immutable and never overwritten.
 
 The raw record maps `guid` (or, where needed, `applicationLink`) to `source_url`
 and keeps `applicationLink` separately as an unverified candidate URL. Neither
-is treated as proof of a live or first-party listing. The adapter does not call
+is treated as proof of a live or first-party listing. During ingest this candidate
+may be compared with an already verified `original_url` for deduplication, but it
+is never copied into canonical `original_url`; only `jobs.py verify` writes that
+field after first-party verification. The adapter does not call
 `jobs.py ingest`, does not inspect canonical jobs, and does not make a decision
 about geo, work authorization, seniority, Apply, or listing status.
 

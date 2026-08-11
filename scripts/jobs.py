@@ -90,6 +90,7 @@ NEEDS_APPLIED_AT = {"applied", "interviewing", "offer", "rejected", "ghosted", "
 RESPONDED_APPLICATION_STATUSES = {"interviewing", "offer", "rejected"}
 PRE_APPLICATION_REASONS = set(REASONS) - {"no_response_timeout", "withdrawn_by_me"}
 SET_PROTECTED = {"id", "stage_reached", "verified_at", "last_update"}
+VERIFY_ENRICHMENT_FIELDS = {"level", "remote_policy", "stack", "salary", "match_score"}
 ENUMS = {
     "application_status": APPLICATION_STATUSES,
     "listing_status": LISTING_STATUSES,
@@ -156,6 +157,19 @@ class SourceReferenceConflict(Exception):
         self.existing = existing
 
 
+@dataclass(frozen=True)
+class JobIdRange:
+    start: int
+    end: int
+
+    def contains(self, job_id):
+        match = re.fullmatch(r"job-(\d{4,})", job_id or "")
+        return bool(match and self.start <= int(match.group(1)) <= self.end)
+
+    def display(self):
+        return f"job-{self.start:04d}:job-{self.end:04d}"
+
+
 @dataclass
 class AddPlan:
     rows: list
@@ -204,6 +218,16 @@ def iso_date_argument(value):
         return datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError as error:
         raise argparse.ArgumentTypeError("ожидается дата YYYY-MM-DD") from error
+
+
+def job_id_range_argument(value):
+    match = re.fullmatch(r"job-(\d{4,}):job-(\d{4,})", value or "")
+    if not match:
+        raise argparse.ArgumentTypeError("ожидается диапазон job-NNNN:job-NNNN")
+    start, end = (int(part) for part in match.groups())
+    if start > end:
+        raise argparse.ArgumentTypeError("начало id-range не может быть больше конца")
+    return JobIdRange(start, end)
 
 
 def die(message):
@@ -1591,8 +1615,22 @@ def cmd_set(args):
     print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
 
 
+def apply_verify_enrichment(row, **values):
+    """Set non-lifecycle facts gathered alongside a completed verification."""
+    for key, raw_value in values.items():
+        if key not in VERIFY_ENRICHMENT_FIELDS:
+            raise ValueError(f"verify enrichment field is not allowed: {key}")
+        if raw_value is None:
+            continue
+        value = clean_value(raw_value).strip()
+        if key in ENUMS and value and value not in ENUMS[key]:
+            die(f"{key}: недопустимое значение {value!r}")
+        row[key] = value
+
+
 def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
-               original_url=None, decision_reason=None, notes=None):
+               original_url=None, decision_reason=None, notes=None, level=None,
+               remote_policy=None, stack=None, salary=None, match_score=None):
     """Apply a completed first-party verification as one atomic dataset update."""
     rows = load()
     source_rows = load_job_sources()
@@ -1603,6 +1641,14 @@ def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
         row["original_url"] = clean_value(original_url).strip()
     if notes is not None:
         row["notes"] = clean_value(notes).strip()
+    apply_verify_enrichment(
+        row,
+        level=level,
+        remote_policy=remote_policy,
+        stack=stack,
+        salary=salary,
+        match_score=match_score,
+    )
     row["listing_status"] = listing_status
     row["first_party_verified"] = first_party_verified
     row["apply_verified"] = apply_verified
@@ -1660,6 +1706,11 @@ def cmd_verify(args):
         original_url=args.original_url,
         decision_reason=args.decision_reason,
         notes=args.notes,
+        level=args.level,
+        remote_policy=args.remote_policy,
+        stack=args.stack,
+        salary=args.salary,
+        match_score=args.match_score,
     )
     if args.format == "json":
         print_json({"ok": True, "command": "verify", **result})
@@ -1829,6 +1880,15 @@ def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
     return {key: sorted_todo_items(items) for key, items in sections.items()}
 
 
+def filter_todo_rows(rows, *, source=None, id_range=None):
+    """Restrict the read-only queue without changing its classification rules."""
+    return [
+        row for row in rows
+        if (source is None or row["source"] == source)
+        and (id_range is None or id_range.contains(row["id"]))
+    ]
+
+
 def percent(numerator, denominator):
     return round(numerator / denominator * 100, 1) if denominator else None
 
@@ -1975,7 +2035,7 @@ def cmd_stale(args):
 
 
 def cmd_todo(args):
-    rows = load()
+    rows = filter_todo_rows(load(), source=args.source, id_range=args.id_range)
     reference_date = args.date or date.today()
     sections = todo_sections(rows, reference_date, stale_days=args.stale_days)
     payload = {
@@ -1983,6 +2043,10 @@ def cmd_todo(args):
         "command": "todo",
         "date": reference_date.isoformat(),
         "stale_days": args.stale_days,
+        "filters": {
+            "source": args.source,
+            "id_range": args.id_range.display() if args.id_range else None,
+        },
         "section_order": [key for key, _title in TODO_SECTION_ORDER],
         "sections": sections,
     }
@@ -2106,6 +2170,11 @@ def main():
     verify.add_argument("--original-url")
     verify.add_argument("--decision-reason", choices=sorted(PRE_APPLICATION_REASONS - {"duplicate_listing"}))
     verify.add_argument("--notes")
+    verify.add_argument("--level", choices=LEVELS, help="уровень, подтверждённый при проверке")
+    verify.add_argument("--remote-policy", choices=REMOTE, help="remote policy, подтверждённая при проверке")
+    verify.add_argument("--stack", help="стек через '; '")
+    verify.add_argument("--salary", help="компенсация из первоисточника или Unknown")
+    verify.add_argument("--match-score", help="оценка 1–10")
     verify.add_argument("--format", choices=("text", "json"), default="text")
     verify.set_defaults(func=cmd_verify)
     validate = subparsers.add_parser("validate", help="проверить целостность")
@@ -2138,6 +2207,8 @@ def main():
     todo = subparsers.add_parser("todo", help="ежедневная структурированная очередь действий")
     todo.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
     todo.add_argument("--stale-days", type=positive_int, default=DEFAULT_STALE_DAYS)
+    todo.add_argument("--source", choices=SOURCES, help="только вакансии с этим primary source")
+    todo.add_argument("--id-range", type=job_id_range_argument, help="inclusive range: job-0099:job-0126")
     todo.add_argument("--format", choices=("text", "json"), default="text")
     todo.set_defaults(func=cmd_todo)
     stats = subparsers.add_parser("stats", help="структурированный daily/weekly snapshot")

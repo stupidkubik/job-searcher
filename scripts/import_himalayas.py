@@ -27,6 +27,34 @@ SOURCE_NAME = "Himalayas"
 REQUEST_TIMEOUT_SECONDS = 20
 RETRY_DELAYS_SECONDS = (1, 2)
 
+# `locationRestrictions` contains either a country object (normally with alpha2)
+# or a display name. Keep the Europe pass local: the documented search endpoint
+# has country and worldwide filters, but no Europe-region filter.
+EUROPE_ALPHA2 = frozenset({
+    "AD", "AL", "AM", "AT", "AX", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
+    "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI",
+    "GR", "HR", "HU", "IE", "IM", "IS", "IT", "JE", "KZ", "LI", "LT", "LU",
+    "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS",
+    "RU", "SE", "SI", "SJ", "SK", "SM", "TR", "UA", "VA", "XK",
+})
+EUROPE_LOCATION_NAMES = frozenset({
+    "andorra", "armenia", "austria", "azerbaijan", "belarus", "belgium",
+    "bosnia and herzegovina", "bulgaria", "croatia", "cyprus", "czech republic",
+    "czechia", "denmark", "estonia", "finland", "france", "georgia", "germany",
+    "greece", "hungary", "iceland", "ireland", "italy", "kazakhstan", "kosovo",
+    "latvia", "liechtenstein", "lithuania", "luxembourg", "malta", "moldova",
+    "monaco", "montenegro", "netherlands", "north macedonia", "norway", "poland",
+    "portugal", "romania", "russia", "san marino", "serbia", "slovakia", "slovenia",
+    "spain", "sweden", "switzerland", "turkey", "ukraine", "united kingdom",
+    "vatican city", "europe", "european union", "eu", "eea", "european economic area",
+    "emea",
+})
+GEO_PASSES = {
+    "serbia": "Serbia",
+    "worldwide": "Worldwide",
+    "europe": "Europe",
+}
+
 
 class HimalayasImportError(ValueError):
     pass
@@ -152,14 +180,73 @@ def select_run(settings, broad):
     }
 
 
-def request_url(search_url, query, settings):
+def configured_geo_passes(settings):
+    """Return the configured discovery passes in registry order."""
+    passes = []
+    for value in settings["geo"]:
+        key = value.strip().casefold()
+        if key not in GEO_PASSES:
+            raise HimalayasImportError(
+                f"source {SOURCE_NAME}: unsupported geo policy {value!r}; "
+                "supported values: Serbia, worldwide, Europe"
+            )
+        geo = GEO_PASSES[key]
+        if geo not in passes:
+            passes.append(geo)
+    if not passes:
+        raise HimalayasImportError(f"source {SOURCE_NAME}: geo policy must not be empty")
+    return passes
+
+
+def request_url(search_url, query, settings, *, geo, page):
     parameters = {
         "q": query,
         "seniority": ",".join(settings["seniority"]),
         "employment_type": ",".join(settings["employment_types"]),
         "sort": "recent",
+        "page": page,
     }
+    if geo == "Serbia":
+        parameters.update({"country": "Serbia", "exclude_worldwide": "true"})
+    elif geo == "Worldwide":
+        parameters["worldwide"] = "true"
+    elif geo != "Europe":
+        raise HimalayasImportError(f"unknown Himalayas geo pass {geo!r}")
     return f"{search_url}?{urlencode(parameters)}"
+
+
+def europe_location_restriction(job):
+    """Whether one API location restriction allows work from Europe.
+
+    Empty restrictions mean worldwide and are intentionally handled by the
+    Worldwide API pass rather than duplicated in this locally-filtered pass.
+    """
+    restrictions = job.get("locationRestrictions") if isinstance(job, dict) else None
+    if not isinstance(restrictions, list):
+        raise HimalayasImportError("locationRestrictions должен быть array")
+    for restriction in restrictions:
+        if isinstance(restriction, dict):
+            alpha2 = restriction.get("alpha2")
+            if isinstance(alpha2, str) and alpha2.strip().upper() in EUROPE_ALPHA2:
+                return True
+            name = restriction.get("name")
+        elif isinstance(restriction, str):
+            name = restriction
+        else:
+            raise HimalayasImportError("locationRestrictions содержит запись без названия")
+        if isinstance(name, str) and name.strip().casefold() in EUROPE_LOCATION_NAMES:
+            return True
+    return False
+
+
+def has_next_page(response, page):
+    """Use documented response metadata; never silently truncate a search."""
+    total_count, limit = response.get("totalCount"), response.get("limit")
+    if not all(isinstance(value, int) and not isinstance(value, bool) for value in (total_count, limit)):
+        raise HimalayasImportError("Himalayas response must include integer totalCount and limit for pagination")
+    if limit <= 0 or total_count < 0:
+        raise HimalayasImportError("Himalayas pagination metadata must use non-negative totalCount and positive limit")
+    return page * limit < total_count
 
 
 def fetch_json(url, *, urlopen_func=urlopen, sleep_func=time.sleep):
@@ -192,38 +279,52 @@ def fetch_json(url, *, urlopen_func=urlopen, sleep_func=time.sleep):
 
 
 def collect_records(settings, run, *, today_value=None, fetch=fetch_json):
-    """Fetch selected queries, retain all raw fields and locally enforce max age."""
+    """Fetch every configured query/geo page and retain qualifying raw records."""
     today_value = today_value or datetime.now(timezone.utc).date()
     oldest = date.fromordinal(today_value.toordinal() - run["max_age_days"])
+    geo_passes = configured_geo_passes(settings)
     records, errors, seen_guids = [], [], set()
     summary = {
         "queries": len(run["queries"]),
+        "geo_passes": len(geo_passes),
+        "pages": 0,
         "fetched": 0,
+        "outside_geo_policy": 0,
         "outside_age_window": 0,
         "duplicates": 0,
         "records": 0,
     }
     for query in run["queries"]:
-        url = request_url(settings["search_url"], query, settings)
-        response = fetch(url)
-        for job in response["jobs"]:
-            summary["fetched"] += 1
-            try:
-                posted_at = api_date(job.get("pubDate")) if isinstance(job, dict) else None
-                if posted_at is None:
-                    raise HimalayasImportError("API jobs[] должен содержать JSON object")
-                if posted_at < oldest:
-                    summary["outside_age_window"] += 1
-                    continue
-                record = normalize_job(job, today_value)
-            except HimalayasImportError as error:
-                errors.append(f"query {query!r}: {error}")
-                continue
-            if record["source_job_id"] in seen_guids:
-                summary["duplicates"] += 1
-                continue
-            seen_guids.add(record["source_job_id"])
-            records.append(record)
+        for geo in geo_passes:
+            page = 1
+            while True:
+                url = request_url(settings["search_url"], query, settings, geo=geo, page=page)
+                response = fetch(url)
+                summary["pages"] += 1
+                for job in response["jobs"]:
+                    summary["fetched"] += 1
+                    try:
+                        if geo == "Europe" and not europe_location_restriction(job):
+                            summary["outside_geo_policy"] += 1
+                            continue
+                        posted_at = api_date(job.get("pubDate")) if isinstance(job, dict) else None
+                        if posted_at is None:
+                            raise HimalayasImportError("API jobs[] должен содержать JSON object")
+                        if posted_at < oldest:
+                            summary["outside_age_window"] += 1
+                            continue
+                        record = normalize_job(job, today_value)
+                    except HimalayasImportError as error:
+                        errors.append(f"query {query!r}, geo {geo}, page {page}: {error}")
+                        continue
+                    if record["source_job_id"] in seen_guids:
+                        summary["duplicates"] += 1
+                        continue
+                    seen_guids.add(record["source_job_id"])
+                    records.append(record)
+                if not has_next_page(response, page):
+                    break
+                page += 1
     summary["records"] = len(records)
     return records, summary, errors
 

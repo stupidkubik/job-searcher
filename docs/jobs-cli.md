@@ -177,14 +177,19 @@ batch adapter никогда не перезаписывает. Full API job obj
 ## Завершённая verification
 
 `verify` — выделенная операция для одной завершённой проверки: она одним
-атомарным изменением ставит listing status, оба verification-флага и дату.
+атомарным изменением ставит listing status, оба verification-флага и дату. В той
+же операции можно записать подтверждённые `level`, `remote_policy`, `stack`,
+`salary` и `match_score`; это безопасные enrichment-поля, не меняющие историю
+отклика.
 Для подтверждённой открытой вакансии команда переводит `not_started` в
 `reviewing`, очищает `verify first-party` и создаёт/синхронизирует карточку:
 
 ```bash
 python3 scripts/jobs.py verify job-0001 \
   --listing-status open --first-party-verified yes --apply-verified yes \
-  --original-url "https://careers.example.com/jobs/frontend" --format json
+  --original-url "https://careers.example.com/jobs/frontend" \
+  --level Junior --remote-policy Europe --stack "React; TypeScript" \
+  --salary "1200 USD/month" --match-score 8.5 --format json
 ```
 
 Для geo, work-authorization, seniority или другого hard blocker передайте
@@ -217,6 +222,9 @@ python3 scripts/jobs.py stale --days 7 --format json
 # Ежедневная очередь; --date делает вывод воспроизводимым.
 python3 scripts/jobs.py todo --date 2026-08-11 --format json
 
+# Только Himalayas batch в заданном включительном диапазоне ID.
+python3 scripts/jobs.py todo --source Himalayas --id-range job-0099:job-0126 --format json
+
 # Структурированный срез для weekly review.
 python3 scripts/jobs.py stats --date 2026-08-11 --format json
 
@@ -229,6 +237,20 @@ Apply not submitted, stale review, verification queue и upcoming interview/test
 Внутри секции сортировка стабильна: date → match score (higher first) → id.
 По умолчанию stale review использует окно 7 дней; при необходимости его можно
 сменить через `--stale-days N` в `todo`, `stats` и `report`.
+
+`todo --source` фильтрует по primary `source` канонической записи; `--id-range`
+принимает включительный диапазон `job-NNNN:job-NNNN`. Оба фильтра read-only и
+могут использоваться одновременно.
+
+## Удалённые агенты и GitHub connector
+
+GitHub connector может читать и изменять файлы, но не исполняет `jobs.py` в
+checkout приватного репозитория. Поэтому он не является write path для
+`data/jobs.csv` или `data/job_sources.csv`: прямой `update_file` обходил бы
+dedupe, validation и атомарность. Удалённый агент может подготовить raw batch
+или предложение изменения, а canonical write выполняет агент с рабочим
+checkout через `jobs.py`; затем CI валидирует итоговый dataset. CI проверяет
+состояние файлов, но не может доказать, какой инструмент их записал.
 
 `stats --format json` — единственный структурированный источник weekly report:
 он содержит split application/listing statuses, derived active/skipped/closed

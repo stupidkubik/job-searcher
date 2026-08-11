@@ -12,7 +12,6 @@ TOO_SENIOR_SIGNALS = (
     "senior", " sr ", "lead", "staff", "principal", "manager", "director",
     "architect", "head of",
 )
-TOO_JUNIOR_SIGNALS = ("intern", "internship", "trainee")
 EXPLICIT_HARD_FILTER_REASONS = {
     "geo_restriction", "work_authorization", "seniority_too_high",
     "seniority_too_low", "stack_mismatch", "role_not_frontend",
@@ -28,8 +27,12 @@ def normalize_record(record):
         "source": record["source"].strip(),
         "source_url": record["source_url"].strip(),
         "source_job_id": record["source_job_id"].strip(),
-        # This is only a candidate first-party link until the verification step.
-        "original_url": record["application_url"].strip(),
+        # Transient duplicate candidate only; it is neither a canonical field
+        # nor a source reference until first-party verification proves it.
+        "candidate_application_url": record["application_url"].strip(),
+        # `application_url` is only an aggregator candidate. The canonical
+        # original_url is populated by jobs.py verify after first-party proof.
+        "original_url": "",
         "location": record["raw_location"].strip(),
         "posted_at": record["posted_at"].strip(),
         "found_at": record["found_at"].strip(),
@@ -53,8 +56,6 @@ def relevance_or_hard_filter(record, normalized_role):
     padded_role = f" {role} "
     if any(signal in padded_role for signal in TOO_SENIOR_SIGNALS):
         return "skipped", "seniority_too_high"
-    if any(signal in padded_role for signal in TOO_JUNIOR_SIGNALS):
-        return "skipped", "seniority_too_low"
     return None, None
 
 
@@ -68,7 +69,7 @@ def deterministic_duplicate(values, job_rows, source_rows, norm, norm_url):
         ):
             return reference["job_id"], "source_job_id"
 
-    candidate_original_url = norm_url(values["original_url"])
+    candidate_original_url = norm_url(values.get("candidate_application_url") or values["original_url"])
     for job in job_rows:
         if (
             job["decision_reason"] != "duplicate_listing"

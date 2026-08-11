@@ -230,6 +230,7 @@ class IngestCliTests(unittest.TestCase):
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
         for row in self.rows("jobs.csv"):
             self.assertEqual((row["first_party_verified"], row["apply_verified"]), ("unknown", "unknown"))
+            self.assertEqual(row["original_url"], "")
             self.assertEqual(row["next_action"], "verify first-party")
 
         before_repeat = self.snapshot()
@@ -243,6 +244,20 @@ class IngestCliTests(unittest.TestCase):
             "jobs_created": 0, "source_references_created": 0, "application_cards_created": 0,
         })
         self.assertEqual(self.snapshot(), before_repeat)
+
+    def test_internship_is_not_auto_skipped_as_too_junior(self):
+        batch = self.write_batch([
+            self.record("intern", role="Frontend Developer Intern"),
+        ], "intern.jsonl")
+
+        result = self.invoke("ingest", str(batch), "--dry-run", "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["summary"], {
+            "input": 1, "invalid": 0, "noise": 0, "skipped": 0, "duplicates": 0, "pending": 1,
+        })
+        self.assertEqual(payload["outcomes"][0]["outcome"], "pending")
 
     def test_fuzzy_candidate_blocks_the_entire_batch_until_resolved(self):
         seeded = self.invoke(

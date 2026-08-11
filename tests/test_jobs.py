@@ -292,6 +292,32 @@ class JobsCliTests(unittest.TestCase):
         card = next((self.root / "applications").glob("job-0001-*.md"))
         self.assertIn("listing_status: open", card.read_text(encoding="utf-8"))
 
+    def test_verify_can_enrich_safe_job_facts_in_the_same_transaction(self):
+        added = self.invoke(
+            "add", "--company", "EnrichedCo", "--role", "Frontend Developer", "--source", "Himalayas",
+            "--source-url", "https://himalayas.app/jobs/enriched", "--source-job-id", "enriched-001", "--no-file",
+        )
+        self.assertEqual(added.returncode, 0, added.stderr)
+
+        verified = self.invoke(
+            "verify", "job-0001", "--listing-status", "open",
+            "--first-party-verified", "yes", "--apply-verified", "yes",
+            "--original-url", "https://careers.example.test/jobs/enriched",
+            "--level", "Intern", "--remote-policy", "Europe",
+            "--stack", "React; TypeScript", "--salary", "1200 USD/month",
+            "--match-score", "8.5", "--format", "json",
+        )
+
+        self.assertEqual(verified.returncode, 0, verified.stderr)
+        row = self.rows()[0]
+        self.assertEqual(
+            {key: row[key] for key in ("level", "remote_policy", "stack", "salary", "match_score")},
+            {
+                "level": "Intern", "remote_policy": "Europe", "stack": "React; TypeScript",
+                "salary": "1200 USD/month", "match_score": "8.5",
+            },
+        )
+
     def test_verify_records_a_hard_blocker_without_creating_a_card(self):
         self.assertEqual(
             self.invoke(
@@ -406,6 +432,31 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual([item["id"] for item in sections["stale_review"]], ["job-0006"])
         self.assertIn("job-0007", [item["id"] for item in sections["verification_queue"]])
         self.assertEqual([item["id"] for item in sections["upcoming_interview_test"]], ["job-0008"])
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_todo_can_filter_by_primary_source_and_inclusive_id_range(self):
+        self.assertEqual(self.add("ManualCo", "Frontend Developer", "--no-file").returncode, 0)
+        for number in (2, 3):
+            added = self.invoke(
+                "add", "--company", f"Himalayas {number}", "--role", "Frontend Developer",
+                "--source", "Himalayas", "--source-url", f"https://himalayas.app/jobs/{number}", "--force", "--no-file",
+            )
+            self.assertEqual(added.returncode, 0, added.stderr)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        result = self.invoke(
+            "todo", "--source", "Himalayas", "--id-range", "job-0003:job-0003", "--format", "json",
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["filters"], {"source": "Himalayas", "id_range": "job-0003:job-0003"})
+        self.assertEqual([item["id"] for item in payload["sections"]["verification_queue"]], ["job-0003"])
+        self.assertTrue(all(
+            item["id"] == "job-0003"
+            for section in payload["sections"].values()
+            for item in section
+        ))
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_stats_and_report_use_structured_v2_fields(self):

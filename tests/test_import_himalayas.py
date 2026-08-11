@@ -9,6 +9,7 @@ from contextlib import redirect_stdout
 from datetime import date
 from pathlib import Path
 from urllib.error import HTTPError
+from urllib.parse import parse_qs, urlsplit
 from unittest.mock import patch
 
 from scripts import import_himalayas
@@ -50,43 +51,89 @@ class HimalayasAdapterUnitTests(unittest.TestCase):
         self.assertEqual(second["raw_location"], "Serbia")
         self.assertEqual(second["posted_at"], "2026-08-10")
 
-    def test_collect_uses_registry_age_window_and_deduplicates_guid_across_queries(self):
+    def test_collect_runs_each_geo_pass_and_paginates_before_deduplicating(self):
         settings = {
             "search_url": "https://himalayas.example.test/jobs/api/search",
             "seniority": ["Entry-level", "Mid-level"],
             "employment_types": ["Full Time"],
+            "geo": ["Serbia", "worldwide", "Europe"],
         }
         run = {
             "selection": "narrow",
-            "queries": ["Frontend Developer", "React Developer"],
+            "queries": ["Frontend Developer"],
             "cadence_hours": 24,
             "max_age_days": 7,
         }
-        current = copy.deepcopy(self.payload["jobs"][1])
-        current["guid"] = "guid-current"
-        current["pubDate"] = "2026-08-10T08:00:00Z"
-        old = copy.deepcopy(current)
-        old["guid"] = "guid-old"
-        old["pubDate"] = "2026-07-01T08:00:00Z"
+        serbia = copy.deepcopy(self.payload["jobs"][1])
+        serbia["guid"] = "guid-serbia"
+        worldwide = copy.deepcopy(self.payload["jobs"][0])
+        worldwide["guid"] = "guid-worldwide"
+        europe_first = copy.deepcopy(self.payload["jobs"][1])
+        europe_first["guid"] = "guid-europe-first"
+        europe_first["locationRestrictions"] = [{"alpha2": "DE", "name": "Germany"}]
+        europe_second = copy.deepcopy(europe_first)
+        europe_second["guid"] = "guid-europe-second"
+        outside_europe = copy.deepcopy(europe_first)
+        outside_europe["guid"] = "guid-us"
+        outside_europe["locationRestrictions"] = [{"alpha2": "US", "name": "United States"}]
         requested = []
 
         def fetch(url):
             requested.append(url)
-            return {"jobs": [current, old]}
+            parameters = parse_qs(urlsplit(url).query)
+            if parameters.get("country") == ["Serbia"]:
+                return {"jobs": [serbia], "totalCount": 1, "limit": 20}
+            if parameters.get("worldwide") == ["true"]:
+                return {"jobs": [worldwide], "totalCount": 1, "limit": 20}
+            if parameters["page"] == ["1"]:
+                return {"jobs": [outside_europe, europe_first], "totalCount": 3, "limit": 2}
+            return {"jobs": [europe_second], "totalCount": 3, "limit": 2}
 
         records, summary, errors = import_himalayas.collect_records(
             settings, run, today_value=date(2026, 8, 11), fetch=fetch,
         )
 
         self.assertEqual(errors, [])
-        self.assertEqual(len(records), 1)
+        self.assertEqual([record["source_job_id"] for record in records], [
+            "guid-serbia", "guid-worldwide", "guid-europe-first", "guid-europe-second",
+        ])
         self.assertEqual(summary, {
-            "queries": 2, "fetched": 4, "outside_age_window": 2,
-            "duplicates": 1, "records": 1,
+            "queries": 1, "geo_passes": 3, "pages": 4, "fetched": 5,
+            "outside_geo_policy": 1, "outside_age_window": 0,
+            "duplicates": 0, "records": 4,
         })
-        self.assertEqual(len(requested), 2)
+        self.assertEqual(len(requested), 4)
         self.assertIn("seniority=Entry-level%2CMid-level", requested[0])
         self.assertIn("employment_type=Full+Time", requested[0])
+        serbia_parameters = parse_qs(urlsplit(requested[0]).query)
+        worldwide_parameters = parse_qs(urlsplit(requested[1]).query)
+        europe_parameters = parse_qs(urlsplit(requested[2]).query)
+        self.assertEqual((serbia_parameters["country"], serbia_parameters["exclude_worldwide"]), (["Serbia"], ["true"]))
+        self.assertEqual(worldwide_parameters["worldwide"], ["true"])
+        self.assertEqual(europe_parameters["page"], ["1"])
+        self.assertEqual(parse_qs(urlsplit(requested[3]).query)["page"], ["2"])
+
+    def test_collect_rejects_unknown_geo_policy_before_fetching(self):
+        settings = {
+            "search_url": "https://himalayas.example.test/jobs/api/search",
+            "seniority": ["Entry-level"],
+            "employment_types": ["Full Time"],
+            "geo": ["North America"],
+        }
+        run = {"queries": ["Frontend Developer"], "max_age_days": 7}
+        with self.assertRaisesRegex(import_himalayas.HimalayasImportError, "unsupported geo policy"):
+            import_himalayas.collect_records(settings, run, fetch=lambda _url: self.fail("must not fetch"))
+
+    def test_collect_rejects_a_response_without_pagination_metadata(self):
+        settings = {
+            "search_url": "https://himalayas.example.test/jobs/api/search",
+            "seniority": ["Entry-level"],
+            "employment_types": ["Full Time"],
+            "geo": ["worldwide"],
+        }
+        run = {"queries": ["Frontend Developer"], "max_age_days": 7}
+        with self.assertRaisesRegex(import_himalayas.HimalayasImportError, "totalCount and limit"):
+            import_himalayas.collect_records(settings, run, fetch=lambda _url: {"jobs": []})
 
     def test_fetch_retries_rate_limit_only_a_bounded_number_of_times(self):
         calls, delays = [], []
@@ -140,7 +187,8 @@ class HimalayasAdapterCliTests(unittest.TestCase):
             "payload": {"himalayas": {"guid": "raw-001"}},
         }]
         self.summary = {
-            "duplicates": 0, "fetched": 2, "outside_age_window": 1, "queries": 1, "records": 1,
+            "duplicates": 0, "fetched": 2, "geo_passes": 3, "outside_age_window": 1,
+            "outside_geo_policy": 0, "pages": 3, "queries": 1, "records": 1,
         }
 
     def tearDown(self):
@@ -166,7 +214,8 @@ class HimalayasAdapterCliTests(unittest.TestCase):
         self.assertEqual((payload["mode"], payload["selection"]), ("write_raw_batch", "narrow"))
         self.assertEqual((payload["cadence_hours"], payload["max_age_days"]), (24, 7))
         self.assertEqual(payload["summary"], {
-            "duplicates": 0, "fetched": 2, "outside_age_window": 1, "queries": 1, "records": 1,
+            "duplicates": 0, "fetched": 2, "geo_passes": 3, "outside_age_window": 1,
+            "outside_geo_policy": 0, "pages": 3, "queries": 1, "records": 1,
         })
         self.assertEqual(payload["output"], "data/inbox/himalayas-test.jsonl")
         records = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]

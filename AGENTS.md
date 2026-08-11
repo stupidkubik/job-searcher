@@ -37,6 +37,9 @@
 
 - Только через `scripts/jobs.py` (`add` / `set` / `backfill-sources`). Ручная
   правка canonical CSV — исключение.
+- GitHub file API/connector — только для чтения или доставки предложения; не
+  использовать его для прямого изменения `data/jobs.csv` или
+  `data/job_sources.csv`. Он не исполняет `jobs.py` и обходит write-path.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
 - `data/job_sources.csv` — provenance каждой вакансии. Для нового внешнего
