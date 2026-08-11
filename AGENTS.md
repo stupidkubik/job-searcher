@@ -36,7 +36,8 @@
 ## Как писать в CSV
 
 - Только через `scripts/jobs.py` (`add` / `set` / `screen` / `verify` /
-  `backfill-sources` / `ingest`). Ручная правка canonical CSV — исключение.
+  `backfill-sources` / `repair-himalayas-screening` / `ingest`). Ручная правка
+  canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. По явной команде пользователя

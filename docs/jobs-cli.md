@@ -67,8 +67,8 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `screen`, `verify`, `validate`, `dupes`, `ingest`, `stale`, `todo`
-и `stats` поддерживают `--format text|json`; по умолчанию — `text`. Успешный
+`add`, `set`, `screen`, `verify`, `validate`, `dupes`, `ingest`, `stale`, `todo`,
+`stats` и `repair-himalayas-screening` поддерживают `--format text|json`; по умолчанию — `text`. Успешный
 JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
@@ -236,6 +236,22 @@ python3 scripts/jobs.py screen job-0099 \
 `next_action`/`next_action_date`. Она намеренно не меняет `listing_status`,
 `verified_at`, `first_party_verified` и `apply_verified`. Причины
 `closed_before_application` и `duplicate_listing` через `screen` запрещены.
+
+## Разовый repair старого Himalayas batch
+
+Для 24 screening-записей `job-0099…job-0126`, кроме `job-0102`, `job-0110`,
+`job-0111` и `job-0124`, есть отдельная строгая миграция:
+
+```bash
+python3 scripts/jobs.py repair-himalayas-screening --check --format json
+python3 scripts/jobs.py repair-himalayas-screening --format json
+```
+
+Она заменяет только ошибочную verification-разметку `open/no/no/2026-08-11`
+на `unknown/unknown/unknown/<empty>`. `decision_reason`, `notes` и все остальные
+поля остаются без изменений; четыре исключения не меняются. Команда
+идемпотентна, а при частично применённом или неожиданном состоянии прекращает
+работу до записи.
 
 ## Daily queue, stale и stats
 
