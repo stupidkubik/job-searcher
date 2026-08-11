@@ -9,9 +9,16 @@ connector → requests/<operation_id>.json → GitHub Actions → jobs.py
                                                     └→ results/<operation_id>.json
 ```
 
-The connector may create exactly one new request on a new `agent/<operation_id>`
-branch. It must not edit `data/jobs.csv`, `data/job_sources.csv`, or a request
-that already exists. The runner creates the matching result exactly once.
+The connector may create exactly one new request per commit. It must not edit
+`data/jobs.csv`, `data/job_sources.csv`, or a request that already exists. The
+target branch controls delivery:
+
+- `main` is the direct mode, used only for an explicit user instruction. The
+  runner validates and commits the canonical result directly to `main`.
+- `agent/<operation_id>` is the review mode. The runner commits to that branch
+  and opens a PR to `main`.
+
+The runner creates the matching result exactly once in either mode.
 
 ## Phase A request schema
 
@@ -68,4 +75,5 @@ python3 scripts/agent_operations.py apply data/operations/requests/op-20260811-0
 
 `apply` calls the same `jobs.py` functions as the manual CLI, then writes one
 immutable result file. The workflow runs strict validation and all unit tests,
-checks the changed-path allowlist, and opens a PR from the `agent/` branch.
+checks the changed-path allowlist, then either commits directly to `main` or
+opens a PR from an `agent/` branch according to the delivery mode above.

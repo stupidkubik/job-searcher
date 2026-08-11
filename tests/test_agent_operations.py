@@ -71,6 +71,12 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('["git", "diff", "--name-only", "origin/main...HEAD"]', workflow)
         self.assertNotIn('event.get("head_commit", {}).get("added", [])', workflow)
 
+    def test_workflow_supports_explicit_main_operations_without_a_review_pr(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("      - main", workflow)
+        self.assertIn('if: github.ref_name != \'main\'', workflow)
+        self.assertIn('["git", "diff", "--name-status", base, "HEAD"]', workflow)
+
     def test_workflow_pr_body_stays_inside_the_run_block(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn('            Risk: ${RISK}', workflow)

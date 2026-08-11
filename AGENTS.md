@@ -38,10 +38,11 @@
 - Только через `scripts/jobs.py` (`add` / `set` / `backfill-sources`). Ручная
   правка canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
-  `data/operations/requests/` на ветке `agent/<operation-id>`; trusted GitHub
-  Actions runner применяет request через `scripts/agent_operations.py` и
-  `jobs.py`. Не использовать GitHub file API для прямого изменения
-  `data/jobs.csv` или `data/job_sources.csv`: он обходит write-path.
+  `data/operations/requests/`; trusted GitHub Actions runner применяет request
+  через `scripts/agent_operations.py` и `jobs.py`. По явной команде пользователя
+  request может быть создан в `main` и применён там же; для review mode он живёт
+  на ветке `agent/<operation-id>`. Не использовать GitHub file API для прямого
+  изменения `data/jobs.csv` или `data/job_sources.csv`: он обходит write-path.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
 - `data/job_sources.csv` — provenance каждой вакансии. Для нового внешнего

@@ -7,8 +7,10 @@
 [`data/operations/`](../data/operations/) и workflow
 [`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
 поддерживает одну операцию `verify` или ограниченный `set`, обязательные
-field-level preconditions, immutable result и PR-only output. `add`, batch и
-ingest по-прежнему относятся к следующим фазам.
+field-level preconditions и immutable result. Request на `main`, созданный по
+явной команде пользователя, применяет canonical diff прямо в `main`; request
+на `agent/*` остаётся PR-only. `add`, batch и ingest по-прежнему относятся к
+следующим фазам.
 
 Result Phase A не содержит `commit_sha`: runner пишет его в том же Git commit,
 что и canonical diff, поэтому этот commit сам является неизменяемой audit link
@@ -20,7 +22,7 @@ AI-агент не изменяет canonical данные трекера нап
 декларативную операцию, описывающую намерение (`add`, `verify`, `set`, batch
 resolution). GitHub Actions runner делает checkout репозитория, проверяет операцию
 по allowlist/policy, исполняет её через `scripts/jobs.py`, запускает validation и
-создаёт commit или PR.
+создаёт commit прямо в `main` или review PR — в зависимости от ветки request.
 
 ```text
 AI agent via connector
@@ -40,7 +42,7 @@ GitHub Actions runner (trusted checkout)
         ├─ unit tests
         └─ optional dupes check
         ▼
-commit / pull request
+direct commit / pull request
 ```
 
 Главное архитектурное правило:

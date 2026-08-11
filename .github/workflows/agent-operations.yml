@@ -3,13 +3,14 @@ name: agent operations
 on:
   push:
     branches:
+      - main
       - "agent/**"
     paths:
       - "data/operations/requests/*.json"
   workflow_dispatch:
     inputs:
       request:
-        description: "Existing request path on this agent/* branch"
+        description: "Existing request path on main or an agent/* branch"
         required: true
         type: string
 
@@ -36,28 +37,40 @@ jobs:
       - name: Reject an unexpected branch
         shell: bash
         run: |
-          if [[ "${GITHUB_REF_NAME}" != agent/* ]]; then
-            echo "agent operations may run only on an agent/* branch" >&2
+          if [[ "${GITHUB_REF_NAME}" != main && "${GITHUB_REF_NAME}" != agent/* ]]; then
+            echo "agent operations may run only on main or an agent/* branch" >&2
             exit 1
           fi
 
       - name: Find the one new request
         id: request
         if: github.event_name == 'push'
+        env:
+          BRANCH: ${{ github.ref_name }}
+          BASE_SHA: ${{ github.event.before }}
         run: |
-          git fetch origin main --depth=1
           python3 - <<'PY'
           import os
           import re
           import subprocess
           import sys
 
-          changed = subprocess.check_output(
-              ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
-          ).splitlines()
+          branch = os.environ["BRANCH"]
+          if branch == "main":
+              base = os.environ["BASE_SHA"]
+              if not re.fullmatch(r"[0-9a-f]{40}", base):
+                  sys.exit("main request needs a valid push base SHA")
+              changed = subprocess.check_output(
+                  ["git", "diff", "--name-only", base, "HEAD"], text=True,
+              ).splitlines()
+          else:
+              subprocess.run(["git", "fetch", "origin", "main", "--depth=1"], check=True)
+              changed = subprocess.check_output(
+                  ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
+              ).splitlines()
           pattern = re.compile(r"data/operations/requests/[a-z0-9][a-z0-9._-]{2,79}\.json\Z")
           if len(changed) != 1 or not pattern.fullmatch(changed[0]):
-              sys.exit("agent branch must add exactly one data/operations/requests/<operation-id>.json file")
+              sys.exit("operation branch must add exactly one data/operations/requests/<operation-id>.json file")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"path={changed[0]}\n")
           PY
@@ -83,19 +96,36 @@ jobs:
       - name: Ensure the branch contains only its request
         env:
           REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch_request.outputs.path }}
+          BRANCH: ${{ github.ref_name }}
+          EVENT_NAME: ${{ github.event_name }}
+          BASE_SHA: ${{ github.event.before }}
         run: |
-          git fetch origin main --depth=1
           python3 - <<'PY'
           import os
+          import re
           import subprocess
           import sys
 
           expected = os.environ["REQUEST_PATH"]
-          changed = subprocess.check_output(
-              ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
-          ).splitlines()
-          if changed != [expected]:
-              sys.exit("agent branch may contain exactly one new operation request before execution")
+          branch = os.environ["BRANCH"]
+          if branch == "main" and os.environ["EVENT_NAME"] == "workflow_dispatch":
+              sys.exit(0)
+          if branch == "main":
+              base = os.environ["BASE_SHA"]
+              if not re.fullmatch(r"[0-9a-f]{40}", base):
+                  sys.exit("main request needs a valid push base SHA")
+              changed = subprocess.check_output(
+                  ["git", "diff", "--name-status", base, "HEAD"], text=True,
+              ).splitlines()
+              if changed != [f"A\t{expected}"]:
+                  sys.exit("main may add exactly one new operation request before execution")
+          else:
+              subprocess.run(["git", "fetch", "origin", "main", "--depth=1"], check=True)
+              changed = subprocess.check_output(
+                  ["git", "diff", "--name-only", "origin/main...HEAD"], text=True,
+              ).splitlines()
+              if changed != [expected]:
+                  sys.exit("agent branch may contain exactly one new operation request before execution")
           PY
 
       - name: Validate and apply the declarative operation
@@ -170,6 +200,7 @@ jobs:
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Open or update the review PR
+        if: github.ref_name != 'main'
         env:
           GH_TOKEN: ${{ github.token }}
           OPERATION_ID: ${{ steps.operation.outputs.id }}
