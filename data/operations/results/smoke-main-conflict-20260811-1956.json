@@ -1,0 +1,18 @@
+{
+  "command": "set",
+  "executed_at": "2026-08-11T17:57:15Z",
+  "job_id": "job-0124",
+  "operation_id": "smoke-main-conflict-20260811-1956",
+  "result": {
+    "mismatches": {
+      "application_status": {
+        "actual": "apply",
+        "expected": "not_started"
+      }
+    },
+    "reason": "stale_operation"
+  },
+  "risk": "low",
+  "status": "conflict",
+  "version": 1
+}
