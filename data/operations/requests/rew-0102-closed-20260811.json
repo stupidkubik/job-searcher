@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "rew-0102-closed-20260811",
+  "command": "verify",
+  "job_id": "job-0102",
+  "expected": {
+    "application_status": "not_started",
+    "last_update": "2026-08-11"
+  },
+  "args": {
+    "listing_status": "closed",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "original_url": "https://rewtechnology.com/careers/",
+    "decision_reason": "closed_before_application",
+    "notes": "Official REW Technology careers page checked on 2026-08-11 is live but no longer lists Front End Engineer among open roles."
+  }
+}
