@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "hirify-react-typescript-watch-20260811",
+  "command": "add",
+  "args": {
+    "company": "Undisclosed",
+    "role": "Frontend Engineer (React/TypeScript)",
+    "source": "Hirify",
+    "source_url": "https://hirify.me/frontend-dev-jobs",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "location": "Poland / Europe / South Africa (Hirify metadata)",
+    "remote_policy": "Unclear",
+    "stack": "React; TypeScript; Frontend Performance",
+    "found_at": "2026-08-11",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Fresh Hirify watchlist lead from the frontend feed. The separate job permalink and first-party source could not be reliably reconstructed after the feed refreshed; verify company, exact geography, and Apply before full analysis.",
+    "force": true
+  }
+}
