@@ -758,10 +758,23 @@ def should_create_application_card(row, no_file):
     )
 
 
-def render_application_card(row):
+def render_application_card(row, update_existing=False):
     app_path = APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
     if app_path.exists():
-        return app_path, None
+        if not update_existing:
+            return app_path, None
+        original_body = app_path.read_text(encoding="utf-8")
+        body = original_body
+        for key in (
+            "company", "role", "original_url", "verified_at", "listing_status",
+            "first_party_verified", "apply_verified",
+        ):
+            body, replacements = re.subn(
+                rf"(?m)^{re.escape(key)}:.*$", f"{key}: {row[key]}", body, count=1,
+            )
+            if replacements != 1:
+                die(f"{app_path}: отсутствует front matter поле {key}")
+        return app_path, body if body != original_body else None
     if not TEMPLATE_PATH.exists():
         die(f"не найден шаблон {TEMPLATE_PATH}")
     body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("job-0000", row["id"]).replace("{{company}}", row["company"]).replace("{{role}}", row["role"])
@@ -1412,6 +1425,88 @@ def cmd_set(args):
     print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
 
 
+def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
+               original_url=None, decision_reason=None, notes=None):
+    """Apply a completed first-party verification as one atomic dataset update."""
+    rows = load()
+    source_rows = load_job_sources()
+    row = find(rows, job_id)
+    if decision_reason == "duplicate_listing":
+        die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+    if original_url is not None:
+        row["original_url"] = clean_value(original_url).strip()
+    if notes is not None:
+        row["notes"] = clean_value(notes).strip()
+    row["listing_status"] = listing_status
+    row["first_party_verified"] = first_party_verified
+    row["apply_verified"] = apply_verified
+    row["verified_at"] = today()
+    passed = (
+        listing_status == "open"
+        and first_party_verified == "yes"
+        and apply_verified == "yes"
+    )
+    pre_application = row["application_status"] in {"not_started", "reviewing", "apply"}
+    if decision_reason:
+        if not pre_application:
+            die("--decision-reason допустим только до отклика")
+        row["application_status"] = "not_started"
+        row["decision_reason"] = decision_reason
+        row["next_action"] = ""
+        row["next_action_date"] = ""
+        outcome = "blocked"
+    elif passed:
+        if row["application_status"] == "not_started":
+            row["application_status"] = "reviewing"
+        if row["next_action"] == "verify first-party":
+            row["next_action"] = ""
+            row["next_action_date"] = ""
+        outcome = "ready_for_review" if pre_application else "verified_after_application"
+    elif pre_application:
+        die("для непрошедшей verification до отклика нужен --decision-reason")
+    else:
+        outcome = "verified_after_application"
+    row["last_update"] = today()
+    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+
+    application_path, application_body = (None, None)
+    application_card_created = False
+    if passed and row["application_status"] == "reviewing":
+        application_path, application_body = render_application_card(row, update_existing=True)
+        application_card_created = application_body is not None and not application_path.exists()
+    application_writes = ((application_path, application_body),) if application_body is not None else ()
+    apply_dataset_transaction(rows, source_rows, application_writes)
+    return {
+        "job": row,
+        "warnings": warnings,
+        "outcome": outcome,
+        "application_path": application_path.relative_to(ROOT).as_posix() if application_path else None,
+        "application_card_created": application_card_created,
+    }
+
+
+def cmd_verify(args):
+    result = verify_job(
+        args.id,
+        listing_status=args.listing_status,
+        first_party_verified=args.first_party_verified,
+        apply_verified=args.apply_verified,
+        original_url=args.original_url,
+        decision_reason=args.decision_reason,
+        notes=args.notes,
+    )
+    if args.format == "json":
+        print_json({"ok": True, "command": "verify", **result})
+        return
+    for warning in result["warnings"]:
+        print(f"warn:  {warning}")
+    row = result["job"]
+    print(
+        f"{row['id']}  {result['outcome']}  "
+        f"application_status={row['application_status']}  listing_status={row['listing_status']}"
+    )
+
+
 def cmd_validate(args):
     rows = load()
     source_rows = load_job_sources()
@@ -1575,6 +1670,16 @@ def main():
     set_parser.add_argument("--stage")
     set_parser.add_argument("--format", choices=("text", "json"), default="text")
     set_parser.set_defaults(func=cmd_set)
+    verify = subparsers.add_parser("verify", help="зафиксировать completed first-party verification")
+    verify.add_argument("id")
+    verify.add_argument("--listing-status", required=True, choices=("open", "closed"))
+    verify.add_argument("--first-party-verified", required=True, choices=("yes", "no"))
+    verify.add_argument("--apply-verified", required=True, choices=("yes", "no"))
+    verify.add_argument("--original-url")
+    verify.add_argument("--decision-reason", choices=sorted(PRE_APPLICATION_REASONS - {"duplicate_listing"}))
+    verify.add_argument("--notes")
+    verify.add_argument("--format", choices=("text", "json"), default="text")
+    verify.set_defaults(func=cmd_verify)
     validate = subparsers.add_parser("validate", help="проверить целостность")
     validate.add_argument("--strict", action="store_true")
     validate.add_argument("--format", choices=("text", "json"), default="text")

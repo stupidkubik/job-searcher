@@ -270,6 +270,61 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("first_party_verified=yes требует original_url", invalid.stderr)
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
+    def test_verify_promotes_a_confirmed_candidate_and_creates_a_card(self):
+        added = self.invoke(
+            "add", "--company", "CandidateCo", "--role", "Frontend Developer", "--source", "Himalayas",
+            "--source-url", "https://himalayas.app/jobs/candidate", "--source-job-id", "candidate-001", "--no-file",
+        )
+        self.assertEqual(added.returncode, 0, added.stderr)
+        verified = self.invoke(
+            "verify", "job-0001", "--listing-status", "open",
+            "--first-party-verified", "yes", "--apply-verified", "yes",
+            "--original-url", "https://careers.example.test/jobs/candidate", "--format", "json",
+        )
+        self.assertEqual(verified.returncode, 0, verified.stderr)
+        payload = json.loads(verified.stdout)
+        self.assertEqual((payload["command"], payload["outcome"]), ("verify", "ready_for_review"))
+        self.assertTrue(payload["application_card_created"])
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["listing_status"]), ("reviewing", "open"))
+        self.assertEqual((row["first_party_verified"], row["apply_verified"]), ("yes", "yes"))
+        self.assertEqual(row["verified_at"], date.today().isoformat())
+        card = next((self.root / "applications").glob("job-0001-*.md"))
+        self.assertIn("listing_status: open", card.read_text(encoding="utf-8"))
+
+    def test_verify_records_a_hard_blocker_without_creating_a_card(self):
+        self.assertEqual(
+            self.invoke(
+                "add", "--company", "GeoCo", "--role", "Frontend Developer", "--source", "Himalayas",
+                "--source-url", "https://himalayas.app/jobs/geo", "--source-job-id", "geo-001", "--no-file",
+            ).returncode,
+            0,
+        )
+        blocked = self.invoke(
+            "verify", "job-0001", "--listing-status", "open",
+            "--first-party-verified", "yes", "--apply-verified", "yes",
+            "--original-url", "https://careers.example.test/jobs/geo",
+            "--decision-reason", "geo_restriction",
+        )
+        self.assertEqual(blocked.returncode, 0, blocked.stderr)
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction"))
+        self.assertFalse(list((self.root / "applications").glob("job-*.md")))
+
+    def test_verify_can_close_listing_after_application_without_rewriting_history(self):
+        self.assertEqual(self.add("VerifiedCloseCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        applied_at = self.rows()[0]["applied_at"]
+        closed = self.invoke(
+            "verify", "job-0001", "--listing-status", "closed",
+            "--first-party-verified", "yes", "--apply-verified", "no",
+            "--original-url", "https://careers.example.test/jobs/closed",
+        )
+        self.assertEqual(closed.returncode, 0, closed.stderr)
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["listing_status"]), ("applied", "closed"))
+        self.assertEqual(row["applied_at"], applied_at)
+
     def test_missing_cv_version_is_reported_without_validation_warning(self):
         self.assertEqual(self.add("HistoricalCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)

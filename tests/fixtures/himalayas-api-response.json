@@ -1,0 +1,52 @@
+{
+  "updatedAt": 1785983902,
+  "offset": 0,
+  "limit": 20,
+  "totalCount": 2,
+  "jobs": [
+    {
+      "title": "Frontend Developer",
+      "excerpt": "Build accessible product interfaces.",
+      "companyName": "Example Studio",
+      "companySlug": "example-studio",
+      "companyLogo": "https://cdn-images.himalayas.app/example-studio",
+      "employmentType": "Full Time",
+      "minSalary": null,
+      "maxSalary": null,
+      "salaryPeriod": "annual",
+      "seniority": ["Mid-level"],
+      "currency": "EUR",
+      "locationRestrictions": [],
+      "timezoneRestrictions": [],
+      "categories": ["React", "TypeScript"],
+      "parentCategories": ["Developer"],
+      "description": "<p>Build interfaces.</p>",
+      "pubDate": 1785983902,
+      "expiryDate": 1791167901,
+      "applicationLink": "https://careers.example.test/jobs/frontend",
+      "guid": "https://himalayas.app/companies/example-studio/jobs/frontend-developer"
+    },
+    {
+      "title": "React Developer",
+      "excerpt": "Ship frontend features.",
+      "companyName": "Sample Labs",
+      "companySlug": "sample-labs",
+      "companyLogo": "https://cdn-images.himalayas.app/sample-labs",
+      "employmentType": "Contractor",
+      "minSalary": 45,
+      "maxSalary": 70,
+      "salaryPeriod": "hourly",
+      "seniority": ["Entry-level"],
+      "currency": "USD",
+      "locationRestrictions": [{"alpha2": "RS", "name": "Serbia", "slug": "serbia"}],
+      "timezoneRestrictions": [1, 2],
+      "categories": ["React"],
+      "parentCategories": ["Developer"],
+      "description": "<p>Ship features.</p>",
+      "pubDate": "2026-08-10T08:00:00Z",
+      "expiryDate": "2026-09-10T08:00:00Z",
+      "applicationLink": "https://jobs.example.test/react",
+      "guid": "sample-labs-react-001"
+    }
+  ]
+}

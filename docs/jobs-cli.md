@@ -123,6 +123,58 @@ source URL, нормализованные `company + role + location`, зате
 application card с `first_party_verified=unknown`, `apply_verified=unknown` и
 `next_action=verify first-party`.
 
+## Himalayas discovery
+
+Adapter читает queries, cadence и age window только из `config/sources.toml`.
+Он сохраняет один новый immutable raw batch, не вызывает `ingest` и не меняет
+canonical CSV:
+
+```bash
+# Сначала посмотреть итог fetch без нового файла.
+python3 scripts/import_himalayas.py --narrow --dry-run
+
+# Затем явно сохранить raw batch для ручного контролируемого rollout.
+python3 scripts/import_himalayas.py --narrow \
+  --output data/inbox/himalayas-2026-08-11T090000Z.jsonl
+python3 scripts/inbox.py validate data/inbox/himalayas-2026-08-11T090000Z.jsonl
+python3 scripts/jobs.py ingest data/inbox/himalayas-2026-08-11T090000Z.jsonl \
+  --dry-run --format json
+```
+
+`--broad` выбирает отдельный broad query set, его cadence и fallback age window.
+`--output` должен быть новым файлом внутри `data/inbox/`: существующий raw
+batch adapter никогда не перезаписывает. Full API job object сохраняется в
+`payload.himalayas`; ни `guid`, ни `applicationLink`, ни freshness не считаются
+доказательством открытой вакансии.
+
+## Завершённая verification
+
+`verify` — выделенная операция для одной завершённой проверки: она одним
+атомарным изменением ставит listing status, оба verification-флага и дату.
+Для подтверждённой открытой вакансии команда переводит `not_started` в
+`reviewing`, очищает `verify first-party` и создаёт/синхронизирует карточку:
+
+```bash
+python3 scripts/jobs.py verify job-0001 \
+  --listing-status open --first-party-verified yes --apply-verified yes \
+  --original-url "https://careers.example.com/jobs/frontend" --format json
+```
+
+Для geo, work-authorization, seniority или другого hard blocker передайте
+canonical `--decision-reason`; это сохраняет `not_started` и не создаёт новую
+application card. `closed_before_application` требует `--listing-status closed`.
+
+```bash
+python3 scripts/jobs.py verify job-0001 \
+  --listing-status open --first-party-verified yes --apply-verified yes \
+  --original-url "https://careers.example.com/jobs/frontend" \
+  --decision-reason geo_restriction
+```
+
+Для уже отправленной заявки команда может зафиксировать закрытие объявления
+без изменения application history; в этом случае не указывайте
+`--decision-reason`.
+
 ## Примеры обновления и проверки
 
 ```bash

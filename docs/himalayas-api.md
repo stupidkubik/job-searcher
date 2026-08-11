@@ -111,34 +111,39 @@ Two initially attractive Himalayas cards demonstrated why first-party verificati
 
 Conclusion: `expiryDate`, freshness, and `applicationLink` are useful discovery signals, not source-of-truth status fields.
 
-## Suggested importer
+## Adapter (Phase 5)
 
-Future file:
+`scripts/import_himalayas.py` is a fetch-only adapter. It validates and reads
+the Himalayas policy from `config/sources.toml`, then executes the selected
+query set with the registry seniority/employment filters and local age window.
+It retries only temporary network/429/5xx failures a bounded number of times.
 
-```text
-scripts/import_himalayas.py
+```bash
+# Fetch, normalize and report without creating a raw file.
+python3 scripts/import_himalayas.py --narrow --dry-run
+
+# Create exactly one new immutable batch; this does not call jobs.py ingest.
+python3 scripts/import_himalayas.py --narrow \
+  --output data/inbox/himalayas-2026-08-11T090000Z.jsonl
 ```
 
-Pipeline:
+`--narrow` is the default and uses `narrow_queries`, `cadence_hours` and
+`max_age_days`. `--broad` uses `broad_queries`, `broad_cadence_hours` and
+`fallback_max_age_days`. The adapter de-duplicates same-run results by `guid`,
+uses that value as `source_job_id`, and retains the complete API job object in
+`payload.himalayas`. It only writes a new UTF-8 JSONL file inside `data/inbox/`;
+an existing batch is immutable and never overwritten.
 
-```text
-Himalayas search API
-        ↓
-normalize records
-        ↓
-local date/title/seniority/frontend-signal filters
-        ↓
-dedupe against data/jobs.csv
-        ↓
-resolve and verify first-party careers/ATS page
-        ↓
-stale/closed → add to tracker as Closed/Skipped
-passed       → add to tracker as Reviewing
-        ↓
-python3 scripts/jobs.py validate
-```
+The raw record maps `guid` (or, where needed, `applicationLink`) to `source_url`
+and keeps `applicationLink` separately as an unverified candidate URL. Neither
+is treated as proof of a live or first-party listing. The adapter does not call
+`jobs.py ingest`, does not inspect canonical jobs, and does not make a decision
+about geo, work authorization, seniority, Apply, or listing status.
 
-Start with `--dry-run`: print the shortlist plus rejection reasons without writing anything. Enable automatic writes only after several manual verification runs.
+The first three real runs remain manually controlled: validate the batch, compare
+the ingest dry-run and apply summaries, then explicitly decide whether to run
+ingest without `--dry-run`. Follow its `verify first-party` queue with the
+single `jobs.py verify` command documented in `jobs-cli.md`.
 
 The registry's 24-hour narrow cadence intentionally avoids polling several times
 per day while the public dataset refresh cadence remains roughly daily.
