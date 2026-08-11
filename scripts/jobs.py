@@ -9,6 +9,7 @@ import re
 import sys
 import tempfile
 import unicodedata
+from dataclasses import dataclass
 from datetime import date, datetime
 from difflib import SequenceMatcher
 from pathlib import Path
@@ -105,6 +106,30 @@ V1_STATUS_MAPPING = {
     "Duplicate": ("not_started", "unknown"),
     "Withdrawn": ("withdrawn", "unknown"),
 }
+
+
+class JobsArgumentParser(argparse.ArgumentParser):
+    """Argparse с едиными кодами завершения для CLI."""
+
+    def error(self, message):
+        self.print_usage(sys.stderr)
+        die(message)
+
+
+class UnresolvedDuplicate(Exception):
+    """Нужна явная команда пользователя: duplicate или force."""
+
+    def __init__(self, candidates):
+        self.candidates = candidates
+
+
+@dataclass
+class AddPlan:
+    rows: list
+    row: dict
+    warnings: list
+    app_path: Path | None
+    app_body: str | None
 
 
 def today():
@@ -331,12 +356,14 @@ def validate_rows(rows):
     return errors, warnings
 
 
-def ensure_valid(rows):
+def ensure_valid(rows, emit_warnings=True):
     errors, warnings = validate_rows(rows)
     if errors:
         die("изменение отклонено:\n  " + "\n  ".join(errors))
-    for warning in warnings:
-        print(f"warn:  {warning}")
+    if emit_warnings:
+        for warning in warnings:
+            print(f"warn:  {warning}")
+    return warnings
 
 
 def migrate_v1_rows(rows):
@@ -386,13 +413,15 @@ def cmd_migrate_v2(args):
     print("data/jobs.csv атомарно обновлён")
 
 
-def cmd_add(args):
-    rows = load()
-    company, role = args.company.strip(), args.role.strip()
+def clean_value(value):
+    return str(value or "").replace("\n", " ")
+
+
+def find_duplicate_candidates(rows, company, role, original_url):
     hits = {}
-    if args.original_url:
+    if original_url:
         for row in rows:
-            if row["original_url"] and norm_url(row["original_url"]) == norm_url(args.original_url):
+            if row["original_url"] and norm_url(row["original_url"]) == norm_url(original_url):
                 hits[row["id"]] = (row, "совпадение canonical original_url")
     company_norm, role_norm = without_noise(company, COMPANY_NOISE), without_noise(role, ROLE_NOISE)
     for row in rows:
@@ -400,25 +429,57 @@ def cmd_add(args):
         role_score = similarity(role_norm, without_noise(row["role"], ROLE_NOISE))
         if company_score >= .85 and role_score >= .75:
             hits.setdefault(row["id"], (row, f"похоже: company {company_score:.2f}, role {role_score:.2f}"))
-    if args.duplicate_of:
-        original = find(rows, args.duplicate_of)
+    return hits
+
+
+def print_duplicate_candidates(candidates):
+    print("возможные дубли:")
+    for row, reason_text in candidates.values():
+        print(f"  {row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]  ({reason_text})")
+    print("\nэто дубль -> повторите с --duplicate-of job-NNNN\nэто другая вакансия -> повторите с --force")
+
+
+def build_add_row(rows, values, duplicate_of=None):
+    company = clean_value(values.get("company")).strip()
+    role = clean_value(values.get("role")).strip()
+    source = clean_value(values.get("source")).strip()
+    if not company or not role or not source:
+        die("company, role и source обязательны при создании вакансии")
+    if source not in SOURCES:
+        die(f"source: недопустимое значение {source!r}")
+    application_status = clean_value(values.get("application_status") or "not_started")
+    listing_status = clean_value(values.get("listing_status") or "unknown")
+    first_party_verified = clean_value(values.get("first_party_verified") or "unknown")
+    apply_verified = clean_value(values.get("apply_verified") or "unknown")
+    level = clean_value(values.get("level") or "Unknown")
+    remote_policy = clean_value(values.get("remote_policy") or "Unclear")
+    decision_reason = clean_value(values.get("decision_reason"))
+    if application_status not in ADD_APPLICATION_STATUSES:
+        die(f"application_status: недопустимое значение {application_status!r} для add")
+    for key, value, allowed in (
+        ("listing_status", listing_status, LISTING_STATUSES),
+        ("first_party_verified", first_party_verified, VERIFICATION),
+        ("apply_verified", apply_verified, VERIFICATION),
+        ("level", level, LEVELS),
+        ("remote_policy", remote_policy, REMOTE),
+    ):
+        if value not in allowed:
+            die(f"{key}: недопустимое значение {value!r}")
+    if decision_reason and decision_reason not in REASONS:
+        die(f"decision_reason: недопустимое значение {decision_reason!r}")
+    if duplicate_of:
+        original = find(rows, duplicate_of)
         application_status, listing_status = "not_started", "unknown"
-        reason = "duplicate_listing"
-        notes = f"duplicate of {original['id']}" + (f"; {args.notes}" if args.notes else "")
+        decision_reason = "duplicate_listing"
+        notes = f"duplicate of {original['id']}" + (f"; {clean_value(values.get('notes'))}" if values.get("notes") else "")
+        first_party_verified, apply_verified = "unknown", "unknown"
     else:
-        application_status, listing_status = args.application_status, args.listing_status
-        reason, notes = args.decision_reason or "", args.notes or ""
-    if hits and not args.force and not args.duplicate_of:
-        print("возможные дубли:")
-        for row, reason_text in hits.values():
-            print(f"  {row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]  ({reason_text})")
-        print("\nэто дубль -> повторите с --duplicate-of job-NNNN\nэто другая вакансия -> повторите с --force")
-        raise SystemExit(2)
+        notes = clean_value(values.get("notes"))
     identifier = next_id(rows)
     verification_touched = (
         listing_status != "unknown"
-        or args.first_party_verified != "unknown"
-        or args.apply_verified != "unknown"
+        or first_party_verified != "unknown"
+        or apply_verified != "unknown"
     )
     row = {key: "" for key in FIELDS}
     row.update({
@@ -427,56 +488,160 @@ def cmd_add(args):
         "listing_status": listing_status,
         "company": company,
         "role": role,
-        "level": args.level,
-        "original_url": args.original_url or "",
-        "source_url": args.source_url or "",
-        "source": args.source,
-        "location": args.location or "",
-        "remote_policy": args.remote_policy,
-        "stack": args.stack or "",
-        "salary": args.salary or "Unknown",
-        "posted_at": args.posted_at or "",
-        "found_at": args.found_at or today(),
-        "match_score": args.match_score or "",
+        "level": level,
+        "original_url": clean_value(values.get("original_url")),
+        "source_url": clean_value(values.get("source_url")),
+        "source": source,
+        "location": clean_value(values.get("location")),
+        "remote_policy": remote_policy,
+        "stack": clean_value(values.get("stack")),
+        "salary": clean_value(values.get("salary")) or "Unknown",
+        "posted_at": clean_value(values.get("posted_at")),
+        "found_at": clean_value(values.get("found_at")) or today(),
+        "match_score": clean_value(values.get("match_score")),
         "stage_reached": "None",
-        "decision_reason": reason,
-        "first_party_verified": "unknown" if args.duplicate_of else args.first_party_verified,
-        "apply_verified": "unknown" if args.duplicate_of else args.apply_verified,
-        "verified_at": today() if verification_touched and not args.duplicate_of else "",
+        "decision_reason": decision_reason,
+        "first_party_verified": first_party_verified,
+        "apply_verified": apply_verified,
+        "verified_at": today() if verification_touched and not duplicate_of else "",
         "last_update": today(),
-        "notes": notes.replace("\n", " "),
+        "notes": notes,
     })
-    rows.append(row)
-    app_path = APPS_DIR / f"{identifier}-{slug(company)}-{slug(role)}.md"
-    create_file = not args.no_file and not (
-        application_status == "not_started" and reason
+    return row
+
+
+def should_create_application_card(row, no_file):
+    return not no_file and not (
+        row["application_status"] == "not_started" and row["decision_reason"]
     )
-    if create_file and not TEMPLATE_PATH.exists():
+
+
+def render_application_card(row):
+    app_path = APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
+    if app_path.exists():
+        return app_path, None
+    if not TEMPLATE_PATH.exists():
         die(f"не найден шаблон {TEMPLATE_PATH}")
-    ensure_valid(rows)
-    save(rows)
-    if create_file and not app_path.exists():
-        body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("job-0000", identifier).replace("{{company}}", company).replace("{{role}}", role)
-        for key in (
-            "company", "role", "original_url", "verified_at", "listing_status",
-            "first_party_verified", "apply_verified",
-        ):
-            body = body.replace(f"{key}:", f"{key}: {row[key]}", 1)
-        app_path.write_text(body, encoding="utf-8")
-        print(f"создан {app_path.relative_to(ROOT)}")
-    print(f"{identifier}  {company} — {role}  [{application_status}; {listing_status}]")
+    body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("job-0000", row["id"]).replace("{{company}}", row["company"]).replace("{{role}}", row["role"])
+    for key in (
+        "company", "role", "original_url", "verified_at", "listing_status",
+        "first_party_verified", "apply_verified",
+    ):
+        body = body.replace(f"{key}:", f"{key}: {row[key]}", 1)
+    return app_path, body
 
 
-def cmd_set(args):
-    if not args.field and not args.stage:
-        die("нечего менять: укажите field=value и/или --stage")
+def prepare_add(values, force=False, duplicate_of=None, no_file=False):
     rows = load()
-    row = find(rows, args.id)
-    verification_touched = False
-    for pair in args.field:
+    company = clean_value(values.get("company")).strip()
+    role = clean_value(values.get("role")).strip()
+    original_url = clean_value(values.get("original_url"))
+    candidates = find_duplicate_candidates(rows, company, role, original_url)
+    if candidates and not force and not duplicate_of:
+        raise UnresolvedDuplicate(candidates)
+    row = build_add_row(rows, values, duplicate_of=duplicate_of)
+    new_rows = [*rows, row]
+    app_path, app_body = (None, None)
+    if should_create_application_card(row, no_file):
+        app_path, app_body = render_application_card(row)
+    return AddPlan(
+        rows=new_rows,
+        row=row,
+        warnings=ensure_valid(new_rows, emit_warnings=False),
+        app_path=app_path,
+        app_body=app_body,
+    )
+
+
+def persist_add(plan):
+    created_path = None
+    temporary_path = None
+    try:
+        if plan.app_path and plan.app_body is not None:
+            descriptor, temporary_name = tempfile.mkstemp(prefix="application-", suffix=".md", dir=APPS_DIR)
+            temporary_path = Path(temporary_name)
+            with os.fdopen(descriptor, "w", encoding="utf-8") as file:
+                file.write(plan.app_body)
+            os.replace(temporary_path, plan.app_path)
+            temporary_path = None
+            created_path = plan.app_path
+        save(plan.rows)
+    except BaseException:
+        if temporary_path:
+            temporary_path.unlink(missing_ok=True)
+        if created_path:
+            created_path.unlink(missing_ok=True)
+        raise
+    return created_path
+
+
+def add_job(values, force=False, duplicate_of=None, no_file=False):
+    plan = prepare_add(values, force=force, duplicate_of=duplicate_of, no_file=no_file)
+    created_path = persist_add(plan)
+    return {
+        "job": plan.row,
+        "warnings": plan.warnings,
+        "application_path": created_path.relative_to(ROOT).as_posix() if created_path else None,
+    }
+
+
+def add_values_from_args(args):
+    return {
+        "company": args.company,
+        "role": args.role,
+        "source": args.source,
+        "application_status": args.application_status,
+        "listing_status": args.listing_status,
+        "first_party_verified": args.first_party_verified,
+        "apply_verified": args.apply_verified,
+        "level": args.level,
+        "remote_policy": args.remote_policy,
+        "original_url": args.original_url,
+        "source_url": args.source_url,
+        "location": args.location,
+        "stack": args.stack,
+        "salary": args.salary,
+        "posted_at": args.posted_at,
+        "found_at": args.found_at,
+        "match_score": args.match_score,
+        "decision_reason": args.decision_reason,
+        "notes": args.notes,
+    }
+
+
+def cmd_add(args):
+    try:
+        result = add_job(
+            add_values_from_args(args), force=args.force, duplicate_of=args.duplicate_of,
+            no_file=args.no_file,
+        )
+    except UnresolvedDuplicate as error:
+        print_duplicate_candidates(error.candidates)
+        raise SystemExit(2)
+    for warning in result["warnings"]:
+        print(f"warn:  {warning}")
+    if result["application_path"]:
+        print(f"создан {result['application_path']}")
+    row = result["job"]
+    print(f"{row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]")
+
+
+def parse_field_assignments(pairs):
+    assignments = []
+    for pair in pairs:
         if "=" not in pair:
             die(f"ожидается field=value, получено: {pair}")
         key, value = pair.split("=", 1)
+        assignments.append((key, value))
+    return assignments
+
+
+def apply_job_changes(row, assignments, stage=None):
+    if not assignments and not stage:
+        die("нечего менять: укажите field=value и/или --stage")
+    verification_touched = False
+    for key, raw_value in assignments:
+        value = clean_value(raw_value)
         if key not in FIELDS:
             die(f"неизвестное поле: {key}")
         if key in SET_PROTECTED:
@@ -489,16 +654,16 @@ def cmd_set(args):
         verification_touched = verification_touched or key in {
             "listing_status", "first_party_verified", "apply_verified",
         }
-    if args.stage:
-        if args.stage not in STAGES:
-            die(f"недопустимая стадия: {args.stage}")
+    if stage:
+        if stage not in STAGES:
+            die(f"недопустимая стадия: {stage}")
         current = row["stage_reached"] or "None"
-        if STAGES.index(args.stage) < STAGES.index(current):
-            die(f"stage_reached нельзя понижать: {current} -> {args.stage}")
-        row["stage_reached"] = args.stage
-        if STAGES.index("Recruiter screen") <= STAGES.index(args.stage) <= STAGES.index("Final interview") and row["application_status"] == "applied":
+        if STAGES.index(stage) < STAGES.index(current):
+            die(f"stage_reached нельзя понижать: {current} -> {stage}")
+        row["stage_reached"] = stage
+        if STAGES.index("Recruiter screen") <= STAGES.index(stage) <= STAGES.index("Final interview") and row["application_status"] == "applied":
             row["application_status"] = "interviewing"
-        if args.stage == "Offer" and row["application_status"] in {"applied", "interviewing"}:
+        if stage == "Offer" and row["application_status"] in {"applied", "interviewing"}:
             row["application_status"] = "offer"
     if row["application_status"] in NEEDS_APPLIED_AT and not row["applied_at"]:
         row["applied_at"] = today()
@@ -511,8 +676,23 @@ def cmd_set(args):
     if verification_touched:
         row["verified_at"] = today()
     row["last_update"] = today()
-    ensure_valid(rows)
+    return verification_touched
+
+
+def set_job(job_id, assignments, stage=None):
+    rows = load()
+    row = find(rows, job_id)
+    apply_job_changes(row, assignments, stage=stage)
+    warnings = ensure_valid(rows, emit_warnings=False)
     save(rows)
+    return {"job": row, "warnings": warnings}
+
+
+def cmd_set(args):
+    result = set_job(args.id, parse_field_assignments(args.field), stage=args.stage)
+    for warning in result["warnings"]:
+        print(f"warn:  {warning}")
+    row = result["job"]
     print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
 
 
@@ -611,8 +791,8 @@ def cmd_report(_args):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="jobs.py", description="CLI для data/jobs.csv")
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    parser = JobsArgumentParser(prog="jobs.py", description="CLI для data/jobs.csv")
+    subparsers = parser.add_subparsers(dest="command", required=True, parser_class=JobsArgumentParser)
     add = subparsers.add_parser("add", help="добавить вакансию")
     add.add_argument("--company", required=True)
     add.add_argument("--role", required=True)

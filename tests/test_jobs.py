@@ -106,6 +106,20 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.rows()[0]["application_status"], "not_started")
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
 
+    def test_add_fails_without_template_before_writing_csv_or_card(self):
+        (self.root / "applications" / "_TEMPLATE.md").unlink()
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        result = self.add("TemplateMissingCo", "Frontend Developer")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("не найден шаблон", result.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+        self.assertFalse(list((self.root / "applications").glob("job-*.md")))
+
+    def test_invalid_cli_input_uses_exit_code_one(self):
+        result = self.invoke("add", "--company", "MissingRoleAndSource")
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("the following arguments are required", result.stderr)
+
     def test_canonical_url_duplicate_requires_explicit_decision(self):
         self.assertEqual(self.add("ExeQut", "Front-End Software Developer", "--original-url", "https://example.com/jobs/1/", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
