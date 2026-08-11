@@ -48,6 +48,7 @@ python3 scripts/jobs.py add \
 | отчёты | [reports/](reports/) |
 | архитектурные решения | [docs/architecture.md](docs/architecture.md) |
 | дальнейшие улучшения | [docs/roadmap.md](docs/roadmap.md) |
+| подробный план Tracker v2 | [docs/tracker-v2-plan.md](docs/tracker-v2-plan.md) |
 
 ## Правила в двух словах
 
