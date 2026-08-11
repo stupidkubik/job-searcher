@@ -1075,6 +1075,8 @@ def plan_ingest(path, resolution_path=None):
         duplicate = deterministic_duplicate(fields, rows, source_rows, norm, norm_url)
         if duplicate:
             job_id, reason = duplicate
+            if line_number in resolutions:
+                resolutions_used.add(line_number)
             try:
                 _reference, created = add_ingest_reference(source_rows, job_id, fields)
             except SourceReferenceConflict as error:

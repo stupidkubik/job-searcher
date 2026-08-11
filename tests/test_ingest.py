@@ -291,6 +291,14 @@ class IngestCliTests(unittest.TestCase):
         })
         self.assertEqual((len(self.rows("jobs.csv")), len(self.rows("job_sources.csv"))), (2, 2))
 
+        repeated = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
+        self.assertEqual(repeated.returncode, 0, repeated.stderr)
+        repeated_payload = json.loads(repeated.stdout)
+        self.assertEqual(repeated_payload["resolution"]["used"], 1)
+        self.assertEqual(repeated_payload["applied"], {
+            "jobs_created": 0, "source_references_created": 0, "application_cards_created": 0,
+        })
+
     def test_fuzzy_resolution_can_merge_with_a_canonical_job(self):
         seeded = self.invoke(
             "add", "--company", "Acme Studio Inc.", "--role", "Frontend Engineer", "--source", "Manual", "--no-file",
