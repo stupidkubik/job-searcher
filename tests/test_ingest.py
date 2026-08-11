@@ -153,6 +153,16 @@ class IngestCliTests(unittest.TestCase):
         path.write_text("\n".join(lines) + "\n", encoding="utf-8")
         return path
 
+    def write_resolutions(self, batch, resolutions, name="batch.resolution.json", batch_id=None):
+        path = self.root / "inbox" / name
+        batch_id = batch_id or "sha256:" + hashlib.sha256(batch.read_bytes()).hexdigest()
+        path.write_text(json.dumps({
+            "version": 1,
+            "batch_id": batch_id,
+            "resolutions": resolutions,
+        }), encoding="utf-8")
+        return path
+
     def snapshot(self):
         return {
             "jobs": (self.root / "data" / "jobs.csv").read_bytes(),
@@ -249,6 +259,76 @@ class IngestCliTests(unittest.TestCase):
         self.assertEqual(payload["error"], "fuzzy_duplicate_requires_resolution")
         self.assertEqual(payload["outcomes"][0]["reason"], "fuzzy_duplicate_requires_resolution")
         self.assertEqual(payload["outcomes"][0]["candidates"][0]["id"], "job-0001")
+        self.assertEqual(self.snapshot(), before)
+
+    def test_fuzzy_resolution_can_keep_distinct_batch_records_separate(self):
+        batch = self.write_batch([
+            self.record("first", company="Acme Studio", role="Frontend Engineer"),
+            self.record("second", company="Acme Studio", role="Frontend Developer"),
+        ])
+        resolutions = self.write_resolutions(batch, [{
+            "line": 2,
+            "candidate": {"line": 1},
+            "decision": "separate",
+        }])
+        before = self.snapshot()
+
+        dry_run = self.invoke(
+            "ingest", str(batch), "--resolutions", str(resolutions), "--dry-run", "--format", "json",
+        )
+        self.assertEqual(dry_run.returncode, 0, dry_run.stderr)
+        dry_payload = json.loads(dry_run.stdout)
+        self.assertTrue(dry_payload["ok"])
+        self.assertEqual(dry_payload["resolution"]["used"], 1)
+        self.assertEqual(dry_payload["outcomes"][1]["resolution"], "separate")
+        self.assertEqual(self.snapshot(), before)
+
+        applied = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        payload = json.loads(applied.stdout)
+        self.assertEqual(payload["applied"], {
+            "jobs_created": 2, "source_references_created": 2, "application_cards_created": 0,
+        })
+        self.assertEqual((len(self.rows("jobs.csv")), len(self.rows("job_sources.csv"))), (2, 2))
+
+    def test_fuzzy_resolution_can_merge_with_a_canonical_job(self):
+        seeded = self.invoke(
+            "add", "--company", "Acme Studio Inc.", "--role", "Frontend Engineer", "--source", "Manual", "--no-file",
+        )
+        self.assertEqual(seeded.returncode, 0, seeded.stderr)
+        batch = self.write_batch([self.record("fuzzy", company="Acme Studio", role="Frontend Developer")])
+        resolutions = self.write_resolutions(batch, [{
+            "line": 1,
+            "candidate": {"job_id": "job-0001"},
+            "decision": "duplicate",
+        }])
+
+        result = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["outcomes"][0], {
+            "line": 1,
+            "outcome": "duplicate",
+            "reason": "fuzzy_resolution",
+            "resolution": "duplicate",
+            "job_id": "job-0001",
+            "source_reference_created": True,
+        })
+        self.assertEqual(len(self.rows("jobs.csv")), 1)
+        self.assertEqual(len(self.rows("job_sources.csv")), 1)
+
+    def test_resolution_sidecar_must_match_the_exact_batch(self):
+        batch = self.write_batch([self.record("pending")])
+        resolutions = self.write_resolutions(batch, [], batch_id="sha256:not-the-batch")
+        before = self.snapshot()
+
+        result = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
+
+        self.assertEqual(result.returncode, 1)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["error"], "invalid_batch")
+        self.assertIn("batch_id не совпадает", payload["errors"][0])
         self.assertEqual(self.snapshot(), before)
 
     def test_transaction_rolls_back_when_replacement_fails_between_csv_files(self):

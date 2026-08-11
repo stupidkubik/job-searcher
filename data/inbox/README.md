@@ -66,3 +66,25 @@ application card и не считает ссылку агрегатора док
 
 Детерминированный дубль добавляет source reference к canonical job. Fuzzy
 candidate останавливает batch с exit code `2` до явного решения человека.
+
+## Fuzzy resolution sidecar
+
+Решение человека хранится отдельным локальным `*.resolution.json` рядом с raw
+batch и не меняет immutable JSONL. Файл привязан к вычисленному `batch_id`:
+
+```json
+{
+  "version": 1,
+  "batch_id": "sha256:...",
+  "resolutions": [
+    {"line": 6, "candidate": {"line": 5}, "decision": "separate"}
+  ]
+}
+```
+
+Одна запись описывает один fuzzy outcome. `candidate.line` указывает на более
+раннюю строку этого batch; `candidate.job_id` указывает на existing canonical
+job. Решение `separate` создаёт самостоятельную job, а `duplicate` добавляет
+source reference к выбранной job. `ingest --resolutions PATH` строго проверяет
+версию, exact batch ID, уникальность строк и совпадение указанного кандидата с
+получившимся fuzzy plan до любой canonical write.

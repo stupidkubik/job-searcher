@@ -117,6 +117,33 @@ source URL, нормализованные `company + role + location`, зате
 никогда не склеивается автоматически: команда печатает plan и завершается с
 кодом `2` до явного resolution.
 
+Для явного решения создайте рядом с batch локальный sidecar
+`*.resolution.json`. Он привязан к SHA-256 exact bytes raw batch и сам также
+игнорируется Git; raw JSONL не меняется. `candidate.line` ссылается на более
+раннюю строку того же immutable batch, `candidate.job_id` — на уже существующую
+canonical job. `separate` сохраняет новую самостоятельную вакансию, а
+`duplicate` добавляет source reference к выбранной job.
+
+```json
+{
+  "version": 1,
+  "batch_id": "sha256:...",
+  "resolutions": [
+    {"line": 6, "candidate": {"line": 5}, "decision": "separate"},
+    {"line": 12, "candidate": {"job_id": "job-0042"}, "decision": "duplicate"}
+  ]
+}
+```
+
+CLI отвергает sidecar с другим batch ID, повторной/неприменимой строкой или
+кандидатом, которого нет в текущем fuzzy plan. Сначала всегда проверить:
+
+```bash
+python3 scripts/jobs.py ingest data/inbox/himalayas-2026-08-11T090000Z.jsonl \
+  --resolutions data/inbox/himalayas-2026-08-11T090000Z.resolution.json \
+  --dry-run --format json
+```
+
 Без `--dry-run` применяется только полностью валидный batch. Замена
 `jobs.csv` и `job_sources.csv` выполняется одной rollback-able transaction; при
 сбое dataset остаётся прежним. Непроверенная агрегаторная запись создаётся без

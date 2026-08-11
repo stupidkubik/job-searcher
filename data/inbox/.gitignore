@@ -1,2 +1,3 @@
 # Raw discovery batches are local, immutable runtime inputs.
 *.jsonl
+*.resolution.json
