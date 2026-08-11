@@ -35,8 +35,8 @@
 
 ## Как писать в CSV
 
-- Только через `scripts/jobs.py` (`add` / `set` / `backfill-sources`). Ручная
-  правка canonical CSV — исключение.
+- Только через `scripts/jobs.py` (`add` / `set` / `screen` / `verify` /
+  `backfill-sources` / `ingest`). Ручная правка canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. По явной команде пользователя
@@ -60,6 +60,70 @@
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
 - После любых изменений: `python3 scripts/jobs.py validate` — должно быть 0 ошибок.
+
+## Командный минимум для агента
+
+Не угадывать синтаксис и допустимые поля: перед незнакомой операцией выполнить
+`python3 scripts/jobs.py <command> --help`. Для машинного чтения использовать
+`--format json`. Полная справка и примеры находятся в `docs/jobs-cli.md`.
+
+Безопасные read-only команды для начала работы:
+
+```bash
+python3 scripts/jobs.py todo --format json
+python3 scripts/jobs.py stale --days 7 --format json
+python3 scripts/jobs.py stats --format json
+python3 scripts/jobs.py dupes --format json
+```
+
+Основные write-команды в локальном checkout:
+
+```bash
+# Новая вакансия; для внешнего источника добавить --source-url/--source-job-id.
+python3 scripts/jobs.py add --company "ExampleCo" --role "Frontend Developer" \
+  --source "Company Careers" --source-url "https://careers.example.com/jobs/123" \
+  --application-status not_started --format json
+
+# Завершённую first-party проверку записывать одной атомарной операцией.
+python3 scripts/jobs.py verify job-NNNN --listing-status open \
+  --first-party-verified yes --apply-verified yes --original-url "..." \
+  --format json
+
+# Последующие изменения существующей записи задаются как field=value.
+python3 scripts/jobs.py set job-NNNN next_action="follow up" --format json
+
+# Screening blocker без утверждений о first-party verification.
+python3 scripts/jobs.py screen job-NNNN \
+  --decision-reason geo_restriction --notes "..." --format json
+```
+
+Для raw batch порядок всегда такой; первый ingest обязательно dry-run:
+
+```bash
+python3 scripts/inbox.py validate data/inbox/<batch>.jsonl
+python3 scripts/jobs.py ingest data/inbox/<batch>.jsonl --dry-run --format json
+# После проверки плана и явного resolution fuzzy-кандидатов:
+python3 scripts/jobs.py ingest data/inbox/<batch>.jsonl \
+  --resolutions data/inbox/<batch>.resolution.json --format json
+```
+
+После любой записи выполнить strict validation и просмотреть fuzzy-кандидатов:
+
+```bash
+python3 scripts/jobs.py validate --strict --format json
+python3 scripts/jobs.py dupes --format json
+```
+
+`dupes` — отчёт для проверки, а не разрешение автоматически объединить строки.
+Флаг `--fail` использовать в CI или когда dataset уже не содержит известных
+fuzzy-кандидатов.
+
+GitHub connector не исполняет эти shell-команды. Для него CLI выше описывает
+ожидаемую семантику, а запись выполняется только созданием одного нового
+immutable request по контракту `data/operations/README.md`. Разрешены `screen`,
+`verify`, ограниченный `set` и `batch` только с `atomic=true`; `add`, `ingest` и
+human-only события через request не поддерживаются. Не считать операцию
+завершённой, пока runner не создал соответствующий result и canonical diff.
 
 ## Порядок обработки одной вакансии
 

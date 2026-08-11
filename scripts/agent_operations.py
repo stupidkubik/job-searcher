@@ -21,6 +21,8 @@ CHILD_FIELDS = {"command","job_id","expected","args"}
 VERIFY_REQUIRED_ARGS = {"listing_status","first_party_verified","apply_verified"}
 VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {"original_url","decision_reason","notes","level","remote_policy","stack","salary","match_score","application_status","next_action","next_action_date"}
 SET_ALLOWED_ARGS = {"next_action","next_action_date","listing_status"}
+SCREEN_REQUIRED_ARGS = {"decision_reason"}
+SCREEN_ALLOWED_ARGS = SCREEN_REQUIRED_ARGS | {"notes"}
 VERIFY_ENRICHMENT_ARGS = {"level","remote_policy","stack","salary","match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status","next_action","next_action_date"}
 class OperationError(ValueError): pass
@@ -89,6 +91,18 @@ def validate_set_args(args,prefix="args"):
         except ValueError as error: raise OperationError(f"{prefix}.next_action_date must be YYYY-MM-DD") from error
     if "listing_status" in out and out["listing_status"]!="closed": raise OperationError("agent set may only record listing_status=closed")
     return out
+def validate_screen_args(args,prefix="args"):
+    if not isinstance(args,dict): raise OperationError(f"{prefix} must be an object")
+    unknown=sorted(set(args)-SCREEN_ALLOWED_ARGS); missing=sorted(SCREEN_REQUIRED_ARGS-set(args))
+    if unknown or missing:
+        parts=[]
+        if unknown: parts.append("unknown screen args: "+", ".join(unknown))
+        if missing: parts.append("missing screen args: "+", ".join(missing))
+        raise OperationError("; ".join(parts))
+    out={k:clean_text(v,f"{prefix}.{k}") for k,v in args.items()}
+    if out["decision_reason"] not in jobs.SCREEN_REASONS: raise OperationError(f"{prefix}.decision_reason is not allowed for screen")
+    if out["decision_reason"]=="other" and not out.get("notes","").strip(): raise OperationError("screen decision_reason=other requires non-empty notes")
+    return out
 def validate_child(value,index=None):
     prefix=f"operations[{index}]" if index is not None else "operation"
     if not isinstance(value,dict): raise OperationError(f"{prefix} must be an object")
@@ -99,11 +113,13 @@ def validate_child(value,index=None):
         if missing: parts.append("missing fields: "+", ".join(missing))
         raise OperationError(f"{prefix}: "+"; ".join(parts))
     command=clean_text(value["command"],f"{prefix}.command")
-    if command not in {"verify","set"}: raise OperationError(f"{prefix}.command must be verify or set")
+    if command not in {"screen","verify","set"}: raise OperationError(f"{prefix}.command must be screen, verify or set")
     job_id=clean_text(value["job_id"],f"{prefix}.job_id")
     if not JOB_ID_RE.fullmatch(job_id): raise OperationError(f"{prefix}.job_id must be job-NNNN")
     expected=validate_expected(value["expected"],f"{prefix}.expected")
-    args=validate_verify_args(value["args"],f"{prefix}.args") if command=="verify" else validate_set_args(value["args"],f"{prefix}.args")
+    if command=="verify": args=validate_verify_args(value["args"],f"{prefix}.args")
+    elif command=="screen": args=validate_screen_args(value["args"],f"{prefix}.args")
+    else: args=validate_set_args(value["args"],f"{prefix}.args")
     return {"command":command,"job_id":job_id,"expected":expected,"args":args}
 def validate_operation(value):
     if not isinstance(value,dict): raise OperationError("request must be a JSON object")
@@ -132,7 +148,7 @@ def validate_operation(value):
         if unknown: parts.append("unknown top-level fields: "+", ".join(unknown))
         if missing: parts.append("missing top-level fields: "+", ".join(missing))
         raise OperationError("; ".join(parts))
-    if command not in {"verify","set"}: raise OperationError("command must be verify, set, or batch")
+    if command not in {"screen","verify","set"}: raise OperationError("command must be screen, verify, set, or batch")
     child=validate_child({"command":command,"job_id":value["job_id"],"expected":value["expected"],"args":value["args"]})
     return {"version":OPERATION_VERSION,"operation_id":operation_id,**child}
 def load_operation(path):
@@ -152,7 +168,7 @@ def read_job(job_id):
 def precondition_mismatches(row,expected):
     return {k:{"expected":v,"actual":row.get(k,"")} for k,v in expected.items() if row.get(k,"")!=v}
 def classify_child_risk(operation,row):
-    if operation["command"]=="set": return "low"
+    if operation["command"] in {"screen","set"}: return "low"
     args=operation["args"]
     passed=args["listing_status"]=="open" and args["first_party_verified"]=="yes" and args["apply_verified"]=="yes"
     if (VERIFY_ENRICHMENT_ARGS|VERIFY_WORKFLOW_ARGS)&set(args): return "medium"
@@ -168,6 +184,9 @@ def apply_operation(operation,row):
     if operation["command"]=="verify":
         result=jobs.verify_job(operation["job_id"],**operation["args"])
         return {"job":result["job"],"warnings":result["warnings"],"outcome":result["outcome"],"application_path":result.get("application_path")}
+    if operation["command"]=="screen":
+        result=jobs.screen_job(operation["job_id"],**operation["args"])
+        return {"job":result["job"],"warnings":result["warnings"],"outcome":result["outcome"],"application_path":None}
     if "listing_status" in operation["args"] and row["application_status"] not in jobs.NEEDS_APPLIED_AT: raise OperationError("listing_status=closed through set is allowed only after an application exists")
     result=jobs.set_job(operation["job_id"],list(operation["args"].items()))
     return {"job":result["job"],"warnings":result["warnings"],"outcome":"updated","application_path":None}

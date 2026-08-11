@@ -1,16 +1,17 @@
 # Agent operations: безопасный write-path через GitHub Actions
 
 Дата: 2026-08-11
-Статус: Phase A implemented; Phase B/C остаются proposal для Tracker v2.1
+Статус: Phase A implemented; Phase B partially implemented (`screen` + atomic
+batch); остальное остаётся proposal для Tracker v2.1
 
-Реализация Phase A находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
+Реализация находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
 [`data/operations/`](../data/operations/) и workflow
 [`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
-поддерживает одну операцию `verify` или ограниченный `set`, обязательные
-field-level preconditions и immutable result. Request на `main`, созданный по
-явной команде пользователя, применяет canonical diff прямо в `main`; request
-на `agent/*` остаётся PR-only. `add`, batch и ingest по-прежнему относятся к
-следующим фазам.
+поддерживает `screen`, `verify`, ограниченный `set` и atomic batch из этих
+операций, обязательные field-level preconditions и immutable result. Request на
+`main`, созданный по явной команде пользователя, применяет canonical diff прямо
+в `main`; request на `agent/*` остаётся PR-only. `add` и ingest по-прежнему
+относятся к следующим этапам.
 
 Result Phase A не содержит `commit_sha`: runner пишет его в том же Git commit,
 что и canonical diff, поэтому этот commit сам является неизменяемой audit link
@@ -144,10 +145,10 @@ Runner читает `command`, проверяет schema и policy, а зате�
 
 ## 5. Разрешённые операции
 
-Начальный allowlist:
+Текущий allowlist:
 
 ```text
-add
+screen
 verify
 set
 batch
@@ -158,10 +159,11 @@ batch
 batch внутри `data/inbox/`, проверять его hash и использовать существующий
 resolution contract.
 
-### `add`
+### `screen`
 
-Создание новой вакансии через тот же canonical write-path, что и ручной CLI.
-Operation передаёт только поля, которые уже разрешены structured `add` input.
+Фиксирует pre-application screening blocker без утверждения, что первоисточник,
+Apply или listing status были проверены. Очищает следующий шаг, но не меняет
+verification/listing fields.
 
 ### `verify`
 
@@ -177,6 +179,8 @@ Operation передаёт только поля, которые уже разр
 
 Контейнер из нескольких разрешённых операций, применяемых атомарно.
 
+`add` остаётся следующим расширением Phase B и пока не входит в allowlist.
+
 ## 6. Risk policy
 
 Runner, а не агент, определяет уровень риска операции.
@@ -187,9 +191,9 @@ Runner, а не агент, определяет уровень риска оп�
 
 ```text
 verify → closed_before_application
-verify → geo_restriction
-verify → work_authorization
-verify → seniority_too_high
+screen → geo_restriction
+screen → work_authorization
+screen → seniority_too_high
 set next_action=...
 set next_action_date=...
 set listing_status=closed для уже applied записи
@@ -208,8 +212,10 @@ verify → reviewing
 verify → apply + next action for a human-started process
 match_score / level / stack enrichment
 explicit duplicate resolution
-batch с несколькими mutable операциями
+batch, содержащий хотя бы одну medium-risk операцию
 ```
+
+Batch только из low-risk операций остаётся low-risk.
 
 PR даёт человеку быстрый визуальный контроль diff без необходимости переносить
 данные вручную.
@@ -302,13 +308,10 @@ Batch особенно полезен для разбора источников
   "atomic": true,
   "operations": [
     {
-      "command": "verify",
+      "command": "screen",
       "job_id": "job-0099",
       "expected": {"application_status": "not_started"},
       "args": {
-        "listing_status": "open",
-        "first_party_verified": "yes",
-        "apply_verified": "yes",
         "decision_reason": "geo_restriction"
       }
     },
@@ -327,8 +330,8 @@ Batch особенно полезен для разбора источников
 }
 ```
 
-Runner сначала должен полностью провалидировать manifest и все preconditions.
-Только затем операции применяются в checkout.
+Runner сначала полностью валидирует manifest и все preconditions. Затем
+операции готовятся в памяти и записываются одной dataset transaction.
 
 После применения выполняется проверка dataset целиком. Если операция №17 или
 финальный validation падает, commit/PR не создаётся. Рабочее дерево runner можно
@@ -488,7 +491,6 @@ scripts/job_store.py     shared canonical functions
 - schema version `1`;
 - только single operation;
 - commands: `verify`, ограниченный `set`;
-- только PR output;
 - immutable operation request;
 - optimistic locking;
 - strict validation + tests;
@@ -496,11 +498,12 @@ scripts/job_store.py     shared canonical functions
 
 ### Phase B
 
-- `add`;
-- atomic `batch`;
-- operation result files;
-- risk-based auto-commit для low-risk operations;
-- richer PR summaries.
+- `screen` — implemented;
+- atomic `batch` для `screen` / `verify` / `set` — implemented;
+- operation result files — implemented;
+- explicit main delivery и review PR — implemented;
+- `add` — planned;
+- richer PR summaries — planned.
 
 ### Phase C
 
