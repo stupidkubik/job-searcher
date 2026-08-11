@@ -42,6 +42,9 @@
 - `data/job_sources.csv` — provenance каждой вакансии. Для нового внешнего
   источника передавать `--source-url` или `--source-job-id`; без reference
   допустимы только `Manual` и `Referral`.
+- Рабочие raw batches живут только локально в `data/inbox/*.jsonl`: они
+  immutable, игнорируются Git и не редактируются ingest-ом. Их контракт — в
+  `data/inbox/README.md`; до ingest проверять `python3 scripts/inbox.py validate`.
 - Подтверждённый дубль создавать только через `add --duplicate-of job-NNNN`:
   команда добавляет source reference к canonical job и не создаёт новый ID.
   `--force` означает, что совпадающий URL — осознанно shared discovery page или
@@ -76,6 +79,7 @@
 |---|---|
 | структурированные данные | `data/jobs.csv` |
 | provenance источников | `data/job_sources.csv` |
+| локальные raw результаты источников | `data/inbox/*.jsonl` (не коммитятся) |
 | длинный контекст по вакансии | `applications/<id>.md` из `_TEMPLATE.md` |
 | профиль, приоритеты, доказательства | `config/profile.md` |
 | резюме для отправки | `cv/current/` — только оттуда |
