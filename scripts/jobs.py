@@ -12,7 +12,7 @@ import tempfile
 import unicodedata
 from contextlib import contextmanager
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
@@ -103,6 +103,17 @@ ENUMS = {
 }
 GHOST_AFTER_DAYS = 30
 SOURCES_WITHOUT_EXTERNAL_REFERENCE = {"Manual", "Referral"}
+TERMINAL_APPLICATION_STATUSES = {"rejected", "ghosted", "withdrawn"}
+DEFAULT_STALE_DAYS = 7
+TODO_SECTION_ORDER = (
+    ("overdue", "Просрочено"),
+    ("today", "Сегодня"),
+    ("follow_ups", "Follow-ups"),
+    ("apply_not_submitted", "Apply not submitted"),
+    ("stale_review", "Stale review"),
+    ("verification_queue", "Verification queue"),
+    ("upcoming_interview_test", "Upcoming interview / test"),
+)
 
 V1_STATUS_MAPPING = {
     "New": ("not_started", "unknown"),
@@ -172,6 +183,23 @@ class IngestPlan:
 
 def today():
     return date.today().isoformat()
+
+
+def positive_int(value):
+    try:
+        parsed = int(value)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError("ожидается положительное целое число") from error
+    if parsed <= 0:
+        raise argparse.ArgumentTypeError("ожидается положительное целое число")
+    return parsed
+
+
+def iso_date_argument(value):
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError as error:
+        raise argparse.ArgumentTypeError("ожидается дата YYYY-MM-DD") from error
 
 
 def die(message):
@@ -1571,67 +1599,329 @@ def cmd_dupes(args):
         raise SystemExit(1)
 
 
-def cmd_report(_args):
+def parsed_row_date(value):
+    if not value:
+        return None
+    return datetime.strptime(value, "%Y-%m-%d").date()
+
+
+def is_active_candidate(row):
+    """Active means there is no terminal decision or completed listing closure."""
+    return (
+        row["listing_status"] != "closed"
+        and not row["decision_reason"]
+        and row["application_status"] not in TERMINAL_APPLICATION_STATUSES
+    )
+
+
+def stale_entries(rows, days, reference_date):
+    cutoff = reference_date - timedelta(days=days)
+    entries = []
+    for row in rows:
+        if not is_active_candidate(row):
+            continue
+        verified_at = parsed_row_date(row["verified_at"])
+        if verified_at is None:
+            entries.append({"job": row, "reason": "never_verified", "age_days": None})
+        elif verified_at < cutoff:
+            entries.append({
+                "job": row,
+                "reason": "verification_expired",
+                "age_days": (reference_date - verified_at).days,
+            })
+    return entries
+
+
+def score_priority(row):
+    try:
+        return float(row["match_score"])
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def todo_item(row, item_date="", reason=None):
+    return {
+        "id": row["id"],
+        "company": row["company"],
+        "role": row["role"],
+        "date": item_date,
+        "priority": score_priority(row) or None,
+        "application_status": row["application_status"],
+        "listing_status": row["listing_status"],
+        "stage_reached": row["stage_reached"],
+        "next_action": row["next_action"],
+        "reason": reason,
+    }
+
+
+def sorted_todo_items(items):
+    return sorted(
+        items,
+        key=lambda item: (item["date"] or "9999-12-31", -float(item["priority"] or 0), item["id"]),
+    )
+
+
+def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
+    reference = reference_date.isoformat()
+    sections = {key: [] for key, _title in TODO_SECTION_ORDER}
+    stale_by_id = {entry["job"]["id"]: entry for entry in stale_entries(rows, stale_days, reference_date)}
+    interview_stages = {"Recruiter screen", "Tech interview", "Test task", "Final interview"}
+    for row in rows:
+        action_date = row["next_action_date"]
+        if action_date and action_date < reference:
+            sections["overdue"].append(todo_item(row, action_date))
+        elif action_date == reference:
+            sections["today"].append(todo_item(row, action_date))
+        if "follow-up" in (row["next_action"] or "").casefold() and (not action_date or action_date > reference):
+            sections["follow_ups"].append(todo_item(row, action_date))
+        if row["application_status"] == "apply":
+            sections["apply_not_submitted"].append(todo_item(row, action_date))
+        if row["application_status"] == "reviewing" and row["id"] in stale_by_id:
+            stale = stale_by_id[row["id"]]
+            stale_date = row["verified_at"] or row["last_update"]
+            sections["stale_review"].append(todo_item(row, stale_date, stale["reason"]))
+        if (
+            row["application_status"] == "not_started"
+            and is_active_candidate(row)
+            and (row["first_party_verified"] != "yes" or row["apply_verified"] != "yes")
+        ):
+            sections["verification_queue"].append(todo_item(row, action_date or row["last_update"]))
+        if is_active_candidate(row) and row["stage_reached"] in interview_stages:
+            sections["upcoming_interview_test"].append(todo_item(row, action_date or row["response_at"]))
+    return {key: sorted_todo_items(items) for key, items in sections.items()}
+
+
+def percent(numerator, denominator):
+    return round(numerator / denominator * 100, 1) if denominator else None
+
+
+def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
+    """Return the complete structured source for daily and weekly reporting."""
+    active = [row for row in rows if is_active_candidate(row)]
+    stale = stale_entries(rows, stale_days, reference_date)
+    applied = [row for row in rows if row["applied_at"]]
+    responses = [row for row in rows if row["response_at"]]
+    fully_verified = [
+        row for row in active
+        if row["first_party_verified"] == "yes" and row["apply_verified"] == "yes"
+    ]
+    funnel = []
+    for stage in STAGES[1:]:
+        reached = sum(STAGES.index(row["stage_reached"] or "None") >= STAGES.index(stage) for row in rows)
+        funnel.append({"stage": stage, "reached": reached, "percent_of_applications": percent(reached, len(applied))})
+    sources = []
+    for source in SOURCES:
+        source_rows = [row for row in rows if row["source"] == source]
+        if source_rows:
+            source_applied = sum(bool(row["applied_at"]) for row in source_rows)
+            source_responses = sum(bool(row["response_at"]) for row in source_rows)
+            sources.append({
+                "source": source,
+                "found": len(source_rows),
+                "applied": source_applied,
+                "responses": source_responses,
+                "response_rate": percent(source_responses, source_applied),
+            })
+    cv_versions = []
+    for version in sorted({row["cv_version"] for row in rows if row["cv_version"]} | {"not recorded"}):
+        version_rows = [
+            row for row in applied
+            if (row["cv_version"] or "not recorded") == version
+        ]
+        if version_rows:
+            version_responses = sum(bool(row["response_at"]) for row in version_rows)
+            cv_versions.append({
+                "cv_version": version,
+                "applied": len(version_rows),
+                "responses": version_responses,
+                "response_rate": percent(version_responses, len(version_rows)),
+            })
+    stale_items = [
+        {
+            "id": entry["job"]["id"],
+            "verified_at": entry["job"]["verified_at"],
+            "reason": entry["reason"],
+            "age_days": entry["age_days"],
+        }
+        for entry in sorted(stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"]))
+    ]
+    return {
+        "ok": True,
+        "command": "stats",
+        "as_of": reference_date.isoformat(),
+        "jobs_total": len(rows),
+        "application_status": {
+            status: sum(row["application_status"] == status for row in rows)
+            for status in APPLICATION_STATUSES
+        },
+        "listing_status": {
+            status: sum(row["listing_status"] == status for row in rows)
+            for status in LISTING_STATUSES
+        },
+        "derived": {
+            "active_candidates": len(active),
+            "skipped": sum(
+                row["application_status"] == "not_started"
+                and bool(row["decision_reason"])
+                and row["decision_reason"] not in {"duplicate_listing", "closed_before_application"}
+                for row in rows
+            ),
+            "closed_before_application": sum(
+                row["application_status"] == "not_started" and row["listing_status"] == "closed"
+                for row in rows
+            ),
+            "legacy_duplicates": sum(row["decision_reason"] == "duplicate_listing" for row in rows),
+        },
+        "verification": {
+            "eligible_records": len(active),
+            "first_party_verified": {
+                value: sum(row["first_party_verified"] == value for row in active)
+                for value in VERIFICATION
+            },
+            "apply_verified": {
+                value: sum(row["apply_verified"] == value for row in active)
+                for value in VERIFICATION
+            },
+            "fully_verified": len(fully_verified),
+            "coverage_percent": percent(len(fully_verified), len(active)),
+        },
+        "stale": {"days": stale_days, "count": len(stale_items), "jobs": stale_items},
+        "funnel": {
+            "applications": len(applied),
+            "responses": len(responses),
+            "response_rate": percent(len(responses), len(applied)),
+            "stages": funnel,
+        },
+        "sources": sources,
+        "cv_versions": cv_versions,
+        "decision_reasons": {
+            reason: sum(row["decision_reason"] == reason for row in rows)
+            for reason in REASONS
+        },
+    }
+
+
+def cmd_stale(args):
     rows = load()
-    if not rows:
-        print("jobs.csv пуст")
+    reference_date = args.date or date.today()
+    stale = stale_entries(rows, args.days, reference_date)
+    payload = {
+        "ok": True,
+        "command": "stale",
+        "as_of": reference_date.isoformat(),
+        "days": args.days,
+        "count": len(stale),
+        "jobs": [
+            {
+                "id": entry["job"]["id"],
+                "company": entry["job"]["company"],
+                "role": entry["job"]["role"],
+                "verified_at": entry["job"]["verified_at"],
+                "reason": entry["reason"],
+                "age_days": entry["age_days"],
+            }
+            for entry in sorted(stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"]))
+        ],
+    }
+    if args.format == "json":
+        print_json(payload)
         return
-    count = lambda predicate: sum(1 for row in rows if predicate(row))
-    print(f"# Отчёт job-searcher — {today()}\n\nВсего записей: **{len(rows)}**\n\n## Состояния заявок\n\n| Application status | Кол-во |\n|---|---:|")
-    for status in APPLICATION_STATUSES:
-        if amount := count(lambda row, status=status: row["application_status"] == status):
+    print(f"# Stale verification — {payload['as_of']} (>{args.days} days)")
+    if not payload["jobs"]:
+        print("\nНет просроченных active records.")
+        return
+    print("\n| id | Компания | Роль | Verified at | Причина | Возраст |\n|---|---|---|---|---|---:|")
+    for job in payload["jobs"]:
+        age = job["age_days"] if job["age_days"] is not None else "—"
+        print(f"| {job['id']} | {job['company']} | {job['role']} | {job['verified_at'] or '—'} | {job['reason']} | {age} |")
+
+
+def cmd_todo(args):
+    rows = load()
+    reference_date = args.date or date.today()
+    sections = todo_sections(rows, reference_date, stale_days=args.stale_days)
+    payload = {
+        "ok": True,
+        "command": "todo",
+        "date": reference_date.isoformat(),
+        "stale_days": args.stale_days,
+        "section_order": [key for key, _title in TODO_SECTION_ORDER],
+        "sections": sections,
+    }
+    if args.format == "json":
+        print_json(payload)
+        return
+    print(f"# TODO — {payload['date']}")
+    titles = dict(TODO_SECTION_ORDER)
+    for key, _title in TODO_SECTION_ORDER:
+        print(f"\n## {titles[key]}")
+        items = sections[key]
+        if not items:
+            print("Нет задач.")
+            continue
+        print("\n| Дата | Приоритет | id | Компания | Роль | Действие |\n|---|---:|---|---|---|---|")
+        for item in items:
+            priority = f"{item['priority']:g}" if item["priority"] is not None else "—"
+            action = item["next_action"] or item["reason"] or "—"
+            print(f"| {item['date'] or '—'} | {priority} | {item['id']} | {item['company']} | {item['role']} | {action} |")
+
+
+def cmd_stats(args):
+    payload = stats_payload(load(), args.date or date.today(), stale_days=args.stale_days)
+    if args.format == "json":
+        print_json(payload)
+        return
+    verification = payload["verification"]
+    stale = payload["stale"]
+    funnel = payload["funnel"]
+    coverage = f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    response_rate = f"{funnel['response_rate']:g}%" if funnel["response_rate"] is not None else "—"
+    print(
+        f"jobs={payload['jobs_total']}; active_candidates={payload['derived']['active_candidates']}; "
+        f"verification_coverage={coverage}; stale={stale['count']}; "
+        f"applications={funnel['applications']}; response_rate={response_rate}"
+    )
+
+
+def cmd_report(args):
+    payload = stats_payload(load(), args.date or date.today(), stale_days=args.stale_days)
+    print(f"# Отчёт job-searcher — {payload['as_of']}\n\nВсего записей: **{payload['jobs_total']}**")
+    print("\n## Состояния заявок\n\n| Application status | Кол-во |\n|---|---:|")
+    for status, amount in payload["application_status"].items():
+        if amount:
             print(f"| {status} | {amount} |")
     print("\n## Состояния объявлений\n\n| Listing status | Кол-во |\n|---|---:|")
-    for status in LISTING_STATUSES:
-        if amount := count(lambda row, status=status: row["listing_status"] == status):
+    for status, amount in payload["listing_status"].items():
+        if amount:
             print(f"| {status} | {amount} |")
+    verification = payload["verification"]
+    coverage = f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    print(
+        "\n## Verification coverage\n\n"
+        f"Active candidates: **{verification['eligible_records']}**; fully verified: "
+        f"**{verification['fully_verified']}** ({coverage})."
+    )
+    stale = payload["stale"]
+    print(f"\n## Stale verification\n\nOlder than {stale['days']} days: **{stale['count']}**.")
     print("\n## Воронка (по stage_reached)\n\n| Стадия | Достигли | % от откликов |\n|---|---:|---:|")
-    applied = count(lambda row: (row["stage_reached"] or "None") != "None")
-    for stage in STAGES[1:]:
-        amount = count(lambda row, stage=stage: row["stage_reached"] and STAGES.index(row["stage_reached"]) >= STAGES.index(stage))
-        print(f"| {stage} | {amount} | {amount / applied * 100:.0f}% |" if applied else f"| {stage} | {amount} | — |")
+    for stage in payload["funnel"]["stages"]:
+        rate = f"{stage['percent_of_applications']:g}%" if stage["percent_of_applications"] is not None else "—"
+        print(f"| {stage['stage']} | {stage['reached']} | {rate} |")
+    response_rate = payload["funnel"]["response_rate"]
+    rate = f"{response_rate:g}%" if response_rate is not None else "—"
+    print(f"\nОтветов: **{payload['funnel']['responses']}** из **{payload['funnel']['applications']}** ({rate}).")
     print("\n## Источники\n\n| Источник | Найдено | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|---:|")
-    for source in SOURCES:
-        found = count(lambda row, source=source: row["source"] == source)
-        if found:
-            applied_count = count(lambda row, source=source: row["source"] == source and row["applied_at"])
-            responses = count(lambda row, source=source: row["source"] == source and row["response_at"])
-            rate = f"{responses / applied_count * 100:.0f}%" if applied_count else "—"
-            print(f"| {source} | {found} | {applied_count} | {responses} | {rate} |")
-    print("\n## Конверсия по match_score\n\n| match_score | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|")
-    for label, low, high in [("9–10", 9, 10), ("7–8.99", 7, 9), ("5–6.99", 5, 7), ("<5", 0, 5)]:
-        def in_bucket(row, low=low, high=high):
-            try:
-                score = float(row["match_score"])
-                return low <= score < high or (high == 10 and score == 10)
-            except (TypeError, ValueError):
-                return False
-        applied_count = count(lambda row: in_bucket(row) and row["applied_at"])
-        if applied_count:
-            responses = count(lambda row: in_bucket(row) and row["response_at"])
-            print(f"| {label} | {applied_count} | {responses} | {responses / applied_count * 100:.0f}% |")
+    for source in payload["sources"]:
+        rate = f"{source['response_rate']:g}%" if source["response_rate"] is not None else "—"
+        print(f"| {source['source']} | {source['found']} | {source['applied']} | {source['responses']} | {rate} |")
     print("\n## Версии CV\n\n| cv_version | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|")
-    for version in sorted({row["cv_version"] for row in rows if row["cv_version"]}):
-        applied_count = count(lambda row, version=version: row["cv_version"] == version and row["applied_at"])
-        if applied_count:
-            responses = count(lambda row, version=version: row["cv_version"] == version and row["response_at"])
-            print(f"| {version} | {applied_count} | {responses} | {responses / applied_count * 100:.0f}% |")
-    unknown_cv_count = count(lambda row: row["applied_at"] and not (row["cv_version"] or "").strip())
-    if unknown_cv_count:
-        responses = count(lambda row: row["applied_at"] and not (row["cv_version"] or "").strip() and row["response_at"])
-        print(f"| not recorded | {unknown_cv_count} | {responses} | {responses / unknown_cv_count * 100:.0f}% |")
+    for version in payload["cv_versions"]:
+        rate = f"{version['response_rate']:g}%" if version["response_rate"] is not None else "—"
+        print(f"| {version['cv_version']} | {version['applied']} | {version['responses']} | {rate} |")
     print("\n## Причины отсева\n\n| decision_reason | Кол-во |\n|---|---:|")
-    for reason in REASONS:
-        if amount := count(lambda row, reason=reason: row["decision_reason"] == reason):
+    for reason, amount in payload["decision_reasons"].items():
+        if amount:
             print(f"| {reason} | {amount} |")
-    print("\n## Действия к исполнению\n")
-    due = sorted((row for row in rows if row["next_action_date"] and row["next_action_date"] <= today()), key=lambda row: row["next_action_date"])
-    if not due:
-        print("Просроченных действий нет.")
-    else:
-        print("| Дата | id | Компания | Действие |\n|---|---|---|---|")
-        for row in due:
-            print(f"| {row['next_action_date']} | {row['id']} | {row['company']} | {row['next_action']} |")
 
 
 def main():
@@ -1701,7 +1991,24 @@ def main():
     dupes.add_argument("--fail", action="store_true")
     dupes.add_argument("--format", choices=("text", "json"), default="text")
     dupes.set_defaults(func=cmd_dupes)
+    stale = subparsers.add_parser("stale", help="показать active records с просроченной verification")
+    stale.add_argument("--days", required=True, type=positive_int, help="verification старше N дней")
+    stale.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
+    stale.add_argument("--format", choices=("text", "json"), default="text")
+    stale.set_defaults(func=cmd_stale)
+    todo = subparsers.add_parser("todo", help="ежедневная структурированная очередь действий")
+    todo.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
+    todo.add_argument("--stale-days", type=positive_int, default=DEFAULT_STALE_DAYS)
+    todo.add_argument("--format", choices=("text", "json"), default="text")
+    todo.set_defaults(func=cmd_todo)
+    stats = subparsers.add_parser("stats", help="структурированный daily/weekly snapshot")
+    stats.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
+    stats.add_argument("--stale-days", type=positive_int, default=DEFAULT_STALE_DAYS)
+    stats.add_argument("--format", choices=("text", "json"), default="text")
+    stats.set_defaults(func=cmd_stats)
     report = subparsers.add_parser("report", help="markdown-отчёт в stdout")
+    report.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
+    report.add_argument("--stale-days", type=positive_int, default=DEFAULT_STALE_DAYS)
     report.set_defaults(func=cmd_report)
     args = parser.parse_args()
     args.func(args)

@@ -334,6 +334,100 @@ class JobsCliTests(unittest.TestCase):
         report = self.invoke("report")
         self.assertIn("| not recorded | 1 | 0 | 0% |", report.stdout)
 
+    def test_stale_lists_only_active_candidates_and_never_mutates_dataset(self):
+        self.assertEqual(self.add("StaleCo", "Frontend Developer", "--match-score", "8", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add(
+                "SkippedCo", "Frontend Developer", "--decision-reason", "geo_restriction", "--no-file",
+            ).returncode,
+            0,
+        )
+        self.assertEqual(self.add("FreshCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0003", "listing_status=open").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        result = self.invoke("stale", "--days", "7", "--date", date.today().isoformat(), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["command"], payload["count"]), ("stale", 1))
+        self.assertEqual(payload["jobs"][0]["id"], "job-0001")
+        self.assertEqual(payload["jobs"][0]["reason"], "never_verified")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_todo_has_stable_sections_ordering_and_date_override(self):
+        reference = date.today()
+        yesterday = (reference.fromordinal(reference.toordinal() - 1)).isoformat()
+        tomorrow = (reference.fromordinal(reference.toordinal() + 1)).isoformat()
+        self.assertEqual(self.add("OverdueLow", "Frontend Developer", "--match-score", "6", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "next_action=follow-up", f"next_action_date={yesterday}").returncode, 0)
+        self.assertEqual(self.add("OverdueHigh", "Frontend Developer", "--match-score", "9", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0002", "next_action=follow-up", f"next_action_date={yesterday}").returncode, 0)
+        self.assertEqual(self.add("TodayCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0003", "next_action=follow-up", f"next_action_date={reference.isoformat()}").returncode, 0)
+        self.assertEqual(self.add("FutureFollow", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0004", "next_action=follow-up", f"next_action_date={tomorrow}").returncode, 0)
+        self.assertEqual(self.add("ApplyCo", "Frontend Developer", "--application-status", "apply", "--no-file").returncode, 0)
+        self.assertEqual(self.add("ReviewCo", "Frontend Developer", "--application-status", "reviewing", "--no-file").returncode, 0)
+        self.assertEqual(self.add("VerifyCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.add("InterviewCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0008", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0008", "--stage", "Tech interview").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0008", "next_action=prepare technical interview", f"next_action_date={tomorrow}").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        result = self.invoke("todo", "--date", reference.isoformat(), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        sections = payload["sections"]
+        self.assertEqual(payload["section_order"], [
+            "overdue", "today", "follow_ups", "apply_not_submitted", "stale_review",
+            "verification_queue", "upcoming_interview_test",
+        ])
+        self.assertEqual([item["id"] for item in sections["overdue"]], ["job-0002", "job-0001"])
+        self.assertEqual([item["id"] for item in sections["today"]], ["job-0003"])
+        self.assertEqual([item["id"] for item in sections["follow_ups"]], ["job-0004"])
+        self.assertEqual([item["id"] for item in sections["apply_not_submitted"]], ["job-0005"])
+        self.assertEqual([item["id"] for item in sections["stale_review"]], ["job-0006"])
+        self.assertIn("job-0007", [item["id"] for item in sections["verification_queue"]])
+        self.assertEqual([item["id"] for item in sections["upcoming_interview_test"]], ["job-0008"])
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_stats_and_report_use_structured_v2_fields(self):
+        self.assertEqual(
+            self.add(
+                "VerifiedCo", "Frontend Developer", "--application-status", "reviewing",
+                "--listing-status", "open", "--original-url", "https://careers.example.test/verified",
+                "--first-party-verified", "yes", "--apply-verified", "yes", "--no-file",
+            ).returncode,
+            0,
+        )
+        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "--stage", "Recruiter screen").returncode, 0)
+        self.assertEqual(self.add("Second Employer", "Frontend Developer", "--no-file").returncode, 0)
+
+        stats = self.invoke("stats", "--date", date.today().isoformat(), "--format", "json")
+
+        self.assertEqual(stats.returncode, 0, stats.stderr)
+        payload = json.loads(stats.stdout)
+        self.assertEqual((payload["command"], payload["jobs_total"]), ("stats", 2))
+        self.assertEqual(payload["application_status"]["interviewing"], 1)
+        self.assertEqual(payload["listing_status"]["open"], 1)
+        self.assertEqual(payload["verification"]["fully_verified"], 1)
+        self.assertEqual(payload["verification"]["coverage_percent"], 50.0)
+        self.assertEqual(payload["stale"]["count"], 1)
+        self.assertEqual(payload["funnel"]["applications"], 1)
+        self.assertEqual(payload["funnel"]["responses"], 1)
+        self.assertEqual(payload["sources"], [{
+            "source": "Manual", "found": 2, "applied": 1, "responses": 1, "response_rate": 100.0,
+        }])
+        report = self.invoke("report", "--date", date.today().isoformat())
+        self.assertEqual(report.returncode, 0, report.stderr)
+        self.assertIn("## Verification coverage", report.stdout)
+        self.assertIn("## Stale verification", report.stdout)
+        self.assertIn("## Воронка", report.stdout)
+
     def test_rejected_write_does_not_change_csv(self):
         self.assertEqual(self.add("SafeCo", "Frontend Developer", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()

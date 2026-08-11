@@ -67,7 +67,7 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `validate`, `dupes` и `ingest` поддерживают `--format text|json`; по
+`add`, `set`, `validate`, `dupes`, `ingest`, `stale`, `todo` и `stats` поддерживают `--format text|json`; по
 умолчанию — `text`. Успешный JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
@@ -174,6 +174,40 @@ python3 scripts/jobs.py verify job-0001 \
 Для уже отправленной заявки команда может зафиксировать закрытие объявления
 без изменения application history; в этом случае не указывайте
 `--decision-reason`.
+
+## Daily queue, stale и stats
+
+Все три команды только читают canonical dataset. Активной считается запись без
+terminal decision, без `listing_status=closed` и без terminal application
+outcome (`rejected`, `ghosted`, `withdrawn`). Поэтому legacy duplicates,
+закрытые до отклика и pre-application skips не попадают в stale/verification
+очереди.
+
+```bash
+# Active candidates без проверки или с проверкой старше 7 дней.
+python3 scripts/jobs.py stale --days 7 --format json
+
+# Ежедневная очередь; --date делает вывод воспроизводимым.
+python3 scripts/jobs.py todo --date 2026-08-11 --format json
+
+# Структурированный срез для weekly review.
+python3 scripts/jobs.py stats --date 2026-08-11 --format json
+
+# Читаемый Markdown-отчёт из тех же полей.
+python3 scripts/jobs.py report --date 2026-08-11
+```
+
+`todo` всегда выводит секции в одном порядке: overdue, today, follow-ups,
+Apply not submitted, stale review, verification queue и upcoming interview/test.
+Внутри секции сортировка стабильна: date → match score (higher first) → id.
+По умолчанию stale review использует окно 7 дней; при необходимости его можно
+сменить через `--stale-days N` в `todo`, `stats` и `report`.
+
+`stats --format json` — единственный структурированный источник weekly report:
+он содержит split application/listing statuses, derived active/skipped/closed
+views, verification coverage, stale records, funnel по `stage_reached` и response
+rate по `applied_at`, а также source и CV-version breakdowns. `report` ничего не
+записывает: он только рендерит этот snapshot в Markdown.
 
 ## Примеры обновления и проверки
 
