@@ -1,0 +1,35 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-11T18:45:53Z",
+  "jobs": [
+    "job-0003",
+    "job-0018"
+  ],
+  "operation_id": "phaseb-screen-happy-smoke-20260811",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0003",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0018",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
