@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-11T21:03:05Z",
+  "job_id": "job-0129",
+  "operation_id": "hirify-react-typescript-watch-20260811",
+  "result": {
+    "application_path": "applications/job-0129-undisclosed-frontend-engineer-react-type.md",
+    "application_status": "not_started",
+    "job_id": "job-0129",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-11",
+        "job_id": "job-0129",
+        "source": "Hirify",
+        "source_job_id": "",
+        "source_url": "https://hirify.me/frontend-dev-jobs"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
