@@ -44,7 +44,9 @@
   допустимы только `Manual` и `Referral`.
 - Рабочие raw batches живут только локально в `data/inbox/*.jsonl`: они
   immutable, игнорируются Git и не редактируются ingest-ом. Их контракт — в
-  `data/inbox/README.md`; до ingest проверять `python3 scripts/inbox.py validate`.
+  `data/inbox/README.md`; до ingest проверять `python3 scripts/inbox.py validate`
+  и начинать с `jobs.py ingest PATH --dry-run --format json`. Fuzzy candidate
+  batch не применять: он требует явного resolution.
 - Подтверждённый дубль создавать только через `add --duplicate-of job-NNNN`:
   команда добавляет source reference к canonical job и не создаёт новый ID.
   `--force` означает, что совпадающий URL — осознанно shared discovery page или

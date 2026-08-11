@@ -19,6 +19,11 @@ REQUIRED_FIELDS = {
 }
 OPTIONAL_FIELDS = {"payload"}
 DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
+HARD_FILTER_REASONS = {
+    "geo_restriction", "work_authorization", "seniority_too_high",
+    "seniority_too_low", "stack_mismatch", "role_not_frontend",
+    "salary_too_low", "company_not_interesting",
+}
 
 
 def valid_http_url(value):
@@ -68,19 +73,22 @@ def validate_record(record, line_number, configured_sources):
             errors.append(f"{prefix}: {field} должен иметь формат YYYY-MM-DD")
     if "payload" in record and not isinstance(record["payload"], dict):
         errors.append(f"{prefix}: payload должен быть JSON object")
+    if isinstance(record.get("payload"), dict) and "hard_filter_reason" in record["payload"]:
+        reason = record["payload"]["hard_filter_reason"]
+        if reason not in HARD_FILTER_REASONS:
+            errors.append(f"{prefix}: payload.hard_filter_reason не входит в canonical enum")
     return errors
 
 
-def validate_batch(path):
+def load_batch(path):
+    """Read a raw batch without changing it and retain validation per JSONL line."""
     path = Path(path)
     try:
         raw = path.read_bytes()
     except OSError as error:
         return {
-            "ok": False,
-            "command": "validate",
             "batch_id": None,
-            "records": 0,
+            "entries": [],
             "errors": [f"не удалось прочитать {path}: {error}"],
         }
     batch_id = "sha256:" + hashlib.sha256(raw).hexdigest()
@@ -88,40 +96,53 @@ def validate_batch(path):
         text = raw.decode("utf-8")
     except UnicodeDecodeError as error:
         return {
-            "ok": False,
-            "command": "validate",
             "batch_id": batch_id,
-            "records": 0,
+            "entries": [],
             "errors": [f"input не UTF-8: {error}"],
         }
     try:
         configured_sources = load_source_config()
     except SourceConfigError as error:
         return {
-            "ok": False,
-            "command": "validate",
             "batch_id": batch_id,
-            "records": 0,
+            "entries": [],
             "errors": [f"source registry invalid: {error}"],
         }
 
-    errors, records = [], 0
+    entries = []
     for line_number, line in enumerate(text.splitlines(), start=1):
         if not line.strip():
-            errors.append(f"line {line_number}: пустая строка не является JSON object")
+            entries.append({
+                "line": line_number,
+                "record": None,
+                "errors": [f"line {line_number}: пустая строка не является JSON object"],
+            })
             continue
-        records += 1
         try:
             record = json.loads(line)
         except json.JSONDecodeError as error:
-            errors.append(f"line {line_number}: некорректный JSON: {error.msg}")
+            entries.append({
+                "line": line_number,
+                "record": None,
+                "errors": [f"line {line_number}: некорректный JSON: {error.msg}"],
+            })
             continue
-        errors.extend(validate_record(record, line_number, configured_sources))
+        entries.append({
+            "line": line_number,
+            "record": record,
+            "errors": validate_record(record, line_number, configured_sources),
+        })
+    return {"batch_id": batch_id, "entries": entries, "errors": []}
+
+
+def validate_batch(path):
+    batch = load_batch(path)
+    errors = [*batch["errors"], *(error for entry in batch["entries"] for error in entry["errors"])]
     return {
         "ok": not errors,
         "command": "validate",
-        "batch_id": batch_id,
-        "records": records,
+        "batch_id": batch["batch_id"],
+        "records": len(batch["entries"]),
         "errors": errors,
     }
 

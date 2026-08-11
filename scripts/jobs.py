@@ -10,6 +10,7 @@ import re
 import sys
 import tempfile
 import unicodedata
+from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import date, datetime
 from difflib import SequenceMatcher
@@ -152,6 +153,21 @@ class AddPlan:
     app_body: str | None
     source_reference: dict | None
     source_reference_created: bool
+
+
+@dataclass
+class IngestPlan:
+    batch_id: str | None
+    rows: list
+    source_rows: list
+    outcomes: list
+    summary: dict
+    errors: list
+    warnings: list
+    invalid: bool
+    fuzzy: bool
+    jobs_created: int
+    source_references_created: int
 
 
 def today():
@@ -851,6 +867,349 @@ def add_job(values, force=False, duplicate_of=None, no_file=False):
     }
 
 
+def ingest_job_values(rows, fields, decision_reason="", next_action=""):
+    """Build an unverified canonical job from a normalized raw record."""
+    row = build_add_row(rows, {
+        **fields,
+        "decision_reason": decision_reason,
+    })
+    row["next_action"] = next_action
+    row["next_action_date"] = ""
+    return row
+
+
+def add_ingest_reference(source_rows, job_id, fields):
+    reference = build_source_reference(job_id, fields, fields["found_at"])
+    reference, created = prepare_source_reference(source_rows, reference)
+    if created:
+        source_rows.append(reference)
+    return reference, created
+
+
+def ingest_summary(outcomes):
+    summary = {"input": len(outcomes), "invalid": 0, "noise": 0, "skipped": 0, "duplicates": 0, "pending": 0}
+    mapping = {
+        "invalid": "invalid",
+        "noise": "noise",
+        "skipped": "skipped",
+        "duplicate": "duplicates",
+        "pending": "pending",
+    }
+    for outcome in outcomes:
+        summary[mapping[outcome["outcome"]]] += 1
+    return summary
+
+
+def plan_ingest(path):
+    """Classify an immutable raw batch without changing canonical files."""
+    from ingestion import (
+        deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
+        relevance_or_hard_filter,
+    )
+
+    batch = load_batch(path)
+    rows = [dict(row) for row in load()]
+    source_rows = [dict(row) for row in load_job_sources()]
+    original_job_count = len(rows)
+    original_reference_count = len(source_rows)
+    outcomes = []
+    errors = list(batch["errors"])
+    source_references_created = 0
+    fuzzy = False
+
+    for entry in batch["entries"]:
+        line_number = entry["line"]
+        if entry["errors"]:
+            outcomes.append({
+                "line": line_number,
+                "outcome": "invalid",
+                "reason": "raw_validation",
+                "errors": entry["errors"],
+            })
+            continue
+        record = entry["record"]
+        fields = normalize_record(record)
+        if fields["source"] not in SOURCES:
+            outcomes.append({
+                "line": line_number,
+                "outcome": "invalid",
+                "reason": "canonical_source_unknown",
+                "errors": [f"line {line_number}: source={fields['source']!r} не входит в canonical source enum"],
+            })
+            continue
+
+        relevance, filter_reason = relevance_or_hard_filter(record, norm(fields["role"]))
+        if relevance == "noise":
+            outcomes.append({"line": line_number, "outcome": "noise", "reason": filter_reason})
+            continue
+
+        duplicate = deterministic_duplicate(fields, rows, source_rows, norm, norm_url)
+        if duplicate:
+            job_id, reason = duplicate
+            try:
+                _reference, created = add_ingest_reference(source_rows, job_id, fields)
+            except SourceReferenceConflict as error:
+                outcomes.append({
+                    "line": line_number,
+                    "outcome": "invalid",
+                    "reason": "source_reference_conflict",
+                    "errors": [f"line {line_number}: {error.message}"],
+                })
+                continue
+            source_references_created += int(created)
+            outcomes.append({
+                "line": line_number,
+                "outcome": "duplicate",
+                "reason": reason,
+                "job_id": job_id,
+                "source_reference_created": created,
+            })
+            continue
+
+        if relevance == "skipped":
+            row = ingest_job_values(rows, fields, decision_reason=filter_reason)
+            try:
+                _reference, created = add_ingest_reference(source_rows, row["id"], fields)
+            except SourceReferenceConflict as error:
+                outcomes.append({
+                    "line": line_number,
+                    "outcome": "invalid",
+                    "reason": "source_reference_conflict",
+                    "errors": [f"line {line_number}: {error.message}"],
+                })
+                continue
+            rows.append(row)
+            source_references_created += int(created)
+            outcomes.append({
+                "line": line_number,
+                "outcome": "skipped",
+                "reason": filter_reason,
+                "job_id": row["id"],
+            })
+            continue
+
+        candidates = fuzzy_candidates(
+            fields, rows, without_noise, similarity, COMPANY_NOISE, ROLE_NOISE,
+        )
+        if candidates:
+            fuzzy = True
+            outcomes.append({
+                "line": line_number,
+                "outcome": "pending",
+                "reason": "fuzzy_duplicate_requires_resolution",
+                "candidates": candidates,
+            })
+            continue
+
+        row = ingest_job_values(rows, fields, next_action="verify first-party")
+        try:
+            _reference, created = add_ingest_reference(source_rows, row["id"], fields)
+        except SourceReferenceConflict as error:
+            outcomes.append({
+                "line": line_number,
+                "outcome": "invalid",
+                "reason": "source_reference_conflict",
+                "errors": [f"line {line_number}: {error.message}"],
+            })
+            continue
+        rows.append(row)
+        source_references_created += int(created)
+        outcomes.append({
+            "line": line_number,
+            "outcome": "pending",
+            "reason": "verify_first_party",
+            "job_id": row["id"],
+        })
+
+    summary = ingest_summary(outcomes)
+    invalid = bool(errors) or bool(summary["invalid"])
+    validation_errors, warnings = validate_dataset(rows, source_rows)
+    if validation_errors:
+        invalid = True
+        errors.extend(validation_errors)
+    return IngestPlan(
+        batch_id=batch["batch_id"],
+        rows=rows,
+        source_rows=source_rows,
+        outcomes=outcomes,
+        summary=summary,
+        errors=errors,
+        warnings=warnings,
+        invalid=invalid,
+        fuzzy=fuzzy,
+        jobs_created=len(rows) - original_job_count,
+        source_references_created=source_references_created or len(source_rows) - original_reference_count,
+    )
+
+
+@contextmanager
+def dataset_write_lock():
+    """Serialize the multi-file ingest replacement on platforms with flock."""
+    lock_path = CSV_PATH.parent / ".ingest.lock"
+    with lock_path.open("a+", encoding="utf-8") as lock_file:
+        try:
+            import fcntl
+        except ImportError:
+            yield
+            return
+        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+
+
+def stage_csv(target, fields, rows):
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-ingest-", suffix=".csv", dir=target.parent)
+    temporary_path = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows({key: row.get(key) or "" for key in fields} for row in rows)
+    except BaseException:
+        temporary_path.unlink(missing_ok=True)
+        raise
+    return temporary_path
+
+
+def stage_text(target, body):
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-ingest-", suffix=target.suffix, dir=target.parent)
+    temporary_path = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as file:
+            file.write(body)
+    except BaseException:
+        temporary_path.unlink(missing_ok=True)
+        raise
+    return temporary_path
+
+
+def backup_file(target):
+    if not target.exists():
+        return None
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-backup-", suffix=target.suffix, dir=target.parent)
+    backup_path = Path(temporary_name)
+    try:
+        with os.fdopen(descriptor, "wb") as file:
+            file.write(target.read_bytes())
+    except BaseException:
+        backup_path.unlink(missing_ok=True)
+        raise
+    return backup_path
+
+
+def apply_dataset_transaction(rows, source_rows, application_writes=()):
+    """Replace an already validated dataset or restore every replaced file."""
+    validation_errors, _warnings = validate_dataset(rows, source_rows)
+    if validation_errors:
+        die("ingest transaction отклонена:\n  " + "\n  ".join(validation_errors))
+    with dataset_write_lock():
+        staged, backups, replaced = [], {}, []
+        failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
+        try:
+            failure_after = int(failure_after) if failure_after else None
+        except ValueError:
+            failure_after = None
+        try:
+            staged = [
+                (CSV_PATH, stage_csv(CSV_PATH, FIELDS, rows)),
+                (JOB_SOURCES_PATH, stage_csv(JOB_SOURCES_PATH, JOB_SOURCE_FIELDS, source_rows)),
+            ]
+            staged.extend((path, stage_text(path, body)) for path, body in application_writes)
+            for target, _temporary in staged:
+                backups[target] = backup_file(target)
+            for index, (target, temporary) in enumerate(staged):
+                if failure_after is not None and index >= failure_after:
+                    raise OSError("injected ingest replacement failure")
+                os.replace(temporary, target)
+                replaced.append(target)
+            post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
+            if post_errors:
+                raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
+        except BaseException:
+            for target in reversed(replaced):
+                backup = backups[target]
+                try:
+                    if backup:
+                        os.replace(backup, target)
+                        backups[target] = None
+                    else:
+                        target.unlink(missing_ok=True)
+                except OSError:
+                    pass
+            raise
+        finally:
+            for _target, temporary in staged:
+                temporary.unlink(missing_ok=True)
+            for backup in backups.values():
+                if backup:
+                    backup.unlink(missing_ok=True)
+
+
+def apply_ingest_plan(plan):
+    if not plan.jobs_created and not plan.source_references_created:
+        return {"jobs_created": 0, "source_references_created": 0, "application_cards_created": 0}
+    apply_dataset_transaction(plan.rows, plan.source_rows)
+    return {
+        "jobs_created": plan.jobs_created,
+        "source_references_created": plan.source_references_created,
+        "application_cards_created": 0,
+    }
+
+
+def ingest_payload(plan, mode, applied=None, error=None):
+    return {
+        "ok": error is None,
+        "command": "ingest",
+        "mode": mode,
+        "batch_id": plan.batch_id,
+        "summary": plan.summary,
+        "outcomes": plan.outcomes,
+        "errors": plan.errors,
+        "warnings": plan.warnings,
+        "applied": applied,
+        "error": error,
+    }
+
+
+def print_ingest_text(payload):
+    print(f"batch_id: {payload['batch_id']}")
+    for outcome in payload["outcomes"]:
+        print(f"line {outcome['line']}: {outcome['outcome']} — {outcome['reason']}")
+    summary = payload["summary"]
+    print(
+        "summary: " + ", ".join(
+            f"{key}={summary[key]}" for key in ("input", "invalid", "noise", "skipped", "duplicates", "pending")
+        )
+    )
+    for error in payload["errors"]:
+        print(f"error: {error}", file=sys.stderr)
+
+
+def cmd_ingest(args):
+    plan = plan_ingest(args.path)
+    mode = "dry_run" if args.dry_run else "apply"
+    error, exit_code, applied = None, 0, None
+    if plan.invalid:
+        error, exit_code = "invalid_batch", 1
+    elif plan.fuzzy:
+        error, exit_code = "fuzzy_duplicate_requires_resolution", 2
+    elif not args.dry_run:
+        try:
+            applied = apply_ingest_plan(plan)
+        except OSError as apply_error:
+            plan.errors.append(f"ingest transaction не применена: {apply_error}")
+            error, exit_code = "apply_failed", 1
+    payload = ingest_payload(plan, mode, applied=applied, error=error)
+    if args.format == "json":
+        print_json(payload)
+    else:
+        print_ingest_text(payload)
+    if exit_code:
+        raise SystemExit(exit_code)
+
+
 def add_values_from_args(args):
     return {
         "company": args.company,
@@ -1226,6 +1585,11 @@ def main():
     backfill_sources = subparsers.add_parser("backfill-sources", help="создать source references из historical jobs")
     backfill_sources.add_argument("--check", action="store_true", help="проверить backfill без записи")
     backfill_sources.set_defaults(func=cmd_backfill_sources)
+    ingest = subparsers.add_parser("ingest", help="классифицировать raw JSONL batch")
+    ingest.add_argument("path", type=Path)
+    ingest.add_argument("--dry-run", action="store_true", help="не изменять canonical dataset")
+    ingest.add_argument("--format", choices=("text", "json"), default="text")
+    ingest.set_defaults(func=cmd_ingest)
     dupes = subparsers.add_parser("dupes", help="fuzzy-поиск дублей")
     dupes.add_argument("--threshold", type=float, default=.85)
     dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=.75)

@@ -1,4 +1,8 @@
+import csv
+import hashlib
 import json
+import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -66,6 +70,7 @@ class RawInboxTests(unittest.TestCase):
                 "",
                 json.dumps(self.valid_record(source_url="not-a-url")),
                 json.dumps(self.valid_record(unexpected="field")),
+                json.dumps(self.valid_record(payload={"hard_filter_reason": "not_a_reason"})),
             ]
             path.write_text("\n".join(invalid_lines), encoding="utf-8")
             before = path.read_bytes()
@@ -76,12 +81,13 @@ class RawInboxTests(unittest.TestCase):
             summary = json.loads(invalid.stdout)
             messages = "\n".join(summary["errors"])
             self.assertFalse(summary["ok"])
-            self.assertEqual(summary["records"], 5)
+            self.assertEqual(summary["records"], 7)
             self.assertIn("ожидается JSON object", messages)
             self.assertIn("role должен быть непустой строкой", messages)
             self.assertIn("posted_at должен иметь формат YYYY-MM-DD", messages)
             self.assertIn("source_url должен быть абсолютным http(s) URL", messages)
             self.assertIn("неизвестные поля: unexpected", messages)
+            self.assertIn("payload.hard_filter_reason не входит в canonical enum", messages)
             self.assertIn("пустая строка", messages)
             self.assertEqual(path.read_bytes(), before)
 
@@ -97,6 +103,180 @@ class RawInboxTests(unittest.TestCase):
             self.assertTrue(first["ok"])
             self.assertTrue(second["ok"])
             self.assertNotEqual(first["batch_id"], second["batch_id"])
+
+
+class IngestCliTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.root = Path(self.temporary.name)
+        for directory in ("data", "applications", "scripts", "config", "inbox"):
+            (self.root / directory).mkdir()
+        for name in ("jobs.py", "ingestion.py", "inbox.py", "source_config.py"):
+            shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
+        shutil.copy2(PROJECT / "config" / "sources.toml", self.root / "config" / "sources.toml")
+        for name in ("jobs.csv", "job_sources.csv"):
+            header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
+            (self.root / "data" / name).write_text(header + "\n", encoding="utf-8")
+        shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def invoke(self, *arguments, env=None):
+        return subprocess.run(
+            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
+            text=True, capture_output=True, env=env,
+        )
+
+    def rows(self, name):
+        with (self.root / "data" / name).open(newline="", encoding="utf-8") as file:
+            return list(csv.DictReader(file))
+
+    def record(self, suffix, **changes):
+        raw = {
+            "source": "Himalayas",
+            "source_job_id": f"himalayas-{suffix}",
+            "company": f"Example {suffix}",
+            "role": "Frontend Developer",
+            "source_url": f"https://himalayas.app/jobs/{suffix}",
+            "application_url": f"https://careers.example.test/jobs/{suffix}",
+            "posted_at": "2026-08-10",
+            "raw_location": "Worldwide",
+            "found_at": "2026-08-11",
+        }
+        raw.update(changes)
+        return raw
+
+    def write_batch(self, entries, name="batch.jsonl"):
+        path = self.root / "inbox" / name
+        lines = [entry if isinstance(entry, str) else json.dumps(entry) for entry in entries]
+        path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        return path
+
+    def snapshot(self):
+        return {
+            "jobs": (self.root / "data" / "jobs.csv").read_bytes(),
+            "sources": (self.root / "data" / "job_sources.csv").read_bytes(),
+            "cards": sorted(path.name for path in (self.root / "applications").glob("job-*.md")),
+        }
+
+    def test_dry_run_classifies_every_line_without_writing(self):
+        duplicate_url = "https://careers.example.test/jobs/existing"
+        seeded = self.invoke(
+            "add", "--company", "ExistingCo", "--role", "Frontend Developer", "--source", "Manual",
+            "--original-url", duplicate_url, "--no-file",
+        )
+        self.assertEqual(seeded.returncode, 0, seeded.stderr)
+        batch = self.write_batch([
+            self.record("pending"),
+            self.record("noise", role="Account Executive"),
+            self.record("senior", role="Senior Frontend Engineer"),
+            self.record("duplicate", company="ExistingCo", application_url=duplicate_url),
+        ])
+        before = self.snapshot()
+
+        result = self.invoke("ingest", str(batch), "--dry-run", "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertTrue(payload["ok"])
+        self.assertEqual(payload["mode"], "dry_run")
+        self.assertEqual(payload["summary"], {
+            "input": 4, "invalid": 0, "noise": 1, "skipped": 1, "duplicates": 1, "pending": 1,
+        })
+        self.assertEqual([item["outcome"] for item in payload["outcomes"]], ["pending", "noise", "skipped", "duplicate"])
+        self.assertEqual(payload["outcomes"][2]["reason"], "seniority_too_high")
+        self.assertEqual(payload["outcomes"][3]["reason"], "canonical_original_url")
+        self.assertEqual(self.snapshot(), before)
+
+    def test_invalid_line_reports_jsonl_line_and_prevents_partial_apply(self):
+        batch = self.write_batch([self.record("valid"), "{not json}"], "invalid.jsonl")
+        before = self.snapshot()
+
+        result = self.invoke("ingest", str(batch), "--format", "json")
+
+        self.assertEqual(result.returncode, 1)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["error"], "invalid_batch")
+        self.assertEqual(payload["summary"], {
+            "input": 2, "invalid": 1, "noise": 0, "skipped": 0, "duplicates": 0, "pending": 1,
+        })
+        invalid = payload["outcomes"][1]
+        self.assertEqual((invalid["line"], invalid["outcome"]), (2, "invalid"))
+        self.assertIn("line 2", invalid["errors"][0])
+        self.assertEqual(self.snapshot(), before)
+
+    def test_apply_is_idempotent_and_aggregator_records_stay_unverified(self):
+        batch = self.write_batch([self.record("first"), self.record("second")], "apply.jsonl")
+
+        first = self.invoke("ingest", str(batch), "--format", "json")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        first_payload = json.loads(first.stdout)
+        self.assertEqual(first_payload["applied"], {
+            "jobs_created": 2, "source_references_created": 2, "application_cards_created": 0,
+        })
+        self.assertEqual(len(self.rows("jobs.csv")), 2)
+        self.assertEqual(len(self.rows("job_sources.csv")), 2)
+        self.assertFalse(list((self.root / "applications").glob("job-*.md")))
+        for row in self.rows("jobs.csv"):
+            self.assertEqual((row["first_party_verified"], row["apply_verified"]), ("unknown", "unknown"))
+            self.assertEqual(row["next_action"], "verify first-party")
+
+        before_repeat = self.snapshot()
+        repeated = self.invoke("ingest", str(batch), "--format", "json")
+        self.assertEqual(repeated.returncode, 0, repeated.stderr)
+        repeated_payload = json.loads(repeated.stdout)
+        self.assertEqual(repeated_payload["summary"], {
+            "input": 2, "invalid": 0, "noise": 0, "skipped": 0, "duplicates": 2, "pending": 0,
+        })
+        self.assertEqual(repeated_payload["applied"], {
+            "jobs_created": 0, "source_references_created": 0, "application_cards_created": 0,
+        })
+        self.assertEqual(self.snapshot(), before_repeat)
+
+    def test_fuzzy_candidate_blocks_the_entire_batch_until_resolved(self):
+        seeded = self.invoke(
+            "add", "--company", "Acme Studio Inc.", "--role", "Frontend Engineer", "--source", "Manual", "--no-file",
+        )
+        self.assertEqual(seeded.returncode, 0, seeded.stderr)
+        batch = self.write_batch([self.record("fuzzy", company="Acme Studio", role="Frontend Developer")])
+        before = self.snapshot()
+
+        result = self.invoke("ingest", str(batch), "--format", "json")
+
+        self.assertEqual(result.returncode, 2)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["error"], "fuzzy_duplicate_requires_resolution")
+        self.assertEqual(payload["outcomes"][0]["reason"], "fuzzy_duplicate_requires_resolution")
+        self.assertEqual(payload["outcomes"][0]["candidates"][0]["id"], "job-0001")
+        self.assertEqual(self.snapshot(), before)
+
+    def test_transaction_rolls_back_when_replacement_fails_between_csv_files(self):
+        def atomic_record(number):
+            code = hashlib.sha256(str(number).encode("ascii")).hexdigest()[:12]
+            return self.record(
+                f"atomic-{number}", company=f"Company {code}", role=f"Frontend {code}",
+            )
+
+        batch = self.write_batch([atomic_record(number) for number in range(50)], "atomic.jsonl")
+        before = self.snapshot()
+        environment = {**os.environ, "JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}
+
+        result = self.invoke("ingest", str(batch), "--format", "json", env=environment)
+
+        self.assertEqual(result.returncode, 1)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["error"], "apply_failed")
+        self.assertIn("injected ingest replacement failure", payload["errors"][-1])
+        self.assertEqual(self.snapshot(), before)
+
+        successful = self.invoke("ingest", str(batch), "--format", "json")
+        self.assertEqual(successful.returncode, 0, successful.stderr)
+        success_payload = json.loads(successful.stdout)
+        self.assertEqual(success_payload["applied"], {
+            "jobs_created": 50, "source_references_created": 50, "application_cards_created": 0,
+        })
+        self.assertEqual((len(self.rows("jobs.csv")), len(self.rows("job_sources.csv"))), (50, 50))
 
 
 if __name__ == "__main__":

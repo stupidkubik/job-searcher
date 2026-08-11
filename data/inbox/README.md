@@ -35,7 +35,7 @@
 | `company`, `role`, `raw_location` | Непустые строки как их отдал источник; не нормализовать в raw inbox. |
 | `source_url`, `application_url` | Непустые абсолютные `http`/`https` URL; они ещё не подтверждают first-party status. |
 | `posted_at`, `found_at` | Непустые даты строго формата `YYYY-MM-DD`. |
-| `payload` | Необязательный JSON object для source-specific полей; других top-level полей нет. |
+| `payload` | Необязательный JSON object для source-specific полей; других top-level полей нет. Для уже доказанного source-side hard filter допустим `hard_filter_reason` из canonical enum. |
 
 Не добавляйте `batch_id` в запись и тем более в `jobs.csv`. Валидатор вычисляет
 его из SHA-256 точных байтов batch-файла и возвращает только в runtime summary:
@@ -46,3 +46,23 @@ python3 scripts/inbox.py validate data/inbox/himalayas-2026-08-11T090000Z.jsonl
 
 Успешный вывод — один JSON object с `batch_id`, числом `records` и пустым
 `errors`. Один и тот же неизменённый файл всегда даёт тот же `batch_id`.
+
+## Ingest
+
+`jobs.py ingest` читает batch через этот контракт и никогда не меняет сам raw
+файл. Начинать нужно с dry-run:
+
+```bash
+python3 scripts/jobs.py ingest data/inbox/himalayas-2026-08-11T090000Z.jsonl \
+  --dry-run --format json
+```
+
+Для каждой входной строки результат содержит `outcome` и `reason`; сумма
+`invalid + noise + skipped + duplicates + pending` всегда равна `input`.
+`noise` не попадает в canonical CSV. Для релевантного, но непроверенного
+кандидата ingest создаёт `not_started` с `first_party_verified=unknown`,
+`apply_verified=unknown` и `next_action=verify first-party`. Он не создаёт
+application card и не считает ссылку агрегатора доказательством живой вакансии.
+
+Детерминированный дубль добавляет source reference к canonical job. Fuzzy
+candidate останавливает batch с exit code `2` до явного решения человека.

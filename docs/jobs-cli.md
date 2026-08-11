@@ -67,7 +67,7 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `validate` и `dupes` поддерживают `--format text|json`; по
+`add`, `set`, `validate`, `dupes` и `ingest` поддерживают `--format text|json`; по
 умолчанию — `text`. Успешный JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
@@ -98,6 +98,30 @@ python3 scripts/jobs.py backfill-sources
 `source_url`; legacy `duplicate_listing` перенаправляется на job ID оригинала из
 `notes`. В отчёте отдельно показано, сколько shared discovery URL было явно
 разрешено при backfill.
+
+## Ingest raw batch
+
+```bash
+python3 scripts/jobs.py ingest data/inbox/himalayas-2026-08-11T090000Z.jsonl \
+  --dry-run --format json
+```
+
+Ingest всегда сначала строит детерминированный plan. Для каждой JSONL-строки
+JSON-ответ содержит `outcome` (`invalid`, `noise`, `skipped`, `duplicate` или
+`pending`) и `reason`; summary удовлетворяет равенству
+`input = invalid + noise + skipped + duplicates + pending`.
+
+Порядок безопасного dedupe: `source + source_job_id`, candidate first-party URL,
+source URL, нормализованные `company + role + location`, затем fuzzy candidate.
+Детерминированный дубль добавляет source reference к canonical job. Fuzzy match
+никогда не склеивается автоматически: команда печатает plan и завершается с
+кодом `2` до явного resolution.
+
+Без `--dry-run` применяется только полностью валидный batch. Замена
+`jobs.csv` и `job_sources.csv` выполняется одной rollback-able transaction; при
+сбое dataset остаётся прежним. Непроверенная агрегаторная запись создаётся без
+application card с `first_party_verified=unknown`, `apply_verified=unknown` и
+`next_action=verify first-party`.
 
 ## Примеры обновления и проверки
 
