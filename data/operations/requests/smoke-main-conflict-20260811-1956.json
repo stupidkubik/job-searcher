@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "operation_id": "smoke-main-conflict-20260811-1956",
+  "command": "set",
+  "job_id": "job-0124",
+  "expected": {
+    "application_status": "not_started"
+  },
+  "args": {
+    "next_action": "smoke test should not apply"
+  }
+}
