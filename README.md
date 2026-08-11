@@ -15,11 +15,13 @@
 # Найденная вакансия, которую нужно изучить
 python3 scripts/jobs.py add \
   --company "ExampleCo" --role "Frontend Developer" --source LinkedIn \
-  --status Reviewing
+  --application-status reviewing --listing-status open \
+  --original-url "https://careers.example.com/jobs/frontend" \
+  --first-party-verified yes --apply-verified yes
 
 # После фактической отправки заявки человеком
 python3 scripts/jobs.py set job-0001 \
-  status=Applied cv_version=frontend-2026-08
+  application_status=applied cv_version=frontend-2026-08
 
 # После любого изменения
 python3 scripts/jobs.py validate
@@ -30,7 +32,7 @@ python3 scripts/jobs.py validate
 ```bash
 python3 scripts/jobs.py add \
   --company "ExampleCo" --role "Frontend Developer" --source Hirify \
-  --status Skipped --decision-reason geo_restriction --no-file
+  --application-status not_started --decision-reason geo_restriction --no-file
 ```
 
 ## Где что находится
@@ -58,7 +60,9 @@ python3 scripts/jobs.py add \
   только на первоисточнике работодателя или ATS.
 - `Remote` не означает global remote: при неясности используйте
   `remote_policy=Unclear`.
-- `Applied` ставится только после реальной отправки человеком.
+- `application_status=applied` ставится только после реальной отправки человеком.
+- `listing_status` описывает доступность объявления отдельно от истории отклика;
+  проверка первоисточника и Apply хранится в отдельных полях.
 - Длинный контекст храните в `applications/<id>.md`; CSV остаётся однострочным и
   аналитическим.
 

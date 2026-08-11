@@ -378,7 +378,7 @@ git diff --check
 - строк до и после: `98`;
 - уникальных `id` до и после: `98`;
 - откликов с `applied_at`: `17`;
-- записей с `listing_status=closed`: `25`;
+- записей с `listing_status=closed`: `24`;
 - записей с `decision_reason=duplicate_listing`: `1`.
 
 #### WP1.3. Regression tests и документация карточки

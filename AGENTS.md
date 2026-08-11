@@ -10,10 +10,11 @@
 2. Прочитать `config/profile.md` (приоритеты, гео, стек, компенсация).
 3. Только потом искать новое.
 
-Не анализировать заново вакансию, которая уже есть в CSV. Если она имеет статус
-`Applied` / `Rejected` — не откликаться повторно; `Skipped` — прочитать
-`decision_reason`; `Closed` — пропустить; `New` / `Reviewing` — продолжить
-предыдущий анализ.
+Не анализировать заново вакансию, которая уже есть в CSV. Если её
+`application_status=applied` / `rejected` — не откликаться повторно; для
+вычисляемого `Skipped` сначала прочитать `decision_reason`; запись с
+`listing_status=closed` без отклика пропустить; `not_started` / `reviewing` /
+`apply` продолжать с предыдущего шага.
 
 ## Железные правила
 
@@ -26,8 +27,9 @@
   закрыто, независимо от статуса на агрегаторе.
 - **`Remote` сам по себе не значит global remote.** Проверять текст вакансии на
   ограничения по стране и work authorization. Не уверен → `remote_policy=Unclear`.
-- **`status=Applied` ставится только после фактической отправки заявки человеком.**
-  Агент не отправляет отклики и не ставит `Applied` самостоятельно.
+- **`application_status=applied` ставится только после фактической отправки
+  заявки человеком.** Агент не отправляет отклики и не ставит `applied`
+  самостоятельно.
 - **Никогда не выдумывать факты о кандидате.** Метрики, должности, стек, срок
   опыта — только из `config/profile.md`. Нет доказательства → не писать.
 
@@ -36,8 +38,10 @@
 - Только через `scripts/jobs.py` (`add` / `set`). Ручная правка — исключение.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
-- Подтверждённый дубль создавать только через `add --duplicate-of job-NNNN`;
-  `--force` означает, что похожая запись является отдельной вакансией.
+- До Phase 3 подтверждённый legacy-дубль создавать только через
+  `add --duplicate-of job-NNNN`; `--force` означает, что похожая запись является
+  отдельной вакансией. После появления `data/job_sources.csv` duplicate добавляет
+  source reference к canonical job, а не новую job-строку.
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
 - После любых изменений: `python3 scripts/jobs.py validate` — должно быть 0 ошибок.
@@ -45,16 +49,21 @@
 ## Порядок обработки одной вакансии
 
 1. Проверить дубли в `data/jobs.csv`: сначала `original_url`, затем company + role.
-2. Открыть первоисточник, проверить доступность вакансии и работу кнопки Apply.
-3. Если есть hard blocker (гео, work authorization, seniority, вакансия закрыта),
-   сразу выполнить `add --status Skipped --decision-reason <причина> --no-file` и
-   не проводить полный анализ.
+2. Открыть первоисточник, проверить доступность вакансии и работу кнопки Apply;
+   записать `listing_status`, `first_party_verified`, `apply_verified` и дату
+   проверки через CLI.
+3. Если есть hard blocker (гео, work authorization, seniority), сразу выполнить
+   `add --application-status not_started --decision-reason <причина> --no-file` и
+   не проводить полный анализ. Для закрытого объявления использовать
+   `--listing-status closed --decision-reason closed_before_application` вместо
+   обычной причины отсева.
 4. Если фильтр пройден, провести полный анализ, присвоить `match_score` от 1 до 10,
-   поставить `status=Reviewing` и заполнить `applications/<id>.md`.
-5. Принять решение `Apply` / `Skipped` / `Closed`.
+   поставить `application_status=reviewing` и заполнить `applications/<id>.md`.
+5. Принять решение `apply` или вычисляемое `Skipped` / `Closed` через
+   структурированные поля.
 6. Подготовить материалы: CV только из `cv/current/`, cover letter и ответы формы.
 7. Человек отправляет заявку; только после этого выполнить
-   `set <id> status=Applied cv_version=...`.
+   `set <id> application_status=applied cv_version=...`.
 
 ## Файлы
 
