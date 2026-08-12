@@ -1,0 +1,17 @@
+{
+  "command": "screen",
+  "executed_at": "2026-08-12T14:16:38Z",
+  "job_id": "job-0127",
+  "operation_id": "close-0127-role-mismatch-20260812",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "listing_status": "open",
+    "outcome": "screened_out",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
