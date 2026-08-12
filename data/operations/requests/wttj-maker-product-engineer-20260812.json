@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "wttj-maker-product-engineer-20260812",
+  "command": "add",
+  "args": {
+    "company": "Maker",
+    "role": "Product Engineer (Remote)",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://app.welcometothejungle.com/jobs/_d8K_QyU",
+    "original_url": "https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "level": "Unknown",
+    "location": "Remote Europe / preferred Portugal",
+    "remote_policy": "Europe",
+    "stack": "TypeScript; ReScript; React; HTMX; Node.js; Vercel; AWS; Fastly; Cloudflare; AI Tools; Ecommerce",
+    "salary": "Unknown",
+    "found_at": "2026-08-12",
+    "match_score": 7.5,
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "notes": "Welcome to the Jungle currently marks its card unavailable, but Maker's first-party Freshteam careers page is live and accepts applications, so first-party status takes precedence. Strong overlap with React, TypeScript, AI-assisted development, interfaces, page builders and ecommerce/content tooling. Stretch: end-to-end product ownership, Node/backend breadth, and expectations around deep production experience and scaling a product 10x+."
+  }
+}
