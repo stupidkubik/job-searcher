@@ -4,13 +4,16 @@
 
 Dataset updated: **2026-08-12** · Jobs: **141**
 
-[Action now (1)](#action-now) · [Applications (20)](#applications) · [To verify (10)](#to-verify) · [Archive (110)](#archive)
+[Action now (4)](#action-now) · [Applications (20)](#applications) · [To verify (4)](#to-verify) · [Archive (113)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [Costy — Product Design Engineer](<https://wellfound.com/jobs/4479264-product-design-engineer>) · job-0067 | 8.5 | review application | Open | [Open](../applications/job-0067-costy-product-design-engineer.md) |
+| Reviewing | [Pitchmatter — Frontend Developer Intern (React/Next.js)](<https://wellfound.com/jobs/3272161-frontend-developer-intern-react-next-js>) · job-0068 | 8.5 | review application | Open | [Open](../applications/job-0068-pitchmatter-frontend-developer-intern-re.md) |
+| Reviewing | [Fluent Labs — Front End Developer](<https://wellfound.com/jobs/3298184-front-end-developer>) · job-0069 | 7.5 | verify Serbia eligibility | Open | [Open](../applications/job-0069-fluent-labs-front-end-developer.md) |
 
 ## Applications
 
@@ -44,19 +47,13 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Ready to apply | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | First party + Apply + Listing | 6 | submit PR and application | Never |
 | Reviewing | [Canonical — Web Developer](<https://canonical.com/careers/2804965/web-developer-remote>) · job-0023 | First party + Apply + Listing | 9 | prepare application | Never |
 | Reviewing | [Canonical — Web Frontend Engineer - JS, CSS, React, Flutter](<https://canonical.com/careers/5150422/web-frontend-engineer-js-css-react-flutter-remote>) · job-0022 | First party + Apply + Listing | 8.5 | prepare application | Never |
-| Not started | [Kodees Labs — Frontend Developer Intern (Next.js + TypeScript)](<https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript>) · job-0065 | First party + Apply + Listing | 9 | review compensation and application | Never |
-| Not started | [travokarma — Website Development Intern](<https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end>) · job-0066 | First party + Apply + Listing | 9 | review application | Never |
-| Not started | [Costy — Product Design Engineer](<https://wellfound.com/jobs/4479264-product-design-engineer>) · job-0067 | First party + Apply + Listing | 8.5 | review application | Never |
-| Not started | [Pitchmatter — Frontend Developer Intern (React/Next.js)](<https://wellfound.com/jobs/3272161-frontend-developer-intern-react-next-js>) · job-0068 | First party + Apply + Listing | 8.5 | review application | Never |
-| Not started | [Fluent Labs — Front End Developer](<https://wellfound.com/jobs/3298184-front-end-developer>) · job-0069 | First party + Apply + Listing | 7.5 | verify Serbia eligibility | Never |
-| Not started | [Undisclosed — Frontend Engineer (Payments)](<https://hirify.me/jobs/652587-frontend-engineer-typescript>) · job-0128 | First party + Apply + Listing | — | verify first-party | Never |
 | Not started | [Undisclosed — Frontend Engineer (React/TypeScript)](<https://hirify.me/frontend-dev-jobs>) · job-0129 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (110)</summary>
+<summary>Archive (113)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -69,9 +66,12 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Skipped: stack mismatch | [Business Web Solutions — Web Developer Intern](<https://weworkremotely.com/remote-jobs/business-web-solutions-web-developer-intern>) · job-0135 | stack mismatch | Not checked | 2026-08-12 |
 | Skipped: geo restriction | [Base.com — Full-Stack Developer (React + AWS)](<https://apply.workable.com/base-com/j/F6F9EF841F>) · job-0134 | geo restriction | Open | 2026-08-12 |
 | Skipped: other | [Constructor Tech — Frontend Engineer Intern](<https://job-boards.eu.greenhouse.io/constructortech/jobs/4772104101>) · job-0131 | other | Open | 2026-08-12 |
+| Skipped: geo restriction | [Undisclosed — Frontend Engineer (Payments)](<https://hirify.me/jobs/652587-frontend-engineer-typescript>) · job-0128 | geo restriction | Not checked | 2026-08-12 |
 | Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | other | Open | 2026-08-12 |
 | Skipped: other | [TalentCross — 1225 - 410MOS \| Full Stack Engineer (React, Node.js, PostgreSQL, Web Scraping, A](<https://www.careers-page.com/talentcross/job/RYY35936>) · job-0111 | other | Open | 2026-08-12 |
 | Skipped: role not frontend | [Devoteam — Nearshore Sector \| Mid Fullstack Java/React Developer](<https://www.devoteam.com/jobs/126599455624307398/>) · job-0110 | role not frontend | Open | 2026-08-12 |
+| Skipped: salary too low | [travokarma — Website Development Intern](<https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end>) · job-0066 | salary too low | Open | 2026-08-12 |
+| Skipped: salary too low | [Kodees Labs — Frontend Developer Intern (Next.js + TypeScript)](<https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript>) · job-0065 | salary too low | Open | 2026-08-12 |
 | Skipped: geo restriction | [Mactores — Full Stack Product Engineer, Agent Native](<https://himalayas.app/companies/mactores/jobs/full-stack-product-engineer-agent-native>) · job-0126 | geo restriction | Not checked | 2026-08-11 |
 | Skipped: geo restriction | [Freelancerprox — Frontend Developer - Intern](<https://himalayas.app/companies/freelancerprox/jobs/frontend-developer-intern-7994962>) · job-0125 | geo restriction | Not checked | 2026-08-11 |
 | Skipped: geo restriction | [Black Financial Consult — FRONTEND ENGINEER](<https://himalayas.app/companies/black-financial-consult/jobs/frontend-engineer>) · job-0123 | geo restriction | Not checked | 2026-08-11 |
