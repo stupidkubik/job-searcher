@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "add-asim-frontend-product-20260812-v3",
+  "command": "add",
+  "args": {
+    "company": "aSim",
+    "role": "Software Engineer, Front End + Product",
+    "source": "YC Work at a Startup",
+    "source_url": "https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "no",
+    "apply_verified": "no",
+    "remote_policy": "Unclear",
+    "salary": "$120K-$160K",
+    "match_score": 8,
+    "notes": "Strong narrow-filter match. YC lists Full-time, Remote, Any experience (new grads ok), and visa sponsorship. Serbia eligibility is not stated and must be verified before application. First-party listing and first-party Apply path still need verification."
+  }
+}

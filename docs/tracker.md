@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-12** · Jobs: **142**
+Dataset updated: **2026-08-12** · Jobs: **143**
 
-[Action now (1)](#action-now) · [Applications (21)](#applications) · [To verify (1)](#to-verify) · [Archive (119)](#archive)
+[Action now (1)](#action-now) · [Applications (21)](#applications) · [To verify (2)](#to-verify) · [Archive (119)](#archive)
 
 ## Action now
 
@@ -43,6 +43,7 @@ Dataset updated: **2026-08-12** · Jobs: **142**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | First party + Apply + Listing | 9 | verify first-party | 2026-08-12 |
+| Reviewing | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | First party + Apply + Listing | 8 | verify first-party | 2026-08-12 |
 
 ## Archive
 
