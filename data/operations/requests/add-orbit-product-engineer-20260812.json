@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-orbit-product-engineer-20260812",
+  "command": "add",
+  "args": {
+    "company": "Orbit",
+    "role": "Product Engineer",
+    "source": "Hacker News — Who is Hiring?",
+    "source_url": "https://news.ycombinator.com/item?id=48747976",
+    "original_url": "https://join.com/companies/orbit/16414503",
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "decision_reason": "closed_before_application",
+    "level": "Unknown",
+    "remote_policy": "Europe",
+    "stack": "TypeScript; Zod; tRPC; Node.js; AWS; React; Remix; React Native; Expo",
+    "salary": "Unknown",
+    "match_score": 9,
+    "notes": "Strong product/frontend fit from HN with EU remote positioning, TypeScript/React and agentic development. Official JOIN company page currently has no available jobs and the role is no longer open; retained to avoid rediscovery.",
+    "force": true
+  }
+}
