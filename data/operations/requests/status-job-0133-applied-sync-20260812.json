@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "operation_id": "status-job-0133-applied-sync-20260812",
+  "command": "status",
+  "job_id": "job-0133",
+  "expected": {
+    "application_status": "applied",
+    "listing_status": "open",
+    "last_update": "2026-08-12"
+  },
+  "args": {
+    "application_status": "applied",
+    "confirmed_by_user": true
+  }
+}
