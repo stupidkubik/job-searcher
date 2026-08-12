@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "operation_id": "status-0055-0130-20260812-r2",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0055",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-10"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-12",
+        "stage": "Applied",
+        "notes": "User reported receiving a rejection on 2026-08-12."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0130",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-12",
+        "stage": "Applied",
+        "notes": "Application submitted by user on 2026-08-12."
+      }
+    }
+  ]
+}
