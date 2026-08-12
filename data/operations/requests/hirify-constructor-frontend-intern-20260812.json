@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "hirify-constructor-frontend-intern-20260812",
+  "command": "add",
+  "args": {
+    "company": "Constructor Tech",
+    "role": "Frontend Engineer Intern",
+    "source": "Hirify",
+    "source_url": "https://hirify.me/jobs/346013-frontend-engineer-intern",
+    "original_url": "https://job-boards.eu.greenhouse.io/constructortech/jobs/4772104101",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "level": "Intern",
+    "location": "Belgrade, Serbia / Remote",
+    "remote_policy": "Serbia",
+    "stack": "JavaScript; React; Vue; Angular; HTML; CSS",
+    "found_at": "2026-08-12",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "decision_reason": "other",
+    "notes": "Official Greenhouse role is live and allows remote or hybrid work, including Belgrade, but the application requires the candidate to currently be pursuing a degree in Computer Science, Software Engineering, or a related field. Current profile contains no evidence of active student status; treat this as an eligibility blocker unless that changes."
+  }
+}
