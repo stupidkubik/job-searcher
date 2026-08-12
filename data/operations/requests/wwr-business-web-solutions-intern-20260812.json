@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "wwr-business-web-solutions-intern-20260812",
+  "command": "add",
+  "args": {
+    "company": "Business Web Solutions",
+    "role": "Web Developer Intern",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/business-web-solutions-web-developer-intern",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Intern",
+    "location": "Remote worldwide",
+    "remote_policy": "Global",
+    "stack": "Website Development; Responsive Web Design; Frontend Components; SEO; Testing; Backend Tasks",
+    "salary": "Performance-based stipend",
+    "found_at": "2026-08-12",
+    "match_score": 5.5,
+    "decision_reason": "stack_mismatch",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "WWR explicitly says applicants from all regions are accepted and the internship lasts 1-6 months, but the description provides no concrete React, TypeScript, Next.js, HTML/CSS or comparable modern frontend stack signals. It therefore fails the broad-filter requirement for at least two strong frontend signals. No first-party careers page was confirmed."
+  }
+}
