@@ -1,0 +1,112 @@
+{
+  "version": 1,
+  "operation_id": "verify-watchlist-five-screen-0128-20260812",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0065",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript",
+        "remote_policy": "Global",
+        "salary": "Unpaid during internship; possible paid conversion at ₹5,000/month",
+        "decision_reason": "salary_too_low",
+        "notes": "Verified on the live Wellfound job card on 2026-08-12: Apply Now is available, Hires remotely in Everywhere, and recruiter activity is recent. Compensation is unpaid during the internship with only a possible later conversion to ₹5,000/month, below the current profile minimum of $1,000/month."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0066",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end",
+        "remote_policy": "Global",
+        "salary": "₹10,000–₹20,000/month",
+        "decision_reason": "salary_too_low",
+        "notes": "Verified on the live Wellfound job card on 2026-08-12: Apply Now is available and Hires remotely in Everywhere. The two-month internship pays ₹10,000–₹20,000/month, below the current profile minimum of $1,000/month."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0067",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://wellfound.com/jobs/4479264-product-design-engineer",
+        "remote_policy": "Global",
+        "salary": "$11k–$30k/year",
+        "notes": "Verified on the live Wellfound job card on 2026-08-12: Apply Now is available, Hires remotely in Everywhere, recruiter activity is recent, and the role remains full-time. The 3-year experience request remains a stretch, but there is no hard geography or application blocker."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0068",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://wellfound.com/jobs/3272161-frontend-developer-intern-react-next-js",
+        "remote_policy": "Global",
+        "notes": "Verified on the live Wellfound job card on 2026-08-12: Apply Now is available, Hires remotely in Everywhere, no experience is required, and the role is remote-only. Strong React/Next.js/Figma fit remains actionable."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0069",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://wellfound.com/jobs/3298184-front-end-developer",
+        "remote_policy": "Unclear",
+        "salary": "$80k–$120k",
+        "notes": "Verified on the live Wellfound job card on 2026-08-12: Apply Now is available and the role is actively hiring. The Hires remotely in list includes Eastern Europe but does not explicitly name Serbia, so Serbia eligibility remains the next action rather than a confirmed blocker."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0128",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Resolved on 2026-08-12 as Primer's live Frontend Engineer / Software Engineer III Frontend role. The official Primer Ashby listing is remote but limited to Hungary, Poland, Portugal, Romania, and South Africa; Serbia is not an eligible hiring location. The exact first-party URL is already canonical on job-0004, so this watchlist lead is screened out without duplicating that original_url."
+      }
+    }
+  ]
+}
