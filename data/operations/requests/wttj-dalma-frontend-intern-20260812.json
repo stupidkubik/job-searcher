@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "wttj-dalma-frontend-intern-20260812",
+  "command": "add",
+  "args": {
+    "company": "Dalma",
+    "role": "Frontend Engineer Intern (React / React Native)",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://www.welcometothejungle.com/en/companies/dalma/jobs/frontend-engineer-intern-react-react-native_paris",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Intern",
+    "location": "Paris, France / occasional remote",
+    "remote_policy": "Hybrid",
+    "stack": "React; TypeScript; React Native; Tailwind CSS; Design System; REST APIs",
+    "salary": "€1.3K+/month",
+    "found_at": "2026-08-12",
+    "match_score": 9.0,
+    "decision_reason": "geo_restriction",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Excellent technical internship fit: production React/TypeScript, React Native, Tailwind and shared design-system work with senior mentoring. Hard blockers are Paris-based occasional remote and the must-have requirement that the candidate is currently Bac+4/Bac+5. WTTJ currently exposes Apply, but no separate first-party vacancy page was confirmed."
+  }
+}
