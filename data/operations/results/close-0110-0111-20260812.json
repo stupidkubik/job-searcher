@@ -1,0 +1,35 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-12T12:40:25Z",
+  "jobs": [
+    "job-0110",
+    "job-0111"
+  ],
+  "operation_id": "close-0110-0111-20260812",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0110",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0111",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
