@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "hirify-quinncia-frontend-20260812",
+  "command": "add",
+  "args": {
+    "company": "Quinncia",
+    "role": "Frontend Developer",
+    "source": "Hirify",
+    "source_url": "https://hirify.me/jobs/656267-frontend-developer-ai",
+    "original_url": "https://wellfound.com/jobs/1029763-frontend-developer",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "level": "Junior/Middle",
+    "location": "Remote worldwide",
+    "remote_policy": "Global",
+    "stack": "JavaScript; TypeScript; React; Next.js; GraphQL; Jest; Webpack; Sass",
+    "salary": "$20K-$35K/year",
+    "found_at": "2026-08-12",
+    "match_score": 8.5,
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "notes": "Fresh Hirify find verified on Wellfound. Remote Everywhere and Apply Now are active; strong React/TypeScript/Next.js fit. Main stretch is the listed 3 years of experience and required overlap with 10:00-13:00 US Eastern Time."
+  }
+}
