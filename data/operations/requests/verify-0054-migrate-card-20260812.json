@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "verify-0054-migrate-card-20260812",
+  "command": "verify",
+  "job_id": "job-0054",
+  "expected": {
+    "application_status": "apply",
+    "listing_status": "unknown",
+    "last_update": "2026-08-10"
+  },
+  "args": {
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "original_url": "https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e",
+    "remote_policy": "Europe",
+    "notes": "First-party SuperPlane Ashby vacancy and application route were verified. This verification also migrates the legacy application card to the current structured front matter before recording the user-confirmed application lifecycle event."
+  }
+}
