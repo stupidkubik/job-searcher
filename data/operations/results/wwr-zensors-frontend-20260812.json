@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-12T13:12:34Z",
+  "job_id": "job-0132",
+  "operation_id": "wwr-zensors-frontend-20260812",
+  "result": {
+    "application_path": "applications/job-0132-zensors-frontend-web-developer-react.md",
+    "application_status": "reviewing",
+    "job_id": "job-0132",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-12",
+        "job_id": "job-0132",
+        "source": "We Work Remotely",
+        "source_job_id": "",
+        "source_url": "https://weworkremotely.com/remote-jobs/zensors-frontend-web-developer-react-typescript-remote"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
