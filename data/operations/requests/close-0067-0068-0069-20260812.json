@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "operation_id": "close-0067-0068-0069-20260812",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0067",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "User reviewed the role on 2026-08-12 and confirmed it is fundamentally a designer / product-design position rather than the targeted frontend engineering role."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0068",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "salary": "Certificate only",
+        "decision_reason": "salary_too_low",
+        "notes": "User reviewed the compensation terms on 2026-08-12 and confirmed the internship compensates with a certificate rather than cash pay; not compatible with the current compensation requirement."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0069",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "salary": "Equity only",
+        "decision_reason": "salary_too_low",
+        "notes": "User reviewed the compensation terms on 2026-08-12 and confirmed compensation is equity-only rather than cash salary; not compatible with the current compensation requirement."
+      }
+    }
+  ]
+}
