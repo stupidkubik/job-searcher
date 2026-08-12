@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-12T21:24:30Z",
+  "job_id": "job-0145",
+  "operation_id": "add-ojin-product-engineer-20260812",
+  "result": {
+    "application_path": "applications/job-0145-ojin-product-engineer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0145",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-12",
+        "job_id": "job-0145",
+        "source": "Hacker News — Who is Hiring?",
+        "source_job_id": "",
+        "source_url": "https://news.ycombinator.com/item?id=48753172"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
