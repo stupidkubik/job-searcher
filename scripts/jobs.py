@@ -959,31 +959,55 @@ def should_create_application_card(row, no_file):
     )
 
 
+APPLICATION_CARD_FRONT_MATTER_FIELDS = (
+    "id", "company", "role", "original_url", "verified_at", "listing_status",
+    "first_party_verified", "apply_verified",
+)
+
+
+def sync_application_card_front_matter(body, row, app_path):
+    """Update current fields and add fields missing from a legacy card."""
+    lines = body.splitlines(keepends=True)
+    if not lines or lines[0].rstrip("\r\n") != "---":
+        die(f"{app_path}: отсутствует начало front matter")
+    closing_index = next(
+        (index for index, line in enumerate(lines[1:], start=1) if line.rstrip("\r\n") == "---"),
+        None,
+    )
+    if closing_index is None:
+        die(f"{app_path}: отсутствует конец front matter")
+
+    missing = []
+    for key in APPLICATION_CARD_FRONT_MATTER_FIELDS:
+        matches = [
+            index for index in range(1, closing_index)
+            if re.match(rf"^{re.escape(key)}\s*:", lines[index])
+        ]
+        if len(matches) > 1:
+            die(f"{app_path}: front matter поле {key} указано несколько раз")
+        replacement = f"{key}: {row[key]}\n"
+        if matches:
+            lines[matches[0]] = replacement
+        else:
+            missing.append(replacement)
+
+    if missing:
+        lines[closing_index:closing_index] = missing
+    return "".join(lines)
+
+
 def render_application_card(row, update_existing=False):
     app_path = APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
     if app_path.exists():
         if not update_existing:
             return app_path, None
         original_body = app_path.read_text(encoding="utf-8")
-        body = original_body
-        for key in (
-            "company", "role", "original_url", "verified_at", "listing_status",
-            "first_party_verified", "apply_verified",
-        ):
-            body, replacements = re.subn(
-                rf"(?m)^{re.escape(key)}:.*$", f"{key}: {row[key]}", body, count=1,
-            )
-            if replacements != 1:
-                die(f"{app_path}: отсутствует front matter поле {key}")
+        body = sync_application_card_front_matter(original_body, row, app_path)
         return app_path, body if body != original_body else None
     if not TEMPLATE_PATH.exists():
         die(f"не найден шаблон {TEMPLATE_PATH}")
-    body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("job-0000", row["id"]).replace("{{company}}", row["company"]).replace("{{role}}", row["role"])
-    for key in (
-        "company", "role", "original_url", "verified_at", "listing_status",
-        "first_party_verified", "apply_verified",
-    ):
-        body = body.replace(f"{key}:", f"{key}: {row[key]}", 1)
+    body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("{{company}}", row["company"]).replace("{{role}}", row["role"])
+    body = sync_application_card_front_matter(body, row, TEMPLATE_PATH)
     return app_path, body
 
 

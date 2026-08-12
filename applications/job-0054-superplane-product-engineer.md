@@ -3,6 +3,10 @@ id: job-0054
 company: SuperPlane
 role: Product Engineer
 original_url: https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e
+verified_at: 2026-08-12
+listing_status: open
+first_party_verified: yes
+apply_verified: yes
 ---
 
 # SuperPlane — Product Engineer
@@ -56,7 +60,7 @@ original_url: https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5
 - Cover letter: not requested
 - Ответы на вопросы формы: prepared 2026-08-10
 - Salary expectations: flexible / junior-level expectations acceptable
-- Required PR: candidate issue `superplanehq/superplane#6618`; PR URL pending
+- Required PR: completed before application; PR URL is not recorded in the tracker
 
 ### Resume summary draft
 
@@ -72,7 +76,7 @@ What mattered most to me was that this was not a portfolio exercise: I spotted a
 
 ### Link to your pull request in superplanehq/superplane
 
-Pending. Recommended target: issue #6618, a fresh React controlled/uncontrolled Select bug in `FactoryLineStepEditor.tsx`. Replace this field with the actual PR URL before submitting the application.
+Completed before the application was submitted. The PR URL is not recorded in the tracker.
 
 ## Хронология
 
@@ -80,3 +84,4 @@ Pending. Recommended target: issue #6618, a fresh React controlled/uncontrolled 
 |---|---|
 | 2026-08-10 | Vacancy verified; decision to apply as a deliberate junior/early-career stretch. |
 | 2026-08-10 | Application materials repositioned around lower-level entry, learning velocity and proof of work. |
+| 2026-08-12 | Required SuperPlane PR completed and application submitted with `cv-frontend-2026-08`. |

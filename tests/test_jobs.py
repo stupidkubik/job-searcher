@@ -141,6 +141,7 @@ class JobsCliTests(unittest.TestCase):
         cards = list((self.root / "applications").glob("job-0001-*.md"))
         self.assertEqual(len(cards), 1)
         card = cards[0].read_text(encoding="utf-8")
+        self.assertIn("id: job-0001\n", card)
         self.assertIn("company: Example Co", card)
         self.assertIn("first_party_verified: yes", card)
         self.assertIn("apply_verified: yes", card)
@@ -419,6 +420,44 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(row["verified_at"], date.today().isoformat())
         card = next((self.root / "applications").glob("job-0001-*.md"))
         self.assertIn("listing_status: open", card.read_text(encoding="utf-8"))
+
+    def test_verify_migrates_missing_fields_in_legacy_application_card(self):
+        added = self.invoke(
+            "add", "--company", "LegacyCo", "--role", "Product Engineer",
+            "--source", "Manual", "--application-status", "apply", "--no-file",
+        )
+        self.assertEqual(added.returncode, 0, added.stderr)
+        card_path = self.root / "applications" / "job-0001-legacyco-product-engineer.md"
+        card_path.write_text(
+            "---\n"
+            "id: job-0001\n"
+            "company: LegacyCo\n"
+            "role: Product Engineer\n"
+            "original_url:\n"
+            "---\n\n"
+            "# Preserve this legacy application body\n",
+            encoding="utf-8",
+        )
+
+        verified = self.invoke(
+            "verify", "job-0001", "--listing-status", "open",
+            "--first-party-verified", "yes", "--apply-verified", "yes",
+            "--original-url", "https://careers.example.test/jobs/legacy",
+            "--format", "json",
+        )
+
+        self.assertEqual(verified.returncode, 0, verified.stderr)
+        card = card_path.read_text(encoding="utf-8")
+        self.assertIn("# Preserve this legacy application body", card)
+        self.assertIn(f"verified_at: {date.today().isoformat()}", card)
+        self.assertIn("listing_status: open", card)
+        self.assertIn("first_party_verified: yes", card)
+        self.assertIn("apply_verified: yes", card)
+        for field in (
+            "id", "company", "role", "original_url", "verified_at",
+            "listing_status", "first_party_verified", "apply_verified",
+        ):
+            self.assertEqual(card.count(f"{field}:"), 1)
 
     def test_verify_can_enrich_safe_job_facts_in_the_same_transaction(self):
         added = self.invoke(

@@ -1,0 +1,17 @@
+{
+  "command": "verify",
+  "executed_at": "2026-08-12T20:44:41Z",
+  "job_id": "job-0054",
+  "operation_id": "verify-0054-migrate-card-20260812",
+  "result": {
+    "application_path": "applications/job-0054-superplane-product-engineer.md",
+    "application_status": "apply",
+    "listing_status": "open",
+    "outcome": "ready_for_review",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-12** · Jobs: **141**
 
-[Action now (1)](#action-now) · [Applications (20)](#applications) · [To verify (1)](#to-verify) · [Archive (119)](#archive)
+[Action now (1)](#action-now) · [Applications (21)](#applications) · [To verify (0)](#to-verify) · [Archive (119)](#archive)
 
 ## Action now
 
@@ -23,6 +23,7 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
 | Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
 | Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
 | Applied | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
@@ -39,9 +40,7 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 
 ## To verify
 
-| Status | Vacancy | Need | Match | Next action | Last checked |
-| --- | --- | --- | --- | --- | --- |
-| Ready to apply | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | First party + Apply + Listing | 6 | submit PR and application | Never |
+No jobs.
 
 ## Archive
 
