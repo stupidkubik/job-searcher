@@ -24,6 +24,11 @@ VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {"original_url","decision_reason","
 SET_ALLOWED_ARGS = {"next_action","next_action_date","listing_status"}
 SCREEN_REQUIRED_ARGS = {"decision_reason"}
 SCREEN_ALLOWED_ARGS = SCREEN_REQUIRED_ARGS | {"notes"}
+STATUS_REQUIRED_ARGS = {"application_status","confirmed_by_user"}
+STATUS_ALLOWED_ARGS = STATUS_REQUIRED_ARGS | {
+    "stage","applied_at","response_at","decision_reason","next_action",
+    "next_action_date","cv_version","notes",
+}
 VERIFY_ENRICHMENT_ARGS = {"level","remote_policy","stack","salary","match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status","next_action","next_action_date"}
 ADD_CONTROL_ARGS = {"duplicate_of","force"}
@@ -111,6 +116,27 @@ def validate_screen_args(args,prefix="args"):
     if out["decision_reason"] not in jobs.SCREEN_REASONS: raise OperationError(f"{prefix}.decision_reason is not allowed for screen")
     if out["decision_reason"]=="other" and not out.get("notes","").strip(): raise OperationError("screen decision_reason=other requires non-empty notes")
     return out
+def validate_status_args(args,prefix="args"):
+    if not isinstance(args,dict): raise OperationError(f"{prefix} must be an object")
+    unknown=sorted(set(args)-STATUS_ALLOWED_ARGS); missing=sorted(STATUS_REQUIRED_ARGS-set(args))
+    if unknown or missing:
+        parts=[]
+        if unknown: parts.append("unknown status args: "+", ".join(unknown))
+        if missing: parts.append("missing status args: "+", ".join(missing))
+        raise OperationError("; ".join(parts))
+    if args["confirmed_by_user"] is not True: raise OperationError(f"{prefix}.confirmed_by_user must be true")
+    out={"confirmed_by_user":True}
+    for k,v in args.items():
+        if k=="confirmed_by_user": continue
+        out[k]=clean_text(v,f"{prefix}.{k}")
+    if out["application_status"] not in jobs.APPLICATION_STATUSES: raise OperationError(f"{prefix}.application_status is not a known status")
+    if "stage" in out and out["stage"] not in jobs.STAGES: raise OperationError(f"{prefix}.stage is not a known stage")
+    if "decision_reason" in out and out["decision_reason"] not in {"no_response_timeout","withdrawn_by_me"}: raise OperationError(f"{prefix}.decision_reason is not allowed for status")
+    for k in ("applied_at","response_at","next_action_date"):
+        if k in out and out[k]:
+            try: datetime.strptime(out[k],"%Y-%m-%d")
+            except ValueError as error: raise OperationError(f"{prefix}.{k} must be YYYY-MM-DD") from error
+    return out
 def validate_add_args(args,prefix="args"):
     if not isinstance(args,dict): raise OperationError(f"{prefix} must be an object")
     unknown=sorted(set(args)-ADD_ALLOWED_ARGS); missing=sorted(ADD_REQUIRED_ARGS-set(args))
@@ -181,12 +207,13 @@ def validate_child(value,index=None):
         if missing: parts.append("missing fields: "+", ".join(missing))
         raise OperationError(f"{prefix}: "+"; ".join(parts))
     command=clean_text(value["command"],f"{prefix}.command")
-    if command not in {"screen","verify","set"}: raise OperationError(f"{prefix}.command must be screen, verify or set")
+    if command not in {"screen","verify","set","status"}: raise OperationError(f"{prefix}.command must be screen, verify, set or status")
     job_id=clean_text(value["job_id"],f"{prefix}.job_id")
     if not JOB_ID_RE.fullmatch(job_id): raise OperationError(f"{prefix}.job_id must be job-NNNN")
     expected=validate_expected(value["expected"],f"{prefix}.expected")
     if command=="verify": args=validate_verify_args(value["args"],f"{prefix}.args")
     elif command=="screen": args=validate_screen_args(value["args"],f"{prefix}.args")
+    elif command=="status": args=validate_status_args(value["args"],f"{prefix}.args")
     else: args=validate_set_args(value["args"],f"{prefix}.args")
     return {"command":command,"job_id":job_id,"expected":expected,"args":args}
 def validate_operation(value):
@@ -224,7 +251,7 @@ def validate_operation(value):
         if unknown: parts.append("unknown top-level fields: "+", ".join(unknown))
         if missing: parts.append("missing top-level fields: "+", ".join(missing))
         raise OperationError("; ".join(parts))
-    if command not in {"screen","verify","set"}: raise OperationError("command must be add, screen, verify, set, or batch")
+    if command not in {"screen","verify","set","status"}: raise OperationError("command must be add, screen, verify, set, status, or batch")
     child=validate_child({"command":command,"job_id":value["job_id"],"expected":value["expected"],"args":value["args"]})
     return {"version":OPERATION_VERSION,"operation_id":operation_id,**child}
 def load_operation(path):
@@ -244,6 +271,7 @@ def read_job(job_id):
 def precondition_mismatches(row,expected):
     return {k:{"expected":v,"actual":row.get(k,"")} for k,v in expected.items() if row.get(k,"")!=v}
 def classify_child_risk(operation,row):
+    if operation["command"]=="status": return "medium"
     if operation["command"] in {"screen","set"}: return "low"
     args=operation["args"]
     passed=args["listing_status"]=="open" and args["first_party_verified"]=="yes" and args["apply_verified"]=="yes"
@@ -264,6 +292,10 @@ def apply_operation(operation,row):
     if operation["command"]=="screen":
         result=jobs.screen_job(operation["job_id"],**operation["args"])
         return {"job":result["job"],"warnings":result["warnings"],"outcome":result["outcome"],"application_path":None}
+    if operation["command"]=="status":
+        args=dict(operation["args"]); args.pop("confirmed_by_user")
+        result=jobs.status_job(operation["job_id"],**args)
+        return {"job":result["job"],"warnings":result["warnings"],"outcome":result["outcome"],"application_path":result.get("application_path")}
     if "listing_status" in operation["args"] and row["application_status"] not in jobs.NEEDS_APPLIED_AT: raise OperationError("listing_status=closed through set is allowed only after an application exists")
     result=jobs.set_job(operation["job_id"],list(operation["args"].items()))
     return {"job":result["job"],"warnings":result["warnings"],"outcome":"updated","application_path":None}
@@ -313,7 +345,7 @@ def execute_batch(operation):
     with temporary_tracker_workspace() as temp_root:
         for child in operation["operations"]:
             current=read_job(child["job_id"]); applied=apply_operation(child,current); updated=applied["job"]
-            child_results.append({"job_id":child["job_id"],"command":child["command"],"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"warnings":applied["warnings"]})
+            child_results.append({"job_id":child["job_id"],"command":child["command"],"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"stage_reached":updated["stage_reached"],"warnings":applied["warnings"]})
         temp_rows=[dict(row) for row in jobs.load()]; temp_sources=[dict(row) for row in jobs.load_job_sources()]
         errors,warnings=jobs.validate_dataset(temp_rows,temp_sources)
         if errors: raise OperationError("batch dataset validation failed: "+"; ".join(errors))
@@ -354,7 +386,7 @@ def execute(path):
         return result,write_result(operation,result)
     applied=apply_operation(operation,row); updated=applied["job"]; errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
     if errors: raise OperationError("post-operation dataset validation failed: "+"; ".join(errors))
-    result=operation_result(operation,status="completed",risk=risk,details={"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"warnings":[*applied["warnings"],*validation_warnings]})
+    result=operation_result(operation,status="completed",risk=risk,details={"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"stage_reached":updated["stage_reached"],"application_path":applied.get("application_path"),"warnings":[*applied["warnings"],*validation_warnings]})
     return result,write_result(operation,result)
 def main():
     parser=argparse.ArgumentParser(description="Execute declarative Phase A/B agent operations"); subparsers=parser.add_subparsers(dest="command",required=True)

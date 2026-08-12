@@ -35,7 +35,7 @@
 
 ## Как писать в CSV
 
-- Только через `scripts/jobs.py` (`add` / `set` / `screen` / `verify` /
+- Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` / `verify` /
   `backfill-sources` / `repair-himalayas-screening` / `ingest`). Ручная правка
   canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
@@ -93,6 +93,9 @@ python3 scripts/jobs.py verify job-NNNN --listing-status open \
 # Последующие изменения существующей записи задаются как field=value.
 python3 scripts/jobs.py set job-NNNN next_action="follow up" --format json
 
+# Подтверждённое человеком lifecycle-событие.
+python3 scripts/jobs.py status job-NNNN --application-status rejected --format json
+
 # Screening blocker без утверждений о first-party verification.
 python3 scripts/jobs.py screen job-NNNN \
   --decision-reason geo_restriction --notes "..." --format json
@@ -122,9 +125,12 @@ fuzzy-кандидатов.
 GitHub connector не исполняет эти shell-команды. Для него CLI выше описывает
 ожидаемую семантику, а запись выполняется только созданием одного нового
 immutable request по контракту `data/operations/README.md`. Разрешены `screen`,
-`add`, `verify`, ограниченный `set` и `batch` только с `atomic=true`; `ingest` и
-human-only события через request не поддерживаются. Не считать операцию
-завершённой, пока runner не создал соответствующий result и canonical diff.
+`add`, `verify`, `status`, ограниченный `set` и `batch` только с `atomic=true`;
+`ingest` не поддерживается. `status` для `applied`, `interviewing`, `offer`,
+`rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
+человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
+считать операцию завершённой, пока runner не создал соответствующий result и
+canonical diff.
 
 ## Порядок обработки одной вакансии
 
@@ -144,7 +150,8 @@ human-only события через request не поддерживаются. 
    структурированные поля.
 6. Подготовить материалы: CV только из `cv/current/`, cover letter и ответы формы.
 7. Человек отправляет заявку; только после этого выполнить
-   `set <id> application_status=applied cv_version=...`.
+   `status <id> --application-status applied --cv-version ...` или создать
+   connector request `status` с `confirmed_by_user=true`.
 
 ## Файлы
 

@@ -106,6 +106,7 @@ ENUMS = {
 GHOST_AFTER_DAYS = 30
 SOURCES_WITHOUT_EXTERNAL_REFERENCE = {"Manual", "Referral"}
 TERMINAL_APPLICATION_STATUSES = {"rejected", "ghosted", "withdrawn"}
+PRE_APPLICATION_STATUSES = {"not_started", "reviewing", "apply"}
 DEFAULT_STALE_DAYS = 7
 INGEST_RESOLUTION_VERSION = 1
 INGEST_RESOLUTION_DECISIONS = {"separate", "duplicate"}
@@ -1743,6 +1744,159 @@ def cmd_set(args):
     print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
 
 
+def validate_status_date(value, field):
+    if value is None:
+        return None
+    value = clean_value(value).strip()
+    if not value:
+        die(f"status: {field} не может быть пустой датой")
+    try:
+        parsed = datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        die(f"status: {field} должна быть YYYY-MM-DD")
+    if parsed > date.today():
+        die(f"status: {field} не может быть в будущем")
+    return value
+
+
+def apply_status_change(row, *, application_status, stage=None, applied_at=None,
+                        response_at=None, decision_reason=None, next_action=None,
+                        next_action_date=None, cv_version=None, notes=None):
+    """Record a user-confirmed lifecycle event without opening arbitrary set fields."""
+    target = clean_value(application_status).strip()
+    if target not in APPLICATION_STATUSES:
+        die(f"status: недопустимый application_status {target!r}")
+    if row["applied_at"] and target in PRE_APPLICATION_STATUSES:
+        die("status: нельзя вернуть отправленную заявку в pre-application состояние")
+    if stage is not None:
+        stage = clean_value(stage).strip()
+        if stage not in STAGES:
+            die(f"status: недопустимая стадия {stage!r}")
+    if target in PRE_APPLICATION_STATUSES and stage not in {None, "None"}:
+        die(f"status: application_status={target} не принимает post-application stage")
+    if target == "applied" and stage not in {None, "Applied"}:
+        die("status: application_status=applied допускает только stage=Applied")
+    if target == "interviewing" and stage in {"None", "Applied", "Offer"}:
+        die("status: interviewing требует interview stage")
+    if target == "offer" and stage not in {None, "Offer"}:
+        die("status: application_status=offer требует stage=Offer")
+
+    applied_at = validate_status_date(applied_at, "applied_at")
+    response_at = validate_status_date(response_at, "response_at")
+    if target in PRE_APPLICATION_STATUSES and (applied_at is not None or response_at is not None):
+        die("status: pre-application состояние не принимает applied_at/response_at")
+    if target == "applied" and response_at is not None:
+        die("status: application_status=applied не принимает response_at")
+    if next_action_date is not None:
+        next_action_date = clean_value(next_action_date).strip()
+        if next_action_date:
+            try:
+                datetime.strptime(next_action_date, "%Y-%m-%d")
+            except ValueError:
+                die("status: next_action_date должна быть YYYY-MM-DD")
+
+    effective_applied_at = applied_at or row["applied_at"]
+    if target in NEEDS_APPLIED_AT and not effective_applied_at and target != "applied":
+        die(f"status: переход в {target} без существующей заявки требует --applied-at")
+    effective_next_action = row["next_action"] if next_action is None else clean_value(next_action).strip()
+    if target == "apply" and not effective_next_action:
+        die("status: application_status=apply требует --next-action")
+    if target in TERMINAL_APPLICATION_STATUSES and (
+        (next_action is not None and clean_value(next_action).strip())
+        or (next_action_date is not None and next_action_date)
+    ):
+        die(f"status: application_status={target} не принимает следующий шаг")
+    if next_action_date and (next_action is None or not clean_value(next_action).strip()):
+        die("status: next_action_date требует явный --next-action")
+
+    supplied_reason = None if decision_reason is None else clean_value(decision_reason).strip()
+    if target == "ghosted":
+        if supplied_reason not in {None, "no_response_timeout"}:
+            die("status: ghosted допускает только decision_reason=no_response_timeout")
+        final_reason = "no_response_timeout"
+    elif target == "withdrawn":
+        if supplied_reason not in {None, "withdrawn_by_me"}:
+            die("status: withdrawn допускает только decision_reason=withdrawn_by_me")
+        final_reason = "withdrawn_by_me"
+    else:
+        if supplied_reason:
+            die(f"status: decision_reason не используется для application_status={target}")
+        final_reason = ""
+
+    if target == "interviewing" and stage is None:
+        current_stage = row["stage_reached"] or "None"
+        if STAGES.index(current_stage) < STAGES.index("Recruiter screen"):
+            stage = "Recruiter screen"
+    elif target == "offer":
+        stage = "Offer"
+
+    assignments = [
+        ("application_status", target),
+        ("decision_reason", final_reason),
+    ]
+    if applied_at is not None:
+        assignments.append(("applied_at", applied_at))
+    if response_at is not None:
+        assignments.append(("response_at", response_at))
+    if cv_version is not None:
+        assignments.append(("cv_version", clean_value(cv_version).strip()))
+    if notes is not None:
+        assignments.append(("notes", clean_value(notes).strip()))
+
+    if target in TERMINAL_APPLICATION_STATUSES or (target == "applied" and next_action is None):
+        assignments.extend((("next_action", ""), ("next_action_date", "")))
+    else:
+        if next_action is not None:
+            assignments.append(("next_action", clean_value(next_action).strip()))
+        if next_action_date is not None:
+            assignments.append(("next_action_date", next_action_date))
+
+    apply_job_changes(row, assignments, stage=stage)
+    return "status_changed"
+
+
+def status_job(job_id, **values):
+    rows = load()
+    source_rows = load_job_sources()
+    row = find(rows, job_id)
+    outcome = apply_status_change(row, **values)
+    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+    application_path, application_body = (None, None)
+    if row["application_status"] in {"reviewing", "apply"} or row["applied_at"]:
+        application_path, application_body = render_application_card(row, update_existing=True)
+    application_writes = ((application_path, application_body),) if application_body is not None else ()
+    apply_dataset_transaction(rows, source_rows, application_writes)
+    return {
+        "job": row,
+        "warnings": warnings,
+        "outcome": outcome,
+        "application_path": application_path.relative_to(ROOT).as_posix() if application_path else None,
+    }
+
+
+def cmd_status(args):
+    result = status_job(
+        args.id,
+        application_status=args.application_status,
+        stage=args.stage,
+        applied_at=args.applied_at,
+        response_at=args.response_at,
+        decision_reason=args.decision_reason,
+        next_action=args.next_action,
+        next_action_date=args.next_action_date,
+        cv_version=args.cv_version,
+        notes=args.notes,
+    )
+    if args.format == "json":
+        print_json({"ok": True, "command": "status", **result})
+        return
+    row = result["job"]
+    print(
+        f"{row['id']}  application_status={row['application_status']}  "
+        f"stage={row['stage_reached']}"
+    )
+
+
 def apply_screen_decision(row, *, decision_reason, notes=None):
     """Record a pre-application screening decision without claiming verification."""
     decision_reason = clean_value(decision_reason).strip()
@@ -2426,6 +2580,19 @@ def main():
     set_parser.add_argument("--stage")
     set_parser.add_argument("--format", choices=("text", "json"), default="text")
     set_parser.set_defaults(func=cmd_set)
+    status = subparsers.add_parser("status", help="зафиксировать подтверждённое человеком lifecycle-событие")
+    status.add_argument("id")
+    status.add_argument("--application-status", required=True, choices=APPLICATION_STATUSES)
+    status.add_argument("--stage", choices=STAGES)
+    status.add_argument("--applied-at")
+    status.add_argument("--response-at")
+    status.add_argument("--decision-reason", choices=("no_response_timeout", "withdrawn_by_me"))
+    status.add_argument("--next-action")
+    status.add_argument("--next-action-date")
+    status.add_argument("--cv-version")
+    status.add_argument("--notes")
+    status.add_argument("--format", choices=("text", "json"), default="text")
+    status.set_defaults(func=cmd_status)
     screen = subparsers.add_parser("screen", help="зафиксировать pre-application screening decision")
     screen.add_argument("id")
     screen.add_argument("--decision-reason", required=True, choices=sorted(SCREEN_REASONS))

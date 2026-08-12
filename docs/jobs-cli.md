@@ -67,9 +67,10 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `screen`, `verify`, `validate`, `dupes`, `ingest`, `stale`, `todo`,
-`stats` и `repair-himalayas-screening` поддерживают `--format text|json`; по умолчанию — `text`. Успешный
-JSON-ответ состоит ровно из одного object с `ok`,
+`add`, `set`, `status`, `screen`, `verify`, `validate`, `dupes`, `ingest`,
+`stale`, `todo`, `stats` и `repair-himalayas-screening` поддерживают
+`--format text|json`; по умолчанию — `text`. Успешный JSON-ответ состоит ровно
+из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
 
@@ -236,6 +237,38 @@ python3 scripts/jobs.py screen job-0099 \
 `next_action`/`next_action_date`. Она намеренно не меняет `listing_status`,
 `verified_at`, `first_party_verified` и `apply_verified`. Причины
 `closed_before_application` и `duplicate_listing` через `screen` запрещены.
+
+## Подтверждённые lifecycle-события
+
+`status` — ограниченная доменная команда для изменения `application_status`.
+Она поддерживает все базовые состояния, управляет обязательными датами и
+стадиями и не открывает произвольную запись protected-полей.
+
+```bash
+# Человек отправил заявку.
+python3 scripts/jobs.py status job-0001 \
+  --application-status applied --applied-at 2026-08-12 \
+  --cv-version frontend-2026-08 --next-action follow-up --format json
+
+# Пришёл отказ по уже существующей заявке.
+python3 scripts/jobs.py status job-0001 \
+  --application-status rejected --format json
+
+# Начался технический этап.
+python3 scripts/jobs.py status job-0001 \
+  --application-status interviewing --stage "Tech interview" \
+  --next-action "prepare technical interview" --format json
+```
+
+Для `applied` недостающий `applied_at` становится сегодняшней датой. Для
+`interviewing`, `offer` и `rejected` недостающий `response_at` также становится
+сегодняшней датой. Если post-application статус ставится на запись без истории
+отклика, нужно явно передать `--applied-at`; это не позволяет случайно выдумать
+предыдущую заявку. `ghosted` получает `decision_reason=no_response_timeout`, а
+`withdrawn` — `withdrawn_by_me`. Terminal status очищает следующий шаг.
+
+Возврат записи с заполненным `applied_at` в `not_started`, `reviewing` или
+`apply` запрещён. Для pre-application отсева по-прежнему используется `screen`.
 
 ## Разовый repair старого Himalayas batch
 

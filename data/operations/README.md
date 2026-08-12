@@ -68,10 +68,35 @@ Allowed single commands:
   but not submitted, the application process.
 - `set`: only `next_action`, `next_action_date`, and
   `listing_status=closed` after a human application already exists.
+- `status`: records an explicitly user-confirmed lifecycle event. It requires
+  `application_status` and the literal boolean `confirmed_by_user=true`;
+  optional fields are `stage`, `applied_at`, `response_at`, `decision_reason`,
+  `next_action`, `next_action_date`, `cv_version`, and `notes`. It supports all
+  canonical application statuses and remains subject to tracker date, stage,
+  and transition invariants.
 
-Submitted-application human-event fields remain forbidden. A request cannot set
-`application_status` to `applied`, `interviewing`, `offer`, or `withdrawn`, nor
-change `applied_at` or `response_at`.
+The agent must never infer a human event. `confirmed_by_user=true` is valid only
+when the user explicitly reported or requested that lifecycle change. Every
+`status` operation is medium risk and uses optimistic locking.
+
+Example rejection request for an existing application:
+
+```json
+{
+  "version": 1,
+  "operation_id": "status-exampleco-rejected-20260812",
+  "command": "status",
+  "job_id": "job-0001",
+  "expected": {
+    "application_status": "applied",
+    "last_update": "2026-08-11"
+  },
+  "args": {
+    "application_status": "rejected",
+    "confirmed_by_user": true
+  }
+}
+```
 
 Example new-job request:
 
@@ -153,12 +178,13 @@ Batch guarantees:
 - one immutable result records either `atomic_batch_applied` or the complete
   stale-operation conflict list.
 
-`add` is currently single-operation only and cannot be a batch child.
+`add` is currently single-operation only and cannot be a batch child. `status`
+can be a batch child, but every entry still requires `confirmed_by_user=true`.
 Declarative ingest remains outside the current agent gateway.
 
-`screen` and `set` are low-risk. `add` and `verify` with enrichment or a
-transition to `reviewing`/`apply` are medium-risk. A batch inherits the highest risk of its
-children, so a screening-only batch remains low-risk.
+`screen` and `set` are low-risk. `add`, `status`, and `verify` with enrichment
+or a transition to `reviewing`/`apply` are medium-risk. A batch inherits the
+highest risk of its children, so a screening-only batch remains low-risk.
 
 ## Runner contract
 

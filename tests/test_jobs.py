@@ -261,6 +261,89 @@ class JobsCliTests(unittest.TestCase):
         self.assertNotEqual(lower.returncode, 0)
         self.assertIn("нельзя понижать", lower.stderr)
 
+    def test_status_records_user_confirmed_application_interview_and_rejection(self):
+        self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
+
+        applied = self.invoke(
+            "status", "job-0001", "--application-status", "applied",
+            "--applied-at", "2026-08-10", "--cv-version", "frontend-2026-08",
+            "--next-action", "follow-up", "--format", "json",
+        )
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        row = self.rows()[0]
+        self.assertEqual(
+            (row["application_status"], row["applied_at"], row["stage_reached"], row["cv_version"]),
+            ("applied", "2026-08-10", "Applied", "frontend-2026-08"),
+        )
+        self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
+
+        interviewing = self.invoke(
+            "status", "job-0001", "--application-status", "interviewing",
+            "--stage", "Tech interview", "--response-at", "2026-08-11",
+            "--next-action", "prepare technical interview",
+            "--next-action-date", "2026-08-15", "--format", "json",
+        )
+        self.assertEqual(interviewing.returncode, 0, interviewing.stderr)
+        row = self.rows()[0]
+        self.assertEqual(
+            (row["application_status"], row["response_at"], row["stage_reached"]),
+            ("interviewing", "2026-08-11", "Tech interview"),
+        )
+
+        rejected = self.invoke(
+            "status", "job-0001", "--application-status", "rejected", "--format", "json",
+        )
+        self.assertEqual(rejected.returncode, 0, rejected.stderr)
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["stage_reached"]), ("rejected", "Tech interview"))
+        self.assertEqual((row["next_action"], row["next_action_date"]), ("", ""))
+
+    def test_status_supports_pre_application_offer_ghosted_and_withdrawn_states(self):
+        for company in ("ApplyCo", "OfferCo", "GhostCo", "WithdrawCo"):
+            self.assertEqual(self.add(company, "Frontend Developer", "--force", "--no-file").returncode, 0)
+
+        reviewing = self.invoke("status", "job-0001", "--application-status", "reviewing")
+        self.assertEqual(reviewing.returncode, 0, reviewing.stderr)
+        apply = self.invoke(
+            "status", "job-0001", "--application-status", "apply",
+            "--next-action", "submit application",
+        )
+        self.assertEqual(apply.returncode, 0, apply.stderr)
+
+        self.assertEqual(
+            self.invoke("status", "job-0002", "--application-status", "applied").returncode, 0,
+        )
+        offer = self.invoke("status", "job-0002", "--application-status", "offer")
+        self.assertEqual(offer.returncode, 0, offer.stderr)
+
+        self.assertEqual(
+            self.invoke("status", "job-0003", "--application-status", "applied").returncode, 0,
+        )
+        ghosted = self.invoke("status", "job-0003", "--application-status", "ghosted")
+        self.assertEqual(ghosted.returncode, 0, ghosted.stderr)
+
+        self.assertEqual(
+            self.invoke("status", "job-0004", "--application-status", "applied").returncode, 0,
+        )
+        withdrawn = self.invoke("status", "job-0004", "--application-status", "withdrawn")
+        self.assertEqual(withdrawn.returncode, 0, withdrawn.stderr)
+
+        rows = self.rows()
+        self.assertEqual((rows[0]["application_status"], rows[0]["next_action"]), ("apply", "submit application"))
+        self.assertEqual((rows[1]["application_status"], rows[1]["stage_reached"]), ("offer", "Offer"))
+        self.assertEqual((rows[2]["application_status"], rows[2]["decision_reason"]), ("ghosted", "no_response_timeout"))
+        self.assertEqual((rows[3]["application_status"], rows[3]["decision_reason"]), ("withdrawn", "withdrawn_by_me"))
+
+    def test_status_rejects_invented_post_application_history_without_writing(self):
+        self.assertEqual(self.add("UnsafeLifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        rejected = self.invoke("status", "job-0001", "--application-status", "rejected")
+
+        self.assertNotEqual(rejected.returncode, 0)
+        self.assertIn("требует --applied-at", rejected.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_listing_can_close_after_application_without_changing_application_history(self):
         self.assertEqual(self.add("LateCloseCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)

@@ -156,8 +156,8 @@ python3 scripts/jobs.py set job-0001 \
   listing_status=closed decision_reason=closed_before_application
 
 # Человек фактически отправил заявку
-python3 scripts/jobs.py set job-0001 \
-  application_status=applied cv_version=frontend-2026-08
+python3 scripts/jobs.py status job-0001 \
+  --application-status applied --cv-version frontend-2026-08
 
 # Подтверждённый duplicate: новая job-строка не создаётся
 python3 scripts/jobs.py add \
