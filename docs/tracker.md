@@ -2,30 +2,30 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-12** · Jobs: **131**
+Dataset updated: **2026-08-12** · Jobs: **141**
 
-[Action now (3)](#action-now) · [Applications (17)](#applications) · [To verify (10)](#to-verify) · [Archive (101)](#archive)
+[Action now (1)](#action-now) · [Applications (20)](#applications) · [To verify (10)](#to-verify) · [Archive (110)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | 8.5 | — | Open | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
-| Reviewing | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | 8 | — | Open | [Open](../applications/job-0127-elevenlabs-growth-engineer-website.md) |
 
 ## Applications
 
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
 | Applied | [CVAT.ai — Frontend Developer](<https://www.cvat.ai/job/frontend-developer>) · job-0001 | Applied | 2026-08-09 | follow-up · 2026-08-16 | — |
-| Applied | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [Nortal — AI - Driven FrontEnd Developer](<https://nortal.career.page/talent-community/jobs/5958?lang=en-us>) · job-0056 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [TransPerfect / Avatria — Commerce & Content Front End Technical Consultant](<https://transperfect.recruitee.com/o/commerce-and-content-front-end-technical-consultant-contractor-freelancer>) · job-0064 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [Zoftify — Travel Software Development — Frontend Developer (React)](<https://zoftify.bamboohr.com/careers/29/>) · job-0078 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
+| Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
+| Applied | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
 | Applied | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | — |
 | Applied | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | — |
 | Applied | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | — |
@@ -35,6 +35,7 @@ Dataset updated: **2026-08-12** · Jobs: **131**
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | — |
 | Applied | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | — |
 | Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
+| Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
 
 ## To verify
 
@@ -55,11 +56,20 @@ Dataset updated: **2026-08-12** · Jobs: **131**
 
 <details>
 
-<summary>Archive (101)</summary>
+<summary>Archive (110)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Closed | [StrangeBee — Junior React / TypeScript Software Engineer](<https://careers.strangebee.com/jobs/7500043-junior-react-typescript-software-engineer>) · job-0141 | closed before application | Closed | 2026-08-12 |
+| Skipped: geo restriction | [Dalma — Frontend Engineer Intern (React / React Native)](<https://www.welcometothejungle.com/en/companies/dalma/jobs/frontend-engineer-intern-react-react-native_paris>) · job-0140 | geo restriction | Not checked | 2026-08-12 |
+| Closed | [Giant Swarm — Frontend Engineer](<https://www.giantswarm.io/careers>) · job-0139 | closed before application | Closed | 2026-08-12 |
+| Closed | [Zen Educate — Product Engineer (Remote - EMEA)](<https://jobs.lever.co/zeneducate>) · job-0138 | closed before application | Closed | 2026-08-12 |
+| Skipped: role not frontend | [MyTraffic — Software Engineer - (M/F)](<https://mytraffic.teamtailor.com/jobs/7509093-software-engineer-m-f>) · job-0137 | role not frontend | Open | 2026-08-12 |
+| Skipped: salary too low | [Remote VA — Web Developer (BigCommerce Experience Required)](<https://weworkremotely.com/remote-jobs/remote-va-web-developer-bigcommerce-experience-required>) · job-0136 | salary too low | Not checked | 2026-08-12 |
+| Skipped: stack mismatch | [Business Web Solutions — Web Developer Intern](<https://weworkremotely.com/remote-jobs/business-web-solutions-web-developer-intern>) · job-0135 | stack mismatch | Not checked | 2026-08-12 |
+| Skipped: geo restriction | [Base.com — Full-Stack Developer (React + AWS)](<https://apply.workable.com/base-com/j/F6F9EF841F>) · job-0134 | geo restriction | Open | 2026-08-12 |
 | Skipped: other | [Constructor Tech — Frontend Engineer Intern](<https://job-boards.eu.greenhouse.io/constructortech/jobs/4772104101>) · job-0131 | other | Open | 2026-08-12 |
+| Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | other | Open | 2026-08-12 |
 | Skipped: other | [TalentCross — 1225 - 410MOS \| Full Stack Engineer (React, Node.js, PostgreSQL, Web Scraping, A](<https://www.careers-page.com/talentcross/job/RYY35936>) · job-0111 | other | Open | 2026-08-12 |
 | Skipped: role not frontend | [Devoteam — Nearshore Sector \| Mid Fullstack Java/React Developer](<https://www.devoteam.com/jobs/126599455624307398/>) · job-0110 | role not frontend | Open | 2026-08-12 |
 | Skipped: geo restriction | [Mactores — Full Stack Product Engineer, Agent Native](<https://himalayas.app/companies/mactores/jobs/full-stack-product-engineer-agent-native>) · job-0126 | geo restriction | Not checked | 2026-08-11 |
