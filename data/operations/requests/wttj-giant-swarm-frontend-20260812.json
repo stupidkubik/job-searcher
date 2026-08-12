@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "wttj-giant-swarm-frontend-20260812",
+  "command": "add",
+  "args": {
+    "company": "Giant Swarm",
+    "role": "Frontend Engineer",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://app.welcometothejungle.com/jobs/0bVo47n2",
+    "original_url": "https://www.giantswarm.io/careers",
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "level": "Unknown",
+    "location": "Remote Europe / UK",
+    "remote_policy": "Europe",
+    "stack": "React; TypeScript; JavaScript; Backstage; Kubernetes; Node.js; Go; Jest; CI/CD; OAuth; OIDC",
+    "salary": "€50K-€80K",
+    "found_at": "2026-08-12",
+    "match_score": 7.5,
+    "decision_reason": "closed_before_application",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "notes": "WTTJ has a strong Europe/UK remote frontend card built around React and TypeScript, but Giant Swarm's official careers page checked today explicitly says there are no open positions. Recorded as closed to prevent stale rediscovery. Kubernetes/platform depth would also be a stretch if the role reopens."
+  }
+}
