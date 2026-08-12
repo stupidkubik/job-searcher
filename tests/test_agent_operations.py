@@ -502,6 +502,114 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         self.assertFalse(list((self.root / "data" / "operations" / "results").glob("*.json")))
 
+    def test_medium_risk_status_records_user_confirmed_lifecycle_events(self):
+        self.seed_job()
+        operations = [
+            ("op-status-applied-001", "not_started", {
+                "application_status": "applied",
+                "confirmed_by_user": True,
+                "applied_at": "2026-08-11",
+                "cv_version": "frontend-2026-08",
+                "next_action": "follow-up",
+            }),
+            ("op-status-interview-001", "applied", {
+                "application_status": "interviewing",
+                "confirmed_by_user": True,
+                "stage": "Recruiter screen",
+                "response_at": "2026-08-12",
+                "next_action": "prepare recruiter screen",
+            }),
+            ("op-status-offer-001", "interviewing", {
+                "application_status": "offer",
+                "confirmed_by_user": True,
+            }),
+            ("op-status-rejected-001", "offer", {
+                "application_status": "rejected",
+                "confirmed_by_user": True,
+            }),
+        ]
+        for operation_id, expected_status, args in operations:
+            request = self.write_operation({
+                "version": 1,
+                "operation_id": operation_id,
+                "command": "status",
+                "job_id": "job-0001",
+                "expected": {"application_status": expected_status},
+                "args": args,
+            })
+            result = self.invoke_operation("apply", str(request), "--format", "json")
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
+            self.assertEqual(payload["result"]["result"]["outcome"], "status_changed")
+
+        row = self.rows()[0]
+        self.assertEqual((row["application_status"], row["stage_reached"]), ("rejected", "Offer"))
+        self.assertEqual((row["applied_at"], row["response_at"]), ("2026-08-11", "2026-08-12"))
+        self.assertEqual((row["next_action"], row["next_action_date"]), ("", ""))
+
+    def test_status_requires_explicit_user_confirmation(self):
+        row = self.seed_job()
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-status-unconfirmed-001",
+            "command": "status",
+            "job_id": "job-0001",
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {
+                "application_status": "applied",
+                "confirmed_by_user": False,
+            },
+        })
+
+        result = self.invoke_operation("validate", str(request), "--format", "json")
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("confirmed_by_user must be true", result.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_atomic_batch_can_record_confirmed_ghosted_and_withdrawn_events(self):
+        self.seed_job()
+        created = self.invoke_jobs(
+            "add", "--company", "Second OperationCo", "--role", "Frontend Developer",
+            "--source", "Manual", "--force", "--no-file",
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        for job_id in ("job-0001", "job-0002"):
+            applied = self.invoke_jobs("status", job_id, "--application-status", "applied")
+            self.assertEqual(applied.returncode, 0, applied.stderr)
+        rows = self.rows()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-status-terminal-batch-001",
+            "command": "batch",
+            "atomic": True,
+            "operations": [
+                {
+                    "command": "status",
+                    "job_id": "job-0001",
+                    "expected": {"application_status": "applied", "last_update": rows[0]["last_update"]},
+                    "args": {"application_status": "ghosted", "confirmed_by_user": True},
+                },
+                {
+                    "command": "status",
+                    "job_id": "job-0002",
+                    "expected": {"application_status": "applied", "last_update": rows[1]["last_update"]},
+                    "args": {"application_status": "withdrawn", "confirmed_by_user": True},
+                },
+            ],
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
+        rows = self.rows()
+        self.assertEqual((rows[0]["application_status"], rows[0]["decision_reason"]), ("ghosted", "no_response_timeout"))
+        self.assertEqual((rows[1]["application_status"], rows[1]["decision_reason"]), ("withdrawn", "withdrawn_by_me"))
+
 
 if __name__ == "__main__":
     unittest.main()

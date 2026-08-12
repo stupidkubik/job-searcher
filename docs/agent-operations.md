@@ -1,14 +1,15 @@
 # Agent operations: безопасный write-path через GitHub Actions
 
-Дата: 2026-08-11
-Статус: Phase A implemented; Phase B partially implemented (`add`, `screen` +
-atomic batch); остальное остаётся proposal для Tracker v2.1
+Дата: 2026-08-12
+Статус: Phase A implemented; Phase B partially implemented (`add`, `screen`,
+user-confirmed `status` + atomic batch); остальное остаётся proposal для Tracker v2.1
 
 Реализация находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
 [`data/operations/`](../data/operations/) и workflow
 [`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
-поддерживает single `add`, `screen`, `verify`, ограниченный `set` и atomic batch
-из update-операций, обязательные field-level preconditions и immutable result. Request на
+поддерживает single `add`, `screen`, `verify`, user-confirmed `status`,
+ограниченный `set` и atomic batch из update-операций, обязательные field-level
+preconditions и immutable result. Request на
 `main`, созданный по явной команде пользователя, применяет canonical diff прямо
 в `main`; request на `agent/*` остаётся PR-only. Ingest по-прежнему относится к
 следующим этапам.
@@ -20,7 +21,7 @@ Result Phase A не содержит `commit_sha`: runner пишет его в �
 ## 1. Идея
 
 AI-агент не изменяет canonical данные трекера напрямую. Вместо этого он формирует
-декларативную операцию, описывающую намерение (`add`, `verify`, `set`, batch
+декларативную операцию, описывающую намерение (`add`, `verify`, `status`, `set`, batch
 resolution). GitHub Actions runner делает checkout репозитория, проверяет операцию
 по allowlist/policy, исполняет её через `scripts/jobs.py`, запускает validation и
 создаёт commit прямо в `main` или review PR — в зависимости от ветки request.
@@ -151,6 +152,7 @@ Runner читает `command`, проверяет schema и policy, а зате�
 add
 screen
 verify
+status
 set
 batch
 ```
@@ -190,11 +192,39 @@ verification/listing fields.
 Должен иметь отдельный allowlist полей. Агент не получает право менять любое поле
 только потому, что `jobs.py set` технически это умеет.
 
+### `status`
+
+Фиксирует lifecycle-событие, которое явно сообщил или запросил пользователь:
+`not_started`, `reviewing`, `apply`, `applied`, `interviewing`, `offer`,
+`rejected`, `ghosted` или `withdrawn`. Request обязан передать literal boolean
+`confirmed_by_user=true`; без него schema validation прекращает выполнение до
+записи.
+
+Операция использует `jobs.status_job`, поэтому даты, stage monotonicity и
+decision reasons остаются под контролем tracker. Для уже отправленной заявки
+обычный запрос на отказ минимален:
+
+```json
+{
+  "command": "status",
+  "job_id": "job-0088",
+  "expected": {"application_status": "applied"},
+  "args": {
+    "application_status": "rejected",
+    "confirmed_by_user": true
+  }
+}
+```
+
+Если post-application событие записывается на строку без `applied_at`, request
+должен явно передать `applied_at`. Это не даёт агенту случайно создать
+предысторию отклика. Все `status` имеют medium risk.
+
 ### `batch`
 
 Контейнер из нескольких разрешённых операций, применяемых атомарно.
-Сейчас его children ограничены `screen`, `verify` и `set`; `add` поддерживается
-только как single operation.
+Сейчас его children ограничены `screen`, `verify`, `status` и `set`; `add`
+поддерживается только как single operation.
 
 ## 6. Risk policy
 
@@ -223,6 +253,7 @@ set listing_status=closed для уже applied записи
 
 ```text
 add new job
+status → user-confirmed lifecycle event
 verify → reviewing
 verify → apply + next action for a human-started process
 match_score / level / stack enrichment
@@ -235,21 +266,16 @@ Batch только из low-risk операций остаётся low-risk.
 PR даёт человеку быстрый визуальный контроль diff без необходимости переносить
 данные вручную.
 
-### Human-only: runner обязан отвергать
+### Human-confirmed lifecycle events
 
-Независимо от содержимого manifest агент не должен иметь возможности поставить:
+Runner принимает человеческие события только через отдельную операцию `status`
+с `confirmed_by_user=true`. Это касается `applied`, `interviewing`, `offer`,
+`rejected`, `ghosted` и `withdrawn`. Агент не имеет права выводить их из
+вакансии, письма без однозначного смысла или собственного предположения.
 
-```text
-application_status=applied
-application_status=interviewing
-application_status=offer
-application_status=withdrawn
-applied_at
-response_at
-```
-
-В первую очередь это касается `applied`: tracker уже использует принцип, что
-фактическую отправку заявки подтверждает человек.
+Произвольный `set application_status=...`, `set applied_at=...` или
+`set response_at=...` по-прежнему запрещён allowlist-ом. То есть расширение
+даёт connector'у нужный workflow, но не открывает общий обход policy.
 
 `application_status=apply` не относится к этому списку: это обратимое
 отслеживание начатого процесса, а не заявление об отправленной заявке. В Phase A
@@ -257,14 +283,9 @@ response_at
 `next_action`, поэтому факт first-party страницы и незавершённый следующий шаг
 попадают в один audit diff.
 
-Поле вроде:
-
-```json
-{"requires_human_confirmation": false}
-```
-
-может быть metadata, но не источник policy. Уровень риска всегда вычисляется
-runner'ом из command + args.
+`confirmed_by_user` — обязательный policy gate, а не переключатель risk:
+значение `false` или отсутствие поля отвергается. Уровень риска всё равно
+вычисляется runner'ом из command + args и для `status` всегда равен medium.
 
 ## 7. Optimistic locking
 
@@ -448,7 +469,7 @@ Action выполняет недоверенный manifest, поэтому ну
 |---|---|
 | low | direct commit в `main` или отдельный auto-merge PR |
 | medium | обычный PR |
-| human-only | reject |
+| status without explicit user confirmation | reject |
 
 Для первого rollout безопаснее отправлять **все** успешные operations в PR.
 После нескольких десятков проверенных операций low-risk subset можно перевести в
@@ -514,10 +535,11 @@ scripts/job_store.py     shared canonical functions
 ### Phase B
 
 - `screen` — implemented;
-- atomic `batch` для `screen` / `verify` / `set` — implemented;
+- atomic `batch` для `screen` / `verify` / `status` / `set` — implemented;
 - operation result files — implemented;
 - explicit main delivery и review PR — implemented;
 - single `add` + duplicate conflict/resolution — implemented;
+- user-confirmed lifecycle `status` — implemented;
 - richer PR summaries — planned.
 
 ### Phase C
