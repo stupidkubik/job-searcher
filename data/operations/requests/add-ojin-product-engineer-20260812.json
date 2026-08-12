@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "operation_id": "add-ojin-product-engineer-20260812",
+  "command": "add",
+  "args": {
+    "company": "Ojin",
+    "role": "Product Engineer",
+    "source": "Hacker News — Who is Hiring?",
+    "source_url": "https://news.ycombinator.com/item?id=48753172",
+    "original_url": "https://ojin.ai/careers/4716174101",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "unknown",
+    "level": "Middle",
+    "remote_policy": "Europe",
+    "stack": "TypeScript; React; Node.js; Python; WebRTC; WebSockets; AWS",
+    "salary": "Unknown",
+    "match_score": 7,
+    "notes": "Stretch role: 3-5+ years and genuine full-stack/startup experience requested. Recruiter HN post explicitly allows fully remote within CET +/-2h; Serbia timezone fits. Strong React/TypeScript/product/AI overlap."
+  }
+}
