@@ -5,8 +5,12 @@ GitHub connector and the trusted GitHub Actions runner. It is not canonical job
 data.
 
 ```text
-connector → requests/<operation_id>.json → GitHub Actions → jobs.py
-                                                    └→ results/<operation_id>.json
+connector → requests/<operation_id>.json → trusted GitHub Actions runner
+                                              ├→ jobs.py → canonical CSV/cards
+                                              ├→ render-tracker → docs/tracker.md
+                                              └→ results/<operation_id>.json
+                                                           ↓
+                                              audited commit on main or agent/* PR
 ```
 
 The connector may create exactly one new request per commit. It must not edit
@@ -18,7 +22,29 @@ target branch controls delivery:
 - `agent/<operation_id>` is the review mode. The runner commits to that branch
   and opens a PR to `main`.
 
-The runner creates the matching result exactly once in either mode.
+The runner creates the matching result exactly once in either mode. It then
+strictly validates the resulting dataset, regenerates and exact-checks
+[`docs/tracker.md`](../../docs/tracker.md), runs the unit suite, enforces its
+changed-file allowlist, and commits the result. `docs/tracker.md` is a generated
+side effect of the trusted runner: the connector must neither edit nor include it
+in a request.
+
+## Connector procedure
+
+1. Read the current canonical job and choose a supported domain command.
+2. Choose `main` only after an explicit user instruction; otherwise create the
+   request on `agent/<operation_id>` for review.
+3. Add exactly one new file named
+   `data/operations/requests/<operation_id>.json` in the commit. Do not edit
+   canonical CSV, cards, `docs/tracker.md`, or an existing request.
+4. Wait for the matching immutable result in `data/operations/results/` and the
+   runner's canonical diff. A request is not complete merely because its JSON
+   file was created.
+
+For a completed operation the audited commit contains the immutable request and
+result, any permitted canonical changes, and a fresh tracker page. For a
+`conflict`, canonical data remains unchanged; the immutable result explains why
+the request could not be applied.
 
 ## Single-operation schema
 
@@ -44,7 +70,10 @@ The runner creates the matching result exactly once in either mode.
 `operation_id` uses lowercase letters, digits, `.`, `_`, `-` and must match the
 filename. For commands that update an existing job, `expected` is a non-empty
 optimistic lock: any mismatch records a `conflict` result without changing
-canonical data.
+canonical data. Include `last_update` and the state fields that the decision
+depends on (for example `application_status`, `listing_status`, or
+`decision_reason`). This v1 field-level lock is intentional; do not omit it to
+make a request shorter.
 
 Allowed single commands:
 
@@ -197,7 +226,12 @@ python3 scripts/agent_operations.py apply data/operations/requests/op-20260811-0
 ```
 
 `apply` delegates canonical writes to the same tracker functions as the manual
-CLI, then writes one immutable result file. The workflow runs strict validation
-and all unit tests, checks the changed-path allowlist, then either commits
-directly to `main` or opens a PR from an `agent/` branch according to the
-delivery mode above.
+CLI, then writes one immutable result file. The workflow runs strict validation,
+regenerates and exact-checks `docs/tracker.md`, runs all unit tests, checks the
+changed-path allowlist, and then commits directly to `main` or opens a PR from
+an `agent/` branch according to the delivery mode above.
+
+The runner permits only these changed paths: `data/jobs.csv`,
+`data/job_sources.csv`, `docs/tracker.md`, the expected immutable result, and
+new `applications/job-*.md` cards. It rejects any operation that changes policy,
+workflow, or executable files.

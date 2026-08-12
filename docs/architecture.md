@@ -1,5 +1,12 @@
 # Исследование архитектуры `job-searcher`
 
+> Historical pre-v1 research, not a current operating document. It records the
+> repository state before the v1/v2 migration and must not be used as an
+> instruction. Current sources are [`AGENTS.md`](../AGENTS.md),
+> [`data/schema.md`](../data/schema.md),
+> [`data/operations/README.md`](../data/operations/README.md), and
+> [`docs/agent-operations.md`](agent-operations.md).
+
 ## Готовый файл
 
 Подготовлен отдельный Markdown-документ, готовый к добавлению в репозиторий, например как `docs/architecture-and-roadmap.md`.

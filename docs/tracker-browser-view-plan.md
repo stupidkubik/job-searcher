@@ -1,6 +1,10 @@
 # План browser-first представления job tracker
 
-Статус: готово к реализации
+Статус: implemented — 2026-08-12
+
+Результат: [`tracker.md`](tracker.md), команда `render-tracker`, freshness gate
+в CI и trusted connector runner. Этот план сохранён как specification и record
+принятых решений.
 
 Основание: [`tracker-status-audit-2026-08-12.md`](tracker-status-audit-2026-08-12.md)
 
@@ -94,11 +98,15 @@ verification уже достаточно и нет terminal decision:
 
 ```text
 application_status in {not_started, reviewing, apply}
-listing_status != closed
+listing_status == open
 decision_reason is empty
 first_party_verified == yes
 apply_verified == yes
 ```
+
+`listing_status=unknown` always stays in `To verify` with `Need: Listing`, even
+when both verification flags are `yes`. This keeps the sections mutually
+exclusive and prevents an unconfirmed listing from appearing as actionable.
 
 Колонки:
 
@@ -383,7 +391,8 @@ trusted connector workflow.
 
 Обновить `AGENTS.md`:
 
-- после canonical write выполнять `render-tracker` перед strict validation;
+- после canonical write выполнять strict validation, затем `render-tracker` и
+  freshness check;
 - запрещено вручную редактировать `docs/tracker.md`;
 - connector runner коммитит view вместе с результатом operation.
 

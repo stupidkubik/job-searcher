@@ -158,6 +158,8 @@ jobs:
       - name: Validate resulting tracker state
         run: |
           python3 scripts/jobs.py validate --strict
+          python3 scripts/jobs.py render-tracker
+          python3 scripts/jobs.py render-tracker --check
           python3 -m unittest discover -s tests -v
           python3 scripts/jobs.py dupes --format json
 
@@ -180,7 +182,7 @@ jobs:
                   continue
               path = entry[3:].decode("utf-8")
               paths.append(path)
-          allowed = {"data/jobs.csv", "data/job_sources.csv", expected_result}
+          allowed = {"data/jobs.csv", "data/job_sources.csv", "docs/tracker.md", expected_result}
           for path in paths:
               if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
                   continue
@@ -195,7 +197,7 @@ jobs:
         run: |
           git config user.name "job-tracker-agent[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/job_sources.csv data/operations/results applications
+          git add data/jobs.csv data/job_sources.csv docs/tracker.md data/operations/results applications
           git commit -m "jobs: apply agent operation ${OPERATION_ID}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 

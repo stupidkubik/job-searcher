@@ -67,7 +67,7 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `status`, `screen`, `verify`, `validate`, `dupes`, `ingest`,
+`add`, `set`, `status`, `screen`, `verify`, `validate`, `render-tracker`, `dupes`, `ingest`,
 `stale`, `todo`, `stats` и `repair-himalayas-screening` поддерживают
 `--format text|json`; по умолчанию — `text`. Успешный JSON-ответ состоит ровно
 из одного object с `ok`,
@@ -321,15 +321,51 @@ Apply not submitted, stale review, verification queue и upcoming interview/test
 принимает включительный диапазон `job-NNNN:job-NNNN`. Оба фильтра read-only и
 могут использоваться одновременно.
 
+## Browser tracker
+
+`render-tracker` создаёт единственный generated browser view
+[`docs/tracker.md`](tracker.md) из `data/jobs.csv`, `data/job_sources.csv` и
+существующих application cards. Это read-only projection: команда не меняет
+canonical CSV или cards, а сам Markdown нельзя редактировать вручную.
+
+```bash
+# Атомарно пересобрать canonical artifact.
+python3 scripts/jobs.py render-tracker
+
+# Проверить, что committed artifact совпадает с dataset, ничего не записывая.
+python3 scripts/jobs.py render-tracker --check
+python3 scripts/jobs.py render-tracker --check --format json
+```
+
+Перед рендером команда валидирует dataset. Каждая canonical вакансия попадает
+ровно в одну из секций `Action now`, `Applications`, `To verify` или `Archive`;
+неизвестная комбинация полей и несколько файлов `applications/<job-id>-*.md`
+для одной вакансии — hard failure. `--check` завершится с кодом `1`, если
+`docs/tracker.md` отсутствует или отличается хотя бы одним байтом. JSON-ответ
+содержит один object с `ok`, `command`, `path`, `up_to_date` и counts секций.
+Повторная генерация на тех же input bytes детерминирована, а запись проходит
+через temporary file и `os.replace`.
+
 ## Удалённые агенты и GitHub connector
 
-GitHub connector может читать и изменять файлы, но не исполняет `jobs.py` в
-checkout приватного репозитория. Поэтому он не является write path для
-`data/jobs.csv` или `data/job_sources.csv`: прямой `update_file` обходил бы
-dedupe, validation и атомарность. Удалённый агент может подготовить raw batch
-или предложение изменения, а canonical write выполняет агент с рабочим
-checkout через `jobs.py`; затем CI валидирует итоговый dataset. CI проверяет
-состояние файлов, но не может доказать, какой инструмент их записал.
+GitHub connector может создавать только один новый immutable request в
+`data/operations/requests/` за commit. Он не является write path для
+`data/jobs.csv`, `data/job_sources.csv`, application cards или
+`docs/tracker.md`: прямой `update_file` обходил бы dedupe, validation,
+атомарность и generated-view contract.
+
+Trusted GitHub Actions runner принимает request только из `main` (после явной
+команды пользователя) или `agent/*` (review mode), применяет его через
+`scripts/agent_operations.py` и те же функции `jobs.py`, затем создаёт
+immutable result. После strict validation runner пересобирает и exact-checks
+`docs/tracker.md`, запускает unit tests, проверяет changed-file allowlist и
+коммитит результат. В review mode он открывает PR в `main`. Полная схема,
+allowed commands, optimistic locking и branch policy находятся в
+[`data/operations/README.md`](../data/operations/README.md).
+
+Операция завершена только после matching result и canonical diff/PR. Connector
+не должен включать generated tracker в request: его создаёт только trusted
+runner.
 
 `stats --format json` — единственный структурированный источник weekly report:
 он содержит основной `derived_state`, split application/listing statuses,

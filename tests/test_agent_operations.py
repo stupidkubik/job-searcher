@@ -11,6 +11,7 @@ from pathlib import Path
 
 PROJECT = Path(__file__).resolve().parents[1]
 WORKFLOW = PROJECT / ".github" / "workflows" / "agent-operations.yml"
+VALIDATE_WORKFLOW = PROJECT / ".github" / "workflows" / "validate.yml"
 
 
 class AgentOperationsTests(unittest.TestCase):
@@ -93,6 +94,15 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('> "$RUNNER_TEMP/operation-output.json"', workflow)
         self.assertIn('os.environ["RUNNER_TEMP"], "operation-output.json"', workflow)
         self.assertNotIn('> operation-output.json', workflow)
+
+    def test_workflows_keep_the_generated_tracker_in_sync(self):
+        operation_workflow = WORKFLOW.read_text(encoding="utf-8")
+        validation_workflow = VALIDATE_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("python3 scripts/jobs.py render-tracker", operation_workflow)
+        self.assertIn("python3 scripts/jobs.py render-tracker --check", operation_workflow)
+        self.assertIn('"docs/tracker.md"', operation_workflow)
+        self.assertIn("git add data/jobs.csv data/job_sources.csv docs/tracker.md", operation_workflow)
+        self.assertIn("python scripts/jobs.py render-tracker --check", validation_workflow)
 
     def test_medium_risk_add_creates_job_provenance_card_and_result(self):
         request = self.write_operation({

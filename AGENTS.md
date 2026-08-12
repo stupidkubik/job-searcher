@@ -36,7 +36,8 @@
 ## Как писать в CSV
 
 - Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` / `verify` /
-  `backfill-sources` / `repair-himalayas-screening` / `ingest`). Ручная правка
+  `backfill-sources` / `repair-himalayas-screening` / `ingest` /
+  `render-tracker`). Ручная правка
   canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
@@ -60,7 +61,11 @@
   похожая запись является отдельной вакансией.
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
-- После любых изменений: `python3 scripts/jobs.py validate` — должно быть 0 ошибок.
+- `docs/tracker.md` — generated browser view; не редактировать его вручную.
+- После canonical write сначала выполнить `python3 scripts/jobs.py validate --strict`, затем
+  `python3 scripts/jobs.py render-tracker` и
+  `python3 scripts/jobs.py render-tracker --check`. Trusted connector runner
+  коммитит generated view вместе с canonical result.
 
 ## Командный минимум для агента
 
@@ -116,6 +121,7 @@ python3 scripts/jobs.py ingest data/inbox/<batch>.jsonl \
 ```bash
 python3 scripts/jobs.py validate --strict --format json
 python3 scripts/jobs.py dupes --format json
+python3 scripts/jobs.py render-tracker --check --format json
 ```
 
 `dupes` — отчёт для проверки, а не разрешение автоматически объединить строки.
