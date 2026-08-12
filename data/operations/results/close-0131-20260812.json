@@ -1,0 +1,15 @@
+{
+  "command": "screen",
+  "executed_at": "2026-08-12T12:59:15Z",
+  "job_id": "job-0131",
+  "operation_id": "close-0131-20260812",
+  "result": {
+    "application_status": "not_started",
+    "listing_status": "open",
+    "outcome": "screened_out",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
