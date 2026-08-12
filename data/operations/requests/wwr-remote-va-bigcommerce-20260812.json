@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "wwr-remote-va-bigcommerce-20260812",
+  "command": "add",
+  "args": {
+    "company": "Remote VA",
+    "role": "Web Developer (BigCommerce Experience Required)",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/remote-va-web-developer-bigcommerce-experience-required",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Unknown",
+    "location": "Remote worldwide",
+    "remote_policy": "Global",
+    "stack": "BigCommerce; HTML; CSS; JavaScript; Responsive Web Design; SEO",
+    "salary": "$700/month",
+    "found_at": "2026-08-12",
+    "match_score": 6.5,
+    "decision_reason": "salary_too_low",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Broad-filter web/commerce role with concrete HTML, CSS, JavaScript, responsive design and BigCommerce signals, but advertised compensation is $700/month, below the profile minimum of $1,000/month. WWR provides an email application route; no first-party vacancy page was confirmed."
+  }
+}
