@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "operation_id": "board-cleanup-screen-0022-0023-0129-20260812",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0022",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User reviewed the Canonical application path and confirmed on 2026-08-12 that the role requires stronger computer-science/theory knowledge than is realistic for the current application strategy; removed from the active pipeline."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0023",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User reviewed the Canonical application path and confirmed on 2026-08-12 that the role requires stronger computer-science/theory knowledge than is realistic for the current application strategy; removed from the active pipeline."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0129",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "The Hirify watchlist lead could not be reliably reconstructed after the feed refreshed. User confirmed on 2026-08-12 to close the unresolved lead rather than keep it in To verify."
+      }
+    }
+  ]
+}
