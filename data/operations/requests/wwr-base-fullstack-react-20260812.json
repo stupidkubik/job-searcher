@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "wwr-base-fullstack-react-20260812",
+  "command": "add",
+  "args": {
+    "company": "Base.com",
+    "role": "Full-Stack Developer (React + AWS)",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/base-com-full-stack-developer-react-aws",
+    "original_url": "https://apply.workable.com/base-com/j/F6F9EF841F",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "level": "Middle",
+    "location": "Poland / Remote",
+    "remote_policy": "Country-specific",
+    "stack": "React; TypeScript; React Router; Tailwind CSS; shadcn/ui; Radix UI; REST APIs; AWS; Testing",
+    "salary": "Unknown",
+    "found_at": "2026-08-12",
+    "match_score": 8.0,
+    "decision_reason": "geo_restriction",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "notes": "WWR labels the role Anywhere in the World, but Base.com's first-party Workable vacancy is tied to Poland locations and remote work there. Strong React/TypeScript/component-library fit, but Poland-specific hiring makes it non-actionable from Serbia."
+  }
+}
