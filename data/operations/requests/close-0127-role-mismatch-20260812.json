@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "close-0127-role-mismatch-20260812",
+  "command": "screen",
+  "job_id": "job-0127",
+  "expected": {
+    "application_status": "reviewing",
+    "last_update": "2026-08-11"
+  },
+  "args": {
+    "decision_reason": "other",
+    "notes": "User reviewed the full role description on 2026-08-12 and confirmed that the position is not a fit for the current profile; removed from the active pipeline."
+  }
+}
