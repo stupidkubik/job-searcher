@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-12** · Jobs: **141**
 
-[Action now (4)](#action-now) · [Applications (20)](#applications) · [To verify (4)](#to-verify) · [Archive (113)](#archive)
+[Action now (4)](#action-now) · [Applications (20)](#applications) · [To verify (1)](#to-verify) · [Archive (116)](#archive)
 
 ## Action now
 
@@ -45,15 +45,12 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | First party + Apply + Listing | 6 | submit PR and application | Never |
-| Reviewing | [Canonical — Web Developer](<https://canonical.com/careers/2804965/web-developer-remote>) · job-0023 | First party + Apply + Listing | 9 | prepare application | Never |
-| Reviewing | [Canonical — Web Frontend Engineer - JS, CSS, React, Flutter](<https://canonical.com/careers/5150422/web-frontend-engineer-js-css-react-flutter-remote>) · job-0022 | First party + Apply + Listing | 8.5 | prepare application | Never |
-| Not started | [Undisclosed — Frontend Engineer (React/TypeScript)](<https://hirify.me/frontend-dev-jobs>) · job-0129 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (113)</summary>
+<summary>Archive (116)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -66,12 +63,15 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Skipped: stack mismatch | [Business Web Solutions — Web Developer Intern](<https://weworkremotely.com/remote-jobs/business-web-solutions-web-developer-intern>) · job-0135 | stack mismatch | Not checked | 2026-08-12 |
 | Skipped: geo restriction | [Base.com — Full-Stack Developer (React + AWS)](<https://apply.workable.com/base-com/j/F6F9EF841F>) · job-0134 | geo restriction | Open | 2026-08-12 |
 | Skipped: other | [Constructor Tech — Frontend Engineer Intern](<https://job-boards.eu.greenhouse.io/constructortech/jobs/4772104101>) · job-0131 | other | Open | 2026-08-12 |
+| Skipped: other | [Undisclosed — Frontend Engineer (React/TypeScript)](<https://hirify.me/frontend-dev-jobs>) · job-0129 | other | Not checked | 2026-08-12 |
 | Skipped: geo restriction | [Undisclosed — Frontend Engineer (Payments)](<https://hirify.me/jobs/652587-frontend-engineer-typescript>) · job-0128 | geo restriction | Not checked | 2026-08-12 |
 | Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | other | Open | 2026-08-12 |
 | Skipped: other | [TalentCross — 1225 - 410MOS \| Full Stack Engineer (React, Node.js, PostgreSQL, Web Scraping, A](<https://www.careers-page.com/talentcross/job/RYY35936>) · job-0111 | other | Open | 2026-08-12 |
 | Skipped: role not frontend | [Devoteam — Nearshore Sector \| Mid Fullstack Java/React Developer](<https://www.devoteam.com/jobs/126599455624307398/>) · job-0110 | role not frontend | Open | 2026-08-12 |
 | Skipped: salary too low | [travokarma — Website Development Intern](<https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end>) · job-0066 | salary too low | Open | 2026-08-12 |
 | Skipped: salary too low | [Kodees Labs — Frontend Developer Intern (Next.js + TypeScript)](<https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript>) · job-0065 | salary too low | Open | 2026-08-12 |
+| Skipped: other | [Canonical — Web Developer](<https://canonical.com/careers/2804965/web-developer-remote>) · job-0023 | other | Not checked | 2026-08-12 |
+| Skipped: other | [Canonical — Web Frontend Engineer - JS, CSS, React, Flutter](<https://canonical.com/careers/5150422/web-frontend-engineer-js-css-react-flutter-remote>) · job-0022 | other | Not checked | 2026-08-12 |
 | Skipped: geo restriction | [Mactores — Full Stack Product Engineer, Agent Native](<https://himalayas.app/companies/mactores/jobs/full-stack-product-engineer-agent-native>) · job-0126 | geo restriction | Not checked | 2026-08-11 |
 | Skipped: geo restriction | [Freelancerprox — Frontend Developer - Intern](<https://himalayas.app/companies/freelancerprox/jobs/frontend-developer-intern-7994962>) · job-0125 | geo restriction | Not checked | 2026-08-11 |
 | Skipped: geo restriction | [Black Financial Consult — FRONTEND ENGINEER](<https://himalayas.app/companies/black-financial-consult/jobs/frontend-engineer>) · job-0123 | geo restriction | Not checked | 2026-08-11 |
