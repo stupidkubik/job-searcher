@@ -1,0 +1,17 @@
+{
+  "command": "status",
+  "executed_at": "2026-08-12T15:15:10Z",
+  "job_id": "job-0133",
+  "operation_id": "status-job-0133-applied-20260812",
+  "result": {
+    "application_path": "applications/job-0133-maker-product-engineer-remote.md",
+    "application_status": "applied",
+    "listing_status": "open",
+    "outcome": "status_changed",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
