@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-12T21:23:28Z",
+  "job_id": "job-0144",
+  "operation_id": "add-serpapi-junior-fullstack-20260812-v2",
+  "result": {
+    "application_path": "applications/job-0144-serpapi-junior-fullstack-engineer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0144",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-12",
+        "job_id": "job-0144",
+        "source": "Hacker News — Who is Hiring?",
+        "source_job_id": "",
+        "source_url": "https://news.ycombinator.com/item?id=48747976"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
