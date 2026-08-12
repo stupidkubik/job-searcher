@@ -1,7 +1,11 @@
 # Tracker v2 — план реализации
 
 Дата: 2026-08-11
-Статус: готов к поэтапной реализации
+Статус: implemented through Phase 6 — 2026-08-12; retained as an implementation record
+
+The browser-first view and connector gateway were implemented afterwards as
+separate, compatible layers. See [`tracker-browser-view-plan.md`](tracker-browser-view-plan.md)
+and [`agent-operations.md`](agent-operations.md).
 Основание: [`tracker-v2-feedback.md`](tracker-v2-feedback.md)
 
 Продуктовые решения из раздела 2 подтверждены владельцем репозитория

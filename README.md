@@ -6,6 +6,14 @@
 
 Главный принцип: **ни одна найденная вакансия не исчезает без записи**.
 
+## Ежедневная работа в браузере
+
+Откройте [Job tracker](docs/tracker.md) в GitHub: это основное read-only
+представление активных действий, откликов, verification queue и архива. Страница
+генерируется из canonical dataset и не редактируется вручную. Для изменения
+состояния сообщите агенту job ID и новое состояние; trusted workflow обновит
+`data/jobs.csv` и tracker в одном commit/PR.
+
 ## Быстрый старт
 
 Перед поиском прочитайте [профиль кандидата](config/profile.md) и весь
@@ -21,8 +29,9 @@ python3 scripts/jobs.py add \
   --first-party-verified yes --apply-verified yes
 
 # После фактической отправки заявки человеком
-python3 scripts/jobs.py set job-0001 \
-  application_status=applied cv_version=frontend-2026-08
+python3 scripts/jobs.py status job-0001 \
+  --application-status applied --applied-at 2026-08-12 \
+  --cv-version frontend-2026-08
 
 # После любого изменения
 python3 scripts/jobs.py validate
@@ -42,16 +51,17 @@ python3 scripts/jobs.py add \
 | Что | Где |
 |---|---|
 | правила работы ИИ-агента | [AGENTS.md](AGENTS.md) |
+| основной browser UI | [docs/tracker.md](docs/tracker.md) |
 | профиль, приоритеты и доказательства | [config/profile.md](config/profile.md) |
 | поисковые запросы | [config/search-queries.md](config/search-queries.md) |
-| единый реестр вакансий | [data/jobs.csv](data/jobs.csv) |
+| canonical storage вакансий | [data/jobs.csv](data/jobs.csv) |
 | provenance источников | [data/job_sources.csv](data/job_sources.csv) |
 | поля и допустимые значения | [data/schema.md](data/schema.md) |
 | подробности по вакансии | [applications/](applications/) |
 | актуальные версии резюме | [cv/current/](cv/current/) |
 | шаблоны писем | [templates/](templates/) |
 | отчёты | [reports/](reports/) |
-| архитектурные решения | [docs/architecture.md](docs/architecture.md) |
+| historical architecture research | [docs/architecture.md](docs/architecture.md) |
 | дальнейшие улучшения | [docs/roadmap.md](docs/roadmap.md) |
 | подробный план Tracker v2 | [docs/tracker-v2-plan.md](docs/tracker-v2-plan.md) |
 | connector → tracker operation gateway | [data/operations/README.md](data/operations/README.md) |
@@ -77,6 +87,7 @@ python3 scripts/jobs.py add \
 
 ```bash
 python3 scripts/jobs.py validate
+python3 scripts/jobs.py render-tracker --check
 python3 -m unittest discover -s tests -v
 python3 scripts/jobs.py dupes
 ```

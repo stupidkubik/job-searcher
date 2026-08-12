@@ -1,35 +1,36 @@
 # Roadmap
 
-## v1 — завершено
+## Implemented
 
-Базовый журнал уже работает: canonical `data/jobs.csv`, карточки
-`applications/*.md`, безопасная запись через `scripts/jobs.py`, дедупликация,
-отчёт и CI.
+- Canonical `data/jobs.csv`, source provenance, application cards and safe
+  writes through `scripts/jobs.py`.
+- v2 data model: separate listing/application lifecycle, validation, structured
+  input, source registry, inbox/ingest, Himalayas adapter, `todo`, `stale`,
+  stats and reports.
+- Browser-first generated view: [`tracker.md`](tracker.md) with an exact
+  freshness gate in CI.
+- GitHub connector gateway: immutable requests, trusted runner, immutable
+  results and review/direct delivery modes.
 
-## v2 — запланировано
+The implementation plan and its accepted decisions remain in
+[`tracker-v2-plan.md`](tracker-v2-plan.md); it is now an implementation record,
+not a queue of unstarted phases. The browser-view specification is preserved in
+[`tracker-browser-view-plan.md`](tracker-browser-view-plan.md).
 
-Подробная исполнимая спецификация с миграцией, зависимостями, артефактами,
-acceptance criteria и Definition of Done находится в
-[`tracker-v2-plan.md`](tracker-v2-plan.md). Исходная обратная связь сохранена в
-[`tracker-v2-feedback.md`](tracker-v2-feedback.md).
+## Next, only after a concrete need
 
-| Phase | Результат |
-|---:|---|
-| 0 | Зафиксирован контракт v2. |
-| 1 | Разделены listing/application status и мигрированы данные. |
-| 2 | Ручной CLI и JSON используют единый write path. |
-| 3 | Созданы source registry, `job_sources.csv` и raw inbox contract. |
-| 4 | Работает универсальный атомарный ingestion engine. |
-| 5 | Подключён и проверен Himalayas adapter. |
-| 6 | Работают `todo`, `stale`, stats и weekly reports. |
-| 7 | После стабилизации добавляются новые adapters и необязательная аналитика. |
+- Design a versioned connector v2 only if manifest repetition or stale-operation
+  conflicts become an observed burden. Preserve v1 compatibility while
+  considering filename-derived operation identity, inherent batch atomicity and
+  a stronger revision token.
+- Add source adapters or optional analytics after a source demonstrates stable
+  value and verification quality.
 
-## Позже, только при подтверждённой необходимости
+## Later, only after a confirmed need
 
-- dashboard или другой UI;
+- an interactive UI beyond the existing Markdown browser view;
 - SQLite/Postgres;
 - GitHub Issues как intake layer;
 - автоматическая отправка заявок.
 
-Эти пункты не входят в Tracker v2 и не должны опережать стабилизацию ingestion
-pipeline.
+These items do not supersede the current CSV + Markdown + Git audit trail.

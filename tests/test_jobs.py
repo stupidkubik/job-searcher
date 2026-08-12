@@ -789,6 +789,185 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("смешанное или неожиданное состояние", repair.stderr)
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
+    def tracker_row(self, number, **changes):
+        with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
+            fields = csv.DictReader(file).fieldnames
+        row = {field: "" for field in fields}
+        row.update({
+            "id": f"job-{number:04d}",
+            "application_status": "not_started",
+            "listing_status": "unknown",
+            "company": f"Company {number}",
+            "role": "Frontend Developer",
+            "level": "Unknown",
+            "source": "Manual",
+            "remote_policy": "Unclear",
+            "salary": "Unknown",
+            "found_at": "2026-08-01",
+            "stage_reached": "None",
+            "first_party_verified": "unknown",
+            "apply_verified": "unknown",
+            "last_update": "2026-08-10",
+        })
+        row.update(changes)
+        return row
+
+    def write_tracker_dataset(self, rows, source_rows=()):
+        with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
+            fields = csv.DictReader(file).fieldnames
+        with (self.root / "data" / "jobs.csv").open("w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(rows)
+        with (self.root / "data" / "job_sources.csv").open(newline="", encoding="utf-8") as file:
+            source_fields = csv.DictReader(file).fieldnames
+        with (self.root / "data" / "job_sources.csv").open("w", newline="", encoding="utf-8") as file:
+            writer = csv.DictWriter(file, fieldnames=source_fields, lineterminator="\n")
+            writer.writeheader()
+            writer.writerows(source_rows)
+
+    def test_render_tracker_classifies_every_status_once_and_renders_links(self):
+        rows = [
+            self.tracker_row(1, listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/one", match_score="7", next_action="prepare CV", next_action_date="2026-08-13"),
+            self.tracker_row(2, application_status="reviewing", listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/two", match_score="8"),
+            self.tracker_row(3, application_status="apply", listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/three", match_score="9"),
+            self.tracker_row(4),
+            self.tracker_row(5, application_status="reviewing", listing_status="open", first_party_verified="no", apply_verified="no", verified_at="2026-08-09"),
+            self.tracker_row(6, application_status="apply", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/six"),
+            self.tracker_row(7, application_status="applied", listing_status="closed", applied_at="2026-08-05", stage_reached="Applied"),
+            self.tracker_row(8, application_status="interviewing", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Tech interview"),
+            self.tracker_row(9, application_status="offer", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Offer"),
+            self.tracker_row(10, application_status="rejected", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Recruiter screen"),
+            self.tracker_row(11, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"),
+            self.tracker_row(12, application_status="withdrawn", applied_at="2026-08-05", stage_reached="Applied", decision_reason="withdrawn_by_me"),
+            self.tracker_row(13, listing_status="closed", decision_reason="closed_before_application"),
+            self.tracker_row(14, listing_status="open", decision_reason="geo_restriction"),
+            self.tracker_row(15, decision_reason="duplicate_listing", notes="Duplicate of job-0001"),
+            self.tracker_row(16, company="Acme | [Web] <script> `do` *bold*", original_url="https://careers.example.test/special"),
+            self.tracker_row(17, source_url="", original_url=""),
+        ]
+        source_rows = [{
+            "job_id": "job-0017", "source": "Manual",
+            "source_url": "https://source.example.test/primary", "source_job_id": "", "found_at": "2026-08-01",
+        }]
+        self.write_tracker_dataset(rows, source_rows)
+        (self.root / "applications" / "job-0001-example.md").write_text("# Card\n", encoding="utf-8")
+
+        result = self.invoke("render-tracker", "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload, {
+            "ok": True,
+            "command": "render-tracker",
+            "path": "docs/tracker.md",
+            "up_to_date": True,
+            "counts": {"action_now": 3, "applications": 6, "to_verify": 5, "archive": 3},
+        })
+        tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
+        self.assertIn("Dataset updated: **2026-08-10** · Jobs: **17**", tracker)
+        self.assertIn("[Action now (3)](#action-now)", tracker)
+        self.assertIn("Ready to apply", tracker)
+        self.assertIn("Not checked", tracker)
+        self.assertIn("Skipped: geo restriction", tracker)
+        self.assertIn("[Company 1 — Frontend Developer](<https://careers.example.test/one>) · job-0001", tracker)
+        self.assertIn("[Company 17 — Frontend Developer](<https://source.example.test/primary>) · job-0017", tracker)
+        self.assertIn("[Open](../applications/job-0001-example.md)", tracker)
+        self.assertIn(r"Acme \| \[Web\] \<script\> \`do\` \*bold\*", tracker)
+        self.assertIn("First party + Apply + Listing", tracker)
+        self.assertIn("<details>", tracker)
+        action_now = tracker[tracker.index("## Action now"):tracker.index("## Applications")]
+        applications = tracker[tracker.index("## Applications"):tracker.index("## To verify")]
+        to_verify = tracker[tracker.index("## To verify"):tracker.index("## Archive")]
+        archive = tracker[tracker.index("## Archive"):]
+        self.assertIn("job-0003", action_now)
+        self.assertIn("job-0007", applications)
+        self.assertIn("job-0006", to_verify)
+        self.assertIn("Listing | — | verify first-party", to_verify)
+        self.assertIn("job-0014", archive)
+        self.assertLess(tracker.index("<details>"), tracker.index("Skipped: geo restriction"))
+        self.assertEqual(tracker.count("job-0006"), 1)
+        self.assertEqual(tracker.count("job-0007"), 1)
+
+    def test_render_tracker_is_deterministic_and_check_is_read_only(self):
+        row = self.tracker_row(
+            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
+            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+        )
+        self.write_tracker_dataset([row])
+        jobs_before = (self.root / "data" / "jobs.csv").read_bytes()
+        sources_before = (self.root / "data" / "job_sources.csv").read_bytes()
+        missing = self.invoke("render-tracker", "--check", "--format", "json")
+        self.assertEqual(missing.returncode, 1)
+        self.assertEqual(json.loads(missing.stdout)["up_to_date"], False)
+        self.assertFalse((self.root / "docs" / "tracker.md").exists())
+
+        first = self.invoke("render-tracker")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        tracker_path = self.root / "docs" / "tracker.md"
+        first_bytes = tracker_path.read_bytes()
+        second = self.invoke("render-tracker")
+        self.assertEqual(second.returncode, 0, second.stderr)
+        self.assertEqual(tracker_path.read_bytes(), first_bytes)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), jobs_before)
+        self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), sources_before)
+        fresh = self.invoke("render-tracker", "--check", "--format", "json")
+        self.assertEqual(fresh.returncode, 0, fresh.stderr)
+        self.assertTrue(json.loads(fresh.stdout)["up_to_date"])
+
+        tracker_path.write_text("stale tracker\n", encoding="utf-8")
+        stale_before = tracker_path.read_bytes()
+        stale = self.invoke("render-tracker", "--check", "--format", "json")
+        self.assertEqual(stale.returncode, 1)
+        self.assertEqual(json.loads(stale.stdout)["up_to_date"], False)
+        self.assertEqual(tracker_path.read_bytes(), stale_before)
+
+        self.assertEqual(self.invoke("render-tracker").returncode, 0)
+        changed = self.tracker_row(
+            1, company="Changed Company", listing_status="open", first_party_verified="yes",
+            apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/one",
+        )
+        self.write_tracker_dataset([changed])
+        changed_check = self.invoke("render-tracker", "--check", "--format", "json")
+        self.assertEqual(changed_check.returncode, 1)
+        self.assertEqual(json.loads(changed_check.stdout)["ok"], False)
+
+    def test_render_tracker_rejects_invalid_data_or_ambiguous_cards_without_overwriting(self):
+        row = self.tracker_row(
+            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
+            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+        )
+        self.write_tracker_dataset([row])
+        self.assertEqual(self.invoke("render-tracker").returncode, 0)
+        tracker_path = self.root / "docs" / "tracker.md"
+        before = tracker_path.read_bytes()
+
+        invalid = self.tracker_row(1, company="")
+        self.write_tracker_dataset([invalid])
+        invalid_render = self.invoke("render-tracker")
+        self.assertEqual(invalid_render.returncode, 1)
+        self.assertIn("пустое обязательное поле company", invalid_render.stderr)
+        self.assertEqual(tracker_path.read_bytes(), before)
+
+        self.write_tracker_dataset([row])
+        (self.root / "applications" / "job-0001-a.md").write_text("# One\n", encoding="utf-8")
+        (self.root / "applications" / "job-0001-b.md").write_text("# Two\n", encoding="utf-8")
+        ambiguous = self.invoke("render-tracker")
+        self.assertEqual(ambiguous.returncode, 1)
+        self.assertIn("multiple application cards match", ambiguous.stderr)
+        self.assertEqual(tracker_path.read_bytes(), before)
+
+    def test_render_tracker_empty_dataset_uses_empty_sections(self):
+        result = self.invoke("render-tracker", "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["counts"], {
+            "action_now": 0, "applications": 0, "to_verify": 0, "archive": 0,
+        })
+        tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
+        self.assertEqual(tracker.count("No jobs."), 4)
+        self.assertIn("<summary>Archive (0)</summary>", tracker)
+
 
 if __name__ == "__main__":
     unittest.main()

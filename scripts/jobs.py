@@ -15,7 +15,7 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from difflib import SequenceMatcher
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +23,7 @@ CSV_PATH = ROOT / "data" / "jobs.csv"
 JOB_SOURCES_PATH = ROOT / "data" / "job_sources.csv"
 APPS_DIR = ROOT / "applications"
 TEMPLATE_PATH = APPS_DIR / "_TEMPLATE.md"
+TRACKER_PATH = ROOT / "docs" / "tracker.md"
 
 V1_FIELDS = [
     "id", "status", "company", "role", "level", "original_url", "source_url", "source",
@@ -119,6 +120,21 @@ TODO_SECTION_ORDER = (
     ("verification_queue", "Verification queue"),
     ("upcoming_interview_test", "Upcoming interview / test"),
 )
+TRACKER_SECTION_ORDER = ("action_now", "applications", "to_verify", "archive")
+TRACKER_SECTION_TITLES = {
+    "action_now": "Action now",
+    "applications": "Applications",
+    "to_verify": "To verify",
+    "archive": "Archive",
+}
+TRACKER_APPLICATION_STATUS_ORDER = {
+    "offer": 0,
+    "interviewing": 1,
+    "applied": 2,
+    "rejected": 3,
+    "ghosted": 4,
+    "withdrawn": 5,
+}
 
 V1_STATUS_MAPPING = {
     "New": ("not_started", "unknown"),
@@ -2209,6 +2225,380 @@ def derived_state(row):
     }[row["application_status"]]
 
 
+def tracker_section(row):
+    """Classify one valid canonical row into exactly one browser tracker section."""
+    application_status = row["application_status"]
+    case_status = derived_state(row)
+    if application_status in TRACKER_APPLICATION_STATUS_ORDER:
+        return "applications"
+    if case_status == "Closed" or case_status == "Duplicate" or case_status.startswith("Skipped: "):
+        return "archive"
+    if (
+        application_status in PRE_APPLICATION_STATUSES
+        and row["listing_status"] == "open"
+        and not row["decision_reason"]
+        and row["first_party_verified"] == "yes"
+        and row["apply_verified"] == "yes"
+    ):
+        return "action_now"
+    if (
+        application_status in PRE_APPLICATION_STATUSES
+        and row["listing_status"] != "closed"
+        and not row["decision_reason"]
+    ):
+        return "to_verify"
+    raise ValueError(
+        f"{row['id']}: cannot classify application_status={application_status!r}, "
+        f"listing_status={row['listing_status']!r}, decision_reason={row['decision_reason']!r}"
+    )
+
+
+def tracker_case_display(case_status):
+    """Map an existing derived state to text intended for the Markdown view."""
+    if case_status == "Apply":
+        return "Ready to apply"
+    if case_status.startswith("Skipped: "):
+        return f"Skipped: {case_status.removeprefix('Skipped: ').replace('_', ' ')}"
+    return case_status
+
+
+def tracker_listing_display(listing_status):
+    return {"unknown": "Not checked", "open": "Open", "closed": "Closed"}[listing_status]
+
+
+def tracker_decision_display(decision_reason):
+    return decision_reason.replace("_", " ") if decision_reason else "—"
+
+
+def tracker_needs(row):
+    """Return domain and display labels for the checks still required by a row."""
+    needs = []
+    if row["first_party_verified"] != "yes":
+        needs.append(("first_party", "First party"))
+    if row["apply_verified"] != "yes":
+        needs.append(("apply", "Apply"))
+    if row["listing_status"] == "unknown":
+        needs.append(("listing", "Listing"))
+    return needs
+
+
+def tracker_application_cards(rows):
+    """Resolve the one supported Markdown card for every canonical job, if present."""
+    cards = {}
+    for row in rows:
+        matches = sorted(APPS_DIR.glob(f"{row['id']}-*.md"))
+        if len(matches) > 1:
+            names = ", ".join(path.name for path in matches)
+            raise ValueError(f"{row['id']}: multiple application cards match: {names}")
+        if matches:
+            cards[row["id"]] = matches[0].relative_to(ROOT).as_posix()
+    return cards
+
+
+def tracker_vacancy_url(row, source_references):
+    """Choose the first validated external URL according to the view contract."""
+    for value in (row["original_url"], row["source_url"]):
+        if valid_http_url(value):
+            return value
+    for reference in source_references:
+        if reference["job_id"] == row["id"] and valid_http_url(reference["source_url"]):
+            return reference["source_url"]
+    return None
+
+
+def tracker_action_display(next_action, next_action_date, fallback=None):
+    if next_action and next_action_date:
+        return f"{next_action} · {next_action_date}"
+    if next_action:
+        return next_action
+    if fallback:
+        return f"{fallback} · {next_action_date}" if next_action_date else fallback
+    if next_action_date:
+        return next_action_date
+    return "—"
+
+
+def tracker_item(row, source_references, application_cards):
+    """Build display-ready values without rendering any Markdown."""
+    case_status = derived_state(row)
+    needs = tracker_needs(row)
+    return {
+        "id": row["id"],
+        "company": row["company"],
+        "role": row["role"],
+        "vacancy_url": tracker_vacancy_url(row, source_references),
+        "application_card": application_cards.get(row["id"]),
+        "case_status": case_status,
+        "case_status_display": tracker_case_display(case_status),
+        "application_status": row["application_status"],
+        "listing_status": row["listing_status"],
+        "listing_display": tracker_listing_display(row["listing_status"]),
+        "match_score": row["match_score"] or None,
+        "stage_reached": row["stage_reached"] or None,
+        "applied_at": row["applied_at"] or None,
+        "next_action": row["next_action"] or None,
+        "next_action_date": row["next_action_date"] or None,
+        "next_action_display": tracker_action_display(row["next_action"], row["next_action_date"]),
+        "found_at": row["found_at"],
+        "verified_at": row["verified_at"] or None,
+        "last_update": row["last_update"],
+        "decision_reason": row["decision_reason"] or None,
+        "decision_display": tracker_decision_display(row["decision_reason"]),
+        "needs": [need for need, _label in needs],
+        "need_display": " + ".join(label for _need, label in needs) or "—",
+    }
+
+
+def tracker_date_sort_value(value, *, descending=False):
+    numeric = int(value.replace("-", "")) if value else 0
+    return -numeric if descending else (numeric or 99999999)
+
+
+def tracker_id_number(identifier):
+    match = re.fullmatch(r"job-(\d{4,})", identifier)
+    if not match:
+        raise ValueError(f"invalid tracker job id: {identifier!r}")
+    return int(match.group(1))
+
+
+def sort_tracker_items(section, items):
+    if section == "action_now":
+        status_order = {"apply": 0, "reviewing": 1, "not_started": 2}
+        return sorted(
+            items,
+            key=lambda item: (
+                status_order[item["application_status"]],
+                tracker_date_sort_value(item["next_action_date"]),
+                -score_priority(item),
+                tracker_id_number(item["id"]),
+            ),
+        )
+    if section == "applications":
+        return sorted(
+            items,
+            key=lambda item: (
+                TRACKER_APPLICATION_STATUS_ORDER[item["application_status"]],
+                tracker_date_sort_value(item["next_action_date"]),
+                tracker_date_sort_value(item["last_update"], descending=True),
+                tracker_id_number(item["id"]),
+            ),
+        )
+    if section == "to_verify":
+        status_order = {"apply": 0, "reviewing": 1, "not_started": 2}
+        return sorted(
+            items,
+            key=lambda item: (
+                status_order[item["application_status"]],
+                -score_priority(item),
+                tracker_date_sort_value(item["found_at"], descending=True),
+                tracker_id_number(item["id"]),
+            ),
+        )
+    if section == "archive":
+        return sorted(
+            items,
+            key=lambda item: (
+                tracker_date_sort_value(item["last_update"], descending=True),
+                -tracker_id_number(item["id"]),
+            ),
+        )
+    raise ValueError(f"unknown tracker section: {section}")
+
+
+def tracker_payload(rows, source_references, application_cards):
+    """Return a deterministic, exhaustive browser-tracker view model."""
+    sections = {section: [] for section in TRACKER_SECTION_ORDER}
+    for row in rows:
+        section = tracker_section(row)
+        sections[section].append(tracker_item(row, source_references, application_cards))
+    sections = {
+        section: sort_tracker_items(section, sections[section])
+        for section in TRACKER_SECTION_ORDER
+    }
+    counts = {section: len(sections[section]) for section in TRACKER_SECTION_ORDER}
+    if sum(counts.values()) != len(rows):
+        raise ValueError("tracker section counts do not cover every canonical job")
+    return {
+        "dataset_updated": max((row["last_update"] for row in rows if row["last_update"]), default=None),
+        "jobs_total": len(rows),
+        "section_order": list(TRACKER_SECTION_ORDER),
+        "counts": counts,
+        "sections": sections,
+    }
+
+
+def markdown_escape(value):
+    """Treat canonical values as plain data, never as Markdown syntax."""
+    value = re.sub(r"[\r\n]+", " ", str(value or ""))
+    for character in ("\\", "|", "<", ">", "`", "[", "]", "*", "_"):
+        value = value.replace(character, f"\\{character}")
+    return value
+
+
+def markdown_url(url):
+    """Return a safe Markdown link destination for an already validated http(s) URL."""
+    if not url or not valid_http_url(url):
+        return None
+    return quote(url, safe=":/?&=#%+,-._~!$'()*@;")
+
+
+def tracker_vacancy_cell(item):
+    label = f"{markdown_escape(item['company'])} — {markdown_escape(item['role'])}"
+    url = markdown_url(item["vacancy_url"])
+    vacancy = f"[{label}](<{url}>)" if url else label
+    return f"{vacancy} · {markdown_escape(item['id'])}"
+
+
+def tracker_card_cell(item):
+    path = item["application_card"]
+    if not path:
+        return "—"
+    return f"[Open](../{quote(path, safe='/-._~')})"
+
+
+def tracker_table(headers, rows):
+    if not rows:
+        return "No jobs.\n"
+    separator = "| " + " | ".join("---" for _header in headers) + " |"
+    lines = [
+        "| " + " | ".join(headers) + " |",
+        separator,
+        *("| " + " | ".join(row) + " |" for row in rows),
+    ]
+    return "\n".join(lines) + "\n"
+
+
+def render_tracker_markdown(payload):
+    """Render the complete canonical browser view with a final newline."""
+    counts = payload["counts"]
+    updated = payload["dataset_updated"] or "—"
+    navigation = " · ".join(
+        f"[{TRACKER_SECTION_TITLES[section]} ({counts[section]})](#{TRACKER_SECTION_TITLES[section].lower().replace(' ', '-')})"
+        for section in TRACKER_SECTION_ORDER
+    )
+    parts = [
+        "# Job tracker\n",
+        "> Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.\n",
+        f"Dataset updated: **{updated}** · Jobs: **{payload['jobs_total']}**\n",
+        f"{navigation}\n",
+        "## Action now\n",
+        tracker_table(
+            ("Status", "Vacancy", "Match", "Next action", "Listing", "Card"),
+            [
+                (
+                    markdown_escape(item["case_status_display"]),
+                    tracker_vacancy_cell(item),
+                    markdown_escape(item["match_score"] or "—"),
+                    markdown_escape(item["next_action_display"]),
+                    markdown_escape(item["listing_display"]),
+                    tracker_card_cell(item),
+                )
+                for item in payload["sections"]["action_now"]
+            ],
+        ),
+        "## Applications\n",
+        tracker_table(
+            ("Status", "Vacancy", "Stage", "Applied", "Next action", "Card"),
+            [
+                (
+                    markdown_escape(item["case_status_display"]),
+                    tracker_vacancy_cell(item),
+                    markdown_escape(item["stage_reached"] or "—"),
+                    markdown_escape(item["applied_at"] or "—"),
+                    markdown_escape(item["next_action_display"]),
+                    tracker_card_cell(item),
+                )
+                for item in payload["sections"]["applications"]
+            ],
+        ),
+        "## To verify\n",
+        tracker_table(
+            ("Status", "Vacancy", "Need", "Match", "Next action", "Last checked"),
+            [
+                (
+                    markdown_escape(item["case_status_display"]),
+                    tracker_vacancy_cell(item),
+                    markdown_escape(item["need_display"]),
+                    markdown_escape(item["match_score"] or "—"),
+                    markdown_escape(tracker_action_display(
+                        item["next_action"], item["next_action_date"], fallback="verify first-party",
+                    )),
+                    markdown_escape(item["verified_at"] or "Never"),
+                )
+                for item in payload["sections"]["to_verify"]
+            ],
+        ),
+        "## Archive\n",
+        "<details>\n\n",
+        f"<summary>Archive ({counts['archive']})</summary>\n\n",
+        tracker_table(
+            ("Status", "Vacancy", "Decision", "Listing", "Updated"),
+            [
+                (
+                    markdown_escape(item["case_status_display"]),
+                    tracker_vacancy_cell(item),
+                    markdown_escape(item["decision_display"]),
+                    markdown_escape(item["listing_display"]),
+                    markdown_escape(item["last_update"]),
+                )
+                for item in payload["sections"]["archive"]
+            ],
+        ),
+        "\n</details>\n",
+    ]
+    return "\n\n".join(part.rstrip("\n") for part in parts) + "\n"
+
+
+def write_or_check_tracker(markdown, check):
+    """Atomically write the generated artifact or compare it byte-for-byte."""
+    expected = markdown.encode("utf-8")
+    if check:
+        return TRACKER_PATH.exists() and TRACKER_PATH.read_bytes() == expected
+    TRACKER_PATH.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix="tracker-", suffix=".md", dir=TRACKER_PATH.parent)
+    try:
+        with os.fdopen(descriptor, "wb") as file:
+            file.write(expected)
+            file.flush()
+            os.fsync(file.fileno())
+        os.replace(temporary_name, TRACKER_PATH)
+    except BaseException:
+        Path(temporary_name).unlink(missing_ok=True)
+        raise
+    return True
+
+
+def cmd_render_tracker(args):
+    rows = load()
+    source_references = load_job_sources()
+    ensure_dataset_valid(rows, source_references, emit_warnings=False)
+    try:
+        application_cards = tracker_application_cards(rows)
+        payload = tracker_payload(rows, source_references, application_cards)
+        markdown = render_tracker_markdown(payload)
+    except ValueError as error:
+        die(f"render-tracker: {error}")
+    up_to_date = write_or_check_tracker(markdown, args.check)
+    result = {
+        "ok": up_to_date if args.check else True,
+        "command": "render-tracker",
+        "path": TRACKER_PATH.relative_to(ROOT).as_posix(),
+        "up_to_date": up_to_date,
+        "counts": payload["counts"],
+    }
+    if args.format == "json":
+        print_json(result)
+    elif args.check:
+        if up_to_date:
+            print("docs/tracker.md is up to date")
+        else:
+            print("docs/tracker.md is out of date; run: python3 scripts/jobs.py render-tracker", file=sys.stderr)
+    else:
+        print("docs/tracker.md rendered")
+    if args.check and not up_to_date:
+        raise SystemExit(1)
+
+
 def stale_entries(rows, days, reference_date):
     cutoff = reference_date - timedelta(days=days)
     entries = []
@@ -2621,6 +3011,12 @@ def main():
     validate.add_argument("--strict", action="store_true")
     validate.add_argument("--format", choices=("text", "json"), default="text")
     validate.set_defaults(func=cmd_validate)
+    render_tracker = subparsers.add_parser(
+        "render-tracker", help="собрать browser-first Markdown view из canonical dataset",
+    )
+    render_tracker.add_argument("--check", action="store_true", help="проверить freshness без записи")
+    render_tracker.add_argument("--format", choices=("text", "json"), default="text")
+    render_tracker.set_defaults(func=cmd_render_tracker)
     migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
     migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
     migrate.set_defaults(func=cmd_migrate_v2)

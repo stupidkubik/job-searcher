@@ -1,5 +1,10 @@
 # План развертывания `job-searcher`
 
+> Historical pre-v1 rollout plan, retained for context only. Its commands,
+> files, and statuses describe the predecessor repository and are not current
+> instructions. Use [`AGENTS.md`](../AGENTS.md) and
+> [`docs/jobs-cli.md`](jobs-cli.md) for current operation.
+
 Дата: 2026-08-09
 Статус: план готов к исполнению; preflight-решения внесены в профиль, реорганизация ещё не начиналась.
 

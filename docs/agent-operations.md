@@ -1,570 +1,143 @@
-# Agent operations: безопасный write-path через GitHub Actions
+# Agent operations: trusted connector write-path
 
-Дата: 2026-08-12
-Статус: Phase A implemented; Phase B partially implemented (`add`, `screen`,
-user-confirmed `status` + atomic batch); остальное остаётся proposal для Tracker v2.1
+Статус: implemented — 2026-08-12
 
-Реализация находится в [`scripts/agent_operations.py`](../scripts/agent_operations.py),
-[`data/operations/`](../data/operations/) и workflow
-[`agent-operations.yml`](../.github/workflows/agent-operations.yml). Она
-поддерживает single `add`, `screen`, `verify`, user-confirmed `status`,
-ограниченный `set` и atomic batch из update-операций, обязательные field-level
-preconditions и immutable result. Request на
-`main`, созданный по явной команде пользователя, применяет canonical diff прямо
-в `main`; request на `agent/*` остаётся PR-only. Ingest по-прежнему относится к
-следующим этапам.
+Этот документ описывает действующий путь записи через GitHub connector и
+trusted GitHub Actions runner. Полный, machine-enforced JSON contract находится
+в [`data/operations/README.md`](../data/operations/README.md); он является
+единственным источником истины для формы request. Правила поведения агента — в
+[`AGENTS.md`](../AGENTS.md), а код policy — в
+[`scripts/agent_operations.py`](../scripts/agent_operations.py).
 
-Result Phase A не содержит `commit_sha`: runner пишет его в том же Git commit,
-что и canonical diff, поэтому этот commit сам является неизменяемой audit link
-между request и result.
+## Назначение
 
-## 1. Идея
-
-AI-агент не изменяет canonical данные трекера напрямую. Вместо этого он формирует
-декларативную операцию, описывающую намерение (`add`, `verify`, `status`, `set`, batch
-resolution). GitHub Actions runner делает checkout репозитория, проверяет операцию
-по allowlist/policy, исполняет её через `scripts/jobs.py`, запускает validation и
-создаёт commit прямо в `main` или review PR — в зависимости от ветки request.
+Connector может создать только декларативный immutable request. Он не меняет
+`data/jobs.csv`, `data/job_sources.csv` или generated
+[`docs/tracker.md`](tracker.md) напрямую. Trusted runner интерпретирует request
+через существующий `jobs.py` write-path, поэтому сохраняются validation,
+dedupe, provenance и side effects application cards.
 
 ```text
-AI agent via connector
+AI agent via GitHub connector
         │
-        │ declarative job operation
+        │ one immutable request
         ▼
-operations inbox
+data/operations/requests/<operation-id>.json
         │
         ▼
-GitHub Actions runner (trusted checkout)
-        │
-        ├─ validate operation schema
-        ├─ enforce policy / allowlist
-        ├─ optimistic-lock checks
-        ├─ scripts/jobs.py ...
-        ├─ jobs.py validate --strict
-        ├─ unit tests
-        └─ optional dupes check
+trusted GitHub Actions runner
+        ├─ validate manifest, command policy and optimistic lock
+        ├─ apply through scripts/agent_operations.py → jobs.py
+        ├─ write immutable result
+        ├─ validate canonical dataset
+        ├─ render and exact-check docs/tracker.md
+        ├─ run unit tests and changed-path allowlist
         ▼
-direct commit / pull request
+audited commit on main or agent/* review PR
 ```
 
-Главное архитектурное правило:
+`data/jobs.csv` remains the only structured source of truth. `docs/tracker.md`
+is a deterministic read-only projection in the same audited commit, never a
+second data store.
 
-> **AI может записывать intent. Canonical state может изменять только tracker.**
+## Trust boundary
 
-Это сохраняет существующий принцип v2, где `scripts/jobs.py` является единым
-write-path для `data/jobs.csv` и `data/job_sources.csv`.
+The request is untrusted data, not an executable instruction. The runner rejects
+unknown fields, commands, paths and enum values; neither a shell fragment nor a
+request-provided executable path is accepted. The request cannot select its risk
+class or broaden the changed-file allowlist.
 
-## 2. Зачем это нужно
-
-Connector умеет читать и записывать файлы GitHub, но прямое редактирование
-`jobs.csv` нарушает правила трекера: обходятся validation, dedupe, side effects,
-создание application card, provenance и другие invariants.
-
-В то же время агенту полезно уметь завершать найденную работу без ручного переноса
-каждого результата пользователем. Например, после разбора 30 вакансий агент уже
-знает, какие записи закрыты, какие имеют geo blocker, а какие стоит перевести в
-`reviewing`.
-
-Operation layer закрывает этот разрыв:
-
-- агент передаёт структурированное решение;
-- runner не доверяет shell-командам или произвольным аргументам;
-- tracker сам решает, какие canonical поля нужно изменить;
-- существующие invariants остаются обязательными;
-- каждое действие имеет audit trail.
-
-## 3. Transport: operations inbox
-
-Рекомендуемый transport:
-
-```text
-data/operations/pending/<operation-id>.json
-```
-
-Агент через GitHub connector имеет право создавать новые operation-файлы, но не
-редактировать canonical данные.
-
-GitHub Action запускается на появление нового файла в `pending/` или через
-явный dispatch, который принимает только путь к уже существующему manifest.
-
-Raw operation после принятия должна быть immutable. Для результата возможны два
-варианта:
-
-```text
-data/operations/pending/<id>.json
-        ↓
-data/operations/completed/<id>.json
-```
-
-или immutable request + отдельный result:
-
-```text
-data/operations/requests/<id>.json
-data/operations/results/<id>.json
-```
-
-Второй вариант предпочтительнее: он не изменяет исходный intent и даёт более
-чистый audit trail.
-
-Эти каталоги можно оставить tracked в Git, если объём невелик. Если операции
-станут частыми и начнут создавать шум в истории, result можно хранить как Actions
-artifact, а в Git сохранять только итоговый commit/PR metadata.
-
-## 4. Operation должна быть данными, а не shell
-
-Недопустимый контракт:
-
-```json
-{
-  "command": "python scripts/jobs.py verify job-0122 --listing-status open ..."
-}
-```
-
-Также нельзя передавать произвольный shell fragment или использовать `eval`.
-
-Правильный контракт описывает доменное намерение:
-
-```json
-{
-  "version": 1,
-  "operation_id": "op-20260811-001",
-  "command": "verify",
-  "job_id": "job-0122",
-  "args": {
-    "listing_status": "open",
-    "first_party_verified": "yes",
-    "apply_verified": "yes",
-    "original_url": "https://careers.example.com/jobs/frontend",
-    "decision_reason": "geo_restriction"
-  }
-}
-```
-
-Runner читает `command`, проверяет schema и policy, а затем сам строит безопасный
-вызов внутреннего API или CLI. Никакое значение из manifest не становится shell
-кодом.
-
-## 5. Разрешённые операции
-
-Текущий allowlist:
-
-```text
-add
-screen
-verify
-status
-set
-batch
-```
-
-`ingest` лучше не разрешать как произвольную операцию по внешнему пути. Вместо
-этого batch/ingest operation должна ссылаться только на известный immutable raw
-batch внутри `data/inbox/`, проверять его hash и использовать существующий
-resolution contract.
-
-### `add`
-
-Создаёт новую canonical запись через `jobs.add_job`, поэтому ID, dedupe,
-provenance, application card и dataset validation остаются в штатном write-path.
-Request не содержит `job_id` и `expected`: ID назначается в момент исполнения.
-Обязательны `company`, `role`, `source`; внешний source требует `source_url` или
-`source_job_id`. Разрешены только `application_status=not_started|reviewing`.
-Все `add` имеют medium risk.
-
-Неразрешённый fuzzy duplicate или source-reference conflict создаёт immutable
-result со статусом `conflict` без canonical записи. Для подтверждённого дубля
-следующий request передаёт `duplicate_of`; boolean `force` остаётся явным
-решением для отдельной похожей вакансии или shared discovery URL.
-
-### `screen`
-
-Фиксирует pre-application screening blocker без утверждения, что первоисточник,
-Apply или listing status были проверены. Очищает следующий шаг, но не меняет
-verification/listing fields.
-
-### `verify`
-
-Главная операция для агентного workflow. Фиксирует завершённую first-party
-проверку, listing/apply status и optional hard blocker.
-
-### `set`
-
-Должен иметь отдельный allowlist полей. Агент не получает право менять любое поле
-только потому, что `jobs.py set` технически это умеет.
-
-### `status`
-
-Фиксирует lifecycle-событие, которое явно сообщил или запросил пользователь:
-`not_started`, `reviewing`, `apply`, `applied`, `interviewing`, `offer`,
-`rejected`, `ghosted` или `withdrawn`. Request обязан передать literal boolean
-`confirmed_by_user=true`; без него schema validation прекращает выполнение до
-записи.
-
-Операция использует `jobs.status_job`, поэтому даты, stage monotonicity и
-decision reasons остаются под контролем tracker. Для уже отправленной заявки
-обычный запрос на отказ минимален:
-
-```json
-{
-  "command": "status",
-  "job_id": "job-0088",
-  "expected": {"application_status": "applied"},
-  "args": {
-    "application_status": "rejected",
-    "confirmed_by_user": true
-  }
-}
-```
-
-Если post-application событие записывается на строку без `applied_at`, request
-должен явно передать `applied_at`. Это не даёт агенту случайно создать
-предысторию отклика. Все `status` имеют medium risk.
-
-### `batch`
-
-Контейнер из нескольких разрешённых операций, применяемых атомарно.
-Сейчас его children ограничены `screen`, `verify`, `status` и `set`; `add`
-поддерживается только как single operation.
-
-## 6. Risk policy
-
-Runner, а не агент, определяет уровень риска операции.
-
-### Low risk: разрешён auto-commit
-
-Примеры:
-
-```text
-verify → closed_before_application
-screen → geo_restriction
-screen → work_authorization
-screen → seniority_too_high
-set next_action=...
-set next_action_date=...
-set listing_status=closed для уже applied записи
-```
-
-Эти действия в основном фиксируют наблюдаемое состояние и не утверждают, что
-человек отправил заявку или прошёл этап найма.
-
-### Medium risk: только через PR
-
-Примеры:
-
-```text
-add new job
-status → user-confirmed lifecycle event
-verify → reviewing
-verify → apply + next action for a human-started process
-match_score / level / stack enrichment
-explicit duplicate resolution
-batch, содержащий хотя бы одну medium-risk операцию
-```
-
-Batch только из low-risk операций остаётся low-risk.
-
-PR даёт человеку быстрый визуальный контроль diff без необходимости переносить
-данные вручную.
-
-### Human-confirmed lifecycle events
-
-Runner принимает человеческие события только через отдельную операцию `status`
-с `confirmed_by_user=true`. Это касается `applied`, `interviewing`, `offer`,
-`rejected`, `ghosted` и `withdrawn`. Агент не имеет права выводить их из
-вакансии, письма без однозначного смысла или собственного предположения.
-
-Произвольный `set application_status=...`, `set applied_at=...` или
-`set response_at=...` по-прежнему запрещён allowlist-ом. То есть расширение
-даёт connector'у нужный workflow, но не открывает общий обход policy.
-
-`application_status=apply` не относится к этому списку: это обратимое
-отслеживание начатого процесса, а не заявление об отправленной заявке. В Phase A
-он допустим только как часть успешной `verify` вместе с конкретным
-`next_action`, поэтому факт first-party страницы и незавершённый следующий шаг
-попадают в один audit diff.
-
-`confirmed_by_user` — обязательный policy gate, а не переключатель risk:
-значение `false` или отсутствие поля отвергается. Уровень риска всё равно
-вычисляется runner'ом из command + args и для `status` всегда равен medium.
-
-## 7. Optimistic locking
-
-Между чтением вакансии агентом и исполнением operation состояние может измениться.
-Например, агент увидел `not_started`, а пользователь уже успел отправить заявку.
-
-Operation должна поддерживать preconditions:
-
-```json
-{
-  "command": "verify",
-  "job_id": "job-0122",
-  "expected": {
-    "application_status": "not_started",
-    "last_update": "2026-08-11"
-  },
-  "args": {
-    "listing_status": "closed",
-    "first_party_verified": "yes",
-    "apply_verified": "no",
-    "decision_reason": "closed_before_application"
-  }
-}
-```
-
-До изменения runner сравнивает `expected` с checkout state. При несовпадении
-операция завершается как stale/conflict и ничего не пишет.
-
-Пример результата:
-
-```json
-{
-  "status": "conflict",
-  "reason": "stale_operation",
-  "expected": {"application_status": "not_started"},
-  "actual": {"application_status": "applied"}
-}
-```
-
-Для надёжности можно также поддержать `expected_commit_sha`, но field-level
-preconditions полезнее: unrelated commit не должен делать безопасную operation
-невалидной.
-
-## 8. Atomic batch operations
-
-Batch особенно полезен для разбора источников: Himalayas, HiringCafe, Wellfound и
-других выдач, где агент анализирует десятки вакансий за один проход.
-
-Пример:
-
-```json
-{
-  "version": 1,
-  "operation_id": "himalayas-review-2026-08-11",
-  "command": "batch",
-  "atomic": true,
-  "operations": [
-    {
-      "command": "screen",
-      "job_id": "job-0099",
-      "expected": {"application_status": "not_started"},
-      "args": {
-        "decision_reason": "geo_restriction"
-      }
-    },
-    {
-      "command": "verify",
-      "job_id": "job-0102",
-      "expected": {"application_status": "not_started"},
-      "args": {
-        "listing_status": "closed",
-        "first_party_verified": "yes",
-        "apply_verified": "no",
-        "decision_reason": "closed_before_application"
-      }
-    }
-  ]
-}
-```
-
-Runner сначала полностью валидирует manifest и все preconditions. Затем
-операции готовятся в памяти и записываются одной dataset transaction.
-
-После применения выполняется проверка dataset целиком. Если операция №17 или
-финальный validation падает, commit/PR не создаётся. Рабочее дерево runner можно
-просто отбросить вместе с failed job.
-
-`atomic=false` на первом этапе лучше не поддерживать: partial success усложняет
-audit и повторное исполнение.
-
-## 9. Idempotency
-
-`operation_id` должен быть уникальным.
-
-Runner перед выполнением проверяет, что этот ID ещё не имеет successful result.
-Повторный webhook/retry не должен второй раз применять одну и ту же операцию.
-
-Для `add` и duplicate resolution дополнительно продолжают действовать штатные
-idempotency/dedupe механизмы `jobs.py` и `job_sources.csv`.
-
-Recommended result:
-
-```json
-{
-  "version": 1,
-  "operation_id": "op-20260811-001",
-  "status": "completed",
-  "executed_at": "2026-08-11T16:00:00Z",
-  "commit_sha": "abc123",
-  "pull_request": null,
-  "result": {
-    "job_id": "job-0122",
-    "command": "verify"
-  }
-}
-```
-
-## 10. Runner workflow
-
-Минимальный workflow:
-
-```text
-1. checkout exact base ref
-2. setup Python 3.12
-3. load operation JSON
-4. validate operation schema/version
-5. reject path traversal / unknown fields / unknown commands
-6. classify risk
-7. verify preconditions
-8. dry-run/prepare full execution plan
-9. execute through scripts/jobs.py or shared Python API
-10. python scripts/jobs.py validate --strict
-11. python -m unittest discover -s tests -v
-12. python scripts/jobs.py dupes --fail (policy-dependent)
-13. inspect changed-file allowlist
-14. create commit or branch + PR according to risk
-15. persist result metadata
-```
-
-Changed-file allowlist особенно полезен как последняя страховка. Job operation
-должна иметь право изменить только ожидаемые tracker paths, например:
+The runner may change only:
 
 ```text
 data/jobs.csv
 data/job_sources.csv
-applications/**
+docs/tracker.md
+data/operations/results/<operation-id>.json
+applications/job-*.md
 ```
 
-и operation result metadata. Изменение `scripts/`, `.github/`, `config/` или
-других executable/policy files должно автоматически останавливать job.
+Any change to `scripts/`, `.github/`, `config/`, schema or other policy files is
+rejected. Changes to this policy follow the ordinary reviewed repository path;
+they cannot be bundled into an agent operation.
 
-## 11. Security boundary
+## Delivery modes
 
-Action выполняет недоверенный manifest, поэтому нужно соблюдать несколько
-правил:
+The branch, not the request's computed risk, controls delivery:
 
-- никогда не использовать `eval`, `bash -c <user input>` или shell interpolation;
-- unknown command/arg/field = hard failure;
-- job IDs валидировать как `job-NNNN`;
-- URL передавать как данные, не выполнять и не fetch-ить внутри generic runner;
-- input path разрешать только внутри заранее заданных каталогов;
-- manifest не может задавать executable path;
-- manifest не может менять risk class;
-- GitHub token workflow получает минимальные permissions;
-- для PR mode runner пишет только в выделенную branch namespace;
-- canonical write происходит только после успешной policy validation.
+| Request branch | When allowed | Runner outcome |
+|---|---|---|
+| `main` | only after explicit user instruction | commits the audited result directly to `main` |
+| `agent/<operation-id>` | normal review mode | commits to that branch and opens a PR to `main` |
 
-Особенно важно разделять два типа автоматизации:
+Risk remains useful audit information. `screen` and constrained `set` are low
+risk; `add`, all user-confirmed `status`, and `verify` that enriches data or
+starts `reviewing`/`apply` are medium risk. A batch inherits the highest child
+risk. The current workflow records the calculated risk but does not silently
+change a branch's delivery mode based on it.
 
-1. AI/connector создаёт operation request.
-2. Trusted repository code интерпретирует request.
+## Current commands and policy
 
-Изменение runner/policy code должно проходить обычный человеческий review и не
-может быть частью той же agent operation, которую этот код затем исполнит.
+| Command | Purpose | Key restriction |
+|---|---|---|
+| `add` | create one new job or attach a confirmed duplicate source | single-operation only; external source needs provenance |
+| `screen` | record a pre-application blocker without claiming verification | cannot close or duplicate a listing |
+| `verify` | record completed first-party and Apply verification | needs listing and both verification values |
+| `set` | schedule a next action or close an already-applied listing | narrow field allowlist only |
+| `status` | record a human lifecycle event | literal `confirmed_by_user=true` required |
+| `batch` | apply up to 100 distinct update commands together | `atomic=true`; `add` cannot be a child |
 
-## 12. Commit vs PR strategy
+`status` is the only connector command for `applied`, `interviewing`, `offer`,
+`rejected`, `ghosted`, and `withdrawn`. The user must explicitly report or
+request the lifecycle event; an agent may never infer it from a vacancy page,
+email fragment or silence.
 
-Рекомендуемая политика:
+## Optimistic locking and results
 
-| Risk | Output |
-|---|---|
-| low | direct commit в `main` или отдельный auto-merge PR |
-| medium | обычный PR |
-| status without explicit user confirmation | reject |
+Every update request has a non-empty `expected` object. The connector reads the
+current row and includes `last_update` plus the state fields relevant to its
+decision. If any expected value differs in the runner checkout, no canonical
+write occurs and the runner writes an immutable `conflict` result with the
+mismatches.
 
-Для первого rollout безопаснее отправлять **все** успешные operations в PR.
-После нескольких десятков проверенных операций low-risk subset можно перевести в
-auto-commit.
+An operation ID can have exactly one result, regardless of whether that result
+is `completed` or `conflict`. The presence of a request file is not completion;
+the agent waits for the matching file in `data/operations/results/` and the
+canonical diff/PR.
 
-Пример naming:
+## Browser-first lifecycle
 
-```text
-agent/op-20260811-001
-agent/himalayas-review-2026-08-11
-```
+For every request outcome the runner executes the normal quality gates after
+the operation executor:
 
-Пример commit:
+1. `jobs.py validate --strict` validates canonical CSV and source references.
+2. `jobs.py render-tracker` regenerates the browser view.
+3. `jobs.py render-tracker --check` proves exact freshness.
+4. The unit suite and changed-path allowlist must pass.
+5. The runner commits its result and generated tracker, then pushes or opens the
+   review PR according to the request branch.
 
-```text
-jobs: apply agent operation op-20260811-001
-```
+Thus a successful connector operation cannot leave `docs/tracker.md` stale. A
+conflict preserves the existing canonical view; its immutable result makes the
+reason visible without creating a duplicate attempt.
 
-PR body должен содержать machine-readable summary:
+## Connector checklist
 
-```text
-Operation: op-20260811-001
-Risk: medium
-Commands: verify × 12, add × 2
-Validation: passed
-Tests: passed
-Conflicts: 0
-```
+1. Read the current job data and avoid reprocessing a terminal or duplicate
+   record.
+2. Verify the first-party listing before any full analysis; use `screen` only
+   when a blocker is known without such verification.
+3. Create one new request whose filename equals `operation_id`.
+4. Put it on `agent/<operation-id>` unless the user explicitly directed a
+   direct `main` operation.
+5. Do not edit any generated or canonical file beside the request.
+6. Wait for result and diff before reporting the operation complete.
 
-## 13. Возможный Python API
+## v1 boundary and future hardening
 
-На первом этапе Action может безопасно строить `subprocess.run([...])` с массивом
-аргументов без shell.
-
-В долгосрочной перспективе лучше вынести operation executor внутрь Python:
-
-```text
-scripts/jobs.py          CLI adapter
-scripts/operations.py    declarative operation parser + policy
-scripts/job_store.py     shared canonical functions
-```
-
-Тогда CLI и GitHub Action используют один доменный API, а не вызывают друг друга
-через текстовый интерфейс.
-
-Это не обязательное условие первой реализации: текущий `jobs.py` уже достаточно
-структурирован, чтобы сделать безопасный MVP вокруг его CLI.
-
-## 14. MVP
-
-Первую версию можно намеренно сделать маленькой.
-
-### Phase A
-
-- schema version `1`;
-- только single operation;
-- commands: `verify`, ограниченный `set`;
-- immutable operation request;
-- optimistic locking;
-- strict validation + tests;
-- changed-file allowlist.
-
-### Phase B
-
-- `screen` — implemented;
-- atomic `batch` для `screen` / `verify` / `status` / `set` — implemented;
-- operation result files — implemented;
-- explicit main delivery и review PR — implemented;
-- single `add` + duplicate conflict/resolution — implemented;
-- user-confirmed lifecycle `status` — implemented;
-- richer PR summaries — planned.
-
-### Phase C
-
-- declarative ingest/resolution operations;
-- source-specific batch metadata;
-- автоматическое связывание analysis run ↔ operation ↔ resulting commit;
-- статистика по agent operations и conflicts.
-
-## 15. Критерий успеха
-
-Система работает правильно, если агент после поиска может сказать:
-
-```text
-verify job-0122 → geo_restriction
-verify job-0124 → closed_before_application
-add ExampleCo → reviewing
-```
-
-и безопасно передать эти решения в репозиторий, не зная формат CSV и не имея
-возможности обойти tracker invariants.
-
-При этом пользователь сохраняет контроль над действиями, которые отражают
-реальные человеческие события: отправку заявки, интервью, оффер и withdrawal.
-
-В результате Git-репозиторий становится не только хранилищем данных, но и
-небольшим transactional API для job-search workflow, доступным любому будущему
-агенту, importer или connector через единый декларативный контракт.
+The v1 manifest intentionally retains `args` and `expected`: flattening them or
+dropping the lock would make requests shorter but weaken the policy boundary.
+`operation_id` duplicates the filename and `atomic=true` is currently mandatory
+for every batch; simplifying those two redundancies belongs to a separate,
+versioned v2 contract with backward compatibility. A stronger revision token is
+also future work: `last_update` is a date, not a per-write revision.

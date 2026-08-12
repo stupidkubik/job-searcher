@@ -19,6 +19,8 @@ jobs:
           python-version: "3.12"
       - name: Проверка схемы jobs.csv
         run: python scripts/jobs.py validate --strict
+      - name: Проверка актуальности browser tracker
+        run: python scripts/jobs.py render-tracker --check
       - name: Unit tests write-path
         run: python -m unittest discover -s tests -v
       - name: Поиск дублей (не блокирует)

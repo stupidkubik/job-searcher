@@ -171,7 +171,7 @@ default view с такими первыми колонками:
 2. **Applications** — `applied`, `interviewing`, `offer`, `rejected`, `ghosted`,
    `withdrawn`; сортировка по последнему событию.
 3. **To verify** — только активные pre-application записи без подтверждённого
-   первоисточника; сейчас это восемь строк.
+   первоисточника; сейчас это десять строк.
 4. **Archive** — `Skipped`, `Closed`, `Duplicate`; listing verification здесь
    вторична.
 
