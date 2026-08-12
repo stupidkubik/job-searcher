@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "wttj-strangebee-junior-react-20260812",
+  "command": "add",
+  "args": {
+    "company": "StrangeBee",
+    "role": "Junior React / TypeScript Software Engineer",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://www.welcometothejungle.com/en/companies/strangebee/jobs/junior-react-typescript-software-engineer_paris",
+    "original_url": "https://careers.strangebee.com/jobs/7500043-junior-react-typescript-software-engineer",
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "level": "Junior",
+    "location": "France / Hybrid",
+    "remote_policy": "Hybrid",
+    "stack": "TypeScript; React; React Router; Storybook; AntD; React Query; react-hook-form; Vitest; React Testing Library; Git; CI; Claude Code",
+    "salary": "€35K-€45K/year",
+    "found_at": "2026-08-12",
+    "match_score": 9.5,
+    "decision_reason": "closed_before_application",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "notes": "Extremely strong junior frontend match on paper: React/TypeScript, design-system work, testing, CI and AI tooling. However the first-party Teamtailor job URL now returns 410 Gone and the current StrangeBee jobs board no longer lists the role, so the fresher-looking WTTJ card is stale."
+  }
+}
