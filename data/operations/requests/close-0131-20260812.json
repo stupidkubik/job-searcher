@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "close-0131-20260812",
+  "command": "screen",
+  "job_id": "job-0131",
+  "expected": {
+    "application_status": "not_started",
+    "last_update": "2026-08-12"
+  },
+  "args": {
+    "decision_reason": "other",
+    "notes": "User confirmed this lead should be closed as unsuitable on 2026-08-12. The official Greenhouse application requires the candidate to currently be pursuing a degree in Computer Science, Software Engineering, or a related field; current profile has no active student status."
+  }
+}
