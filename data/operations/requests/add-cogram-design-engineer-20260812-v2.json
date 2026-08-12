@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation_id": "add-cogram-design-engineer-20260812-v2",
+  "command": "add",
+  "args": {
+    "company": "Cogram",
+    "role": "Design Engineer, Technical Designer, or PM",
+    "source": "YC Work at a Startup",
+    "source_url": "https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "no",
+    "apply_verified": "no",
+    "remote_policy": "Europe",
+    "stack": "React; TypeScript; React Native; Python",
+    "salary": "€70K-€130K EUR + equity",
+    "match_score": 9,
+    "notes": "High-priority broad-filter match. YC lists Remote within CET ±5 hours and 1+ years. Strong overlap with frontend/UI, design-to-code workflows, product ownership, and AI-augmented engineering. First-party listing and first-party Apply path still need verification."
+  }
+}
