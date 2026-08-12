@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-12** · Jobs: **141**
+Dataset updated: **2026-08-12** · Jobs: **142**
 
-[Action now (1)](#action-now) · [Applications (21)](#applications) · [To verify (0)](#to-verify) · [Archive (119)](#archive)
+[Action now (1)](#action-now) · [Applications (21)](#applications) · [To verify (1)](#to-verify) · [Archive (119)](#archive)
 
 ## Action now
 
@@ -40,7 +40,9 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 
 ## To verify
 
-No jobs.
+| Status | Vacancy | Need | Match | Next action | Last checked |
+| --- | --- | --- | --- | --- | --- |
+| Reviewing | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0142 | First party + Apply + Listing | 8 | verify first-party | 2026-08-12 |
 
 ## Archive
 
