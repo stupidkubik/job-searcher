@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "operation_id": "close-0110-0111-20260812",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0110",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "geo_restriction"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "User closed this lead on 2026-08-12 because the role has a strong backend/full-stack Java focus and is not aligned with the frontend target."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0111",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "role_not_frontend"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User closed this lead on 2026-08-12 because the engagement is effectively freelance/project work without the team collaboration expected from the target role."
+      }
+    }
+  ]
+}
