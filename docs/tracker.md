@@ -4,16 +4,13 @@
 
 Dataset updated: **2026-08-12** · Jobs: **141**
 
-[Action now (4)](#action-now) · [Applications (20)](#applications) · [To verify (1)](#to-verify) · [Archive (116)](#archive)
+[Action now (1)](#action-now) · [Applications (20)](#applications) · [To verify (1)](#to-verify) · [Archive (119)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [Costy — Product Design Engineer](<https://wellfound.com/jobs/4479264-product-design-engineer>) · job-0067 | 8.5 | review application | Open | [Open](../applications/job-0067-costy-product-design-engineer.md) |
-| Reviewing | [Pitchmatter — Frontend Developer Intern (React/Next.js)](<https://wellfound.com/jobs/3272161-frontend-developer-intern-react-next-js>) · job-0068 | 8.5 | review application | Open | [Open](../applications/job-0068-pitchmatter-frontend-developer-intern-re.md) |
-| Reviewing | [Fluent Labs — Front End Developer](<https://wellfound.com/jobs/3298184-front-end-developer>) · job-0069 | 7.5 | verify Serbia eligibility | Open | [Open](../applications/job-0069-fluent-labs-front-end-developer.md) |
 
 ## Applications
 
@@ -50,7 +47,7 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 
 <details>
 
-<summary>Archive (116)</summary>
+<summary>Archive (119)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -68,6 +65,9 @@ Dataset updated: **2026-08-12** · Jobs: **141**
 | Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | other | Open | 2026-08-12 |
 | Skipped: other | [TalentCross — 1225 - 410MOS \| Full Stack Engineer (React, Node.js, PostgreSQL, Web Scraping, A](<https://www.careers-page.com/talentcross/job/RYY35936>) · job-0111 | other | Open | 2026-08-12 |
 | Skipped: role not frontend | [Devoteam — Nearshore Sector \| Mid Fullstack Java/React Developer](<https://www.devoteam.com/jobs/126599455624307398/>) · job-0110 | role not frontend | Open | 2026-08-12 |
+| Skipped: salary too low | [Fluent Labs — Front End Developer](<https://wellfound.com/jobs/3298184-front-end-developer>) · job-0069 | salary too low | Open | 2026-08-12 |
+| Skipped: salary too low | [Pitchmatter — Frontend Developer Intern (React/Next.js)](<https://wellfound.com/jobs/3272161-frontend-developer-intern-react-next-js>) · job-0068 | salary too low | Open | 2026-08-12 |
+| Skipped: role not frontend | [Costy — Product Design Engineer](<https://wellfound.com/jobs/4479264-product-design-engineer>) · job-0067 | role not frontend | Open | 2026-08-12 |
 | Skipped: salary too low | [travokarma — Website Development Intern](<https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end>) · job-0066 | salary too low | Open | 2026-08-12 |
 | Skipped: salary too low | [Kodees Labs — Frontend Developer Intern (Next.js + TypeScript)](<https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript>) · job-0065 | salary too low | Open | 2026-08-12 |
 | Skipped: other | [Canonical — Web Developer](<https://canonical.com/careers/2804965/web-developer-remote>) · job-0023 | other | Not checked | 2026-08-12 |
