@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-12** · Jobs: **145**
+Dataset updated: **2026-08-12** · Jobs: **146**
 
-[Action now (2)](#action-now) · [Applications (21)](#applications) · [To verify (3)](#to-verify) · [Archive (119)](#archive)
+[Action now (2)](#action-now) · [Applications (21)](#applications) · [To verify (3)](#to-verify) · [Archive (120)](#archive)
 
 ## Action now
 
@@ -51,10 +51,11 @@ Dataset updated: **2026-08-12** · Jobs: **145**
 
 <details>
 
-<summary>Archive (119)</summary>
+<summary>Archive (120)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Closed | [Orbit — Product Engineer](<https://join.com/companies/orbit/16414503>) · job-0146 | closed before application | Closed | 2026-08-12 |
 | Closed | [StrangeBee — Junior React / TypeScript Software Engineer](<https://careers.strangebee.com/jobs/7500043-junior-react-typescript-software-engineer>) · job-0141 | closed before application | Closed | 2026-08-12 |
 | Skipped: geo restriction | [Dalma — Frontend Engineer Intern (React / React Native)](<https://www.welcometothejungle.com/en/companies/dalma/jobs/frontend-engineer-intern-react-react-native_paris>) · job-0140 | geo restriction | Not checked | 2026-08-12 |
 | Closed | [Giant Swarm — Frontend Engineer](<https://www.giantswarm.io/careers>) · job-0139 | closed before application | Closed | 2026-08-12 |
