@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "wttj-zen-educate-emea-product-20260812-v2",
+  "command": "add",
+  "args": {
+    "company": "Zen Educate",
+    "role": "Product Engineer (Remote - EMEA)",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://www.welcometothejungle.com/fr/companies/zen-educate/jobs/product-engineer-remote-emea_london_lvqs75nq",
+    "original_url": "https://jobs.lever.co/zeneducate",
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "level": "Unknown",
+    "location": "Remote EMEA / UK timezone ±6 hours",
+    "remote_policy": "EMEA",
+    "stack": "React; React Native; Ruby on Rails",
+    "salary": "Unknown",
+    "found_at": "2026-08-12",
+    "match_score": 8.0,
+    "decision_reason": "closed_before_application",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "notes": "WTTJ surfaces a recent Remote-EMEA Product Engineer card, but Zen Educate's current first-party Lever board no longer lists the EMEA vacancy and shows only the US Product Engineer opening. Recorded as stale/closed to prevent rediscovery. Retry of a valid operation whose first runner push lost a race with an unrelated main-branch merge."
+  }
+}
