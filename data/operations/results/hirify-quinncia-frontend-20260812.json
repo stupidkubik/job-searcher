@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-12T11:32:48Z",
+  "job_id": "job-0130",
+  "operation_id": "hirify-quinncia-frontend-20260812",
+  "result": {
+    "application_path": "applications/job-0130-quinncia-frontend-developer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0130",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-12",
+        "job_id": "job-0130",
+        "source": "Hirify",
+        "source_job_id": "",
+        "source_url": "https://hirify.me/jobs/656267-frontend-developer-ai"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
