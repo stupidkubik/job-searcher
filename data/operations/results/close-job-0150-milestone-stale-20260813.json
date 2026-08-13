@@ -1,0 +1,17 @@
+{
+  "command": "verify",
+  "executed_at": "2026-08-13T12:17:33Z",
+  "job_id": "job-0150",
+  "operation_id": "close-job-0150-milestone-stale-20260813",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "outcome": "blocked",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}

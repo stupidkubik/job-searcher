@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-13** · Jobs: **151**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (2)](#to-verify) · [Archive (121)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (122)](#archive)
 
 ## Action now
 
@@ -48,17 +48,17 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Undisclosed — Web Developer](<https://hirify.me/jobs/823409-web-developer-node-react>) · job-0150 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
 
 ## Archive
 
 <details>
 
-<summary>Archive (121)</summary>
+<summary>Archive (122)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Closed | [Undisclosed — Web Developer](<https://milestone.pt/en/career-opportunities/web-developer-2/>) · job-0150 | closed before application | Closed | 2026-08-13 |
 | Skipped: other | [Starlet — Full-Stack Developer (React)](<https://starlet.gg/careers/full-stack-developer>) · job-0149 | other | Open | 2026-08-13 |
 | Closed | [Orbit — Product Engineer](<https://join.com/companies/orbit/16414503>) · job-0146 | closed before application | Closed | 2026-08-12 |
 | Closed | [StrangeBee — Junior React / TypeScript Software Engineer](<https://careers.strangebee.com/jobs/7500043-junior-react-typescript-software-engineer>) · job-0141 | closed before application | Closed | 2026-08-12 |
