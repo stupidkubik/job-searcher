@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-13** · Jobs: **151**
+Dataset updated: **2026-08-13** · Jobs: **152**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (122)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (123)](#archive)
 
 ## Action now
 
@@ -54,10 +54,11 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 
 <details>
 
-<summary>Archive (122)</summary>
+<summary>Archive (123)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Sporty Group — Frontend Engineer](<https://himalayas.app/companies/sporty-group/jobs/frontend-engineer>) · job-0152 | seniority too high | Not checked | 2026-08-13 |
 | Closed | [Undisclosed — Web Developer](<https://milestone.pt/en/career-opportunities/web-developer-2/>) · job-0150 | closed before application | Closed | 2026-08-13 |
 | Skipped: other | [Starlet — Full-Stack Developer (React)](<https://starlet.gg/careers/full-stack-developer>) · job-0149 | other | Open | 2026-08-13 |
 | Closed | [Orbit — Product Engineer](<https://join.com/companies/orbit/16414503>) · job-0146 | closed before application | Closed | 2026-08-12 |
