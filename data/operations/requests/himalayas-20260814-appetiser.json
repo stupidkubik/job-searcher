@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20260814-appetiser",
+  "command": "add",
+  "args": {
+    "company": "Appetiser Apps",
+    "role": "Junior Full-Stack Developer",
+    "source": "Himalayas",
+    "source_url": "https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer-898223205",
+    "application_status": "not_started",
+    "listing_status": "unknown"
+  }
+}
