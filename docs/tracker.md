@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-13** · Jobs: **151**
 
-[Action now (1)](#action-now) · [Applications (24)](#applications) · [To verify (5)](#to-verify) · [Archive (121)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (2)](#to-verify) · [Archive (121)](#archive)
 
 ## Action now
 
@@ -23,7 +23,10 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | Applied | 2026-08-13 | — | [Open](../applications/job-0142-cogram-design-engineer-technical-de.md) |
+| Applied | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | Applied | 2026-08-13 | — | [Open](../applications/job-0143-asim-software-engineer-front-end.md) |
 | Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
+| Applied | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
 | Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
 | Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
 | Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
@@ -45,9 +48,6 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | First party + Apply + Listing | 9 | verify first-party | Never |
-| Reviewing | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | First party + Apply + Listing | 9 | verify first-party | 2026-08-12 |
-| Reviewing | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | First party + Apply + Listing | 8 | verify first-party | 2026-08-12 |
 | Reviewing | [Undisclosed — Web Developer](<https://hirify.me/jobs/823409-web-developer-node-react>) · job-0150 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
 

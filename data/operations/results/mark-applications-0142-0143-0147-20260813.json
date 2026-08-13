@@ -1,0 +1,47 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-13T12:10:48Z",
+  "jobs": [
+    "job-0142",
+    "job-0143",
+    "job-0147"
+  ],
+  "operation_id": "mark-applications-0142-0143-0147-20260813",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0142",
+        "listing_status": "unknown",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      },
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0143",
+        "listing_status": "unknown",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      },
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0147",
+        "listing_status": "unknown",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
