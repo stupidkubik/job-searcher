@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "add-softswiss-frontend-20260813",
+  "command": "add",
+  "args": {
+    "company": "SOFTSWISS",
+    "role": "Frontend Developer (React) - Middle",
+    "source": "Manual",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "level": "Middle",
+    "notes": "Historical application discovered from Gmail: application receipt dated 2026-08-05 and rejection dated 2026-08-10; lifecycle status will be backfilled after canonical job ID is assigned."
+  }
+}
