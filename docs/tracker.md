@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-13** · Jobs: **150**
+Dataset updated: **2026-08-13** · Jobs: **151**
 
-[Action now (4)](#action-now) · [Applications (21)](#applications) · [To verify (5)](#to-verify) · [Archive (120)](#archive)
+[Action now (4)](#action-now) · [Applications (21)](#applications) · [To verify (6)](#to-verify) · [Archive (120)](#archive)
 
 ## Action now
 
@@ -50,6 +50,7 @@ Dataset updated: **2026-08-13** · Jobs: **150**
 | Reviewing | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | First party + Apply + Listing | 8 | verify first-party | 2026-08-12 |
 | Reviewing | [Undisclosed — Web Developer](<https://hirify.me/jobs/823409-web-developer-node-react>) · job-0150 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
+| Reviewing | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 

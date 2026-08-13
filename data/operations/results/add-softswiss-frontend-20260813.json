@@ -1,0 +1,18 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-13T09:57:13Z",
+  "job_id": "job-0151",
+  "operation_id": "add-softswiss-frontend-20260813",
+  "result": {
+    "application_path": "applications/job-0151-softswiss-frontend-developer-react-mid.md",
+    "application_status": "reviewing",
+    "job_id": "job-0151",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": null,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
