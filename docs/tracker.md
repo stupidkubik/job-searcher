@@ -2,15 +2,16 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-13** · Jobs: **147**
+Dataset updated: **2026-08-13** · Jobs: **148**
 
-[Action now (2)](#action-now) · [Applications (21)](#applications) · [To verify (4)](#to-verify) · [Archive (120)](#archive)
+[Action now (3)](#action-now) · [Applications (21)](#applications) · [To verify (4)](#to-verify) · [Archive (120)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | 8.5 | — | Open | [Open](../applications/job-0148-artwod-support-engineer.md) |
 | Reviewing | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | 8 | — | Open | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
 
 ## Applications
