@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "status-softswiss-rejected-20260813",
+  "command": "status",
+  "job_id": "job-0151",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "last_update": "2026-08-13"
+  },
+  "args": {
+    "application_status": "rejected",
+    "confirmed_by_user": true,
+    "stage": "Applied",
+    "applied_at": "2026-08-05",
+    "response_at": "2026-08-10"
+  }
+}
