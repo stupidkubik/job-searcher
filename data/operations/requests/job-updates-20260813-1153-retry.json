@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "operation_id": "job-updates-20260813-1153-retry",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0144",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "applied_at": "2026-08-13"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0148",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-13"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "applied_at": "2026-08-13"
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0149",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User skipped on 2026-08-13 because the product/domain is centered on viral video, where they have little relevant experience; not pursuing despite technical overlap."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0053",
+      "expected": {
+        "application_status": "applied",
+        "listing_status": "unknown",
+        "last_update": "2026-08-10"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "response_at": "2026-08-13"
+      }
+    }
+  ]
+}
