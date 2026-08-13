@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-13** · Jobs: **154**
+Dataset updated: **2026-08-13** · Jobs: **155**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (125)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (126)](#archive)
 
 ## Action now
 
@@ -54,10 +54,11 @@ Dataset updated: **2026-08-13** · Jobs: **154**
 
 <details>
 
-<summary>Archive (125)</summary>
+<summary>Archive (126)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Nuclear — Software Engineer](<https://himalayas.app/companies/nuclear/jobs/software-engineer>) · job-0155 | seniority too high | Not checked | 2026-08-13 |
 | Skipped: seniority too high | [Native — Front-End Engineer](<https://himalayas.app/companies/native/jobs/front-end-engineer>) · job-0154 | seniority too high | Not checked | 2026-08-13 |
 | Skipped: seniority too high | [Ritual — Frontend Engineer](<https://himalayas.app/companies/ritual-net/jobs/frontend-engineer>) · job-0153 | seniority too high | Not checked | 2026-08-13 |
 | Skipped: seniority too high | [Sporty Group — Frontend Engineer](<https://himalayas.app/companies/sporty-group/jobs/frontend-engineer>) · job-0152 | seniority too high | Not checked | 2026-08-13 |
