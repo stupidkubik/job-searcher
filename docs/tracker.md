@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-13** · Jobs: **151**
 
-[Action now (4)](#action-now) · [Applications (21)](#applications) · [To verify (6)](#to-verify) · [Archive (120)](#archive)
+[Action now (4)](#action-now) · [Applications (22)](#applications) · [To verify (5)](#to-verify) · [Archive (120)](#archive)
 
 ## Action now
 
@@ -39,6 +39,7 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | — |
 | Applied | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | — |
 | Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
+| Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
 | Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
 
 ## To verify
@@ -50,7 +51,6 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 | Reviewing | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | First party + Apply + Listing | 8 | verify first-party | 2026-08-12 |
 | Reviewing | [Undisclosed — Web Developer](<https://hirify.me/jobs/823409-web-developer-node-react>) · job-0150 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
-| Reviewing | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 

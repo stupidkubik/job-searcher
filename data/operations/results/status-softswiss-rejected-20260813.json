@@ -1,0 +1,17 @@
+{
+  "command": "status",
+  "executed_at": "2026-08-13T09:58:19Z",
+  "job_id": "job-0151",
+  "operation_id": "status-softswiss-rejected-20260813",
+  "result": {
+    "application_path": "applications/job-0151-softswiss-frontend-developer-react-mid.md",
+    "application_status": "rejected",
+    "listing_status": "unknown",
+    "outcome": "status_changed",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
