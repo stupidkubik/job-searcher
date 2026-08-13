@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-world-anvil-junior-react-20260813",
+  "command": "add",
+  "args": {
+    "company": "World Anvil",
+    "role": "Entry/Junior React / JavaScript Developer",
+    "source": "Reactiflux Discord",
+    "source_url": "https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Junior",
+    "remote_policy": "Global",
+    "location": "Remote worldwide",
+    "stack": "React; JavaScript; Node.js; Symfony; APIs",
+    "salary": "Unknown",
+    "posted_at": "2026-07-29",
+    "found_at": "2026-08-13",
+    "match_score": 9,
+    "notes": "Direct Reactiflux hiring post for one or two entry/junior developers; apply by email to contact@worldanvil.com with CV and cover letter, including involvement with TTRPGs, worldbuilding, or writing. Public first-party vacancy page was not found, so current availability should be confirmed."
+  }
+}
