@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-13T06:49:47Z",
+  "job_id": "job-0149",
+  "operation_id": "add-starlet-full-stack-react-20260813",
+  "result": {
+    "application_path": "applications/job-0149-starlet-full-stack-developer-react.md",
+    "application_status": "reviewing",
+    "job_id": "job-0149",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-13",
+        "job_id": "job-0149",
+        "source": "Reactiflux Discord",
+        "source_job_id": "",
+        "source_url": "https://discord.com/channels/102860784329052160/103882387330457600/1531033599296667878"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
