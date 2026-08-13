@@ -4,16 +4,13 @@
 
 Dataset updated: **2026-08-13** · Jobs: **151**
 
-[Action now (4)](#action-now) · [Applications (22)](#applications) · [To verify (5)](#to-verify) · [Archive (120)](#archive)
+[Action now (1)](#action-now) · [Applications (24)](#applications) · [To verify (5)](#to-verify) · [Archive (121)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | 8.5 | — | Open | [Open](../applications/job-0148-artwod-support-engineer.md) |
-| Reviewing | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | 8 | — | Open | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
-| Reviewing | [Starlet — Full-Stack Developer (React)](<https://starlet.gg/careers/full-stack-developer>) · job-0149 | 7 | — | Open | [Open](../applications/job-0149-starlet-full-stack-developer-react.md) |
 
 ## Applications
 
@@ -26,6 +23,8 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
+| Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
 | Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
 | Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
 | Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
@@ -37,8 +36,8 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 | Applied | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | — |
 | Applied | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | — |
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | — |
-| Applied | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | — |
 | Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
+| Rejected | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | [Open](../applications/job-0053-storyteller-ai-operations-manager.md) |
 | Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
 | Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
 
@@ -56,10 +55,11 @@ Dataset updated: **2026-08-13** · Jobs: **151**
 
 <details>
 
-<summary>Archive (120)</summary>
+<summary>Archive (121)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Starlet — Full-Stack Developer (React)](<https://starlet.gg/careers/full-stack-developer>) · job-0149 | other | Open | 2026-08-13 |
 | Closed | [Orbit — Product Engineer](<https://join.com/companies/orbit/16414503>) · job-0146 | closed before application | Closed | 2026-08-12 |
 | Closed | [StrangeBee — Junior React / TypeScript Software Engineer](<https://careers.strangebee.com/jobs/7500043-junior-react-typescript-software-engineer>) · job-0141 | closed before application | Closed | 2026-08-12 |
 | Skipped: geo restriction | [Dalma — Frontend Engineer Intern (React / React Native)](<https://www.welcometothejungle.com/en/companies/dalma/jobs/frontend-engineer-intern-react-react-native_paris>) · job-0140 | geo restriction | Not checked | 2026-08-12 |

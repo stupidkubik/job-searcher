@@ -1,0 +1,57 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-13T09:59:06Z",
+  "jobs": [
+    "job-0144",
+    "job-0148",
+    "job-0149",
+    "job-0053"
+  ],
+  "operation_id": "job-updates-20260813-1153-retry",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0144",
+        "listing_status": "open",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      },
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0148",
+        "listing_status": "open",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0149",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "warnings": []
+      },
+      {
+        "application_status": "rejected",
+        "command": "status",
+        "job_id": "job-0053",
+        "listing_status": "unknown",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
