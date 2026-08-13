@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "add-artwod-support-engineer-20260813",
+  "command": "add",
+  "args": {
+    "company": "ArtWod",
+    "role": "Support Engineer",
+    "source": "Reactiflux Discord",
+    "source_url": "https://discord.com/channels/102860784329052160/103882387330457600/1532076376423923732",
+    "original_url": "https://careers.artwod.com/?pos=pos-1784984993718",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior/Middle",
+    "remote_policy": "Global",
+    "location": "Remote worldwide",
+    "stack": "Next.js; React; TypeScript; Tailwind CSS; Express; MongoDB; Redis; Playwright; Cypress",
+    "salary": "Unknown",
+    "posted_at": "2026-07-25",
+    "found_at": "2026-08-13",
+    "match_score": 8.5,
+    "notes": "Active first-party application form verified on 2026-08-13. Full-time role focused on investigating and fixing frontend/backend bugs, QA, and end-to-end product dry runs. The application emphasizes that this is not a 9-to-5 job and asks about handling pressure; review those expectations carefully."
+  }
+}
