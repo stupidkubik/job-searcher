@@ -54,6 +54,7 @@ python3 scripts/jobs.py add \
 | основной browser UI | [docs/tracker.md](docs/tracker.md) |
 | профиль, приоритеты и доказательства | [config/profile.md](config/profile.md) |
 | поисковые запросы | [config/search-queries.md](config/search-queries.md) |
+| playbooks по ATS и источникам | [docs/sources/](docs/sources/) |
 | canonical storage вакансий | [data/jobs.csv](data/jobs.csv) |
 | provenance источников | [data/job_sources.csv](data/job_sources.csv) |
 | поля и допустимые значения | [data/schema.md](data/schema.md) |
