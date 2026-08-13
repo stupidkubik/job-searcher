@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-13T06:59:14Z",
+  "job_id": "job-0150",
+  "operation_id": "add-hirify-web-developer-823409-20260813-v2",
+  "result": {
+    "application_path": "applications/job-0150-undisclosed-web-developer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0150",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-13",
+        "job_id": "job-0150",
+        "source": "Hirify",
+        "source_job_id": "823409",
+        "source_url": "https://hirify.me/jobs/823409-web-developer-node-react"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
