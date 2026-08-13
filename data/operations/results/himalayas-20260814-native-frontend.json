@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-13T22:19:09Z",
+  "job_id": "job-0154",
+  "operation_id": "himalayas-20260814-native-frontend",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0154",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-13",
+        "job_id": "job-0154",
+        "source": "Himalayas",
+        "source_job_id": "",
+        "source_url": "https://himalayas.app/companies/native/jobs/front-end-engineer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
