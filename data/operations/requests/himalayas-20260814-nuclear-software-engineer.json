@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20260814-nuclear-software-engineer",
+  "command": "add",
+  "args": {
+    "company": "Nuclear",
+    "role": "Software Engineer",
+    "source": "Himalayas",
+    "source_url": "https://himalayas.app/companies/nuclear/jobs/software-engineer",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Senior",
+    "location": "Worldwide",
+    "remote_policy": "Global",
+    "stack": "React; Tailwind CSS; Framer Motion; Node.js; Express; PostgreSQL; Prisma; AI",
+    "salary": "Unknown",
+    "posted_at": "2026-06-21",
+    "decision_reason": "seniority_too_high",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Exact Himalayas listing is outside the configured fallback age window and is explicitly senior/full-stack, spanning React UI plus Node.js, Express, PostgreSQL and Prisma; hard seniority blocker, so first-party verification was not pursued."
+  }
+}
