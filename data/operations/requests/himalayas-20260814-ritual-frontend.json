@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20260814-ritual-frontend",
+  "command": "add",
+  "args": {
+    "company": "Ritual",
+    "role": "Frontend Engineer",
+    "source": "Himalayas",
+    "source_url": "https://himalayas.app/companies/ritual-net/jobs/frontend-engineer",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Senior",
+    "location": "Worldwide",
+    "remote_policy": "Global",
+    "stack": "React; TypeScript; Web3; EVM; wagmi; ethers.js; JavaScript; Frontend",
+    "salary": "Unknown",
+    "posted_at": "2026-06-22",
+    "decision_reason": "seniority_too_high",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Exact Himalayas listing is outside the configured 30-day fallback window and is explicitly senior-level with substantial Web3/EVM requirements; hard seniority blocker, so first-party verification was not pursued."
+  }
+}
