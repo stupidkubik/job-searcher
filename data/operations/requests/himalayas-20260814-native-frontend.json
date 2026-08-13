@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20260814-native-frontend",
+  "command": "add",
+  "args": {
+    "company": "Native",
+    "role": "Front-End Engineer",
+    "source": "Himalayas",
+    "source_url": "https://himalayas.app/companies/native/jobs/front-end-engineer",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Senior",
+    "location": "Worldwide",
+    "remote_policy": "Global",
+    "stack": "React; Vue.js; Next.js; JavaScript; TypeScript; UI/UX; Web3; DeFi",
+    "salary": "Unknown",
+    "posted_at": "2026-05-24",
+    "decision_reason": "seniority_too_high",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Exact Himalayas listing is outside the configured fallback age window and requires 6+ years of frontend experience plus DeFi/Web3 expertise; hard seniority blocker, so first-party verification was not pursued."
+  }
+}
