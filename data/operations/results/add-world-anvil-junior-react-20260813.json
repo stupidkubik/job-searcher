@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-13T06:47:19Z",
+  "job_id": "job-0147",
+  "operation_id": "add-world-anvil-junior-react-20260813",
+  "result": {
+    "application_path": "applications/job-0147-world-anvil-entry-junior-react-javascrip.md",
+    "application_status": "reviewing",
+    "job_id": "job-0147",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-13",
+        "job_id": "job-0147",
+        "source": "Reactiflux Discord",
+        "source_job_id": "",
+        "source_url": "https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
