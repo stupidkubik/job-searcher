@@ -24,8 +24,16 @@ Playbook отвечает на вопросы «как найти board», «к�
 
 ## Доступные playbooks
 
-- [Greenhouse](greenhouse.md) — широкий first-party discovery, публичный Job
-  Board API, проверка exact job и Apply.
+| Source | Роль в search layer |
+|---|---|
+| [Greenhouse](greenhouse.md) | first-party ATS discovery и verification через публичный Job Board API |
+| [Hirify](hirify.md) | агрегатор и AI discovery; обязательный переход к работодателю/ATS |
+| [LinkedIn](linkedin.md) | широкий signed-in discovery; exact numeric job ID и осторожная работа с Easy Apply |
+| [Himalayas](himalayas.md) | remote discovery через публичный API и локальный fetch-only adapter |
+| [Wellfound](wellfound.md) | startup discovery и нативная application surface |
+| [Welcome to the Jungle](welcome-to-the-jungle.md) | discovery по Европе и нативные/внешние Apply-маршруты |
+| [We Work Remotely](we-work-remotely.md) | remote board с exact cards и внешними Apply-маршрутами |
+| [HiringCafe](hiringcafe.md) | широкий агрегатор с детальными фильтрами; verification только у работодателя/ATS |
 
 ## ATS не равна discovery source
 
