@@ -481,7 +481,7 @@ python3 -m unittest discover -s tests -v
 - `config/sources.toml`;
 - `scripts/jobs.py` или `scripts/source_config.py`;
 - `tests/test_source_config.py`;
-- обновлённый `docs/himalayas-api.md`.
+- обновлённый `docs/sources/himalayas.md`.
 
 Acceptance: неизвестный source type, неверный cadence или отсутствующая
 verification policy дают понятную ошибку до сетевого запроса.
@@ -630,7 +630,7 @@ Acceptance: искусственный batch из 50 строк либо при�
 - `scripts/import_himalayas.py`;
 - `tests/test_import_himalayas.py`;
 - `tests/fixtures/himalayas-api-response.json`;
-- `docs/himalayas-api.md`.
+- `docs/sources/himalayas.md`.
 
 #### WP5.2. Verification workflow
 
@@ -732,7 +732,7 @@ Rollout gate: automatic batch apply разрешается только посл
 | `data/inbox/.gitignore` | 3 | create | raw batches не попадают в Git |
 | `scripts/import_himalayas.py` | 5 | create | только fetch + raw normalize |
 | `docs/jobs-cli.md` | 2–6 | create/update | CLI/JSON contracts и examples |
-| `docs/himalayas-api.md` | 3, 5 | update | source-specific facts/caveats |
+| `docs/sources/himalayas.md` | 3, 5 | update | source-specific facts/caveats |
 | `applications/_TEMPLATE.md` | 1, 5 | update | verification и analysis card |
 | `AGENTS.md` | 1, 3 | update | правила lifecycle, verification и duplicate refs |
 | `README.md` | 0, 1 | update | ежедневный quick start |

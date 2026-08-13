@@ -1,13 +1,17 @@
-# Himalayas API — notes for search automation
+# Himalayas search playbook
 
-Checked: 2026-08-11
+Checked: 2026-08-13
 
 Official references:
 
-- https://himalayas.app/api
-- https://himalayas.app/docs/remote-jobs-api
-- https://himalayas.app/docs/openapi.json
-- https://himalayas.app/docs/data-dictionary
+- [Himalayas API](https://himalayas.app/api)
+- [Remote Jobs API](https://himalayas.app/docs/remote-jobs-api)
+- [OpenAPI schema](https://himalayas.app/docs/openapi.json)
+- [Data dictionary](https://himalayas.app/docs/data-dictionary)
+
+Common lifecycle, dedupe and write-path rules live in
+[`README.md`](README.md). This file contains only Himalayas-specific discovery,
+normalization and verification behavior.
 
 ## Why this source is useful
 
@@ -15,7 +19,7 @@ Himalayas exposes a public JSON jobs API that is well suited to discovery before
 
 Treat the API as a discovery layer only. `expiryDate` and an application link do **not** prove that the employer still has the role open. The repository rule remains unchanged: verify the first-party careers/ATS page before treating a vacancy as actionable.
 
-The public API is cached and refreshed roughly daily. Respect rate limits and back off on HTTP 429. The canonical operating policy — cadence, age windows, geo, queries, verification gates and caveats — lives in [`config/sources.toml`](../config/sources.toml), not in this document.
+The public API is cached and refreshed roughly daily. Respect rate limits and back off on HTTP 429. The canonical operating policy — cadence, age windows, geo, queries, verification gates and caveats — lives in [`config/sources.toml`](../../config/sources.toml), not in this document.
 
 ## Endpoints
 
@@ -65,7 +69,7 @@ Do not rely on boolean syntax inside `q` unless it is explicitly documented late
 | `pubDate` | `posted_at` |
 | `expiryDate` | preliminary stale check |
 | `applicationLink` | candidate first-party link, must still be verified |
-| `guid` | temporary importer dedupe key |
+| `guid` | stable `source_job_id` inside Himalayas |
 | `companySlug` | stable company filter |
 
 For imported jobs:
@@ -98,9 +102,26 @@ Before adding a row:
 1. compare the resolved first-party URL with `original_url`
 2. compare the Himalayas card with `source_url`
 3. compare normalized `companyName + title`
-4. optionally keep Himalayas `guid` in importer state/cache without changing the CSV schema
+4. compare Himalayas `guid` as `source_job_id`
 
 Do not create duplicates just because the same vacancy appears in both Serbia and worldwide queries.
+
+## Connector workflow
+
+For a connector-driven search:
+
+1. query the public search endpoint with several small query families;
+2. preserve `guid`, the exact Himalayas card URL and `applicationLink`
+   separately;
+3. deduplicate against the full tracker before analysing the description;
+4. treat `applicationLink` only as a candidate first-party URL;
+5. open and verify the employer/ATS listing and visible Apply route;
+6. create an immutable operation request for every inspected job or new source
+   reference, then wait for the trusted runner result.
+
+The connector must not copy `applicationLink` into `original_url` merely because
+it came from the API. A redirect to another aggregator, a dead page or a generic
+careers page still requires exact-job resolution.
 
 ## Important false-positive example from 2026-08-11
 
