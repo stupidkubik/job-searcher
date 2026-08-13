@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "operation_id": "mark-applications-0142-0143-0147-20260813",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0142",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-12"},
+      "args": {"application_status": "applied", "confirmed_by_user": true, "stage": "Applied", "applied_at": "2026-08-13", "cv_version": "cv-frontend-2026-08"}
+    },
+    {
+      "command": "status",
+      "job_id": "job-0143",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-12"},
+      "args": {"application_status": "applied", "confirmed_by_user": true, "stage": "Applied", "applied_at": "2026-08-13", "cv_version": "cv-frontend-2026-08"}
+    },
+    {
+      "command": "status",
+      "job_id": "job-0147",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-13"},
+      "args": {"application_status": "applied", "confirmed_by_user": true, "stage": "Applied", "applied_at": "2026-08-13", "cv_version": "cv-frontend-2026-08"}
+    }
+  ]
+}
