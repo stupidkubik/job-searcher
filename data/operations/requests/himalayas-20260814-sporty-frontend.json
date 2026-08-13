@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20260814-sporty-frontend",
+  "command": "add",
+  "args": {
+    "company": "Sporty Group",
+    "role": "Frontend Engineer",
+    "source": "Himalayas",
+    "source_url": "https://himalayas.app/companies/sporty-group/jobs/frontend-engineer",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Senior",
+    "location": "Worldwide",
+    "remote_policy": "Global",
+    "stack": "JavaScript; TypeScript; React; Vue.js; Vuex; Vue Router; Webpack; SCSS; Playwright; Git; Redux",
+    "salary": "Unknown",
+    "posted_at": "2026-07-22",
+    "decision_reason": "seniority_too_high",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Himalayas exact listing is worldwide but requires 4+ years of frontend experience and is explicitly senior-level; hard seniority blocker, so first-party verification was not pursued."
+  }
+}
