@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "close-job-0150-milestone-stale-20260813",
+  "command": "verify",
+  "job_id": "job-0150",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "last_update": "2026-08-13"
+  },
+  "args": {
+    "listing_status": "closed",
+    "first_party_verified": "yes",
+    "apply_verified": "no",
+    "original_url": "https://milestone.pt/en/career-opportunities/web-developer-2/",
+    "decision_reason": "closed_before_application",
+    "notes": "Official Milestone Web Developer page is a legacy 2022 listing (webdev_2022) and the role is absent from the current careers list; closed as stale before application."
+  }
+}
