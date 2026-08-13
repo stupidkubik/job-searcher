@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-13** · Jobs: **155**
+Dataset updated: **2026-08-13** · Jobs: **156**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (1)](#to-verify) · [Archive (126)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (2)](#to-verify) · [Archive (126)](#archive)
 
 ## Action now
 
@@ -49,6 +49,7 @@ Dataset updated: **2026-08-13** · Jobs: **155**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
+| Not started | [Appetiser Apps — Junior Full-Stack Developer](<https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer-898223205>) · job-0156 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
