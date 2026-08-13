@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "add-starlet-full-stack-react-20260813",
+  "command": "add",
+  "args": {
+    "company": "Starlet",
+    "role": "Full-Stack Developer (React)",
+    "source": "Reactiflux Discord",
+    "source_url": "https://discord.com/channels/102860784329052160/103882387330457600/1531033599296667878",
+    "original_url": "https://starlet.gg/careers/full-stack-developer",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior/Middle",
+    "remote_policy": "Europe",
+    "location": "Remote, North America or Europe",
+    "stack": "React; Next.js; TypeScript; Figma; MongoDB; APIs; Authentication; Analytics; Payments",
+    "salary": "$35-$40/hour; paid weekly",
+    "posted_at": "2026-07-26",
+    "found_at": "2026-08-13",
+    "match_score": 7,
+    "notes": "Official role page verified active on 2026-08-13. Paid remote contract; MongoDB is mandatory and full-stack autonomy may be a gap. Apply through the Starlet Discord by messaging Nathan with portfolio or GitHub, a short note on React and MongoDB experience, location/timezone, and weekly availability."
+  }
+}
