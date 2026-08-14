@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import parse_qs, urlsplit
@@ -240,6 +240,31 @@ class HimalayasAdapterCliTests(unittest.TestCase):
         self.assertEqual((payload["cadence_hours"], payload["max_age_days"]), (72, 30))
         self.assertIsNone(payload["output"])
         self.assertFalse(list((self.root / "data" / "inbox").glob("*.jsonl")))
+
+    def test_artifact_contains_records_run_instants_and_business_date(self):
+        artifact = self.root / "artifacts" / "himalayas.json"
+        started = datetime(2026, 8, 13, 22, 17, tzinfo=timezone.utc)
+        finished = datetime(2026, 8, 13, 22, 18, tzinfo=timezone.utc)
+        self.records[0]["found_at"] = "2026-08-14"
+        with patch.object(import_himalayas, "utc_instant", side_effect=[started, finished]):
+            payload = self.invoke("--narrow", "--artifact", str(artifact))
+
+        self.assertEqual((payload["mode"], payload["found_at"]), ("write_artifact", "2026-08-14"))
+        self.assertEqual(payload["business_timezone"], "Europe/Belgrade")
+        saved = json.loads(artifact.read_text(encoding="utf-8"))
+        self.assertEqual(saved["run_started_at"], "2026-08-13T22:17:00Z")
+        self.assertEqual(saved["run_finished_at"], "2026-08-13T22:18:00Z")
+        self.assertEqual(saved["found_at"], "2026-08-14")
+        self.assertEqual(saved["records"], self.records)
+
+    def test_source_discovery_workflow_is_read_only_and_uploads_artifact(self):
+        workflow = (PROJECT / ".github" / "workflows" / "source-discovery.yml").read_text(encoding="utf-8")
+        self.assertIn("workflow_dispatch:", workflow)
+        self.assertIn("contents: read", workflow)
+        self.assertIn("--artifact \"$RUNNER_TEMP/himalayas-discovery.json\"", workflow)
+        self.assertIn('git status --porcelain > "$RUNNER_TEMP/git-status.txt"', workflow)
+        self.assertIn('test ! -s "$RUNNER_TEMP/git-status.txt"', workflow)
+        self.assertIn("actions/upload-artifact@v6", workflow)
 
 
 if __name__ == "__main__":

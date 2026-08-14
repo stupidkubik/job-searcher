@@ -11,6 +11,10 @@
   freshness gate in CI.
 - GitHub connector gateway: immutable requests, trusted runner, immutable
   results and review/direct delivery modes.
+- Batch-friendly source sweeps: atomic `add` children receive IDs inside one
+  transaction and report a stable `client_ref → job_id` mapping.
+- Read-only Himalayas discovery workflow with normalized artifacts, exact UTC
+  run timestamps and `Europe/Belgrade` tracker dates.
 
 The implementation plan and its accepted decisions remain in
 [`tracker-v2-plan.md`](tracker-v2-plan.md); it is now an implementation record,

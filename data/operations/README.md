@@ -29,6 +29,10 @@ changed-file allowlist, and commits the result. `docs/tracker.md` is a generated
 side effect of the trusted runner: the connector must neither edit nor include it
 in a request.
 
+Operation `executed_at` values are exact UTC timestamps. Calendar fields written
+to the tracker, including default `found_at`, `verified_at`, and `last_update`,
+use `Europe/Belgrade` independently of the GitHub runner's process timezone.
+
 ## Connector procedure
 
 1. Read the current canonical job and choose a supported domain command.
@@ -188,6 +192,18 @@ atomic execution:
       "args": {
         "decision_reason": "seniority_too_high"
       }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:example-guid",
+      "args": {
+        "company": "ExampleCo",
+        "role": "Frontend Developer",
+        "source": "Himalayas",
+        "source_job_id": "example-guid",
+        "decision_reason": "geo_restriction",
+        "notes": "Remote is limited to the United States."
+      }
     }
   ]
 }
@@ -197,7 +213,8 @@ Batch guarantees:
 
 - every child schema and every optimistic-lock precondition is checked before
   any canonical write;
-- duplicate `job_id` entries are rejected;
+- duplicate existing-job `job_id` entries and duplicate add `client_ref` values
+  are rejected;
 - children execute against an isolated tracker copy using the existing
   `jobs.py` write functions;
 - the resulting dataset is validated as a whole;
@@ -207,9 +224,14 @@ Batch guarantees:
 - one immutable result records either `atomic_batch_applied` or the complete
   stale-operation conflict list.
 
-`add` is currently single-operation only and cannot be a batch child. `status`
-can be a batch child, but every entry still requires `confirmed_by_user=true`.
-Declarative ingest remains outside the current agent gateway.
+An `add` child has exactly `command`, a caller-assigned stable `client_ref`, and
+`args`; it does not provide `job_id` or `expected`. IDs are allocated in child
+order inside the isolated transaction and the immutable result maps each
+`client_ref` to its assigned `job_id`. An unresolved duplicate or source
+reference conflict in any add child produces `batch_child_conflict` and rolls
+back every earlier child. `status` can also be a batch child, but every entry
+still requires `confirmed_by_user=true`. Declarative ingest remains outside the
+current agent gateway.
 
 `screen` and `set` are low-risk. `add`, `status`, and `verify` with enrichment
 or a transition to `reviewing`/`apply` are medium-risk. A batch inherits the

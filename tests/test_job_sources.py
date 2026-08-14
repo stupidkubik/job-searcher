@@ -17,7 +17,8 @@ class JobSourcesTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         for directory in ("data", "applications", "scripts"):
             (self.root / directory).mkdir()
-        shutil.copy2(PROJECT / "scripts" / "jobs.py", self.root / "scripts" / "jobs.py")
+        for name in ("jobs.py", "tracker_time.py"):
+            shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
             header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
             (self.root / "data" / name).write_text(header + "\n", encoding="utf-8")

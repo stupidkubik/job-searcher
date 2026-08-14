@@ -34,7 +34,8 @@
 | `source_job_id` | Непустой стабильный ID карточки внутри источника. |
 | `company`, `role`, `raw_location` | Непустые строки как их отдал источник; не нормализовать в raw inbox. |
 | `source_url`, `application_url` | Непустые абсолютные `http`/`https` URL; они ещё не подтверждают first-party status. |
-| `posted_at`, `found_at` | Непустые даты строго формата `YYYY-MM-DD`. |
+| `posted_at` | Непустая дата источника строго формата `YYYY-MM-DD`. |
+| `found_at` | Дата первого обнаружения по календарю `Europe/Belgrade`, строго `YYYY-MM-DD`. |
 | `payload` | Необязательный JSON object для source-specific полей; других top-level полей нет. Для уже доказанного source-side hard filter допустим `hard_filter_reason` из canonical enum. |
 
 Не добавляйте `batch_id` в запись и тем более в `jobs.csv`. Валидатор вычисляет
@@ -46,6 +47,15 @@ python3 scripts/inbox.py validate data/inbox/himalayas-2026-08-11T090000Z.jsonl
 
 Успешный вывод — один JSON object с `batch_id`, числом `records` и пустым
 `errors`. Один и тот же неизменённый файл всегда даёт тот же `batch_id`.
+
+## Read-only discovery artifact
+
+GitHub workflow `source discovery` не создаёт raw batch в checkout и не вызывает
+ingest. Он запускает тот же Himalayas adapter с `--artifact`, сохраняет
+normalized records во временный JSON artifact и публикует его через GitHub
+Actions. Manifest содержит `run_started_at`/`run_finished_at` как UTC timestamps
+и общий `found_at` по календарю `Europe/Belgrade`; canonical CSV при этом не
+меняется. Artifact — транспорт результата запуска, а не новый source of truth.
 
 ## Ingest
 

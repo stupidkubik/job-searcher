@@ -133,7 +133,9 @@ GitHub connector не исполняет эти shell-команды. Для н�
 ожидаемую семантику, а запись выполняется только созданием одного нового
 immutable request по контракту `data/operations/README.md`. Разрешены `screen`,
 `add`, `verify`, `status`, ограниченный `set` и `batch` только с `atomic=true`;
-`ingest` не поддерживается. `status` для `applied`, `interviewing`, `offer`,
+`add` разрешён и как batch child со стабильным `client_ref`, а `job_id`
+назначается runner-ом внутри общей транзакции; `ingest` не поддерживается.
+`status` для `applied`, `interviewing`, `offer`,
 `rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
 человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
 считать операцию завершённой, пока runner не создал соответствующий result и

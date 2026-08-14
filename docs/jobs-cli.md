@@ -162,6 +162,10 @@ canonical CSV:
 # Сначала посмотреть итог fetch без нового файла.
 python3 scripts/import_himalayas.py --narrow --dry-run
 
+# Read-only runner/connector artifact: records + run metadata, без canonical write.
+python3 scripts/import_himalayas.py --narrow \
+  --artifact /tmp/himalayas-discovery.json
+
 # Затем явно сохранить raw batch для ручного контролируемого rollout.
 python3 scripts/import_himalayas.py --narrow \
   --output data/inbox/himalayas-2026-08-11T090000Z.jsonl
@@ -175,6 +179,13 @@ python3 scripts/jobs.py ingest data/inbox/himalayas-2026-08-11T090000Z.jsonl \
 batch adapter никогда не перезаписывает. Full API job object сохраняется в
 `payload.himalayas`; ни `guid`, ни `applicationLink`, ни freshness не считаются
 доказательством открытой вакансии.
+
+`--artifact` создаёт immutable JSON artifact в указанном пути и не меняет
+checkout или canonical dataset. Он содержит normalized records, summary,
+`run_started_at`/`run_finished_at` в UTC и `found_at` по календарю
+`Europe/Belgrade`. Workflow `.github/workflows/source-discovery.yml` предоставляет
+read-only `workflow_dispatch` для `narrow` и `broad` и загружает artifact на 14
+дней.
 
 ## Завершённая verification
 

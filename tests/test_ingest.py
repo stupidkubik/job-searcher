@@ -111,7 +111,7 @@ class IngestCliTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         for directory in ("data", "applications", "scripts", "config", "inbox"):
             (self.root / directory).mkdir()
-        for name in ("jobs.py", "ingestion.py", "inbox.py", "source_config.py"):
+        for name in ("jobs.py", "ingestion.py", "inbox.py", "source_config.py", "tracker_time.py"):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         shutil.copy2(PROJECT / "config" / "sources.toml", self.root / "config" / "sources.toml")
         for name in ("jobs.csv", "job_sources.csv"):

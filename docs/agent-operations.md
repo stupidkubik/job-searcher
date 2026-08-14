@@ -1,6 +1,6 @@
 # Agent operations: trusted connector write-path
 
-Статус: implemented — 2026-08-12
+Статус: implemented — 2026-08-14
 
 Этот документ описывает действующий путь записи через GitHub connector и
 trusted GitHub Actions runner. Полный, machine-enforced JSON contract находится
@@ -80,12 +80,12 @@ change a branch's delivery mode based on it.
 
 | Command | Purpose | Key restriction |
 |---|---|---|
-| `add` | create one new job or attach a confirmed duplicate source | single-operation only; external source needs provenance |
+| `add` | create one new job or attach a confirmed duplicate source | single operation or batch child with stable `client_ref`; external source needs provenance |
 | `screen` | record a pre-application blocker without claiming verification | cannot close or duplicate a listing |
 | `verify` | record completed first-party and Apply verification | needs listing and both verification values |
 | `set` | schedule a next action or close an already-applied listing | narrow field allowlist only |
 | `status` | record a human lifecycle event | literal `confirmed_by_user=true` required |
-| `batch` | apply up to 100 distinct update commands together | `atomic=true`; `add` cannot be a child |
+| `batch` | apply up to 100 distinct updates/additions together | `atomic=true`; add IDs are assigned inside the transaction |
 
 `status` is the only connector command for `applied`, `interviewing`, `offer`,
 `rejected`, `ghosted`, and `withdrawn`. The user must explicitly report or
@@ -99,6 +99,12 @@ current row and includes `last_update` plus the state fields relevant to its
 decision. If any expected value differs in the runner checkout, no canonical
 write occurs and the runner writes an immutable `conflict` result with the
 mismatches.
+
+An `add` batch child has no `job_id` or `expected`: it carries a unique stable
+`client_ref` and validated add args. The runner assigns sequential job IDs in
+child order inside the isolated dataset and returns the `client_ref → job_id`
+mapping. A duplicate/source-reference conflict in any add child rolls back the
+whole batch.
 
 An operation ID can have exactly one result, regardless of whether that result
 is `completed` or `conflict`. The presence of a request file is not completion;

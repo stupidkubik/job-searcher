@@ -34,7 +34,8 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | `source` | enum | Первичный источник для аналитики и обратной совместимости. Полная provenance хранится в `data/job_sources.csv`. |
 | `remote_policy` | enum | `Remote` сам по себе не означает `Global`. |
 | `stack` | текст | Технологии через `; `, не запятую. |
-| `posted_at`, `found_at`, `applied_at`, `response_at`, `next_action_date`, `verified_at`, `last_update` | `YYYY-MM-DD` | `verified_at` — дата последней проверки первоисточника/Apply; `last_update` меняется при каждом обновлении строки. |
+| `posted_at` | `YYYY-MM-DD` | Дата публикации из источника; не переинтерпретируется как локальный timestamp. |
+| `found_at`, `applied_at`, `response_at`, `next_action_date`, `verified_at`, `last_update` | `YYYY-MM-DD` | Календарные tracker-даты считаются в `Europe/Belgrade`. `verified_at` — дата последней проверки первоисточника/Apply; `last_update` меняется при каждом обновлении строки. Точные audit/run timestamps хранятся отдельно в UTC. |
 | `match_score` | `1`–`10` | Допускаются десятичные значения, например `7.5`. |
 | `stage_reached` | упорядоченный enum | Максимально достигнутая стадия; может только расти. |
 | `decision_reason` | enum | Причина отсева или завершения; для `other` требуется пояснение в `notes`. |
@@ -109,7 +110,7 @@ job_id,source,source_url,source_job_id,found_at
 | `source` | Тот же source enum, что в `jobs.csv`. |
 | `source_url` | URL конкретной карточки или discovery page; нужен `source_url` или `source_job_id`. |
 | `source_job_id` | Стабильный ID карточки внутри источника, если он известен. |
-| `found_at` | Обязательная дата первого обнаружения reference, `YYYY-MM-DD`. |
+| `found_at` | Обязательная дата первого обнаружения reference по календарю `Europe/Belgrade`, `YYYY-MM-DD`. |
 
 Пара `source + source_job_id` уникальна во всём dataset. Нормализованный
 `source_url` проверяется при записи: совпадение с другой canonical job требует

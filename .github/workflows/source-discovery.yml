@@ -1,0 +1,57 @@
+name: source discovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      selection:
+        description: "Himalayas query set"
+        required: true
+        default: narrow
+        type: choice
+        options:
+          - narrow
+          - broad
+
+permissions:
+  contents: read
+
+jobs:
+  himalayas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    concurrency:
+      group: source-discovery-himalayas-${{ inputs.selection }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Run the checked-in read-only adapter
+        env:
+          SELECTION: ${{ inputs.selection }}
+        run: |
+          set -euo pipefail
+          python3 scripts/import_himalayas.py \
+            "--${SELECTION}" \
+            --artifact "$RUNNER_TEMP/himalayas-discovery.json" \
+            > "$RUNNER_TEMP/discovery-summary.json"
+
+      - name: Prove discovery did not change the checkout
+        if: always()
+        run: |
+          git status --porcelain > "$RUNNER_TEMP/git-status.txt"
+          test ! -s "$RUNNER_TEMP/git-status.txt"
+
+      - name: Upload normalized records and run metadata
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: himalayas-${{ inputs.selection }}-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/himalayas-discovery.json
+            ${{ runner.temp }}/discovery-summary.json
+          if-no-files-found: error
+          retention-days: 14

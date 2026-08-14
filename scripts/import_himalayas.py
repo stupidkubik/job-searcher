@@ -19,6 +19,10 @@ try:  # Direct CLI execution places scripts/ on sys.path.
     from source_config import SourceConfigError, load_source_config
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.import_himalayas.
     from scripts.source_config import SourceConfigError, load_source_config
+try:
+    from tracker_time import BUSINESS_TIMEZONE_NAME, business_date, utc_instant, utc_timestamp
+except ModuleNotFoundError:
+    from scripts.tracker_time import BUSINESS_TIMEZONE_NAME, business_date, utc_instant, utc_timestamp
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -280,7 +284,7 @@ def fetch_json(url, *, urlopen_func=urlopen, sleep_func=time.sleep):
 
 def collect_records(settings, run, *, today_value=None, fetch=fetch_json):
     """Fetch every configured query/geo page and retain qualifying raw records."""
-    today_value = today_value or datetime.now(timezone.utc).date()
+    today_value = today_value or business_date()
     oldest = date.fromordinal(today_value.toordinal() - run["max_age_days"])
     geo_passes = configured_geo_passes(settings)
     records, errors, seen_guids = [], [], set()
@@ -354,34 +358,70 @@ def write_jsonl(path, records):
         raise HimalayasImportError(f"не удалось записать raw batch {path}: {error}") from error
 
 
+def write_artifact(path, payload):
+    resolved = Path(path).resolve()
+    if resolved.exists():
+        raise HimalayasImportError(f"discovery artifact уже существует и immutable: {resolved}")
+    try:
+        resolved.parent.mkdir(parents=True, exist_ok=True)
+        with resolved.open("x", encoding="utf-8", newline="\n") as file:
+            json.dump(payload, file, ensure_ascii=False, indent=2, sort_keys=True)
+            file.write("\n")
+    except OSError as error:
+        raise HimalayasImportError(f"не удалось записать discovery artifact {resolved}: {error}") from error
+    return resolved
+
+
 def main():
     parser = argparse.ArgumentParser(description="Сохранить Himalayas discovery results как raw JSONL")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--narrow", action="store_true", help="registry narrow queries (default)")
     selection.add_argument("--broad", action="store_true", help="registry broad queries and fallback age window")
-    parser.add_argument("--output", type=Path, help="новый immutable .jsonl внутри data/inbox/")
-    parser.add_argument("--dry-run", action="store_true", help="запросить и классифицировать без записи raw batch")
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument("--output", type=Path, help="новый immutable .jsonl внутри data/inbox/")
+    mode.add_argument("--artifact", type=Path, help="новый read-only discovery artifact без canonical write")
+    mode.add_argument("--dry-run", action="store_true", help="запросить и классифицировать без записи raw batch")
     args = parser.parse_args()
-    if not args.dry_run and args.output is None:
-        die("--output обязателен без --dry-run")
-    if args.dry_run and args.output is not None:
-        die("--output нельзя указывать вместе с --dry-run")
+    started_at = utc_instant()
     try:
         settings = load_himalayas_settings()
         run = select_run(settings, broad=args.broad)
-        records, summary, errors = collect_records(settings, run)
+        found_at = business_date(started_at)
+        records, summary, errors = collect_records(settings, run, today_value=found_at)
+        finished_at = utc_instant()
         output = None
-        if not args.dry_run and not errors:
+        artifact_payload = {
+            "version": 1,
+            "source": SOURCE_NAME,
+            "selection": run["selection"],
+            "run_started_at": utc_timestamp(started_at),
+            "run_finished_at": utc_timestamp(finished_at),
+            "business_timezone": BUSINESS_TIMEZONE_NAME,
+            "found_at": found_at.isoformat(),
+            "cadence_hours": run["cadence_hours"],
+            "max_age_days": run["max_age_days"],
+            "geo_policy": settings["geo"],
+            "summary": summary,
+            "records": records,
+            "errors": errors,
+        }
+        if args.output is not None and not errors:
             output_path = validate_output_path(args.output)
             write_jsonl(output_path, records)
             output = output_path.relative_to(ROOT.resolve()).as_posix()
+        elif args.artifact is not None:
+            output = str(write_artifact(args.artifact, artifact_payload))
     except HimalayasImportError as error:
         die(str(error))
     result = {
         "ok": not errors,
         "command": "import_himalayas",
-        "mode": "dry_run" if args.dry_run else "write_raw_batch",
+        "mode": "dry_run" if args.dry_run else "write_artifact" if args.artifact is not None else "write_raw_batch",
         "selection": run["selection"],
+        "run_started_at": artifact_payload["run_started_at"],
+        "run_finished_at": artifact_payload["run_finished_at"],
+        "business_timezone": BUSINESS_TIMEZONE_NAME,
+        "found_at": artifact_payload["found_at"],
         "cadence_hours": run["cadence_hours"],
         "max_age_days": run["max_age_days"],
         "geo_policy": settings["geo"],

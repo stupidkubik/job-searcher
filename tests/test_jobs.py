@@ -8,6 +8,8 @@ import unittest
 from datetime import date
 from pathlib import Path
 
+from scripts.tracker_time import business_date
+
 
 PROJECT = Path(__file__).resolve().parents[1]
 V1_FIXTURE = PROJECT / "tests" / "fixtures" / "jobs-v1.csv"
@@ -35,7 +37,8 @@ class JobsCliTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         for directory in ("data", "applications", "scripts"):
             (self.root / directory).mkdir()
-        shutil.copy2(PROJECT / "scripts" / "jobs.py", self.root / "scripts" / "jobs.py")
+        for name in ("jobs.py", "tracker_time.py"):
+            shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
         (self.root / "data" / "jobs.csv").write_text(header + "\n", encoding="utf-8")
         source_header = (PROJECT / "data" / "job_sources.csv").read_text(encoding="utf-8").splitlines()[0]
@@ -137,7 +140,7 @@ class JobsCliTests(unittest.TestCase):
         row = self.rows()[0]
         self.assertEqual(row["id"], "job-0001")
         self.assertEqual((row["application_status"], row["listing_status"]), ("reviewing", "open"))
-        self.assertEqual(row["verified_at"], date.today().isoformat())
+        self.assertEqual(row["verified_at"], business_date().isoformat())
         cards = list((self.root / "applications").glob("job-0001-*.md"))
         self.assertEqual(len(cards), 1)
         card = cards[0].read_text(encoding="utf-8")
@@ -145,7 +148,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("company: Example Co", card)
         self.assertIn("first_party_verified: yes", card)
         self.assertIn("apply_verified: yes", card)
-        self.assertIn(f"verified_at: {date.today().isoformat()}", card)
+        self.assertIn(f"verified_at: {business_date().isoformat()}", card)
 
     def test_skipped_add_does_not_create_card(self):
         result = self.add(
@@ -178,7 +181,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((payload["ok"], payload["command"]), (True, "add"))
         self.assertEqual(payload["job"]["id"], "job-0001")
         self.assertEqual(payload["job"]["company"], "Json ExampleCo")
-        self.assertEqual(payload["job"]["last_update"], date.today().isoformat())
+        self.assertEqual(payload["job"]["last_update"], business_date().isoformat())
         self.assertTrue(payload["application_path"].startswith("applications/job-0001-"))
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
 
@@ -354,7 +357,7 @@ class JobsCliTests(unittest.TestCase):
         row = self.rows()[0]
         self.assertEqual((row["application_status"], row["listing_status"]), ("applied", "closed"))
         self.assertEqual(row["applied_at"], applied_at)
-        self.assertEqual(row["verified_at"], date.today().isoformat())
+        self.assertEqual(row["verified_at"], business_date().isoformat())
 
     def test_verification_invariants_reject_invalid_data_without_writing(self):
         before = (self.root / "data" / "jobs.csv").read_bytes()
@@ -382,7 +385,7 @@ class JobsCliTests(unittest.TestCase):
         )
         self.assertEqual(valid.returncode, 0, valid.stderr)
         row = self.rows()[0]
-        self.assertEqual(row["verified_at"], date.today().isoformat())
+        self.assertEqual(row["verified_at"], business_date().isoformat())
 
         protected = self.invoke("set", "job-0001", "verified_at=2020-01-01")
         self.assertNotEqual(protected.returncode, 0)
@@ -392,7 +395,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.add("UnverifiedCo", "Frontend Developer", "--no-file").returncode, 0)
         opened = self.invoke("set", "job-0001", "listing_status=open")
         self.assertEqual(opened.returncode, 0, opened.stderr)
-        self.assertEqual(self.rows()[0]["verified_at"], date.today().isoformat())
+        self.assertEqual(self.rows()[0]["verified_at"], business_date().isoformat())
         before = (self.root / "data" / "jobs.csv").read_bytes()
         invalid = self.invoke("set", "job-0001", "first_party_verified=yes")
         self.assertNotEqual(invalid.returncode, 0)
@@ -417,7 +420,7 @@ class JobsCliTests(unittest.TestCase):
         row = self.rows()[0]
         self.assertEqual((row["application_status"], row["listing_status"]), ("reviewing", "open"))
         self.assertEqual((row["first_party_verified"], row["apply_verified"]), ("yes", "yes"))
-        self.assertEqual(row["verified_at"], date.today().isoformat())
+        self.assertEqual(row["verified_at"], business_date().isoformat())
         card = next((self.root / "applications").glob("job-0001-*.md"))
         self.assertIn("listing_status: open", card.read_text(encoding="utf-8"))
 
@@ -449,7 +452,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(verified.returncode, 0, verified.stderr)
         card = card_path.read_text(encoding="utf-8")
         self.assertIn("# Preserve this legacy application body", card)
-        self.assertIn(f"verified_at: {date.today().isoformat()}", card)
+        self.assertIn(f"verified_at: {business_date().isoformat()}", card)
         self.assertIn("listing_status: open", card)
         self.assertIn("first_party_verified: yes", card)
         self.assertIn("apply_verified: yes", card)
@@ -576,7 +579,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.invoke("set", "job-0003", "listing_status=open").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
-        result = self.invoke("stale", "--days", "7", "--date", date.today().isoformat(), "--format", "json")
+        result = self.invoke("stale", "--days", "7", "--date", business_date().isoformat(), "--format", "json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
@@ -600,7 +603,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_todo_has_stable_sections_ordering_and_date_override(self):
-        reference = date.today()
+        reference = business_date()
         yesterday = (reference.fromordinal(reference.toordinal() - 1)).isoformat()
         tomorrow = (reference.fromordinal(reference.toordinal() + 1)).isoformat()
         self.assertEqual(self.add("OverdueLow", "Frontend Developer", "--match-score", "6", "--no-file").returncode, 0)
@@ -676,7 +679,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.invoke("set", "job-0001", "--stage", "Recruiter screen").returncode, 0)
         self.assertEqual(self.add("Second Employer", "Frontend Developer", "--no-file").returncode, 0)
 
-        stats = self.invoke("stats", "--date", date.today().isoformat(), "--format", "json")
+        stats = self.invoke("stats", "--date", business_date().isoformat(), "--format", "json")
 
         self.assertEqual(stats.returncode, 0, stats.stderr)
         payload = json.loads(stats.stdout)
@@ -691,7 +694,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(payload["sources"], [{
             "source": "Manual", "found": 2, "applied": 1, "responses": 1, "response_rate": 100.0,
         }])
-        report = self.invoke("report", "--date", date.today().isoformat())
+        report = self.invoke("report", "--date", business_date().isoformat())
         self.assertEqual(report.returncode, 0, report.stderr)
         self.assertIn("## Verification coverage", report.stdout)
         self.assertIn("## Stale verification", report.stdout)

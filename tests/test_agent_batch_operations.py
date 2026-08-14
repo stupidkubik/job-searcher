@@ -20,7 +20,7 @@ class AgentBatchOperationsTests(unittest.TestCase):
             "data/operations/requests", "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
-        for name in ("jobs.py", "agent_operations.py"):
+        for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
             header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
@@ -77,6 +77,80 @@ class AgentBatchOperationsTests(unittest.TestCase):
                 "decision_reason": reason,
             },
         }
+
+    def add_child(self, client_ref, company, source_job_id):
+        return {
+            "command": "add",
+            "client_ref": client_ref,
+            "args": {
+                "company": company,
+                "role": "Frontend Developer",
+                "source": "Himalayas",
+                "source_job_id": source_job_id,
+                "decision_reason": "geo_restriction",
+                "notes": "Remote is limited to the United States.",
+            },
+        }
+
+    def test_atomic_batch_adds_allocate_ids_inside_one_transaction(self):
+        request = self.write_batch(
+            "batch-add-001",
+            [
+                self.add_child("himalayas:one", "OneCo", "himalayas-one"),
+                self.add_child("himalayas:two", "TwoCo", "himalayas-two"),
+            ],
+        )
+
+        result = self.invoke(
+            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
+        operations = payload["result"]["result"]["operations"]
+        self.assertEqual(
+            [(entry["client_ref"], entry["job_id"]) for entry in operations],
+            [("himalayas:one", "job-0001"), ("himalayas:two", "job-0002")],
+        )
+        self.assertEqual([row["company"] for row in self.rows()], ["OneCo", "TwoCo"])
+
+    def test_later_add_conflict_rolls_back_every_earlier_add(self):
+        self.seed_job("ExistingCo")
+        before_jobs = (self.root / "data" / "jobs.csv").read_bytes()
+        before_sources = (self.root / "data" / "job_sources.csv").read_bytes()
+        request = self.write_batch(
+            "batch-add-conflict-001",
+            [
+                self.add_child("himalayas:new", "NewCo", "himalayas-new"),
+                self.add_child("himalayas:duplicate", "ExistingCo", "himalayas-duplicate"),
+            ],
+        )
+
+        result = self.invoke(
+            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        details = payload["result"]["result"]
+        self.assertEqual((payload["status"], details["reason"]), ("conflict", "batch_child_conflict"))
+        self.assertEqual((details["index"], details["client_ref"]), (1, "himalayas:duplicate"))
+        self.assertEqual(details["conflict"]["reason"], "unresolved_duplicate")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before_jobs)
+        self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), before_sources)
+        self.assertFalse(list((self.root / "applications").glob("job-0002-*.md")))
+
+    def test_batch_rejects_duplicate_add_client_refs(self):
+        child = self.add_child("himalayas:same", "OneCo", "himalayas-one")
+        request = self.write_batch("batch-add-ref-conflict-001", [child, child])
+
+        result = self.invoke(
+            "scripts/agent_operations.py", "validate", str(request), "--format", "json",
+        )
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("each add client_ref only once", result.stderr)
 
     def test_atomic_batch_applies_multiple_jobs_once(self):
         self.seed_job("OneCo")

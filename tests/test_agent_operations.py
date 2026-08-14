@@ -22,7 +22,7 @@ class AgentOperationsTests(unittest.TestCase):
             "data", "applications", "scripts", "data/operations/requests", "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
-        for name in ("jobs.py", "agent_operations.py"):
+        for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
             header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]

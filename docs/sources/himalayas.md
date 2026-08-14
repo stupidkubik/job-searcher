@@ -1,6 +1,6 @@
 # Himalayas search playbook
 
-Checked: 2026-08-13
+Checked: 2026-08-14
 
 Official references:
 
@@ -110,13 +110,15 @@ Do not create duplicates just because the same vacancy appears in both Serbia an
 
 For a connector-driven search:
 
-1. query the public search endpoint with several small query families;
+1. dispatch the read-only `source discovery` workflow with `narrow` or `broad`
+   and read its uploaded artifact;
 2. preserve `guid`, the exact Himalayas card URL and `applicationLink`
    separately;
 3. deduplicate against the full tracker before analysing the description;
 4. treat `applicationLink` only as a candidate first-party URL;
 5. open and verify the employer/ATS listing and visible Apply route;
-6. create an immutable operation request for every inspected job or new source
+6. create one atomic operation batch for the inspected exact vacancies, using
+   an `add` child with a stable `client_ref` for every new job or source
    reference, then wait for the trusted runner result.
 
 The connector must not copy `applicationLink` into `original_url` merely because
@@ -158,6 +160,10 @@ Europe filter.
 # Fetch, normalize and report without creating a raw file.
 python3 scripts/import_himalayas.py --narrow --dry-run
 
+# Produce a runner artifact outside the checkout without canonical writes.
+python3 scripts/import_himalayas.py --narrow \
+  --artifact /tmp/himalayas-discovery.json
+
 # Create exactly one new immutable batch; this does not call jobs.py ingest.
 python3 scripts/import_himalayas.py --narrow \
   --output data/inbox/himalayas-2026-08-11T090000Z.jsonl
@@ -169,6 +175,14 @@ python3 scripts/import_himalayas.py --narrow \
 uses that value as `source_job_id`, and retains the complete API job object in
 `payload.himalayas`. It only writes a new UTF-8 JSONL file inside `data/inbox/`;
 an existing batch is immutable and never overwritten.
+
+The read-only artifact includes the normalized records plus a versioned run
+manifest. `run_started_at` and `run_finished_at` are exact UTC instants;
+record-level `found_at` is the calendar date at run start in
+`Europe/Belgrade`. GitHub Actions exposes this mode through
+`.github/workflows/source-discovery.yml`, uses read-only repository permission,
+asserts that the checkout stayed clean, and uploads the artifact without a
+canonical write.
 
 The raw record maps `guid` (or, where needed, `applicationLink`) to `source_url`
 and keeps `applicationLink` separately as an unverified candidate URL. Neither

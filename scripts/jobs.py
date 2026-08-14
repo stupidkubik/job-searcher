@@ -17,6 +17,11 @@ from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 
+try:  # Direct CLI execution places scripts/ on sys.path.
+    from tracker_time import business_date
+except ModuleNotFoundError:  # Unit tests may import this module as scripts.jobs.
+    from scripts.tracker_time import business_date
+
 
 ROOT = Path(__file__).resolve().parent.parent
 CSV_PATH = ROOT / "data" / "jobs.csv"
@@ -242,7 +247,7 @@ class IngestPlan:
 
 
 def today():
-    return date.today().isoformat()
+    return business_date().isoformat()
 
 
 def positive_int(value):
@@ -439,7 +444,7 @@ def validate_rows(rows):
             except ValueError:
                 error(line, f"{identifier}: {key}={value!r} — ожидается YYYY-MM-DD")
             else:
-                if key != "next_action_date" and parsed > date.today():
+                if key != "next_action_date" and parsed > business_date():
                     warnings.append(f"строка {line}: {identifier}: {key}={value} в будущем — опечатка в годе?")
         score = (row.get("match_score") or "").strip()
         if score:
@@ -509,7 +514,7 @@ def validate_rows(rows):
             error(line, f"{identifier}: перевод строки в notes; длинный текст → applications/{identifier}.md")
         if application_status == "applied" and row.get("applied_at") and not row.get("response_at"):
             try:
-                days = (date.today() - datetime.strptime(row["applied_at"], "%Y-%m-%d").date()).days
+                days = (business_date() - datetime.strptime(row["applied_at"], "%Y-%m-%d").date()).days
                 if days > GHOST_AFTER_DAYS:
                     warnings.append(f"строка {line}: {identifier}: {days} дней без ответа → application_status=ghosted?")
             except ValueError:
@@ -561,7 +566,7 @@ def validate_job_sources(job_rows, source_rows):
             except ValueError:
                 error(line, f"{identifier}: found_at={found_at!r} — ожидается YYYY-MM-DD")
             else:
-                if parsed > date.today():
+                if parsed > business_date():
                     warnings.append(f"job_sources.csv:{line}: {identifier}: found_at={found_at} в будущем — опечатка в годе?")
         if "\n" in source_job_id:
             error(line, f"{identifier}: source_job_id содержит перевод строки")
@@ -1794,7 +1799,7 @@ def validate_status_date(value, field):
         parsed = datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError:
         die(f"status: {field} должна быть YYYY-MM-DD")
-    if parsed > date.today():
+    if parsed > business_date():
         die(f"status: {field} не может быть в будущем")
     return value
 
@@ -2833,7 +2838,7 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
 
 def cmd_stale(args):
     rows = load()
-    reference_date = args.date or date.today()
+    reference_date = args.date or business_date()
     stale = stale_entries(rows, args.days, reference_date)
     payload = {
         "ok": True,
@@ -2868,7 +2873,7 @@ def cmd_stale(args):
 
 def cmd_todo(args):
     rows = filter_todo_rows(load(), source=args.source, id_range=args.id_range)
-    reference_date = args.date or date.today()
+    reference_date = args.date or business_date()
     sections = todo_sections(rows, reference_date, stale_days=args.stale_days)
     payload = {
         "ok": True,
@@ -2901,7 +2906,7 @@ def cmd_todo(args):
 
 
 def cmd_stats(args):
-    payload = stats_payload(load(), args.date or date.today(), stale_days=args.stale_days)
+    payload = stats_payload(load(), args.date or business_date(), stale_days=args.stale_days)
     if args.format == "json":
         print_json(payload)
         return
@@ -2918,7 +2923,7 @@ def cmd_stats(args):
 
 
 def cmd_report(args):
-    payload = stats_payload(load(), args.date or date.today(), stale_days=args.stale_days)
+    payload = stats_payload(load(), args.date or business_date(), stale_days=args.stale_days)
     print(f"# Отчёт job-searcher — {payload['as_of']}\n\nВсего записей: **{payload['jobs_total']}**")
     print("\n## Основной статус\n\n| Derived state | Кол-во |\n|---|---:|")
     for state, amount in payload["derived_state"].items():

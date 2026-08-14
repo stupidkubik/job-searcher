@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
 import argparse, json, math, re, shutil, sys, tempfile
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import datetime
 from pathlib import Path
 try:
     import jobs
 except ModuleNotFoundError:
     from scripts import jobs
+try:
+    from tracker_time import utc_timestamp
+except ModuleNotFoundError:
+    from scripts.tracker_time import utc_timestamp
 ROOT = Path(__file__).resolve().parent.parent
 REQUESTS_DIR = ROOT / "data" / "operations" / "requests"
 RESULTS_DIR = ROOT / "data" / "operations" / "results"
@@ -18,7 +22,8 @@ JOB_ID_RE = re.compile(r"job-\d{4,}\Z")
 SINGLE_TOP_LEVEL_FIELDS = {"version","operation_id","command","job_id","expected","args"}
 ADD_TOP_LEVEL_FIELDS = {"version","operation_id","command","args"}
 BATCH_TOP_LEVEL_FIELDS = {"version","operation_id","command","atomic","operations"}
-CHILD_FIELDS = {"command","job_id","expected","args"}
+JOB_CHILD_FIELDS = {"command","job_id","expected","args"}
+ADD_CHILD_FIELDS = {"command","client_ref","args"}
 VERIFY_REQUIRED_ARGS = {"listing_status","first_party_verified","apply_verified"}
 VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {"original_url","decision_reason","notes","level","remote_policy","stack","salary","match_score","application_status","next_action","next_action_date"}
 SET_ALLOWED_ARGS = {"next_action","next_action_date","listing_status"}
@@ -39,10 +44,13 @@ ADD_DUPLICATE_ARGS = ADD_REQUIRED_ARGS | {
     "source_url","source_job_id","found_at","duplicate_of","force",
 }
 class OperationError(ValueError): pass
+class BatchConflict(OperationError):
+    def __init__(self, details):
+        super().__init__(details.get("reason", "batch_child_conflict")); self.details=details
 def die(message):
     print(f"error: {message}", file=sys.stderr); raise SystemExit(1)
 def print_json(value): print(json.dumps(value, ensure_ascii=False, sort_keys=True))
-def utc_now(): return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00","Z")
+def utc_now(): return utc_timestamp()
 def clean_text(value, field):
     if not isinstance(value,str): raise OperationError(f"{field} must be a string")
     if "\n" in value or "\r" in value: raise OperationError(f"{field} must not contain a newline")
@@ -200,13 +208,24 @@ def validate_add_args(args,prefix="args"):
 def validate_child(value,index=None):
     prefix=f"operations[{index}]" if index is not None else "operation"
     if not isinstance(value,dict): raise OperationError(f"{prefix} must be an object")
-    unknown=sorted(set(value)-CHILD_FIELDS); missing=sorted(CHILD_FIELDS-set(value))
+    command=clean_text(value.get("command"),f"{prefix}.command") if "command" in value else None
+    if command=="add":
+        unknown=sorted(set(value)-ADD_CHILD_FIELDS); missing=sorted(ADD_CHILD_FIELDS-set(value))
+        if unknown or missing:
+            parts=[]
+            if unknown: parts.append("unknown fields: "+", ".join(unknown))
+            if missing: parts.append("missing fields: "+", ".join(missing))
+            raise OperationError(f"{prefix}: "+"; ".join(parts))
+        client_ref=clean_text(value["client_ref"],f"{prefix}.client_ref").strip()
+        if not client_ref: raise OperationError(f"{prefix}.client_ref must not be empty")
+        if len(client_ref)>200: raise OperationError(f"{prefix}.client_ref must not exceed 200 characters")
+        return {"command":"add","client_ref":client_ref,"args":validate_add_args(value["args"],f"{prefix}.args")}
+    unknown=sorted(set(value)-JOB_CHILD_FIELDS); missing=sorted(JOB_CHILD_FIELDS-set(value))
     if unknown or missing:
         parts=[]
         if unknown: parts.append("unknown fields: "+", ".join(unknown))
         if missing: parts.append("missing fields: "+", ".join(missing))
         raise OperationError(f"{prefix}: "+"; ".join(parts))
-    command=clean_text(value["command"],f"{prefix}.command")
     if command not in {"screen","verify","set","status"}: raise OperationError(f"{prefix}.command must be screen, verify, set or status")
     job_id=clean_text(value["job_id"],f"{prefix}.job_id")
     if not JOB_ID_RE.fullmatch(job_id): raise OperationError(f"{prefix}.job_id must be job-NNNN")
@@ -242,8 +261,10 @@ def validate_operation(value):
         if not isinstance(entries,list) or not entries: raise OperationError("batch.operations must be a non-empty array")
         if len(entries)>MAX_BATCH_OPERATIONS: raise OperationError(f"batch.operations exceeds {MAX_BATCH_OPERATIONS} entries")
         operations=[validate_child(entry,i) for i,entry in enumerate(entries)]
-        ids=[x["job_id"] for x in operations]
+        ids=[x["job_id"] for x in operations if x["command"]!="add"]
         if len(ids)!=len(set(ids)): raise OperationError("batch may contain each job_id only once")
+        client_refs=[x["client_ref"] for x in operations if x["command"]=="add"]
+        if len(client_refs)!=len(set(client_refs)): raise OperationError("batch may contain each add client_ref only once")
         return {"version":OPERATION_VERSION,"operation_id":operation_id,"command":"batch","atomic":True,"operations":operations}
     unknown=sorted(set(value)-SINGLE_TOP_LEVEL_FIELDS); missing=sorted(SINGLE_TOP_LEVEL_FIELDS-set(value))
     if unknown or missing:
@@ -271,6 +292,7 @@ def read_job(job_id):
 def precondition_mismatches(row,expected):
     return {k:{"expected":v,"actual":row.get(k,"")} for k,v in expected.items() if row.get(k,"")!=v}
 def classify_child_risk(operation,row):
+    if operation["command"]=="add": return "medium"
     if operation["command"]=="status": return "medium"
     if operation["command"] in {"screen","set"}: return "low"
     args=operation["args"]
@@ -284,7 +306,7 @@ def classify_risk(operation,rows_by_id=None):
         row=rows_by_id[operation["job_id"]] if rows_by_id is not None else read_job(operation["job_id"])
         return classify_child_risk(operation,row)
     rows_by_id=rows_by_id or {row["id"]:row for row in jobs.load()}
-    return "medium" if any(classify_child_risk(child,rows_by_id[child["job_id"]])=="medium" for child in operation["operations"]) else "low"
+    return "medium" if any(classify_child_risk(child,rows_by_id.get(child.get("job_id")))=="medium" for child in operation["operations"]) else "low"
 def apply_operation(operation,row):
     if operation["command"]=="verify":
         result=jobs.verify_job(operation["job_id"],**operation["args"])
@@ -303,7 +325,7 @@ def operation_result(operation,*,status,risk,details,job_id=None):
     result={"version":OPERATION_VERSION,"operation_id":operation["operation_id"],"status":status,"executed_at":utc_now(),"risk":risk,"command":operation["command"],"result":details}
     if operation["command"]=="add":
         if job_id: result["job_id"]=job_id
-    elif operation["command"]=="batch": result["jobs"]=[child["job_id"] for child in operation["operations"]]
+    elif operation["command"]=="batch": result["jobs"]=[child["job_id"] for child in operation["operations"] if child["command"]!="add"]
     else: result["job_id"]=operation["job_id"]
     return result
 def write_result(operation,result):
@@ -335,15 +357,33 @@ def changed_application_writes(temp_root):
 def batch_preconditions(operation,rows_by_id):
     conflicts=[]
     for child in operation["operations"]:
+        if child["command"]=="add": continue
         row=rows_by_id.get(child["job_id"])
         if row is None: raise OperationError(f"job {child['job_id']} was not found")
         mismatches=precondition_mismatches(row,child["expected"])
         if mismatches: conflicts.append({"job_id":child["job_id"],"command":child["command"],"mismatches":mismatches})
     return conflicts
+def add_conflict_details(error):
+    if isinstance(error,jobs.UnresolvedDuplicate):
+        candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason} for row,reason in error.candidates.values()]
+        return {"reason":"unresolved_duplicate","candidates":candidates}
+    return {"reason":"source_reference_conflict","message":error.message,"existing":error.existing}
+def apply_add(operation):
+    args=dict(operation["args"]); force=args.pop("force",False); duplicate_of=args.pop("duplicate_of",None)
+    if duplicate_of and not any(row["id"]==duplicate_of for row in jobs.load()): raise OperationError(f"job {duplicate_of} was not found")
+    applied=jobs.add_job(args,force=force,duplicate_of=duplicate_of,no_file=False)
+    updated=applied["job"]
+    return updated,{"outcome":"source_reference_added" if applied.get("duplicate_of") else "job_added","job_id":updated["id"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"application_path":applied.get("application_path"),"source_reference":applied.get("source_reference"),"warnings":applied["warnings"]}
 def execute_batch(operation):
     child_results=[]
     with temporary_tracker_workspace() as temp_root:
-        for child in operation["operations"]:
+        for index,child in enumerate(operation["operations"]):
+            if child["command"]=="add":
+                try: updated,details=apply_add(child)
+                except (jobs.UnresolvedDuplicate,jobs.SourceReferenceConflict) as error:
+                    raise BatchConflict({"reason":"batch_child_conflict","index":index,"command":"add","client_ref":child["client_ref"],"conflict":add_conflict_details(error)}) from error
+                child_results.append({"client_ref":child["client_ref"],"command":"add",**details})
+                continue
             current=read_job(child["job_id"]); applied=apply_operation(child,current); updated=applied["job"]
             child_results.append({"job_id":child["job_id"],"command":child["command"],"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"stage_reached":updated["stage_reached"],"warnings":applied["warnings"]})
         temp_rows=[dict(row) for row in jobs.load()]; temp_sources=[dict(row) for row in jobs.load_job_sources()]
@@ -356,20 +396,17 @@ def execute(path):
     operation=load_operation(path)
     if result_path(operation["operation_id"]).exists(): raise OperationError(f"operation_id already has a result: {result_path(operation['operation_id']).relative_to(ROOT)}")
     if operation["command"]=="add":
-        risk="medium"; args=dict(operation["args"]); force=args.pop("force",False); duplicate_of=args.pop("duplicate_of",None)
-        if duplicate_of and not any(row["id"]==duplicate_of for row in jobs.load()): raise OperationError(f"job {duplicate_of} was not found")
-        try: applied=jobs.add_job(args,force=force,duplicate_of=duplicate_of,no_file=False)
+        risk="medium"
+        try: updated,details=apply_add(operation)
         except jobs.UnresolvedDuplicate as error:
-            candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason} for row,reason in error.candidates.values()]
-            result=operation_result(operation,status="conflict",risk=risk,details={"reason":"unresolved_duplicate","candidates":candidates})
+            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error))
             return result,write_result(operation,result)
         except jobs.SourceReferenceConflict as error:
-            result=operation_result(operation,status="conflict",risk=risk,details={"reason":"source_reference_conflict","message":error.message,"existing":error.existing})
+            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error))
             return result,write_result(operation,result)
-        updated=applied["job"]; errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
+        errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
         if errors: raise OperationError("post-operation dataset validation failed: "+"; ".join(errors))
-        outcome="source_reference_added" if applied.get("duplicate_of") else "job_added"
-        details={"outcome":outcome,"job_id":updated["id"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"application_path":applied.get("application_path"),"source_reference":applied.get("source_reference"),"warnings":[*applied["warnings"],*validation_warnings]}
+        details["warnings"]=[*details["warnings"],*validation_warnings]
         result=operation_result(operation,status="completed",risk=risk,details=details,job_id=updated["id"])
         return result,write_result(operation,result)
     if operation["command"]=="batch":
@@ -377,7 +414,10 @@ def execute(path):
         if conflicts:
             result=operation_result(operation,status="conflict",risk=risk,details={"reason":"stale_operation","conflicts":conflicts})
             return result,write_result(operation,result)
-        children,warnings=execute_batch(operation)
+        try: children,warnings=execute_batch(operation)
+        except BatchConflict as error:
+            result=operation_result(operation,status="conflict",risk=risk,details=error.details)
+            return result,write_result(operation,result)
         result=operation_result(operation,status="completed",risk=risk,details={"outcome":"atomic_batch_applied","count":len(children),"operations":children,"warnings":warnings})
         return result,write_result(operation,result)
     row=read_job(operation["job_id"]); risk=classify_risk(operation,{row["id"]:row}); mismatches=precondition_mismatches(row,operation["expected"])
