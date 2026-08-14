@@ -1,0 +1,176 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T16:13:40Z",
+  "jobs": [],
+  "operation_id": "getmatch-initial-pass-20260814-v3",
+  "result": {
+    "count": 8,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:28400",
+        "command": "add",
+        "job_id": "job-0191",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0191",
+            "source": "Other",
+            "source_job_id": "getmatch:28400",
+            "source_url": "https://getmatch.ru/vacancies/28400-junior-frontend-developer-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:34629",
+        "command": "add",
+        "job_id": "job-0192",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0192",
+            "source": "Other",
+            "source_job_id": "getmatch:34629",
+            "source_url": "https://getmatch.ru/vacancies/34629-junior-frontend-razrabotchik-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:34761",
+        "command": "add",
+        "job_id": "job-0193",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0193",
+            "source": "Other",
+            "source_job_id": "getmatch:34761",
+            "source_url": "https://getmatch.ru/vacancies/34761-junior-middle-js-react-developer-shoping-i"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:10678",
+        "command": "add",
+        "job_id": "job-0194",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0194",
+            "source": "Other",
+            "source_job_id": "getmatch:10678",
+            "source_url": "https://getmatch.ru/vacancies/10678-razrabotchik-interfeisov-igry"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:12124",
+        "command": "add",
+        "job_id": "job-0195",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0195",
+            "source": "Other",
+            "source_job_id": "getmatch:12124",
+            "source_url": "https://getmatch.ru/vacancies/12124-razrabotchik-interfeisov-direkt"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:10517",
+        "command": "add",
+        "job_id": "job-0196",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0196",
+            "source": "Other",
+            "source_job_id": "getmatch:10517",
+            "source_url": "https://getmatch.ru/vacancies/10517-junior-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:28819",
+        "command": "add",
+        "job_id": "job-0197",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0197",
+            "source": "Other",
+            "source_job_id": "getmatch:28819",
+            "source_url": "https://getmatch.ru/vacancies/28819-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "getmatch:22455",
+        "command": "add",
+        "job_id": "job-0198",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0198",
+            "source": "Other",
+            "source_job_id": "getmatch:22455",
+            "source_url": "https://getmatch.ru/vacancies/22455-frontend-engineer"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
