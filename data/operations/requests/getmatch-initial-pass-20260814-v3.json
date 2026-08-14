@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "operation_id": "getmatch-initial-pass-20260814-v3",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "getmatch:28400",
+      "args": {
+        "company": "Т-Банк",
+        "role": "Junior Frontend Developer (React)",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/28400-junior-frontend-developer-react",
+        "source_job_id": "getmatch:28400",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Moscow / Saint Petersburg, Russia",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; React",
+        "salary": "from 160,000 RUB/month net",
+        "decision_reason": "geo_restriction",
+        "notes": "Getmatch discovery source. Advertised as Moscow/Saint Petersburg hybrid; description says remote may be agreed, but no Serbia/global eligibility is stated. Source card was live on 2026-08-14."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:34629",
+      "args": {
+        "company": "Т-Банк",
+        "role": "Junior Frontend-разработчик (React)",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/34629-junior-frontend-razrabotchik-react",
+        "source_job_id": "getmatch:34629",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; JavaScript; TypeScript; Unit testing; Node.js; CI/CD",
+        "salary": "from 120,000 RUB/month before tax",
+        "decision_reason": "geo_restriction",
+        "notes": "Getmatch discovery source. Remote eligibility is explicitly Russia; hybrid cities are Saint Petersburg, Voronezh, Nizhny Novgorod, Samara, and Rostov-on-Don. Source card was live on 2026-08-14."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:34761",
+      "args": {
+        "company": "Т-Банк",
+        "role": "Junior/Middle JS React Developer (Шопинг и Реклама)",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/34761-junior-middle-js-react-developer-shoping-i",
+        "source_job_id": "getmatch:34761",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "Russia / Kazakhstan / Yerevan, Armenia / Belarus",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; React; Effector; REST API; WebSocket",
+        "salary": "from 300,000 RUB/month before tax",
+        "decision_reason": "geo_restriction",
+        "notes": "Getmatch card is archived. Advertised remote geography is limited to Russia, Kazakhstan, Yerevan/Armenia, and Belarus, excluding Serbia. Source archive is provenance only; canonical listing status was not inferred from it."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:10678",
+      "args": {
+        "company": "Яндекс MultiTrack",
+        "role": "Разработчик интерфейсов (Игры)",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/10678-razrabotchik-interfeisov-igry",
+        "source_job_id": "getmatch:10678",
+        "original_url": "https://yandex.ru/jobs/vacancies/razrabotchik-interfeysov-v-igri-10990",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "level": "Middle",
+        "location": "Belgrade, Serbia / Saint Petersburg, Russia / Moscow, Russia",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; HTML; CSS; Git; TypeScript; Node.js; React; PWA; Service Worker",
+        "salary": "250,000-400,000 RUB/month net",
+        "decision_reason": "closed_before_application",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "notes": "Getmatch card is archived. The role description matches Yandex's official 'Разработчик интерфейсов в Игры' vacancy; the current official exact page is archived and has no active Apply route."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:12124",
+      "args": {
+        "company": "Яндекс MultiTrack",
+        "role": "Разработчик интерфейсов (Директ)",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/12124-razrabotchik-interfeisov-direkt",
+        "source_job_id": "getmatch:12124",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Belgrade, Serbia / Saint Petersburg, Russia / Moscow, Russia",
+        "remote_policy": "Hybrid",
+        "stack": "React; Redux; TypeScript; GraphQL; Node.js",
+        "salary": "200,000-400,000 RUB/month net",
+        "decision_reason": "other",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Getmatch card is archived. Current Yandex careers has related Direct frontend vacancies and archived historical Direct listings, but no exact requisition could be matched to this MultiTrack card; canonical status therefore remains unknown and no exact Apply route was verified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:10517",
+      "args": {
+        "company": "Slash",
+        "role": "Junior Frontend Developer",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/10517-junior-frontend-developer",
+        "source_job_id": "getmatch:10517",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Worldwide",
+        "remote_policy": "Global",
+        "stack": "JavaScript; Vue.js; CSS; DOM; JSON; Webpack",
+        "salary": "1,500-1,600 USD/month net",
+        "decision_reason": "other",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Getmatch card is archived. Its description is for a shopping-discount browser-extension company; the linked slash.com domain now presents a different fintech company and no matching current Junior Frontend requisition, so exact employer/Apply identity cannot be verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:28819",
+      "args": {
+        "company": "Название скрыто (Sport&Technologies)",
+        "role": "Frontend Developer",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/28819-frontend-developer",
+        "source_job_id": "getmatch:28819",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Worldwide / Belgrade, Serbia",
+        "remote_policy": "Global",
+        "stack": "JavaScript; TypeScript; React; Redux; MobX; Zustand; React Context; REST API; JWT; Webpack",
+        "salary": "3,000-3,500 EUR/month before tax",
+        "decision_reason": "other",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Getmatch card is archived. Employer name is explicitly hidden under NDA, so first-party identity and the exact Apply route cannot be verified outside Getmatch."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "getmatch:22455",
+      "args": {
+        "company": "getmatch",
+        "role": "Frontend Engineer",
+        "source": "Other",
+        "source_url": "https://getmatch.ru/vacancies/22455-frontend-engineer",
+        "source_job_id": "getmatch:22455",
+        "original_url": "https://getmatch.ru/vacancies/22455-frontend-engineer",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "level": "Senior",
+        "location": "Moscow / Russia",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; Angular; React; Redux; TypeScript; Webpack; Sass; Less",
+        "salary": "250,000-350,000 RUB/month net",
+        "decision_reason": "closed_before_application",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "notes": "Getmatch is the employer and the exact vacancy is hosted on its own platform; the current exact page is archived, so the role is closed before application."
+      }
+    }
+  ]
+}

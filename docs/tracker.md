@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-14** · Jobs: **190**
+Dataset updated: **2026-08-14** · Jobs: **198**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (158)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (166)](#archive)
 
 ## Action now
 
@@ -57,10 +57,18 @@ Dataset updated: **2026-08-14** · Jobs: **190**
 
 <details>
 
-<summary>Archive (158)</summary>
+<summary>Archive (166)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Closed | [getmatch — Frontend Engineer](<https://getmatch.ru/vacancies/22455-frontend-engineer>) · job-0198 | closed before application | Closed | 2026-08-14 |
+| Skipped: other | [Название скрыто (Sport&Technologies) — Frontend Developer](<https://getmatch.ru/vacancies/28819-frontend-developer>) · job-0197 | other | Not checked | 2026-08-14 |
+| Skipped: other | [Slash — Junior Frontend Developer](<https://getmatch.ru/vacancies/10517-junior-frontend-developer>) · job-0196 | other | Not checked | 2026-08-14 |
+| Skipped: other | [Яндекс MultiTrack — Разработчик интерфейсов (Директ)](<https://getmatch.ru/vacancies/12124-razrabotchik-interfeisov-direkt>) · job-0195 | other | Not checked | 2026-08-14 |
+| Closed | [Яндекс MultiTrack — Разработчик интерфейсов (Игры)](<https://yandex.ru/jobs/vacancies/razrabotchik-interfeysov-v-igri-10990>) · job-0194 | closed before application | Closed | 2026-08-14 |
+| Skipped: geo restriction | [Т-Банк — Junior/Middle JS React Developer (Шопинг и Реклама)](<https://getmatch.ru/vacancies/34761-junior-middle-js-react-developer-shoping-i>) · job-0193 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Т-Банк — Junior Frontend-разработчик (React)](<https://getmatch.ru/vacancies/34629-junior-frontend-razrabotchik-react>) · job-0192 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Т-Банк — Junior Frontend Developer (React)](<https://getmatch.ru/vacancies/28400-junior-frontend-developer-react>) · job-0191 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Hire Feed — Junior Software Engineer (Remote)](<https://www.linkedin.com/jobs/view/4453053820/>) · job-0190 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Etteplan — Frontend Developer - future projects (M/F/NB)](<https://www.linkedin.com/jobs/view/4345410062/>) · job-0189 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [Harper Russo — Senior Full Stack Engineer](<https://www.linkedin.com/jobs/view/4451670432/>) · job-0188 | seniority too high | Not checked | 2026-08-14 |
