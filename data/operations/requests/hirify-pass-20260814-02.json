@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "operation_id": "hirify-pass-20260814-02",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:736649",
+      "args": {
+        "company": "Aviasales",
+        "role": "Frontend Developer (User Platform)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/736649-frontend-developer-traveltech",
+        "source_job_id": "736649",
+        "found_at": "2026-08-14",
+        "duplicate_of": "job-0160"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:537190",
+      "args": {
+        "company": "Plata Card",
+        "role": "Low-Code Engineer - Middle/Middle+ [HR Automation]",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/537190-low-code-engineer-hr-automation",
+        "source_job_id": "537190",
+        "found_at": "2026-08-14",
+        "duplicate_of": "job-0161"
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0169",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-14"
+      },
+      "args": {
+        "next_action": "verify exact Hirify card and first-party source"
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0170",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-14"
+      },
+      "args": {
+        "next_action": "resolve exact employer vacancy and Serbia eligibility"
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0171",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-14"
+      },
+      "args": {
+        "next_action": "verify Atlantis first-party application route"
+      }
+    }
+  ]
+}
