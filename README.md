@@ -6,6 +6,10 @@
 
 Главный принцип: **ни одна найденная вакансия не исчезает без записи**.
 
+Текущая схема компонентов и поток данных описаны в
+[`docs/current-architecture.md`](docs/current-architecture.md), а индекс
+действующих и исторических документов — в [`docs/README.md`](docs/README.md).
+
 ## Ежедневная работа в браузере
 
 Откройте [Job tracker](docs/tracker.md) в GitHub: это основное read-only
@@ -31,10 +35,12 @@ python3 scripts/jobs.py add \
 # После фактической отправки заявки человеком
 python3 scripts/jobs.py status job-0001 \
   --application-status applied --applied-at 2026-08-12 \
-  --cv-version frontend-2026-08
+  --cv-version cv-frontend-2026-08
 
 # После любого изменения
-python3 scripts/jobs.py validate
+python3 scripts/jobs.py validate --strict
+python3 scripts/jobs.py render-tracker
+python3 scripts/jobs.py render-tracker --check
 ```
 
 Для неподходящей или закрытой позиции всё равно создаётся запись, например:
@@ -51,6 +57,8 @@ python3 scripts/jobs.py add \
 | Что | Где |
 |---|---|
 | правила работы ИИ-агента | [AGENTS.md](AGENTS.md) |
+| индекс документации и правила её обновления | [docs/README.md](docs/README.md) |
+| текущая архитектура | [docs/current-architecture.md](docs/current-architecture.md) |
 | основной browser UI | [docs/tracker.md](docs/tracker.md) |
 | профиль, приоритеты и доказательства | [config/profile.md](config/profile.md) |
 | поисковые запросы | [config/search-queries.md](config/search-queries.md) |
@@ -58,19 +66,35 @@ python3 scripts/jobs.py add \
 | canonical storage вакансий | [data/jobs.csv](data/jobs.csv) |
 | provenance источников | [data/job_sources.csv](data/job_sources.csv) |
 | поля и допустимые значения | [data/schema.md](data/schema.md) |
+| raw discovery batches | [data/inbox/README.md](data/inbox/README.md) |
+| connector operation contract | [data/operations/README.md](data/operations/README.md) |
+| CLI и полный набор команд | [docs/jobs-cli.md](docs/jobs-cli.md) |
 | подробности по вакансии | [applications/](applications/) |
 | актуальные версии резюме | [cv/current/](cv/current/) |
 | шаблоны писем | [templates/](templates/) |
 | отчёты | [reports/](reports/) |
-| historical architecture research | [docs/architecture.md](docs/architecture.md) |
+| historical pre-v1 architecture research | [docs/architecture.md](docs/architecture.md) |
 | дальнейшие улучшения | [docs/roadmap.md](docs/roadmap.md) |
 | подробный план Tracker v2 | [docs/tracker-v2-plan.md](docs/tracker-v2-plan.md) |
-| connector → tracker operation gateway | [data/operations/README.md](data/operations/README.md) |
+
+## Как устроен поток данных
+
+1. Discovery выполняется через browser/source playbook или fetch-only adapter.
+2. Raw batch или read-only artifact сохраняет результат запуска, но не является
+   canonical данными.
+3. Dedupe и first-party verification определяют canonical outcome.
+4. Локальный агент пишет через `jobs.py`; GitHub connector — через immutable
+   request и trusted runner.
+5. Canonical CSV, provenance и application cards порождают generated tracker и
+   отчёты.
+
+Himalayas read-only workflow, atomic source batches и точная trust boundary
+описаны в [текущей архитектуре](docs/current-architecture.md).
 
 ## Правила в двух словах
 
-- Сначала проверяйте дубли: `original_url`, затем компания + роль, затем похожие
-  названия в одной компании.
+- Сначала проверяйте `source + source_job_id`, затем `original_url` и discovery
+  references, затем компания + роль и fuzzy-кандидаты.
 - Агрегатор нужен для поиска, но актуальность, географию и Apply нужно проверять
   только на первоисточнике работодателя или ATS.
 - `Remote` не означает global remote: при неясности используйте
@@ -87,10 +111,12 @@ python3 scripts/jobs.py add \
 ## Проверка
 
 ```bash
-python3 scripts/jobs.py validate
+python3 scripts/jobs.py validate --strict
 python3 scripts/jobs.py render-tracker --check
 python3 -m unittest discover -s tests -v
 python3 scripts/jobs.py dupes
 ```
 
-GitHub Actions запускает эти проверки на `main`, `codex/restructure` и pull request.
+GitHub Actions запускает validation на `main`, pull requests и вручную. Отдельные
+workflows применяют trusted connector operations и выполняют read-only source
+discovery.
