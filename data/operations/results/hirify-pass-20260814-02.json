@@ -1,0 +1,87 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T10:01:36Z",
+  "jobs": [
+    "job-0169",
+    "job-0170",
+    "job-0171"
+  ],
+  "operation_id": "hirify-pass-20260814-02",
+  "result": {
+    "count": 5,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:736649",
+        "command": "add",
+        "job_id": "job-0160",
+        "listing_status": "closed",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0160",
+            "source": "Hirify",
+            "source_job_id": "736649",
+            "source_url": "https://hirify.me/jobs/736649-frontend-developer-traveltech"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:537190",
+        "command": "add",
+        "job_id": "job-0161",
+        "listing_status": "open",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0161",
+            "source": "Hirify",
+            "source_job_id": "537190",
+            "source_url": "https://hirify.me/jobs/537190-low-code-engineer-hr-automation"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0169",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0170",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0171",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

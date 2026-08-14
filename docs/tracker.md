@@ -49,9 +49,9 @@ Dataset updated: **2026-08-14** · Jobs: **171**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
-| Reviewing | [Undisclosed — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify exact Hirify card and first-party source | Never |
+| Reviewing | [Undisclosed — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | resolve exact employer vacancy and Serbia eligibility | Never |
+| Reviewing | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | First party + Apply + Listing | — | verify Atlantis first-party application route | Never |
 
 ## Archive
 
