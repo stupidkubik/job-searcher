@@ -8,116 +8,67 @@ Official references:
 - [Apply for jobs on LinkedIn](https://www.linkedin.com/help/linkedin/answer/a512388)
 - [Easy Apply limits](https://www.linkedin.com/help/linkedin/answer/a512348)
 
-Common lifecycle, dedupe and write-path rules live in
-[`README.md`](README.md). This file contains only LinkedIn-specific behavior.
+Общий lifecycle обязателен и описан в [`README.md`](README.md). Здесь только
+LinkedIn-specific правила.
 
-## Role in the search layer
+## Роль и доступ
 
-LinkedIn is a broad, signed-in discovery surface with personalized ordering. It
-is not automatically the employer's first-party source. Use the visible UI and
-exact job cards; do not call private endpoints, scrape around access controls or
-automate application submission.
+LinkedIn — personalized signed-in discovery surface. Использовать только
+видимый UI и `source=LinkedIn`; не вызывать private endpoints, не обходить
+access controls и не автоматизировать отправку. Save, Follow, Message и Submit
+— external writes.
 
-For tracker provenance:
+## Routes: narrow → broad
 
-- `source=LinkedIn`;
-- normalize `source_url` to `https://www.linkedin.com/jobs/view/<id>/` and strip
-  tracking parameters;
-- `source_job_id` = numeric LinkedIn job ID;
-- `original_url` = verified employer careers/ATS listing when one exists.
+| Pass | Filters | Назначение |
+|---|---|---|
+| Narrow | role family + Serbia/Europe/compatible remote + recent | свежие exact cards |
+| Broad | adjacent titles + one-week/month fallback | расширение покрытия |
+| Separate | Easy Apply, company/network, applicant-count signals | дополнительный route/ranking, не universal filter |
 
-## Discovery strategy
+Результаты персонализированы и ограничены, поэтому одна выдача не считается
+исчерпывающей. Варьировать keywords и сохранять exact identity до перехода в
+recommendations/company pages.
 
-Use separate query passes for role families and locations. Combine LinkedIn's
-documented filters deliberately:
+## Exact identity и original source
 
-- Date posted: recent first, then one-week and one-month fallback;
-- location: Serbia, Europe and explicitly remote-compatible markets;
-- experience level and employment type;
-- company or network filters when validating a lead;
-- Easy Apply only as a separate pass, not as a universal quality filter;
-- under-10-applicants or similar signals only for ordering.
+| Значение | Правило |
+|---|---|
+| exact card | `/jobs/view/<numeric-id>/` |
+| stable `source_job_id` | numeric LinkedIn job ID |
+| `source_url` | `https://www.linkedin.com/jobs/view/<id>/` без tracking |
+| original route | external `Apply` → exact employer/ATS requisition |
 
-Because results are personalized and capped, vary the keywords instead of
-assuming one result set is exhaustive. Preserve exact cards before exploring
-company pages or related jobs.
+Poster, staffing intermediary и company profile не обязательно являются
+работодателем/original source. Несколько LinkedIn IDs одной employer requisition
+— source references; location-specific requisitions не объединять по title.
 
-## Exact-card verification
+## Source status и Apply boundary
 
-For each plausible card:
+| Signal | Доказывает | Не доказывает |
+|---|---|---|
+| live LinkedIn card | card доступна | employer job open |
+| `Apply` | внешний route | exact/live first-party listing |
+| `Easy Apply` | native LinkedIn form | first-party verification |
+| promoted/reposted label | distribution event | employer freshness |
+| applicant count | LinkedIn ranking signal | fit или шанс отклика |
 
-1. capture the numeric ID and normalized exact URL;
-2. read the complete description, including location and applicant screening;
-3. identify the actual hiring employer, not only the poster or recruiting
-   intermediary;
-4. follow `Apply` to the employer/ATS and resolve the exact requisition;
-5. check the employer's current board for the same job and nearby variants;
-6. verify the visible Apply route without submitting it.
+Native Easy Apply можно открыть только для чтения полей и остановиться до
+Submit. Если exact employer listing не найдена, verification остаётся unknown;
+LinkedIn card не становится `original_url`.
 
-If LinkedIn shows `Easy Apply`, the application stays inside LinkedIn. The
-button's presence alone does not prove employer-side listing freshness or allow
-`first_party_verified=yes`. Do not claim verified first party merely because the
-company page or poster looks legitimate.
+## Trust и ловушки
 
-## Easy Apply and external actions
+- `Remote` обычно ограничен рынком карточки, а не означает worldwide.
+- Recruiter/poster может скрывать actual hiring employer.
+- Старый ID может исчезнуть при новом repost той же requisition.
+- Текущая LinkedIn card может вести на закрытую ATS form; first-party wins.
+- Experience badges, applicant counts и recommendations пригодны для ranking,
+  не для hard-blocker facts.
 
-LinkedIn documents two distinct routes:
+## Stop rule
 
-- `Apply` redirects to a company website or external job board;
-- `Easy Apply` submits inside LinkedIn.
-
-For this repository:
-
-- opening and reading the form is verification work;
-- saving a job, messaging, following a company and submitting are external
-  writes and require explicit user intent;
-- never click the final Submit button;
-- do not set `application_status=applied` without the user's confirmation;
-- if no first-party listing can be established, keep verification fields
-  unknown instead of promoting the LinkedIn card to `original_url` by default.
-
-LinkedIn also enforces Easy Apply limits and discourages automated or bot-like
-activity. Keep connector work read-only, paced and limited to visible product
-flows.
-
-## Geography and job-identity traps
-
-- `Remote` commonly means remote within the card's listed market, not worldwide.
-- One role may be reposted as several location-specific LinkedIn IDs.
-- Staffing firms and confidential employers can obscure the true employer.
-- Promoted or reposted labels are ranking/distribution signals, not freshness
-  proof.
-- A current LinkedIn card may lead to an expired ATS page; the first-party state
-  wins.
-- An old LinkedIn ID can be absent while an employer has a newly issued ID for
-  the same requisition.
-
-Inspect the description and first-party form for country eligibility, work
-authorization, timezone and office requirements. Use `remote_policy=Unclear`
-when the constraints remain ambiguous.
-
-## Dedupe rules
-
-Deduplicate in this order:
-
-1. numeric LinkedIn job ID;
-2. resolved exact ATS/careers URL and requisition ID;
-3. existing LinkedIn source URLs;
-4. normalized employer + role + location.
-
-Different LinkedIn IDs that resolve to the same first-party requisition are
-source references to one canonical job. Do not merge separate employer
-requisitions solely because their titles match.
-
-## Connector checklist
-
-- [ ] Search used the signed-in visible UI and documented filters.
-- [ ] Exact numeric ID and tracking-free URL were stored.
-- [ ] Personalized ranking was not treated as exhaustive coverage.
-- [ ] Actual employer and exact first-party listing were resolved where
-      possible.
-- [ ] Remote scope and work authorization came from full evidence.
-- [ ] Easy Apply was not mistaken for first-party verification.
-- [ ] Every inspected exact job produced an immutable operation or duplicate
-      source reference.
-- [ ] No Save, message, follow or application was submitted.
+Остановиться после recent narrow searches, one-week/month broad fallback и
+заявленной глубины результатов для каждой query/geo family. Каждая открытая
+numeric card получает immutable outcome; Save/Easy Apply submission не
+выполняются.

@@ -2,91 +2,58 @@
 
 Checked: YYYY-MM-DD
 
-Official references:
+Current references:
 
-- <official API or product documentation>
-- <official URL/board documentation>
+- <official or current source page>
 
-Общий lifecycle, provenance semantics и write paths описаны в
-[`README.md`](README.md). Здесь фиксируются только особенности `<Source>`.
+Общий lifecycle обязателен и описан в [`README.md`](README.md). Здесь нет его
+копии — только отличия `<Source>`.
 
-## Роль в поиске
+## Роль и доступ
 
-- Что этот source даёт discovery-процессу.
-- Является ли он first-party ATS или агрегатором.
-- Где допустим широкий поиск и где начинается проверка кандидата.
+- aggregator, job board или first-party ATS;
+- нужна ли авторизация и какие действия остаются read-only;
+- tracker `source` value и особая provenance semantics, если она есть.
 
-## Как распознать source
+## Routes: narrow → broad
 
-- URL patterns.
-- Как получить board/company identifier.
-- Как распознать custom careers integration.
-- Что нельзя угадывать при неполных данных.
+| Pass | Route/filters | Назначение |
+|---|---|---|
+| Narrow | ... | ... |
+| Broad | ... | ... |
+| Adjacent | ... | ... |
 
-## Discovery
+Указать пагинацию/recency depth и особенности сортировки. Общие query families
+не копировать из `config/search-queries.md`.
 
-- Narrow query families.
-- Broad/experimental query families.
-- Geography discovery.
-- Когда открывать всю board и искать adjacent roles.
+## Exact identity и original source
 
-## Официальный интерфейс
-
-- Публичные endpoints или страницы.
-- Нужна ли авторизация.
-- Пагинация, rate limits и freshness caveats.
-- Как получить board, список jobs, exact job и application fields.
-
-## Идентификаторы и URL
-
-| Значение | Правило |
+| Значение | Source-specific правило |
 |---|---|
-| board/company identifier | ... |
-| stable job identifier | ... |
-| canonical first-party URL | ... |
-| tracking query parameters | ... |
+| exact card | ... |
+| stable `source_job_id` | ... |
+| normalized `source_url` | ... |
+| original source route | ... |
 
-Если `source=Company Careers` объединяет несколько ATS, namespace-ить
-`source_job_id`, например `<ats>:<board>:<job-id>`, чтобы избежать межплатформенных
-коллизий.
+Указать, какие URL/ID нельзя использовать и как распознаются repost/location
+variants.
 
-## Проверка listing и Apply
+## Source status и first-party boundary
 
-Определить независимые доказательства для:
+| Source signal | Что он доказывает | Чего он не доказывает |
+|---|---|---|
+| ... | ... | ... |
 
-- `listing_status=open`;
-- `listing_status=closed`;
-- `first_party_verified=yes`;
-- `apply_verified=yes`.
+Описать archive/stale/removed behavior и источник окончательного canonical
+status. Не повторять общий verification workflow.
 
-Указать, какие сигналы являются только предварительными и не должны записываться
-как подтверждённые facts.
+## Trust и ловушки
 
-## Проверка geography и hard blockers
+- какие поля достаточно надёжны для discovery;
+- какие labels, AI summaries, geo/remote/visa/salary fields требуют проверки;
+- source-specific redirects, paywalls, personalization и identity traps.
 
-- Где искать location/remote restrictions.
-- Какие поля формы могут раскрывать work authorization или residency blocker.
-- Типичные неоднозначности конкретного source.
+## Stop rule
 
-## Нормализация
-
-| Source field | Tracker/inbox use |
-|---|---|
-| ... | ... |
-
-Не выдумывать отсутствующие даты, salary, location или eligibility facts.
-
-## Типичные ловушки
-
-- ...
-
-## Checklist результата
-
-- [ ] preflight и dedupe выполнены;
-- [ ] exact first-party job проверена;
-- [ ] Apply проверен отдельно;
-- [ ] geography и hard blockers прочитаны полностью;
-- [ ] source provenance сохранён без подмены ATS-хостом;
-- [ ] результат записан разрешённым write path;
-- [ ] canonical dataset и generated tracker проверены.
-
+Источник обработан, когда <source-specific coverage condition>. Общий stop rule
+из [`README.md`](README.md) остаётся обязательным.

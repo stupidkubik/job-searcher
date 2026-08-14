@@ -1,4 +1,4 @@
-# Hirify technical discovery
+# Hirify technical discovery research note
 
 Checked: 2026-08-14
 
@@ -6,7 +6,9 @@ Status: research note for a possible future `import_hirify.py`. This document is
 not an implementation contract and does not enable automated fetching by itself.
 Re-check Hirify's public Terms and technical surface before implementation.
 
-Related playbook: [`hirify.md`](hirify.md).
+This is a non-normative research record, not another search lifecycle. The
+normative workflow lives in [`README.md`](README.md), and the short source
+playbook lives in [`hirify.md`](hirify.md).
 
 ## Executive summary
 

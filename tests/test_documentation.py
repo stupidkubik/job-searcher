@@ -62,6 +62,54 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertIn("do not write Hirify records into the current JSONL inbox contract", rules_body)
         self.assertIn("Controlled live validation", rules_body)
 
+    def test_source_docs_keep_one_universal_lifecycle(self):
+        source_dir = PROJECT / "docs" / "sources"
+        lifecycle = (source_dir / "README.md").read_text(encoding="utf-8")
+
+        for invariant in (
+            "Narrow → broad discovery",
+            "Exact identity и dedupe до анализа",
+            "First-party verification",
+            "Canonical employer status",
+            "Immutable write path",
+            "каждая exact vacancy, которую открыли и оценили",
+        ):
+            self.assertIn(invariant, lifecycle)
+
+        playbooks = (
+            "greenhouse.md",
+            "himalayas.md",
+            "hirify.md",
+            "hiringcafe.md",
+            "jaabz.md",
+            "linkedin.md",
+            "we-work-remotely.md",
+            "welcome-to-the-jungle.md",
+            "wellfound.md",
+        )
+        required_sections = (
+            "## Роль и доступ",
+            "## Routes: narrow → broad",
+            "## Exact identity",
+            "## Source status",
+            "## Trust и ловушки",
+            "## Stop rule",
+        )
+
+        for filename in playbooks:
+            document = source_dir / filename
+            body = document.read_text(encoding="utf-8")
+            self.assert_local_links_exist(document)
+            self.assertIn("[`README.md`](README.md)", body)
+            for section in required_sections:
+                self.assertIn(section, body, f"{filename}: missing {section}")
+            self.assertNotIn("## Connector checklist", body)
+            self.assertLessEqual(
+                len(body.splitlines()),
+                120,
+                f"{filename}: source playbook is duplicating the common lifecycle",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
