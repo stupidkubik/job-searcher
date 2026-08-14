@@ -1,135 +1,195 @@
-# Source search playbooks
+# Source search lifecycle
 
-Эта директория содержит инструкции по поиску и проверке вакансий в конкретных
-ATS и job sources. Они образуют единый search layer поверх существующего
-tracker workflow, но не создают новый источник истины и не заменяют правила
-репозитория.
+Этот документ — единственный нормативный playbook для поиска вакансий. Он
+описывает общий lifecycle независимо от сайта, ATS, browser flow или adapter.
+Файлы `<source>.md` рядом с ним содержат только отличия конкретного источника:
+routes, фильтры, identity, stale/archive signals, trust boundaries, ловушки и
+stop rule.
 
-## Границы ответственности
+## Границы слоёв
 
-| Слой | Где задан |
+| Ответственность | Источник истины |
 |---|---|
-| профиль, допустимая география, уровень и подтверждённый опыт | [`config/profile.md`](../../config/profile.md) |
-| общие семейства поисковых запросов | [`config/search-queries.md`](../../config/search-queries.md) |
-| машинная политика включённых adapters | [`config/sources.toml`](../../config/sources.toml) |
-| особенности конкретной ATS или площадки | `docs/sources/<source>.md` |
+| профиль, география, уровень и доказанный опыт | [`config/profile.md`](../../config/profile.md) |
+| общие query families | [`config/search-queries.md`](../../config/search-queries.md) |
+| включённые adapters, cadence и машинная политика | [`config/sources.toml`](../../config/sources.toml) |
+| универсальный search lifecycle | этот документ |
+| особенности сайта или ATS | `docs/sources/<source>.md` |
+| canonical schema и enum | [`data/schema.md`](../../data/schema.md) |
 | raw batch contract | [`data/inbox/README.md`](../../data/inbox/README.md) |
-| canonical поля и enum | [`data/schema.md`](../../data/schema.md) |
-| разрешённые write paths | [`AGENTS.md`](../../AGENTS.md) и [`data/operations/README.md`](../../data/operations/README.md) |
+| разрешённые записи | [`AGENTS.md`](../../AGENTS.md) и [`data/operations/README.md`](../../data/operations/README.md) |
 
-Playbook отвечает на вопросы «как найти board», «как получить опубликованные
-вакансии», «какой идентификатор стабилен» и «как проверить listing и Apply».
-Он не должен копировать профиль кандидата, схему CSV, синтаксис write-команд или
-придумывать новые lifecycle-состояния.
+Source-playbook не копирует профиль, lifecycle, CSV schema, команды записи или
+общий checklist. При конфликте source-side данных с работодателем canonical
+status определяет first-party источник.
 
-## Доступные playbooks
+## Термины и инварианты
 
-| Source | Роль в search layer |
-|---|---|
-| [Greenhouse](greenhouse.md) | first-party ATS discovery и verification через публичный Job Board API |
-| [Hirify](hirify.md) | агрегатор и AI discovery; обязательный переход к работодателю/ATS |
-| [LinkedIn](linkedin.md) | широкий signed-in discovery; exact numeric job ID и осторожная работа с Easy Apply |
-| [Himalayas](himalayas.md) | remote discovery через публичный API и локальный fetch-only adapter |
-| [Wellfound](wellfound.md) | startup discovery и нативная application surface |
-| [Welcome to the Jungle](welcome-to-the-jungle.md) | discovery по Европе и нативные/внешние Apply-маршруты |
-| [We Work Remotely](we-work-remotely.md) | remote board с exact cards и внешними Apply-маршрутами |
-| [HiringCafe](hiringcafe.md) | широкий агрегатор с детальными фильтрами; verification только у работодателя/ATS |
+**Exact vacancy** — одна конкретная вакансия, которую можно идентифицировать
+exact URL или стабильным source/requisition ID. Search page, category, company
+profile и generic careers page не являются exact vacancy.
 
-## ATS не равна discovery source
+**Discovery source status** — состояние карточки на площадке: live, archived,
+removed, stale или unknown. Это provenance-сигнал, а не автоматически
+`listing_status`.
 
-Greenhouse, Lever или Ashby могут быть техническим хостом первоисточника, но это
-не означает, что они должны стать значением `source`.
+**Canonical employer status** — состояние exact вакансии на текущей публичной
+careers/ATS surface работодателя и её Apply route. Именно оно определяет
+`listing_status`, `first_party_verified` и `apply_verified`.
 
-- Если вакансия найдена через HiringCafe, Hirify или другую площадку, сохранить
-  эту площадку в `source`/`source_url`, а проверенную ATS-карточку — в
-  `original_url`.
-- Если вакансия найдена прямым поиском по ATS или текущей careers board,
-  использовать `source=Company Careers`; конкретную карточку можно сохранить и
-  как `source_url`, и после проверки как `original_url`.
-- Не создавать вторую canonical job только потому, что та же вакансия появилась
-  в другом discovery source. Добавить provenance reference через разрешённый
-  write path.
+Общие инварианты:
 
-## Обязательный workflow
+- discovery source сохраняется в `source`/source reference; ATS-хост не
+  подменяет provenance;
+- один canonical job может иметь несколько source references;
+- каждая exact vacancy, которую открыли и оценили, должна закончиться записью:
+  новой строкой или reference к подтверждённому дублю;
+- агрегатор, сниппет, future expiry date, badge или `Remote` не доказывают
+  актуальность, global eligibility или работоспособность Apply;
+- агент не отправляет заявку и не выводит lifecycle-событие `applied`.
+
+## Универсальный lifecycle
 
 ### 1. Preflight
 
-Перед любым поиском:
+До первого запроса:
 
-1. прочитать `data/jobs.csv` целиком;
-2. прочитать `config/profile.md`;
-3. открыть playbook нужной ATS;
-4. проверить существующие references в `data/job_sources.csv`.
+1. прочитать `data/jobs.csv` целиком и проверить текущие статусы;
+2. прочитать `data/job_sources.csv` и `config/profile.md`;
+3. прочитать playbook выбранного источника;
+4. при наличии adapter сверить `config/sources.toml` и его contract.
 
-Строки со статусами `applied` или `rejected` не анализировать и не обрабатывать
-повторно. Для остальных существующих строк продолжить с сохранённого
-`next_action` и текущего состояния.
+`applied` и `rejected` не обрабатывать повторно. `listing_status=closed` без
+отклика пропустить. Для `not_started`, `reviewing` и `apply` продолжить с
+сохранённого шага, а не начинать анализ заново.
 
-### 2. Discovery
+### 2. Narrow → broad discovery
 
-Использовать несколько широких query families, а не один чрезмерно точный
-запрос. Найденную интересную карточку считать входом не только в exact job, но и
-в текущую board компании: подходящая соседняя роль может называться иначе.
+Сначала пройти узкие role/geo/recency routes с высоким сигналом, затем широкие
+семейства и adjacent titles. Фильтры зарплаты, seniority и exact technology не
+должны преждевременно скрывать вакансии без структурированных метаданных.
 
-Широкий discovery не отменяет запись результатов. Каждая конкретная вакансия,
-которую агент открыл и оценил, должна получить canonical запись или source
-reference, даже если она закрыта, является дублем или содержит hard blocker.
+Результат списка — только lead. До анализа открыть exact card и зафиксировать
+её identity. После полезной или закрытой карточки проверить current company
+board на соседние роли, не анализируя уже известные записи повторно.
 
-### 3. Dedupe до анализа
+### 3. Exact identity и dedupe до анализа
 
-Проверять в таком порядке:
+Сразу после открытия карточки получить стабильный source job ID, exact source
+URL и, если уже виден, requisition ID. Затем проверять в порядке:
 
 1. `source + source_job_id` в `data/job_sources.csv`;
-2. нормализованный exact first-party URL в `original_url`;
-3. discovery URL в source references;
-4. нормализованные `company + role` и fuzzy-кандидаты.
+2. нормализованный exact source URL;
+3. exact first-party URL или requisition ID;
+4. нормализованные `company + role + location` и fuzzy candidates.
 
-Совпадение не разрешает молча объединять строки. Использовать только
-предусмотренный `--duplicate-of` или эквивалентный immutable connector request.
+Совпадение не даёт права молча объединять строки. Подтверждённый дубль
+добавляется через `--duplicate-of` или эквивалентный immutable request. Разные
+source IDs, ведущие к одной requisition, — references одной canonical job;
+разные requisitions с похожим title не объединяются автоматически.
 
 ### 4. First-party verification
 
-Для новой exact job:
+Для каждой новой exact vacancy:
 
-1. подтвердить, что board принадлежит работодателю;
-2. проверить наличие exact job в текущей публичной board/API;
-3. открыть полное описание;
-4. открыть видимую кандидату Apply-страницу или форму;
-5. проверить geography, work authorization, office requirements, seniority и
-   обязательные screening questions;
-6. записать дату проверки.
+1. определить реального работодателя, а не poster или intermediary;
+2. разрешить цепочку редиректов до exact employer careers/ATS listing;
+3. сопоставить title, company, location, description и requisition ID;
+4. проверить exact job на текущей публичной board;
+5. открыть видимую кандидату Apply route и убедиться, что она относится к той
+   же вакансии и принимает заявки;
+6. прочитать описание и форму на geo, residency, work authorization,
+   sponsorship, timezone и office requirements;
+7. записать дату проверки.
 
-Ответ API, поисковый сниппет, `Remote` в заголовке или future expiry date сами по
-себе не доказывают ни применимость географии, ни работоспособность Apply.
+Generic homepage, search results, company profile, другой агрегатор или
+доступная только после оплаты/contact reveal ссылка не являются first-party
+verification. При неполных или конфликтующих доказательствах оставить
+verification/status unknown и сформулировать точный `next_action`.
 
-### 5. Outcome
+### 5. Screening и полный анализ
 
-- Закрытая exact job: записать `listing_status=closed` и
-  `decision_reason=closed_before_application`, затем проверить текущую board на
-  соседние релевантные роли.
-- Открытая job с hard blocker: записать структурированную причину через `add` или
-  `screen`, без полного анализа и application card.
-- Неясный blocker или необычная, но потенциально подходящая роль: оставить
-  `reviewing` с конкретным `next_action`.
-- Прошедшая фильтр job: провести полный анализ, выставить `match_score`, создать
-  `applications/<id>.md` и принять решение `apply` или вычисляемый `Skipped`.
+После first-party проверки применить hard blockers из профиля. Подтверждённая
+несовместимая география, обязательная work authorization, закрытая requisition
+или явно недостижимый scope позволяют остановиться до полного анализа.
 
-Агент не отправляет заявку и не ставит `application_status=applied`; это возможно
-только после явного подтверждения человека.
+Неясная география, необычный title или мягкое расхождение не превращаются в
+hard blocker автоматически: оставить `reviewing` и конкретный следующий шаг.
+Только прошедшая screening вакансия получает полный анализ, `match_score`,
+application card и решение `apply`/вычисляемый `Skipped`.
 
-### 6. Write path и проверка
+### 6. Зафиксировать outcome
 
-Локальный агент пишет только через `scripts/jobs.py`. GitHub connector создаёт
-только immutable request по контракту `data/operations/README.md` и ждёт
-canonical result от trusted runner. Прямое редактирование `data/jobs.csv` и
-`data/job_sources.csv` запрещено.
+Каждая exact vacancy, которую открыли, получает один из исходов:
 
-После canonical write обязательны strict validation, fuzzy duplicate review и
-проверка generated tracker согласно `AGENTS.md`.
+| Evidence | Canonical outcome |
+|---|---|
+| exact first-party job закрыта или удалена | `listing_status=closed`, `decision_reason=closed_before_application` |
+| подтверждён hard blocker | структурированный `screen`/`decision_reason`, без полного анализа |
+| evidence недостаточно или требуется ручная проверка | `reviewing` + конкретный `next_action` |
+| screening пройден | полный анализ и решение `apply` либо вычисляемый `Skipped` |
+| это существующая canonical job | добавить source reference, новую строку не создавать |
 
-## Добавление нового playbook
+Source-side archive сохраняется как evidence в notes/provenance. Он становится
+canonical `closed` только после first-party проверки либо однозначного
+исчезновения exact employer requisition; живой first-party listing имеет
+приоритет над stale/archived карточкой агрегатора.
 
-Скопировать [`_template.md`](_template.md), оставить только source-specific
-поведение и подтвердить технические утверждения официальной документацией.
-Если появляется adapter, отдельно зарегистрировать его машинную политику в
-`config/sources.toml`; наличие Markdown playbook само по себе source не включает.
+### 7. Immutable write path и validation
+
+Локальная запись выполняется только через `scripts/jobs.py`. Raw batches
+immutable и сначала проходят validate + ingest dry-run. GitHub connector
+создаёт один immutable request и ждёт canonical result от trusted runner.
+Прямое редактирование `data/jobs.csv`, `data/job_sources.csv` и generated
+`docs/tracker.md` запрещено.
+
+После canonical write выполнить strict validation, просмотреть fuzzy duplicate
+report, обновить tracker view и проверить generated result — точные команды
+заданы в [`AGENTS.md`](../../AGENTS.md).
+
+### 8. Общий stop rule
+
+Поиск по одному источнику завершён, когда:
+
+- выполнены narrow routes, затем предусмотренный broad fallback;
+- просмотрена заявленная глубина/recency window и сработал source-specific stop
+  rule;
+- у каждой открытой exact vacancy есть immutable outcome или duplicate
+  reference;
+- нет незаписанных карточек и необъяснённых fuzzy candidates;
+- все canonical writes подтверждены validation/result, а не только созданным
+  request или raw batch.
+
+## Доступные source-playbooks
+
+| Source | Специфика |
+|---|---|
+| [Greenhouse](greenhouse.md) | first-party ATS board, board token и job post ID |
+| [Himalayas](himalayas.md) | API-backed remote discovery и fetch-only adapter |
+| [Hirify](hirify.md) | aggregator routes, archive/stale signals и source-resolution boundary |
+| [HiringCafe](hiringcafe.md) | normalized filters и внешний `Job Posting` |
+| [Jaabz](jaabz.md) | visa/relocation/remote routes и агрегаторные labels |
+| [LinkedIn](linkedin.md) | personalized signed-in search, numeric ID и Easy Apply |
+| [HelloWorld.rs](helloworld-rs.md) | небольшая Serbian board и numeric URL suffix |
+| [Startit Jobs](startit-jobs.md) | небольшая Serbian board с пока невалидированной identity |
+| [YC Work at a Startup](yc-work-at-a-startup.md) | native startup board и opaque job ID |
+| [Hacker News — Who is Hiring?](hacker-news-who-is-hiring.md) | message identity, допускающая несколько вакансий |
+| [Reactiflux Discord](reactiflux-discord.md) | Discord message tuple и email/form boundary |
+| [We Work Remotely](we-work-remotely.md) | remote category routes и external Apply |
+| [Welcome to the Jungle](welcome-to-the-jungle.md) | locale routes и native/external Apply |
+| [Wellfound](wellfound.md) | startup filters, numeric ID и native application flow |
+
+## Контракт нового playbook
+
+Скопировать [`_template.md`](_template.md) и описать только:
+
+- role/access model и routes для narrow/broad проходов;
+- стабильный ID и нормализацию exact URL;
+- как найти original source и отличить exact vacancy от generic page;
+- source-side live/archive/stale сигналы и их ограничения;
+- trustworthy/untrustworthy fields, geo/remote quirks и известные ловушки;
+- source-specific stop rule.
+
+Если фрагмент одинаков для нескольких площадок, он относится сюда, а не в
+несколько playbooks. Markdown-файл сам по себе не включает adapter: машинная
+политика отдельно регистрируется в `config/sources.toml`.

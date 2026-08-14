@@ -47,6 +47,85 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertNotIn("`add` cannot be a child", overview)
         self.assertNotIn("single-operation only", overview)
 
+    def test_hirify_documents_link_rules_and_preserve_the_automation_boundary(self):
+        source_index = PROJECT / "docs" / "sources" / "README.md"
+        playbook = PROJECT / "docs" / "sources" / "hirify.md"
+        rules = PROJECT / "docs" / "sources" / "hirify-discovery-rules.md"
+        discovery = PROJECT / "docs" / "sources" / "hirify-technical-discovery.md"
+
+        for document in (source_index, playbook, rules, discovery):
+            self.assert_local_links_exist(document)
+
+        self.assertIn("hirify-discovery-rules.md", playbook.read_text(encoding="utf-8"))
+        rules_body = rules.read_text(encoding="utf-8")
+        self.assertIn("implement a networked Hirify crawler without documented permission", rules_body)
+        self.assertIn("do not write Hirify records into the current JSONL inbox contract", rules_body)
+        self.assertIn("Controlled live validation", rules_body)
+
+    def test_source_docs_keep_one_universal_lifecycle(self):
+        source_dir = PROJECT / "docs" / "sources"
+        lifecycle = (source_dir / "README.md").read_text(encoding="utf-8")
+
+        for invariant in (
+            "Narrow → broad discovery",
+            "Exact identity и dedupe до анализа",
+            "First-party verification",
+            "Canonical employer status",
+            "Immutable write path",
+            "каждая exact vacancy, которую открыли и оценили",
+        ):
+            self.assertIn(invariant, lifecycle)
+
+        playbooks = (
+            "greenhouse.md",
+            "himalayas.md",
+            "helloworld-rs.md",
+            "hirify.md",
+            "hiringcafe.md",
+            "hacker-news-who-is-hiring.md",
+            "jaabz.md",
+            "linkedin.md",
+            "reactiflux-discord.md",
+            "startit-jobs.md",
+            "we-work-remotely.md",
+            "welcome-to-the-jungle.md",
+            "wellfound.md",
+            "yc-work-at-a-startup.md",
+        )
+        required_sections = (
+            "## Роль и доступ",
+            "## Routes: narrow → broad",
+            "## Exact identity",
+            "## Source status",
+            "## Trust и ловушки",
+            "## Stop rule",
+        )
+
+        for filename in playbooks:
+            document = source_dir / filename
+            body = document.read_text(encoding="utf-8")
+            self.assert_local_links_exist(document)
+            self.assertIn("[`README.md`](README.md)", body)
+            for section in required_sections:
+                self.assertIn(section, body, f"{filename}: missing {section}")
+            self.assertNotIn("## Connector checklist", body)
+            self.assertLessEqual(
+                len(body.splitlines()),
+                120,
+                f"{filename}: source playbook is duplicating the common lifecycle",
+            )
+
+    def test_message_sources_do_not_confuse_message_and_vacancy_identity(self):
+        source_dir = PROJECT / "docs" / "sources"
+        hn = (source_dir / "hacker-news-who-is-hiring.md").read_text(encoding="utf-8")
+        discord = (source_dir / "reactiflux-discord.md").read_text(encoding="utf-8")
+        startit = (source_dir / "startit-jobs.md").read_text(encoding="utf-8")
+
+        self.assertIn("item ID идентифицирует message, не vacancy", hn)
+        self.assertIn("один URL допустим у нескольких canonical jobs", hn)
+        self.assertIn("<server_id>:<channel_id>:<message_id>", discord)
+        self.assertIn("оставить unset до наблюдения", startit)
+
 
 if __name__ == "__main__":
     unittest.main()

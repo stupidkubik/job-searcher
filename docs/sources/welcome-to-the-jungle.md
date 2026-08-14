@@ -2,126 +2,73 @@
 
 Checked: 2026-08-13
 
-Official/current references:
+Current references:
 
-- [Welcome to the Jungle jobs](https://www.welcometothejungle.com/en/jobs)
+- [Jobs](https://www.welcometothejungle.com/en/jobs)
 - [Welcome to the Jungle](https://www.welcometothejungle.com/)
 
-Common lifecycle, dedupe and write-path rules live in
-[`README.md`](README.md). This file contains only Welcome to the
-Jungle-specific behavior. Use `WTTJ` below only as an abbreviation; the tracker
-source value remains `Welcome to the Jungle`.
+Общий lifecycle обязателен и описан в [`README.md`](README.md). Здесь только
+Welcome to the Jungle-specific правила; `WTTJ` ниже — сокращение, tracker value
+остаётся `source=Welcome to the Jungle`.
 
-## Role in the search layer
+## Роль и доступ
 
-WTTJ combines European job discovery, employer profiles and both native and
-external application routes. Search and recommendations can be influenced by a
-signed-in profile, so explicit filters and multiple query families are required.
-Its native form is application-route evidence, but not a replacement for the
-repository's official employer careers/ATS verification.
+WTTJ объединяет European discovery, employer profiles и native/external Apply.
+Search/recommendations могут зависеть от профиля. Native form остаётся
+platform-side application route и не заменяет employer verification.
 
-For tracker provenance:
+## Routes: narrow → broad
 
-- `source=Welcome to the Jungle`;
-- `source_url` = exact WTTJ job card, not the search or company page;
-- if an `app.welcometothejungle.com/jobs/<opaque-id>` URL is available, preserve
-  that opaque ID as `source_job_id`;
-- otherwise rely on the normalized exact public job URL and do not invent an ID
-  from a mutable slug;
-- `original_url` = exact employer careers/ATS listing only;
-- if the only route is native WTTJ, leave first-party/Apply verification unknown
-  until official employer-side evidence is found.
+| Pass | Filters/routes | Назначение |
+|---|---|---|
+| Narrow | role + location + remote level + recent | основной поиск |
+| Broad | adjacent titles + contract type + wider date window | расширение покрытия |
+| Locale | relevant locale/language variants | локализованные titles |
+| Adjacent | employer `View all jobs` | соседние current roles |
 
-Public cards commonly use a localized path such as
-`/<locale>/companies/<company>/jobs/<slug>`. Normalize tracking and locale
-redirects consistently, but do not collapse different job cards merely because
-their slugs look similar.
+Salary использовать как ranking field, оставляя отдельный проход для вакансий
+без диапазона. Recommendations — дополнительный lead source, не полный dataset.
 
-## Discovery strategy
+## Exact identity и original source
 
-Run explicit role and geography passes with the available filters:
+| Значение | Правило |
+|---|---|
+| public exact card | `/<locale>/companies/<company>/jobs/<slug>` |
+| preferred `source_job_id` | opaque ID из `app.welcometothejungle.com/jobs/<id>`, если доступен |
+| fallback identity | normalized public exact URL; не выдумывать ID из slug |
+| original route | external Apply → exact employer/ATS listing |
 
-- role families and adjacent titles;
-- contract type;
-- location and remote level;
-- compensation when available;
-- recent results first, followed by a wider fallback window.
+Locale и `app.` variants могут быть одной WTTJ job. Similar office cards
+объединять только после подтверждения общей requisition.
 
-Repeat important searches in relevant language/locale variants when titles may
-be localized. Treat recommendations as an additional lead source, never the
-complete result set.
+## Source status и Apply boundary
 
-An interesting job card is also an entry point to the employer's `View all
-jobs` page. Inspect nearby current roles, but record and verify each exact job
-separately.
+| Signal | Доказывает | Не доказывает |
+|---|---|---|
+| public card/profile рендерится | WTTJ content доступен | employer job current |
+| native form принимает exact role | WTTJ application route live | first-party verification |
+| external Apply | redirect существует | target exact/live |
+| old card → 404/410 ATS | first-party route removed | состояние возможного repost |
+| `Fully remote` | work arrangement label | allowed countries |
 
-## Read the exact card
+Native form можно инспектировать без финальной отправки. `apply_verified=yes`
+требует first-party evidence по общей schema, поэтому один native WTTJ flow
+недостаточен.
 
-WTTJ cards may expose structured details such as:
+## Trust и ловушки
 
-- remote policy and location;
-- contract type and start date;
-- salary;
-- whether a resume or cover letter is mandatory;
-- role description and preferred experience;
-- recruitment process;
-- company profile and related jobs.
+- Localized page не доказывает eligibility в этом locale.
+- Remote level, office location и residence/payroll constraints могут
+  расходиться.
+- Salary, start date и recruitment process полезны для screening, но stale card
+  может сохранять их после удаления ATS job.
+- Tracked StrangeBee card выглядел свежим и релевантным, но exact Teamtailor
+  route уже возвращал 410 Gone; employer status победил WTTJ freshness.
+- `app.` и localized URLs нужно сохранять как references одной job, когда
+  identity подтверждена.
 
-These are useful screening inputs, not substitutes for a current application
-route. A polished company profile or complete job description can remain visible
-after the employer has removed the underlying ATS requisition.
+## Stop rule
 
-## Resolve native versus external Apply
-
-For each candidate:
-
-1. open the exact WTTJ card and its Apply control;
-2. determine whether the flow stays in WTTJ or redirects externally;
-3. for an external flow, resolve and verify the exact employer/ATS requisition;
-4. for a native flow, confirm the form visibly accepts the exact role;
-5. stop before any final submission or account mutation;
-6. check the employer's current jobs page for closure evidence and adjacent
-   openings.
-
-A working native WTTJ form does not by itself allow `apply_verified=yes`, because
-that tracker state requires verified first party. Preserve the route in
-provenance/notes and leave a concrete employer-verification next action.
-
-If an old WTTJ card points to a 404/410 or missing ATS requisition, the current
-first-party state wins. Record the closed outcome even if WTTJ still renders the
-description.
-
-## Geography traps
-
-- `Fully remote` describes work arrangement, not necessarily eligible countries.
-- A location filter can reflect office location while the description imposes a
-  different residence or timezone requirement.
-- Localized pages do not imply eligibility in that locale.
-- Contract, payroll, visa and work-authorization requirements can appear only in
-  the description or application form.
-
-Use `remote_policy=Unclear` until country scope is explicit enough to classify.
-
-## Dedupe traps
-
-- `app.` and public localized URLs can represent the same WTTJ job.
-- The same requisition can appear in several locales.
-- A stale WTTJ card can coexist with a newer ATS repost.
-- Similar cards for different offices may or may not be one requisition.
-
-Compare opaque WTTJ ID when present, then resolved exact first-party URL and
-requisition, then normalized company + role + location. Preserve redirects and
-locale variants as references rather than separate canonical jobs when identity
-is confirmed.
-
-## Connector checklist
-
-- [ ] Explicit filters and several role/locale passes were used.
-- [ ] Exact job URL and opaque app ID, when present, were preserved.
-- [ ] Personalized recommendations were not treated as exhaustive.
-- [ ] Native versus external Apply route was identified.
-- [ ] Employer/ATS listing won over a stale WTTJ card.
-- [ ] `Fully remote` was not equated with worldwide eligibility.
-- [ ] Every inspected exact job produced an immutable operation or duplicate
-      source reference.
-- [ ] No application or account-changing action was submitted.
+Остановиться после narrow, broad и relevant-locale passes плюс adjacent company
+jobs до заявленной date/depth границы. Каждая открытая exact card получает
+outcome, native/external form не отправляется.
