@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-14** · Jobs: **171**
+Dataset updated: **2026-08-14** · Jobs: **190**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (139)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (158)](#archive)
 
 ## Action now
 
@@ -57,10 +57,29 @@ Dataset updated: **2026-08-14** · Jobs: **171**
 
 <details>
 
-<summary>Archive (139)</summary>
+<summary>Archive (158)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Hire Feed — Junior Software Engineer (Remote)](<https://www.linkedin.com/jobs/view/4453053820/>) · job-0190 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Etteplan — Frontend Developer - future projects (M/F/NB)](<https://www.linkedin.com/jobs/view/4345410062/>) · job-0189 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: seniority too high | [Harper Russo — Senior Full Stack Engineer](<https://www.linkedin.com/jobs/view/4451670432/>) · job-0188 | seniority too high | Not checked | 2026-08-14 |
+| Skipped: seniority too high | [KTKsoft Informatikai és Tanácsadó Kft. — Senior Frontend fejlesztő (react, nextjs, typescript)](<https://www.linkedin.com/jobs/view/4450123360/>) · job-0187 | seniority too high | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [FetchJobs.co — Frontend Developer](<https://www.linkedin.com/jobs/view/4453065795/>) · job-0186 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Neotalent Conclusion — React Developer](<https://www.linkedin.com/jobs/view/4452698011/>) · job-0185 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Qaracter - Beyond your Challenge — React Frontend Developer](<https://www.linkedin.com/jobs/view/4452418888/>) · job-0184 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: seniority too high | [ZYNE — Full Stack Engineer JavaScript (m/ž)](<https://www.linkedin.com/jobs/view/4453118598/>) · job-0183 | seniority too high | Not checked | 2026-08-14 |
+| Skipped: seniority too high | [Pollard Digital Solutions — Frontend Software Engineer-Game Studio](<https://www.linkedin.com/jobs/view/4452728315/>) · job-0182 | seniority too high | Not checked | 2026-08-14 |
+| Skipped: seniority too high | [Proxify — Senior Frontend Developer (Vue.js)](<https://www.linkedin.com/jobs/view/4418950729/>) · job-0181 | seniority too high | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Tickmill — Front-End Developer (React)](<https://www.linkedin.com/jobs/view/4385008024/>) · job-0180 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Revolut — Web Software Engineer](<https://www.linkedin.com/jobs/view/4452384203/>) · job-0179 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Revolut — Frontend Software Engineer](<https://www.linkedin.com/jobs/view/4452383212/>) · job-0178 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Apply4U \| Human-Assisted AI Job & Recruitment Platform — Junior Software Engineer](<https://www.linkedin.com/jobs/view/4453078724/>) · job-0177 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [MC Engineering — AI Frontend Engineer](<https://www.linkedin.com/jobs/view/4416294263/>) · job-0176 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [Planimatik — Frontend Developer](<https://www.linkedin.com/jobs/view/4440561465/>) · job-0175 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [SingleStore — Software Engineer \| Frontend](<https://www.linkedin.com/jobs/view/4434197053/>) · job-0174 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [FetchJobs.co — Frontend Developer](<https://www.linkedin.com/jobs/view/4453666286/>) · job-0173 | geo restriction | Not checked | 2026-08-14 |
+| Skipped: geo restriction | [CoreView — Frontend Engineer](<https://www.linkedin.com/jobs/view/4453140607/>) · job-0172 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: other | [Undisclosed — Frontend Developer (React/TypeScript)](<https://hirify.me/jobs/334257-frontend-developer-react-typescript>) · job-0168 | other | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Undisclosed — Associate Software Engineer (AI First) (Frontend)](<https://hirify.me/jobs/723818-associate-frontend-engineer-ai>) · job-0167 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Betting Software — Frontend Developer (Gamedev)](<https://hirify.me/jobs/797677-frontend-developer-gamedev>) · job-0166 | geo restriction | Not checked | 2026-08-14 |
