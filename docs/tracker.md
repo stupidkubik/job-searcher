@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-14** · Jobs: **206**
+Dataset updated: **2026-08-14** · Jobs: **190**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (174)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (158)](#archive)
 
 ## Action now
 
@@ -57,26 +57,10 @@ Dataset updated: **2026-08-14** · Jobs: **206**
 
 <details>
 
-<summary>Archive (174)</summary>
+<summary>Archive (158)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
-| Skipped: stack mismatch | [Zepto — Founding Frontend Engineer](<https://www.ycombinator.com/companies/zepto/jobs/x2fdabu-founding-frontend-engineer>) · job-0206 | stack mismatch | Not checked | 2026-08-14 |
-| Skipped: stack mismatch | [Per Diem — React Native Engineer](<https://www.ycombinator.com/companies/per-diem/jobs/yTpvIRZ-per-diem-is-expending-and-looking-for-a-react-native-experience-developer>) · job-0205 | stack mismatch | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Swif.ai — Frontend Engineer (Vue, Browser Extensions, AI Agent)](<https://www.ycombinator.com/companies/swif-ai/jobs/aDnRu3L-frontend-engineer-vue-browser-extensions-ai-agent>) · job-0204 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Wavelength — Founding Software Engineer (Remote)](<https://www.ycombinator.com/companies/wavelength/jobs/6goKR1I-founding-software-engineer-remote>) · job-0203 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Chima — Frontend Engineer](<https://www.ycombinator.com/companies/chima/jobs/vwGFPHy-frontend-engineer>) · job-0202 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Sitefire — Founding Product Engineer](<https://www.ycombinator.com/companies/sitefire/jobs/P6tu0WO-founding-product-engineer>) · job-0201 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Windmill — Product Software Engineer](<https://www.ycombinator.com/companies/windmill/jobs/aXpL7BC-product-software-engineer>) · job-0200 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Runway — Full Stack Engineer](<https://www.ycombinator.com/companies/runway/jobs/0s9VB2H-full-stack-engineer>) · job-0199 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0198 | other | Not checked | 2026-08-14 |
-| Skipped: role not frontend | [Lago — Solutions Engineer](<https://www.ycombinator.com/companies/lago/jobs/mZ5vHl6-solutions-engineer>) · job-0197 | role not frontend | Not checked | 2026-08-14 |
-| Skipped: seniority too high | [Bloom — Founding Engineer](<https://www.ycombinator.com/companies/bloom-4/jobs/Tb6dGeS-founding-engineer>) · job-0196 | seniority too high | Not checked | 2026-08-14 |
-| Skipped: seniority too high | [Eight Sleep — Full Stack Engineer, Web](<https://www.ycombinator.com/companies/eight-sleep/jobs/9TaFbm2-full-stack-engineer-web>) · job-0195 | seniority too high | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Humaans — Software Engineer (Full Stack)](<https://www.ycombinator.com/companies/humaans/jobs/BM2L6rb-software-engineer-full-stack>) · job-0194 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Rebolt — Founding Frontend/Design Engineer](<https://www.ycombinator.com/companies/rebolt/jobs/JCRcV6h-founding-frontend-design-engineer>) · job-0193 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Authologic — Frontend Engineer (UI & Product-Focused)](<https://www.ycombinator.com/companies/authologic/jobs/HqKLn2C-frontend-engineer-ui-product-focused>) · job-0192 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: geo restriction | [Credal.ai — Founding Frontend/UX Software Engineer](<https://www.ycombinator.com/companies/credal-ai/jobs/4hSv1Na-founding-frontend-ux-software-engineer>) · job-0191 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Hire Feed — Junior Software Engineer (Remote)](<https://www.linkedin.com/jobs/view/4453053820/>) · job-0190 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Etteplan — Frontend Developer - future projects (M/F/NB)](<https://www.linkedin.com/jobs/view/4345410062/>) · job-0189 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [Harper Russo — Senior Full Stack Engineer](<https://www.linkedin.com/jobs/view/4451670432/>) · job-0188 | seniority too high | Not checked | 2026-08-14 |
