@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T14:45:34Z",
+  "jobs": [],
+  "operation_id": "linkedin-email-pass-20260814",
+  "result": {
+    "client_ref": "linkedin:4453072809",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Hire Feed",
+          "id": "job-0097",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Senior Frontend Software Engineer (Typescript) (Remote)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 17,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
