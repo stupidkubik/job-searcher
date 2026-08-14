@@ -19,6 +19,9 @@ Jaabz прямо описывает себя как job board, собирающ�
 Free exact cards читаются публично, часть premium details требует sign-in; не
 авторизовываться и не менять account state ради discovery без явной команды.
 
+Источник имеет повышенный stale-risk: first-party resolution начинать сразу
+после открытия exact card, до полного анализа и ranking refinement.
+
 ## Routes: narrow → broad
 
 | Pass | Routes/filters | Назначение |
@@ -65,6 +68,9 @@ source-side absence не заменяет canonical employer status.
 - Одна карточка может одновременно иметь Visa, Relocation и Remote labels; это
   не доказывает, что все три опции относятся к кандидату из Сербии.
 - Remote card может быть привязана к одной стране, а employer form — ещё уже.
+- В tracked pass четыре привлекательные early-career cards (Pixel Systems,
+  Alpine Business Consulting и две Bavarian Capital) оказались закрыты
+  downstream; часть цепочек закончилась LinkedIn с disabled applications.
 - `Save`, `Mark Applied`, sign-in и финальная Apply submission являются
   внешними writes и не используются в read-only search.
 

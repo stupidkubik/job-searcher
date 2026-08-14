@@ -79,13 +79,18 @@ class DocumentationMapTests(unittest.TestCase):
         playbooks = (
             "greenhouse.md",
             "himalayas.md",
+            "helloworld-rs.md",
             "hirify.md",
             "hiringcafe.md",
+            "hacker-news-who-is-hiring.md",
             "jaabz.md",
             "linkedin.md",
+            "reactiflux-discord.md",
+            "startit-jobs.md",
             "we-work-remotely.md",
             "welcome-to-the-jungle.md",
             "wellfound.md",
+            "yc-work-at-a-startup.md",
         )
         required_sections = (
             "## Роль и доступ",
@@ -109,6 +114,17 @@ class DocumentationMapTests(unittest.TestCase):
                 120,
                 f"{filename}: source playbook is duplicating the common lifecycle",
             )
+
+    def test_message_sources_do_not_confuse_message_and_vacancy_identity(self):
+        source_dir = PROJECT / "docs" / "sources"
+        hn = (source_dir / "hacker-news-who-is-hiring.md").read_text(encoding="utf-8")
+        discord = (source_dir / "reactiflux-discord.md").read_text(encoding="utf-8")
+        startit = (source_dir / "startit-jobs.md").read_text(encoding="utf-8")
+
+        self.assertIn("item ID идентифицирует message, не vacancy", hn)
+        self.assertIn("один URL допустим у нескольких canonical jobs", hn)
+        self.assertIn("<server_id>:<channel_id>:<message_id>", discord)
+        self.assertIn("оставить unset до наблюдения", startit)
 
 
 if __name__ == "__main__":

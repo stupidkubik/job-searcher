@@ -62,6 +62,8 @@ Native form можно инспектировать без финальной о
   расходиться.
 - Salary, start date и recruitment process полезны для screening, но stale card
   может сохранять их после удаления ATS job.
+- Tracked StrangeBee card выглядел свежим и релевантным, но exact Teamtailor
+  route уже возвращал 410 Gone; employer status победил WTTJ freshness.
 - `app.` и localized URLs нужно сохранять как references одной job, когда
   identity подтверждена.
 

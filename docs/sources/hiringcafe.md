@@ -38,8 +38,9 @@ HiringCafe — агрегатор с нормализованными filters и
 | original route | `Job Posting` redirect до exact employer/ATS requisition |
 
 Generic careers/search page или другой агрегатор означает незавершённое
-resolution. Несколько location cards, ведущих к одной requisition, становятся
-references; разные requisitions не объединять по одинаковому title.
+resolution. В частности, `Job Posting` → LinkedIn требует следующего перехода к
+работодателю/ATS. Несколько location cards, ведущих к одной requisition,
+становятся references; разные requisitions не объединять по одинаковому title.
 
 ## Source status и first-party boundary
 

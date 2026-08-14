@@ -30,6 +30,9 @@ access controls и не автоматизировать отправку. Save,
 исчерпывающей. Варьировать keywords и сохранять exact identity до перехода в
 recommendations/company pages.
 
+Email alerts — дополнительный режим LinkedIn discovery, а не отдельный tracker
+source. Lead из alert нормализуется к тому же numeric exact URL.
+
 ## Exact identity и original source
 
 | Значение | Правило |

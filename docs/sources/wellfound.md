@@ -54,6 +54,8 @@ Wellfound ID; stealth/similar company names требуют особенно ст
 
 Native form можно открыть для чтения обязательных полей и остановиться до
 `Send Application`. Старый card с Apply button всё ещё требует employer check.
+Search result может вести на `Gone` exact card; такой source-side stale outcome
+сразу записывается и затем сверяется с employer board/repost.
 
 ## Trust и ловушки
 

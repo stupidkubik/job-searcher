@@ -170,6 +170,11 @@ report, обновить tracker view и проверить generated result —
 | [HiringCafe](hiringcafe.md) | normalized filters и внешний `Job Posting` |
 | [Jaabz](jaabz.md) | visa/relocation/remote routes и агрегаторные labels |
 | [LinkedIn](linkedin.md) | personalized signed-in search, numeric ID и Easy Apply |
+| [HelloWorld.rs](helloworld-rs.md) | небольшая Serbian board и numeric URL suffix |
+| [Startit Jobs](startit-jobs.md) | небольшая Serbian board с пока невалидированной identity |
+| [YC Work at a Startup](yc-work-at-a-startup.md) | native startup board и opaque job ID |
+| [Hacker News — Who is Hiring?](hacker-news-who-is-hiring.md) | message identity, допускающая несколько вакансий |
+| [Reactiflux Discord](reactiflux-discord.md) | Discord message tuple и email/form boundary |
 | [We Work Remotely](we-work-remotely.md) | remote category routes и external Apply |
 | [Welcome to the Jungle](welcome-to-the-jungle.md) | locale routes и native/external Apply |
 | [Wellfound](wellfound.md) | startup filters, numeric ID и native application flow |

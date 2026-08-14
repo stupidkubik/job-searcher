@@ -65,6 +65,8 @@ status всегда проверяется отдельно.
   corroborate.
 - Несколько regional cards могут вести к одной requisition.
 - Posted date и видимая button не являются freshness proof.
+- Tracked Hook & Ladder card не дала подтвердить свободный application route:
+  WWR path упирался в signup/paywall, а official exact form не была найдена.
 
 ## Stop rule
 
