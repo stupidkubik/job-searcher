@@ -1,0 +1,387 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T10:00:23Z",
+  "jobs": [
+    "job-0004"
+  ],
+  "operation_id": "hirify-pass-20260814-01",
+  "result": {
+    "count": 19,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:821070",
+        "command": "add",
+        "job_id": "job-0004",
+        "listing_status": "closed",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-09",
+            "job_id": "job-0004",
+            "source": "Hirify",
+            "source_job_id": "821070",
+            "source_url": "https://hirify.me/jobs/821070-frontend-react-typescript-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0004",
+        "listing_status": "open",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "applied",
+        "client_ref": "hirify:820595",
+        "command": "add",
+        "job_id": "job-0054",
+        "listing_status": "open",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-10",
+            "job_id": "job-0054",
+            "source": "Hirify",
+            "source_job_id": "820595",
+            "source_url": "https://hirify.me/jobs/820595-product-engineer-go-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:821427",
+        "command": "add",
+        "job_id": "job-0156",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0156",
+            "source": "Hirify",
+            "source_job_id": "821427",
+            "source_url": "https://hirify.me/jobs/821427-senior-frontend-engineer-ai"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:820316",
+        "command": "add",
+        "job_id": "job-0157",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0157",
+            "source": "Hirify",
+            "source_job_id": "820316",
+            "source_url": "https://hirify.me/jobs/820316-trainee-frontend-developer-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:664883",
+        "command": "add",
+        "job_id": "job-0158",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0158",
+            "source": "Hirify",
+            "source_job_id": "664883",
+            "source_url": "https://hirify.me/jobs/664883-frontend-developer-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:692122",
+        "command": "add",
+        "job_id": "job-0159",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0159",
+            "source": "Hirify",
+            "source_job_id": "692122",
+            "source_url": "https://hirify.me/jobs/692122-middle-react-developer-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:733249",
+        "command": "add",
+        "job_id": "job-0160",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0160",
+            "source": "Hirify",
+            "source_job_id": "733249",
+            "source_url": "https://hirify.me/jobs/733249-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:734086",
+        "command": "add",
+        "job_id": "job-0161",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0161",
+            "source": "Hirify",
+            "source_job_id": "734086",
+            "source_url": "https://hirify.me/jobs/734086-low-code-engineer-javascript-automation"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:353313",
+        "command": "add",
+        "job_id": "job-0162",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0162",
+            "source": "Hirify",
+            "source_job_id": "353313",
+            "source_url": "https://hirify.me/jobs/353313-senior-frontend-developer-react-typescript"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:345242",
+        "command": "add",
+        "job_id": "job-0163",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0163",
+            "source": "Hirify",
+            "source_job_id": "345242",
+            "source_url": "https://hirify.me/jobs/345242-frontend-stazer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:736688",
+        "command": "add",
+        "job_id": "job-0164",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0164",
+            "source": "Hirify",
+            "source_job_id": "736688",
+            "source_url": "https://hirify.me/jobs/736688-frontend-developer-react-typescript"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:797732",
+        "command": "add",
+        "job_id": "job-0165",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0165",
+            "source": "Hirify",
+            "source_job_id": "797732",
+            "source_url": "https://hirify.me/jobs/797732-javascript-typescript-developer-html5-games"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:797677",
+        "command": "add",
+        "job_id": "job-0166",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0166",
+            "source": "Hirify",
+            "source_job_id": "797677",
+            "source_url": "https://hirify.me/jobs/797677-frontend-developer-gamedev"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:723818",
+        "command": "add",
+        "job_id": "job-0167",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0167",
+            "source": "Hirify",
+            "source_job_id": "723818",
+            "source_url": "https://hirify.me/jobs/723818-associate-frontend-engineer-ai"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:334257",
+        "command": "add",
+        "job_id": "job-0168",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0168",
+            "source": "Hirify",
+            "source_job_id": "334257",
+            "source_url": "https://hirify.me/jobs/334257-frontend-developer-react-typescript"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0169-undisclosed-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:349360",
+        "command": "add",
+        "job_id": "job-0169",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0169",
+            "source": "Hirify",
+            "source_job_id": "349360",
+            "source_url": "https://hirify.me/jobs/349360-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0170-undisclosed-react-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:604239",
+        "command": "add",
+        "job_id": "job-0170",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0170",
+            "source": "Hirify",
+            "source_job_id": "604239",
+            "source_url": "https://hirify.me/jobs/604239-react-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0171-atlantis-frontend-engineer-react.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:431392",
+        "command": "add",
+        "job_id": "job-0171",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0171",
+            "source": "Hirify",
+            "source_job_id": "431392",
+            "source_url": "https://hirify.me/jobs/431392-frontend-engineer-react"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
