@@ -27,7 +27,7 @@ Playbook отвечает на вопросы «как найти board», «к�
 | Source | Роль в search layer |
 |---|---|
 | [Greenhouse](greenhouse.md) | first-party ATS discovery и verification через публичный Job Board API |
-| [Hirify](hirify.md) | агрегатор и AI discovery; обязательный переход к работодателю/ATS |
+| [Hirify](hirify.md) | агрегатор и AI discovery; [детерминированные настройки](hirify-discovery-rules.md), [technical discovery](hirify-technical-discovery.md) и обязательный переход к работодателю/ATS |
 | [LinkedIn](linkedin.md) | широкий signed-in discovery; exact numeric job ID и осторожная работа с Easy Apply |
 | [Himalayas](himalayas.md) | remote discovery через публичный API и локальный fetch-only adapter |
 | [Wellfound](wellfound.md) | startup discovery и нативная application surface |

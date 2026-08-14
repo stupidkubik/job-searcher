@@ -11,6 +11,11 @@ Official/current references:
 Common lifecycle, dedupe and write-path rules live in
 [`README.md`](README.md). This file contains only Hirify-specific behavior.
 
+Deterministic route, filter, extraction and validation settings are defined in
+[`hirify-discovery-rules.md`](hirify-discovery-rules.md). The observed technical
+surface and automation boundary are documented separately in
+[`hirify-technical-discovery.md`](hirify-technical-discovery.md).
+
 ## Role in the search layer
 
 Hirify is a discovery aggregator. Use its filters, categories, tags and AI

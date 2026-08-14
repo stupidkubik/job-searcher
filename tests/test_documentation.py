@@ -47,6 +47,21 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertNotIn("`add` cannot be a child", overview)
         self.assertNotIn("single-operation only", overview)
 
+    def test_hirify_documents_link_rules_and_preserve_the_automation_boundary(self):
+        source_index = PROJECT / "docs" / "sources" / "README.md"
+        playbook = PROJECT / "docs" / "sources" / "hirify.md"
+        rules = PROJECT / "docs" / "sources" / "hirify-discovery-rules.md"
+        discovery = PROJECT / "docs" / "sources" / "hirify-technical-discovery.md"
+
+        for document in (source_index, playbook, rules, discovery):
+            self.assert_local_links_exist(document)
+
+        self.assertIn("hirify-discovery-rules.md", playbook.read_text(encoding="utf-8"))
+        rules_body = rules.read_text(encoding="utf-8")
+        self.assertIn("implement a networked Hirify crawler without documented permission", rules_body)
+        self.assertIn("do not write Hirify records into the current JSONL inbox contract", rules_body)
+        self.assertIn("Controlled live validation", rules_body)
+
 
 if __name__ == "__main__":
     unittest.main()
