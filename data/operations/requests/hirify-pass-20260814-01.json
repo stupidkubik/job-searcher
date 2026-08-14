@@ -1,0 +1,352 @@
+{
+  "version": 1,
+  "operation_id": "hirify-pass-20260814-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:821070",
+      "args": {
+        "company": "Primer",
+        "role": "Frontend Engineer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/821070-frontend-react-typescript-engineer",
+        "source_job_id": "821070",
+        "duplicate_of": "job-0004"
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0004",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "decision_reason": "closed_before_application",
+        "last_update": "2026-08-09"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://jobs.ashbyhq.com/primer.io/0b4ac571-bebc-48f4-a16b-b10475b4991a",
+        "decision_reason": "geo_restriction",
+        "remote_policy": "Country-specific",
+        "notes": "Fresh Hirify source 821070 resolves to the current Primer Frontend Engineer listing. The first-party Ashby role is open but hires only in Hungary, Poland, Portugal, Romania, and South Africa; Serbia is excluded."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:820595",
+      "args": {
+        "company": "SuperPlane",
+        "role": "Product Engineer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/820595-product-engineer-go-react",
+        "source_job_id": "820595",
+        "duplicate_of": "job-0054"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:821427",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Senior Frontend Software Engineer (AI)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/821427-senior-frontend-engineer-ai",
+        "source_job_id": "821427",
+        "level": "Senior",
+        "location": "Serbia / Hybrid",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; REST APIs; SaaS; Frontend",
+        "decision_reason": "seniority_too_high",
+        "notes": "Fresh Serbia-compatible Hirify card, but the role is explicitly Senior; hard seniority blocker.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:820316",
+      "args": {
+        "company": "SAVEUR Studio",
+        "role": "Trainee Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/820316-trainee-frontend-developer-react",
+        "source_job_id": "820316",
+        "level": "Intern",
+        "location": "Russia / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; React; Redux; CSS; SCSS",
+        "decision_reason": "geo_restriction",
+        "notes": "Excellent trainee-level shape, but the Hirify card restricts remote work to Russia.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:664883",
+      "args": {
+        "company": "ЦФТ",
+        "role": "Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/664883-frontend-developer-react",
+        "source_job_id": "664883",
+        "level": "Junior/Middle",
+        "location": "Russia / On-site",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; TypeScript; React; REST APIs; HTML; CSS; Webpack; Git",
+        "decision_reason": "geo_restriction",
+        "notes": "The Hirify card is junior/middle but requires on-site work in Russia; not compatible with the Serbia-based search.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:692122",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Middle React Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/692122-middle-react-developer-react",
+        "source_job_id": "692122",
+        "level": "Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; MobX; Redux; Zustand; Tailwind CSS; REST APIs; Jest; React Testing Library; Vite; Webpack; Docker; Playwright",
+        "decision_reason": "seniority_too_high",
+        "notes": "Strong stack and global geography, but the exact Hirify description requires 3+ years of commercial React experience; above the current product-frontend experience level.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:733249",
+      "args": {
+        "company": "Aviasales",
+        "role": "Frontend Developer (User Platform)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/733249-frontend-developer",
+        "source_job_id": "733249",
+        "original_url": "https://www.aviasales.ru/about/vacancies/4288807",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "level": "Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "JavaScript; TypeScript; Frontend; Automated Testing; Product Development",
+        "decision_reason": "closed_before_application",
+        "notes": "Hirify still surfaces the User Platform role, but the exact first-party Aviasales vacancy now redirects to not-found and the current careers board no longer lists it."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:734086",
+      "args": {
+        "company": "Plata Card",
+        "role": "Low-Code Engineer - Middle/Middle+ [HR Automation]",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/734086-low-code-engineer-javascript-automation",
+        "source_job_id": "734086",
+        "original_url": "https://job-boards.greenhouse.io/platacard/jobs/4975489008",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Middle",
+        "location": "Worldwide / Serbia / Cyprus / Georgia / Kazakhstan",
+        "remote_policy": "Global",
+        "stack": "JavaScript; REST APIs; Webhooks; JSON; OAuth; Airtable; Make; n8n; Zapier; Low-Code; Database Modeling",
+        "decision_reason": "role_not_frontend",
+        "notes": "Live first-party role with Serbia-compatible remote/relocation and strong workflow-automation overlap, but the core job is HR automation/internal tooling rather than frontend/UI engineering."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:353313",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Senior Frontend Developer (React/TypeScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/353313-senior-frontend-developer-react-typescript",
+        "source_job_id": "353313",
+        "level": "Senior",
+        "location": "Remote Europe",
+        "remote_policy": "Europe",
+        "stack": "React; TypeScript; JavaScript; Frontend Architecture",
+        "decision_reason": "seniority_too_high",
+        "notes": "Europe-compatible remote card, but the role is explicitly Senior and expects 3+ years of professional frontend ownership and architecture work.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:345242",
+      "args": {
+        "company": "Aveds",
+        "role": "Frontend Intern",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/345242-frontend-stazer",
+        "source_job_id": "345242",
+        "level": "Intern",
+        "location": "Russia / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; HTML; CSS; React; Vue; Next.js; Git",
+        "decision_reason": "geo_restriction",
+        "notes": "Trainee-level frontend role, but remote work is restricted to Russia; Hirify also marks the source card archived.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:736688",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Frontend Developer (React/TypeScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/736688-frontend-developer-react-typescript",
+        "source_job_id": "736688",
+        "level": "Senior",
+        "location": "Netherlands / Remote Europe",
+        "remote_policy": "Europe",
+        "stack": "JavaScript; TypeScript; React; HTML; CSS; GraphQL; Apollo",
+        "decision_reason": "seniority_too_high",
+        "notes": "Remote-Europe card, but the exact description requires 5+ years of JavaScript/TypeScript/React experience; hard seniority blocker.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:797732",
+      "args": {
+        "company": "Sulpont Creative Event Agency",
+        "role": "JavaScript / TypeScript Developer (HTML5 Games)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/797732-javascript-typescript-developer-html5-games",
+        "source_job_id": "797732",
+        "level": "Unknown",
+        "location": "Germany / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; HTML5; Phaser; Game Development",
+        "decision_reason": "geo_restriction",
+        "notes": "Creative/game-development overlap is relevant, but the Hirify card scopes the remote project to Germany.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:797677",
+      "args": {
+        "company": "Betting Software",
+        "role": "Frontend Developer (Gamedev)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/797677-frontend-developer-gamedev",
+        "source_job_id": "797677",
+        "level": "Middle",
+        "location": "Spain / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; REST APIs; HTML; Git; Game Development",
+        "salary": "2600-3100 USDT/month",
+        "decision_reason": "geo_restriction",
+        "notes": "Frontend/gamedev overlap and adequate compensation, but the Hirify card scopes remote work to Spain.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:723818",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Associate Software Engineer (AI First) (Frontend)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/723818-associate-frontend-engineer-ai",
+        "source_job_id": "723818",
+        "level": "Associate",
+        "location": "United States",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; HTML; CSS; React; Angular; REST APIs; Jest; Cypress; Playwright; Design Systems; Accessibility",
+        "decision_reason": "geo_restriction",
+        "notes": "Very strong associate-level frontend shape, but the exact Hirify card is US-scoped and therefore not actionable from Serbia.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:334257",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Frontend Developer (React/TypeScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/334257-frontend-developer-react-typescript",
+        "source_job_id": "334257",
+        "level": "Middle",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; React; HTML; CSS; Webpack; SASS; LESS",
+        "decision_reason": "other",
+        "notes": "User manually confirmed this exact Hirify card was archived/stale during the previous pass; current search cache misleadingly resurfaces it and no reliable first-party employer route was resolved.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:349360",
+      "args": {
+        "company": "Undisclosed",
+        "role": "Frontend Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/349360-frontend-developer",
+        "source_job_id": "349360",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Remote worldwide / Russia metadata",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; Git; Docker; ESLint",
+        "notes": "Potentially relevant middle frontend lead, but the exact current Hirify card and a first-party employer/application route could not yet be resolved from the available cache.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:604239",
+      "args": {
+        "company": "Undisclosed",
+        "role": "React Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/604239-react-developer",
+        "source_job_id": "604239",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Remote worldwide / hybrid Kyiv, Lviv, Warsaw",
+        "remote_policy": "Unclear",
+        "stack": "React; TypeScript; JavaScript; GraphQL; Apollo; Vite; Tailwind CSS; PWA; Testing",
+        "notes": "Strong stack fit. Public traces suggest a technology-services employer, but the exact first-party vacancy identity and Serbia eligibility remain unresolved.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:431392",
+      "args": {
+        "company": "Atlantis",
+        "role": "Frontend Engineer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/431392-frontend-engineer-react",
+        "source_job_id": "431392",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Remote worldwide / Russia metadata",
+        "remote_policy": "Unclear",
+        "stack": "Git; React; TypeScript; GraphQL; Next.js; Apollo; CSS-in-JS; Svelte; Vue",
+        "salary": "125000-200000 RUB/month",
+        "notes": "Strong React/TypeScript/UI fit. Hirify and a Habr listing identify Atlantis, but no exact first-party employer careers/application page has been verified yet.",
+        "force": true
+      }
+    }
+  ]
+}
