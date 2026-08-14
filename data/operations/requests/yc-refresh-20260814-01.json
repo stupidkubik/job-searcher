@@ -1,0 +1,293 @@
+{
+  "version": 1,
+  "operation_id": "yc-refresh-20260814-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "yc:4hSv1Na",
+      "args": {
+        "company": "Credal.ai",
+        "role": "Founding Frontend/UX Software Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/credal-ai/jobs/4hSv1Na-founding-frontend-ux-software-engineer",
+        "source_job_id": "4hSv1Na",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Senior",
+        "remote_policy": "On-site",
+        "stack": "React; React Native; TypeScript; Next.js; Tailwind",
+        "salary": "$190K - $250K",
+        "notes": "YC exact card says this is onsite in New York and asks for 4+ years focused on frontend/UX; incompatible with Serbia-based search."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:HqKLn2C",
+      "args": {
+        "company": "Authologic",
+        "role": "Frontend Engineer (UI & Product-Focused)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/authologic/jobs/HqKLn2C-frontend-engineer-ui-product-focused",
+        "source_job_id": "HqKLn2C",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Senior",
+        "remote_policy": "Country-specific",
+        "stack": "HTML; TypeScript; Vue.js; TailwindCSS",
+        "salary": "$49.5K - $67.5K",
+        "notes": "YC limits remote to Warsaw, Poland; the role also requires professional English and Polish and lists 6+ years."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:JCRcV6h",
+      "args": {
+        "company": "Rebolt",
+        "role": "Founding Frontend/Design Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/rebolt/jobs/JCRcV6h-founding-frontend-design-engineer",
+        "source_job_id": "JCRcV6h",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Unknown",
+        "remote_policy": "Country-specific",
+        "stack": "React; Next.js; TypeScript; Tailwind; Figma; Design systems",
+        "salary": "$60K - $180K",
+        "notes": "Excellent frontend/design-system fit and YC says new grads are acceptable, but remote locations are limited to Barcelona, Madrid, and London; Serbia is not listed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:BM2L6rb",
+      "args": {
+        "company": "Humaans",
+        "role": "Software Engineer (Full Stack)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/humaans/jobs/BM2L6rb-software-engineer-full-stack",
+        "source_job_id": "BM2L6rb",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Middle",
+        "remote_policy": "On-site",
+        "stack": "TypeScript; JavaScript; React; Node.js; PostgreSQL; Redis",
+        "notes": "YC header says London / Remote Europe, but the exact description explicitly says this is an in-person role with regular office collaboration; not compatible with Novi Sad."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:9TaFbm2",
+      "args": {
+        "company": "Eight Sleep",
+        "role": "Full Stack Engineer, Web",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/eight-sleep/jobs/9TaFbm2-full-stack-engineer-web",
+        "source_job_id": "9TaFbm2",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "remote_policy": "Europe",
+        "stack": "React; JavaScript; TypeScript; Node.js; Next.js",
+        "salary": "$180K - $210K",
+        "notes": "Remote UK/Europe is potentially geo-compatible, but the exact role requires 4+ years shipping consumer React apps plus end-to-end backend/cloud architecture and is outside the Junior/Junior+ target."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:Tb6dGeS",
+      "args": {
+        "company": "Bloom",
+        "role": "Founding Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/bloom-4/jobs/Tb6dGeS-founding-engineer",
+        "source_job_id": "Tb6dGeS",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "salary": "$150K - $250K",
+        "notes": "YC says Zurich / Remote and 3+ years, but this is a founding-engineer role laying technical foundations with possible CTO scope; too senior and broad for the current frontend target."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:mZ5vHl6",
+      "args": {
+        "company": "Lago",
+        "role": "Solutions Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/lago/jobs/mZ5vHl6-solutions-engineer",
+        "source_job_id": "mZ5vHl6",
+        "application_status": "not_started",
+        "decision_reason": "role_not_frontend",
+        "level": "Senior",
+        "remote_policy": "Europe",
+        "salary": "€70K - €100K",
+        "notes": "YC metadata says any experience, but the exact description requires 5+ years in Solutions/Sales Engineering or technical pre-sales; role is GTM/API/SQL focused rather than frontend."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:LDTrViN",
+      "args": {
+        "company": "Cogram",
+        "role": "Ex Technical Founder (Product Engineer)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer",
+        "source_job_id": "LDTrViN",
+        "application_status": "not_started",
+        "decision_reason": "other",
+        "level": "Middle",
+        "remote_policy": "Europe",
+        "stack": "Python; React; TypeScript; React Native; PostgreSQL; Redis",
+        "salary": "€70K - €130K",
+        "notes": "Adjacent Cogram role discovered after the existing Cogram application. Exact role explicitly requires having founded or co-founded a tech company and built the product; this profile requirement is not met."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:0s9VB2H",
+      "args": {
+        "company": "Runway",
+        "role": "Full Stack Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/runway/jobs/0s9VB2H-full-stack-engineer",
+        "source_job_id": "0s9VB2H",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Senior",
+        "remote_policy": "Country-specific",
+        "stack": "React; React Native; TypeScript; Go; iOS; Android; Flutter",
+        "salary": "$80K - $150K",
+        "notes": "YC remote country set lists US, GB, AU, ES, FR, MX, DK, SE, IT, PL, CZ, PT, BE, NL, CA, FI, EE, BR; Serbia is excluded, and the role lists 6+ years."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:aXpL7BC",
+      "args": {
+        "company": "Windmill",
+        "role": "Product Software Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/windmill/jobs/aXpL7BC-product-software-engineer",
+        "source_job_id": "aXpL7BC",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Junior/Middle",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Svelte; CSS; PostgreSQL; Rust",
+        "salary": "€50K - €90K",
+        "notes": "Strong adjacent product/UI role and YC accepts less-senior candidates, interns and young graduates, but the offer is Paris hybrid or remote within France only."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:P6tu0WO",
+      "args": {
+        "company": "Sitefire",
+        "role": "Founding Product Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/sitefire/jobs/P6tu0WO-founding-product-engineer",
+        "source_job_id": "P6tu0WO",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Junior/Middle",
+        "remote_policy": "On-site",
+        "stack": "TypeScript; React; Vite; Supabase; Vercel; PostgreSQL; AI Agents",
+        "salary": "€85K - €120K",
+        "notes": "Strong React/TypeScript and AI-tooling overlap with 1+ years listed, but the exact role is onsite by default in Munich and explicitly not remote or hybrid."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:vwGFPHy",
+      "args": {
+        "company": "Chima",
+        "role": "Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/chima/jobs/vwGFPHy-frontend-engineer",
+        "source_job_id": "vwGFPHy",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Middle",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; Node.js; React; TypeScript; Next.js; Storybook",
+        "salary": "$80K - $250K",
+        "notes": "Excellent stack match and YC metadata says new grads ok, but remote is US-only; the description also asks for 4+ years professional frontend experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:6goKR1I",
+      "args": {
+        "company": "Wavelength",
+        "role": "Founding Software Engineer (Remote)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/wavelength/jobs/6goKR1I-founding-software-engineer-remote",
+        "source_job_id": "6goKR1I",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Unknown",
+        "remote_policy": "Country-specific",
+        "stack": "Go; PostgreSQL; React; TypeScript",
+        "salary": "$30K - $50K",
+        "notes": "YC allows new grads, but the contract role is India / Remote India; not eligible from Serbia."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:aDnRu3L",
+      "args": {
+        "company": "Swif.ai",
+        "role": "Frontend Engineer (Vue, Browser Extensions, AI Agent)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/swif-ai/jobs/aDnRu3L-frontend-engineer-vue-browser-extensions-ai-agent",
+        "source_job_id": "aDnRu3L",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "level": "Junior/Middle",
+        "remote_policy": "Country-specific",
+        "stack": "CSS; HTML; JavaScript; React; Vue.js",
+        "salary": "$40K - $60K",
+        "notes": "Good 1+ year frontend scope with accessibility/performance and AI tooling, but YC limits remote to Taiwan, Canada, Vietnam, Japan, Korea, and Indonesia; Serbia is excluded."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:yTpvIRZ",
+      "args": {
+        "company": "Per Diem",
+        "role": "React Native Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/per-diem/jobs/yTpvIRZ-per-diem-is-expending-and-looking-for-a-react-native-experience-developer",
+        "source_job_id": "yTpvIRZ",
+        "application_status": "not_started",
+        "decision_reason": "stack_mismatch",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "stack": "React Native; Node.js; iOS; Android",
+        "salary": "$60K",
+        "notes": "Remote geography is unspecified, but the exact role requires 6+ years of mobile development and production React Native/App Store/Google Play experience; not a web-frontend target."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:x2fdabu",
+      "args": {
+        "company": "Zepto",
+        "role": "Founding Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/zepto/jobs/x2fdabu-founding-frontend-engineer",
+        "source_job_id": "x2fdabu",
+        "application_status": "not_started",
+        "decision_reason": "stack_mismatch",
+        "level": "Junior/Middle",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; React Native; TypeScript; iOS; Android",
+        "salary": "$20K - $60K",
+        "notes": "YC lists Mumbai / Remote and 1+ years, but the exact role is centered on React Native mobile apps, native iOS/Android bridges and large-scale mobile delivery rather than web frontend."
+      }
+    }
+  ]
+}

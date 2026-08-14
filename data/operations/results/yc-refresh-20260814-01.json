@@ -1,0 +1,336 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T19:18:04Z",
+  "jobs": [],
+  "operation_id": "yc-refresh-20260814-01",
+  "result": {
+    "count": 16,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:4hSv1Na",
+        "command": "add",
+        "job_id": "job-0191",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0191",
+            "source": "YC Work at a Startup",
+            "source_job_id": "4hSv1Na",
+            "source_url": "https://www.ycombinator.com/companies/credal-ai/jobs/4hSv1Na-founding-frontend-ux-software-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:HqKLn2C",
+        "command": "add",
+        "job_id": "job-0192",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0192",
+            "source": "YC Work at a Startup",
+            "source_job_id": "HqKLn2C",
+            "source_url": "https://www.ycombinator.com/companies/authologic/jobs/HqKLn2C-frontend-engineer-ui-product-focused"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:JCRcV6h",
+        "command": "add",
+        "job_id": "job-0193",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0193",
+            "source": "YC Work at a Startup",
+            "source_job_id": "JCRcV6h",
+            "source_url": "https://www.ycombinator.com/companies/rebolt/jobs/JCRcV6h-founding-frontend-design-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:BM2L6rb",
+        "command": "add",
+        "job_id": "job-0194",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0194",
+            "source": "YC Work at a Startup",
+            "source_job_id": "BM2L6rb",
+            "source_url": "https://www.ycombinator.com/companies/humaans/jobs/BM2L6rb-software-engineer-full-stack"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:9TaFbm2",
+        "command": "add",
+        "job_id": "job-0195",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0195",
+            "source": "YC Work at a Startup",
+            "source_job_id": "9TaFbm2",
+            "source_url": "https://www.ycombinator.com/companies/eight-sleep/jobs/9TaFbm2-full-stack-engineer-web"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:Tb6dGeS",
+        "command": "add",
+        "job_id": "job-0196",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0196",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Tb6dGeS",
+            "source_url": "https://www.ycombinator.com/companies/bloom-4/jobs/Tb6dGeS-founding-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:mZ5vHl6",
+        "command": "add",
+        "job_id": "job-0197",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0197",
+            "source": "YC Work at a Startup",
+            "source_job_id": "mZ5vHl6",
+            "source_url": "https://www.ycombinator.com/companies/lago/jobs/mZ5vHl6-solutions-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:LDTrViN",
+        "command": "add",
+        "job_id": "job-0198",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0198",
+            "source": "YC Work at a Startup",
+            "source_job_id": "LDTrViN",
+            "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:0s9VB2H",
+        "command": "add",
+        "job_id": "job-0199",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0199",
+            "source": "YC Work at a Startup",
+            "source_job_id": "0s9VB2H",
+            "source_url": "https://www.ycombinator.com/companies/runway/jobs/0s9VB2H-full-stack-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:aXpL7BC",
+        "command": "add",
+        "job_id": "job-0200",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0200",
+            "source": "YC Work at a Startup",
+            "source_job_id": "aXpL7BC",
+            "source_url": "https://www.ycombinator.com/companies/windmill/jobs/aXpL7BC-product-software-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:P6tu0WO",
+        "command": "add",
+        "job_id": "job-0201",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0201",
+            "source": "YC Work at a Startup",
+            "source_job_id": "P6tu0WO",
+            "source_url": "https://www.ycombinator.com/companies/sitefire/jobs/P6tu0WO-founding-product-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:vwGFPHy",
+        "command": "add",
+        "job_id": "job-0202",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0202",
+            "source": "YC Work at a Startup",
+            "source_job_id": "vwGFPHy",
+            "source_url": "https://www.ycombinator.com/companies/chima/jobs/vwGFPHy-frontend-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:6goKR1I",
+        "command": "add",
+        "job_id": "job-0203",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0203",
+            "source": "YC Work at a Startup",
+            "source_job_id": "6goKR1I",
+            "source_url": "https://www.ycombinator.com/companies/wavelength/jobs/6goKR1I-founding-software-engineer-remote"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:aDnRu3L",
+        "command": "add",
+        "job_id": "job-0204",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0204",
+            "source": "YC Work at a Startup",
+            "source_job_id": "aDnRu3L",
+            "source_url": "https://www.ycombinator.com/companies/swif-ai/jobs/aDnRu3L-frontend-engineer-vue-browser-extensions-ai-agent"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:yTpvIRZ",
+        "command": "add",
+        "job_id": "job-0205",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0205",
+            "source": "YC Work at a Startup",
+            "source_job_id": "yTpvIRZ",
+            "source_url": "https://www.ycombinator.com/companies/per-diem/jobs/yTpvIRZ-per-diem-is-expending-and-looking-for-a-react-native-experience-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:x2fdabu",
+        "command": "add",
+        "job_id": "job-0206",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-14",
+            "job_id": "job-0206",
+            "source": "YC Work at a Startup",
+            "source_job_id": "x2fdabu",
+            "source_url": "https://www.ycombinator.com/companies/zepto/jobs/x2fdabu-founding-frontend-engineer"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
