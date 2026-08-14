@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-14T16:12:13Z",
+  "jobs": [],
+  "operation_id": "getmatch-initial-pass-20260814-v2",
+  "result": {
+    "client_ref": "getmatch:12124",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Яндекс MultiTrack",
+          "id": "job-0194",
+          "listing_status": "closed",
+          "reason": "похоже: company 1.00, role 0.90",
+          "role": "Разработчик интерфейсов (Игры)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 4,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
