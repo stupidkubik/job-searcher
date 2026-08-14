@@ -4,7 +4,9 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -54,7 +56,10 @@ class JobSourcesTests(unittest.TestCase):
         )
 
     def test_confirmed_duplicate_adds_reference_without_new_job_and_is_idempotent(self):
-        self.assertEqual(self.add_linkedin("CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/101").returncode, 0)
+        self.assertEqual(self.add_linkedin(
+            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/101",
+            "--found-at", "2026-08-01",
+        ).returncode, 0)
         duplicate = self.add_linkedin(
             "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/102",
             "--duplicate-of", "job-0001",
@@ -63,6 +68,8 @@ class JobSourcesTests(unittest.TestCase):
         self.assertEqual(len(self.rows("jobs.csv")), 1)
         self.assertEqual(len(self.rows("job_sources.csv")), 2)
         self.assertEqual(self.rows("job_sources.csv")[1]["job_id"], "job-0001")
+        tracker_today = datetime.now(timezone.utc).astimezone(ZoneInfo("Europe/Belgrade")).date().isoformat()
+        self.assertEqual(self.rows("job_sources.csv")[1]["found_at"], tracker_today)
 
         repeated = self.add_linkedin(
             "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/102",
@@ -71,6 +78,19 @@ class JobSourcesTests(unittest.TestCase):
         self.assertEqual(repeated.returncode, 0, repeated.stderr)
         self.assertEqual(len(self.rows("jobs.csv")), 1)
         self.assertEqual(len(self.rows("job_sources.csv")), 2)
+
+    def test_confirmed_duplicate_preserves_explicit_source_found_at(self):
+        self.assertEqual(self.add_linkedin(
+            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/111",
+            "--found-at", "2026-08-01",
+        ).returncode, 0)
+        duplicate = self.add_linkedin(
+            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/112",
+            "--duplicate-of", "job-0001", "--found-at", "2026-08-13",
+        )
+
+        self.assertEqual(duplicate.returncode, 0, duplicate.stderr)
+        self.assertEqual(self.rows("job_sources.csv")[1]["found_at"], "2026-08-13")
 
     def test_source_job_id_cannot_point_to_two_canonical_jobs(self):
         first = self.add_linkedin(

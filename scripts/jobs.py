@@ -1081,7 +1081,7 @@ def add_duplicate_source_reference(values, duplicate_of, force=False):
     rows = load()
     source_rows = load_job_sources()
     canonical_job = find(rows, duplicate_of)
-    reference = build_source_reference(canonical_job["id"], values, canonical_job["found_at"])
+    reference = build_source_reference(canonical_job["id"], values, today())
     reference, created = prepare_source_reference(source_rows, reference, force=force)
     new_source_rows = [*source_rows, reference] if created else source_rows
     warnings = ensure_dataset_valid(rows, new_source_rows, emit_warnings=False)

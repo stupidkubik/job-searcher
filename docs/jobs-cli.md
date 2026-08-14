@@ -28,9 +28,11 @@ python3 scripts/jobs.py add \
 `--source-url` или `--source-job-id`; исключение — только `Manual` и `Referral`.
 
 `--duplicate-of JOB_ID` не создаёт новую строку вакансии: он добавляет source
-reference к уже существующей canonical вакансии. Команда идемпотентна. Если
-нормализованный `source_url` уже привязан к другой вакансии, CLI завершится с
-кодом `2`; `--force` — явное разрешение для shared discovery page.
+reference к уже существующей canonical вакансии. Без `--found-at` новая
+reference получает текущую tracker-дату в `Europe/Belgrade`, а не дату первого
+обнаружения canonical вакансии. Команда идемпотентна. Если нормализованный
+`source_url` уже привязан к другой вакансии, CLI завершится с кодом `2`;
+`--force` — явное разрешение для shared discovery page.
 
 ## Structured input для `add`
 
