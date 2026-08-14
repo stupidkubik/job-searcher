@@ -1,0 +1,425 @@
+{
+  "version": 1,
+  "operation_id": "linkedin-email-pass-20260814-v2",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453140607",
+      "args": {
+        "company": "CoreView",
+        "role": "Frontend Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453140607/",
+        "source_job_id": "4453140607",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Italy",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Italy (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453666286",
+      "args": {
+        "company": "FetchJobs.co",
+        "role": "Frontend Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453666286/",
+        "source_job_id": "4453666286",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Germany",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Germany (Remote); aggregator/intermediary card.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4434197053",
+      "args": {
+        "company": "SingleStore",
+        "role": "Software Engineer | Frontend",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4434197053/",
+        "source_job_id": "4434197053",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Portugal",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Portugal (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4440561465",
+      "args": {
+        "company": "Planimatik",
+        "role": "Frontend Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4440561465/",
+        "source_job_id": "4440561465",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Canary Islands, Spain",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Canary Islands, Spain (Hybrid); salary shown as EUR 24K-33K/year."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4416294263",
+      "args": {
+        "company": "MC Engineering",
+        "role": "AI Frontend Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4416294263/",
+        "source_job_id": "4416294263",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Italy",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Italy (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453676433",
+      "args": {
+        "company": "Hire Feed",
+        "role": "Fullstack Developer (React/Node.js) (Remote)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453676433/",
+        "source_job_id": "4453676433",
+        "duplicate_of": "job-0096"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453078724",
+      "args": {
+        "company": "Apply4U | Human-Assisted AI Job & Recruitment Platform",
+        "role": "Junior Software Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453078724/",
+        "source_job_id": "4453078724",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "United Kingdom",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: United Kingdom (Remote).",
+        "level": "Junior"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452383212",
+      "args": {
+        "company": "Revolut",
+        "role": "Frontend Software Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452383212/",
+        "source_job_id": "4452383212",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Poland",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Poland (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452384203",
+      "args": {
+        "company": "Revolut",
+        "role": "Web Software Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452384203/",
+        "source_job_id": "4452384203",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Poland",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Poland (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4385008024",
+      "args": {
+        "company": "Tickmill",
+        "role": "Front-End Developer (React)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4385008024/",
+        "source_job_id": "4385008024",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Tallinn, Estonia",
+        "remote_policy": "On-site",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Tallinn (On-site)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4418950729",
+      "args": {
+        "company": "Proxify",
+        "role": "Senior Frontend Developer (Vue.js)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4418950729/",
+        "source_job_id": "4418950729",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Serbia",
+        "remote_policy": "Serbia",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: explicit Senior role.",
+        "level": "Senior"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452728315",
+      "args": {
+        "company": "Pollard Digital Solutions",
+        "role": "Frontend Software Engineer-Game Studio",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452728315/",
+        "source_job_id": "4452728315",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Belgrade, Serbia",
+        "remote_policy": "Hybrid",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Belgrade (Hybrid). Current role description requires at least 5 years of JavaScript plus essential Canvas API/Pixi.js/Phaser.js/Create.js; exact vacancy is not present on the employer's current Serbia careers list, so first-party/apply verification remains unknown.",
+        "level": "Senior"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453118598",
+      "args": {
+        "company": "ZYNE",
+        "role": "Full Stack Engineer JavaScript (m/ž)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453118598/",
+        "source_job_id": "4453118598",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Novi Sad, Serbia",
+        "remote_policy": "Hybrid",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Novi Sad (Hybrid), Easy Apply. Current ZYNE full-stack role family is materially backend/full-stack and asks for about 5 years of software engineering; no exact first-party vacancy matching this LinkedIn ID was found.",
+        "level": "Unknown"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452418888",
+      "args": {
+        "company": "Qaracter - Beyond your Challenge",
+        "role": "React Frontend Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452418888/",
+        "source_job_id": "4452418888",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Spain",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Spain (Remote), Easy Apply."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452698011",
+      "args": {
+        "company": "Neotalent Conclusion",
+        "role": "React Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452698011/",
+        "source_job_id": "4452698011",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Portugal",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Portugal (Remote), Easy Apply."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453065795",
+      "args": {
+        "company": "FetchJobs.co",
+        "role": "Frontend Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453065795/",
+        "source_job_id": "4453065795",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Germany",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Germany (Remote); separate exact LinkedIn card from 4453666286, underlying employer requisition not confirmed.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4450123360",
+      "args": {
+        "company": "KTKsoft Informatikai és Tanácsadó Kft.",
+        "role": "Senior Frontend fejlesztő (react, nextjs, typescript)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4450123360/",
+        "source_job_id": "4450123360",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Budapest, Hungary",
+        "remote_policy": "Country-specific",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: explicit Senior role, Budapest/Hungary (Remote).",
+        "level": "Senior"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453072809",
+      "args": {
+        "company": "Hire Feed",
+        "role": "Senior Frontend Software Engineer (Typescript) (Remote)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453072809/",
+        "source_job_id": "4453072809",
+        "duplicate_of": "job-0097"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453061861",
+      "args": {
+        "company": "Hire Feed",
+        "role": "Senior Frontend Software Engineer (Typescript) (Remote)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453061861/",
+        "source_job_id": "4453061861",
+        "duplicate_of": "job-0097"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453056838",
+      "args": {
+        "company": "Hire Feed",
+        "role": "Fullstack Developer (React/Node.js) (Remote)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453056838/",
+        "source_job_id": "4453056838",
+        "duplicate_of": "job-0096"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4451670432",
+      "args": {
+        "company": "Harper Russo",
+        "role": "Senior Full Stack Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4451670432/",
+        "source_job_id": "4451670432",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Serbia",
+        "remote_policy": "Serbia",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: explicit Senior role, Serbia (Remote), Easy Apply.",
+        "level": "Senior"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4345410062",
+      "args": {
+        "company": "Etteplan",
+        "role": "Frontend Developer - future projects (M/F/NB)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4345410062/",
+        "source_job_id": "4345410062",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Katowice, Poland",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Katowice/Poland (Remote)."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453053820",
+      "args": {
+        "company": "Hire Feed",
+        "role": "Junior Software Engineer (Remote)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453053820/",
+        "source_job_id": "4453053820",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "location": "Ireland",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "LinkedIn email alert: Ireland (Remote); intermediary card."
+      }
+    }
+  ]
+}
