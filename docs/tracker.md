@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-14** · Jobs: **214**
+Dataset updated: **2026-08-16** · Jobs: **234**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (182)](#archive)
+[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (6)](#to-verify) · [Archive (200)](#archive)
 
 ## Action now
 
@@ -48,19 +48,39 @@ Dataset updated: **2026-08-14** · Jobs: **214**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [FixDrive — Middle Frontend Developer (React, React Native)](<https://hirify.me/jobs/602848-middle-frontend-developer-react-native>) · job-0215 | First party + Apply + Listing | 8 | verify first-party | Never |
+| Reviewing | [Undisclosed — Junior Frontend Developer (iGaming)](<https://hirify.me/jobs/695887-junior-frontend-developer-igaming>) · job-0217 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
-| Reviewing | [Undisclosed — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify exact Hirify card and first-party source | Never |
-| Reviewing | [Undisclosed — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | resolve exact employer vacancy and Serbia eligibility | Never |
-| Reviewing | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | First party + Apply + Listing | — | verify Atlantis first-party application route | Never |
+| Reviewing | [Undisclosed — Frontend Developer (Angular)](<https://hirify.me/jobs/673289-frontend-developer-angular>) · job-0216 | First party + Apply + Listing | 6.5 | verify first-party | Never |
+| Reviewing | [Hired — Middle/Senior Frontend Developer (TypeScript)](<https://hirify.me/jobs/773970-middlesenior-frontend-developer-typescript>) · job-0218 | First party + Apply + Listing | 6.5 | verify first-party | Never |
+| Reviewing | [Undisclosed — Frontend Developer (React/TypeScript)](<https://hirify.me/jobs/316748-frontend-developer-react-typescript>) · job-0219 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (182)</summary>
+<summary>Archive (200)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Undisclosed — Frontend Developer (React/TypeScript)](<https://hirify.me/jobs/547482-frontend-developer-react-typescript>) · job-0234 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: salary too low | [Undisclosed — Frontend Developer (React/TypeScript) - Project](<https://hirify.me/jobs/652617-frontend-developer-reacttypescript>) · job-0233 | salary too low | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — UI Developer / Frontend Markup Specialist](<https://hirify.me/jobs/563540-ui-developer-frontend-markup-specialist>) · job-0232 | other | Not checked | 2026-08-16 |
+| Skipped: geo restriction | [Undisclosed — Frontend Developer Intern (React)](<https://hirify.me/jobs/725007-frontend-developer-react-internship>) · job-0231 | geo restriction | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — Junior Frontend Developer (TypeScript)](<https://hirify.me/jobs/610435-junior-frontend-developer-typescript>) · job-0230 | other | Not checked | 2026-08-16 |
+| Skipped: seniority too high | [Undisclosed — Senior Frontend Developer](<https://hirify.me/jobs/96485-senior-frontend-developer-serbia>) · job-0229 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: seniority too high | [Undisclosed — Senior Frontend Engineer (React)](<https://hirify.me/jobs/275733-senior-frontend-engineer-react>) · job-0228 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — UI/UX Engineer (Frontend Designer)](<https://hirify.me/jobs/125434-ui-ux-engineer-frontend-designer>) · job-0227 | other | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — Senior Frontend Developer (TypeScript/React)](<https://hirify.me/jobs/256219-senior-frontend-developer-typescript-react>) · job-0226 | other | Not checked | 2026-08-16 |
+| Skipped: seniority too high | [Undisclosed — Frontend Developer (JavaScript/TypeScript)](<https://hirify.me/jobs/314257-frontend-developer-javascript-typescript>) · job-0225 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — SDE II (Frontend)](<https://hirify.me/jobs/363700-sde-frontend-react-typescript>) · job-0224 | other | Not checked | 2026-08-16 |
+| Skipped: seniority too high | [Undisclosed — Senior Frontend Developer (React)](<https://hirify.me/jobs/436025-senior-frontend-developer-react>) · job-0223 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: role not frontend | [Undisclosed — Frontend Backend Engineer (React/Python)](<https://hirify.me/jobs/606833-frontend-backend-engineer-react>) · job-0222 | role not frontend | Not checked | 2026-08-16 |
+| Skipped: seniority too high | [Undisclosed — Frontend Developer (React)](<https://hirify.me/jobs/696206-frontend-developer-react-typescript>) · job-0221 | seniority too high | Not checked | 2026-08-16 |
+| Skipped: work authorization | [Undisclosed — Frontend Developer (React)](<https://hirify.me/jobs/744383-frontend-developer-react-typescript>) · job-0220 | work authorization | Not checked | 2026-08-16 |
+| Skipped: other | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | other | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | other | Not checked | 2026-08-16 |
+| Skipped: other | [Undisclosed — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | other | Not checked | 2026-08-16 |
 | Skipped: stack mismatch | [Zepto — Founding Frontend Engineer](<https://www.ycombinator.com/companies/zepto/jobs/x2fdabu-founding-frontend-engineer>) · job-0214 | stack mismatch | Not checked | 2026-08-14 |
 | Skipped: stack mismatch | [Per Diem — React Native Engineer](<https://www.ycombinator.com/companies/per-diem/jobs/yTpvIRZ-per-diem-is-expending-and-looking-for-a-react-native-experience-developer>) · job-0213 | stack mismatch | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Swif.ai — Frontend Engineer (Vue, Browser Extensions, AI Agent)](<https://www.ycombinator.com/companies/swif-ai/jobs/aDnRu3L-frontend-engineer-vue-browser-extensions-ai-agent>) · job-0212 | geo restriction | Not checked | 2026-08-14 |
