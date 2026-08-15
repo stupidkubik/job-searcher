@@ -1,0 +1,32 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-15T23:07:39Z",
+  "jobs": [
+    "job-0169",
+    "job-0170",
+    "job-0171"
+  ],
+  "operation_id": "hirify-refresh-20260816-03",
+  "result": {
+    "client_ref": "hirify:695887",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "reviewing",
+          "company": "Undisclosed",
+          "id": "job-0216",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 0.75",
+          "role": "Frontend Developer (Angular)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 5,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
