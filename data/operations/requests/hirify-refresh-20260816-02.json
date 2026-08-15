@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "operation_id": "hirify-refresh-20260816-02",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0169",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-14"},
+      "args": {"decision_reason": "other", "notes": "User closed this lead on 2026-08-16 after checking the exact Hirify card: it was updated 6 months ago. Treat as source-stale and do not keep it in active review."}
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0170",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-14"},
+      "args": {"listing_status": "closed", "first_party_verified": "yes", "apply_verified": "no", "original_url": "https://jobs.dou.ua/companies/geniusee/vacancies/366379/?from=widget_similar", "decision_reason": "closed_before_application", "notes": "Resolved to the same Geniusee Middle React Engineer requisition previously tracked as job-0005. The current exact DOU employer listing is inactive, so this rediscovered Hirify card is not actionable."}
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0171",
+      "expected": {"application_status": "reviewing", "listing_status": "unknown", "last_update": "2026-08-14"},
+      "args": {"decision_reason": "other", "notes": "User closed this lead on 2026-08-16 after checking the exact Hirify card: it was updated 4 months ago. Treat as source-stale and do not spend time on the challenge."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:602848",
+      "args": {"company": "FixDrive", "role": "Middle Frontend Developer (React, React Native)", "source": "Hirify", "source_url": "https://hirify.me/jobs/602848-middle-frontend-developer-react-native", "source_job_id": "602848", "application_status": "reviewing", "level": "Middle", "location": "Remote", "remote_policy": "Unclear", "stack": "JavaScript; TypeScript; React; React Native; HTML; CSS; REST API; Git", "salary": "Unknown", "match_score": 8, "notes": "Exact Hirify card was updated 41 minutes before review and is posted directly by HR/hiring manager. Requirements are accessible: basic/entry commercial frontend experience, React, JS/HTML/CSS and REST. Main risk is the vague Pre-Investment agreement with compensation rather than a clear salary. Next check: confirm guaranteed monthly cash compensation and contract terms, then apply if acceptable."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:673289",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (Angular)", "source": "Hirify", "source_url": "https://hirify.me/jobs/673289-frontend-developer-angular", "source_job_id": "673289", "application_status": "reviewing", "level": "Middle", "location": "Remote", "remote_policy": "Unclear", "stack": "Angular; JavaScript; TypeScript; HTML; CSS; SASS; Webpack; REST; Git", "salary": "Unknown", "match_score": 6.5, "notes": "Exact Hirify card was updated 5 hours before review and is posted directly by HR/hiring manager. Angular is the product stack, but core requirements explicitly accept Angular, React or Vue; 3 years overall / 2 years Angular is only a plus. Kept under the higher-recall policy. Next check: resolve employer/apply route and apply if no explicit geography restriction."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:695887",
+      "args": {"company": "Undisclosed", "role": "Junior Frontend Developer (iGaming)", "source": "Hirify", "source_url": "https://hirify.me/jobs/695887-junior-frontend-developer-igaming", "source_job_id": "695887", "application_status": "reviewing", "level": "Junior", "location": "Remote", "remote_policy": "Unclear", "stack": "JavaScript; TypeScript; React; Next.js", "salary": "Unknown", "match_score": 7, "notes": "Exact Hirify card is 8 days old, remote and junior; requires React, Next.js, JavaScript, TypeScript and English B1. Employer is hidden and description sparse. Hirify warns Telegram vacancies older than 7 days may be stale, but it is kept for manual confirmation under the higher-recall policy. Next check: contact recruiter manually and apply if still active."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:773970",
+      "args": {"company": "Hired", "role": "Middle/Senior Frontend Developer (TypeScript)", "source": "Hirify", "source_url": "https://hirify.me/jobs/773970-middlesenior-frontend-developer-typescript", "source_job_id": "773970", "application_status": "reviewing", "level": "Middle", "location": "EMEA / Remote", "remote_policy": "EMEA", "stack": "JavaScript; TypeScript; Frontend; Responsive UI; Cross-browser Compatibility", "salary": "$30-$80/hour", "match_score": 6.5, "notes": "Exact Hirify card is 11 days old and describes a remote EMEA contract paying $30-$80/hour. The same text is widely reposted by Hire Feed/Hired and the underlying client is opaque, so first-party identity is unresolved. Kept because EMEA is compatible with the higher-recall geography policy. Next check: resolve current client/apply route and apply if still accepting candidates."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:316748",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (React/TypeScript)", "source": "Hirify", "source_url": "https://hirify.me/jobs/316748-frontend-developer-react-typescript", "source_job_id": "316748", "application_status": "reviewing", "level": "Middle", "location": "Europe / Remote", "remote_policy": "Europe", "stack": "JavaScript; TypeScript; React; Browser APIs; REST API; Automated Testing", "salary": "Unknown", "match_score": 6.5, "notes": "Exact Hirify card is about 1 month old and says Remote Europe / must be allowed to work in Europe. It asks for 3+ years JavaScript/browser-API experience, so this is a stretch. Kept rather than geo-screened because location is broadly Europe and there is no explicit EU-citizenship requirement. Next check: resolve employer/apply route and test Serbia eligibility."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:744383",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/744383-frontend-developer-react-typescript", "source_job_id": "744383", "application_status": "not_started", "level": "Middle", "location": "European Union / Lithuania", "remote_policy": "Europe", "stack": "TypeScript; React; Tailwind CSS; Storybook; Playwright; Vitest; Zod; Module Federation; Node.js", "salary": "Unknown", "decision_reason": "work_authorization", "notes": "Strong modern frontend stack, but the exact Hirify description explicitly requires EU citizenship or legal authorization to work remotely within the EU. This is a real work-authorization blocker, unlike a card that merely says Europe."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:696206",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/696206-frontend-developer-react-typescript", "source_job_id": "696206", "application_status": "not_started", "level": "Senior", "location": "Europe / CET +/-1", "remote_policy": "Europe", "stack": "JavaScript; TypeScript; React; GraphQL; Apollo; Storybook; Cypress; Playwright; Tailwind CSS", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Exact Hirify card was updated less than an hour before review and is Europe-compatible, but explicitly requires 5+ years JavaScript/TypeScript/React and 3+ years HTML/CSS/GraphQL/Apollo."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:606833",
+      "args": {"company": "Undisclosed", "role": "Frontend Backend Engineer (React/Python)", "source": "Hirify", "source_url": "https://hirify.me/jobs/606833-frontend-backend-engineer-react", "source_job_id": "606833", "application_status": "not_started", "level": "Unknown", "location": "Serbia / Ukraine / Spain +1 / Remote Europe", "remote_policy": "Europe", "stack": "React; Python; SQL; PostgreSQL; Microservices; Data Pipelines; JavaScript; CI/CD; Testing", "salary": "Unknown", "decision_reason": "role_not_frontend", "notes": "Fresh and explicitly Serbia-compatible, but scope is materially backend/data-heavy: Python, SQL/PostgreSQL, microservices and data pipelines alongside React."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:436025",
+      "args": {"company": "Undisclosed", "role": "Senior Frontend Developer (React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/436025-senior-frontend-developer-react", "source_job_id": "436025", "application_status": "not_started", "level": "Senior", "location": "Serbia / Poland / Spain / Cyprus / Georgia", "remote_policy": "Europe", "stack": "JavaScript; TypeScript; React; CSS; REST; Web APIs; ag-Grid", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Geo explicitly includes Serbia and card is within the broad age window, but exact requirements ask for approximately 7 years of React experience."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:363700",
+      "args": {"company": "Undisclosed", "role": "SDE II (Frontend)", "source": "Hirify", "source_url": "https://hirify.me/jobs/363700-sde-frontend-react-typescript", "source_job_id": "363700", "application_status": "not_started", "level": "Middle", "location": "EMEA / Remote Europe", "remote_policy": "EMEA", "stack": "TypeScript; React; REST API; GitHub Actions; Playwright; Docker; Kubernetes; PostgreSQL", "salary": "Unknown", "decision_reason": "other", "notes": "The exact Hirify card is archived (updated 11 days before review). Source-side archive is treated as a stale discovery signal; no canonical employer closure is asserted."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:314257",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (JavaScript/TypeScript)", "source": "Hirify", "source_url": "https://hirify.me/jobs/314257-frontend-developer-javascript-typescript", "source_job_id": "314257", "application_status": "not_started", "level": "Senior", "location": "Europe / Remote", "remote_policy": "Europe", "stack": "JavaScript; TypeScript; Next.js; GraphQL; AWS; UI/UX", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Exact Hirify card is a senior frontend role; kept out of active pipeline despite Europe remote geography."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:256219",
+      "args": {"company": "Undisclosed", "role": "Senior Frontend Developer (TypeScript/React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/256219-senior-frontend-developer-typescript-react", "source_job_id": "256219", "application_status": "not_started", "level": "Middle", "location": "Europe / Austria", "remote_policy": "Europe", "stack": "JavaScript; TypeScript; React; HTML; CSS; Web APIs", "salary": "€65,000/year", "decision_reason": "other", "notes": "Interesting requirements on paper and Hirify grade says middle, but exact card is 8 months old. Closed from active pipeline as source-stale under the freshness policy."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:125434",
+      "args": {"company": "Undisclosed", "role": "UI/UX Engineer (Frontend Designer)", "source": "Hirify", "source_url": "https://hirify.me/jobs/125434-ui-ux-engineer-frontend-designer", "source_job_id": "125434", "application_status": "not_started", "level": "Middle", "location": "Europe / Remote", "remote_policy": "Europe", "stack": "Figma; TypeScript; React; Next.js; Tailwind CSS; UI; UX; Git", "salary": "Unknown", "decision_reason": "other", "notes": "Exact Hirify card is archived and was updated 4 months ago; source-stale under the current freshness policy."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:275733",
+      "args": {"company": "Undisclosed", "role": "Senior Frontend Engineer (React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/275733-senior-frontend-engineer-react", "source_job_id": "275733", "application_status": "not_started", "level": "Senior", "location": "Serbia / Spain / Portugal / Europe", "remote_policy": "Europe", "stack": "TypeScript; React; UI/UX; Canvas; State Management; Performance Optimization", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Exact card is archived/old and explicitly senior. Serbia-compatible geography does not outweigh the hard seniority blocker."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:96485",
+      "args": {"company": "Undisclosed", "role": "Senior Frontend Developer", "source": "Hirify", "source_url": "https://hirify.me/jobs/96485-senior-frontend-developer-serbia", "source_job_id": "96485", "application_status": "not_started", "level": "Senior", "location": "Serbia / Remote Europe", "remote_policy": "Serbia", "stack": "Angular; JavaScript; TypeScript; Webpack; REST APIs; Vue; Aurelia; Git", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Exact Hirify card is archived, updated 4 months ago, and explicitly senior."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:610435",
+      "args": {"company": "Undisclosed", "role": "Junior Frontend Developer (TypeScript)", "source": "Hirify", "source_url": "https://hirify.me/jobs/610435-junior-frontend-developer-typescript", "source_job_id": "610435", "application_status": "not_started", "level": "Junior", "location": "Remote", "remote_policy": "Unclear", "stack": "TypeScript; AI Tools", "salary": "$600 month 1; $800 months 2-3; $1,000 month 4+", "decision_reason": "other", "notes": "Exact Hirify card is archived and about 1 month old. It also starts below the configured $1,000/month minimum. Source freshness is the primary reason to keep it out of active pipeline."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:725007",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer Intern (React)", "source": "Hirify", "source_url": "https://hirify.me/jobs/725007-frontend-developer-react-internship", "source_job_id": "725007", "application_status": "not_started", "level": "Intern", "location": "Russia / Remote", "remote_policy": "Country-specific", "stack": "JavaScript; TypeScript; React; MUI; Ant Design; React Hook Form; Formik; Git", "salary": "Unknown", "decision_reason": "geo_restriction", "notes": "Excellent trainee/junior shape and only hours old, but exact Hirify card explicitly limits remote work to Russia."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:563540",
+      "args": {"company": "Undisclosed", "role": "UI Developer / Frontend Markup Specialist", "source": "Hirify", "source_url": "https://hirify.me/jobs/563540-ui-developer-frontend-markup-specialist", "source_job_id": "563540", "application_status": "not_started", "level": "Unknown", "location": "Serbia / Poland / Georgia", "remote_policy": "Europe", "stack": "HTML; CSS; JavaScript; TypeScript; React; Tailwind CSS; Figma; GSAP; Framer Motion; Canvas; WebGL; CMS", "salary": "Unknown", "decision_reason": "other", "notes": "Would be an unusually strong profile match, including Serbia and markup/UI work, but exact Hirify card is archived and was updated about 1 month ago. Do not revive it from fresher list snippets."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:652617",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (React/TypeScript) - Project", "source": "Hirify", "source_url": "https://hirify.me/jobs/652617-frontend-developer-reacttypescript", "source_job_id": "652617", "application_status": "not_started", "level": "Middle", "location": "Remote worldwide", "remote_policy": "Global", "stack": "React; TypeScript; HTML; CSS; SASS; SCSS; Figma; MUI; Next.js", "salary": "Up to 60,000 RUB total/project", "decision_reason": "salary_too_low", "notes": "Strong pixel-perfect/Figma/React overlap and global remote, but this is a small project with a total budget up to 60,000 RUB, below the configured compensation target."}
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:547482",
+      "args": {"company": "Undisclosed", "role": "Frontend Developer (React/TypeScript)", "source": "Hirify", "source_url": "https://hirify.me/jobs/547482-frontend-developer-react-typescript", "source_job_id": "547482", "application_status": "not_started", "level": "Senior", "location": "Remote", "remote_policy": "Unclear", "stack": "React; TypeScript; SaaS; Marketplace; Analytics UI", "salary": "Unknown", "decision_reason": "seniority_too_high", "notes": "Interesting product/frontend scope, but exact description asks for 3-5+ years of solid React/TypeScript experience and end-to-end ownership; outside the current Junior/Junior+ strategy."}
+    }
+  ]
+}
