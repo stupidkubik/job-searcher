@@ -44,7 +44,9 @@
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. По явной команде пользователя
   request может быть создан в `main` и применён там же; для review mode он живёт
-  на ветке `agent/<operation-id>`. Не использовать GitHub file API для прямого
+  на ветке `agent/<operation-id>`. После audited result connector сам открывает
+  или переиспользует exact-head PR в `main`; runner не создаёт PR через
+  `GITHUB_TOKEN`. Не использовать GitHub file API для прямого
   изменения `data/jobs.csv` или `data/job_sources.csv`: он обходит write-path.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
@@ -139,7 +141,9 @@ immutable request по контракту `data/operations/README.md`. Разр�
 `rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
 человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
 считать операцию завершённой, пока runner не создал соответствующий result и
-canonical diff.
+canonical diff. В review mode после этого connector обязан открыть
+или переиспользовать PR для exact `agent/<operation-id>` head и `main` base, дождаться
+CI и только затем отчитаться; merge остаётся отдельным решением человека.
 
 ## Порядок обработки одной вакансии
 

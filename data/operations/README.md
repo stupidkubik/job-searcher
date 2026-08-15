@@ -10,7 +10,9 @@ connector → requests/<operation_id>.json → trusted GitHub Actions runner
                                               ├→ render-tracker → docs/tracker.md
                                               └→ results/<operation_id>.json
                                                            ↓
-                                              audited commit on main or agent/* PR
+                                              audited commit on main or agent/*
+                                                           ↓
+                                           connector opens agent/* review PR
 ```
 
 The connector may create exactly one new request per commit. It must not edit
@@ -20,7 +22,7 @@ target branch controls delivery:
 - `main` is the direct mode, used only for an explicit user instruction. The
   runner validates and commits the canonical result directly to `main`.
 - `agent/<operation_id>` is the review mode. The runner commits to that branch
-  and opens a PR to `main`.
+  and the connector opens a PR from the audited head to `main`.
 
 The runner creates the matching result exactly once in either mode. It then
 strictly validates the resulting dataset, regenerates and exact-checks
@@ -44,6 +46,31 @@ use `Europe/Belgrade` independently of the GitHub runner's process timezone.
 4. Wait for the matching immutable result in `data/operations/results/` and the
    runner's canonical diff. A request is not complete merely because its JSON
    file was created.
+5. In review mode, search for an existing PR whose head is the exact
+   `agent/<operation_id>` branch and whose base is `main`. If none exists, use
+   the GitHub connector to open it from the audited branch head. Do not use a
+   workflow `GITHUB_TOKEN` or local `gh` for this step.
+6. Build the PR title and body from the immutable result: include
+   `operation_id`, `risk`, `status`, and state that validation and tests passed.
+   PR creation is idempotent: an existing exact head/base PR is reused, never
+   duplicated.
+
+Use this deterministic PR metadata:
+
+```text
+Title: jobs: apply agent operation <operation_id>
+
+Operation: <operation_id>
+Risk: <risk>
+Status: <status>
+Validation: passed
+Tests: passed
+```
+
+After creation, verify that the PR head branch and head SHA are the audited
+branch and commit that contain the matching immutable result. Then wait for the
+PR checks. Merging remains a human decision unless the user explicitly asks for
+it.
 
 For a completed operation the audited commit contains the immutable request and
 result, any permitted canonical changes, and a fresh tracker page. For a
@@ -250,8 +277,10 @@ python3 scripts/agent_operations.py apply data/operations/requests/op-20260811-0
 `apply` delegates canonical writes to the same tracker functions as the manual
 CLI, then writes one immutable result file. The workflow runs strict validation,
 regenerates and exact-checks `docs/tracker.md`, runs all unit tests, checks the
-changed-path allowlist, and then commits directly to `main` or opens a PR from
-an `agent/` branch according to the delivery mode above.
+changed-path allowlist, and pushes the audited commit to the request branch. In
+review mode the connector then opens or reuses the exact `agent/` branch PR.
+Keeping PR creation outside the workflow prevents GitHub from placing
+`pull_request` CI created by `GITHUB_TOKEN` into `action_required`.
 
 The runner permits only these changed paths: `data/jobs.csv`,
 `data/job_sources.csv`, `docs/tracker.md`, the expected immutable result, and

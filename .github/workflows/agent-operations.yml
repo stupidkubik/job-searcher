@@ -16,7 +16,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   apply:
@@ -200,26 +199,3 @@ jobs:
           git add data/jobs.csv data/job_sources.csv docs/tracker.md data/operations/results applications
           git commit -m "jobs: apply agent operation ${OPERATION_ID}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
-
-      - name: Open or update the review PR
-        if: github.ref_name != 'main'
-        env:
-          GH_TOKEN: ${{ github.token }}
-          OPERATION_ID: ${{ steps.operation.outputs.id }}
-          RISK: ${{ steps.operation.outputs.risk }}
-          STATUS: ${{ steps.operation.outputs.status }}
-        run: |
-          existing="$(gh pr list --head "${GITHUB_REF_NAME}" --base main --json url --jq '.[0].url')"
-          if [[ -n "${existing}" ]]; then
-            echo "Operation PR already exists: ${existing}"
-            exit 0
-          fi
-          gh pr create \
-            --base main \
-            --head "${GITHUB_REF_NAME}" \
-            --title "jobs: apply agent operation ${OPERATION_ID}" \
-            --body "Operation: ${OPERATION_ID}
-            Risk: ${RISK}
-            Status: ${STATUS}
-            Validation: passed
-            Tests: passed"

@@ -32,6 +32,8 @@ flowchart LR
     W -->|GitHub connector| Q["immutable operation request"]
     Q --> G["trusted agent-operations workflow"]
     G --> J
+    G --> B["audited agent/* branch"]
+    B -->|GitHub connector| P["review PR to main"]
     J --> C["jobs.csv + job_sources.csv + application cards"]
     C --> T["generated tracker / reports"]
 ```
@@ -65,7 +67,9 @@ Local writes go through `scripts/jobs.py`. The GitHub connector may create one
 immutable JSON request but cannot edit canonical CSV or executable policy. The
 trusted workflow validates the request, applies it through the same jobs
 functions, validates the whole dataset, regenerates the tracker and restricts
-changed paths before committing.
+changed paths before committing. In review mode it pushes only the audited
+branch; the connector opens or reuses the PR with its GitHub App identity so PR
+validation starts without a workflow-token approval gate.
 
 Atomic batches may mix existing-job updates and new `add` children. Add IDs are
 assigned only inside the isolated transaction and returned through stable

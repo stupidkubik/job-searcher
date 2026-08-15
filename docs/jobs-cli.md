@@ -377,8 +377,10 @@ Trusted GitHub Actions runner принимает request только из `main
 `scripts/agent_operations.py` и те же функции `jobs.py`, затем создаёт
 immutable result. После strict validation runner пересобирает и exact-checks
 `docs/tracker.md`, запускает unit tests, проверяет changed-file allowlist и
-коммитит результат. В review mode он открывает PR в `main`. Полная схема,
-allowed commands, optimistic locking и branch policy находятся в
+коммитит результат в исходную ветку. В review mode GitHub connector после
+появления audited result открывает или переиспользует exact-head PR в `main`.
+Runner не создаёт PR через `GITHUB_TOKEN`, чтобы `pull_request` CI не попадал в
+`action_required`. Полная схема, allowed commands, optimistic locking и branch policy находятся в
 [`data/operations/README.md`](../data/operations/README.md).
 
 Операция завершена только после matching result и canonical diff/PR. Connector

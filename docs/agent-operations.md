@@ -33,7 +33,9 @@ trusted GitHub Actions runner
         ├─ render and exact-check docs/tracker.md
         ├─ run unit tests and changed-path allowlist
         ▼
-audited commit on main or agent/* review PR
+audited commit on main or agent/*
+        │
+        └─ connector opens or reuses the agent/* review PR
 ```
 
 `data/jobs.csv` remains the only structured source of truth. `docs/tracker.md`
@@ -68,7 +70,7 @@ The branch, not the request's computed risk, controls delivery:
 | Request branch | When allowed | Runner outcome |
 |---|---|---|
 | `main` | only after explicit user instruction | commits the audited result directly to `main` |
-| `agent/<operation-id>` | normal review mode | commits to that branch and opens a PR to `main` |
+| `agent/<operation-id>` | normal review mode | commits to that branch; connector opens the PR to `main` |
 
 Risk remains useful audit information. `screen` and constrained `set` are low
 risk; `add`, all user-confirmed `status`, and `verify` that enriches data or
@@ -120,8 +122,10 @@ the operation executor:
 2. `jobs.py render-tracker` regenerates the browser view.
 3. `jobs.py render-tracker --check` proves exact freshness.
 4. The unit suite and changed-path allowlist must pass.
-5. The runner commits its result and generated tracker, then pushes or opens the
-   review PR according to the request branch.
+5. The runner commits its result and generated tracker, then pushes the audited
+   request branch.
+6. In review mode the connector finds an existing exact head/base PR or opens
+   one from `agent/<operation-id>` to `main` using its GitHub App identity.
 
 Thus a successful connector operation cannot leave `docs/tracker.md` stale. A
 conflict preserves the existing canonical view; its immutable result makes the
@@ -137,7 +141,11 @@ reason visible without creating a duplicate attempt.
 4. Put it on `agent/<operation-id>` unless the user explicitly directed a
    direct `main` operation.
 5. Do not edit any generated or canonical file beside the request.
-6. Wait for result and diff before reporting the operation complete.
+6. Wait for the matching immutable result and audited branch diff.
+7. In review mode, reuse the PR for the exact `agent/<operation-id>` head and
+   `main` base, or create it through the GitHub connector if none exists.
+8. Wait for PR CI before reporting the operation complete; PR merge remains a
+   separate human decision unless the user explicitly requested it.
 
 ## v1 boundary and future hardening
 

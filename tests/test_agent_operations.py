@@ -76,18 +76,26 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('["git", "diff", "--name-only", "origin/main...HEAD"]', workflow)
         self.assertNotIn('event.get("head_commit", {}).get("added", [])', workflow)
 
-    def test_workflow_supports_explicit_main_operations_without_a_review_pr(self):
+    def test_workflow_pushes_results_without_creating_a_review_pr(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("      - main", workflow)
-        self.assertIn('if: github.ref_name != \'main\'', workflow)
         self.assertIn('["git", "diff", "--name-status", base, "HEAD"]', workflow)
+        self.assertNotIn("pull-requests: write", workflow)
+        self.assertNotIn("GH_TOKEN:", workflow)
+        self.assertNotIn("gh pr create", workflow)
 
-    def test_workflow_pr_body_stays_inside_the_run_block(self):
-        workflow = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('            Risk: ${RISK}', workflow)
-        self.assertIn('            Status: ${STATUS}', workflow)
-        self.assertIn('            Validation: passed', workflow)
-        self.assertIn('            Tests: passed"', workflow)
+    def test_connector_contract_owns_idempotent_review_pr_creation(self):
+        contract = (PROJECT / "data" / "operations" / "README.md").read_text(encoding="utf-8")
+        instructions = (PROJECT / "AGENTS.md").read_text(encoding="utf-8")
+        normalized_contract = " ".join(contract.split())
+
+        self.assertIn("use the GitHub connector to open it", normalized_contract)
+        self.assertIn("exact head/base PR is reused", normalized_contract)
+        self.assertIn("Do not use a workflow `GITHUB_TOKEN` or local `gh`", normalized_contract)
+        self.assertIn("Title: jobs: apply agent operation <operation_id>", contract)
+        self.assertIn("verify that the PR head branch and head SHA are the audited", normalized_contract)
+        self.assertIn("runner не создаёт PR через", instructions)
+        self.assertIn("exact `agent/<operation-id>` head и `main` base", instructions)
 
     def test_workflow_keeps_its_operation_output_outside_the_checkout(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
