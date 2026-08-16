@@ -44,7 +44,7 @@ python3 scripts/jobs.py add \
 # После фактической отправки заявки человеком
 python3 scripts/jobs.py status job-0001 \
   --application-status applied --applied-at 2026-08-12 \
-  --cv-version cv-frontend-2026-08
+  --cv-version frontend-2026-08
 
 # После любого изменения
 python3 scripts/jobs.py validate --strict

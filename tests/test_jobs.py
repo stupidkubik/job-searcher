@@ -765,6 +765,32 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual([item["id"] for item in sections["upcoming_interview_test"]], ["job-0008"])
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
+    def test_verification_queue_covers_active_records_of_any_status_not_only_not_started(self):
+        reference = business_date()
+        self.assertEqual(self.add("AppliedUnverified", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
+        self.assertEqual(
+            self.add(
+                "AppliedVerified", "Frontend Developer", "--application-status", "reviewing",
+                "--listing-status", "open", "--original-url", "https://careers.example.test/verified",
+                "--first-party-verified", "yes", "--apply-verified", "yes", "--force", "--no-file",
+            ).returncode, 0,
+        )
+        self.assertEqual(self.invoke("status", "job-0002", "--application-status", "applied").returncode, 0)
+        self.assertEqual(self.add("RejectedUnverified", "Frontend Developer", "--force", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0003", "--application-status", "applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0003", "--application-status", "rejected").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        result = self.invoke("todo", "--date", reference.isoformat(), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        ids = [item["id"] for item in json.loads(result.stdout)["sections"]["verification_queue"]]
+        self.assertIn("job-0001", ids)
+        self.assertNotIn("job-0002", ids)
+        self.assertNotIn("job-0003", ids)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_todo_can_filter_by_primary_source_and_inclusive_id_range(self):
         self.assertEqual(self.add("ManualCo", "Frontend Developer", "--no-file").returncode, 0)
         for number in (2, 3):

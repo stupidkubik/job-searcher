@@ -2,7 +2,7 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-14** · Jobs: **214**
+Dataset updated: **2026-08-16** · Jobs: **214**
 
 [Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (182)](#archive)
 
@@ -23,15 +23,7 @@ Dataset updated: **2026-08-14** · Jobs: **214**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
-| Applied | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | Applied | 2026-08-13 | — | [Open](../applications/job-0142-cogram-design-engineer-technical-de.md) |
-| Applied | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | Applied | 2026-08-13 | — | [Open](../applications/job-0143-asim-software-engineer-front-end.md) |
-| Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
-| Applied | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
-| Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
-| Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
-| Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
-| Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
-| Applied | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
+| Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
 | Applied | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | — |
 | Applied | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | — |
 | Applied | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | — |
@@ -39,10 +31,18 @@ Dataset updated: **2026-08-14** · Jobs: **214**
 | Applied | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | [Open](../applications/job-0032-mixrank-junior-software-engineer-rem.md) |
 | Applied | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
-| Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
+| Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
+| Applied | [Quinncia — Frontend Developer](<https://wellfound.com/jobs/1029763-frontend-developer>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
+| Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
+| Applied | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
+| Applied | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | Applied | 2026-08-13 | — | [Open](../applications/job-0142-cogram-design-engineer-technical-de.md) |
+| Applied | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | Applied | 2026-08-13 | — | [Open](../applications/job-0143-asim-software-engineer-front-end.md) |
+| Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
+| Applied | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
+| Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
 | Rejected | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | [Open](../applications/job-0053-storyteller-ai-operations-manager.md) |
-| Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
 | Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
+| Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
 
 ## To verify
 

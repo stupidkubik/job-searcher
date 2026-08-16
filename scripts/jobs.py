@@ -2731,8 +2731,7 @@ def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
             stale_date = row["verified_at"] or row["last_update"]
             sections["stale_review"].append(todo_item(row, stale_date, stale["reason"]))
         if (
-            row["application_status"] == "not_started"
-            and is_active_candidate(row)
+            is_active_candidate(row)
             and (row["first_party_verified"] != "yes" or row["apply_verified"] != "yes")
         ):
             sections["verification_queue"].append(todo_item(row, action_date or row["last_update"]))
