@@ -128,6 +128,8 @@ connector-runner — падение после уже применённой can
 
 ### H1. `set` обходит человеческий gate на `applied`
 
+> ✅ Исправлено 2026-08-16, см. [«Исправления»](#h1---set-больше-не-может-выставить-lifecycle-поля) в конце документа.
+
 `SET_PROTECTED` (`scripts/jobs.py:99`) защищает только `id`, `stage_reached`,
 `verified_at`, `last_update`. `application_status` не защищён, а
 `apply_job_changes` (`scripts/jobs.py:1757-1760`) дополнительно **сам** проставляет
@@ -510,7 +512,7 @@ URL в данных 0 — риск латентный.
 |---:|---|---|
 | ~~1~~ | ~~C1 — вывести ghost-эвристику из `--strict`~~ | ✅ сделано |
 | ~~2~~ | ~~C2 — закрыть дыру validation + пример в `jobs-cli.md`~~ | ✅ сделано |
-| 3 | H1 — защитить lifecycle-поля в `set` | обход железного правила проекта |
+| ~~3~~ | ~~H1 — защитить lifecycle-поля в `set`~~ | ✅ сделано |
 | 4 | H4, H3 — синхронизация карточек и маска legacy-файлов | молчаливая потеря контекста |
 | 5 | M2 — `cv_version` | ломает главную аналитику проекта |
 | 6 | M1 + M6 — verification-долг и 22 пары дублей | долг по данным, растёт сам |
@@ -595,9 +597,67 @@ decision_reason='no_response_timeout'`.
 
 ### Осталось открытым
 
-C-уровня больше нет. Следующий по приоритету — **H1**: `set` по-прежнему
-позволяет выставить `application_status=applied` в обход `status`. Отдельно
-стоит учесть, что действующий тест
-`test_missing_cv_version_is_reported_without_validation_warning`
-(`tests/test_jobs.py`) сам использует этот обход, поэтому при закрытии H1 его
-нужно переписать на `status`.
+C-уровня больше нет. Следующий по приоритету после H1 — **H4/H3**
+(синхронизация карточек и маска legacy-файлов).
+
+---
+
+## H1 — `set` больше не может выставить lifecycle-поля
+
+`SET_PROTECTED` (`scripts/jobs.py:99`) расширен: `application_status`,
+`applied_at`, `response_at` и `decision_reason` теперь защищены наравне с
+`id`/`stage_reached`/`verified_at`/`last_update`. `set field=value` с любым из
+них теперь отклоняется тем же сообщением, что и раньше для `stage_reached`:
+«поле … управляется скриптом и не меняется через field=value».
+
+Единственный легитимный путь к этим полям — `status` (человеческое
+подтверждение lifecycle-события) — использует ту же функцию
+`apply_job_changes`, что и `set`. Чтобы не заблокировать сам себя, у
+`apply_job_changes` появился параметр `enforce_protected` (по умолчанию
+`True`); `apply_status_change` — единственный вызывающий, который передаёт
+`enforce_protected=False`, потому что к этому моменту он уже прогнал все
+проверки `status` (запрет отката из post-application, обязательный
+`--cv-version` и т. д.). `set_job` (обычный CLI `set`) вызывает
+`apply_job_changes` с защитой по умолчанию.
+
+`screen_job`/`verify_job`/`add` этих полей не касаются — они пишут их
+напрямую в строку, минуя `apply_job_changes`, и не затронуты изменением.
+
+Проверено:
+
+```
+$ python3 scripts/jobs.py set job-0169 application_status=applied
+error: поле application_status управляется скриптом и не меняется через field=value
+$ python3 scripts/jobs.py status job-0169 --application-status applied
+job-0169  application_status=applied  ...
+```
+
+### Тесты
+
+Добавлен `test_set_cannot_bypass_the_human_confirmed_applied_gate`
+(`tests/test_jobs.py`) — перебирает все четыре защищённых поля через `set` и
+проверяет отказ без записи в CSV.
+
+Пять существующих тестов, которые использовали `set application_status=…`
+как обходной путь для быстрого перевода записи в нужное состояние
+(`test_set_advances_lifecycle_and_cannot_lower_stage`,
+`test_listing_can_close_after_application_without_changing_application_history`,
+`test_screen_rejects_a_job_after_application_without_writing`,
+`test_verify_can_close_listing_after_application_without_rewriting_history`,
+`test_missing_cv_version_is_reported_without_validation_warning`,
+плюс аналогичные в `test_agent_operations.py` и todo/stats-тесты), переписаны
+на `status --application-status …`. `test_closed_listing_is_rejected_…` и
+`test_decision_reason_is_rejected_…` (инварианты C2) тоже использовали
+`set application_status=reviewing`/`set decision_reason=…` для построения
+состояния — первый переписан на `status --application-status reviewing`
+(поле не относится к защищаемым lifecycle-полям приложения после отклика,
+переход `not_started → reviewing` — обычное pre-application действие);
+второй — на `add --application-status reviewing --decision-reason
+geo_restriction`, потому что после закрытия H1 ни один сценарный путь, кроме
+`add`, не даёт независимо выставить `decision_reason` при активном
+`application_status` (`status` ограничивает reason только `ghosted`/
+`withdrawn`, `screen` и `verify` сами приводят запись к `not_started` при
+непустом `decision_reason`) — инвариант C2 по-прежнему достижим и проверяется
+через `add`.
+
+114 → 115 тестов, весь набор зелёный.

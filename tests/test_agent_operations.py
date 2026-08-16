@@ -460,7 +460,7 @@ class AgentOperationsTests(unittest.TestCase):
             "--source", "Manual", "--force", "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
-        self.assertEqual(self.invoke_jobs("set", "job-0002", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke_jobs("status", "job-0002", "--application-status", "applied").returncode, 0)
         second = self.rows()[1]
         before = (self.root / "data" / "jobs.csv").read_bytes()
         request = self.write_operation({

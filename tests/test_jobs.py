@@ -254,7 +254,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_set_advances_lifecycle_and_cannot_lower_stage(self):
         self.assertEqual(self.add("FlowCo", "Frontend Developer", "--no-file").returncode, 0)
-        applied = self.invoke("set", "job-0001", "application_status=applied", "cv_version=frontend-2026-08")
+        applied = self.invoke("status", "job-0001", "--application-status", "applied", "--cv-version", "frontend-2026-08")
         self.assertEqual(applied.returncode, 0, applied.stderr)
         row = self.rows()[0]
         self.assertEqual(row["application_status"], "applied")
@@ -266,6 +266,18 @@ class JobsCliTests(unittest.TestCase):
         lower = self.invoke("set", "job-0001", "--stage", "Applied")
         self.assertNotEqual(lower.returncode, 0)
         self.assertIn("нельзя понижать", lower.stderr)
+
+    def test_set_cannot_bypass_the_human_confirmed_applied_gate(self):
+        self.assertEqual(self.add("GateCo", "Frontend Developer", "--no-file").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        for field in ("application_status=applied", "applied_at=2026-08-01", "response_at=2026-08-01", "decision_reason=other"):
+            attempt = self.invoke("set", "job-0001", field)
+            self.assertNotEqual(attempt.returncode, 0)
+            self.assertIn("управляется скриптом", attempt.stderr)
+
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+        self.assertEqual(self.rows()[0]["application_status"], "not_started")
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
@@ -352,7 +364,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_listing_can_close_after_application_without_changing_application_history(self):
         self.assertEqual(self.add("LateCloseCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         applied_at = self.rows()[0]["applied_at"]
         closed = self.invoke("set", "job-0001", "listing_status=closed")
         self.assertEqual(closed.returncode, 0, closed.stderr)
@@ -537,7 +549,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_screen_rejects_a_job_after_application_without_writing(self):
         self.assertEqual(self.add("AppliedCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
         screened = self.invoke("screen", "job-0001", "--decision-reason", "geo_restriction")
@@ -548,7 +560,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_verify_can_close_listing_after_application_without_rewriting_history(self):
         self.assertEqual(self.add("VerifiedCloseCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         applied_at = self.rows()[0]["applied_at"]
         closed = self.invoke(
             "verify", "job-0001", "--listing-status", "closed",
@@ -562,7 +574,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_missing_cv_version_is_reported_without_validation_warning(self):
         self.assertEqual(self.add("HistoricalCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         validation = self.invoke("validate")
         self.assertEqual(validation.returncode, 0, validation.stderr)
         self.assertIn("предупреждений: 0", validation.stdout)
@@ -589,7 +601,7 @@ class JobsCliTests(unittest.TestCase):
 
     def test_closed_listing_is_rejected_while_the_application_is_in_progress(self):
         self.assertEqual(self.add("ClosedCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=reviewing").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "reviewing").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
         rejected = self.invoke("set", "job-0001", "listing_status=closed")
@@ -599,11 +611,12 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_decision_reason_is_rejected_while_the_application_is_in_progress(self):
-        self.assertEqual(self.add("ReasonCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=reviewing").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
-        rejected = self.invoke("set", "job-0001", "decision_reason=no_response_timeout")
+        rejected = self.add(
+            "ReasonCo", "Frontend Developer", "--application-status", "reviewing",
+            "--decision-reason", "geo_restriction", "--no-file",
+        )
 
         self.assertEqual(rejected.returncode, 1)
         self.assertIn("несовместим с application_status=reviewing", rejected.stderr)
@@ -660,7 +673,7 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.add("ReviewCo", "Frontend Developer", "--application-status", "reviewing", "--no-file").returncode, 0)
         self.assertEqual(self.add("VerifyCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.add("InterviewCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0008", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0008", "--application-status", "applied").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0008", "--stage", "Tech interview").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0008", "next_action=prepare technical interview", f"next_action_date={tomorrow}").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
@@ -717,7 +730,7 @@ class JobsCliTests(unittest.TestCase):
             ).returncode,
             0,
         )
-        self.assertEqual(self.invoke("set", "job-0001", "application_status=applied").returncode, 0)
+        self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0001", "--stage", "Recruiter screen").returncode, 0)
         self.assertEqual(self.add("Second Employer", "Frontend Developer", "--no-file").returncode, 0)
 

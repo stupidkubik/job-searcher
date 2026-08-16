@@ -96,7 +96,10 @@ NEEDS_APPLIED_AT = {"applied", "interviewing", "offer", "rejected", "ghosted", "
 RESPONDED_APPLICATION_STATUSES = {"interviewing", "offer", "rejected"}
 PRE_APPLICATION_REASONS = set(REASONS) - {"no_response_timeout", "withdrawn_by_me"}
 SCREEN_REASONS = PRE_APPLICATION_REASONS - {"closed_before_application", "duplicate_listing"}
-SET_PROTECTED = {"id", "stage_reached", "verified_at", "last_update"}
+SET_PROTECTED = {
+    "id", "stage_reached", "verified_at", "last_update",
+    "application_status", "applied_at", "response_at", "decision_reason",
+}
 VERIFY_ENRICHMENT_FIELDS = {"level", "remote_policy", "stack", "salary", "match_score"}
 ENUMS = {
     "application_status": APPLICATION_STATUSES,
@@ -1753,7 +1756,9 @@ def parse_field_assignments(pairs):
     return assignments
 
 
-def apply_job_changes(row, assignments, stage=None):
+def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
+    """enforce_protected=False is only for internal callers (status_job) that have
+    already run the human-confirmed lifecycle gate in apply_status_change."""
     if not assignments and not stage:
         die("нечего менять: укажите field=value и/или --stage")
     verification_touched = False
@@ -1761,7 +1766,7 @@ def apply_job_changes(row, assignments, stage=None):
         value = clean_value(raw_value)
         if key not in FIELDS:
             die(f"неизвестное поле: {key}")
-        if key in SET_PROTECTED:
+        if enforce_protected and key in SET_PROTECTED:
             die(f"поле {key} управляется скриптом и не меняется через field=value")
         if key == "decision_reason" and value == "duplicate_listing" and row["decision_reason"] != "duplicate_listing":
             die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
@@ -1924,7 +1929,7 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
         if next_action_date is not None:
             assignments.append(("next_action_date", next_action_date))
 
-    apply_job_changes(row, assignments, stage=stage)
+    apply_job_changes(row, assignments, stage=stage, enforce_protected=False)
     return "status_changed"
 
 
