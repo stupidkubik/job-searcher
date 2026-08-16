@@ -128,6 +128,22 @@ hard blocker автоматически: оставить `reviewing` и кон�
 Только прошедшая screening вакансия получает полный анализ, `match_score`,
 application card и решение `apply`/вычисляемый `Skipped`.
 
+**Ручной screening против `ingest`-предфильтра.** `scripts/ingestion.py`
+(`TOO_SENIOR_SIGNALS`) — это только грубый pre-filter по ключевым словам в
+title для batch-ingest (`senior`, `lead`, `staff`, `principal`, …); он не
+видит требования из тела вакансии и не проверяет годы опыта. Ручной или
+connector-driven screening по этому lifecycle читает полное описание и может
+законно поставить `decision_reason=seniority_too_high` для роли, чей title
+не содержит ни одного из этих слов (например `Middle`-роль, реально
+требующая больше коммерческого опыта, чем зафиксировано в
+`config/profile.md`) — противоречия с `TOO_SENIOR_SIGNALS` здесь нет, у ручного
+прохода просто больше evidence. Одинаковый `role`/`level` в двух разных
+записях может законно получить разный `decision_reason`, если это две разные
+exact vacancy (разные source ID) с разными формулировками требований в
+описании — сравнивать нужно по `notes`/evidence, а не по строке `role`.
+Каждое такое решение обязано называть конкретное требование в `notes`
+(например точное число лет опыта), а не полагаться на title.
+
 ### 6. Зафиксировать outcome
 
 Каждая exact vacancy, которую открыли, получает один из исходов:
