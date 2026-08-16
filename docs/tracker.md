@@ -2,15 +2,17 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-16** · Jobs: **214**
+Dataset updated: **2026-08-16** · Jobs: **223**
 
-[Action now (1)](#action-now) · [Applications (27)](#applications) · [To verify (4)](#to-verify) · [Archive (182)](#archive)
+[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (185)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | 9 | confirm Serbia hiring eligibility and prepare tailored CV | Open | — |
+| Reviewing | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | 8.5 | confirm Serbia eligibility and prepare tailored CV | Open | — |
 
 ## Applications
 
@@ -49,6 +51,10 @@ Dataset updated: **2026-08-16** · Jobs: **214**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
+| Reviewing | [Busyboard — Frontend Developer (React)](<https://hirify.me/jobs/842613-junior-react-frontend-developer>) · job-0215 | First party + Apply + Listing | — | verify employer and Serbia eligibility | Never |
+| Reviewing | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | First party + Apply + Listing | — | verify first-party listing manually | Never |
+| Reviewing | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | First party + Apply + Listing | — | verify Addi location and application route manually | Never |
+| Reviewing | [Welcome to the Jungle — Frontend Engineer (React)](<https://hirify.me/jobs/782492-frontend-engineer-react-javascript>) · job-0222 | First party + Apply + Listing | — | verify direct listing manually | Never |
 | Reviewing | [Undisclosed (hirify-349360) — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify exact Hirify card and first-party source | Never |
 | Reviewing | [Undisclosed (hirify-604239) — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | resolve exact employer vacancy and Serbia eligibility | Never |
 | Reviewing | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | First party + Apply + Listing | — | verify Atlantis first-party application route | Never |
@@ -57,10 +63,13 @@ Dataset updated: **2026-08-16** · Jobs: **214**
 
 <details>
 
-<summary>Archive (182)</summary>
+<summary>Archive (185)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [V4Scale — Angular Developer (Storage BU)](<https://v4scale.com/vacancies/angular/>) · job-0223 | seniority too high | Open | 2026-08-16 |
+| Skipped: geo restriction | [YouHodler — Frontend Developer](<https://www.youhodler.com/careers/engineer-frontend>) · job-0221 | geo restriction | Open | 2026-08-16 |
+| Skipped: geo restriction | [Kolesa Group — Middle Frontend-разработчик (Kolesa.kz)](<https://kolesa.group/career/job/middle-frontend-razrabotcik-kolesakz-136263530>) · job-0220 | geo restriction | Open | 2026-08-16 |
 | Closed | [getmatch (getmatch-22455) — Frontend Engineer](<https://getmatch.ru/vacancies/22455-frontend-engineer>) · job-0198 | closed before application | Closed | 2026-08-16 |
 | Skipped: geo restriction | [Hire Feed (linkedin-4453053820) — Junior Software Engineer (Remote)](<https://www.linkedin.com/jobs/view/4453053820/>) · job-0190 | geo restriction | Not checked | 2026-08-16 |
 | Skipped: geo restriction | [FetchJobs.co (linkedin-4453065795) — Frontend Developer](<https://www.linkedin.com/jobs/view/4453065795/>) · job-0186 | geo restriction | Not checked | 2026-08-16 |
