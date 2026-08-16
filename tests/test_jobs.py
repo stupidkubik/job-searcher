@@ -438,6 +438,36 @@ class JobsCliTests(unittest.TestCase):
         card = next((self.root / "applications").glob("job-0001-*.md"))
         self.assertIn("listing_status: open", card.read_text(encoding="utf-8"))
 
+    def test_verify_syncs_an_existing_card_even_when_verification_fails(self):
+        added = self.invoke(
+            "add", "--company", "StaleCardCo", "--role", "Frontend Developer",
+            "--source", "Manual", "--application-status", "apply",
+        )
+        self.assertEqual(added.returncode, 0, added.stderr)
+        card_path = self.root / "applications" / "job-0001-stalecardco-frontend-developer.md"
+        self.assertTrue(card_path.exists())
+        self.assertIn("original_url: \n", card_path.read_text(encoding="utf-8"))
+
+        failed = self.invoke(
+            "verify", "job-0001", "--listing-status", "closed",
+            "--first-party-verified", "yes", "--apply-verified", "no",
+            "--original-url", "https://careers.example.test/jobs/stale",
+            "--decision-reason", "closed_before_application", "--format", "json",
+        )
+
+        self.assertEqual(failed.returncode, 0, failed.stderr)
+        payload = json.loads(failed.stdout)
+        self.assertEqual(payload["outcome"], "blocked")
+        self.assertFalse(payload["application_card_created"])
+        row = self.rows()[0]
+        self.assertEqual(row["application_status"], "not_started")
+        card = card_path.read_text(encoding="utf-8")
+        self.assertIn("original_url: https://careers.example.test/jobs/stale", card)
+        self.assertIn(f"verified_at: {business_date().isoformat()}", card)
+        self.assertIn("listing_status: closed", card)
+        self.assertIn("first_party_verified: yes", card)
+        self.assertIn("apply_verified: no", card)
+
     def test_verify_migrates_missing_fields_in_legacy_application_card(self):
         added = self.invoke(
             "add", "--company", "LegacyCo", "--role", "Product Engineer",
@@ -1028,6 +1058,20 @@ class JobsCliTests(unittest.TestCase):
         changed_check = self.invoke("render-tracker", "--check", "--format", "json")
         self.assertEqual(changed_check.returncode, 1)
         self.assertEqual(json.loads(changed_check.stdout)["ok"], False)
+
+    def test_render_tracker_finds_legacy_dashless_card_names(self):
+        row = self.tracker_row(
+            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
+            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+        )
+        self.write_tracker_dataset([row])
+        (self.root / "applications" / "job-0001.md").write_text("# Legacy card\n", encoding="utf-8")
+
+        result = self.invoke("render-tracker")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
+        self.assertIn("[Open](../applications/job-0001.md)", tracker)
 
     def test_render_tracker_rejects_invalid_data_or_ambiguous_cards_without_overwriting(self):
         row = self.tracker_row(

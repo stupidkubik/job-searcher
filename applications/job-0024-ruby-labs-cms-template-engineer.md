@@ -3,6 +3,10 @@ id: job-0024
 company: Ruby Labs
 role: CMS Template Engineer
 original_url: https://rubylabs.com/careers/
+verified_at: 
+listing_status: closed
+first_party_verified: unknown
+apply_verified: unknown
 ---
 
 # Ruby Labs — CMS Template Engineer

@@ -3,6 +3,10 @@ id: job-0052
 company: Storyteller
 role: Operations Associate
 original_url: https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate
+verified_at: 
+listing_status: unknown
+first_party_verified: unknown
+apply_verified: unknown
 ---
 
 # Storyteller — Operations Associate

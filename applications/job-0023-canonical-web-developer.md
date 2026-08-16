@@ -3,6 +3,10 @@ id: job-0023
 company: Canonical
 role: Web Developer
 original_url: https://canonical.com/careers/2804965/web-developer-remote
+verified_at: 
+listing_status: unknown
+first_party_verified: unknown
+apply_verified: unknown
 ---
 
 # Canonical — Web Developer

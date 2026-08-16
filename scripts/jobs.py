@@ -1032,8 +1032,12 @@ def sync_application_card_front_matter(body, row, app_path):
     return "".join(lines)
 
 
+def application_card_path(row):
+    return APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
+
+
 def render_application_card(row, update_existing=False):
-    app_path = APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
+    app_path = application_card_path(row)
     if app_path.exists():
         if not update_existing:
             return app_path, None
@@ -2106,11 +2110,13 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
 
 
 def prepare_verified_application_write(row, passed):
-    application_path, application_body = (None, None)
-    application_card_created = False
-    if passed and row["application_status"] in {"reviewing", "apply"}:
-        application_path, application_body = render_application_card(row, update_existing=True)
-        application_card_created = application_body is not None and not application_path.exists()
+    """Sync an existing card's front matter on every verify, pass or fail.
+    A new card is still only created once verification actually passes."""
+    card_exists = application_card_path(row).exists()
+    if not card_exists and not (passed and row["application_status"] in {"reviewing", "apply"}):
+        return None, None, False
+    application_path, application_body = render_application_card(row, update_existing=True)
+    application_card_created = application_body is not None and not card_exists
     return application_path, application_body, application_card_created
 
 
@@ -2355,7 +2361,8 @@ def tracker_application_cards(rows):
     """Resolve the one supported Markdown card for every canonical job, if present."""
     cards = {}
     for row in rows:
-        matches = sorted(APPS_DIR.glob(f"{row['id']}-*.md"))
+        job_id = row["id"]
+        matches = sorted(set(APPS_DIR.glob(f"{job_id}-*.md")) | set(APPS_DIR.glob(f"{job_id}.md")))
         if len(matches) > 1:
             names = ", ".join(path.name for path in matches)
             raise ValueError(f"{row['id']}: multiple application cards match: {names}")

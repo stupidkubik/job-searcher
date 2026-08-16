@@ -3,6 +3,10 @@ id: job-0022
 company: Canonical
 role: Web Frontend Engineer - JS, CSS, React, Flutter
 original_url: https://canonical.com/careers/5150422/web-frontend-engineer-js-css-react-flutter-remote
+verified_at: 
+listing_status: unknown
+first_party_verified: unknown
+apply_verified: unknown
 ---
 
 # Canonical — Web Frontend Engineer - JS, CSS, React, Flutter

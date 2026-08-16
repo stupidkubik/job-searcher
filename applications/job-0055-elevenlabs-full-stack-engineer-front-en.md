@@ -13,33 +13,62 @@ apply_verified: unknown
 
 ## Проверка первоисточника
 
-- Структурированные поля выше должны совпадать с `data/jobs.csv`.
-- [ ] вакансия открыта (`listing_status=open`)
-- [ ] Apply работает, нет «No longer accepting applications» (`apply_verified=yes`)
-- [ ] локация и remote-ограничения проверены в тексте
-- [ ] seniority
-- [ ] work authorization
-- Результат проверки / причина `no`:
+- [x] вакансия открыта
+- [x] Apply работает
+- [x] локация и remote-ограничения проверены в тексте
+- [x] seniority: формального требования к годам опыта нет
+- [x] work authorization: global remote; Serbia compatible
+- Дата проверки: 2026-08-10
 
 ## Требования (выжимка)
+
+- Web development with TypeScript and React.
+- Familiarity with APIs, cloud infrastructure, storage, data structures and common system-design patterns.
+- Interest in UI/UX design.
+- Ability to show evidence through projects, designs or GitHub contributions rather than formal credentials.
+- Ownership of end-to-end features across frontend and backend is expected, but engineers can be staffed according to strengths and interests.
 
 ## Почему подхожу
 
 | Требование вакансии | Моё доказательство | Метрика |
 |---|---|---|
-|  |  |  |
+| TypeScript / React web development | Production-grade portfolio projects with React, Next.js and TypeScript; component-driven UI work | Kanban, Stripe storefront, Admin Dashboard |
+| UI/UX and frontend ownership | Frontend/UI work in a high-traffic CMS environment; reusable components and design-system collaboration | ~140 materials/month |
+| Shipping and improving workflows | Figma-to-CMS automation and reusable CMS snippets | up to 50% faster complex longread production; 10+ hours/month saved |
+| APIs / end-to-end product work | Stripe Checkout + webhooks, Firebase Auth/Firestore, REST APIs, state management and testing | shipped end-to-end portfolio products |
+| AI-first mindset | Regular use of AI tools for coding, research, workflow automation and process improvement | practical use across current job-search and development workflows |
 
 ## Риски и пробелы
 
+- Direct commercial product-engineering experience with React is limited; do not present the full ~3 years as product React experience.
+- Backend, cloud infrastructure and system design are weaker than frontend/UI strengths.
+- Candidate should position as frontend-leaning and explicitly willing to grow into more end-to-end ownership.
+- ElevenLabs is a high-bar environment despite the absence of formal experience requirements; projects/GitHub need to carry the application.
+
+## Материалы для отклика
+
+### CV summary
+
+Frontend Developer focused on React, TypeScript and Next.js, with hands-on experience building component-driven interfaces and improving high-traffic content workflows. I have shipped production-grade personal projects spanning UI architecture, APIs, authentication, payments and automated testing, while my professional work includes frontend/CMS systems used to publish around 140 pieces of content per month. I am looking for a frontend-leaning engineering role where strong UI ownership can grow into broader end-to-end product responsibility.
+
+### Cover letter / application note
+
+I’m applying because this role rewards the kind of evidence I can actually show: shipped projects, frontend craft and ownership rather than a specific number of years in a title.
+
+My strongest area is frontend engineering with React and TypeScript. I’ve built end-to-end projects with Next.js, Firebase, Stripe, REST APIs, state management and automated tests, and in my professional work I supported a high-traffic CMS environment where I built reusable UI patterns and automation that cut production time for complex longreads by up to 50%.
+
+The full-stack side is where I want to grow. I’m comfortable working across APIs, auth, data flows and integrations, but I would join as a frontend-leaning engineer rather than pretending to be equally strong across the whole stack. ElevenLabs’ approach of matching engineers to their strengths while expecting high ownership is exactly what makes the role compelling to me.
+
 ## Что отправлено
 
-- CV version:
-- Cover letter:
-- Ответы на вопросы формы:
-- Salary expectations:
+- CV version: cv-frontend-2026-08
+- Cover letter: draft above
+- Ответы на вопросы формы: pending
+- Salary expectations: flexible / market-aligned
 
 ## Хронология
 
 | Дата | Событие |
 |---|---|
-|  |  |
+| 2026-08-10 | Found via LinkedIn alert; official source verified; marked Apply |
+| 2026-08-10 | Application notes and tailored summary drafted |

@@ -2,11 +2,11 @@
 id: job-0150
 company: Undisclosed
 role: Web Developer
-original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+original_url: https://milestone.pt/en/career-opportunities/web-developer-2/
+verified_at: 2026-08-13
+listing_status: closed
+first_party_verified: yes
+apply_verified: no
 ---
 
 # Undisclosed — Web Developer

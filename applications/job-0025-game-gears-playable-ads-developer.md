@@ -3,6 +3,10 @@ id: job-0025
 company: Game Gears
 role: Playable Ads Developer
 original_url: https://www.gdtalents.com/job/playable-ads-developer-6adfc
+verified_at: 
+listing_status: closed
+first_party_verified: unknown
+apply_verified: unknown
 ---
 
 # Game Gears — Playable Ads Developer
