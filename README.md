@@ -16,14 +16,14 @@
 представление активных действий, откликов, verification queue и архива. Страница
 генерируется из canonical dataset и не редактируется вручную. Для изменения
 состояния сообщите агенту job ID и новое состояние; trusted workflow обновит
-`data/jobs.csv` и tracker в одном commit/PR.
+`data/jobs.csv` и tracker одним audited commit в `main`.
 
 ## ChatGPT web: поиск и запись
 
 Для browser-assisted поиска в ChatGPT web отдельно установите Browser и GitHub
 plugins, затем начните новый чат. Browser используется для source/ATS/Apply
-navigation, а GitHub connector — только для чтения репозитория, immutable
-operation requests и review PR. Web search не заменяет Browser при проверке
+navigation, а GitHub connector — только для чтения репозитория и immutable
+operation requests в `main`. Web search не заменяет Browser при проверке
 актуальности. Готовый стартовый текст и fail-closed preflight находятся в
 [`docs/agent-operations.md`](docs/agent-operations.md#recommended-chatgpt-launch-prompt).
 

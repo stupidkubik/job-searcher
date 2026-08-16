@@ -372,18 +372,16 @@ GitHub connector может создавать только один новый 
 `docs/tracker.md`: прямой `update_file` обходил бы dedupe, validation,
 атомарность и generated-view contract.
 
-Trusted GitHub Actions runner принимает request только из `main` (после явной
-команды пользователя) или `agent/*` (review mode), применяет его через
+Trusted GitHub Actions runner принимает request только из `main`, применяет его через
 `scripts/agent_operations.py` и те же функции `jobs.py`, затем создаёт
 immutable result. После strict validation runner пересобирает и exact-checks
 `docs/tracker.md`, запускает unit tests, проверяет changed-file allowlist и
-коммитит результат в исходную ветку. В review mode GitHub connector после
-появления audited result открывает или переиспользует exact-head PR в `main`.
-Runner не создаёт PR через `GITHUB_TOKEN`, чтобы `pull_request` CI не попадал в
-`action_required`. Полная схема, allowed commands, optimistic locking и branch policy находятся в
+коммитит результат непосредственно в `main`. Полная схема, allowed commands,
+optimistic locking и branch policy находятся в
 [`data/operations/README.md`](../data/operations/README.md).
 
-Операция завершена только после matching result и canonical diff/PR. Connector
+Операция завершена только после matching result, canonical diff и successful
+workflow в `main`. Connector
 не должен включать generated tracker в request: его создаёт только trusted
 runner.
 

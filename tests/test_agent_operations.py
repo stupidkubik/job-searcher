@@ -71,31 +71,27 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("steps.dispatch_request.outputs.path", workflow)
         self.assertNotIn("dispatch-request", workflow)
 
-    def test_workflow_discovers_a_push_request_from_the_branch_diff(self):
+    def test_workflow_discovers_a_push_request_from_the_main_diff(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('["git", "diff", "--name-only", "origin/main...HEAD"]', workflow)
+        self.assertIn('["git", "diff", "--name-only", base, "HEAD"]', workflow)
+        self.assertNotIn('"agent/**"', workflow)
         self.assertNotIn('event.get("head_commit", {}).get("added", [])', workflow)
 
     def test_workflow_pushes_results_without_creating_a_review_pr(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("      - main", workflow)
+        self.assertIn("branches: [main]", workflow)
         self.assertIn('["git", "diff", "--name-status", base, "HEAD"]', workflow)
         self.assertNotIn("pull-requests: write", workflow)
         self.assertNotIn("GH_TOKEN:", workflow)
         self.assertNotIn("gh pr create", workflow)
 
-    def test_connector_contract_owns_idempotent_review_pr_creation(self):
+    def test_connector_contract_uses_main_without_review_pr_creation(self):
         contract = (PROJECT / "data" / "operations" / "README.md").read_text(encoding="utf-8")
         instructions = (PROJECT / "AGENTS.md").read_text(encoding="utf-8")
         normalized_contract = " ".join(contract.split())
-
-        self.assertIn("use the GitHub connector to open it", normalized_contract)
-        self.assertIn("exact head/base PR is reused", normalized_contract)
-        self.assertIn("Do not use a workflow `GITHUB_TOKEN` or local `gh`", normalized_contract)
-        self.assertIn("Title: jobs: apply agent operation <operation_id>", contract)
-        self.assertIn("verify that the PR head branch and head SHA are the audited", normalized_contract)
-        self.assertIn("runner не создаёт PR через", instructions)
-        self.assertIn("exact `agent/<operation-id>` head и `main` base", instructions)
+        self.assertIn("Every connector operation is delivered through `main`", normalized_contract)
+        self.assertIn("Operation branches and review", normalized_contract)
+        self.assertIn("Не создавать operation-ветки или PR", instructions)
 
     def test_workflow_keeps_its_operation_output_outside_the_checkout(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")

@@ -15,8 +15,8 @@ trusted GitHub Actions runner. Полный, machine-enforced JSON contract на
 
 - Browser открывает discovery source, exact vacancy, employer careers/ATS и
   видимый Apply route;
-- GitHub connector читает этот репозиторий, создаёт immutable operation request
-  и после audited result открывает или переиспользует review PR.
+- GitHub connector читает этот репозиторий и создаёт immutable operation request
+  непосредственно в `main`.
 
 GitHub connector сам по себе не предоставляет arbitrary-site Browser access.
 Вкладка, в которой пользователь открыл ChatGPT web, также не становится
@@ -66,9 +66,7 @@ trusted GitHub Actions runner
         ├─ render and exact-check docs/tracker.md
         ├─ run unit tests and changed-path allowlist
         ▼
-audited commit on main or agent/*
-        │
-        └─ connector opens or reuses the agent/* review PR
+audited commit on main
 ```
 
 `data/jobs.csv` remains the only structured source of truth. `docs/tracker.md`
@@ -96,14 +94,10 @@ Any change to `scripts/`, `.github/`, `config/`, schema or other policy files is
 rejected. Changes to this policy follow the ordinary reviewed repository path;
 they cannot be bundled into an agent operation.
 
-## Delivery modes
+## Delivery
 
-The branch, not the request's computed risk, controls delivery:
-
-| Request branch | When allowed | Runner outcome |
-|---|---|---|
-| `main` | only after explicit user instruction | commits the audited result directly to `main` |
-| `agent/<operation-id>` | normal review mode | commits to that branch; connector opens the PR to `main` |
+All connector operations use `main`. The runner commits the audited result
+directly to `main`; it does not create operation branches or review PRs.
 
 Risk remains useful audit information. `screen` and constrained `set` are low
 risk; `add`, all user-confirmed `status`, and `verify` that enriches data or
@@ -155,10 +149,7 @@ the operation executor:
 2. `jobs.py render-tracker` regenerates the browser view.
 3. `jobs.py render-tracker --check` proves exact freshness.
 4. The unit suite and changed-path allowlist must pass.
-5. The runner commits its result and generated tracker, then pushes the audited
-   request branch.
-6. In review mode the connector finds an existing exact head/base PR or opens
-   one from `agent/<operation-id>` to `main` using its GitHub App identity.
+5. The runner commits its result and generated tracker directly to `main`.
 
 Thus a successful connector operation cannot leave `docs/tracker.md` stale. A
 conflict preserves the existing canonical view; its immutable result makes the
@@ -171,14 +162,10 @@ reason visible without creating a duplicate attempt.
 2. Verify the first-party listing before any full analysis; use `screen` only
    when a blocker is known without such verification.
 3. Create one new request whose filename equals `operation_id`.
-4. Put it on `agent/<operation-id>` unless the user explicitly directed a
-   direct `main` operation.
+4. Create it directly on `main`.
 5. Do not edit any generated or canonical file beside the request.
-6. Wait for the matching immutable result and audited branch diff.
-7. In review mode, reuse the PR for the exact `agent/<operation-id>` head and
-   `main` base, or create it through the GitHub connector if none exists.
-8. Wait for PR CI before reporting the operation complete; PR merge remains a
-   separate human decision unless the user explicitly requested it.
+6. Wait for the matching immutable result and audited diff in `main`.
+7. Wait for the successful workflow before reporting the operation complete.
 
 ## v1 boundary and future hardening
 

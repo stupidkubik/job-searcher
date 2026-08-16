@@ -16,21 +16,16 @@ connector → requests/<operation_id>.json → trusted GitHub Actions runner
                                               ├→ render-tracker → docs/tracker.md
                                               └→ results/<operation_id>.json
                                                            ↓
-                                              audited commit on main or agent/*
-                                                           ↓
-                                           connector opens agent/* review PR
+                                              audited commit on main
 ```
 
 The connector may create exactly one new request per commit. It must not edit
-`data/jobs.csv`, `data/job_sources.csv`, or a request that already exists. The
-target branch controls delivery:
+`data/jobs.csv`, `data/job_sources.csv`, or a request that already exists. Every
+connector operation is delivered through `main`: the runner validates and
+commits the canonical result directly to `main`. Operation branches and review
+PRs are not part of this write path.
 
-- `main` is the direct mode, used only for an explicit user instruction. The
-  runner validates and commits the canonical result directly to `main`.
-- `agent/<operation_id>` is the review mode. The runner commits to that branch
-  and the connector opens a PR from the audited head to `main`.
-
-The runner creates the matching result exactly once in either mode. It then
+The runner creates the matching result exactly once. It then
 strictly validates the resulting dataset, regenerates and exact-checks
 [`docs/tracker.md`](../../docs/tracker.md), runs the unit suite, enforces its
 changed-file allowlist, and commits the result. `docs/tracker.md` is a generated
@@ -44,42 +39,18 @@ use `Europe/Belgrade` independently of the GitHub runner's process timezone.
 ## Connector procedure
 
 1. Read the current canonical job and choose a supported domain command.
-2. Choose `main` only after an explicit user instruction; otherwise create the
-   request on `agent/<operation_id>` for review.
+2. Create the request directly on `main`.
 3. Add exactly one new file named
    `data/operations/requests/<operation_id>.json` in the commit. Do not edit
    canonical CSV, cards, `docs/tracker.md`, or an existing request.
 4. Wait for the matching immutable result in `data/operations/results/` and the
    runner's canonical diff. A request is not complete merely because its JSON
    file was created.
-5. In review mode, search for an existing PR whose head is the exact
-   `agent/<operation_id>` branch and whose base is `main`. If none exists, use
-   the GitHub connector to open it from the audited branch head. Do not use a
-   workflow `GITHUB_TOKEN` or local `gh` for this step.
-6. Build the PR title and body from the immutable result: include
-   `operation_id`, `risk`, `status`, and state that validation and tests passed.
-   PR creation is idempotent: an existing exact head/base PR is reused, never
-   duplicated.
+5. Wait for the matching result and successful workflow on `main` before
+   reporting completion.
 
-Use this deterministic PR metadata:
-
-```text
-Title: jobs: apply agent operation <operation_id>
-
-Operation: <operation_id>
-Risk: <risk>
-Status: <status>
-Validation: passed
-Tests: passed
-```
-
-After creation, verify that the PR head branch and head SHA are the audited
-branch and commit that contain the matching immutable result. Then wait for the
-PR checks. Merging remains a human decision unless the user explicitly asks for
-it.
-
-For a completed operation the audited commit contains the immutable request and
-result, any permitted canonical changes, and a fresh tracker page. For a
+For a completed operation the audited commit on `main` contains the immutable
+request and result, any permitted canonical changes, and a fresh tracker page. For a
 `conflict`, canonical data remains unchanged; the immutable result explains why
 the request could not be applied.
 
@@ -283,10 +254,7 @@ python3 scripts/agent_operations.py apply data/operations/requests/op-20260811-0
 `apply` delegates canonical writes to the same tracker functions as the manual
 CLI, then writes one immutable result file. The workflow runs strict validation,
 regenerates and exact-checks `docs/tracker.md`, runs all unit tests, checks the
-changed-path allowlist, and pushes the audited commit to the request branch. In
-review mode the connector then opens or reuses the exact `agent/` branch PR.
-Keeping PR creation outside the workflow prevents GitHub from placing
-`pull_request` CI created by `GITHUB_TOKEN` into `action_required`.
+changed-path allowlist, and pushes the audited commit directly to `main`.
 
 The runner permits only these changed paths: `data/jobs.csv`,
 `data/job_sources.csv`, `docs/tracker.md`, the expected immutable result, and

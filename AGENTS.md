@@ -64,11 +64,10 @@
   canonical CSV — исключение.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
-  через `scripts/agent_operations.py` и `jobs.py`. По явной команде пользователя
-  request может быть создан в `main` и применён там же; для review mode он живёт
-  на ветке `agent/<operation-id>`. После audited result connector сам открывает
-  или переиспользует exact-head PR в `main`; runner не создаёт PR через
-  `GITHUB_TOKEN`. Не использовать GitHub file API для прямого
+  через `scripts/agent_operations.py` и `jobs.py`. Каждый request создаётся
+  непосредственно в `main`, где runner применяет его и коммитит audited result.
+  Не создавать operation-ветки или PR для connector operations. Не использовать
+  GitHub file API для прямого
   изменения `data/jobs.csv` или `data/job_sources.csv`: он обходит write-path.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.
 - `id` неизменяем после создания.
@@ -155,7 +154,8 @@ fuzzy-кандидатов.
 
 GitHub connector не исполняет эти shell-команды. Для него CLI выше описывает
 ожидаемую семантику, а запись выполняется только созданием одного нового
-immutable request по контракту `data/operations/README.md`. Разрешены `screen`,
+immutable request по контракту `data/operations/README.md` непосредственно в
+`main`. Разрешены `screen`,
 `add`, `verify`, `status`, ограниченный `set` и `batch` только с `atomic=true`;
 `add` разрешён и как batch child со стабильным `client_ref`, а `job_id`
 назначается runner-ом внутри общей транзакции; `ingest` не поддерживается.
@@ -163,9 +163,8 @@ immutable request по контракту `data/operations/README.md`. Разр�
 `rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
 человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
 считать операцию завершённой, пока runner не создал соответствующий result и
-canonical diff. В review mode после этого connector обязан открыть
-или переиспользовать PR для exact `agent/<operation-id>` head и `main` base, дождаться
-CI и только затем отчитаться; merge остаётся отдельным решением человека.
+canonical diff в `main`. Дождаться matching result и successful workflow перед
+отчётом об операции.
 
 ## Порядок обработки одной вакансии
 
