@@ -58,6 +58,16 @@ careers/ATS surface работодателя и её Apply route. Именно �
 2. прочитать `data/job_sources.csv` и `config/profile.md`;
 3. прочитать playbook выбранного источника;
 4. при наличии adapter сверить `config/sources.toml` и его contract.
+5. для browser-assisted маршрута явно вызвать установленный Browser plugin и
+   открыть requested source URL как интерактивную rendered page.
+
+GitHub connector не удовлетворяет пункту 5: он обслуживает repository read/write
+path, а не навигацию по source/ATS. Web search, snippets и `Crawled:` metadata
+могут дать lead, но не доказывают current source state. Если Browser отсутствует,
+страница blocked, требует недоступную авторизацию, показывает CAPTCHA или не
+загружается, остановить browser pass с точным incomplete reason. Не заявлять
+route coverage и не подменять Browser индексированным поиском; использовать
+adapter/API можно только когда это прямо разрешено source playbook.
 
 `applied` и `rejected` не обрабатывать повторно. `listing_status=closed` без
 отклика пропустить. Для `not_started`, `reviewing` и `apply` продолжить с

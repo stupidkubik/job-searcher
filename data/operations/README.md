@@ -4,6 +4,12 @@
 GitHub connector and the trusted GitHub Actions runner. It is not canonical job
 data.
 
+This contract starts after discovery and verification. The GitHub connector
+does not provide arbitrary-site Browser access: a ChatGPT web workflow must use
+the separately installed Browser plugin for source/ATS/Apply navigation, then
+use this connector path only for repository reads and immutable writes. Web
+search results do not satisfy Browser preflight or first-party verification.
+
 ```text
 connector → requests/<operation_id>.json → trusted GitHub Actions runner
                                               ├→ jobs.py → canonical CSV/cards

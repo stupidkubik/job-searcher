@@ -8,14 +8,36 @@
 
 1. Прочитать `data/jobs.csv` целиком.
 2. Прочитать `config/profile.md` (приоритеты, гео, стек, компенсация).
-3. Если для источника есть playbook в `docs/sources/`, прочитать его.
-4. Только потом искать новое.
+3. Прочитать `data/job_sources.csv` целиком.
+4. Если для источника есть playbook в `docs/sources/`, прочитать его.
+5. Для browser-assisted поиска выполнить Browser preflight ниже.
+6. Только потом искать новое.
 
 Не анализировать заново вакансию, которая уже есть в CSV. Если её
 `application_status=applied` / `rejected` — не откликаться повторно; для
 вычисляемого `Skipped` сначала прочитать `decision_reason`; запись с
 `listing_status=closed` без отклика пропустить; `not_started` / `reviewing` /
 `apply` продолжать с предыдущего шага.
+
+### ChatGPT web: Browser preflight
+
+- GitHub plugin/connector и Browser — разные capabilities. GitHub connector
+  читает репозиторий и создаёт разрешённые immutable requests, но не считается
+  браузером для source discovery или first-party verification. Сам факт, что
+  ChatGPT открыт пользователем в обычной вкладке браузера, также не даёт агенту
+  управление этой вкладкой.
+- Для browser-assisted маршрута явно использовать установленный `Browser`
+  plugin в том же ChatGPT-чате и до поиска открыть requested source URL именно
+  через Browser. Успешный preflight означает, что URL загрузился как
+  интерактивная rendered page; отдельно фиксировать blocked, auth required,
+  CAPTCHA и load error.
+- Web search, search snippets, `Crawled:` metadata и cached/indexed results
+  разрешены только как discovery evidence. Они не подтверждают текущую выдачу,
+  exact vacancy, first-party status или работоспособность Apply route.
+- Если Browser tool отсутствует или requested page не открывается, остановить
+  browser pass, назвать точное ограничение и не подменять его web search.
+  Продолжить можно только через явно разрешённый source adapter/API либо после
+  нового Browser-enabled запуска.
 
 ## Железные правила
 

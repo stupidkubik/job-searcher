@@ -9,6 +9,39 @@ trusted GitHub Actions runner. Полный, machine-enforced JSON contract на
 [`AGENTS.md`](../AGENTS.md), а код policy — в
 [`scripts/agent_operations.py`](../scripts/agent_operations.py).
 
+## ChatGPT web capability boundary
+
+Для ChatGPT web нужны два независимых плагина в одном новом чате:
+
+- Browser открывает discovery source, exact vacancy, employer careers/ATS и
+  видимый Apply route;
+- GitHub connector читает этот репозиторий, создаёт immutable operation request
+  и после audited result открывает или переиспользует review PR.
+
+GitHub connector сам по себе не предоставляет arbitrary-site Browser access.
+Вкладка, в которой пользователь открыл ChatGPT web, также не становится
+управляемым агентом браузером без отдельного Browser plugin/tool.
+Web search также не заменяет Browser: snippets, cached/indexed results и
+`Crawled:` metadata — только discovery evidence, а не доказательство текущей
+rendered page или действующего Apply route. После установки или включения
+плагинов запускать новый чат, явно вызывать Browser для source navigation и
+останавливать browser pass, если Browser tool или requested page недоступны.
+
+### Recommended ChatGPT launch prompt
+
+В composer следует явно выбрать `@GitHub` и `@Browser`, а затем использовать
+такой стартовый текст вместе с requested source URL:
+
+```text
+Use @GitHub to open https://github.com/stupidkubik/job-searcher and follow AGENTS.md. Use @Browser—not web search—for every source page, employer careers/ATS listing, and Apply-route check.
+
+Before searching, read the full data/jobs.csv, config/profile.md, data/job_sources.csv, and the relevant playbook in docs/sources/ through GitHub. Then perform a Browser preflight: open the requested source URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop and report the exact limitation. Do not silently substitute web search, cached/indexed results, Crawled metadata, or GitHub tools.
+
+Search the requested source using its playbook. Deduplicate before analysis, verify every promising job on the employer's current careers/ATS page, check the actual Apply route and geographic eligibility, and record every inspected exact vacancy—even closed, unsuitable, or duplicate.
+
+Use @GitHub for repository operations. Write only through immutable connector requests described in data/operations/README.md. Never edit canonical CSV files directly, submit applications, or set a job to applied.
+```
+
 ## Назначение
 
 Connector может создать только декларативный immutable request. Он не меняет
@@ -113,7 +146,7 @@ is `completed` or `conflict`. The presence of a request file is not completion;
 the agent waits for the matching file in `data/operations/results/` and the
 canonical diff/PR.
 
-## Browser-first lifecycle
+## Generated browser-view lifecycle
 
 For every request outcome the runner executes the normal quality gates after
 the operation executor:

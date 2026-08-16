@@ -17,7 +17,9 @@ Related documents:
 
 Allowed modes:
 
-1. a human or connector navigates public pages in an ordinary browser session;
+1. a human, or a ChatGPT agent explicitly using the installed Browser plugin,
+   navigates public pages in an ordinary browser session; GitHub connector and
+   web search alone do not satisfy this mode;
 2. an offline parser reads HTML deliberately saved and supplied by a human;
 3. tests read sanitized checked-in fixtures.
 
@@ -120,7 +122,8 @@ The current JSONL inbox requires exact `posted_at` and non-empty
 - do not fabricate either field;
 - do not write Hirify records into the current JSONL inbox contract;
 - do not register a networked Hirify adapter in `config/sources.toml`;
-- use immutable connector operations for permitted live browser work;
+- after permitted live Browser work, use immutable GitHub connector operations
+  for repository writes;
 - keep offline parser experiments as read-only artifacts.
 
 Supporting Hirify in ingest requires an explicit raw-contract/schema change

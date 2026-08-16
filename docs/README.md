@@ -14,7 +14,7 @@ write path меняются, этот файл и корневой [`README.md`]
 | canonical CSV schema и enums | [`data/schema.md`](../data/schema.md) |
 | локальный CLI и примеры | [`jobs-cli.md`](jobs-cli.md) |
 | connector request/result contract | [`data/operations/README.md`](../data/operations/README.md) |
-| trust boundary connector runner | [`agent-operations.md`](agent-operations.md) |
+| ChatGPT Browser/GitHub boundary, launch prompt и connector runner | [`agent-operations.md`](agent-operations.md) |
 | immutable raw inbox и ingest | [`data/inbox/README.md`](../data/inbox/README.md) |
 | source/ATS playbooks | [`sources/README.md`](sources/README.md) |
 | реализованное и будущие изменения | [`roadmap.md`](roadmap.md) |
@@ -40,6 +40,7 @@ write path меняются, этот файл и корневой [`README.md`]
 | connector command или risk/write policy | `data/operations/README.md`, `docs/agent-operations.md`, `AGENTS.md`, tests |
 | adapter, source policy или raw contract | `config/sources.toml`, соответствующий `docs/sources/*.md`, `data/inbox/README.md`, tests |
 | workflow или trust boundary | `.github/workflows/`, `docs/current-architecture.md`, соответствующий contract doc, tests |
+| ChatGPT Browser/GitHub capability boundary или launch prompt | `AGENTS.md`, `docs/agent-operations.md`, `docs/sources/README.md`, `docs/current-architecture.md` |
 | каталог или основной entry point | `README.md`, `docs/current-architecture.md`, этот индекс |
 | временная семантика | `data/schema.md`, raw/artifact contracts и boundary tests |
 

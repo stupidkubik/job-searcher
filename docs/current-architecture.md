@@ -79,11 +79,18 @@ unchanged.
 ## Discovery surfaces
 
 - Browser/manual discovery follows `docs/sources/*.md` and records every
-  inspected exact vacancy.
+  inspected exact vacancy. In ChatGPT web this requires the separately installed
+  Browser plugin in the same new chat; the GitHub connector does not satisfy
+  browser preflight.
 - Himalayas has a fetch-only adapter for narrow/broad query matrices.
 - `data/inbox/*.jsonl` supports local immutable batch ingest.
 - `.github/workflows/source-discovery.yml` produces a temporary read-only
   artifact for connector/runner use and never changes canonical files.
+
+Web search and its snippets or `Crawled:` metadata are discovery-only evidence.
+They cannot establish current route coverage, first-party listing status or a
+working Apply path. When Browser is unavailable, the browser pass stops as
+incomplete unless the source playbook explicitly permits an adapter/API route.
 
 Artifacts contain exact UTC run timestamps. Tracker calendar dates such as
 `found_at`, `verified_at` and `last_update` use `Europe/Belgrade`, independent
