@@ -1,6 +1,9 @@
 """Pure normalization and classification helpers for ``jobs.py ingest``."""
 
-from inbox import load_batch
+try:  # Direct CLI execution places scripts/ on sys.path.
+    from inbox import load_batch
+except ModuleNotFoundError:  # Unit tests may import this module as scripts.ingestion.
+    from scripts.inbox import load_batch
 
 
 FRONTEND_SIGNALS = (

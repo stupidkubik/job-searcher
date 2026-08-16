@@ -1,6 +1,7 @@
 import csv
 import itertools
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -50,10 +51,10 @@ class JobsCliTests(unittest.TestCase):
     def tearDown(self):
         self.temporary.cleanup()
 
-    def invoke(self, *arguments, input_text=None):
+    def invoke(self, *arguments, input_text=None, env=None):
         return subprocess.run(
             [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, input=input_text, capture_output=True,
+            text=True, input=input_text, capture_output=True, env=env,
         )
 
     def rows(self):
@@ -171,6 +172,27 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
 
+    def test_add_is_atomic_across_csv_source_and_card_when_replacement_fails_midway(self):
+        csv_before = (self.root / "data" / "jobs.csv").read_bytes()
+        sources_before = (self.root / "data" / "job_sources.csv").read_bytes()
+        environment = {**os.environ, "JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}
+
+        result = self.invoke(
+            "add", "--company", "AtomicCo", "--role", "Frontend Developer", "--source", "Manual",
+            "--source-url", "https://careers.example.test/atomic",
+            env=environment,
+        )
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("injected ingest replacement failure", result.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), csv_before)
+        self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), sources_before)
+        self.assertFalse(list((self.root / "applications").glob("job-*.md")))
+
+        retried = self.add("AtomicCo", "Frontend Developer", "--source-url", "https://careers.example.test/atomic")
+        self.assertEqual(retried.returncode, 0, retried.stderr)
+        self.assertEqual(len(self.rows()), 1)
+
     def test_invalid_cli_input_uses_exit_code_one(self):
         result = self.invoke("add", "--company", "MissingRoleAndSource")
         self.assertEqual(result.returncode, 1)
@@ -278,6 +300,23 @@ class JobsCliTests(unittest.TestCase):
 
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         self.assertEqual(self.rows()[0]["application_status"], "not_started")
+
+    def test_set_goes_through_the_locked_transactional_write_path(self):
+        self.assertEqual(self.add("SetAtomicCo", "Frontend Developer", "--no-file").returncode, 0)
+        csv_before = (self.root / "data" / "jobs.csv").read_bytes()
+        sources_before = (self.root / "data" / "job_sources.csv").read_bytes()
+        environment = {**os.environ, "JOBS_INGEST_FAIL_AFTER_REPLACE": "0"}
+
+        result = self.invoke("set", "job-0001", "next_action=follow-up", env=environment)
+
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("injected ingest replacement failure", result.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), csv_before)
+        self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), sources_before)
+
+        retried = self.invoke("set", "job-0001", "next_action=follow-up")
+        self.assertEqual(retried.returncode, 0, retried.stderr)
+        self.assertEqual(self.rows()[0]["next_action"], "follow-up")
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
@@ -1108,6 +1147,17 @@ class JobsCliTests(unittest.TestCase):
         tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
         self.assertEqual(tracker.count("No jobs."), 4)
         self.assertIn("<summary>Archive (0)</summary>", tracker)
+
+
+class PackageImportTests(unittest.TestCase):
+    """jobs.py is invoked directly by the CLI but imported as `scripts.jobs`
+    by agent_operations.py and this test suite — both must work."""
+
+    def test_plan_ingest_works_when_jobs_is_imported_as_a_package(self):
+        fixture = PROJECT / "tests" / "fixtures" / "inbox" / "himalayas-small.jsonl"
+        plan = jobs.plan_ingest(str(fixture))
+        self.assertIsInstance(plan, jobs.IngestPlan)
+        self.assertTrue(plan.batch_id)
 
 
 class TrackerSectionTotalityTests(unittest.TestCase):

@@ -10,7 +10,10 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit
 
-from source_config import SourceConfigError, load_source_config
+try:  # Direct CLI execution places scripts/ on sys.path.
+    from source_config import SourceConfigError, load_source_config
+except ModuleNotFoundError:  # Unit tests may import this module as scripts.inbox.
+    from scripts.source_config import SourceConfigError, load_source_config
 
 
 REQUIRED_FIELDS = {

@@ -160,6 +160,8 @@ Connector этой дырой воспользоваться не может: `S
 
 ### H2. `add` и `set` пишут мимо транзакционного write-path
 
+> ✅ Исправлено 2026-08-16, см. [«Исправления»](#h2--h5---транзакционность-и-package-import) в конце документа.
+
 `verify_job`, `status_job`, `screen_job` и `ingest` идут через
 `apply_dataset_transaction` (`scripts/jobs.py:1475`): файловая блокировка,
 staging, backup, rollback при сбое, post-commit валидация.
@@ -229,6 +231,8 @@ front matter только при `passed=True`. Если проверка пок
 не нужно.
 
 ### H5. `plan_ingest` падает, если `jobs.py` импортирован как пакет
+
+> ✅ Исправлено 2026-08-16, см. [«Исправления»](#h2--h5---транзакционность-и-package-import) в конце документа.
 
 `scripts/jobs.py:21-23` аккуратно обрабатывает оба варианта импорта `tracker_time`.
 `scripts/jobs.py:1229` (`from ingestion import ...`) — нет. То же в
@@ -520,7 +524,7 @@ URL в данных 0 — риск латентный.
 | ~~4~~ | ~~H4, H3 — синхронизация карточек и маска legacy-файлов~~ | ✅ сделано |
 | 5 | M2 — `cv_version` | ломает главную аналитику проекта |
 | 6 | M1 + M6 — verification-долг и 22 пары дублей | долг по данным, растёт сам |
-| 7 | H2, H5 — транзакционность `add`/`set`, импорты | техдолг без текущих последствий |
+| ~~7~~ | ~~H2, H5 — транзакционность `add`/`set`, импорты~~ | ✅ сделано |
 | 8 | M8–M12, L1–L8 | гигиена |
 
 Пункты 1–4 — это изменения в `scripts/jobs.py` плюс тесты; они закрывают всё, что
@@ -601,7 +605,7 @@ decision_reason='no_response_timeout'`.
 
 ### Осталось открытым
 
-Следующий по приоритету после H1/H3/H4 — **M2** (`cv_version`).
+H-уровня больше нет. Следующий по приоритету — **M2** (`cv_version`).
 
 ---
 
@@ -662,6 +666,71 @@ decision_reason='no_response_timeout'`.
   карточка при этом не создаётся (`application_card_created=false`).
 
 115 → 117 тестов, весь набор зелёный; `validate --strict` и
+`render-tracker --check` — чисто.
+
+---
+
+## H2 + H5 — транзакционность и package import
+
+### H2 — `persist_add` и `set_job` переведены на общий write-path
+
+`persist_add` больше не пишет карточку через собственный `mkstemp`/`os.replace`
+и `jobs.csv`/`job_sources.csv` двумя независимыми `save()`; вместо этого он
+собирает `application_writes` (как это уже делают `status_job`/`verify_job`)
+и передаёт всё как один `apply_dataset_transaction(plan.rows, plan.source_rows,
+application_writes)`. `set_job` аналогично заменил голый `save(rows)` на
+`apply_dataset_transaction(rows, source_rows)`.
+
+Обе команды получили бесплатно то, что уже было у `verify`/`status`/`screen`/
+`ingest`: файловую блокировку (`dataset_write_lock`), backup каждого
+заменяемого файла, атомарный откат всех файлов при сбое посреди замены и
+post-commit re-validation. Своего кода для отката `persist_add` больше не
+пишет — блок `except BaseException: ... unlink` удалён целиком, эту работу
+теперь делает `apply_dataset_transaction`.
+
+Проверено инъекцией `JOBS_INGEST_FAIL_AFTER_REPLACE` (тот же механизм, что
+`tests/test_ingest.py` уже использует для `ingest`):
+
+```
+$ JOBS_INGEST_FAIL_AFTER_REPLACE=1 python3 scripts/jobs.py add \
+    --company AtomicCo --role "Frontend Developer" --source Manual \
+    --source-url https://careers.example.test/atomic
+error: ingest transaction отклонена... injected ingest replacement failure
+$ python3 scripts/jobs.py validate --strict   # jobs.csv и job_sources.csv не изменены
+```
+
+До правки `JOBS_INGEST_FAIL_AFTER_REPLACE` на `add`/`set` вообще не действовал
+(`save()`/`save_job_sources()` не читают эту переменную) — сбой между двумя
+файлами прошёл бы тихо, оставив `jobs.csv` с вакансией без provenance-строки,
+ровно как описано в исходной находке.
+
+### H5 — одинаковый guarded import в трёх местах
+
+`scripts/jobs.py` (`plan_ingest`), `scripts/ingestion.py` и `scripts/inbox.py`
+теперь оборачивают свой единственный внутрипроектный импорт (`ingestion`,
+`inbox`, `source_config` соответственно) в тот же `try/except
+ModuleNotFoundError`, что уже был у `tracker_time` в `scripts/jobs.py:20-23`.
+
+Репродукция из аудита теперь проходит:
+
+```
+$ python3 -c "import sys; sys.path.insert(0,'.'); from scripts import jobs; \
+    jobs.plan_ingest('tests/fixtures/inbox/himalayas-small.jsonl')"
+OK <class 'scripts.jobs.IngestPlan'>
+```
+
+### Тесты
+
+- `test_add_is_atomic_across_csv_source_and_card_when_replacement_fails_midway`
+  и `test_set_goes_through_the_locked_transactional_write_path` — оба
+  проверены на способность ловить регрессию: без правки `set_job` они падают с
+  `0 != 1`, потому что `save()` тогда игнорировал
+  `JOBS_INGEST_FAIL_AFTER_REPLACE` и запись проходила как ни в чём не бывало;
+- `test_plan_ingest_works_when_jobs_is_imported_as_a_package`
+  (`PackageImportTests`) — прямой вызов `jobs.plan_ingest` при импорте модуля
+  как `scripts.jobs`, ровно репродукция из H5.
+
+118 → 120 тестов, весь набор зелёный; `validate --strict` и
 `render-tracker --check` — чисто.
 
 ---

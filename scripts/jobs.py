@@ -1090,26 +1090,9 @@ def prepare_add(values, force=False, no_file=False):
 
 
 def persist_add(plan):
-    created_path = None
-    temporary_path = None
-    try:
-        if plan.app_path and plan.app_body is not None:
-            descriptor, temporary_name = tempfile.mkstemp(prefix="application-", suffix=".md", dir=APPS_DIR)
-            temporary_path = Path(temporary_name)
-            with os.fdopen(descriptor, "w", encoding="utf-8") as file:
-                file.write(plan.app_body)
-            os.replace(temporary_path, plan.app_path)
-            temporary_path = None
-            created_path = plan.app_path
-        save(plan.rows)
-        save_job_sources(plan.source_rows)
-    except BaseException:
-        if temporary_path:
-            temporary_path.unlink(missing_ok=True)
-        if created_path:
-            created_path.unlink(missing_ok=True)
-        raise
-    return created_path
+    application_writes = ((plan.app_path, plan.app_body),) if plan.app_body is not None else ()
+    apply_dataset_transaction(plan.rows, plan.source_rows, application_writes)
+    return plan.app_path if plan.app_body is not None else None
 
 
 def add_duplicate_source_reference(values, duplicate_of, force=False):
@@ -1261,10 +1244,16 @@ def resolution_candidate_id(resolution, candidates, job_lines):
 
 def plan_ingest(path, resolution_path=None):
     """Classify an immutable raw batch without changing canonical files."""
-    from ingestion import (
-        deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
-        relevance_or_hard_filter,
-    )
+    try:  # Direct CLI execution places scripts/ on sys.path.
+        from ingestion import (
+            deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
+            relevance_or_hard_filter,
+        )
+    except ModuleNotFoundError:  # Unit tests may import this module as scripts.jobs.
+        from scripts.ingestion import (
+            deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
+            relevance_or_hard_filter,
+        )
 
     batch = load_batch(path)
     resolutions, resolution_errors = load_ingest_resolutions(resolution_path, batch["batch_id"])
@@ -1811,7 +1800,7 @@ def set_job(job_id, assignments, stage=None):
     row = find(rows, job_id)
     apply_job_changes(row, assignments, stage=stage)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    save(rows)
+    apply_dataset_transaction(rows, source_rows)
     return {"job": row, "warnings": warnings}
 
 
