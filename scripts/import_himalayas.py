@@ -30,6 +30,7 @@ INBOX_DIR = ROOT / "data" / "inbox"
 SOURCE_NAME = "Himalayas"
 REQUEST_TIMEOUT_SECONDS = 20
 RETRY_DELAYS_SECONDS = (1, 2)
+MAX_PAGES_PER_PASS = 50
 
 # `locationRestrictions` contains either a country object (normally with alpha2)
 # or a display name. Keep the Europe pass local: the documented search endpoint
@@ -328,6 +329,11 @@ def collect_records(settings, run, *, today_value=None, fetch=fetch_json):
                     records.append(record)
                 if not has_next_page(response, page):
                     break
+                if page >= MAX_PAGES_PER_PASS:
+                    raise HimalayasImportError(
+                        f"query {query!r}, geo {geo}: превышен предел {MAX_PAGES_PER_PASS} страниц "
+                        "на один проход; проверить totalCount/limit в ответе Himalayas"
+                    )
                 page += 1
     summary["records"] = len(records)
     return records, summary, errors

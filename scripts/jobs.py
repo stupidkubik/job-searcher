@@ -377,7 +377,7 @@ def norm_url(value):
     query = [
         (key, val)
         for key, val in parse_qsl(parts.query, keep_blank_values=True)
-        if not key.lower().startswith("utm_") and key.lower() not in {"ref", "referrer", "source"}
+        if not key.lower().startswith("utm_") and key.lower() not in {"ref", "referrer"}
     ]
     return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip("/") or "/", urlencode(query), ""))
 
@@ -666,19 +666,42 @@ def migrate_v1_rows(rows):
     return migrated
 
 
+def migration_summary_payload(rows):
+    return {
+        "rows": len(rows),
+        "unique_ids": len({row["id"] for row in rows}),
+        "with_applied_at": sum(bool(row["applied_at"]) for row in rows),
+        "listing_status_closed": sum(row["listing_status"] == "closed" for row in rows),
+        "decision_reason_duplicate_listing": sum(row["decision_reason"] == "duplicate_listing" for row in rows),
+    }
+
+
 def migration_summary(rows):
+    payload = migration_summary_payload(rows)
     return [
-        f"строк: {len(rows)}",
-        f"уникальных id: {len({row['id'] for row in rows})}",
-        f"с applied_at: {sum(bool(row['applied_at']) for row in rows)}",
-        f"listing_status=closed: {sum(row['listing_status'] == 'closed' for row in rows)}",
-        f"decision_reason=duplicate_listing: {sum(row['decision_reason'] == 'duplicate_listing' for row in rows)}",
+        f"строк: {payload['rows']}",
+        f"уникальных id: {payload['unique_ids']}",
+        f"с applied_at: {payload['with_applied_at']}",
+        f"listing_status=closed: {payload['listing_status_closed']}",
+        f"decision_reason=duplicate_listing: {payload['decision_reason_duplicate_listing']}",
     ]
 
 
 def cmd_migrate_v2(args):
     rows = migrate_v1_rows(load_v1())
     ensure_valid(rows)
+    if args.format == "json":
+        payload = {
+            "ok": True,
+            "command": "migrate-v2",
+            "mode": "check" if args.check else "migrate",
+            "summary": migration_summary_payload(rows),
+        }
+        if not args.check:
+            save(rows)
+        payload["saved"] = not args.check
+        print_json(payload)
+        return
     mode = "проверка" if args.check else "миграция выполнена"
     print(f"v1 → v2: {mode}")
     for line in migration_summary(rows):
@@ -984,6 +1007,17 @@ def cmd_backfill_sources(args):
     source_rows = load_job_sources(allow_missing=True)
     new_source_rows, summary = backfill_source_references(job_rows, source_rows)
     ensure_dataset_valid(job_rows, new_source_rows)
+    if args.format == "json":
+        if not args.check:
+            save_job_sources(new_source_rows)
+        print_json({
+            "ok": True,
+            "command": "backfill-sources",
+            "mode": "check" if args.check else "apply",
+            "summary": summary,
+            "saved": not args.check,
+        })
+        return
     print_backfill_summary(summary, changed=not args.check)
     if args.check:
         print("data/job_sources.csv не изменён")
@@ -2962,6 +2996,9 @@ def cmd_stats(args):
 
 def cmd_report(args):
     payload = stats_payload(load(), args.date or business_date(), stale_days=args.stale_days)
+    if args.format == "json":
+        print_json(payload)
+        return
     print(f"# Отчёт job-searcher — {payload['as_of']}\n\nВсего записей: **{payload['jobs_total']}**")
     print("\n## Основной статус\n\n| Derived state | Кол-во |\n|---|---:|")
     for state, amount in payload["derived_state"].items():
@@ -3086,6 +3123,7 @@ def main():
     render_tracker.set_defaults(func=cmd_render_tracker)
     migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
     migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
+    migrate.add_argument("--format", choices=("text", "json"), default="text")
     migrate.set_defaults(func=cmd_migrate_v2)
     repair_himalayas = subparsers.add_parser(
         "repair-himalayas-screening",
@@ -3096,6 +3134,7 @@ def main():
     repair_himalayas.set_defaults(func=cmd_repair_himalayas_screening)
     backfill_sources = subparsers.add_parser("backfill-sources", help="создать source references из historical jobs")
     backfill_sources.add_argument("--check", action="store_true", help="проверить backfill без записи")
+    backfill_sources.add_argument("--format", choices=("text", "json"), default="text")
     backfill_sources.set_defaults(func=cmd_backfill_sources)
     ingest = subparsers.add_parser("ingest", help="классифицировать raw JSONL batch")
     ingest.add_argument("path", type=Path)
@@ -3129,6 +3168,7 @@ def main():
     report = subparsers.add_parser("report", help="markdown-отчёт в stdout")
     report.add_argument("--date", type=iso_date_argument, help="дата среза YYYY-MM-DD (по умолчанию сегодня)")
     report.add_argument("--stale-days", type=positive_int, default=DEFAULT_STALE_DAYS)
+    report.add_argument("--format", choices=("text", "json"), default="text")
     report.set_defaults(func=cmd_report)
     args = parser.parse_args()
     args.func(args)

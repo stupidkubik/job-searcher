@@ -120,7 +120,7 @@ python3 scripts/jobs.py verify job-NNNN --listing-status open \
   --format json
 
 # Последующие изменения существующей записи задаются как field=value.
-python3 scripts/jobs.py set job-NNNN next_action="follow up" --format json
+python3 scripts/jobs.py set job-NNNN next_action="follow-up" --format json
 
 # Подтверждённое человеком lifecycle-событие.
 python3 scripts/jobs.py status job-NNNN --application-status rejected --format json

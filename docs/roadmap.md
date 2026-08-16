@@ -10,7 +10,7 @@
 - Browser-first generated view: [`tracker.md`](tracker.md) with an exact
   freshness gate in CI.
 - GitHub connector gateway: immutable requests, trusted runner, immutable
-  results and review/direct delivery modes.
+  results and direct-to-`main` delivery without operation branches or review PRs.
 - Batch-friendly source sweeps: atomic `add` children receive IDs inside one
   transaction and report a stable `client_ref → job_id` mapping.
 - Read-only Himalayas discovery workflow with normalized artifacts, exact UTC

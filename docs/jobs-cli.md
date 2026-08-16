@@ -69,10 +69,8 @@ posted_at, found_at, match_score, decision_reason, notes
 
 ## Machine-readable output
 
-`add`, `set`, `status`, `screen`, `verify`, `validate`, `render-tracker`, `dupes`, `ingest`,
-`stale`, `todo`, `stats` и `repair-himalayas-screening` поддерживают
-`--format text|json`; по умолчанию — `text`. Успешный JSON-ответ состоит ровно
-из одного object с `ok`,
+Все subcommands `jobs.py` поддерживают `--format text|json`; по умолчанию —
+`text`. Успешный JSON-ответ состоит ровно из одного object с `ok`,
 `command` и результатом команды. Например, `add` возвращает canonical `job`,
 `warnings`, `source_reference` и путь к созданной application card (или `null`).
 
