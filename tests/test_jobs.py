@@ -444,6 +444,22 @@ class JobsCliTests(unittest.TestCase):
         self.assertNotEqual(protected.returncode, 0)
         self.assertIn("управляется скриптом", protected.stderr)
 
+    def test_cover_letter_must_be_no_or_a_path(self):
+        self.assertEqual(self.add("CoverCo", "Frontend Developer", "--no-file").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        bare_word = self.invoke("set", "job-0001", "cover_letter=yes")
+        self.assertNotEqual(bare_word.returncode, 0)
+        self.assertIn("cover_letter должен быть 'no' или путём", bare_word.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+        no_value = self.invoke("set", "job-0001", "cover_letter=no")
+        self.assertEqual(no_value.returncode, 0, no_value.stderr)
+
+        path_value = self.invoke("set", "job-0001", "cover_letter=cv/cover-letters/job-0001-coverco.md")
+        self.assertEqual(path_value.returncode, 0, path_value.stderr)
+        self.assertEqual(self.rows()[0]["cover_letter"], "cv/cover-letters/job-0001-coverco.md")
+
     def test_verification_update_sets_date_and_remains_atomic_when_invalid(self):
         self.assertEqual(self.add("UnverifiedCo", "Frontend Developer", "--no-file").returncode, 0)
         opened = self.invoke("set", "job-0001", "listing_status=open")

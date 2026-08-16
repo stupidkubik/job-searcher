@@ -467,6 +467,9 @@ def validate_rows(rows):
                 error(line, f"{identifier}: original_url не является http(s) URL: {original_url!r}")
             else:
                 urls.setdefault(norm_url(original_url), []).append((line, row))
+        cover_letter = (row.get("cover_letter") or "").strip()
+        if cover_letter and cover_letter != "no" and "/" not in cover_letter:
+            error(line, f"{identifier}: cover_letter должен быть 'no' или путём (например cv/cover-letters/...), получено {cover_letter!r}")
         application_status = row.get("application_status") or ""
         listing_status = row.get("listing_status") or ""
         reason = row.get("decision_reason") or ""

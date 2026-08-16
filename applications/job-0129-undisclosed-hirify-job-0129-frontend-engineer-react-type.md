@@ -1,6 +1,6 @@
 ---
 id: job-0129
-company: Undisclosed
+company: Undisclosed (hirify-job-0129)
 role: Frontend Engineer (React/TypeScript)
 original_url: 
 verified_at: 
