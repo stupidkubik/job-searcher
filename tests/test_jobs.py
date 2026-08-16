@@ -1,13 +1,15 @@
 import csv
+import itertools
 import json
 import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
+from scripts import jobs
 from scripts.tracker_time import business_date
 
 
@@ -567,6 +569,46 @@ class JobsCliTests(unittest.TestCase):
         report = self.invoke("report")
         self.assertIn("| not recorded | 1 | 0 | 0% |", report.stdout)
 
+    def test_ghost_heuristic_is_a_notice_and_never_fails_strict_validation(self):
+        self.assertEqual(self.add("GhostCo", "Frontend Developer", "--no-file").returncode, 0)
+        long_ago = (business_date() - timedelta(days=90)).isoformat()
+        self.assertEqual(
+            self.invoke(
+                "status", "job-0001", "--application-status", "applied", "--applied-at", long_ago,
+            ).returncode,
+            0,
+        )
+
+        validation = self.invoke("validate", "--strict", "--format", "json")
+
+        self.assertEqual(validation.returncode, 0, validation.stderr)
+        payload = json.loads(validation.stdout)
+        self.assertEqual((payload["ok"], payload["errors"], payload["warnings"]), (True, [], []))
+        self.assertEqual(len(payload["notices"]), 1)
+        self.assertIn("application_status=ghosted?", payload["notices"][0])
+
+    def test_closed_listing_is_rejected_while_the_application_is_in_progress(self):
+        self.assertEqual(self.add("ClosedCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "application_status=reviewing").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        rejected = self.invoke("set", "job-0001", "listing_status=closed")
+
+        self.assertEqual(rejected.returncode, 1)
+        self.assertIn("требует application_status=not_started", rejected.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_decision_reason_is_rejected_while_the_application_is_in_progress(self):
+        self.assertEqual(self.add("ReasonCo", "Frontend Developer", "--no-file").returncode, 0)
+        self.assertEqual(self.invoke("set", "job-0001", "application_status=reviewing").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        rejected = self.invoke("set", "job-0001", "decision_reason=no_response_timeout")
+
+        self.assertEqual(rejected.returncode, 1)
+        self.assertIn("несовместим с application_status=reviewing", rejected.stderr)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_stale_lists_only_active_candidates_and_never_mutates_dataset(self):
         self.assertEqual(self.add("StaleCo", "Frontend Developer", "--match-score", "8", "--no-file").returncode, 0)
         self.assertEqual(
@@ -1009,6 +1051,55 @@ class JobsCliTests(unittest.TestCase):
         tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
         self.assertEqual(tracker.count("No jobs."), 4)
         self.assertIn("<summary>Archive (0)</summary>", tracker)
+
+
+class TrackerSectionTotalityTests(unittest.TestCase):
+    """Whatever `validate` accepts, `render-tracker` must be able to place.
+
+    A row that passes validation but has no section turns the generated view
+    into a hard failure that only a manual CSV edit can undo, so the guarantee
+    is checked exhaustively instead of case by case.
+    """
+
+    # Enough shape variety for post-application rows to satisfy the date,
+    # stage and verification invariants; rows that stay invalid are skipped.
+    SHAPES = (
+        ("", "", "None", "", ""),
+        ("", "", "None", "https://careers.example.test/x", "2026-08-02"),
+        ("2026-08-02", "", "Applied", "https://careers.example.test/x", "2026-08-02"),
+        ("2026-08-02", "2026-08-03", "Tech interview", "https://careers.example.test/x", "2026-08-02"),
+        ("2026-08-02", "2026-08-03", "Offer", "https://careers.example.test/x", "2026-08-02"),
+    )
+
+    def test_every_validated_row_lands_in_exactly_one_section(self):
+        base = {field: "" for field in jobs.FIELDS}
+        base.update(
+            id="job-0001", company="Company", role="Frontend Developer",
+            source="Manual", found_at="2026-08-01", last_update="2026-08-01",
+            notes="job-0002 original",
+        )
+        checked = 0
+        for application_status, listing_status, reason, first_party, apply_verified in itertools.product(
+            jobs.APPLICATION_STATUSES, jobs.LISTING_STATUSES, ("", *jobs.REASONS),
+            jobs.VERIFICATION, jobs.VERIFICATION,
+        ):
+            for applied_at, response_at, stage, original_url, verified_at in self.SHAPES:
+                row = dict(
+                    base, application_status=application_status, listing_status=listing_status,
+                    decision_reason=reason, first_party_verified=first_party,
+                    apply_verified=apply_verified, applied_at=applied_at, response_at=response_at,
+                    stage_reached=stage, original_url=original_url, verified_at=verified_at,
+                )
+                errors, _warnings = jobs.validate_rows([row])
+                if errors:
+                    continue
+                checked += 1
+                try:
+                    section = jobs.tracker_section(row)
+                except ValueError as error:
+                    self.fail(f"validated row has no tracker section: {error}")
+                self.assertIn(section, jobs.TRACKER_SECTION_ORDER)
+        self.assertGreater(checked, 500, "the totality sweep stopped covering valid rows")
 
 
 if __name__ == "__main__":

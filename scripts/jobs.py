@@ -113,6 +113,10 @@ GHOST_AFTER_DAYS = 30
 SOURCES_WITHOUT_EXTERNAL_REFERENCE = {"Manual", "Referral"}
 TERMINAL_APPLICATION_STATUSES = {"rejected", "ghosted", "withdrawn"}
 PRE_APPLICATION_STATUSES = {"not_started", "reviewing", "apply"}
+# Pre-application statuses that mean work is still in progress on our side.
+# A decision reason or a closed listing terminates that work, so it belongs to
+# `not_started` instead; keeping both would leave the row outside every view.
+IN_PROGRESS_APPLICATION_STATUSES = {"reviewing", "apply"}
 DEFAULT_STALE_DAYS = 7
 INGEST_RESOLUTION_VERSION = 1
 INGEST_RESOLUTION_DECISIONS = {"separate", "duplicate"}
@@ -476,15 +480,20 @@ def validate_rows(rows):
             error(line, f"{identifier}: application_status=withdrawn требует decision_reason")
         if reason == "other" and not (row.get("notes") or "").strip():
             error(line, f"{identifier}: decision_reason=other требует пояснения в notes")
-        if reason in PRE_APPLICATION_REASONS and application_status != "not_started":
+        if reason and application_status in IN_PROGRESS_APPLICATION_STATUSES:
+            error(line, f"{identifier}: decision_reason={reason} несовместим с application_status={application_status}; закрытое решение хранится как not_started")
+        elif reason in PRE_APPLICATION_REASONS and application_status != "not_started":
             error(line, f"{identifier}: decision_reason={reason} требует application_status=not_started")
         if reason == "closed_before_application":
             if listing_status != "closed":
                 error(line, f"{identifier}: closed_before_application требует listing_status=closed")
             if (row.get("applied_at") or "").strip():
                 error(line, f"{identifier}: closed_before_application несовместим с applied_at")
-        if listing_status == "closed" and application_status == "not_started" and reason != "closed_before_application":
-            error(line, f"{identifier}: closed before application требует decision_reason=closed_before_application")
+        if listing_status == "closed" and application_status in PRE_APPLICATION_STATUSES:
+            if application_status != "not_started":
+                error(line, f"{identifier}: listing_status=closed до отклика требует application_status=not_started")
+            elif reason != "closed_before_application":
+                error(line, f"{identifier}: closed before application требует decision_reason=closed_before_application")
         if reason == "duplicate_listing":
             if application_status != "not_started":
                 error(line, f"{identifier}: duplicate_listing требует application_status=not_started")
@@ -512,13 +521,6 @@ def validate_rows(rows):
             pass
         if "\n" in (row.get("notes") or ""):
             error(line, f"{identifier}: перевод строки в notes; длинный текст → applications/{identifier}.md")
-        if application_status == "applied" and row.get("applied_at") and not row.get("response_at"):
-            try:
-                days = (business_date() - datetime.strptime(row["applied_at"], "%Y-%m-%d").date()).days
-                if days > GHOST_AFTER_DAYS:
-                    warnings.append(f"строка {line}: {identifier}: {days} дней без ответа → application_status=ghosted?")
-            except ValueError:
-                pass
     for canonical, entries in urls.items():
         if len(entries) > 1 and len([row for _, row in entries if row.get("decision_reason") != "duplicate_listing"]) != 1:
             labels = ", ".join(f"{row['id']}@{line}" for line, row in entries)
@@ -529,6 +531,32 @@ def validate_rows(rows):
         elif original not in ids:
             error(line, f"{identifier}: оригинал {original} не найден")
     return errors, warnings
+
+
+def temporal_notices(rows):
+    """Return hints that depend on today's date rather than on row content.
+
+    A row can start producing one without anyone touching the dataset, so these
+    never become errors or warnings: they would turn `validate --strict`, every
+    write path and CI red on a calendar boundary. They are reported next to
+    validation output instead.
+    """
+    notices = []
+    for line, row in enumerate(rows, start=2):
+        identifier = row.get("id") or "<пусто>"
+        applied_at = (row.get("applied_at") or "").strip()
+        if (row.get("application_status") or "") != "applied" or not applied_at:
+            continue
+        if (row.get("response_at") or "").strip():
+            continue
+        try:
+            applied = datetime.strptime(applied_at, "%Y-%m-%d").date()
+        except ValueError:
+            continue
+        days = (business_date() - applied).days
+        if days > GHOST_AFTER_DAYS:
+            notices.append(f"строка {line}: {identifier}: {days} дней без ответа → application_status=ghosted?")
+    return notices
 
 
 def validate_job_sources(job_rows, source_rows):
@@ -2155,6 +2183,7 @@ def cmd_validate(args):
     rows = load()
     source_rows = load_job_sources()
     errors, warnings = validate_dataset(rows, source_rows)
+    notices = temporal_notices(rows)
     ok = not errors and not (warnings and args.strict)
     if args.format == "json":
         print_json({
@@ -2164,15 +2193,21 @@ def cmd_validate(args):
             "source_references": len(source_rows),
             "errors": errors,
             "warnings": warnings,
+            "notices": notices,
         })
         if not ok:
             raise SystemExit(1)
         return
+    for notice in notices:
+        print(f"note:  {notice}")
     for warning in warnings:
         print(f"warn:  {warning}")
     for error in errors:
         print(f"error: {error}", file=sys.stderr)
-    print(f"\nпроверено записей: {len(rows)}; source references: {len(source_rows)}; ошибок: {len(errors)}; предупреждений: {len(warnings)}")
+    print(
+        f"\nпроверено записей: {len(rows)}; source references: {len(source_rows)}; "
+        f"ошибок: {len(errors)}; предупреждений: {len(warnings)}; заметок: {len(notices)}"
+    )
     if not ok:
         raise SystemExit(1)
 

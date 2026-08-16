@@ -135,6 +135,8 @@ reference допустимы только `Manual` и `Referral`. `--duplicate-o
 - `first_party_verified=yes|no` или `apply_verified=yes|no` требует `verified_at`.
 - Для `decision_reason=closed_before_application` обязательны `listing_status=closed` и пустой `applied_at`.
 - Pre-application причина отсева требует `application_status=not_started`.
+- `decision_reason` несовместим с `application_status=reviewing` и `apply`: любое завершённое решение хранится как `not_started` с причиной. Иначе строка описывает одновременно «работа идёт» и «работа прекращена» и не попадает ни в одно представление.
+- `listing_status=closed` до отклика требует `application_status=not_started` и `decision_reason=closed_before_application`. Для записи в `reviewing`/`apply` закрытие объявления фиксируется через `verify --listing-status closed --decision-reason closed_before_application`, а не через `set`.
 - Legacy `decision_reason=duplicate_listing` требует `application_status=not_started` и ID оригинальной строки в `notes`; новые duplicate rows прекращаются после появления source references в Phase 3.
 - Каждая source reference ссылается на существующий `jobs.csv:id`; её `source + source_job_id` не может принадлежать второй вакансии.
 - `validate` проверяет `jobs.csv` и `job_sources.csv` как единый dataset.

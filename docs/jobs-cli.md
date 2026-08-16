@@ -395,10 +395,44 @@ snapshot в Markdown. В отчёте первым показывается че
 остальные lifecycle states), а `listing_status` выводится отдельно как свойство
 объявления.
 
+## Validation, warnings и notices
+
+`validate` разделяет три уровня. `errors` всегда блокируют запись. `warnings` —
+детерминированные замечания: они зависят только от содержимого строки, поэтому
+`--strict` считает их провалом и они пригодны как CI gate. `notices` зависят от
+текущей даты, а не от данных: запись может начать их порождать без единого
+изменения в репозитории. Поэтому они никогда не влияют на код возврата, на
+`--strict` и на write path — иначе календарь однажды остановил бы и CI, и
+connector runner.
+
+Сейчас единственный notice — подсказка о ghosting: `application_status=applied`,
+прошло больше 30 дней и нет `response_at`. Решение о переводе в `ghosted`
+принимает человек через `status`; до этого запись остаётся валидной.
+
+```bash
+python3 scripts/jobs.py validate --strict --format json
+```
+
+```json
+{"ok":true,"command":"validate","checked":214,"source_references":221,
+ "errors":[],"warnings":[],"notices":["строка 2: job-0001: 76 дней без ответа → application_status=ghosted?"]}
+```
+
 ## Примеры обновления и проверки
 
 ```bash
-python3 scripts/jobs.py set job-0001 listing_status=closed --format json
+python3 scripts/jobs.py set job-0001 next_action="follow up with recruiter" --format json
 python3 scripts/jobs.py validate --strict --format json
 python3 scripts/jobs.py dupes --fail --format json
+```
+
+`set` меняет только поля, не описывающие завершённое решение. Закрытие
+объявления до отклика фиксируется через `verify`, потому что запись обязана
+одновременно перейти в `not_started` с `closed_before_application`:
+
+```bash
+python3 scripts/jobs.py verify job-0001 \
+  --listing-status closed --first-party-verified yes --apply-verified no \
+  --original-url "https://careers.example.com/jobs/frontend" \
+  --decision-reason closed_before_application
 ```
