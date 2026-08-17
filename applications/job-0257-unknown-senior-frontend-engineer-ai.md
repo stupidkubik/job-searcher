@@ -2,8 +2,8 @@
 id: job-0257
 company: Unknown
 role: Senior Frontend Engineer (AI)
-original_url:
-verified_at:
+original_url: 
+verified_at: 
 listing_status: unknown
 first_party_verified: unknown
 apply_verified: unknown

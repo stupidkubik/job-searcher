@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (8)](#action-now) · [Applications (30)](#applications) · [To verify (14)](#to-verify) · [Archive (213)](#archive)
+[Action now (8)](#action-now) · [Applications (32)](#applications) · [To verify (11)](#to-verify) · [Archive (214)](#archive)
 
 ## Action now
 
@@ -32,7 +32,9 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Applied | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
+| Applied | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | Applied | 2026-08-17 | — | [Open](../applications/job-0257-unknown-senior-frontend-engineer-ai.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
+| Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
 | Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
 | Applied | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | — |
 | Applied | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | — |
@@ -58,9 +60,6 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Unknown — Lead Frontend Developer (iGaming)](<https://hirify.me/jobs/820724-lead-frontend-developer-igaming>) · job-0256 | First party + Apply + Listing | 5 | resolve external route and confirm stack before applying | Never |
-| Reviewing | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | First party + Apply + Listing | 5 | resolve external route and assess seniority | Never |
-| Reviewing | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | First party + Apply + Listing | 5 | resolve Habr listing and confirm current Apply route | Never |
 | Reviewing | [Unknown — Frontend разработчик (Angular)](<https://hirify.me/jobs/853477-frontend-razrabotcik-angular>) · job-0253 | First party + Apply + Listing | 4 | resolve direct contact and confirm employer/apply route | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | decide whether to accept e-commerce operations stretch; resolve apply route | Never |
 | Reviewing | [VyaparReady — Remote Website Developer](<https://hirify.me/jobs/849749-remote-website-developer>) · job-0255 | First party + Apply + Listing | 3 | resolve source and confirm whether role is product frontend | Never |
@@ -77,7 +76,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 <details>
 
-<summary>Archive (213)</summary>
+<summary>Archive (214)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -86,6 +85,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Skipped: geo restriction | [1inch Network — Tech Lead, dApp (Web3)](<https://hirify.me/jobs/853336-tech-lead-dapp-web3>) · job-0263 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: other | [Unknown — Frontend / Mobile Developer (React / TypeScript / Flutter)](<https://hirify.me/jobs/838825-frontend-mobile-developer-react-typescript-flutter>) · job-0260 | other | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [GBagency — Lead Graphics Engineer (Web3D)](<https://hirify.me/jobs/758066-lead-graphics-engineer-web3d>) · job-0258 | role not frontend | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Unknown — Lead Frontend Developer (iGaming)](<https://hirify.me/jobs/820724-lead-frontend-developer-igaming>) · job-0256 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [Sia — Senior Frontend Engineer (React)](<https://hirify.me/jobs/852643-senior-frontend-engineer-react>) · job-0252 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [Insense — Frontend Developer (React)](<https://hirify.me/jobs/850717-frontend-developer-react>) · job-0245 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [NATEK — Fullstack Developer (Go, React)](<https://hirify.me/jobs/660711-fullstack-developer-go-react>) · job-0244 | role not frontend | Not checked | 2026-08-17 |

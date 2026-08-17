@@ -2,8 +2,8 @@
 id: job-0261
 company: Karma8
 role: Frontend-разработчик (Vanilla JavaScript)
-original_url:
-verified_at:
+original_url: 
+verified_at: 
 listing_status: unknown
 first_party_verified: unknown
 apply_verified: unknown
