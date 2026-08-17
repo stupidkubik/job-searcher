@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (8)](#action-now) · [Applications (32)](#applications) · [To verify (8)](#to-verify) · [Archive (217)](#archive)
+[Action now (8)](#action-now) · [Applications (34)](#applications) · [To verify (6)](#to-verify) · [Archive (217)](#archive)
 
 ## Action now
 
@@ -31,6 +31,8 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
+| Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
+| Applied | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | Applied | 2026-08-17 | — | [Open](../applications/job-0219-addi-frontend-engineer-ic2.md) |
 | Applied | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
 | Applied | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | Applied | 2026-08-17 | — | [Open](../applications/job-0257-unknown-senior-frontend-engineer-ai.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
@@ -62,8 +64,6 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
-| Reviewing | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | First party + Apply + Listing | — | verify first-party listing manually | Never |
-| Reviewing | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | First party + Apply + Listing | — | verify Addi location and application route manually | Never |
 | Reviewing | [Welcome to the Jungle — Frontend Engineer (React)](<https://hirify.me/jobs/782492-frontend-engineer-react-javascript>) · job-0222 | First party + Apply + Listing | — | verify direct listing manually | Never |
 | Reviewing | [Undisclosed (hirify-349360) — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify exact Hirify card and first-party source | Never |
 | Reviewing | [Undisclosed (hirify-604239) — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | resolve exact employer vacancy and Serbia eligibility | Never |
