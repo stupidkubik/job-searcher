@@ -1,0 +1,17 @@
+{
+  "command": "screen",
+  "executed_at": "2026-08-17T20:42:50Z",
+  "job_id": "job-0215",
+  "operation_id": "screen-0215-company-not-interesting-20260817-2242",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "outcome": "screened_out",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
