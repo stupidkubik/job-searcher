@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "operation_id": "update-0216-0218-0246-20260818-0035",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0216",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User chose not to pursue the role because the company is Ukraine-based and is considered too risky under the user's current job-search constraints."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0218",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-18",
+        "cv_version": "frontend-2026-08",
+        "notes": "Application submitted successfully by user on 2026-08-18."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0246",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "stack_mismatch",
+        "notes": "User chose not to pursue the role because its core stack and scope are centered on Angular, WebGL and 3D graphics rather than the target React web stack."
+      }
+    }
+  ]
+}
