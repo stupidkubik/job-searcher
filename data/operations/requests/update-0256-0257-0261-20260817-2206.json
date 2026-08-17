@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "operation_id": "update-0256-0257-0261-20260817-2206",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0256",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "User confirmed there is no realistic lower-grade application path; not pursuing the Lead/Senior role."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0257",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0261",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    }
+  ]
+}
