@@ -4,9 +4,9 @@ company: Buffer
 role: Senior Design Engineer
 original_url: https://buffer.com/journey/3cc29ce6-6336-4a62-bf3b-b3d307f92f6d
 verified_at: 2026-08-17
-listing_status: open
+listing_status: closed
 first_party_verified: yes
-apply_verified: yes
+apply_verified: no
 ---
 
 # Buffer — Senior Design Engineer

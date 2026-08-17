@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (6)](#action-now) · [Applications (35)](#applications) · [To verify (2)](#to-verify) · [Archive (222)](#archive)
+[Action now (4)](#action-now) · [Applications (36)](#applications) · [To verify (2)](#to-verify) · [Archive (223)](#archive)
 
 ## Action now
 
@@ -14,8 +14,6 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Reviewing | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | 9 | confirm Serbia hiring eligibility and prepare tailored CV | Open | — |
 | Reviewing | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | 8.5 | confirm Serbia eligibility and prepare tailored CV | Open | — |
 | Reviewing | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | 8 | prepare application materials and assess seniority gap | Open | [Open](../applications/job-0246-planner5d-frontend-engineer-3d-graphic.md) |
-| Reviewing | [Buffer — Senior Design Engineer](<https://buffer.com/journey/3cc29ce6-6336-4a62-bf3b-b3d307f92f6d>) · job-0248 | 7 | prepare design-engineering application; address seniority gap | Open | [Open](../applications/job-0248-buffer-senior-design-engineer.md) |
-| Reviewing | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | 7 | prepare seniority-stretch application | Open | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
 
 ## Applications
 
@@ -31,6 +29,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
 | Applied | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | Applied | 2026-08-17 | — | [Open](../applications/job-0219-addi-frontend-engineer-ic2.md) |
+| Applied | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | Applied | 2026-08-17 | — | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
 | Applied | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | Applied | 2026-08-17 | — | [Open](../applications/job-0257-unknown-senior-frontend-engineer-ai.md) |
@@ -68,7 +67,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 <details>
 
-<summary>Archive (222)</summary>
+<summary>Archive (223)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -81,6 +80,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Skipped: role not frontend | [VyaparReady — Remote Website Developer](<https://hirify.me/jobs/849749-remote-website-developer>) · job-0255 | role not frontend | Not checked | 2026-08-17 |
 | Skipped: other | [Unknown — Frontend разработчик (Angular)](<https://hirify.me/jobs/853477-frontend-razrabotcik-angular>) · job-0253 | other | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [Sia — Senior Frontend Engineer (React)](<https://hirify.me/jobs/852643-senior-frontend-engineer-react>) · job-0252 | geo restriction | Not checked | 2026-08-17 |
+| Closed | [Buffer — Senior Design Engineer](<https://buffer.com/journey/3cc29ce6-6336-4a62-bf3b-b3d307f92f6d>) · job-0248 | closed before application | Closed | 2026-08-17 |
 | Skipped: stack mismatch | [RedLab — Middle/Senior Frontend разработчик (Vue)](<https://redlab.dev/career/middle-senior-frontend-razrabotchik-vue/>) · job-0247 | stack mismatch | Open | 2026-08-17 |
 | Skipped: seniority too high | [Insense — Frontend Developer (React)](<https://hirify.me/jobs/850717-frontend-developer-react>) · job-0245 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [NATEK — Fullstack Developer (Go, React)](<https://hirify.me/jobs/660711-fullstack-developer-go-react>) · job-0244 | role not frontend | Not checked | 2026-08-17 |
