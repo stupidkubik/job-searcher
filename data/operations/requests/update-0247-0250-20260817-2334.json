@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "operation_id": "update-0247-0250-20260817-2334",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0247",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "stack_mismatch",
+        "notes": "User chose not to pursue the role because the core stack is Vue/Vuex rather than the target React/TypeScript stack."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0250",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "stage": "Applied",
+        "cv_version": "frontend-2026-08",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    }
+  ]
+}
