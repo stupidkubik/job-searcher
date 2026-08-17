@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "operation_id": "update-0259-0260-20260817-2147",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0259",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0260",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User chose not to pursue because the employer could not be reliably identified from the Geekjob/Hirify chain."
+      }
+    }
+  ]
+}
