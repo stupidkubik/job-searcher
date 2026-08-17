@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "operation_id": "hirify-ui-20260817-screen-batch-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify-801503-hooh",
+      "args": {
+        "company": "Hooh",
+        "role": "Frontend Developer (AI)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/801503-frontend-developer-react-typescript",
+        "source_job_id": "801503",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Cyprus",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; JavaScript; HTML5; CSS3; Figma; Redux; Zustand; REST; GraphQL; WebSocket; Jest; React Testing Library; Accessibility; Web Performance",
+        "found_at": "2026-08-17",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card checked: 13 days old, remote only Cyprus, full-time, English B2+, 3+ years professional React/TypeScript. Strong UI/frontend scope, but country-specific eligibility is outside the profile. First-party employer/ATS and Apply route were not exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify-747569-rindus",
+      "args": {
+        "company": "rindus",
+        "role": "Frontend Engineer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/747569-frontend-engineer-react",
+        "source_job_id": "747569",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Spain",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; React; Vue.js; Angular; HTML5; CSS3; SCSS; Storybook; REST; GraphQL; Jest; CI/CD",
+        "found_at": "2026-08-17",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card checked: 1 month old, remote only Spain or hybrid Málaga, English B2. Strong React/UI and component-driven scope, but the card explicitly requires being based in Spain. First-party employer/ATS and Apply route were not exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify-797677-betting-software",
+      "args": {
+        "company": "Betting Software",
+        "role": "Frontend Developer (Gamedev)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/797677-frontend-developer-gamedev",
+        "source_job_id": "797677",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Spain",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; PixiJS; GSAP; Spine; WebGL; Canvas; REST; HTML5; Git",
+        "found_at": "2026-08-17",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card checked: updated 10 days ago, remote only Spain, Moscow time zone, 2+ years commercial HTML5 game development, paid in USDT; source points to a Telegram post. Game-development focus and Spain-only geography make it unsuitable for the current search. No first-party ATS/Apply route exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify-660711-natek",
+      "args": {
+        "company": "NATEK",
+        "role": "Fullstack Developer (Go, React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/660711-fullstack-developer-go-react",
+        "source_job_id": "660711",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Bulgaria",
+        "remote_policy": "Country-specific",
+        "stack": "Go; React; JavaScript; SQL; Kubernetes; GCP; REST; OpenAPI; Keycloak; CI/CD",
+        "found_at": "2026-08-17",
+        "decision_reason": "role_not_frontend",
+        "notes": "Hirify card checked: updated 4 days ago, remote only Bulgaria, full-time, English B2. Backend/cloud-heavy Go full-stack role with a Bulgaria-only location requirement; not aligned with a frontend-first search. First-party employer/ATS and Apply route were not exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify-850717-insense",
+      "args": {
+        "company": "Insense",
+        "role": "Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/850717-frontend-developer-react",
+        "source_job_id": "850717",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "EMEA / CET ±2",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; JavaScript; React Native; Webpack; GraphQL; SaaS; Analytics; UI",
+        "found_at": "2026-08-17",
+        "decision_reason": "seniority_too_high",
+        "notes": "Hirify card checked: 2 hours old, remote EMEA/CET ±2, full-time, technically strong creator-marketing SaaS frontend role. The card metadata explicitly says grades middle+ and senior; Serbia timezone appears plausibly within the region, but the target level is above the profile. Employer/ATS and Apply route were not exposed; visible source was a Telegram post."
+      }
+    }
+  ]
+}
