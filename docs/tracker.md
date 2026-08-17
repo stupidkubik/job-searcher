@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (8)](#action-now) · [Applications (32)](#applications) · [To verify (11)](#to-verify) · [Archive (214)](#archive)
+[Action now (8)](#action-now) · [Applications (32)](#applications) · [To verify (10)](#to-verify) · [Archive (215)](#archive)
 
 ## Action now
 
@@ -60,8 +60,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Unknown — Frontend разработчик (Angular)](<https://hirify.me/jobs/853477-frontend-razrabotcik-angular>) · job-0253 | First party + Apply + Listing | 4 | resolve direct contact and confirm employer/apply route | Never |
-| Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | decide whether to accept e-commerce operations stretch; resolve apply route | Never |
+| Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [VyaparReady — Remote Website Developer](<https://hirify.me/jobs/849749-remote-website-developer>) · job-0255 | First party + Apply + Listing | 3 | resolve source and confirm whether role is product frontend | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | only pursue if willing to pivot toward backend/AI; verify source first | Never |
 | Reviewing | [Busyboard — Frontend Developer (React)](<https://hirify.me/jobs/842613-junior-react-frontend-developer>) · job-0215 | First party + Apply + Listing | — | verify employer and Serbia eligibility | Never |
@@ -76,7 +75,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 <details>
 
-<summary>Archive (214)</summary>
+<summary>Archive (215)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -86,6 +85,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Skipped: other | [Unknown — Frontend / Mobile Developer (React / TypeScript / Flutter)](<https://hirify.me/jobs/838825-frontend-mobile-developer-react-typescript-flutter>) · job-0260 | other | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [GBagency — Lead Graphics Engineer (Web3D)](<https://hirify.me/jobs/758066-lead-graphics-engineer-web3d>) · job-0258 | role not frontend | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [Unknown — Lead Frontend Developer (iGaming)](<https://hirify.me/jobs/820724-lead-frontend-developer-igaming>) · job-0256 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: other | [Unknown — Frontend разработчик (Angular)](<https://hirify.me/jobs/853477-frontend-razrabotcik-angular>) · job-0253 | other | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [Sia — Senior Frontend Engineer (React)](<https://hirify.me/jobs/852643-senior-frontend-engineer-react>) · job-0252 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [Insense — Frontend Developer (React)](<https://hirify.me/jobs/850717-frontend-developer-react>) · job-0245 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [NATEK — Fullstack Developer (Go, React)](<https://hirify.me/jobs/660711-fullstack-developer-go-react>) · job-0244 | role not frontend | Not checked | 2026-08-17 |
