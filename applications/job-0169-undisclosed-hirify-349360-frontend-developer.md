@@ -3,10 +3,10 @@ id: job-0169
 company: Undisclosed (hirify-349360)
 role: Frontend Developer
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-08-17
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # Undisclosed — Frontend Developer

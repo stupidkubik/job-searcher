@@ -3,10 +3,10 @@ id: job-0170
 company: Undisclosed (hirify-604239)
 role: React Developer
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-08-17
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # Undisclosed — React Developer

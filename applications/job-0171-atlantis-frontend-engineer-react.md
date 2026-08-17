@@ -3,10 +3,10 @@ id: job-0171
 company: Atlantis
 role: Frontend Engineer (React)
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-08-17
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # Atlantis — Frontend Engineer (React)

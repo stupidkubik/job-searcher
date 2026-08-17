@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (8)](#action-now) · [Applications (34)](#applications) · [To verify (6)](#to-verify) · [Archive (217)](#archive)
+[Action now (8)](#action-now) · [Applications (34)](#applications) · [To verify (2)](#to-verify) · [Archive (221)](#archive)
 
 ## Action now
 
@@ -64,16 +64,12 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
-| Reviewing | [Welcome to the Jungle — Frontend Engineer (React)](<https://hirify.me/jobs/782492-frontend-engineer-react-javascript>) · job-0222 | First party + Apply + Listing | — | verify direct listing manually | Never |
-| Reviewing | [Undisclosed (hirify-349360) — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | First party + Apply + Listing | — | verify exact Hirify card and first-party source | Never |
-| Reviewing | [Undisclosed (hirify-604239) — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | First party + Apply + Listing | — | resolve exact employer vacancy and Serbia eligibility | Never |
-| Reviewing | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | First party + Apply + Listing | — | verify Atlantis first-party application route | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (217)</summary>
+<summary>Archive (221)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -108,7 +104,11 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Skipped: seniority too high | [Learnlight — Frontend Software Engineer](<https://www.linkedin.com/jobs/view/4454013050/>) · job-0226 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [Proximus Group — Fullstack Developer](<https://www.linkedin.com/jobs/view/4454504398/>) · job-0225 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [Trace One — Software Engineer](<https://www.linkedin.com/jobs/view/4450456942/>) · job-0224 | role not frontend | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Welcome to the Jungle — Frontend Engineer (React)](<https://hirify.me/jobs/782492-frontend-engineer-react-javascript>) · job-0222 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: company not interesting | [Busyboard — Frontend Developer (React)](<https://hirify.me/jobs/842613-junior-react-frontend-developer>) · job-0215 | company not interesting | Not checked | 2026-08-17 |
+| Closed | [Atlantis — Frontend Engineer (React)](<https://hirify.me/jobs/431392-frontend-engineer-react>) · job-0171 | closed before application | Closed | 2026-08-17 |
+| Closed | [Undisclosed (hirify-604239) — React Developer](<https://hirify.me/jobs/604239-react-developer>) · job-0170 | closed before application | Closed | 2026-08-17 |
+| Closed | [Undisclosed (hirify-349360) — Frontend Developer](<https://hirify.me/jobs/349360-frontend-developer>) · job-0169 | closed before application | Closed | 2026-08-17 |
 | Skipped: seniority too high | [V4Scale — Angular Developer (Storage BU)](<https://v4scale.com/vacancies/angular/>) · job-0223 | seniority too high | Open | 2026-08-16 |
 | Skipped: geo restriction | [YouHodler — Frontend Developer](<https://www.youhodler.com/careers/engineer-frontend>) · job-0221 | geo restriction | Open | 2026-08-16 |
 | Skipped: geo restriction | [Kolesa Group — Middle Frontend-разработчик (Kolesa.kz)](<https://kolesa.group/career/job/middle-frontend-razrabotcik-kolesakz-136263530>) · job-0220 | geo restriction | Open | 2026-08-16 |
