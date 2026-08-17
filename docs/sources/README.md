@@ -198,6 +198,11 @@ report, обновить tracker view и проверить generated result —
 | [LinkedIn](linkedin.md) | personalized signed-in search, numeric ID и Easy Apply |
 | [HelloWorld.rs](helloworld-rs.md) | небольшая Serbian board и numeric URL suffix |
 | [Startit Jobs](startit-jobs.md) | небольшая Serbian board с пока невалидированной identity |
+| [Hired Valley](hired-valley.md) | карьерный сервис без публичной job board; только user-supplied/manual leads |
+| [Relocate.me](relocate-me.md) | international relocation board, public discovery и account-gated Apply |
+| [Remote OK](remote-ok.md) | крупная remote board с rendered UI, category routes и tracking Apply |
+| [Geekjob](geekjob.md) | русскоязычная IT board с query/tag/geo filters и internal quick apply |
+| [TalentMove](talent-move.md) | auto-aggregated Russian-language board с broad filters и signup-gated source link |
 | [YC Work at a Startup](yc-work-at-a-startup.md) | native startup board и opaque job ID |
 | [Hacker News — Who is Hiring?](hacker-news-who-is-hiring.md) | message identity, допускающая несколько вакансий |
 | [Reactiflux Discord](reactiflux-discord.md) | Discord message tuple и email/form boundary |

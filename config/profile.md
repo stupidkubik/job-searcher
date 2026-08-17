@@ -48,6 +48,11 @@
 | Find My Remote / Telegram | Радар удалённых frontend-вакансий из ATS; ожидать агрегаторы и дубли | https://t.me/s/findmyremote_frontend | `source=Find My Remote / Telegram`; ссылка поста или выдачи → `source_url`, первоисточник → `original_url` |
 | Himalayas | Remote-first job board с фильтрами по региону, frontend/React и уровню | https://himalayas.app/jobs | `source=Himalayas`; ссылка выдачи → `source_url`, первоисточник → `original_url` |
 | Startit Jobs | Небольшой сербский источник; достаточно периодической проверки | https://startit.rs/startit-poslovi/ | `source=Startit Jobs`; ссылка площадки → `source_url`, первоисточник → `original_url` |
+| Hired Valley | Карьерная платформа и платные карьерные продукты; не публичный job board. Использовать только для явных lead-ов из сообщества/подборки, не для самостоятельного crawl | https://hiredvalley.com/ | `source=Hired Valley`; exact lead/message → `source_url`, работодатель/ATS после проверки → `original_url` |
+| Relocate.me | Международный tech job board с relocation/visa-контекстом и remote-фильтром; Apply на наблюдаемой карточке требует jobseeker account | https://relocate.me/international-jobs | `source=Relocate.me`; карточка → `source_url`, работодатель/ATS после проверки → `original_url` |
+| Remote OK | Большая public remote board с текстовым поиском, категориями, country/salary/verified-сигналами; Apply идёт через tracking route и требует first-party проверки | https://remoteok.com/ | `source=Remote OK`; карточка → `source_url`, работодатель/ATS после проверки → `original_url` |
+| Geekjob | Русскоязычная IT/Digital board с поиском, тегами, remote/relocation/direct-employer фильтрами и внутренним quick apply | https://geekjob.ru/vacancies | `source=Geekjob`; карточка → `source_url`, работодатель/ATS после проверки → `original_url` |
+| TalentMove | Крупный автоматически собранный агрегатор с поиском по навыкам, категориям, географии и датам; исходный переход скрыт за регистрацией | https://talent-move.ru/job-category/dev/ | `source=TalentMove`; карточка → `source_url`, работодатель/ATS после проверки → `original_url` |
 
 Примечание: ссылка ведёт в личный профиль Hirify и может требовать входа. В трекер добавляются только конкретные вакансии, а не ссылка на выдачу.
 

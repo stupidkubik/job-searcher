@@ -122,7 +122,8 @@ class JobsCliTests(unittest.TestCase):
             "Welcome to the Jungle", "We Work Remotely", "HiringCafe",
             "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
             "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
-            "Find My Remote / Telegram", "Himalayas", "Startit Jobs",
+            "Find My Remote / Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
+            "Relocate.me", "Remote OK", "Geekjob", "TalentMove",
         ), start=1):
             result = self.invoke(
                 "add", "--company", f"{source} Co", "--role", "Frontend Developer",

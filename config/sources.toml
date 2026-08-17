@@ -28,3 +28,97 @@ broad_queries = [
 ]
 employment_types = ["Full Time", "Intern", "Contractor"]
 seniority = ["Entry-level", "Mid-level"]
+
+[sources."Hired Valley"]
+enabled = false
+type = "manual"
+cadence_hours = 168
+max_age_days = 30
+geo = ["Serbia", "Georgia", "United States", "Europe", "worldwide"]
+aggregator = false
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "The public homepage is a career-service landing page, not a searchable vacancy board.",
+  "Do not crawl paid products, private Telegram content, or manager chats; process only a lead explicitly supplied by the user.",
+  "Any service-provided vacancy remains discovery evidence until the employer/ATS listing and Apply route are verified.",
+]
+search_url = "https://hiredvalley.com/"
+
+[sources."Relocate.me"]
+enabled = true
+type = "job_board"
+cadence_hours = 24
+broad_cadence_hours = 72
+max_age_days = 14
+fallback_max_age_days = 30
+geo = ["Serbia", "Georgia", "United States", "Europe", "worldwide"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "Relocation packages and remote labels are source-side signals; verify country, authorization and work arrangement on the employer surface.",
+  "Observed Apply opens a jobseeker login/register dialog; do not create an account or submit an application from discovery.",
+  "No exact employer URL is canonical until the employer/ATS requisition is matched.",
+]
+search_url = "https://relocate.me/international-jobs"
+narrow_queries = ["frontend", "react", "typescript", "javascript", "web developer", "next.js"]
+broad_queries = ["software engineer", "product engineer", "ui engineer", "design engineer", "creative developer", "full stack"]
+
+[sources."Remote OK"]
+enabled = true
+type = "job_board"
+cadence_hours = 24
+broad_cadence_hours = 72
+max_age_days = 14
+fallback_max_age_days = 30
+geo = ["Serbia", "Georgia", "United States", "Europe", "worldwide"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "Rendered UI is the supported discovery surface for this registry; the public /api route was blocked by the Browser client during validation.",
+  "Worldwide, probably worldwide, country, salary and verified badges are discovery evidence, not canonical eligibility or employer verification.",
+  "Apply links use /l/<numeric-id> tracking routes; a route existing or returning to the card does not prove a working first-party form.",
+  "Skip ads and Premium promotional rows; they are not vacancy records.",
+]
+search_url = "https://remoteok.com/"
+narrow_queries = ["react", "frontend", "front end", "javascript", "typescript", "next.js"]
+broad_queries = ["web developer", "ui engineer", "creative developer", "product engineer", "software engineer", "design engineer"]
+
+[sources."Geekjob"]
+enabled = true
+type = "job_board"
+cadence_hours = 24
+broad_cadence_hours = 72
+max_age_days = 14
+fallback_max_age_days = 30
+geo = ["Serbia", "Georgia", "United States", "Europe", "Russia/CIS", "worldwide"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "Remote and relocation labels are Russian/CIS board metadata; they do not establish Serbia or global eligibility.",
+  "Direct-employer and agency labels are useful discovery hints but do not replace first-party verification.",
+  "Internal quick apply is account/OAuth-gated; do not register, log in or submit during discovery.",
+  "Use the exposed 24-character vacancy token as source_job_id; never infer an ID from page order or a search query.",
+]
+search_url = "https://geekjob.ru/vacancies"
+narrow_queries = ["React", "Frontend", "JavaScript", "TypeScript", "Web Developer"]
+broad_queries = ["UI", "Creative Developer", "Product Engineer", "Software Engineer", "Game Developer"]
+
+[sources."TalentMove"]
+enabled = true
+type = "job_board"
+cadence_hours = 24
+broad_cadence_hours = 72
+max_age_days = 7
+fallback_max_age_days = 30
+geo = ["Serbia", "Georgia", "United States", "Europe", "Russia/CIS", "worldwide"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "TalentMove states that vacancy announcements are collected automatically and are not checked or confirmed.",
+  "Source scores, salary shorthand, remote labels, dates and company names require employer/ATS verification.",
+  "Observed 'Перейти к вакансии' opens a signup popup; do not create an account or treat it as an Apply route.",
+  "Use the numeric suffix in /jobs/<slug>-<id>/ as source_job_id; never fabricate IDs for search results.",
+]
+search_url = "https://talent-move.ru/"
+narrow_queries = ["React", "Frontend", "JavaScript", "TypeScript", "Next.js"]
+broad_queries = ["Web Developer", "UI Engineer", "Creative Developer", "Product Engineer", "Software Engineer"]

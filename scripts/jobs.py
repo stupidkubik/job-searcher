@@ -83,7 +83,8 @@ SOURCES = [
     "Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely",
     "HiringCafe", "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
     "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
-    "Find My Remote / Telegram", "Himalayas", "Startit Jobs", "Company Careers",
+    "Find My Remote / Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
+    "Relocate.me", "Remote OK", "Geekjob", "TalentMove", "Company Careers",
     "Referral", "Manual", "Other",
 ]
 REASONS = [

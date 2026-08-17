@@ -57,7 +57,7 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | `listing_status` | `open`, `closed`, `unknown` |
 | `first_party_verified`, `apply_verified` | `yes`, `no`, `unknown` |
 | `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` |
-| `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Himalayas`, `Startit Jobs`, `Company Careers`, `Referral`, `Manual`, `Other` |
+| `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Himalayas`, `Startit Jobs`, `Hired Valley`, `Relocate.me`, `Remote OK`, `Geekjob`, `TalentMove`, `Company Careers`, `Referral`, `Manual`, `Other` |
 | `remote_policy` | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` |
 | `stage_reached` | `None` → `Applied` → `Recruiter screen` → `Tech interview` → `Test task` → `Final interview` → `Offer` |
 | `decision_reason` | `geo_restriction`, `work_authorization`, `seniority_too_high`, `seniority_too_low`, `stack_mismatch`, `role_not_frontend`, `salary_too_low`, `company_not_interesting`, `closed_before_application`, `already_applied`, `duplicate_listing`, `no_response_timeout`, `withdrawn_by_me`, `other` |
