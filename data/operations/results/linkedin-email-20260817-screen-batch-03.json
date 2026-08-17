@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-17T08:28:39Z",
+  "jobs": [],
+  "operation_id": "linkedin-email-20260817-screen-batch-03",
+  "result": {
+    "client_ref": "linkedin-4454011770",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Learnlight",
+          "id": "job-0226",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Frontend Software Engineer"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 3,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
