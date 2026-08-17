@@ -2,8 +2,8 @@
 id: job-0251
 company: Sticker Mule
 role: Fullstack Software Engineer (AI)
-original_url:
-verified_at:
+original_url: 
+verified_at: 
 listing_status: unknown
 first_party_verified: unknown
 apply_verified: unknown
