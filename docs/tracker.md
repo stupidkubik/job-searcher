@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-17** · Jobs: **241**
+Dataset updated: **2026-08-17** · Jobs: **245**
 
-[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (203)](#archive)
+[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (207)](#archive)
 
 ## Action now
 
@@ -63,10 +63,14 @@ Dataset updated: **2026-08-17** · Jobs: **241**
 
 <details>
 
-<summary>Archive (203)</summary>
+<summary>Archive (207)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Insense — Frontend Developer (React)](<https://hirify.me/jobs/850717-frontend-developer-react>) · job-0245 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: role not frontend | [NATEK — Fullstack Developer (Go, React)](<https://hirify.me/jobs/660711-fullstack-developer-go-react>) · job-0244 | role not frontend | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [rindus — Frontend Engineer (React)](<https://hirify.me/jobs/747569-frontend-engineer-react>) · job-0243 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Hooh — Frontend Developer (AI)](<https://hirify.me/jobs/801503-frontend-developer-react-typescript>) · job-0242 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [SimpleStudy — Staff Front-end Engineer](<https://www.linkedin.com/jobs/view/4454051496/>) · job-0241 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [Welcome to the Jungle France — Frontend Engineer JS/React](<https://www.linkedin.com/jobs/view/4453534173/>) · job-0240 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [Nooxit — Full Stack Engineer](<https://www.linkedin.com/jobs/view/4450477313/>) · job-0239 | role not frontend | Not checked | 2026-08-17 |
