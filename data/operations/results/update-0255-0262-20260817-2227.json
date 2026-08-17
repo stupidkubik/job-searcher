@@ -1,0 +1,37 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-17T20:28:19Z",
+  "jobs": [
+    "job-0255",
+    "job-0262"
+  ],
+  "operation_id": "update-0255-0262-20260817-2227",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0255",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0262",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
