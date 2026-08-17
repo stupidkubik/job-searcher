@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-17** · Jobs: **245**
+Dataset updated: **2026-08-17** · Jobs: **265**
 
-[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (207)](#archive)
+[Action now (8)](#action-now) · [Applications (27)](#applications) · [To verify (20)](#to-verify) · [Archive (210)](#archive)
 
 ## Action now
 
@@ -13,6 +13,11 @@ Dataset updated: **2026-08-17** · Jobs: **245**
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Reviewing | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | 9 | confirm Serbia hiring eligibility and prepare tailored CV | Open | — |
 | Reviewing | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | 8.5 | confirm Serbia eligibility and prepare tailored CV | Open | — |
+| Reviewing | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | 8 | prepare application materials and assess seniority gap | Open | [Open](../applications/job-0246-planner5d-frontend-engineer-3d-graphic.md) |
+| Reviewing | [Buffer — Senior Design Engineer](<https://buffer.com/journey/3cc29ce6-6336-4a62-bf3b-b3d307f92f6d>) · job-0248 | 7 | prepare design-engineering application; address seniority gap | Open | [Open](../applications/job-0248-buffer-senior-design-engineer.md) |
+| Reviewing | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | 7 | prepare seniority-stretch application | Open | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
+| Reviewing | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | 7 | prepare React/testing application; confirm Serbia eligibility | Open | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
+| Reviewing | [RedLab — Middle/Senior Frontend разработчик (Vue)](<https://redlab.dev/career/middle-senior-frontend-razrabotchik-vue/>) · job-0247 | 6 | assess Vue and GPH contract; prepare application | Open | [Open](../applications/job-0247-redlab-middle-senior-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0.md) |
 
 ## Applications
 
@@ -50,7 +55,19 @@ Dataset updated: **2026-08-17** · Jobs: **245**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [Sia — Senior Frontend Engineer (React)](<https://hirify.me/jobs/852643-senior-frontend-engineer-react>) · job-0252 | First party + Apply + Listing | 8 | resolve employer source and verify remote country eligibility | Never |
+| Reviewing | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | First party + Apply + Listing | 7 | resolve employer ATS and confirm Serbia eligibility | Never |
+| Reviewing | [GBagency — Lead Graphics Engineer (Web3D)](<https://hirify.me/jobs/758066-lead-graphics-engineer-web3d>) · job-0258 | First party + Apply + Listing | 7 | resolve official employer route and prepare graphics portfolio | Never |
 | Reviewing | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Apply | 7 | verify first-party | 2026-08-12 |
+| Reviewing | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | First party + Apply + Listing | 6 | resolve employer source and confirm remote application route | Never |
+| Reviewing | [Unknown — Frontend / Mobile Developer (React / TypeScript / Flutter)](<https://hirify.me/jobs/838825-frontend-mobile-developer-react-typescript-flutter>) · job-0260 | First party + Apply + Listing | 6 | resolve Geekjob listing and confirm employer Apply route | Never |
+| Reviewing | [Unknown — Lead Frontend Developer (iGaming)](<https://hirify.me/jobs/820724-lead-frontend-developer-igaming>) · job-0256 | First party + Apply + Listing | 5 | resolve external route and confirm stack before applying | Never |
+| Reviewing | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | First party + Apply + Listing | 5 | resolve external route and assess seniority | Never |
+| Reviewing | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | First party + Apply + Listing | 5 | resolve Habr listing and confirm current Apply route | Never |
+| Reviewing | [Unknown — Frontend разработчик (Angular)](<https://hirify.me/jobs/853477-frontend-razrabotcik-angular>) · job-0253 | First party + Apply + Listing | 4 | resolve direct contact and confirm employer/apply route | Never |
+| Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | decide whether to accept e-commerce operations stretch; resolve apply route | Never |
+| Reviewing | [VyaparReady — Remote Website Developer](<https://hirify.me/jobs/849749-remote-website-developer>) · job-0255 | First party + Apply + Listing | 3 | resolve source and confirm whether role is product frontend | Never |
+| Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | only pursue if willing to pivot toward backend/AI; verify source first | Never |
 | Reviewing | [Busyboard — Frontend Developer (React)](<https://hirify.me/jobs/842613-junior-react-frontend-developer>) · job-0215 | First party + Apply + Listing | — | verify employer and Serbia eligibility | Never |
 | Reviewing | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | First party + Apply + Listing | — | verify first-party listing manually | Never |
 | Reviewing | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | First party + Apply + Listing | — | verify Addi location and application route manually | Never |
@@ -63,10 +80,13 @@ Dataset updated: **2026-08-17** · Jobs: **245**
 
 <details>
 
-<summary>Archive (207)</summary>
+<summary>Archive (210)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Thrill Labs — Senior Front End Engineer](<https://jobs.ashbyhq.com/thrill-labs/7ea18862-84eb-46a9-bf45-b007b924b028>) · job-0265 | geo restriction | Open | 2026-08-17 |
+| Skipped: geo restriction | [Koinly — Frontend Staff Engineer](<https://hirify.me/jobs/853319-frontend-staff-engineer>) · job-0264 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [1inch Network — Tech Lead, dApp (Web3)](<https://hirify.me/jobs/853336-tech-lead-dapp-web3>) · job-0263 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [Insense — Frontend Developer (React)](<https://hirify.me/jobs/850717-frontend-developer-react>) · job-0245 | seniority too high | Not checked | 2026-08-17 |
 | Skipped: role not frontend | [NATEK — Fullstack Developer (Go, React)](<https://hirify.me/jobs/660711-fullstack-developer-go-react>) · job-0244 | role not frontend | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [rindus — Frontend Engineer (React)](<https://hirify.me/jobs/747569-frontend-engineer-react>) · job-0243 | geo restriction | Not checked | 2026-08-17 |
