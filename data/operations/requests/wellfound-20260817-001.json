@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "operation_id": "wellfound-20260817-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wellfound:4589531",
+      "args": {
+        "company": "HYPR",
+        "role": "Senior Software Engineer (Endpoint Products)",
+        "level": "Senior",
+        "source": "Wellfound",
+        "source_job_id": "4589531",
+        "source_url": "https://wellfound.com/jobs/4589531-senior-software-engineer-endpoint-products",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "remote_policy": "Hybrid",
+        "location": "Belgrade",
+        "stack": "C/C++; C#; Objective-C; Windows; macOS; Linux; REST; TCP; Git",
+        "salary": "$60k–$80k",
+        "decision_reason": "seniority_too_high",
+        "notes": "Wellfound card inspected 2026-08-17. Hybrid Belgrade role with office attendance at least Tuesday and Wednesday; requires 10+ years and endpoint/OS-internals experience, so it is well above the target junior frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4045343",
+      "args": {
+        "company": "HYPR",
+        "role": "Senior Software Engineer (Affirm)",
+        "level": "Senior",
+        "source": "Wellfound",
+        "source_job_id": "4045343",
+        "source_url": "https://wellfound.com/jobs/4045343-senior-software-engineer-affirm",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "remote_policy": "Hybrid",
+        "location": "Belgrade",
+        "stack": "Java 17; Spring; Kubernetes; Cloud; Databases; React; Full-stack",
+        "salary": "€60k–€65k",
+        "decision_reason": "seniority_too_high",
+        "notes": "Wellfound card inspected 2026-08-17. Hybrid Belgrade role with office attendance at least Tuesday and Wednesday; requires 10+ years and is backend/full-stack oriented. Visa sponsorship and relocation are unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4452688",
+      "args": {
+        "company": "Clipster",
+        "role": "Full-stack Product Engineer",
+        "level": "Senior",
+        "source": "Wellfound",
+        "source_job_id": "4452688",
+        "source_url": "https://wellfound.com/jobs/4452688-full-stack-product-engineer",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "remote_policy": "Country-specific",
+        "location": "Remote Europe / Russia / UK / Ukraine / UAE / Armenia / Kazakhstan / Georgia",
+        "stack": "Go; React; Next.js; Backend Engineering; Full-stack",
+        "decision_reason": "seniority_too_high",
+        "notes": "Wellfound card inspected 2026-08-17. Posting describes a backend-heavy senior engineer, asks for 5+ years of backend experience including 3+ years of Go, and does not explicitly list Serbia among the permitted locations."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4589668",
+      "args": {
+        "company": "AIOS",
+        "role": "Software Engineer at AIOS — Remote, €40k-€80k /yr + equity",
+        "level": "Unknown",
+        "source": "Wellfound",
+        "source_job_id": "4589668",
+        "source_url": "https://wellfound.com/jobs/4589668-software-engineer-at-aios-remote-40k-80k-yr-equity",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "remote_policy": "Country-specific",
+        "location": "Kosovo",
+        "stack": "React Native; Expo; Next.js; NestJS; GraphQL; Prisma; PostgreSQL; Redis; AWS",
+        "salary": "€40k–€80k/year + equity",
+        "decision_reason": "geo_restriction",
+        "notes": "Wellfound card inspected 2026-08-17. Remote hiring is explicitly limited to candidates in Kosovo; visa sponsorship and relocation are unavailable. The native Wellfound Apply route was inspected without submitting."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4463407",
+      "args": {
+        "company": "Datalogz",
+        "role": "Product Engineer",
+        "level": "Junior/Middle",
+        "source": "Wellfound",
+        "source_job_id": "4463407",
+        "source_url": "https://wellfound.com/jobs/4463407-product-engineer",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "remote_policy": "Europe",
+        "location": "Remote Europe / North America",
+        "stack": "TypeScript; React; UX; Product Engineering; Data UI",
+        "salary": "$120k–$200k",
+        "decision_reason": "closed_before_application",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "verified_at": "2026-08-17",
+        "notes": "Wellfound card inspected 2026-08-17 and native Apply route opened without submission. Current Datalogz careers page lists only Power BI Engineer; its Apply now link points to a different Wellfound back-end role, so this Product Engineer card is stale."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4302085",
+      "args": {
+        "company": "Yotpo",
+        "role": "Junior Software Engineer",
+        "level": "Junior",
+        "source": "Wellfound",
+        "source_job_id": "4302085",
+        "source_url": "https://wellfound.com/jobs/4302085-junior-software-engineer",
+        "original_url": "https://www.yotpo.com/careers/gid-7981955/",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "remote_policy": "Unclear",
+        "location": "Sofia, Bulgaria",
+        "stack": "TypeScript; Node.js; React; Git; REST; GraphQL; CI/CD; Testing; Databases",
+        "salary": "Unknown",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "verified_at": "2026-08-17",
+        "notes": "Wellfound card and current Yotpo careers page inspected 2026-08-17. First-party page confirms the junior role and an embedded Greenhouse application form, but also specifies Sofia and flexible hybrid capacity with 3 office days per week; Wellfound simultaneously says Remote Everywhere, so remote-from-Serbia eligibility is unconfirmed."
+      }
+    }
+  ]
+}
