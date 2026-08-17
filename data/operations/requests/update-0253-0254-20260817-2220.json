@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "operation_id": "update-0253-0254-20260817-2220",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0253",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User chose not to pursue this unresolved Angular vacancy because the employer and reliable application route could not be identified."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0254",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "next_action": "revisit later as Shopify AI-agent automation opportunity"
+      }
+    }
+  ]
+}
