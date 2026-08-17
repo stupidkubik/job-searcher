@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-17T08:53:33Z",
+  "jobs": [],
+  "operation_id": "hirify-ui-20260817-screen-batch-01",
+  "result": {
+    "client_ref": "hirify-797677-betting-software",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Betting Software",
+          "id": "job-0166",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Frontend Developer (Gamedev)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 2,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
