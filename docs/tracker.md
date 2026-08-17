@@ -2,18 +2,15 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-17** · Jobs: **265**
+Dataset updated: **2026-08-18** · Jobs: **265**
 
-[Action now (4)](#action-now) · [Applications (36)](#applications) · [To verify (2)](#to-verify) · [Archive (223)](#archive)
+[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (225)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | 9 | confirm Serbia hiring eligibility and prepare tailored CV | Open | — |
-| Reviewing | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | 8.5 | confirm Serbia eligibility and prepare tailored CV | Open | — |
-| Reviewing | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | 8 | prepare application materials and assess seniority gap | Open | [Open](../applications/job-0246-planner5d-frontend-engineer-3d-graphic.md) |
 
 ## Applications
 
@@ -26,6 +23,7 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | Applied | 2026-08-18 | — | [Open](../applications/job-0218-nove8-front-end-developer.md) |
 | Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
 | Applied | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | Applied | 2026-08-17 | — | [Open](../applications/job-0219-addi-frontend-engineer-ic2.md) |
@@ -67,10 +65,12 @@ Dataset updated: **2026-08-17** · Jobs: **265**
 
 <details>
 
-<summary>Archive (223)</summary>
+<summary>Archive (225)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | stack mismatch | Open | 2026-08-18 |
+| Skipped: other | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | other | Open | 2026-08-18 |
 | Skipped: geo restriction | [Thrill Labs — Senior Front End Engineer](<https://jobs.ashbyhq.com/thrill-labs/7ea18862-84eb-46a9-bf45-b007b924b028>) · job-0265 | geo restriction | Open | 2026-08-17 |
 | Skipped: geo restriction | [Koinly — Frontend Staff Engineer](<https://hirify.me/jobs/853319-frontend-staff-engineer>) · job-0264 | geo restriction | Not checked | 2026-08-17 |
 | Skipped: geo restriction | [1inch Network — Tech Lead, dApp (Web3)](<https://hirify.me/jobs/853336-tech-lead-dapp-web3>) · job-0263 | geo restriction | Not checked | 2026-08-17 |
