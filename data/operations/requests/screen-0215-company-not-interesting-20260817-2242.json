@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "operation_id": "screen-0215-company-not-interesting-20260817-2242",
+  "command": "screen",
+  "job_id": "job-0215",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "last_update": "2026-08-16"
+  },
+  "args": {
+    "decision_reason": "company_not_interesting",
+    "notes": "User chose not to pursue after reviewing the product and role. The product appears very early/rough, and the recurring pattern of junior vacancies raised enough concern that the opportunity is not attractive despite the Junior label."
+  }
+}
