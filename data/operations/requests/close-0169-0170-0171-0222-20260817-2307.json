@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "operation_id": "close-0169-0170-0171-0222-20260817-2307",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0169",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed this vacancy should be treated as archived; no application was submitted."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0170",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed this vacancy should be treated as archived; no application was submitted."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0171",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-14"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed this vacancy should be treated as archived; no application was submitted."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0222",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "User confirmed a hard Paris location requirement; not compatible with the current location in Serbia."
+      }
+    }
+  ]
+}
