@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "operation_id": "update-0248-0249-20260817-2355",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0248",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "Buffer's current Open roles page no longer lists Senior Design Engineer, and the exact first-party role page states that applications closed on April 22. User chose to close the vacancy without applying."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0249",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user to Provable via the General Application route after reviewing the Senior Frontend Engineer opening."
+      }
+    }
+  ]
+}
