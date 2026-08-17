@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "operation_id": "update-0145-0251-0252-0258-20260817-2124",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0251",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0252",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "User confirmed the role is strictly location-bound to India; not eligible from Serbia."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0258",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "User confirmed this is not actually a software-development role and there is no realistic lower-grade application path; not pursuing."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0145",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    }
+  ]
+}
