@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "operation_id": "update-0255-0262-20260817-2227",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0255",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "User chose not to pursue this website/SEO-oriented role because it is not a strong product-frontend fit."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0262",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "next_action": "very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot"
+      }
+    }
+  ]
+}
