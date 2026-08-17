@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "operation_id": "apply-0217-0219-20260817-2304",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0217",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0219",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-08-17",
+        "notes": "Application submitted successfully by user on 2026-08-17."
+      }
+    }
+  ]
+}
