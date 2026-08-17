@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-16** · Jobs: **223**
+Dataset updated: **2026-08-17** · Jobs: **241**
 
-[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (185)](#archive)
+[Action now (3)](#action-now) · [Applications (27)](#applications) · [To verify (8)](#to-verify) · [Archive (203)](#archive)
 
 ## Action now
 
@@ -63,10 +63,28 @@ Dataset updated: **2026-08-16** · Jobs: **223**
 
 <details>
 
-<summary>Archive (185)</summary>
+<summary>Archive (203)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [SimpleStudy — Staff Front-end Engineer](<https://www.linkedin.com/jobs/view/4454051496/>) · job-0241 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Welcome to the Jungle France — Frontend Engineer JS/React](<https://www.linkedin.com/jobs/view/4453534173/>) · job-0240 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: role not frontend | [Nooxit — Full Stack Engineer](<https://www.linkedin.com/jobs/view/4450477313/>) · job-0239 | role not frontend | Not checked | 2026-08-17 |
+| Closed | [Jobs Ai — Full-Stack Developer](<https://www.linkedin.com/jobs/view/4454365379/>) · job-0238 | closed before application | Closed | 2026-08-17 |
+| Skipped: work authorization | [Fortum — Junior Software Engineer](<https://www.linkedin.com/jobs/view/4454064909/>) · job-0237 | work authorization | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Synpulse — Junior Full Stack Software Engineer](<https://www.linkedin.com/jobs/view/4454578858/>) · job-0236 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Worldline — Junior Frontend Developer (1+ years)](<https://www.linkedin.com/jobs/view/4426781603/>) · job-0235 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Cisco — Software Engineer, Early in Career](<https://www.linkedin.com/jobs/view/4454040653/>) · job-0234 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: geo restriction | [Bitpanda LA — Graduate Frontend Engineer React/TypeScript](<https://www.linkedin.com/jobs/view/4453723699/>) · job-0233 | geo restriction | Not checked | 2026-08-17 |
+| Closed | [Alpine Business Consulting — Associate Frontend Developer](<https://www.linkedin.com/jobs/view/4453501632/>) · job-0232 | closed before application | Closed | 2026-08-17 |
+| Skipped: geo restriction | [3E — React Frontend Developer](<https://www.linkedin.com/jobs/view/4454501979/>) · job-0231 | geo restriction | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Paires — Design Engineer](<https://www.linkedin.com/jobs/view/4454582448/>) · job-0230 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Paires — Design Engineer](<https://www.linkedin.com/jobs/view/4454597314/>) · job-0229 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Gecko Dynamics — Frontend Developer](<https://www.linkedin.com/jobs/view/4453692678/>) · job-0228 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Learnlight — Frontend Software Engineer](<https://www.linkedin.com/jobs/view/4454011770/>) · job-0227 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Learnlight — Frontend Software Engineer](<https://www.linkedin.com/jobs/view/4454013050/>) · job-0226 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: seniority too high | [Proximus Group — Fullstack Developer](<https://www.linkedin.com/jobs/view/4454504398/>) · job-0225 | seniority too high | Not checked | 2026-08-17 |
+| Skipped: role not frontend | [Trace One — Software Engineer](<https://www.linkedin.com/jobs/view/4450456942/>) · job-0224 | role not frontend | Not checked | 2026-08-17 |
 | Skipped: seniority too high | [V4Scale — Angular Developer (Storage BU)](<https://v4scale.com/vacancies/angular/>) · job-0223 | seniority too high | Open | 2026-08-16 |
 | Skipped: geo restriction | [YouHodler — Frontend Developer](<https://www.youhodler.com/careers/engineer-frontend>) · job-0221 | geo restriction | Open | 2026-08-16 |
 | Skipped: geo restriction | [Kolesa Group — Middle Frontend-разработчик (Kolesa.kz)](<https://kolesa.group/career/job/middle-frontend-razrabotcik-kolesakz-136263530>) · job-0220 | geo restriction | Open | 2026-08-16 |
