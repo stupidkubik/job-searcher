@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hirify-fresh-20260819-009",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:875393",
+      "args": {
+        "company": "Protege",
+        "role": "Software Engineer (TypeScript/Next.js)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/875393-software-engineer-typescript-nextjs",
+        "source_job_id": "875393",
+        "application_status": "not_started",
+        "location": "Global",
+        "remote_policy": "Global",
+        "stack": "TypeScript; React; Next.js; Postgres; AWS; Testing; API development",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Hirify card checked 2026-08-19: global remote role requires at least 2 years building production web applications for real users and end-to-end work across UI, APIs, data models, Postgres, and AWS. Profile does not claim that commercial product frontend/full-stack experience. Contacts are gated; no first-party Apply route was available without revealing them."
+      }
+    }
+  ]
+}
