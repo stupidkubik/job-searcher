@@ -1,0 +1,56 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T20:43:01Z",
+  "jobs": [],
+  "operation_id": "hirify-narrow-20260819-001",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:866809",
+        "command": "add",
+        "job_id": "job-0266",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0266",
+            "source": "Hirify",
+            "source_job_id": "866809",
+            "source_url": "https://hirify.me/jobs/866809-junior-frontend-developer-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:247933",
+        "command": "add",
+        "job_id": "job-0267",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0267",
+            "source": "Hirify",
+            "source_job_id": "247933",
+            "source_url": "https://hirify.me/jobs/247933-front-end-developer-angular"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

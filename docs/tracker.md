@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-18** · Jobs: **265**
+Dataset updated: **2026-08-19** · Jobs: **267**
 
-[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (225)](#archive)
+[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (227)](#archive)
 
 ## Action now
 
@@ -65,10 +65,12 @@ Dataset updated: **2026-08-18** · Jobs: **265**
 
 <details>
 
-<summary>Archive (225)</summary>
+<summary>Archive (227)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [AIQU — Front End Developer (Angular)](<https://hirify.me/jobs/247933-front-end-developer-angular>) · job-0267 | stack mismatch | Not checked | 2026-08-19 |
+| Skipped: geo restriction | [Squarepoint Capital — Junior Software Developer - Frontend (React)](<https://hirify.me/jobs/866809-junior-frontend-developer-react>) · job-0266 | geo restriction | Not checked | 2026-08-19 |
 | Skipped: stack mismatch | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | stack mismatch | Open | 2026-08-18 |
 | Skipped: other | [MacPaw — Junior Front-End Engineer](<https://macpaw.com/careers/junior-frontend>) · job-0216 | other | Open | 2026-08-18 |
 | Skipped: geo restriction | [Thrill Labs — Senior Front End Engineer](<https://jobs.ashbyhq.com/thrill-labs/7ea18862-84eb-46a9-bf45-b007b924b028>) · job-0265 | geo restriction | Open | 2026-08-17 |
