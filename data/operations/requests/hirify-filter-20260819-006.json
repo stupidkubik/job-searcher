@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hirify-filter-20260819-006",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:821070",
+      "args": {
+        "company": "Primer",
+        "role": "Frontend Engineer (React/TypeScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/821070-frontend-react-typescript-engineer",
+        "source_job_id": "821070",
+        "application_status": "not_started",
+        "location": "Hungary; Poland; Portugal; Romania; South Africa",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Python; Web Components; Payments; Accessibility; Performance optimization",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card checked 2026-08-19: remote work is limited to Hungary, Poland, Portugal, Romania, or South Africa, so Serbia is not eligible. Contacts are gated in Hirify; no first-party employer/ATS Apply route was available without revealing them."
+      }
+    }
+  ]
+}
