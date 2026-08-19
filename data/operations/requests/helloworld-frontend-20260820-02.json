@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "operation_id": "helloworld-frontend-20260820-02",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "helloworld:749765",
+      "args": {
+        "company": "Tyllo d.o.o.",
+        "role": "Junior Frontend Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "749765",
+        "source_url": "https://www.helloworld.rs/posao/Junior-Frontend-Developer/Tyllo-d.o.o/749765",
+        "original_url": "https://tyllo.net/",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Junior",
+        "location": "Beograd",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; HTML5; CSS3; AJAX; React; Vue; Gulp; Grunt; Git",
+        "match_score": 8.5,
+        "notes": "Strong junior frontend fit. HelloWorld Apply redirects to Infostud account login. Employer site loaded after anti-bot check but exposes no careers page or exact vacancy; first-party freshness and direct Apply route remain unconfirmed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:749274",
+      "args": {
+        "company": "Pollard Digital Solutions",
+        "role": "Frontend Software Engineer - Game Studio",
+        "source": "HelloWorld.rs",
+        "source_job_id": "749274",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-Software-Engineer-Game-Studio/Pollard-Digital-Solutions/749274",
+        "original_url": "https://www.pollardbanknote.com/pollard-digital-solutions-europe/",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Middle",
+        "location": "Beograd",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; HTML5; CSS3; Canvas API; Pixi.js; Phaser; CreateJS; Vue; React; Angular; Git; SVN; Linux",
+        "match_score": 9.5,
+        "notes": "Exceptional match for creative/game-ad experience. Pollard corporate careers and PDS Europe pages load, but neither exposes this exact vacancy or a direct Apply route. HelloWorld Apply redirects to Infostud account login."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:749355",
+      "args": {
+        "company": "New Leaf Technology Consulting d.o.o.",
+        "role": "Junior Software Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "749355",
+        "source_url": "https://www.helloworld.rs/posao/Junior-Software-Engineer/New-Leaf-Technology-Consulting-d.o.o/749355",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "decision_reason": "role_not_frontend",
+        "level": "Junior",
+        "location": "Novi Sad",
+        "remote_policy": "On-site",
+        "stack": "Java; JVM; Spring; SQL; Maven; Git; Angular; AWS; CI/CD",
+        "salary": "EUR 1,200 net",
+        "match_score": 4,
+        "notes": "Description mentions Angular/UI/UX as a possible area, but the stated technical interview tests Java/JVM, Spring, relational databases, Maven, and Git; the role is primarily backend Java."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:697284",
+      "args": {
+        "company": "++hellohello",
+        "role": "Creative Front-end Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "697284",
+        "source_url": "https://www.helloworld.rs/posao/Creative-Front-end-Engineer/hellohello/697284",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "decision_reason": "seniority_too_high",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "stack": "React; Next.js; TypeScript; GSAP; Framer Motion; Lottie; Three.js; WebGL",
+        "match_score": 7,
+        "notes": "Technically attractive creative frontend role, but it explicitly requires 4+ years of creative frontend experience and advanced English. HelloWorld says the listing was collected from the employer; no current first-party vacancy or direct Apply route was exposed."
+      }
+    }
+  ]
+}
