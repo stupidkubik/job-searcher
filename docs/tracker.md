@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-19** · Jobs: **274**
+Dataset updated: **2026-08-19** · Jobs: **275**
 
-[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (234)](#archive)
+[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (235)](#archive)
 
 ## Action now
 
@@ -65,10 +65,11 @@ Dataset updated: **2026-08-19** · Jobs: **274**
 
 <details>
 
-<summary>Archive (234)</summary>
+<summary>Archive (235)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Protege — Software Engineer (TypeScript/Next.js)](<https://hirify.me/jobs/875393-software-engineer-typescript-nextjs>) · job-0275 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [SilentRoom — Middle Frontend Engineer (React/MobX/AI)](<https://hirify.me/jobs/767669-middle-frontend-engineer-reactmobxai>) · job-0274 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [Unknown (Telegram source) — Frontend Developer (Middle+) (React/Next.js)](<https://hirify.me/jobs/789076-frontend-developer-middle-reactnextjs>) · job-0273 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: geo restriction | [Gubanova and Partners — Frontend Developer (React)](<https://hirify.me/jobs/857799-frontend-developer-react>) · job-0272 | geo restriction | Not checked | 2026-08-19 |

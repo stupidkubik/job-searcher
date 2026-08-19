@@ -1,0 +1,36 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T21:36:18Z",
+  "jobs": [],
+  "operation_id": "hirify-fresh-20260819-009",
+  "result": {
+    "count": 1,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:875393",
+        "command": "add",
+        "job_id": "job-0275",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0275",
+            "source": "Hirify",
+            "source_job_id": "875393",
+            "source_url": "https://hirify.me/jobs/875393-software-engineer-typescript-nextjs"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
