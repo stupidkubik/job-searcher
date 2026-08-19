@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:33:36Z",
+  "jobs": [],
+  "operation_id": "talentmove-frontend-wide-20260820-01",
+  "result": {
+    "client_ref": "talentmove:255004",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Т-Банк",
+          "id": "job-0191",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Junior Frontend Developer (React)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 10,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
