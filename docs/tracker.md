@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-19** · Jobs: **267**
+Dataset updated: **2026-08-19** · Jobs: **270**
 
-[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (227)](#archive)
+[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (230)](#archive)
 
 ## Action now
 
@@ -65,10 +65,13 @@ Dataset updated: **2026-08-19** · Jobs: **267**
 
 <details>
 
-<summary>Archive (227)</summary>
+<summary>Archive (230)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Patrianna — Frontend Developer (React)](<https://hirify.me/jobs/606009-frontend-developer-react-typescript>) · job-0270 | geo restriction | Not checked | 2026-08-19 |
+| Skipped: seniority too high | [Centerex — Frontend Developer](<https://hirify.me/jobs/191179-frontend-developer-ai>) · job-0269 | seniority too high | Not checked | 2026-08-19 |
+| Skipped: seniority too high | [CoinsPaid — Frontend Engineer (Design Core Team) (React)](<https://hirify.me/jobs/867490-frontend-engineer-design-core-team-react>) · job-0268 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: stack mismatch | [AIQU — Front End Developer (Angular)](<https://hirify.me/jobs/247933-front-end-developer-angular>) · job-0267 | stack mismatch | Not checked | 2026-08-19 |
 | Skipped: geo restriction | [Squarepoint Capital — Junior Software Developer - Frontend (React)](<https://hirify.me/jobs/866809-junior-frontend-developer-react>) · job-0266 | geo restriction | Not checked | 2026-08-19 |
 | Skipped: stack mismatch | [Planner5D — Frontend Engineer (3D Graphics)](<https://jobs.lever.co/planner5d/835632c3-9712-480f-82a9-9624b0461702>) · job-0246 | stack mismatch | Open | 2026-08-18 |

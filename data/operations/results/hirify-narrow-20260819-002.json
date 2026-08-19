@@ -1,0 +1,76 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T20:44:09Z",
+  "jobs": [],
+  "operation_id": "hirify-narrow-20260819-002",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:867490",
+        "command": "add",
+        "job_id": "job-0268",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0268",
+            "source": "Hirify",
+            "source_job_id": "867490",
+            "source_url": "https://hirify.me/jobs/867490-frontend-engineer-design-core-team-react"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:191179",
+        "command": "add",
+        "job_id": "job-0269",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0269",
+            "source": "Hirify",
+            "source_job_id": "191179",
+            "source_url": "https://hirify.me/jobs/191179-frontend-developer-ai"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:606009",
+        "command": "add",
+        "job_id": "job-0270",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0270",
+            "source": "Hirify",
+            "source_job_id": "606009",
+            "source_url": "https://hirify.me/jobs/606009-frontend-developer-react-typescript"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
