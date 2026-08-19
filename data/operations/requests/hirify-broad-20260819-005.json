@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hirify-broad-20260819-005",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:857799",
+      "args": {
+        "company": "Gubanova and Partners",
+        "role": "Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/857799-frontend-developer-react",
+        "source_job_id": "857799",
+        "application_status": "not_started",
+        "location": "Georgia",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Angular; Vue; GraphQL; CI/CD; Testing; Accessibility",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card checked 2026-08-19: remote work is only from Georgia and employment is official local employment. The visible source is a Telegram post with gated contacts, so no first-party employer/ATS Apply route could be verified."
+      }
+    }
+  ]
+}
