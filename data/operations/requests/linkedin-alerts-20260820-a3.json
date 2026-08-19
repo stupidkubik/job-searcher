@@ -1,0 +1,248 @@
+{
+  "version": 1,
+  "operation_id": "linkedin-alerts-20260820-a3",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "linkedin:4445974072",
+      "args": {
+        "company": "Ciklum",
+        "role": "JavaScript Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4445974072/",
+        "source_job_id": "4445974072",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Poland",
+        "remote_policy": "Country-specific",
+        "stack": "React Native; TypeScript; JavaScript; Expo; Firebase",
+        "decision_reason": "geo_restriction",
+        "notes": "LinkedIn card says the full-time remote role is in Poland and the description says candidates join the Poland team; Serbia is outside the stated hiring market. Requires 3+ years and React Native mobile-store experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4455702585",
+      "args": {
+        "company": "THRYVE",
+        "role": "Junior Software Engineer - Typescript AI",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4455702585/",
+        "source_job_id": "4455702585",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Germany",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Frontend frameworks; Python; APIs; Cloud; AI",
+        "decision_reason": "geo_restriction",
+        "notes": "LinkedIn description says fully remote within Germany and requires fluent German; up to six months abroad does not make the hiring market global."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4454760599",
+      "args": {
+        "company": "kolum",
+        "role": "Product Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4454760599/",
+        "source_job_id": "4454760599",
+        "original_url": "https://www.kolum.earth/en/careers/product-engineer",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Unknown",
+        "location": "Remote / Berlin",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; React; Next.js; NestJS; APIs; AI integrations; Amazon Bedrock; Claude",
+        "salary": "€70K–€95K + equity",
+        "match_score": 8,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Official kolum careers page is live and its mailto Apply route is present. Strong React/Next.js, product UI, workflow automation and AI-tooling fit; backend ownership and early-stage autonomy make it a stretch. Page says Remote / Berlin but does not define eligible countries."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4455736861",
+      "args": {
+        "company": "Computer Futures",
+        "role": "Frontend-Entwickler (w/m/d) 60.000€",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4455736861/",
+        "source_job_id": "4455736861",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "Nidda, Hesse, Germany",
+        "remote_policy": "Hybrid",
+        "stack": "Vue 3; Nuxt.js; TypeScript; Tailwind CSS; Cypress; Vite; GitHub Actions",
+        "salary": "€50K–€60K",
+        "decision_reason": "geo_restriction",
+        "notes": "Role is a permanent position around Nidda with up to 80% remote, so regular local presence is required; it also requires German C1."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4454767340",
+      "args": {
+        "company": "BJAK",
+        "role": "Full Stack Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4454767340/",
+        "source_job_id": "4454767340",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Unknown",
+        "location": "Austria",
+        "remote_policy": "Country-specific",
+        "stack": "React; Next.js; Vue; APIs; Databases",
+        "decision_reason": "geo_restriction",
+        "notes": "LinkedIn description explicitly says remote candidates must already be based in Austria."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4454957007",
+      "args": {
+        "company": "BJAK",
+        "role": "Full Stack Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4454957007/",
+        "source_job_id": "4454957007",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Unknown",
+        "location": "Sweden",
+        "remote_policy": "Country-specific",
+        "stack": "React; Next.js; Vue; APIs; Databases",
+        "decision_reason": "geo_restriction",
+        "notes": "Separate Sweden requisition; LinkedIn description explicitly says remote candidates must already be based in Sweden.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4454778287",
+      "args": {
+        "company": "ITech Consult AG",
+        "role": "React Frontend Developer (m/w/d)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4454778287/",
+        "source_job_id": "4454778287",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Switzerland / Remote",
+        "remote_policy": "Unclear",
+        "stack": "React; TypeScript; JavaScript; UI/UX; MERN; MongoDB; Express.js; Node.js",
+        "match_score": 6.5,
+        "notes": "Exact LinkedIn card is live with native Easy Apply, but the staffing intermediary does not identify the end client or a first-party requisition. Service contract starts 2027, requires 3+ years React, and says region to be agreed / remote; Serbia eligibility needs confirmation."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4455754396",
+      "args": {
+        "company": "Expana",
+        "role": "Junior Software Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4455754396/",
+        "source_job_id": "4455754396",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "London, England, United Kingdom",
+        "remote_policy": "Hybrid",
+        "stack": "TypeScript; React; CSS; Node.js; PostgreSQL; MongoDB; CI/CD",
+        "decision_reason": "work_authorization",
+        "notes": "Role requires two days per week in the London office and explicitly states no visa sponsorship with Right to Work checks."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4454489874",
+      "args": {
+        "company": "Harnham",
+        "role": "Junior Software Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4454489874/",
+        "source_job_id": "4454489874",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "London, England, United Kingdom",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; Angular; Python; Full-stack",
+        "salary": "£30K–£40K",
+        "decision_reason": "geo_restriction",
+        "notes": "Recruiter listing requires four days per week in London, incompatible with residence and work authorization in Serbia."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4453410751",
+      "args": {
+        "company": "Metrikflow",
+        "role": "Full Stack Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4453410751/",
+        "source_job_id": "4453410751",
+        "original_url": "https://join.com/companies/metrikflow/16595184-full-stack-engineer",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Junior/Middle",
+        "location": "Remote (Germany)",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; React; Vue; Angular; Node.js; REST; GraphQL; SQL; NoSQL; AWS; Azure; Testing; CI/CD",
+        "match_score": 7.5,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Current JOIN listing is live, updated one day ago, and the Apply form opens. Strong 1-3 year scope, TypeScript, UI quality, testing and automation fit; role is meaningfully full-stack. ATS labels it Remote (Germany) while the body says work from anywhere, so Serbia eligibility remains unclear."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4455321914",
+      "args": {
+        "company": "Biotasmart",
+        "role": "Full Stack Junior-Mid (Next.js + TypeScript)",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4455321914/",
+        "source_job_id": "4455321914",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "Greater Valencia Metropolitan Area",
+        "remote_policy": "On-site",
+        "stack": "Next.js 16; TypeScript; Tailwind CSS; Kotlin; Spring Boot; SQL; Claude Code",
+        "salary": "€22K–€26K",
+        "decision_reason": "geo_restriction",
+        "notes": "Excellent junior frontend stack fit, but the listing explicitly requires on-site availability in Valencia."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "linkedin:4452861383",
+      "args": {
+        "company": "Employer.com",
+        "role": "Full Stack Software Developer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/jobs/view/4452861383/",
+        "source_job_id": "4452861383",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Novi Sad, Vojvodina, Serbia",
+        "remote_policy": "Serbia",
+        "stack": "TypeScript; React; Scala; Python; Node.js; Go; AWS; Terraform; Kubernetes; SQL; CI/CD",
+        "salary": "$25K–$30K",
+        "decision_reason": "role_not_frontend",
+        "notes": "Serbia remote and compensation are compatible, but this is a broad product-plus-infrastructure role requiring several years, AWS operations, infrastructure as code, observability, security and production support; frontend is not the primary scope."
+      }
+    }
+  ]
+}
