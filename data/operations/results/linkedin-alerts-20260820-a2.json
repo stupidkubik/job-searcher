@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:01:25Z",
+  "jobs": [],
+  "operation_id": "linkedin-alerts-20260820-a2",
+  "result": {
+    "client_ref": "linkedin:4454957007",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "BJAK",
+          "id": "job-0280",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Full Stack Engineer"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 5,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
