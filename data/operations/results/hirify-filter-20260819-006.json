@@ -1,0 +1,26 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T21:29:46Z",
+  "jobs": [],
+  "operation_id": "hirify-filter-20260819-006",
+  "result": {
+    "client_ref": "hirify:821070",
+    "command": "add",
+    "conflict": {
+      "existing": {
+        "found_at": "2026-08-09",
+        "job_id": "job-0004",
+        "source": "Hirify",
+        "source_job_id": "821070",
+        "source_url": "https://hirify.me/jobs/821070-frontend-react-typescript-engineer"
+      },
+      "message": "source + source_job_id уже принадлежат job-0004",
+      "reason": "source_reference_conflict"
+    },
+    "index": 0,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
