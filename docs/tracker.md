@@ -2,15 +2,17 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-19** · Jobs: **275**
+Dataset updated: **2026-08-20** · Jobs: **287**
 
-[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (235)](#archive)
+[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (3)](#to-verify) · [Archive (244)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
+| Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 
 ## Applications
 
@@ -58,6 +60,7 @@ Dataset updated: **2026-08-19** · Jobs: **275**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
 
@@ -65,10 +68,19 @@ Dataset updated: **2026-08-19** · Jobs: **275**
 
 <details>
 
-<summary>Archive (235)</summary>
+<summary>Archive (244)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Employer.com — Full Stack Software Developer](<https://www.linkedin.com/jobs/view/4452861383/>) · job-0287 | role not frontend | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Biotasmart — Full Stack Junior-Mid (Next.js + TypeScript)](<https://www.linkedin.com/jobs/view/4455321914/>) · job-0286 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Harnham — Junior Software Engineer](<https://www.linkedin.com/jobs/view/4454489874/>) · job-0284 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: work authorization | [Expana — Junior Software Engineer](<https://www.linkedin.com/jobs/view/4455754396/>) · job-0283 | work authorization | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [BJAK — Full Stack Engineer](<https://www.linkedin.com/jobs/view/4454957007/>) · job-0281 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [BJAK — Full Stack Engineer](<https://www.linkedin.com/jobs/view/4454767340/>) · job-0280 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Computer Futures — Frontend-Entwickler (w/m/d) 60.000€](<https://www.linkedin.com/jobs/view/4455736861/>) · job-0279 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [THRYVE — Junior Software Engineer - Typescript AI](<https://www.linkedin.com/jobs/view/4455702585/>) · job-0277 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Ciklum — JavaScript Engineer](<https://www.linkedin.com/jobs/view/4445974072/>) · job-0276 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Protege — Software Engineer (TypeScript/Next.js)](<https://hirify.me/jobs/875393-software-engineer-typescript-nextjs>) · job-0275 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [SilentRoom — Middle Frontend Engineer (React/MobX/AI)](<https://hirify.me/jobs/767669-middle-frontend-engineer-reactmobxai>) · job-0274 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [Unknown (Telegram source) — Frontend Developer (Middle+) (React/Next.js)](<https://hirify.me/jobs/789076-frontend-developer-middle-reactnextjs>) · job-0273 | seniority too high | Not checked | 2026-08-19 |

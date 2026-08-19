@@ -1,0 +1,256 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:02:40Z",
+  "jobs": [],
+  "operation_id": "linkedin-alerts-20260820-a3",
+  "result": {
+    "count": 12,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4445974072",
+        "command": "add",
+        "job_id": "job-0276",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0276",
+            "source": "LinkedIn",
+            "source_job_id": "4445974072",
+            "source_url": "https://www.linkedin.com/jobs/view/4445974072/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4455702585",
+        "command": "add",
+        "job_id": "job-0277",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0277",
+            "source": "LinkedIn",
+            "source_job_id": "4455702585",
+            "source_url": "https://www.linkedin.com/jobs/view/4455702585/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0278-kolum-product-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "linkedin:4454760599",
+        "command": "add",
+        "job_id": "job-0278",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0278",
+            "source": "LinkedIn",
+            "source_job_id": "4454760599",
+            "source_url": "https://www.linkedin.com/jobs/view/4454760599/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4455736861",
+        "command": "add",
+        "job_id": "job-0279",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0279",
+            "source": "LinkedIn",
+            "source_job_id": "4455736861",
+            "source_url": "https://www.linkedin.com/jobs/view/4455736861/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4454767340",
+        "command": "add",
+        "job_id": "job-0280",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0280",
+            "source": "LinkedIn",
+            "source_job_id": "4454767340",
+            "source_url": "https://www.linkedin.com/jobs/view/4454767340/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4454957007",
+        "command": "add",
+        "job_id": "job-0281",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0281",
+            "source": "LinkedIn",
+            "source_job_id": "4454957007",
+            "source_url": "https://www.linkedin.com/jobs/view/4454957007/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0282-itech-consult-ag-react-frontend-developer-m-w.md",
+        "application_status": "reviewing",
+        "client_ref": "linkedin:4454778287",
+        "command": "add",
+        "job_id": "job-0282",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0282",
+            "source": "LinkedIn",
+            "source_job_id": "4454778287",
+            "source_url": "https://www.linkedin.com/jobs/view/4454778287/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4455754396",
+        "command": "add",
+        "job_id": "job-0283",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0283",
+            "source": "LinkedIn",
+            "source_job_id": "4455754396",
+            "source_url": "https://www.linkedin.com/jobs/view/4455754396/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4454489874",
+        "command": "add",
+        "job_id": "job-0284",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0284",
+            "source": "LinkedIn",
+            "source_job_id": "4454489874",
+            "source_url": "https://www.linkedin.com/jobs/view/4454489874/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0285-metrikflow-full-stack-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "linkedin:4453410751",
+        "command": "add",
+        "job_id": "job-0285",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0285",
+            "source": "LinkedIn",
+            "source_job_id": "4453410751",
+            "source_url": "https://www.linkedin.com/jobs/view/4453410751/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4455321914",
+        "command": "add",
+        "job_id": "job-0286",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0286",
+            "source": "LinkedIn",
+            "source_job_id": "4455321914",
+            "source_url": "https://www.linkedin.com/jobs/view/4455321914/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4452861383",
+        "command": "add",
+        "job_id": "job-0287",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0287",
+            "source": "LinkedIn",
+            "source_job_id": "4452861383",
+            "source_url": "https://www.linkedin.com/jobs/view/4452861383/"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
