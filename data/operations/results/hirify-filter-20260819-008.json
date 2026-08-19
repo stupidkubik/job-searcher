@@ -1,0 +1,36 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T21:31:49Z",
+  "jobs": [],
+  "operation_id": "hirify-filter-20260819-008",
+  "result": {
+    "count": 1,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:767669",
+        "command": "add",
+        "job_id": "job-0274",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-19",
+            "job_id": "job-0274",
+            "source": "Hirify",
+            "source_job_id": "767669",
+            "source_url": "https://hirify.me/jobs/767669-middle-frontend-engineer-reactmobxai"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
