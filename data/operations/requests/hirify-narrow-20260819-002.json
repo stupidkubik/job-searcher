@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "operation_id": "hirify-narrow-20260819-002",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:867490",
+      "args": {
+        "company": "CoinsPaid",
+        "role": "Frontend Engineer (Design Core Team) (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/867490-frontend-engineer-design-core-team-react",
+        "source_job_id": "867490",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; JavaScript; HTML; CSS; Material UI; Storybook; Design Systems; Figma; Testing",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Hirify card checked 2026-08-19. Globally remote design-system role but explicitly requires 5+ years as a Frontend Engineer and deep ownership of a shared UI platform. The source is a Telegram repost with gated contact/apply details; no first-party ATS route could be verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:191179",
+      "args": {
+        "company": "Centerex",
+        "role": "Frontend Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/191179-frontend-developer-ai",
+        "source_job_id": "191179",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "JavaScript; HTML; CSS; SASS; Bootstrap; jQuery; Figma; Git; SEO",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Hirify card checked 2026-08-19. Global remote role requires 3+ years of commercial frontend experience and is centered on Vanilla JS/jQuery, SEO and marketing websites. The visible source/contact route is gated; no employer/ATS application route was resolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:606009",
+      "args": {
+        "company": "Patrianna",
+        "role": "Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/606009-frontend-developer-react-typescript",
+        "source_job_id": "606009",
+        "application_status": "not_started",
+        "location": "Ukraine / Bulgaria / Poland / Romania",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Next.js; HTML; CSS; Figma; SEO; PageSpeed",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card checked 2026-08-19: remote work is restricted to candidates based in Ukraine, Bulgaria, Poland or Romania. Serbia is not eligible. The visible source/contact route is gated; no employer/ATS application route was resolved."
+      }
+    }
+  ]
+}
