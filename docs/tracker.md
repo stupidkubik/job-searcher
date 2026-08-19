@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-19** · Jobs: **271**
+Dataset updated: **2026-08-19** · Jobs: **272**
 
-[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (231)](#archive)
+[Action now (1)](#action-now) · [Applications (37)](#applications) · [To verify (2)](#to-verify) · [Archive (232)](#archive)
 
 ## Action now
 
@@ -65,10 +65,11 @@ Dataset updated: **2026-08-19** · Jobs: **271**
 
 <details>
 
-<summary>Archive (231)</summary>
+<summary>Archive (232)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Gubanova and Partners — Frontend Developer (React)](<https://hirify.me/jobs/857799-frontend-developer-react>) · job-0272 | geo restriction | Not checked | 2026-08-19 |
 | Skipped: geo restriction | [Akvelon — Frontend Intern (React)](<https://hirify.me/jobs/856423-frontend-intern-react>) · job-0271 | geo restriction | Not checked | 2026-08-19 |
 | Skipped: geo restriction | [Patrianna — Frontend Developer (React)](<https://hirify.me/jobs/606009-frontend-developer-react-typescript>) · job-0270 | geo restriction | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [Centerex — Frontend Developer](<https://hirify.me/jobs/191179-frontend-developer-ai>) · job-0269 | seniority too high | Not checked | 2026-08-19 |
