@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hirify-filter-20260819-008",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:767669",
+      "args": {
+        "company": "SilentRoom",
+        "role": "Middle Frontend Engineer (React/MobX/AI)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/767669-middle-frontend-engineer-reactmobxai",
+        "source_job_id": "767669",
+        "application_status": "not_started",
+        "location": "Global",
+        "remote_policy": "Global",
+        "stack": "React; Vite; MobX; TypeScript; Supabase; Tiptap; AI",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Hirify card checked 2026-08-19: global remote Telegram listing requires 3–5 years experience and production MobX expertise. Profile does not claim this seniority. Gated Apply contacts were not revealed; no first-party ATS route was available."
+      }
+    }
+  ]
+}
