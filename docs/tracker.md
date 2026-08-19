@@ -84,6 +84,7 @@ Dataset updated: **2026-08-20** · Jobs: **290**
 | Skipped: geo restriction | [Computer Futures — Frontend-Entwickler (w/m/d) 60.000€](<https://www.linkedin.com/jobs/view/4455736861/>) · job-0279 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [THRYVE — Junior Software Engineer - Typescript AI](<https://www.linkedin.com/jobs/view/4455702585/>) · job-0277 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [Ciklum — JavaScript Engineer](<https://www.linkedin.com/jobs/view/4445974072/>) · job-0276 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Pollard Digital Solutions — Frontend Software Engineer-Game Studio](<https://www.pollardbanknote.com/pollard-digital-solutions-europe/>) · job-0182 | seniority too high | Open | 2026-08-20 |
 | Skipped: seniority too high | [Protege — Software Engineer (TypeScript/Next.js)](<https://hirify.me/jobs/875393-software-engineer-typescript-nextjs>) · job-0275 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [SilentRoom — Middle Frontend Engineer (React/MobX/AI)](<https://hirify.me/jobs/767669-middle-frontend-engineer-reactmobxai>) · job-0274 | seniority too high | Not checked | 2026-08-19 |
 | Skipped: seniority too high | [Unknown (Telegram source) — Frontend Developer (Middle+) (React/Next.js)](<https://hirify.me/jobs/789076-frontend-developer-middle-reactnextjs>) · job-0273 | seniority too high | Not checked | 2026-08-19 |
@@ -190,7 +191,6 @@ Dataset updated: **2026-08-20** · Jobs: **290**
 | Skipped: geo restriction | [Neotalent Conclusion — React Developer](<https://www.linkedin.com/jobs/view/4452698011/>) · job-0185 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Qaracter - Beyond your Challenge — React Frontend Developer](<https://www.linkedin.com/jobs/view/4452418888/>) · job-0184 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [ZYNE — Full Stack Engineer JavaScript (m/ž)](<https://www.linkedin.com/jobs/view/4453118598/>) · job-0183 | seniority too high | Not checked | 2026-08-14 |
-| Skipped: seniority too high | [Pollard Digital Solutions — Frontend Software Engineer-Game Studio](<https://www.linkedin.com/jobs/view/4452728315/>) · job-0182 | seniority too high | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [Proxify — Senior Frontend Developer (Vue.js)](<https://www.linkedin.com/jobs/view/4418950729/>) · job-0181 | seniority too high | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Tickmill — Front-End Developer (React)](<https://www.linkedin.com/jobs/view/4385008024/>) · job-0180 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Revolut — Web Software Engineer](<https://www.linkedin.com/jobs/view/4452384203/>) · job-0179 | geo restriction | Not checked | 2026-08-14 |
