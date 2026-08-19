@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-19T21:04:47Z",
+  "job_id": "job-0271",
+  "operation_id": "hirify-broad-20260819-004",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0271",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-19",
+        "job_id": "job-0271",
+        "source": "Hirify",
+        "source_job_id": "856423",
+        "source_url": "https://hirify.me/jobs/856423-frontend-intern-react"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
