@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **307**
+Dataset updated: **2026-08-20** · Jobs: **308**
 
-[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (263)](#archive)
+[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (264)](#archive)
 
 ## Action now
 
@@ -69,10 +69,11 @@ Dataset updated: **2026-08-20** · Jobs: **307**
 
 <details>
 
-<summary>Archive (263)</summary>
+<summary>Archive (264)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Bjak — Engineering Manager Thailand](<https://remoteok.com/remote-jobs/remote-engineering-manager-thailand-bjak-1136670>) · job-0308 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [МТС — Frontend Developer Intern (Vue 3)](<https://talent-move.ru/jobs/stazher-frontend-developer-mts-moskva-130826-140826-253693/>) · job-0307 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Алеан — Team Lead Frontend (Vue/Angular)](<https://talent-move.ru/jobs/team-lead-frontend-alean-remote-260826-140826-253900/>) · job-0306 | seniority too high | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Bastion Research — Senior Frontend / Mobile Developer](<https://talent-move.ru/jobs/senior-frontend-mobile-developer-bastion-research-remote-260826-253912/>) · job-0305 | seniority too high | Not checked | 2026-08-20 |

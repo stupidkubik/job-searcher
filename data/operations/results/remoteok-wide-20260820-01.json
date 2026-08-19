@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-19T22:41:45Z",
+  "job_id": "job-0308",
+  "operation_id": "remoteok-wide-20260820-01",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0308",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-20",
+        "job_id": "job-0308",
+        "source": "Remote OK",
+        "source_job_id": "1136670",
+        "source_url": "https://remoteok.com/remote-jobs/remote-engineering-manager-thailand-bjak-1136670"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
