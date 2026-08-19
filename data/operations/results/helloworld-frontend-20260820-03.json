@@ -1,0 +1,96 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:14:08Z",
+  "jobs": [],
+  "operation_id": "helloworld-frontend-20260820-03",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": "applications/job-0288-tyllo-d-o-o-junior-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "helloworld:749765",
+        "command": "add",
+        "job_id": "job-0288",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0288",
+            "source": "HelloWorld.rs",
+            "source_job_id": "749765",
+            "source_url": "https://www.helloworld.rs/posao/Junior-Frontend-Developer/Tyllo-d.o.o/749765"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:749274",
+        "command": "add",
+        "job_id": "job-0182",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0182",
+            "source": "HelloWorld.rs",
+            "source_job_id": "749274",
+            "source_url": "https://www.helloworld.rs/posao/Frontend-Software-Engineer-Game-Studio/Pollard-Digital-Solutions/749274"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:749355",
+        "command": "add",
+        "job_id": "job-0289",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0289",
+            "source": "HelloWorld.rs",
+            "source_job_id": "749355",
+            "source_url": "https://www.helloworld.rs/posao/Junior-Software-Engineer/New-Leaf-Technology-Consulting.d.o.o/749355"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:697284",
+        "command": "add",
+        "job_id": "job-0290",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0290",
+            "source": "HelloWorld.rs",
+            "source_job_id": "697284",
+            "source_url": "https://www.helloworld.rs/posao/Creative-Front-end-Engineer/hellohello/697284"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

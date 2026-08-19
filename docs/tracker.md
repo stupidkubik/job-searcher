@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **287**
+Dataset updated: **2026-08-20** · Jobs: **290**
 
-[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (3)](#to-verify) · [Archive (244)](#archive)
+[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (246)](#archive)
 
 ## Action now
 
@@ -60,6 +60,7 @@ Dataset updated: **2026-08-20** · Jobs: **287**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
@@ -68,10 +69,12 @@ Dataset updated: **2026-08-20** · Jobs: **287**
 
 <details>
 
-<summary>Archive (244)</summary>
+<summary>Archive (246)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [++hellohello — Creative Front-end Engineer](<https://www.helloworld.rs/posao/Creative-Front-end-Engineer/hellohello/697284>) · job-0290 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: role not frontend | [New Leaf Technology Consulting d.o.o. — Junior Software Engineer](<https://www.helloworld.rs/posao/Junior-Software-Engineer/New-Leaf-Technology-Consulting.d.o.o/749355>) · job-0289 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: role not frontend | [Employer.com — Full Stack Software Developer](<https://www.linkedin.com/jobs/view/4452861383/>) · job-0287 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [Biotasmart — Full Stack Junior-Mid (Next.js + TypeScript)](<https://www.linkedin.com/jobs/view/4455321914/>) · job-0286 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [Harnham — Junior Software Engineer](<https://www.linkedin.com/jobs/view/4454489874/>) · job-0284 | geo restriction | Not checked | 2026-08-20 |
