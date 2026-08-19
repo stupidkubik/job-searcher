@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "operation_id": "hirify-narrow-20260819-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:866809",
+      "args": {
+        "company": "Squarepoint Capital",
+        "role": "Junior Software Developer - Frontend (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/866809-junior-frontend-developer-react",
+        "source_job_id": "866809",
+        "application_status": "not_started",
+        "level": "Junior",
+        "location": "UK / Canada",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Git; Linux; Databases",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card checked 2026-08-19: role is located in London, UK or Montreal, Canada. The visible source/contact route is gated; no employer/ATS application route was accessible without revealing contacts. Location is incompatible with the Serbia-based search."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:247933",
+      "args": {
+        "company": "AIQU",
+        "role": "Front End Developer (Angular)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/247933-front-end-developer-angular",
+        "source_job_id": "247933",
+        "application_status": "not_started",
+        "level": "Junior",
+        "location": "Remote",
+        "remote_policy": "Global",
+        "stack": "Angular; TypeScript; JavaScript; HTML; CSS; REST APIs; RxJS; NgRx",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact Hirify card checked 2026-08-19: project role is Global remote but requires 2–3 years of Angular 8+ experience. This is not aligned with the React/Next.js target stack. The visible source/contact route is gated, so no employer/ATS application route was resolved."
+      }
+    }
+  ]
+}
