@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-week-20260820-03",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:femjiq37e0h1hgqs",
+      "args": {
+        "company": "Synechron",
+        "role": "Angular Software Engineer",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/angular-software-engineer-synechron-novi-sad-vojvodina-femjiq37e0h1hgqs",
+        "source_job_id": "femjiq37e0h1hgqs",
+        "original_url": "https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Unknown",
+        "location": "Novi Sad or Belgrade, Serbia",
+        "remote_policy": "Hybrid",
+        "stack": "Angular; TypeScript; JavaScript; HTML5; CSS3; REST APIs; Git; RxJS; NgRx; Redux; GraphQL; Jasmine; Karma; CI/CD",
+        "salary": "Unknown",
+        "posted_at": "2026-08-19",
+        "match_score": 8.5,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "HiringCafe listed the role one day ago. Synechron's current Workday independently confirms two live Angular Software Engineer records, including Novi Sad (JR1043272), posted yesterday, with an accessible Apply button. Hybrid Novi Sad/Belgrade; valid Serbian work permit is required. No fixed years-of-experience threshold is stated; Angular 10+ is primary and RxJS/NgRx, AWS, GraphQL and testing are bonuses."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:2b3dnhicev9qa57l",
+      "args": {
+        "company": "Scribe",
+        "role": "Full-Stack Engineer, Enterprise Scale",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/full-stack-engineer-enterprise-scale-scribe-belgrade-belgrade-2b3dnhicev9qa57l",
+        "source_job_id": "2b3dnhicev9qa57l",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Serbia (Belgrade office optional)",
+        "remote_policy": "Country-specific",
+        "stack": "Django; Next.js; PostgreSQL; Redis; Celery; React; TypeScript; SSO; SAML; SCIM; RBAC",
+        "salary": "$145,000–$230,000/year (HiringCafe estimate)",
+        "posted_at": "2026-08-15",
+        "decision_reason": "stack_mismatch",
+        "notes": "Remote from Serbia and frontend-adjacent, but the role requires 3+ years plus practical Django and relational-database ownership across the full stack. The Python/Django backend requirement is a hard gap for the current frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:y2q079zrlnba7p9s",
+      "args": {
+        "company": "Pypestream",
+        "role": "Full-Stack Engineer",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/full-stack-engineer-pypestream-united-states-y2q079zrlnba7p9s",
+        "source_job_id": "y2q079zrlnba7p9s",
+        "original_url": "https://pypestream.ai/careers",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Middle",
+        "location": "Remote (US / EU)",
+        "remote_policy": "Europe",
+        "stack": "React; TypeScript; Node.js; tRPC; AI agents",
+        "salary": "Unknown",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "decision_reason": "other",
+        "notes": "Pypestream's first-party careers page currently lists this Mid-Senior Full-Stack Engineer role and points Apply to its Wellfound jobs page. The exact application route could not be completed in Browser because Wellfound returned a 403 Cloudflare security check, so no accessible exact application form was verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:2abir4lnguf2ofxg",
+      "args": {
+        "company": "0G Labs",
+        "role": "Product Engineer",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/product-engineer-0g-labs-africa-2abir4lnguf2ofxg",
+        "source_job_id": "2abir4lnguf2ofxg",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Unknown",
+        "location": "Worldwide regions including Europe",
+        "remote_policy": "Global",
+        "stack": "TypeScript; React; Remix; Next.js; Vite; Cloudflare Workers; Web3; EVM; LLM agents; Terraform; Docker; Grafana; OpenTelemetry; Vitest; Playwright",
+        "salary": "Unknown",
+        "posted_at": "2026-08-19",
+        "decision_reason": "stack_mismatch",
+        "notes": "Strong frontend surface, but the role explicitly requires end-to-end ownership across server, infrastructure and deployment plus production LLM systems, Web3 wallets/EVM, infrastructure as code, containers and observability. These are central requirements rather than optional bonuses."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:2ym28qybjzx7z6v4",
+      "args": {
+        "company": "Aios Medical",
+        "role": "Software Engineer at AIOS — Remote, €40k-€80k /yr + equity",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/software-engineer-at-aios-remote-40k-80k-yr-equity-aios-medical-europe-2ym28qybjzx7z6v4",
+        "source_job_id": "2ym28qybjzx7z6v4",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Europe",
+        "remote_policy": "Europe",
+        "stack": "React Native; TypeScript; React; Expo; Next.js; NestJS; GraphQL; Prisma; PostgreSQL; Redis; AWS",
+        "salary": "€40,000–€80,000/year + equity",
+        "posted_at": "2026-08-15",
+        "decision_reason": "seniority_too_high",
+        "notes": "Requires 3+ years of professional engineering experience, confident frontend and backend delivery, production ownership, architecture, APIs and reliability. The scope and experience bar exceed the current junior/frontend target despite strong stack overlap."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:uwpg9e1nui4qhnzw",
+      "args": {
+        "company": "KITRO",
+        "role": "Software Engineer",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/software-engineer-kitro-serbia-uwpg9e1nui4qhnzw",
+        "source_job_id": "uwpg9e1nui4qhnzw",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Serbia (city unspecified)",
+        "remote_policy": "On-site",
+        "stack": "Python; React; TypeScript; AWS; PostgreSQL; IoT; Data; Scrum; Kanban",
+        "salary": "Unknown",
+        "posted_at": "2026-08-14",
+        "decision_reason": "other",
+        "notes": "HiringCafe provides only a broken/minimal job description, an unspecified Serbian on-site location, and a 2–5 year full-stack requirement centered partly on Python, data and IoT. Exact geographic fit and a usable detailed vacancy cannot be established."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:d39cs907794h7sfv",
+      "args": {
+        "company": "Salmon",
+        "role": "Software Engineer (Internal Tools & HR Automation)",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/software-engineer-internal-tools-and-hr-automation-salmon-tbilisi-d39cs907794h7sfv",
+        "source_job_id": "d39cs907794h7sfv",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Unknown",
+        "location": "Serbia or selected international locations",
+        "remote_policy": "Country-specific",
+        "stack": "n8n; Make; PostgreSQL; Retool; REST APIs; Python; JavaScript; SQL; Webhooks; HiBob; Ashby",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "role_not_frontend",
+        "notes": "The role is remote-compatible with Serbia but focuses on HR/internal-tool automation: n8n, Make, Retool, SQL, integrations and support. JavaScript is used mainly for scripting; this is not a frontend product-engineering vacancy."
+      }
+    }
+  ]
+}
