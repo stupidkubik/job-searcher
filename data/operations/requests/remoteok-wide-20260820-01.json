@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "operation_id": "remoteok-wide-20260820-01",
+  "command": "add",
+  "args": {
+    "company": "Bjak",
+    "role": "Engineering Manager Thailand",
+    "source": "Remote OK",
+    "source_url": "https://remoteok.com/remote-jobs/remote-engineering-manager-thailand-bjak-1136670",
+    "source_job_id": "1136670",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Senior",
+    "location": "Bangkok, Thailand",
+    "remote_policy": "Unclear",
+    "stack": "Engineering management; Architecture; APIs; Databases; Distributed systems; Cloud infrastructure",
+    "salary": "Unknown",
+    "posted_at": "2026-08-14",
+    "decision_reason": "role_not_frontend",
+    "notes": "Remote OK frontend search matched this role because the manager leads frontend, backend and full-stack engineers. The actual vacancy is an Engineering Manager leadership role, not a frontend developer position. The card labels Thailand/Bangkok while its text also claims global hiring, so eligibility is unclear."
+  }
+}
