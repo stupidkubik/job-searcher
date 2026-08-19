@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "operation_id": "relocateme-wide-20260820-02",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "relocateme:10264",
+      "args": {
+        "company": "HENNGE",
+        "role": "Senior Frontend Engineer",
+        "source": "Relocate.me",
+        "source_url": "https://relocate.me/japan/tokyo/hennge/senior-frontend-engineer-10264",
+        "source_job_id": "10264",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Tokyo, Japan",
+        "remote_policy": "On-site",
+        "stack": "Svelte; SvelteKit; TypeScript; Playwright; Chromatic; Sentry; Go; AWS",
+        "salary": "8,500,000–12,500,000 JPY/year",
+        "decision_reason": "seniority_too_high",
+        "notes": "Relocate.me detail requires 3+ years of professional frontend experience plus technical leadership and mentoring. The role is based at HENNGE's Shibuya headquarters in Tokyo and uses Svelte/SvelteKit; relocation support is offered. It is above the target level and outside the preferred Novi Sad/remote geography."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocateme:10256",
+      "args": {
+        "company": "Picnic",
+        "role": "Software Engineer - Consumer Products",
+        "source": "Relocate.me",
+        "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-consumer-products-10256",
+        "source_job_id": "10256",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Amsterdam, Netherlands",
+        "remote_policy": "On-site",
+        "stack": "Java; TypeScript; Spring Boot; React; PostgreSQL; MongoDB; Kafka; Docker; Kubernetes; AWS",
+        "salary": "Unknown",
+        "decision_reason": "stack_mismatch",
+        "notes": "The vacancy is a Java-first product engineering role requiring a Master's degree and 2–5 years of professional Java experience. React and TypeScript are secondary parts of a broader backend/full-stack environment. Relocation to Amsterdam is offered; the exposed Apply destination is a Greenhouse short link."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocateme:10262",
+      "args": {
+        "company": "Picnic",
+        "role": "Senior Software Engineer - Warehouse Systems",
+        "source": "Relocate.me",
+        "source_url": "https://relocate.me/netherlands/amsterdam/picnic/senior-software-engineer-warehouse-systems-10262",
+        "source_job_id": "10262",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Amsterdam, Netherlands",
+        "remote_policy": "On-site",
+        "stack": "Java; Spring Boot; Reactor; Maven; React; Angular; RabbitMQ; Kafka; PostgreSQL; MongoDB; Docker; AWS; Terraform; Kubernetes",
+        "salary": "Unknown",
+        "decision_reason": "seniority_too_high",
+        "notes": "The warehouse-systems role requires 5+ years of experience and is centered on Java backend and distributed systems; React and Angular are ancillary. It is office-based in Amsterdam with relocation support."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocateme:10282",
+      "args": {
+        "company": "Vinted",
+        "role": "Director of Engineering, Frontend technologies, Marketplace (Limited-time Relocation Bonus)",
+        "source": "Relocate.me",
+        "source_url": "https://relocate.me/lithuania/vilnius/vinted/director-of-engineering-frontend-technologies-marketplace-limited-time-relocation-bonus-10282",
+        "source_job_id": "10282",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Vilnius, Lithuania",
+        "remote_policy": "Unclear",
+        "stack": "Frontend technologies; Engineering leadership; Platform architecture",
+        "salary": "Unknown",
+        "decision_reason": "seniority_too_high",
+        "notes": "This is a director-level engineering leadership vacancy, not an individual-contributor frontend role. Relocate.me exposes an Apply route to Vinted's careers site and advertises a relocation bonus, but the role is far above the target level."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocateme:10274",
+      "args": {
+        "company": "Welltech",
+        "role": "Head of Growth - Paid Social",
+        "source": "Relocate.me",
+        "source_url": "https://relocate.me/cyprus/limassol/welltech/head-of-growth-paid-social-10274",
+        "source_job_id": "10274",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Limassol, Cyprus",
+        "remote_policy": "Unclear",
+        "stack": "Performance marketing; Paid social; Growth analytics; Marketing automation; AI",
+        "salary": "Unknown",
+        "decision_reason": "role_not_frontend",
+        "notes": "The source search returned this as a false positive. It is a senior growth and performance-marketing leadership role requiring 5+ years leading paid-social teams, not a frontend engineering vacancy. Relocate.me exposes an Ashby Apply destination and offers relocation support."
+      }
+    }
+  ]
+}
