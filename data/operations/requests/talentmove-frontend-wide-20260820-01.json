@@ -1,0 +1,398 @@
+{
+  "version": 1,
+  "operation_id": "talentmove-frontend-wide-20260820-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "talentmove:256478",
+      "args": {
+        "company": "Unknown (TalentMove source)",
+        "role": "Frontend Developer for eCommerce",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-ecommerce-081224-256478/",
+        "source_job_id": "256478",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; Next.js; API; GraphQL; Atomic Design",
+        "salary": "Unknown",
+        "posted_at": "2026-08-19",
+        "decision_reason": "seniority_too_high",
+        "notes": "TalentMove card requires 5–8 years and US Central-hours overlap. The employer is not disclosed; TalentMove Apply is signup-gated and no first-party route is available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:256476",
+      "args": {
+        "company": "Сбер",
+        "role": "Frontend Developer по React",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-sber-moscow-180826-256476/",
+        "source_job_id": "256476",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Moscow, Russia",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; Redux; React Testing Library; Git; Jira",
+        "salary": "220,000–280,000 RUB/month",
+        "posted_at": "2026-08-19",
+        "decision_reason": "geo_restriction",
+        "notes": "TalentMove card identifies Moscow and does not establish remote eligibility from Serbia. Its Apply control opens a signup popup rather than an employer route."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:256432",
+      "args": {
+        "company": "Unknown (TalentMove source)",
+        "role": "Middle/Senior Frontend Developer",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/middle-senior-frontend-developer-tbilisi-170826-256432/",
+        "source_job_id": "256432",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Tbilisi, Georgia",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; React; SSR; Code review",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "geo_restriction",
+        "notes": "TalentMove card is a Tbilisi role requiring 3+ years and does not advertise remote work. The employer is undisclosed and Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:256426",
+      "args": {
+        "company": "Gubanova and Partners",
+        "role": "Frontend Developer (React)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-remote-georgia-110826-256426/",
+        "source_job_id": "256426",
+        "duplicate_of": "job-0272"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255982",
+      "args": {
+        "company": "Unknown (TalentMove source)",
+        "role": "Frontend Developer (Angular)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-angular-081626-255982/",
+        "source_job_id": "255982",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "stack": "Angular; Bootstrap; HTML; CSS",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "stack_mismatch",
+        "notes": "Part-time remote TalentMove card requires Angular 8+ as its core framework; employer is undisclosed and Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255972",
+      "args": {
+        "company": "AWISEE",
+        "role": "Frontend Developer (React/Vue)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-awisee-remote-260826-255972/",
+        "source_job_id": "255972",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; Vue; HTML; CSS",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "TalentMove requires 3–5 years. A focused search of AWISEE's official domain found no current careers vacancy, while TalentMove's Apply control is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255962",
+      "args": {
+        "company": "Secreate",
+        "role": "Frontend Developer (Vue.js)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-vue-js-secreate-moscow-170826-255962/",
+        "source_job_id": "255962",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Moscow, Russia",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; TypeScript; Vue 2; Vue 3; Quasar; Vuex; Pinia",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "geo_restriction",
+        "notes": "Moscow role requiring 5–8 years and a Vue/Quasar stack. TalentMove Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255918",
+      "args": {
+        "company": "Planner5D",
+        "role": "Frontend Engineer (3D Graphics)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-engineer-3d-graphics-planner5d-remote-170826-255918/",
+        "source_job_id": "255918",
+        "duplicate_of": "job-0246"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255884",
+      "args": {
+        "company": "Tile.Expert",
+        "role": "Middle/Senior Frontend Developer (Angular)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/middle-senior-frontend-developer-angular-tile-expert-remote-260826-255884/",
+        "source_job_id": "255884",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "stack": "Angular; REST API; E-commerce",
+        "salary": "Unknown",
+        "posted_at": "2026-08-18",
+        "decision_reason": "stack_mismatch",
+        "notes": "Core framework is Angular and the card asks for 3–5 years. TalentMove Apply is signup-gated and country eligibility is not stated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255072",
+      "args": {
+        "company": "Busyboard",
+        "role": "Frontend Developer (React)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-busyboard-remote-150826-255072/",
+        "source_job_id": "255072",
+        "duplicate_of": "job-0215"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:255004",
+      "args": {
+        "company": "Т-Банк",
+        "role": "Senior Frontend Developer (React)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/senior-frontend-developer-react-t-bank-081624-255004/",
+        "source_job_id": "255004",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; React; Node.js; CI/CD; Unit testing",
+        "salary": "Unknown",
+        "posted_at": "2026-08-16",
+        "decision_reason": "seniority_too_high",
+        "notes": "Requires 4+ years of commercial React development. TalentMove Apply is signup-gated and geographic eligibility is not stated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254970",
+      "args": {
+        "company": "Cloud.ru",
+        "role": "Frontend разработчик",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-oblako-ru-160826-254970/",
+        "source_job_id": "254970",
+        "original_url": "https://cloud.ru/career/vacancies/2829875",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Middle",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; React; Redux Toolkit; REST; Webpack; Rollup; Babel; Testing",
+        "salary": "Unknown",
+        "posted_at": "2026-08-16",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Official Cloud.ru careers page is live and its application form is present. The role allows fully remote work only within the territory of the Russian Federation, excluding Serbia."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254948",
+      "args": {
+        "company": "Unknown (TalentMove source)",
+        "role": "Frontend Developer (React + Next.js)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-react-nextjs-081626-254948/",
+        "source_job_id": "254948",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "remote_policy": "Unclear",
+        "stack": "React; Next.js; TypeScript; Figma; Git",
+        "salary": "Unknown",
+        "posted_at": "2026-08-16",
+        "decision_reason": "other",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Potentially relevant freelance project, but the employer is undisclosed and TalentMove's only Apply control opens a signup popup. No first-party employer or actionable application route can be identified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254821",
+      "args": {
+        "company": "MISE",
+        "role": "Frontend Developer Intern (React/Next.js)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/stazhor-frontend-developer-react-next-ru-202608-254821/",
+        "source_job_id": "254821",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; React; Next.js; CSS; SCSS; Zustand; Redux",
+        "salary": "40,000–50,000 RUB/month",
+        "posted_at": "2026-08-16",
+        "decision_reason": "geo_restriction",
+        "notes": "TalentMove explicitly limits the remote internship to Russia. Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254748",
+      "args": {
+        "company": "MISE",
+        "role": "Junior Frontend Developer (Vue)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/junior-frontend-developer-vue-mise-ru-202608-254748/",
+        "source_job_id": "254748",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Vue 3; REST API; Git",
+        "salary": "80,000–110,000 RUB/month",
+        "posted_at": "2026-08-16",
+        "decision_reason": "geo_restriction",
+        "notes": "TalentMove explicitly limits remote eligibility to Russia. Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254466",
+      "args": {
+        "company": "Airbnb",
+        "role": "Senior Frontend Engineer",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/senior-frontend-engineer-airbnb-remote-140826-254466/",
+        "source_job_id": "254466",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; HTML; CSS; Agile",
+        "salary": "195,000–220,000 USD/year",
+        "posted_at": "2026-08-15",
+        "decision_reason": "seniority_too_high",
+        "notes": "Senior role requiring 3–5 years. TalentMove's salary and remote labels are unverified, and its Apply control is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:254142",
+      "args": {
+        "company": "МКК «Небус»",
+        "role": "Middle Frontend Developer (Vue/Nuxt)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/middle-frontend-developer-vue-nuxt-remote-081224-254142/",
+        "source_job_id": "254142",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; Vue; Nuxt; Vuex; Pinia; SSR; REST API",
+        "salary": "180,000–230,000 RUB/month",
+        "posted_at": "2026-08-15",
+        "decision_reason": "stack_mismatch",
+        "notes": "Core stack is Vue/Nuxt and the role requires 3–5 years. TalentMove Apply is signup-gated and country eligibility is not stated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:253912",
+      "args": {
+        "company": "Bastion Research",
+        "role": "Senior Frontend / Mobile Developer",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/senior-frontend-mobile-developer-bastion-research-remote-260826-253912/",
+        "source_job_id": "253912",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "stack": "React; TypeScript; Flutter; Mobile; FinTech",
+        "salary": "160,000–290,000 RUB/month",
+        "posted_at": "2026-08-14",
+        "decision_reason": "seniority_too_high",
+        "notes": "Senior frontend/mobile role requiring 3–5 years and Flutter/mobile ownership. TalentMove Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:253900",
+      "args": {
+        "company": "Алеан",
+        "role": "Team Lead Frontend (Vue/Angular)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/team-lead-frontend-alean-remote-260826-140826-253900/",
+        "source_job_id": "253900",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; Vue 3; Angular 1.7; REST API; Team leadership",
+        "salary": "Unknown",
+        "posted_at": "2026-08-14",
+        "decision_reason": "seniority_too_high",
+        "notes": "Team Lead role with 3–5 years and people-management responsibility; core stack is Vue/Angular. TalentMove Apply is signup-gated."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "talentmove:253693",
+      "args": {
+        "company": "МТС",
+        "role": "Frontend Developer Intern (Vue 3)",
+        "source": "TalentMove",
+        "source_url": "https://talent-move.ru/jobs/stazher-frontend-developer-mts-moskva-130826-140826-253693/",
+        "source_job_id": "253693",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "Moscow, Russia",
+        "remote_policy": "Hybrid",
+        "stack": "TypeScript; Vue 3; Vuetify 3; Node.js; Express.js; PostgreSQL; Prisma",
+        "salary": "Unknown",
+        "posted_at": "2026-08-14",
+        "decision_reason": "geo_restriction",
+        "notes": "Moscow hybrid student internship for current university students. TalentMove Apply is signup-gated."
+      }
+    }
+  ]
+}
