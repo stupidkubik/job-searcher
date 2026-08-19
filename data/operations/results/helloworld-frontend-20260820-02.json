@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:12:49Z",
+  "jobs": [],
+  "operation_id": "helloworld-frontend-20260820-02",
+  "result": {
+    "client_ref": "helloworld:749274",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Pollard Digital Solutions",
+          "id": "job-0182",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 1.00",
+          "role": "Frontend Software Engineer-Game Studio"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 1,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
