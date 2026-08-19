@@ -1,0 +1,116 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:48:55Z",
+  "jobs": [],
+  "operation_id": "relocateme-wide-20260820-02",
+  "result": {
+    "count": 5,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10264",
+        "command": "add",
+        "job_id": "job-0309",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0309",
+            "source": "Relocate.me",
+            "source_job_id": "10264",
+            "source_url": "https://relocate.me/japan/tokyo/hennge/senior-frontend-engineer-10264"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10256",
+        "command": "add",
+        "job_id": "job-0310",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0310",
+            "source": "Relocate.me",
+            "source_job_id": "10256",
+            "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-consumer-products-10256"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10262",
+        "command": "add",
+        "job_id": "job-0311",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0311",
+            "source": "Relocate.me",
+            "source_job_id": "10262",
+            "source_url": "https://relocate.me/netherlands/amsterdam/picnic/senior-software-engineer-warehouse-systems-10262"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10282",
+        "command": "add",
+        "job_id": "job-0312",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0312",
+            "source": "Relocate.me",
+            "source_job_id": "10282",
+            "source_url": "https://relocate.me/lithuania/vilnius/vinted/director-of-engineering-frontend-technologies-marketplace-limited-time-relocation-bonus-10282"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10274",
+        "command": "add",
+        "job_id": "job-0313",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0313",
+            "source": "Relocate.me",
+            "source_job_id": "10274",
+            "source_url": "https://relocate.me/cyprus/limassol/welltech/head-of-growth-paid-social-10274"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **308**
+Dataset updated: **2026-08-20** · Jobs: **313**
 
-[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (264)](#archive)
+[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (269)](#archive)
 
 ## Action now
 
@@ -69,10 +69,15 @@ Dataset updated: **2026-08-20** · Jobs: **308**
 
 <details>
 
-<summary>Archive (264)</summary>
+<summary>Archive (269)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Welltech — Head of Growth - Paid Social](<https://relocate.me/cyprus/limassol/welltech/head-of-growth-paid-social-10274>) · job-0313 | role not frontend | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Vinted — Director of Engineering, Frontend technologies, Marketplace (Limited-time Relocation Bonus)](<https://relocate.me/lithuania/vilnius/vinted/director-of-engineering-frontend-technologies-marketplace-limited-time-relocation-bonus-10282>) · job-0312 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Picnic — Senior Software Engineer - Warehouse Systems](<https://relocate.me/netherlands/amsterdam/picnic/senior-software-engineer-warehouse-systems-10262>) · job-0311 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: stack mismatch | [Picnic — Software Engineer - Consumer Products](<https://relocate.me/netherlands/amsterdam/picnic/software-engineer-consumer-products-10256>) · job-0310 | stack mismatch | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [HENNGE — Senior Frontend Engineer](<https://relocate.me/japan/tokyo/hennge/senior-frontend-engineer-10264>) · job-0309 | seniority too high | Not checked | 2026-08-20 |
 | Skipped: role not frontend | [Bjak — Engineering Manager Thailand](<https://remoteok.com/remote-jobs/remote-engineering-manager-thailand-bjak-1136670>) · job-0308 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: geo restriction | [МТС — Frontend Developer Intern (Vue 3)](<https://talent-move.ru/jobs/stazher-frontend-developer-mts-moskva-130826-140826-253693/>) · job-0307 | geo restriction | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Алеан — Team Lead Frontend (Vue/Angular)](<https://talent-move.ru/jobs/team-lead-frontend-alean-remote-260826-140826-253900/>) · job-0306 | seniority too high | Not checked | 2026-08-20 |
