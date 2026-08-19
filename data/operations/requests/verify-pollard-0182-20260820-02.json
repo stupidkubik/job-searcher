@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "operation_id": "verify-pollard-0182-20260820-02",
+  "command": "verify",
+  "job_id": "job-0182",
+  "expected": {
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "decision_reason": "seniority_too_high",
+    "last_update": "2026-08-14"
+  },
+  "args": {
+    "listing_status": "open",
+    "first_party_verified": "no",
+    "apply_verified": "no",
+    "original_url": "https://www.pollardbanknote.com/pollard-digital-solutions-europe/",
+    "level": "Senior",
+    "stack": "JavaScript; HTML5; CSS3; Canvas API; Pixi.js; Phaser; CreateJS; Vue; React; Angular; Git; SVN; Linux",
+    "match_score": 7,
+    "notes": "LinkedIn and HelloWorld source references point to the same Belgrade hybrid role. The exact HelloWorld card is currently open, but the full description requires at least 5 years of JavaScript, so seniority_too_high remains. Pollard corporate careers and PDS Europe pages load but do not expose this exact vacancy or a direct Apply route; HelloWorld Apply redirects to Infostud account login."
+  }
+}
