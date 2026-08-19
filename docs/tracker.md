@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **290**
+Dataset updated: **2026-08-20** · Jobs: **307**
 
-[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (246)](#archive)
+[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (263)](#archive)
 
 ## Action now
 
@@ -69,10 +69,27 @@ Dataset updated: **2026-08-20** · Jobs: **290**
 
 <details>
 
-<summary>Archive (246)</summary>
+<summary>Archive (263)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [МТС — Frontend Developer Intern (Vue 3)](<https://talent-move.ru/jobs/stazher-frontend-developer-mts-moskva-130826-140826-253693/>) · job-0307 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Алеан — Team Lead Frontend (Vue/Angular)](<https://talent-move.ru/jobs/team-lead-frontend-alean-remote-260826-140826-253900/>) · job-0306 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Bastion Research — Senior Frontend / Mobile Developer](<https://talent-move.ru/jobs/senior-frontend-mobile-developer-bastion-research-remote-260826-253912/>) · job-0305 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: stack mismatch | [МКК «Небус» — Middle Frontend Developer (Vue/Nuxt)](<https://talent-move.ru/jobs/middle-frontend-developer-vue-nuxt-remote-081224-254142/>) · job-0304 | stack mismatch | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Airbnb — Senior Frontend Engineer](<https://talent-move.ru/jobs/senior-frontend-engineer-airbnb-remote-140826-254466/>) · job-0303 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [MISE — Junior Frontend Developer (Vue)](<https://talent-move.ru/jobs/junior-frontend-developer-vue-mise-ru-202608-254748/>) · job-0302 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [MISE — Frontend Developer Intern (React/Next.js)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-next-ru-202608-254821/>) · job-0301 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: other | [Unknown (TalentMove source) — Frontend Developer (React + Next.js)](<https://talent-move.ru/jobs/frontend-developer-react-nextjs-081626-254948/>) · job-0300 | other | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Cloud.ru — Frontend разработчик](<https://cloud.ru/career/vacancies/2829875>) · job-0299 | geo restriction | Open | 2026-08-20 |
+| Skipped: seniority too high | [Т-Банк — Senior Frontend Developer (React)](<https://talent-move.ru/jobs/senior-frontend-developer-react-t-bank-081624-255004/>) · job-0298 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: stack mismatch | [Tile.Expert — Middle/Senior Frontend Developer (Angular)](<https://talent-move.ru/jobs/middle-senior-frontend-developer-angular-tile-expert-remote-260826-255884/>) · job-0297 | stack mismatch | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Secreate — Frontend Developer (Vue.js)](<https://talent-move.ru/jobs/frontend-developer-vue-js-secreate-moscow-170826-255962/>) · job-0296 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [AWISEE — Frontend Developer (React/Vue)](<https://talent-move.ru/jobs/frontend-developer-awisee-remote-260826-255972/>) · job-0295 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: stack mismatch | [Unknown (TalentMove source) — Frontend Developer (Angular)](<https://talent-move.ru/jobs/frontend-developer-angular-081626-255982/>) · job-0294 | stack mismatch | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Unknown (TalentMove source) — Middle/Senior Frontend Developer](<https://talent-move.ru/jobs/middle-senior-frontend-developer-tbilisi-170826-256432/>) · job-0293 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: geo restriction | [Сбер — Frontend Developer по React](<https://talent-move.ru/jobs/frontend-developer-sber-moscow-180826-256476/>) · job-0292 | geo restriction | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Unknown (TalentMove source) — Frontend Developer for eCommerce](<https://talent-move.ru/jobs/frontend-developer-ecommerce-081224-256478/>) · job-0291 | seniority too high | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [++hellohello — Creative Front-end Engineer](<https://www.helloworld.rs/posao/Creative-Front-end-Engineer/hellohello/697284>) · job-0290 | seniority too high | Not checked | 2026-08-20 |
 | Skipped: role not frontend | [New Leaf Technology Consulting d.o.o. — Junior Software Engineer](<https://www.helloworld.rs/posao/Junior-Software-Engineer/New-Leaf-Technology-Consulting.d.o.o/749355>) · job-0289 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: role not frontend | [Employer.com — Full Stack Software Developer](<https://www.linkedin.com/jobs/view/4452861383/>) · job-0287 | role not frontend | Not checked | 2026-08-20 |

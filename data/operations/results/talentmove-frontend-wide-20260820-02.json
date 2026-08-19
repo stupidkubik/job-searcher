@@ -1,0 +1,416 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:36:27Z",
+  "jobs": [],
+  "operation_id": "talentmove-frontend-wide-20260820-02",
+  "result": {
+    "count": 20,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:256478",
+        "command": "add",
+        "job_id": "job-0291",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0291",
+            "source": "TalentMove",
+            "source_job_id": "256478",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-ecommerce-081224-256478/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:256476",
+        "command": "add",
+        "job_id": "job-0292",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0292",
+            "source": "TalentMove",
+            "source_job_id": "256476",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-sber-moscow-180826-256476/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:256432",
+        "command": "add",
+        "job_id": "job-0293",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0293",
+            "source": "TalentMove",
+            "source_job_id": "256432",
+            "source_url": "https://talent-move.ru/jobs/middle-senior-frontend-developer-tbilisi-170826-256432/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:256426",
+        "command": "add",
+        "job_id": "job-0272",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0272",
+            "source": "TalentMove",
+            "source_job_id": "256426",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-remote-georgia-110826-256426/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255982",
+        "command": "add",
+        "job_id": "job-0294",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0294",
+            "source": "TalentMove",
+            "source_job_id": "255982",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-angular-081626-255982/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255972",
+        "command": "add",
+        "job_id": "job-0295",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0295",
+            "source": "TalentMove",
+            "source_job_id": "255972",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-awisee-remote-260826-255972/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255962",
+        "command": "add",
+        "job_id": "job-0296",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0296",
+            "source": "TalentMove",
+            "source_job_id": "255962",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-vue-js-secreate-moscow-170826-255962/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255918",
+        "command": "add",
+        "job_id": "job-0246",
+        "listing_status": "open",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0246",
+            "source": "TalentMove",
+            "source_job_id": "255918",
+            "source_url": "https://talent-move.ru/jobs/frontend-engineer-3d-graphics-planner5d-remote-170826-255918/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255884",
+        "command": "add",
+        "job_id": "job-0297",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0297",
+            "source": "TalentMove",
+            "source_job_id": "255884",
+            "source_url": "https://talent-move.ru/jobs/middle-senior-frontend-developer-angular-tile-expert-remote-260826-255884/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255072",
+        "command": "add",
+        "job_id": "job-0215",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0215",
+            "source": "TalentMove",
+            "source_job_id": "255072",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-busyboard-remote-150826-255072/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:255004",
+        "command": "add",
+        "job_id": "job-0298",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0298",
+            "source": "TalentMove",
+            "source_job_id": "255004",
+            "source_url": "https://talent-move.ru/jobs/senior-frontend-developer-react-t-bank-081624-255004/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254970",
+        "command": "add",
+        "job_id": "job-0299",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0299",
+            "source": "TalentMove",
+            "source_job_id": "254970",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-oblako-ru-160826-254970/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254948",
+        "command": "add",
+        "job_id": "job-0300",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0300",
+            "source": "TalentMove",
+            "source_job_id": "254948",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-react-nextjs-081626-254948/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254821",
+        "command": "add",
+        "job_id": "job-0301",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0301",
+            "source": "TalentMove",
+            "source_job_id": "254821",
+            "source_url": "https://talent-move.ru/jobs/stazhor-frontend-developer-react-next-ru-202608-254821/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254748",
+        "command": "add",
+        "job_id": "job-0302",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0302",
+            "source": "TalentMove",
+            "source_job_id": "254748",
+            "source_url": "https://talent-move.ru/jobs/junior-frontend-developer-vue-mise-ru-202608-254748/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254466",
+        "command": "add",
+        "job_id": "job-0303",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0303",
+            "source": "TalentMove",
+            "source_job_id": "254466",
+            "source_url": "https://talent-move.ru/jobs/senior-frontend-engineer-airbnb-remote-140826-254466/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:254142",
+        "command": "add",
+        "job_id": "job-0304",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0304",
+            "source": "TalentMove",
+            "source_job_id": "254142",
+            "source_url": "https://talent-move.ru/jobs/middle-frontend-developer-vue-nuxt-remote-081224-254142/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:253912",
+        "command": "add",
+        "job_id": "job-0305",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0305",
+            "source": "TalentMove",
+            "source_job_id": "253912",
+            "source_url": "https://talent-move.ru/jobs/senior-frontend-mobile-developer-bastion-research-remote-260826-253912/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:253900",
+        "command": "add",
+        "job_id": "job-0306",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0306",
+            "source": "TalentMove",
+            "source_job_id": "253900",
+            "source_url": "https://talent-move.ru/jobs/team-lead-frontend-alean-remote-260826-140826-253900/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:253693",
+        "command": "add",
+        "job_id": "job-0307",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0307",
+            "source": "TalentMove",
+            "source_job_id": "253693",
+            "source_url": "https://talent-move.ru/jobs/stazher-frontend-developer-mts-moskva-130826-140826-253693/"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
