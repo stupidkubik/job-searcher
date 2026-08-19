@@ -2,15 +2,16 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **313**
+Dataset updated: **2026-08-20** · Jobs: **320**
 
-[Action now (3)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (269)](#archive)
+[Action now (4)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (275)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | 8.5 | — | Open | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
 | Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 
@@ -69,10 +70,16 @@ Dataset updated: **2026-08-20** · Jobs: **313**
 
 <details>
 
-<summary>Archive (269)</summary>
+<summary>Archive (275)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Salmon — Software Engineer (Internal Tools & HR Automation)](<https://hiringcafe.com/job/software-engineer-internal-tools-and-hr-automation-salmon-tbilisi-d39cs907794h7sfv>) · job-0320 | role not frontend | Not checked | 2026-08-20 |
+| Skipped: other | [KITRO — Software Engineer](<https://hiringcafe.com/job/software-engineer-kitro-serbia-uwpg9e1nui4qhnzw>) · job-0319 | other | Not checked | 2026-08-20 |
+| Skipped: seniority too high | [Aios Medical — Software Engineer at AIOS — Remote, €40k-€80k /yr + equity](<https://hiringcafe.com/job/software-engineer-at-aios-remote-40k-80k-yr-equity-aios-medical-europe-2ym28qybjzx7z6v4>) · job-0318 | seniority too high | Not checked | 2026-08-20 |
+| Skipped: stack mismatch | [0G Labs — Product Engineer](<https://hiringcafe.com/job/product-engineer-0g-labs-africa-2abir4lnguf2ofxg>) · job-0317 | stack mismatch | Not checked | 2026-08-20 |
+| Skipped: other | [Pypestream — Full-Stack Engineer](<https://pypestream.ai/careers>) · job-0316 | other | Open | 2026-08-20 |
+| Skipped: stack mismatch | [Scribe — Full-Stack Engineer, Enterprise Scale](<https://hiringcafe.com/job/full-stack-engineer-enterprise-scale-scribe-belgrade-belgrade-2b3dnhicev9qa57l>) · job-0315 | stack mismatch | Not checked | 2026-08-20 |
 | Skipped: role not frontend | [Welltech — Head of Growth - Paid Social](<https://relocate.me/cyprus/limassol/welltech/head-of-growth-paid-social-10274>) · job-0313 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Vinted — Director of Engineering, Frontend technologies, Marketplace (Limited-time Relocation Bonus)](<https://relocate.me/lithuania/vilnius/vinted/director-of-engineering-frontend-technologies-marketplace-limited-time-relocation-bonus-10282>) · job-0312 | seniority too high | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Picnic — Senior Software Engineer - Warehouse Systems](<https://relocate.me/netherlands/amsterdam/picnic/senior-software-engineer-warehouse-systems-10262>) · job-0311 | seniority too high | Not checked | 2026-08-20 |

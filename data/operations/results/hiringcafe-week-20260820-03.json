@@ -1,0 +1,156 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-19T22:59:35Z",
+  "jobs": [],
+  "operation_id": "hiringcafe-week-20260820-03",
+  "result": {
+    "count": 7,
+    "operations": [
+      {
+        "application_path": "applications/job-0314-synechron-angular-software-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "hiringcafe:femjiq37e0h1hgqs",
+        "command": "add",
+        "job_id": "job-0314",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0314",
+            "source": "HiringCafe",
+            "source_job_id": "femjiq37e0h1hgqs",
+            "source_url": "https://hiringcafe.com/job/angular-software-engineer-synechron-novi-sad-vojvodina-femjiq37e0h1hgqs"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:2b3dnhicev9qa57l",
+        "command": "add",
+        "job_id": "job-0315",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0315",
+            "source": "HiringCafe",
+            "source_job_id": "2b3dnhicev9qa57l",
+            "source_url": "https://hiringcafe.com/job/full-stack-engineer-enterprise-scale-scribe-belgrade-belgrade-2b3dnhicev9qa57l"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:y2q079zrlnba7p9s",
+        "command": "add",
+        "job_id": "job-0316",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0316",
+            "source": "HiringCafe",
+            "source_job_id": "y2q079zrlnba7p9s",
+            "source_url": "https://hiringcafe.com/job/full-stack-engineer-pypestream-united-states-y2q079zrlnba7p9s"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:2abir4lnguf2ofxg",
+        "command": "add",
+        "job_id": "job-0317",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0317",
+            "source": "HiringCafe",
+            "source_job_id": "2abir4lnguf2ofxg",
+            "source_url": "https://hiringcafe.com/job/product-engineer-0g-labs-africa-2abir4lnguf2ofxg"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:2ym28qybjzx7z6v4",
+        "command": "add",
+        "job_id": "job-0318",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0318",
+            "source": "HiringCafe",
+            "source_job_id": "2ym28qybjzx7z6v4",
+            "source_url": "https://hiringcafe.com/job/software-engineer-at-aios-remote-40k-80k-yr-equity-aios-medical-europe-2ym28qybjzx7z6v4"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:uwpg9e1nui4qhnzw",
+        "command": "add",
+        "job_id": "job-0319",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0319",
+            "source": "HiringCafe",
+            "source_job_id": "uwpg9e1nui4qhnzw",
+            "source_url": "https://hiringcafe.com/job/software-engineer-kitro-serbia-uwpg9e1nui4qhnzw"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:d39cs907794h7sfv",
+        "command": "add",
+        "job_id": "job-0320",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-20",
+            "job_id": "job-0320",
+            "source": "HiringCafe",
+            "source_job_id": "d39cs907794h7sfv",
+            "source_url": "https://hiringcafe.com/job/software-engineer-internal-tools-and-hr-automation-salmon-tbilisi-d39cs907794h7sfv"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
