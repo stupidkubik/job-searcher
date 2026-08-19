@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hirify-filter-20260819-007",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:789076",
+      "args": {
+        "company": "Unknown (Telegram source)",
+        "role": "Frontend Developer (Middle+) (React/Next.js)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/789076-frontend-developer-middle-reactnextjs",
+        "source_job_id": "789076",
+        "application_status": "not_started",
+        "location": "Global",
+        "remote_policy": "Global",
+        "stack": "Next.js 16; React 19; TypeScript; Redux Toolkit; RTK Query; AI",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Hirify card checked 2026-08-19: global remote Telegram listing requires 2–3+ years of commercial frontend experience and an independently operating Middle+ engineer. Profile does not claim 2–3 years of commercial product frontend experience. Apply contacts are gated and were not revealed."
+      }
+    }
+  ]
+}
