@@ -1,0 +1,31 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-21T16:27:47Z",
+  "jobs": [
+    "job-0026",
+    "job-0127"
+  ],
+  "operation_id": "hirify-pass4b-20260821",
+  "result": {
+    "client_ref": "hirify:814491",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Undisclosed (hirify-821427)",
+          "id": "job-0156",
+          "listing_status": "unknown",
+          "reason": "похоже: company 0.88, role 0.80",
+          "role": "Senior Frontend Software Engineer (AI)"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 26,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
