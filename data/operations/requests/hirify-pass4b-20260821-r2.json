@@ -1,0 +1,482 @@
+{
+  "version": 1,
+  "operation_id": "hirify-pass4b-20260821-r2",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:816496",
+      "args": {
+        "company": "Sigma Software",
+        "role": "Junior JavaScript Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/816496-javascript-support-engineer-adtech",
+        "source_job_id": "816496",
+        "duplicate_of": "job-0026"
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0026",
+      "expected": {
+        "application_status": "applied",
+        "listing_status": "unknown",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/",
+        "notes": "Application submitted by user on 2026-08-10; CV version not confirmed. Hirify 816496 is the same AdTech JavaScript integration role; the exact Sigma careers page and Apply route were live on 2026-08-21."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:822568",
+      "args": {
+        "company": "ElevenLabs",
+        "role": "Website Growth Engineer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/822568-website-growth-engineer-react",
+        "source_job_id": "822568",
+        "duplicate_of": "job-0127"
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0127",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "other",
+        "last_update": "2026-08-12"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://elevenlabs.io/careers/71992118-5b37-4a4a-a862-99e82e02916f/website-growth-engineer",
+        "decision_reason": "other",
+        "notes": "Fresh Hirify 822568 resolves to the current ElevenLabs Website Growth Engineer repost; the official role and Apply route were live on 2026-08-21. The user's prior not-a-fit decision remains because the role requires strong growth experimentation, analytics, funnels, SQL, and autonomous measurable impact."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:849980",
+      "args": {
+        "company": "In The Pocket",
+        "role": "React Front-End Engineer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/849980-react-frontend-engineer-ai",
+        "source_job_id": "849980",
+        "original_url": "https://www.inthepocket.com/greenhouse-jobs/8078914---full-stack-web-engineer",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Middle",
+        "location": "Belgium",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; HTML; CSS; SSR; Accessibility; Testing; CI/CD; Docker; GraphQL",
+        "decision_reason": "geo_restriction",
+        "notes": "Official In The Pocket role and embedded Greenhouse application were live on 2026-08-21, but the form explicitly asks whether the candidate is located in Belgium; Serbia is not eligible."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:807810",
+      "args": {
+        "company": "IntegrityNext",
+        "role": "Frontend Engineer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/807810-frontend-react-engineer",
+        "source_job_id": "807810",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Germany",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Material UI; Redux Toolkit; Automated Testing",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived and states remote work is limited to candidates located in Germany; employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:876870",
+      "args": {
+        "company": "Global Payments",
+        "role": "Medior React Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/876870-medior-react-frontend-developer",
+        "source_job_id": "876870",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Prague, Czechia",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; JavaScript; REST APIs; OAuth; CI/CD",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is in Prague and requires fluent Czech or Slovak, which is incompatible with the profile. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:869400",
+      "args": {
+        "company": "Guidewire",
+        "role": "Software Engineer II (P2) (Frontend)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/869400-software-engineer-react-typescript",
+        "source_job_id": "869400",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Krakow, Poland",
+        "remote_policy": "Hybrid",
+        "stack": "React; TypeScript; Design Systems; OIDC; Testing; CI/CD; Web Security",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role requires hybrid attendance in Krakow 8-10 days per month, incompatible with residence in Serbia. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:866170",
+      "args": {
+        "company": "Hinge Health",
+        "role": "Fullstack Engineer (React/Node)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/866170-fullstack-react-node-engineer",
+        "source_job_id": "866170",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "San Francisco, United States",
+        "remote_policy": "Hybrid",
+        "stack": "React; TypeScript; Node.js; SQL; NoSQL; AWS; Serverless",
+        "salary": "$129,600-$194,400/year",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role requires three office days per week in San Francisco. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:858125",
+      "args": {
+        "company": "Ciena",
+        "role": "Software Developer - Frontend UI/UX New Grad",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/858125-frontend-uiux-software-developer",
+        "source_job_id": "858125",
+        "application_status": "not_started",
+        "level": "Graduate",
+        "location": "Ottawa, Canada",
+        "remote_policy": "Country-specific",
+        "stack": "Java; Python; Go; Linux; Docker; REST APIs; Databases",
+        "salary": "CAD 63,900-102,100/year",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; remote or hybrid work is restricted to Canada. The role is also not frontend-focused in its stated stack. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:851206",
+      "args": {
+        "company": "Bell Integrator",
+        "role": "Frontend Developer (AI)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/851206-frontend-developer-ai",
+        "source_job_id": "851206",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Moscow, Russia",
+        "remote_policy": "On-site",
+        "stack": "React; Next.js; TypeScript; Redux Toolkit; SSE; MCP; Node.js; Jest",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is onsite in Moscow and asks for 3+ years of frontend experience. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:843015",
+      "args": {
+        "company": "BSS",
+        "role": "Frontend-разработчик (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/843015-frontend-razrabotcik-react",
+        "source_job_id": "843015",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; JavaScript; Redux; HTML; CSS; Webpack; Babel; Unit Testing",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; remote employment is limited to Russia and the offer is under Russian labor law. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:837849",
+      "args": {
+        "company": "Технопарк Сколково",
+        "role": "Web-программист (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/837849-web-developer-react-node",
+        "source_job_id": "837849",
+        "application_status": "not_started",
+        "location": "Moscow, Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; Node.js; TypeScript; HTML; CSS; Graph Algorithms; Linear Algebra",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the two-month project is remote only within Russia. Employer status remains unverified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:836975",
+      "args": {
+        "company": "Just Eat Takeaway.com",
+        "role": "Frontend Developer",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/836975-frontend-developer",
+        "source_job_id": "836975",
+        "application_status": "not_started",
+        "location": "Ontario, Canada",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the 12-month remote contract requires the candidate to be based in Ontario, Canada. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:836003",
+      "args": {
+        "company": "АгроТаргет",
+        "role": "Frontend Разработчик (React/Vue)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/836003-frontend-react-vue-developer",
+        "source_job_id": "836003",
+        "application_status": "not_started",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; React; Vue; HTML; CSS; Frontend Testing",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is onsite in Moscow or remote only within Russia. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:829122",
+      "args": {
+        "company": "Zigmund.online",
+        "role": "Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/829122-frontend-react-developer",
+        "source_job_id": "829122",
+        "application_status": "not_started",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Redux Toolkit; Redux-Saga; REST APIs; Webpack; Less",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; remote work is limited to Russia. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:828984",
+      "args": {
+        "company": "Fleetio",
+        "role": "Web Developer (Next.js)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/828984-web-developer-nextjs",
+        "source_job_id": "828984",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "United States",
+        "remote_policy": "Country-specific",
+        "stack": "Next.js; React; JavaScript; Tailwind CSS; Headless CMS; SEO; Web Performance",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the remote role is limited to the United States. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:828000",
+      "args": {
+        "company": "Технопарк Сколково",
+        "role": "Junior frontend-разработчик (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/828000-junior-frontend-react-developer",
+        "source_job_id": "828000",
+        "application_status": "not_started",
+        "level": "Junior",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; JavaScript; TypeScript; Redux; Ant Design; Webpack; HTML; CSS",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; remote work or offices are limited to Russia. Employer status remains unverified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:826788",
+      "args": {
+        "company": "LeasePoint",
+        "role": "Верстальщик (JavaScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/826788-frontend-layout-developer",
+        "source_job_id": "826788",
+        "application_status": "not_started",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; jQuery; Node.js; SASS; SCSS; Bootstrap; Webpack; Gulp",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; project work is remote only within Russia. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:824891",
+      "args": {
+        "company": "Z-Wave.Me",
+        "role": "Разработчик веб-интерфейса умного дома (IoT)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/824891-smart-home-frontend-developer",
+        "source_job_id": "824891",
+        "application_status": "not_started",
+        "location": "Moscow, Russia",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; AngularJS; HTML; CSS; SASS; DOM; HTTP; Grunt; Git",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role requires initial office attendance in Moscow before remote work. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:824392",
+      "args": {
+        "company": "Технопарк Сколково",
+        "role": "Разработчик JavaScript (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/824392-javascript-react-frontend-developer",
+        "source_job_id": "824392",
+        "application_status": "not_started",
+        "location": "Saint Petersburg, Russia",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; React; React Native; TypeScript; RxJS; REST; WebSockets; Testing",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is office-based in Saint Petersburg. Employer status remains unverified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:824382",
+      "args": {
+        "company": "Лаборатория облачных технологий",
+        "role": "Frontend разработчик (JavaScript)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/824382-frontend-javascript-developer",
+        "source_job_id": "824382",
+        "application_status": "not_started",
+        "location": "Moscow, Russia",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; Polymer; React; Angular; HTML; CSS; Webpack; Testing",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is office-based in Moscow. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:824218",
+      "args": {
+        "company": "BrainySoft",
+        "role": "Frontend разработчик (Fintech)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/824218-frontend-react-fintech-developer",
+        "source_job_id": "824218",
+        "application_status": "not_started",
+        "location": "Russia",
+        "remote_policy": "Country-specific",
+        "stack": "React; JavaScript; TypeScript; MobX; Redux; SCSS; Webpack; Storybook",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; employment is onsite in Skolkovo or remote only within Russia. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:823988",
+      "args": {
+        "company": "Технопарк Сколково",
+        "role": "Web Frontend (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/823988-web-frontend-react",
+        "source_job_id": "823988",
+        "application_status": "not_started",
+        "location": "Moscow, Russia",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; React; HTML; CSS; jQuery; REST APIs; Linux; Responsive Design",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is office-based in Moscow. Employer status remains unverified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:823302",
+      "args": {
+        "company": "Aist.tech",
+        "role": "React JS Разработчик (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/823302-react-frontend-developer",
+        "source_job_id": "823302",
+        "application_status": "not_started",
+        "level": "Middle",
+        "location": "Yerevan, Armenia",
+        "remote_policy": "On-site",
+        "stack": "React; JavaScript; HTML; CSS; Git; Design Patterns",
+        "decision_reason": "geo_restriction",
+        "notes": "Hirify card is archived; the role is based in Yerevan with no remote or relocation route stated. Employer status remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:904774",
+      "args": {
+        "company": "Interview Copilot AI",
+        "role": "Frontend Engineer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/904774-frontend-engineer-react",
+        "source_job_id": "904774",
+        "application_status": "not_started",
+        "level": "Unknown",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; Electron; Desktop; Real-time Transcription; Error Recovery",
+        "salary": "$150,000-$200,000/year (source claim)",
+        "decision_reason": "other",
+        "notes": "Fresh Telegram-derived Hirify card. The employer product site is live, but it has no careers section or exact vacancy and the Apply/contact route is gated behind Hirify contacts, so identity and application route remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:814491",
+      "args": {
+        "company": "Undisclosed (hirify-814491)",
+        "role": "Junior Frontend Developer (React)",
+        "source": "Hirify",
+        "source_url": "https://hirify.me/jobs/814491-junior-frontend-developer-react",
+        "source_job_id": "814491",
+        "application_status": "not_started",
+        "level": "Junior",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "stack": "React; AI-assisted Development; E-commerce",
+        "salary": "Negotiable",
+        "decision_reason": "other",
+        "notes": "Telegram-derived short freelance project for 3-4 weeks; the description is truncated, company identity is hidden, compensation is unspecified, and no verifiable employer or Apply route is available.",
+        "force": true
+      }
+    }
+  ]
+}
