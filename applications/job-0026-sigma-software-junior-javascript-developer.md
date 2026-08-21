@@ -3,10 +3,10 @@ id: job-0026
 company: Sigma Software
 role: Junior JavaScript Developer
 original_url: https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-08-21
+listing_status: open
+first_party_verified: yes
+apply_verified: yes
 ---
 
 # Sigma Software — Junior JavaScript Developer

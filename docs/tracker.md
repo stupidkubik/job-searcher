@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-20** · Jobs: **320**
+Dataset updated: **2026-08-21** · Jobs: **343**
 
-[Action now (4)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (275)](#archive)
+[Action now (4)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (298)](#archive)
 
 ## Action now
 
@@ -26,6 +26,7 @@ Dataset updated: **2026-08-20** · Jobs: **320**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
 | Applied | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | Applied | 2026-08-18 | — | [Open](../applications/job-0218-nove8-front-end-developer.md) |
 | Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
@@ -40,7 +41,6 @@ Dataset updated: **2026-08-20** · Jobs: **320**
 | Applied | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | — |
 | Applied | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | — |
 | Applied | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | — |
-| Applied | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
 | Applied | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | [Open](../applications/job-0032-mixrank-junior-software-engineer-rem.md) |
 | Applied | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
@@ -70,10 +70,34 @@ Dataset updated: **2026-08-20** · Jobs: **320**
 
 <details>
 
-<summary>Archive (275)</summary>
+<summary>Archive (298)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Undisclosed (hirify-814491) — Junior Frontend Developer (React)](<https://hirify.me/jobs/814491-junior-frontend-developer-react>) · job-0343 | other | Not checked | 2026-08-21 |
+| Skipped: other | [Interview Copilot AI — Frontend Engineer (React)](<https://hirify.me/jobs/904774-frontend-engineer-react>) · job-0342 | other | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Aist.tech — React JS Разработчик (React)](<https://hirify.me/jobs/823302-react-frontend-developer>) · job-0341 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Технопарк Сколково — Web Frontend (React)](<https://hirify.me/jobs/823988-web-frontend-react>) · job-0340 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [BrainySoft — Frontend разработчик (Fintech)](<https://hirify.me/jobs/824218-frontend-react-fintech-developer>) · job-0339 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Лаборатория облачных технологий — Frontend разработчик (JavaScript)](<https://hirify.me/jobs/824382-frontend-javascript-developer>) · job-0338 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Технопарк Сколково — Разработчик JavaScript (React)](<https://hirify.me/jobs/824392-javascript-react-frontend-developer>) · job-0337 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Z-Wave.Me — Разработчик веб-интерфейса умного дома (IoT)](<https://hirify.me/jobs/824891-smart-home-frontend-developer>) · job-0336 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [LeasePoint — Верстальщик (JavaScript)](<https://hirify.me/jobs/826788-frontend-layout-developer>) · job-0335 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Технопарк Сколково — Junior frontend-разработчик (React)](<https://hirify.me/jobs/828000-junior-frontend-react-developer>) · job-0334 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Fleetio — Web Developer (Next.js)](<https://hirify.me/jobs/828984-web-developer-nextjs>) · job-0333 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Zigmund.online — Frontend Developer (React)](<https://hirify.me/jobs/829122-frontend-react-developer>) · job-0332 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [АгроТаргет — Frontend Разработчик (React/Vue)](<https://hirify.me/jobs/836003-frontend-react-vue-developer>) · job-0331 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Just Eat Takeaway.com — Frontend Developer](<https://hirify.me/jobs/836975-frontend-developer>) · job-0330 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Технопарк Сколково — Web-программист (React)](<https://hirify.me/jobs/837849-web-developer-react-node>) · job-0329 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [BSS — Frontend-разработчик (React)](<https://hirify.me/jobs/843015-frontend-razrabotcik-react>) · job-0328 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Bell Integrator — Frontend Developer (AI)](<https://hirify.me/jobs/851206-frontend-developer-ai>) · job-0327 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Ciena — Software Developer - Frontend UI/UX New Grad](<https://hirify.me/jobs/858125-frontend-uiux-software-developer>) · job-0326 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Hinge Health — Fullstack Engineer (React/Node)](<https://hirify.me/jobs/866170-fullstack-react-node-engineer>) · job-0325 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Guidewire — Software Engineer II (P2) (Frontend)](<https://hirify.me/jobs/869400-software-engineer-react-typescript>) · job-0324 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [Global Payments — Medior React Developer](<https://hirify.me/jobs/876870-medior-react-frontend-developer>) · job-0323 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [IntegrityNext — Frontend Engineer (React)](<https://hirify.me/jobs/807810-frontend-react-engineer>) · job-0322 | geo restriction | Not checked | 2026-08-21 |
+| Skipped: geo restriction | [In The Pocket — React Front-End Engineer](<https://www.inthepocket.com/greenhouse-jobs/8078914---full-stack-web-engineer>) · job-0321 | geo restriction | Open | 2026-08-21 |
+| Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/71992118-5b37-4a4a-a862-99e82e02916f/website-growth-engineer>) · job-0127 | other | Open | 2026-08-21 |
 | Skipped: role not frontend | [Salmon — Software Engineer (Internal Tools & HR Automation)](<https://hiringcafe.com/job/software-engineer-internal-tools-and-hr-automation-salmon-tbilisi-d39cs907794h7sfv>) · job-0320 | role not frontend | Not checked | 2026-08-20 |
 | Skipped: other | [KITRO — Software Engineer](<https://hiringcafe.com/job/software-engineer-kitro-serbia-uwpg9e1nui4qhnzw>) · job-0319 | other | Not checked | 2026-08-20 |
 | Skipped: seniority too high | [Aios Medical — Software Engineer at AIOS — Remote, €40k-€80k /yr + equity](<https://hiringcafe.com/job/software-engineer-at-aios-remote-40k-80k-yr-equity-aios-medical-europe-2ym28qybjzx7z6v4>) · job-0318 | seniority too high | Not checked | 2026-08-20 |
@@ -253,7 +277,6 @@ Dataset updated: **2026-08-20** · Jobs: **320**
 | Skipped: stack mismatch | [Business Web Solutions — Web Developer Intern](<https://weworkremotely.com/remote-jobs/business-web-solutions-web-developer-intern>) · job-0135 | stack mismatch | Not checked | 2026-08-12 |
 | Skipped: geo restriction | [Base.com — Full-Stack Developer (React + AWS)](<https://apply.workable.com/base-com/j/F6F9EF841F>) · job-0134 | geo restriction | Open | 2026-08-12 |
 | Skipped: other | [Constructor Tech — Frontend Engineer Intern](<https://job-boards.eu.greenhouse.io/constructortech/jobs/4772104101>) · job-0131 | other | Open | 2026-08-12 |
-| Skipped: other | [ElevenLabs — Growth Engineer, Website](<https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website>) · job-0127 | other | Open | 2026-08-12 |
 | Skipped: other | [TalentCross — 1225 - 410MOS \| Full Stack Engineer (React, Node.js, PostgreSQL, Web Scraping, A](<https://www.careers-page.com/talentcross/job/RYY35936>) · job-0111 | other | Open | 2026-08-12 |
 | Skipped: role not frontend | [Devoteam — Nearshore Sector \| Mid Fullstack Java/React Developer](<https://www.devoteam.com/jobs/126599455624307398/>) · job-0110 | role not frontend | Open | 2026-08-12 |
 | Skipped: other | [Canonical — Web Developer](<https://canonical.com/careers/2804965/web-developer-remote>) · job-0023 | other | Not checked | 2026-08-12 |

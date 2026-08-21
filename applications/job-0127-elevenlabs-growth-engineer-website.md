@@ -2,8 +2,8 @@
 id: job-0127
 company: ElevenLabs
 role: Growth Engineer, Website
-original_url: https://elevenlabs.io/careers/bed47ac1-9c5c-44ae-8965-3a4312706328/growth-engineer-website
-verified_at: 2026-08-11
+original_url: https://elevenlabs.io/careers/71992118-5b37-4a4a-a862-99e82e02916f/website-growth-engineer
+verified_at: 2026-08-21
 listing_status: open
 first_party_verified: yes
 apply_verified: yes
