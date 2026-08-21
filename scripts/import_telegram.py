@@ -141,19 +141,37 @@ def create_client(
 
 
 def owner_only_permission_issues(data_dir: Path) -> list[str]:
-    """Return paths whose group/world permission bits are set.
+    """Return private paths which are not owner-only.
 
-    Only local path names are reported. File contents and credential values are
-    never inspected or printed.
+    The audit covers the whole tree, not just the top level: the raw lead spool
+    with full message text lives in a subdirectory, so a top-level-only check
+    would report ``owner-only`` while the private text is world-readable.
+
+    Only relative path names are reported. File contents and credential values
+    are never inspected or printed. A symlink is reported rather than followed:
+    its own mode bits say nothing about the target, and a private data directory
+    has no legitimate reason to contain one.
     """
     if not data_dir.exists():
         return []
-    candidates = [data_dir]
-    candidates.extend(path for path in data_dir.iterdir() if path.is_file())
-    issues = []
-    for path in candidates:
-        if stat.S_IMODE(path.stat().st_mode) & 0o077:
-            issues.append(path.name if path != data_dir else ".")
+    issues: set[str] = set()
+
+    def audit(path: Path) -> None:
+        name = path.relative_to(data_dir).as_posix()
+        try:
+            if path.is_symlink():
+                issues.add(f"{name} (symlink)")
+            elif stat.S_IMODE(path.lstat().st_mode) & 0o077:
+                issues.add(name)
+        except OSError:
+            # A concurrent pull's temporary file may vanish mid-walk. A path we
+            # cannot stat is not evidence of a permission problem.
+            pass
+
+    audit(data_dir)
+    for parent, directory_names, file_names in os.walk(data_dir, followlinks=False):
+        for entry in (*directory_names, *file_names):
+            audit(Path(parent) / entry)
     return sorted(issues)
 
 
@@ -186,7 +204,7 @@ def doctor(
     issues = owner_only_permission_issues(data_dir)
     checks["permissions"] = {
         "ok": not issues,
-        "message": "owner-only" if not issues else "group/world bits set",
+        "message": "owner-only" if not issues else "private paths are not owner-only",
         "paths": issues,
     }
     try:

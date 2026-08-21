@@ -183,6 +183,7 @@ canonical write; Telegram adapter и normalizer никогда не пишут �
 
 | Симптом | Действие |
 |---|---|
+| `doctor` вернул `permissions.ok=false` | В `paths` перечислены относительные пути внутри data directory, которые доступны не только владельцу. Проверка обходит всё дерево, включая `leads/` с полным текстом сообщений. Вернуть `chmod 700` каталогам и `chmod 600` файлам; symlink внутри приватного каталога удалить, а не исправлять права. |
 | Telethon не найден | Активировать нужный venv и повторить install из `requirements/telegram.txt`; обычные tracker CLI/tests не требуют Telethon. |
 | 2FA не принят | Повторить `login` локально; password вводить только в hidden prompt. |
 | Session revoked/expired | Остановить pull, удалить только точный local session после отзыва device, затем повторить interactive login. |

@@ -616,6 +616,77 @@ class TelegramCliTests(unittest.TestCase):
         self.assertEqual(result["next_action"], "configure allowlist")
         self.assertFalse(result["checks"]["allowlist"]["ok"])
 
+    @staticmethod
+    def _private_tree(data_dir):
+        """Build the tree a real login and pull leave behind."""
+        REAL_DOMAIN.ensure_private_dir(data_dir)
+        REAL_DOMAIN.write_allowlist(data_dir, [-100123])
+        lead = REAL_DOMAIN.build_lead(
+            peer_id=-100123,
+            message_id=5,
+            channel_title="Channel",
+            channel_username="channel",
+            posted_at=NOW,
+            found_at=NOW,
+            permalink="https://t.me/channel/5",
+            text="Frontend react, salary and recruiter contact",
+        )
+        REAL_DOMAIN.commit_lead_batch(data_dir, [lead], {-100123: 5}, run_at=NOW)
+        with REAL_DOMAIN.pull_lock(data_dir):
+            pass
+        session = data_dir / f"{import_telegram.SESSION_BASENAME}.session"
+        session.write_text("session material", encoding="utf-8")
+        session.chmod(0o600)
+        return next((data_dir / "leads").glob("*.jsonl"))
+
+    def test_permission_audit_covers_the_raw_lead_spool_subdirectory(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            data_dir = Path(temporary) / "telegram"
+            batch = self._private_tree(data_dir)
+            # A top-level-only audit reports owner-only here while the full
+            # message text is world-readable.
+            (data_dir / "leads").chmod(0o755)
+            batch.chmod(0o644)
+            issues = import_telegram.owner_only_permission_issues(data_dir)
+            result = import_telegram.doctor(
+                data_dir,
+                environ={"TELEGRAM_API_ID": "123", "TELEGRAM_API_HASH": "hash"},
+                runtime_loader=lambda: object(),
+            )
+
+        self.assertEqual(issues, ["leads", f"leads/{batch.name}"])
+        self.assertFalse(result["checks"]["permissions"]["ok"])
+        self.assertEqual(result["checks"]["permissions"]["paths"], issues)
+        self.assertEqual(result["status"], "error")
+        self.assertFalse(result["ready_for_pull"])
+
+    def test_permission_audit_accepts_the_tree_a_real_pull_leaves_behind(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            data_dir = Path(temporary) / "telegram"
+            self._private_tree(data_dir)
+            issues = import_telegram.owner_only_permission_issues(data_dir)
+            missing = import_telegram.owner_only_permission_issues(Path(temporary) / "absent")
+
+        # A check which cried wolf over session, state, allowlist, lock and lead
+        # files would be ignored in practice.
+        self.assertEqual(issues, [])
+        self.assertEqual(missing, [])
+
+    def test_permission_audit_reports_symlinks_instead_of_following_them(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            data_dir = Path(temporary) / "telegram"
+            self._private_tree(data_dir)
+            public = Path(temporary) / "public"
+            public.mkdir(mode=0o755)
+            (public / "copy.jsonl").write_text("{}", encoding="utf-8")
+            (public / "copy.jsonl").chmod(0o644)
+            (data_dir / "escape").symlink_to(public)
+            issues = import_telegram.owner_only_permission_issues(data_dir)
+
+        # Reported by name only: the audit must not walk out of the private
+        # boundary, and a symlink's own mode bits say nothing about its target.
+        self.assertEqual(issues, ["escape (symlink)"])
+
     def test_list_dialogs_only_returns_broadcasts_and_supergroups(self):
         entities = [
             SimpleNamespace(id=1, title="News", username="news", broadcast=True, megagroup=False),
