@@ -376,16 +376,55 @@ def resolve_data_dir(
 
 
 def ensure_private_dir(path: str | os.PathLike[str]) -> Path:
+    """Create or re-harden an owner-only directory for local Telegram data.
+
+    Directories which already exist above the target are left untouched: they
+    may be shared user directories this module has no mandate to change.
+    """
     path = Path(path)
     if path.is_symlink():
         raise TelegramLeadError(f"private data directory must not be a symlink: {path}")
+    missing: list[Path] = []
+    probe = path
+    while not probe.exists():
+        missing.append(probe)
+        if probe.parent == probe:
+            break
+        probe = probe.parent
     try:
-        path.mkdir(parents=True, exist_ok=True, mode=0o700)
-        os.chmod(path, 0o700)
+        # ``mkdir(parents=True, mode=…)`` applies the mode to the final
+        # component only, so every ancestor this call has to create is hardened
+        # explicitly.  Otherwise credentials and raw message text end up under
+        # world-traversable parents.
+        for directory in list(reversed(missing)) or [path]:
+            directory.mkdir(mode=0o700, exist_ok=True)
+            os.chmod(directory, 0o700)
     except OSError as error:
         raise TelegramLeadError(f"cannot create private directory {path}: {error}") from error
     if not path.is_dir():
         raise TelegramLeadError(f"private data path is not a directory: {path}")
+    return path
+
+
+def _ensure_output_dir(path: Path, *, private: bool) -> Path:
+    """Ensure a batch destination directory exists.
+
+    ``private`` hardens the created path to owner-only and is for local
+    Telegram storage.  ``data/inbox`` is a shared repository directory holding
+    only human-confirmed facts, so publishing a batch there must not silently
+    change permissions other adapters and the operator rely on.
+    """
+    if private:
+        return ensure_private_dir(path)
+    path = Path(path)
+    if path.is_symlink():
+        raise TelegramLeadError(f"output directory must not be a symlink: {path}")
+    try:
+        path.mkdir(parents=True, exist_ok=True)
+    except OSError as error:
+        raise TelegramLeadError(f"cannot create directory {path}: {error}") from error
+    if not path.is_dir():
+        raise TelegramLeadError(f"output path is not a directory: {path}")
     return path
 
 
@@ -540,14 +579,19 @@ def _run_stamp(run_at: datetime | None) -> str:
     return value.astimezone(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
 
 
-def _write_jsonl_exclusive(path: Path, records: Iterable[Mapping[str, Any]]) -> Path:
+def _write_jsonl_exclusive(
+    path: Path, records: Iterable[Mapping[str, Any]], *, private: bool = True,
+) -> Path:
     """Durably publish a complete immutable JSONL file without overwrite.
 
     Bytes are first serialized into an owner-only hidden file in the same
     directory.  A hard link publishes the complete inode atomically and, unlike
     ``replace``, fails if the final name already exists.
+
+    ``private`` selects whether the destination directory is owner-only local
+    storage or a shared repository directory; it never affects publication.
     """
-    parent = ensure_private_dir(path.parent)
+    parent = _ensure_output_dir(path.parent, private=private)
     temporary_path: Path | None = None
     descriptor: int | None = None
     try:
@@ -739,7 +783,7 @@ def write_inbox_batch(
     for _attempt in range(10):
         path = directory / f"telegram-{_run_stamp(run_at)}-{secrets.token_hex(4)}.jsonl"
         try:
-            _write_jsonl_exclusive(path, values)
+            _write_jsonl_exclusive(path, values, private=False)
             break
         except _ImmutableBatchCollision:
             continue

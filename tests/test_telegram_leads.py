@@ -174,6 +174,39 @@ class TelegramLeadStorageTests(unittest.TestCase):
             self.assertEqual(stat.S_IMODE(path.stat().st_mode), 0o600)
             self.assertEqual(stat.S_IMODE(self.data_dir.stat().st_mode), 0o700)
 
+    def test_private_dir_hardens_created_ancestors_and_spares_existing_ones(self):
+        shared = self.root / "shared"
+        shared.mkdir()
+        os.chmod(shared, 0o755)
+        target = shared / "nested" / "job-tracker" / "telegram"
+        telegram_leads.ensure_private_dir(target)
+        if os.name == "nt":
+            return
+        # A directory holding credentials, session and raw message text must not
+        # sit under world-traversable parents this call created itself.
+        for created in (shared / "nested", shared / "nested" / "job-tracker", target):
+            self.assertEqual(stat.S_IMODE(created.stat().st_mode), 0o700, created)
+        # An already existing directory above the target may be a shared user
+        # directory, so its permissions are left alone.
+        self.assertEqual(stat.S_IMODE(shared.stat().st_mode), 0o755)
+
+    def test_inbox_batch_publishes_without_changing_shared_directory_permissions(self):
+        record = telegram_leads.project_confirmed_lead(
+            self.lead(), company="ExampleCo", role="Frontend Engineer",
+            application_url="https://careers.example.test/jobs/42", raw_location="Worldwide",
+        )
+        inbox_dir = self.root / "shared-inbox"
+        inbox_dir.mkdir()
+        os.chmod(inbox_dir, 0o755)
+        batch = telegram_leads.write_inbox_batch(inbox_dir, [record], validate=True)
+        if os.name == "nt":
+            return
+        # data/inbox is a shared repository directory holding only confirmed
+        # facts; publishing a Telegram batch must not silently reduce access to
+        # it for the operator or other adapters.
+        self.assertEqual(stat.S_IMODE(inbox_dir.stat().st_mode), 0o755)
+        self.assertEqual(stat.S_IMODE(batch.stat().st_mode), 0o600)
+
     def test_immutable_batches_collision_safe_and_seen_identity_dedupe(self):
         run_at = datetime(2026, 8, 20, 12, tzinfo=timezone.utc)
         with patch.object(telegram_leads.secrets, "token_hex", side_effect=["aaaaaaaa", "aaaaaaaa", "bbbbbbbb"]):
