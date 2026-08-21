@@ -93,6 +93,16 @@ Summary содержит `peers.backlog` и `backlog_peers`. Если backlog н
 части. `backlog=0` означает, что на момент запуска весь доступный хвост в
 заданных границах разобран.
 
+Отказ на отдельном сообщении не прерывает канал. Такое сообщение попадает в
+`skipped_messages` с `peer_id`, `message_id` и безопасным `detail`, а cursor
+продвигается за него: иначе весь хвост канала после него стал бы недостижим
+навсегда. Ошибка провайдера сообщается только по типу — её текст не выводится.
+Непустой `skipped` даёт `status=partial` и exit code 2, то есть требует ручного
+разбора: откройте `https://t.me/<username>/<message_id>` (или
+`t.me/c/<internal_id>/<message_id>` для приватного канала) и при необходимости
+нормализуйте lead вручную. Отказ на уровне peer (`errors`) cursor не двигает —
+там повторный pull безопасен и уместен.
+
 ## Подтверждение lead-а и ingest
 
 Сначала просмотрите найденные identities. Обычные `list` и `show` не выводят
@@ -179,6 +189,8 @@ canonical write; Telegram adapter и normalizer никогда не пишут �
 | Username/title изменился | Проверить dialog, но не менять allowlist только из-за display metadata: authority — numeric peer ID. |
 | `FLOOD_WAIT` | Не retry-loop: остановиться на указанный интервал, затем запустить bounded pull. |
 | Пост удалён | Сохранённый lead остаётся discovery evidence; first-party status всё равно проверяется отдельно. |
+| `skipped` > 0 | Сообщение не проецируется детерминированно (например удалённый пост без даты). Cursor уже прошёл за него; разобрать по `message_id` из `skipped_messages` вручную, повторный pull его не вернёт. |
+| Один peer постоянно в `errors` | Cursor этого peer намеренно не двигается. Проверить, что numeric peer ID всё ещё доступен и является broadcast channel/supergroup; `detail` присутствует только для собственных ошибок adapter-а. |
 | Private permalink не открывается | Не считать его first-party URL. При normalize `t.me/c/...` и numeric peer/message IDs попадут в canonical provenance в Git; если это неприемлемо, не нормализовать такой lead либо хранить весь repository только в подходящей приватной trust boundary. Для заявки использовать employer/ATS URL. |
 
 ## Stop rule первой поставки

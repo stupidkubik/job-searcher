@@ -25,6 +25,46 @@ class FakeMessage:
         self.fwd_from = fwd_from
 
 
+class MalformedMessage:
+    """A message Telethon can yield but the adapter cannot project at all."""
+
+    def __init__(self, message_id):
+        self.id = message_id
+        self.message = "Frontend react"
+        self.date = None
+        self.edit_date = None
+        self.entities = ()
+        self.fwd_from = None
+
+
+class MalformedHistoryClient:
+    """Ascending history without server-side filtering of malformed messages."""
+
+    def __init__(self, messages):
+        self.messages = messages
+        self.yielded = []
+
+    async def get_entity(self, peer_id):
+        return SimpleNamespace(
+            title=f"Channel {abs(peer_id)}",
+            username=f"channel{abs(peer_id)}",
+            broadcast=True,
+            megagroup=False,
+        )
+
+    def iter_messages(self, peer_id, *, limit, min_id, offset_date, reverse):
+        async def iterate():
+            selected = [
+                message for message in self.messages
+                if not isinstance(message.id, int) or message.id > min_id
+            ]
+            for message in sorted(selected, key=lambda item: item.id or 0)[:limit]:
+                self.yielded.append(message.id)
+                yield message
+
+        return iterate()
+
+
 class FloodWaitError(Exception):
     def __init__(self, seconds):
         super().__init__("sensitive provider error deliberately not surfaced")
@@ -357,6 +397,88 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(summary["errors"], [{"peer_id": failed, "kind": "RuntimeError"}])
         self.assertEqual(domain.commits[0]["cursor_updates"], {good: 7})
 
+    async def test_unusable_message_does_not_strand_the_rest_of_the_peer(self):
+        peer_id = -100123
+        client = MalformedHistoryClient([
+            FakeMessage(11, "Frontend https://jobs.example.test/11"),
+            MalformedMessage(12),
+            FakeMessage(13, "Frontend https://jobs.example.test/13"),
+        ])
+        with tempfile.TemporaryDirectory() as temporary:
+            data_dir = Path(temporary)
+            first = await import_telegram.collect_pull(
+                client, data_dir, peer_ids=[peer_id], keywords=["frontend"], now=NOW,
+            )
+            state = REAL_DOMAIN.load_state(data_dir)
+            second = await import_telegram.collect_pull(
+                client,
+                data_dir,
+                peer_ids=[peer_id],
+                keywords=["frontend"],
+                now=NOW + timedelta(minutes=1),
+            )
+            identities = [
+                lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)
+            ]
+
+        # The unusable message is reported instead of aborting the peer: the rest
+        # of the channel is collected on the same run and the cursor moves past
+        # it, so the next run is not a permanent retry of the same failure.
+        self.assertEqual(first["peers"], {
+            "requested": 1, "completed": 1, "failed": 0, "backlog": 0,
+        })
+        self.assertEqual((first["fetched"], first["written"], first["skipped"]), (3, 2, 1))
+        self.assertEqual(first["skipped_messages"], [{
+            "peer_id": peer_id,
+            "kind": "TelegramImportError",
+            "detail": "Telegram returned a message without a valid date",
+            "message_id": 12,
+        }])
+        self.assertEqual(first["status"], "partial")
+        self.assertEqual(state["peers"][str(peer_id)]["last_message_id"], 13)
+        self.assertEqual(identities, [f"telegram:{peer_id}:11", f"telegram:{peer_id}:13"])
+        self.assertEqual(
+            (second["status"], second["fetched"], second["duplicates"]), ("ok", 0, 0)
+        )
+
+    async def test_message_without_usable_id_is_skipped_and_a_later_message_advances(self):
+        peer_id = -100123
+        unidentified = FakeMessage(None, "Frontend https://jobs.example.test/unknown")
+        client = MalformedHistoryClient([
+            unidentified, FakeMessage(21, "Frontend https://jobs.example.test/21"),
+        ])
+        with tempfile.TemporaryDirectory() as temporary:
+            data_dir = Path(temporary)
+            summary = await import_telegram.collect_pull(
+                client, data_dir, peer_ids=[peer_id], keywords=["frontend"], now=NOW,
+            )
+            state = REAL_DOMAIN.load_state(data_dir)
+            identities = [
+                lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)
+            ]
+
+        # Without an ID the cursor cannot skip this message on its own, so the
+        # next identified message is what advances past it.
+        self.assertEqual(summary["skipped_messages"][0]["message_id"], None)
+        self.assertEqual(summary["skipped_messages"][0]["kind"], "TelegramLeadError")
+        self.assertEqual((summary["fetched"], summary["written"]), (2, 1))
+        self.assertEqual(state["peers"][str(peer_id)]["last_message_id"], 21)
+        self.assertEqual(identities, [f"telegram:{peer_id}:21"])
+
+    def test_skip_reports_own_contract_detail_but_never_provider_text(self):
+        own = import_telegram._safe_message_error(
+            -100123, 12, import_telegram.TelegramImportError("safe operator detail"),
+        )
+        domain = import_telegram._safe_message_error(
+            -100123, 12, REAL_DOMAIN.TelegramLeadError("permalink must be a non-empty string"),
+        )
+        provider = import_telegram._safe_message_error(
+            -100123, 12, RuntimeError("session id 12345"),
+        )
+        self.assertEqual(own["detail"], "safe operator detail")
+        self.assertEqual(domain["detail"], "permalink must be a non-empty string")
+        self.assertEqual(provider, {"peer_id": -100123, "kind": "RuntimeError", "message_id": 12})
+
     async def test_flood_wait_is_reported_without_retry(self):
         peer_id = -100123
         client = FakeClient(failures={peer_id: FloodWaitError(91)})
@@ -405,6 +527,20 @@ class TelegramCliTests(unittest.TestCase):
                 self.assertEqual(exit_code, 1)
                 self.assertIn("outside the repository checkout", stderr.getvalue())
         self.assertFalse(forbidden.exists())
+
+    def test_partial_pull_exits_nonzero_so_skips_are_not_silently_accepted(self):
+        summaries = {
+            "ok": {"status": "ok", "skipped": 0, "errors": []},
+            "partial": {"status": "partial", "skipped": 1, "errors": []},
+        }
+        for status, summary in summaries.items():
+            with self.subTest(status=status):
+                stdout = io.StringIO()
+                with patch.object(
+                    import_telegram, "_run_network_command", new=AsyncMock(return_value=summary)
+                ), redirect_stdout(stdout):
+                    exit_code = import_telegram.main(["--data-dir", "/tmp/telegram-test", "pull"])
+                self.assertEqual(exit_code, 0 if status == "ok" else 2)
 
     def test_provider_exception_text_is_not_logged(self):
         stderr = io.StringIO()

@@ -50,6 +50,13 @@ class TelegramImportError(ValueError):
     """An operator-actionable adapter error safe to display."""
 
 
+# Only our own contract errors carry operator-facing text.  Provider exception
+# text is outside our contract and may contain account or session details, so it
+# is counted by type name and never rendered.  The tuple is bound at import time
+# on purpose: tests substitute the domain module, not its exception type.
+SAFE_ERROR_TYPES = (TelegramImportError, telegram_leads.TelegramLeadError)
+
+
 @dataclass(frozen=True)
 class TelegramRuntime:
     client_class: Any
@@ -292,11 +299,63 @@ def _forwarded_from(message: Any) -> dict[str, str | int] | None:
 def _safe_peer_error(peer_id: int, error: Exception) -> dict[str, Any]:
     kind = type(error).__name__
     item: dict[str, Any] = {"peer_id": peer_id, "kind": kind}
+    if isinstance(error, SAFE_ERROR_TYPES):
+        item["detail"] = str(error)
     if kind in {"FloodWait", "FloodWaitError"}:
         seconds = getattr(error, "seconds", None)
         if isinstance(seconds, int):
             item["retry_after_seconds"] = seconds
     return item
+
+
+def _safe_message_error(peer_id: int, message_id: int | None, error: Exception) -> dict[str, Any]:
+    """Describe one unusable message without exposing provider error text."""
+    item = _safe_peer_error(peer_id, error)
+    item["message_id"] = message_id
+    return item
+
+
+def project_message(
+    message: Any,
+    *,
+    peer_id: int,
+    message_id: int,
+    channel_title: str,
+    channel_username: str | None,
+    cutoff: datetime,
+    terms: tuple[str, ...],
+    run_at: datetime,
+) -> dict[str, Any] | None:
+    """Return one lead, or ``None`` when the message is out of pull scope.
+
+    A message which cannot be projected at all raises instead; the caller
+    reports that as a skip rather than abandoning the rest of the channel.
+    """
+    posted_at = _message_date(message)
+    # A stale gap after an established cursor is consumed so the cursor can
+    # advance safely, but those messages are not stored.
+    if posted_at < cutoff:
+        return None
+    text = _message_text(message)
+    entities = getattr(message, "entities", ()) or ()
+    matched_terms = telegram_leads.match_keywords(text, terms)
+    urls = telegram_leads.extract_http_urls(text, entities)
+    if not matched_terms and not urls:
+        return None
+    return telegram_leads.build_lead(
+        peer_id=peer_id,
+        message_id=message_id,
+        channel_title=channel_title,
+        channel_username=channel_username,
+        posted_at=posted_at,
+        found_at=run_at,
+        permalink=_permalink(peer_id, message_id, channel_username),
+        text=text,
+        entities=entities,
+        matched_terms=matched_terms,
+        forwarded_from=_forwarded_from(message),
+        edited_at=getattr(message, "edit_date", None),
+    )
 
 
 async def collect_pull(
@@ -328,6 +387,7 @@ async def collect_pull(
         candidates: list[dict[str, Any]] = []
         cursor_updates: dict[int, int] = {}
         errors: list[dict[str, Any]] = []
+        skipped: list[dict[str, Any]] = []
         fetched = 0
         completed = 0
         backlog_peers: list[int] = []
@@ -359,36 +419,36 @@ async def collect_pull(
                     if peer_fetched >= max_messages_per_peer:
                         has_more = True
                         break
-                    message_id = telegram_leads.normalize_message_id(getattr(message, "id", None))
-                    posted_at = _message_date(message)
                     fetched += 1
                     peer_fetched += 1
+                    # One unusable message must never strand the rest of the
+                    # channel.  Failures are isolated per message, reported, and
+                    # the cursor still advances past an identified message so the
+                    # next run makes progress instead of retrying forever.
+                    try:
+                        message_id = telegram_leads.normalize_message_id(getattr(message, "id", None))
+                    except (TelegramImportError, ValueError) as error:
+                        # Without an ID the cursor cannot skip this message; the
+                        # next identified message advances past it instead.
+                        skipped.append(_safe_message_error(peer_id, None, error))
+                        continue
                     peer_max_id = max(peer_max_id, message_id)
-                    # A stale gap after an established cursor is consumed so the
-                    # cursor can advance safely, but those messages are not stored.
-                    if posted_at < cutoff:
+                    try:
+                        lead = project_message(
+                            message,
+                            peer_id=peer_id,
+                            message_id=message_id,
+                            channel_title=title,
+                            channel_username=username,
+                            cutoff=cutoff,
+                            terms=terms,
+                            run_at=run_at,
+                        )
+                    except (TelegramImportError, ValueError) as error:
+                        skipped.append(_safe_message_error(peer_id, message_id, error))
                         continue
-                    text = _message_text(message)
-                    entities = getattr(message, "entities", ()) or ()
-                    matched_terms = telegram_leads.match_keywords(text, terms)
-                    urls = telegram_leads.extract_http_urls(text, entities)
-                    if not matched_terms and not urls:
-                        continue
-                    lead = telegram_leads.build_lead(
-                        peer_id=peer_id,
-                        message_id=message_id,
-                        channel_title=title,
-                        channel_username=username,
-                        posted_at=posted_at,
-                        found_at=run_at,
-                        permalink=_permalink(peer_id, message_id, username),
-                        text=text,
-                        entities=entities,
-                        matched_terms=matched_terms,
-                        forwarded_from=_forwarded_from(message),
-                        edited_at=getattr(message, "edit_date", None),
-                    )
-                    candidates.append(lead)
+                    if lead is not None:
+                        candidates.append(lead)
                 if peer_max_id > 0:
                     cursor_updates[peer_id] = peer_max_id
                 if has_more:
@@ -402,7 +462,9 @@ async def collect_pull(
             data_dir, unique, cursor_updates, run_at=run_at
         )
     return {
-        "status": "partial" if errors else "ok",
+        # A skipped message is a discovery candidate the operator has to inspect
+        # by hand, so it degrades the run status exactly like a failed peer.
+        "status": "partial" if errors or skipped else "ok",
         "run_at": iso_utc(run_at),
         "peers": {
             "requested": len(peers),
@@ -414,9 +476,11 @@ async def collect_pull(
         "matched": len(candidates),
         "duplicates": duplicate_count,
         "written": len(unique),
+        "skipped": len(skipped),
         "batch": str(batch_path),
         "backlog_peers": backlog_peers,
         "errors": errors,
+        "skipped_messages": skipped,
     }
 
 
