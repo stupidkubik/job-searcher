@@ -1,6 +1,6 @@
 # Current project architecture
 
-Статус: current — 2026-08-14
+Статус: current — 2026-08-20
 
 Этот документ описывает работающую архитектуру репозитория. Обязательные
 поведенческие правила находятся в [`AGENTS.md`](../AGENTS.md), точная схема — в
@@ -24,8 +24,10 @@
 
 ```mermaid
 flowchart LR
-    D["Discovery source / ATS"] --> A["Adapter or browser inspection"]
+    D["Discovery source / ATS / Telegram"] --> A["Adapter or browser inspection"]
     A --> R["Raw inbox or read-only artifact"]
+    A --> L["Protected local Telegram leads"]
+    L --> R
     R --> V["Dedupe and first-party verification"]
     V --> W{"Authorized write path"}
     W -->|local| J["scripts/jobs.py"]
@@ -47,6 +49,9 @@ Aggregator/API record становится canonical только через ded
 config/                     candidate profile, queries, source registry
 docs/sources/               source- and ATS-specific playbooks
 scripts/import_*.py         fetch-only discovery adapters
+scripts/telegram_leads.py   pure Telegram lead, projection and local-storage domain
+scripts/import_telegram.py  local bounded Telegram CLI; no canonical writes
+requirements/telegram.txt   optional pinned Telegram dependency
 data/inbox/                 local immutable JSONL batches (Git-ignored)
 data/operations/            connector requests and immutable results
 data/jobs.csv               canonical jobs
@@ -81,6 +86,11 @@ unchanged.
   Browser plugin in the same new chat; the GitHub connector does not satisfy
   browser preflight.
 - Himalayas has a fetch-only adapter for narrow/broad query matrices.
+- Telegram has an opt-in local MTProto adapter. It reads only numeric peer IDs
+  from the local allowlist, stores session/cursor/raw leads outside Git and
+  projects only a human-confirmed vacancy into `data/inbox/`. The post is
+  aggregator/discovery evidence and always requires first-party and Apply
+  verification.
 - `data/inbox/*.jsonl` supports local immutable batch ingest.
 - `.github/workflows/source-discovery.yml` produces a temporary read-only
   artifact for connector/runner use and never changes canonical files.
@@ -89,6 +99,13 @@ Web search and its snippets or `Crawled:` metadata are discovery-only evidence.
 They cannot establish current route coverage, first-party listing status or a
 working Apply path. When Browser is unavailable, the browser pass stops as
 incomplete unless the source playbook explicitly permits an adapter/API route.
+
+Telegram credentials, interactive login material, session, allowlist, cursor
+and full message text stay in the protected local data directory outside the
+checkout. Raw Telegram text is not sent to an LLM or cloud service. Neither the
+pull adapter nor the normalizer writes `jobs.csv`/`job_sources.csv`: the only
+bridge to the tracker is a validated immutable inbox batch followed by
+`jobs.py ingest` (first as `--dry-run`).
 
 Artifacts contain exact UTC run timestamps. Tracker calendar dates such as
 `found_at`, `verified_at` and `last_update` use `Europe/Belgrade`, independent

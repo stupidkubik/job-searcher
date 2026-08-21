@@ -83,10 +83,11 @@ SOURCES = [
     "Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely",
     "HiringCafe", "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
     "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
-    "Find My Remote / Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
+    "Find My Remote / Telegram", "Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
     "Relocate.me", "Remote OK", "Geekjob", "TalentMove", "Company Careers",
     "Referral", "Manual", "Other",
 ]
+SOURCES_ALLOWING_SHARED_DISCOVERY_URLS = {"Telegram"}
 REASONS = [
     "geo_restriction", "work_authorization", "seniority_too_high", "seniority_too_low",
     "stack_mismatch", "role_not_frontend", "salary_too_low", "company_not_interesting",
@@ -945,6 +946,14 @@ def prepare_source_reference(source_rows, reference, force=False):
             if existing["source_url"] and norm_url(existing["source_url"]) == normalized:
                 if existing["job_id"] == reference["job_id"] and existing["source"] == source:
                     return existing, False
+                if (
+                    source in SOURCES_ALLOWING_SHARED_DISCOVERY_URLS
+                    and existing["source"] == source
+                    and source_job_id
+                    and existing["source_job_id"]
+                    and existing["source_job_id"] != source_job_id
+                ):
+                    continue
                 if not force:
                     raise SourceReferenceConflict(
                         f"source_url уже принадлежит {existing['job_id']}; используйте --force для shared discovery URL",
@@ -1332,7 +1341,14 @@ def plan_ingest(path, resolution_path=None):
             outcomes.append({"line": line_number, "outcome": "noise", "reason": filter_reason})
             continue
 
-        duplicate = deterministic_duplicate(fields, rows, source_rows, norm, norm_url)
+        duplicate = deterministic_duplicate(
+            fields,
+            rows,
+            source_rows,
+            norm,
+            norm_url,
+            shared_source_url_sources=SOURCES_ALLOWING_SHARED_DISCOVERY_URLS,
+        )
         if duplicate:
             job_id, reason = duplicate
             if line_number in resolutions:

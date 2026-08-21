@@ -62,7 +62,15 @@ def relevance_or_hard_filter(record, normalized_role):
     return None, None
 
 
-def deterministic_duplicate(values, job_rows, source_rows, norm, norm_url):
+def deterministic_duplicate(
+    values,
+    job_rows,
+    source_rows,
+    norm,
+    norm_url,
+    *,
+    shared_source_url_sources=(),
+):
     """Match only safe duplicates in the prescribed order."""
     for reference in source_rows:
         if (
@@ -84,6 +92,17 @@ def deterministic_duplicate(values, job_rows, source_rows, norm, norm_url):
     candidate_source_url = norm_url(values["source_url"])
     for reference in source_rows:
         if reference["source_url"] and norm_url(reference["source_url"]) == candidate_source_url:
+            if (
+                values["source"] in shared_source_url_sources
+                and reference["source"] == values["source"]
+                and values["source_job_id"]
+                and reference["source_job_id"]
+                and reference["source_job_id"] != values["source_job_id"]
+            ):
+                # One Telegram message may advertise several genuinely distinct
+                # vacancies.  Their per-vacancy source IDs remain authoritative;
+                # the shared post URL is discovery provenance, not a duplicate key.
+                continue
             return reference["job_id"], "source_url"
 
     candidate_key = (norm(values["company"]), norm(values["role"]), norm(values["location"]))

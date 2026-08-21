@@ -17,6 +17,7 @@ write path меняются, этот файл и корневой [`README.md`]
 | ChatGPT Browser/GitHub boundary, launch prompt и connector runner | [`agent-operations.md`](agent-operations.md) |
 | immutable raw inbox и ingest | [`data/inbox/README.md`](../data/inbox/README.md) |
 | source/ATS playbooks | [`sources/README.md`](sources/README.md) |
+| локальный Telegram discovery adapter | [`sources/telegram.md`](sources/telegram.md) |
 | реализованное и будущие изменения | [`roadmap.md`](roadmap.md) |
 | generated browser view | [`tracker.md`](tracker.md) |
 
@@ -29,8 +30,16 @@ write path меняются, этот файл и корневой [`README.md`]
 - [`tracker-v2-plan.md`](tracker-v2-plan.md) и
   [`tracker-browser-view-plan.md`](tracker-browser-view-plan.md) — принятые
   implementation plans;
+- [`telegram-source-integration-plan.md`](telegram-source-integration-plan.md) —
+  implementation plan первой локальной Telegram-поставки;
 - `tracker-*-feedback.md` и `tracker-*-audit-*.md` — снимки обратной связи и
   аудитов на конкретную дату.
+
+## Исследования и предложения
+
+- [`telegram-source-integration-analysis.md`](telegram-source-integration-analysis.md) —
+  варианты получения вакансий из Telegram, ограничения API и рекомендуемая
+  архитектура; предложение, а не реализованный source contract.
 
 ## Матрица обновлений
 

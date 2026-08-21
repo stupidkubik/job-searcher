@@ -21,6 +21,12 @@ class SourceConfigTests(unittest.TestCase):
         self.assertTrue(himalayas["verification"]["first_party_required"])
         self.assertTrue(himalayas["verification"]["apply_required"])
 
+        telegram = sources["Telegram"]
+        self.assertEqual(telegram["type"], "messaging")
+        self.assertTrue(telegram["aggregator"])
+        self.assertTrue(telegram["verification"]["first_party_required"])
+        self.assertTrue(telegram["verification"]["apply_required"])
+
     def test_rejects_unknown_source_type_before_network_work(self):
         path = self.write_registry("""
 [sources.Broken]

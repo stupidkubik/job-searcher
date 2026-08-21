@@ -1,0 +1,2 @@
+# Optional local Telegram discovery adapter dependency.
+Telethon==1.44.0

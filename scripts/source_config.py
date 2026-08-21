@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config" / "sources.toml"
-SOURCE_TYPES = {"api", "job_board", "manual"}
+SOURCE_TYPES = {"api", "job_board", "manual", "messaging"}
 REQUIRED_SOURCE_FIELDS = {
     "enabled", "type", "cadence_hours", "max_age_days", "geo", "aggregator",
     "verification", "caveats",

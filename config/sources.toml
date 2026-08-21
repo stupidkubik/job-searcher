@@ -29,6 +29,21 @@ broad_queries = [
 employment_types = ["Full Time", "Intern", "Contractor"]
 seniority = ["Entry-level", "Mid-level"]
 
+[sources.Telegram]
+enabled = true
+type = "messaging"
+cadence_hours = 24
+max_age_days = 7
+geo = ["Serbia", "Georgia", "United States", "Europe", "Russia/CIS", "worldwide"]
+aggregator = true
+verification = { first_party_required = true, apply_required = true }
+caveats = [
+  "Discovery only: a Telegram post does not prove that the employer listing is open, eligible, or has a working Apply route.",
+  "Pull only numeric peer IDs explicitly selected in the local allowlist; never use usernames or channel titles as authority.",
+  "Keep credentials, session, cursor, allowlist, and raw message text in the protected local data directory outside Git.",
+  "Do not send raw Telegram text to an LLM or cloud service and do not write directly to canonical CSV files.",
+]
+
 [sources."Hired Valley"]
 enabled = false
 type = "manual"
