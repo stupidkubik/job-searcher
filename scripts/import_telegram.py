@@ -32,6 +32,7 @@ API_HASH_ENV = "TELEGRAM_API_HASH"
 SESSION_BASENAME = "telegram"
 DEFAULT_MAX_AGE_DAYS = 7
 DEFAULT_MAX_MESSAGES_PER_PEER = 500
+DEFAULT_PREVIEW_LIMIT = 200
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_INBOX_DIR = ROOT / "data" / "inbox"
 DEFAULT_KEYWORDS = (
@@ -44,6 +45,10 @@ DEFAULT_KEYWORDS = (
     "web developer",
     "ui engineer",
 )
+# Listing is deliberately broader than pulling.  An operator has to see a
+# peer before allowlisting it, but only broadcast channels and supergroups
+# have a per-message permalink, and the lead contract requires one.
+PULLABLE_DIALOG_TYPES = frozenset({"broadcast", "supergroup"})
 
 
 class TelegramImportError(ValueError):
@@ -250,11 +255,35 @@ def dialog_type(entity: Any) -> str | None:
         return "broadcast"
     if bool(getattr(entity, "megagroup", False)):
         return "supergroup"
+    # A bot is a User entity.  Human private chats stay unclassified on purpose:
+    # listing them would dump the operator's contacts into the dialog output.
+    if bool(getattr(entity, "bot", False)):
+        return "bot"
     return None
 
 
+def dialog_title(entity: Any) -> str:
+    """Return a display title for any dialog kind.
+
+    Channels and supergroups carry ``title``; a bot is a User and carries name
+    parts instead, so the channel-only accessor would report it as untitled.
+    """
+    title = str(getattr(entity, "title", "") or "").strip()
+    if title:
+        return title
+    names = [str(getattr(entity, part, "") or "").strip() for part in ("first_name", "last_name")]
+    name = " ".join(part for part in names if part)
+    if name:
+        return name
+    username = str(getattr(entity, "username", "") or "").strip()
+    return f"@{username}" if username else ""
+
+
 async def list_dialogs(client: Any, *, get_peer_id) -> list[dict[str, Any]]:
-    """List eligible channels without changing the allowlist."""
+    """List visible channels, supergroups and bots without changing the allowlist.
+
+    A listed peer is not automatically pullable: see ``PULLABLE_DIALOG_TYPES``.
+    """
     dialogs = []
     async for dialog in client.iter_dialogs():
         entity = getattr(dialog, "entity", dialog)
@@ -263,7 +292,7 @@ async def list_dialogs(client: Any, *, get_peer_id) -> list[dict[str, Any]]:
             continue
         dialogs.append({
             "peer_id": int(get_peer_id(entity)),
-            "title": str(getattr(entity, "title", "") or ""),
+            "title": dialog_title(entity),
             "username": getattr(entity, "username", None),
             "type": kind,
         })
@@ -420,9 +449,13 @@ async def collect_pull(
             has_more = False
             try:
                 entity = await client.get_entity(peer_id)
-                if dialog_type(entity) is None:
-                    raise TelegramImportError("allowlisted peer is not a broadcast channel or supergroup")
-                title = str(getattr(entity, "title", "") or "")
+                kind = dialog_type(entity)
+                if kind not in PULLABLE_DIALOG_TYPES:
+                    raise TelegramImportError(
+                        f"allowlisted peer is not pullable ({kind or 'unsupported dialog type'}); "
+                        "only broadcast channels and supergroups have message permalinks"
+                    )
+                title = dialog_title(entity)
                 username = getattr(entity, "username", None)
                 async for message in client.iter_messages(
                     peer_id,
@@ -502,6 +535,73 @@ async def collect_pull(
     }
 
 
+async def preview_peer(
+    client: Any,
+    *,
+    peer_id: int,
+    limit: int = DEFAULT_PREVIEW_LIMIT,
+    keywords: Iterable[str] = DEFAULT_KEYWORDS,
+    include_text: bool = True,
+) -> dict[str, Any]:
+    """Read bounded recent history from one explicitly named peer and store nothing.
+
+    This is a human triage view, not a pull.  It never touches the lead spool,
+    the cursor state or the raw inbox, so it carries none of the lead contract's
+    obligations and is the only way to look inside a peer that contract cannot
+    represent: a bot chat has no per-message permalink.  The peer ID is typed by
+    the operator per invocation, which is a narrower authorization than the
+    allowlist, not a way around it.
+    """
+    peer_id = telegram_leads.normalize_peer_id(peer_id)
+    terms = tuple(term.strip() for term in keywords if isinstance(term, str) and term.strip())
+    entity = await client.get_entity(peer_id)
+    kind = dialog_type(entity)
+    if kind is None:
+        raise TelegramImportError("preview is limited to broadcast channels, supergroups and bots")
+
+    messages: list[dict[str, Any]] = []
+    skipped: list[dict[str, Any]] = []
+    # Newest first: "the last N messages" is a count bound, not a date window.
+    async for message in client.iter_messages(
+        peer_id, limit=limit, min_id=0, offset_date=None, reverse=False
+    ):
+        try:
+            message_id = telegram_leads.normalize_message_id(getattr(message, "id", None))
+            posted_at = _message_date(message)
+        except SAFE_ERROR_TYPES + (ValueError,) as error:
+            skipped.append(_safe_message_error(peer_id, None, error))
+            continue
+        text = _message_text(message)
+        entities = getattr(message, "entities", ()) or ()
+        item = {
+            "message_id": message_id,
+            "posted_at": posted_at.isoformat(timespec="seconds").replace("+00:00", "Z"),
+            "matched_terms": telegram_leads.match_keywords(text, terms) if terms else [],
+            "outbound_urls": telegram_leads.extract_http_urls(text, entities),
+            "text_length": len(text),
+        }
+        # Text is the payload a vacancy feed carries, so preview keeps it by
+        # default; `leads show` opts in instead because it reads stored leads.
+        if include_text:
+            item["text"] = text
+        messages.append(item)
+
+    return {
+        "status": "ok",
+        "peer_id": peer_id,
+        "type": kind,
+        "title": dialog_title(entity),
+        "pullable": kind in PULLABLE_DIALOG_TYPES,
+        "limit": limit,
+        "returned": len(messages),
+        "matched": sum(1 for item in messages if item["matched_terms"]),
+        "with_urls": sum(1 for item in messages if item["outbound_urls"]),
+        "skipped": len(skipped),
+        "messages": messages,
+        "skipped_messages": skipped,
+    }
+
+
 def format_output(payload: Any, output_format: str) -> str:
     if output_format == "json":
         return json.dumps(payload, ensure_ascii=False, sort_keys=True)
@@ -551,6 +651,18 @@ def build_parser() -> argparse.ArgumentParser:
         help="include private message text in local output",
     )
 
+    preview = commands.add_parser(
+        "preview", help="read-only bounded look at one peer; stores nothing"
+    )
+    preview.add_argument("peer_id", type=int)
+    preview.add_argument("--limit", type=_positive_int, default=DEFAULT_PREVIEW_LIMIT)
+    preview.add_argument("--keyword", action="append", dest="keywords")
+    preview.add_argument(
+        "--no-text",
+        action="store_true",
+        help="omit message text and report only metadata per message",
+    )
+
     pull = commands.add_parser("pull", help="pull bounded history from allowlisted peers only")
     pull.add_argument("--max-age-days", type=_positive_int, default=DEFAULT_MAX_AGE_DAYS)
     pull.add_argument(
@@ -579,6 +691,14 @@ async def _run_network_command(args: argparse.Namespace, data_dir: Path) -> Any:
         await _connect_authorized(client)
         if args.command == "list-dialogs":
             return await list_dialogs(client, get_peer_id=runtime.get_peer_id)
+        if args.command == "preview":
+            return await preview_peer(
+                client,
+                peer_id=args.peer_id,
+                limit=args.limit,
+                keywords=args.keywords or DEFAULT_KEYWORDS,
+                include_text=not args.no_text,
+            )
         if args.command == "pull":
             peer_ids = telegram_leads.load_allowlist(data_dir)
             return await collect_pull(

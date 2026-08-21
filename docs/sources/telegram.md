@@ -55,9 +55,9 @@ Apply route. В registry источник помечен `aggregator=true`,
 
 ## Allowlist и bounded pull
 
-`list-dialogs` только показывает доступные broadcast channels и
-supergroups. Выберите каналы вручную и запишите только их
-numeric peer IDs:
+`list-dialogs` только показывает доступные broadcast channels,
+supergroups и bots. Приватные чаты с людьми не перечисляются.
+Выберите каналы вручную и запишите только их numeric peer IDs:
 
 ```bash
 .venv/bin/python scripts/import_telegram.py --format json list-dialogs
@@ -68,6 +68,37 @@ numeric peer IDs:
 Username и title — только display metadata; они не дают adapter-у права
 на чтение. `pull` без непустого allowlist завершается ошибкой;
 режима «читать всё» нет.
+
+Присутствие peer в `list-dialogs` не делает его pullable. `pull`
+читает только broadcast channels и supergroups: лишь у них есть
+per-message permalink, который требует lead contract и который уходит
+в canonical provenance как `source_url`. Bot или приватный чат в
+allowlist попадёт в `errors` с `detail`, начинающимся на
+`allowlisted peer is not pullable`, и его cursor не сдвинется.
+
+## Read-only preview
+
+`preview` — просмотр без записи: не трогает lead spool, cursor state и
+raw inbox, поэтому у него нет обязательства по permalink. Это
+единственный способ заглянуть в peer, который lead contract не может
+представить, — например в bot chat.
+
+```bash
+.venv/bin/python scripts/import_telegram.py --format json preview 7132934089 --limit 300
+.venv/bin/python scripts/import_telegram.py --format json preview 7132934089 \
+  --limit 300 --keyword frontend --keyword react --no-text
+```
+
+`--limit` — count bound (последние N сообщений, новые первыми), а не
+date window; default 200. Numeric peer ID вводит человек на каждый
+вызов: это более узкая авторизация, чем allowlist, а не обход его.
+Приватные чаты с людьми `preview` читать отказывается.
+
+Текст сообщений входит в вывод по умолчанию: для фида вакансий он и есть
+полезная нагрузка, а не побочные приватные данные. `--no-text` оставляет
+только `text_length`, `matched_terms` и `outbound_urls` — это дешёвый
+первый проход, чтобы отобрать `message_id` до чтения текстов. В
+`leads show` дефолт обратный: там читается уже сохранённый spool.
 
 Первый pull делайте с малыми границами; например:
 
@@ -192,6 +223,7 @@ canonical write; Telegram adapter и normalizer никогда не пишут �
 | Пост удалён | Сохранённый lead остаётся discovery evidence; first-party status всё равно проверяется отдельно. |
 | `skipped` > 0 | Сообщение не проецируется детерминированно (например удалённый пост без даты). Cursor уже прошёл за него; разобрать по `message_id` из `skipped_messages` вручную, повторный pull его не вернёт. |
 | Один peer постоянно в `errors` | Cursor этого peer намеренно не двигается. Проверить, что numeric peer ID всё ещё доступен и является broadcast channel/supergroup; `detail` присутствует только для собственных ошибок adapter-а. |
+| Bot виден в `list-dialogs`, но `pull` его не читает | Ожидаемо: у bot chat нет per-message permalink, поэтому lead contract его не принимает. Не подставлять `t.me/<bot_username>` вместо permalink — это ссылка на чат, а не на сообщение, и она попала бы в canonical provenance как ложный `source_url`. |
 | Private permalink не открывается | Не считать его first-party URL. При normalize `t.me/c/...` и numeric peer/message IDs попадут в canonical provenance в Git; если это неприемлемо, не нормализовать такой lead либо хранить весь repository только в подходящей приватной trust boundary. Для заявки использовать employer/ATS URL. |
 
 ## Stop rule первой поставки

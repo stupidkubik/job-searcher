@@ -479,6 +479,88 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(domain["detail"], "permalink must be a non-empty string")
         self.assertEqual(provider, {"peer_id": -100123, "kind": "RuntimeError", "message_id": 12})
 
+    async def test_preview_reads_a_bot_chat_newest_first_and_touches_no_storage(self):
+        peer_id = 7132934089
+        client = FakeClient({peer_id: [
+            FakeMessage(11, "old frontend https://jobs.example.test/11", age_hours=96),
+            FakeMessage(12, "unrelated chatter"),
+            FakeMessage(13, "react role https://jobs.example.test/13"),
+        ]})
+        client.entities[peer_id] = SimpleNamespace(
+            first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+        )
+        domain = FakeLeadDomain()
+        with patch.object(import_telegram, "telegram_leads", domain):
+            result = await import_telegram.preview_peer(
+                client, peer_id=peer_id, limit=2, keywords=["frontend", "react"],
+            )
+
+        # A count bound, newest first: the two most recent messages, not a window.
+        self.assertEqual([item["message_id"] for item in result["messages"]], [13, 12])
+        self.assertEqual((result["returned"], result["matched"], result["with_urls"]), (2, 1, 1))
+        self.assertEqual(result["messages"][0]["matched_terms"], ["react"])
+        self.assertEqual(
+            result["messages"][0]["outbound_urls"], ["https://jobs.example.test/13"],
+        )
+        self.assertEqual((result["type"], result["pullable"]), ("bot", False))
+        self.assertEqual(result["title"], "Vacancy Bot")
+        # Preview is a look, not a pull: no spool, no cursor, no lock, no leads.
+        self.assertEqual((domain.commits, domain.build_calls, domain.lock_events), ([], [], []))
+        self.assertEqual(client.iter_calls[0]["min_id"], 0)
+        self.assertFalse(client.iter_calls[0]["reverse"])
+
+    async def test_preview_returns_message_text_by_default(self):
+        peer_id = 7132934089
+        client = FakeClient({peer_id: [FakeMessage(13, "react role")]})
+        client.entities[peer_id] = SimpleNamespace(username="vacancy_bot", bot=True)
+        domain = FakeLeadDomain()
+        with patch.object(import_telegram, "telegram_leads", domain):
+            default = await import_telegram.preview_peer(client, peer_id=peer_id, keywords=["react"])
+            lean = await import_telegram.preview_peer(
+                client, peer_id=peer_id, keywords=["react"], include_text=False,
+            )
+
+        # For a vacancy feed the text is the payload, so dropping it is the
+        # deliberate exception rather than the default.
+        self.assertEqual(default["messages"][0]["text"], "react role")
+        self.assertNotIn("text", lean["messages"][0])
+        self.assertEqual(lean["messages"][0]["text_length"], len("react role"))
+
+    async def test_preview_refuses_a_private_human_chat(self):
+        peer_id = 555000111
+        client = FakeClient({peer_id: [FakeMessage(3, "hi")]})
+        client.entities[peer_id] = SimpleNamespace(first_name="Someone", username=None)
+        domain = FakeLeadDomain()
+        with patch.object(import_telegram, "telegram_leads", domain):
+            with self.assertRaises(import_telegram.TelegramImportError):
+                await import_telegram.preview_peer(client, peer_id=peer_id)
+
+        self.assertEqual(client.iter_calls, [])
+
+    async def test_pull_refuses_a_bot_peer_because_it_has_no_message_permalink(self):
+        peer_id = 7132934089
+        client = FakeClient({peer_id: [FakeMessage(5, "Frontend react")]})
+        client.entities[peer_id] = SimpleNamespace(
+            first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+        )
+        domain = FakeLeadDomain()
+        with patch.object(import_telegram, "telegram_leads", domain):
+            summary = await import_telegram.collect_pull(
+                client,
+                Path("/local/telegram"),
+                peer_ids=[peer_id],
+                keywords=["frontend"],
+                now=NOW,
+            )
+
+        # Listing a bot is allowed; reading it would fabricate a permalink, so
+        # the peer is reported as an error and no history is touched.
+        self.assertEqual(client.iter_calls, [])
+        self.assertEqual(summary["fetched"], 0)
+        self.assertEqual(summary["errors"][0]["peer_id"], peer_id)
+        self.assertEqual(summary["errors"][0]["kind"], "TelegramImportError")
+        self.assertIn("not pullable (bot)", summary["errors"][0]["detail"])
+
     async def test_flood_wait_is_reported_without_retry(self):
         peer_id = -100123
         client = FakeClient(failures={peer_id: FloodWaitError(91)})
@@ -687,11 +769,14 @@ class TelegramCliTests(unittest.TestCase):
         # boundary, and a symlink's own mode bits say nothing about its target.
         self.assertEqual(issues, ["escape (symlink)"])
 
-    def test_list_dialogs_only_returns_broadcasts_and_supergroups(self):
+    def test_list_dialogs_reports_channels_supergroups_and_bots_but_not_private_chats(self):
         entities = [
             SimpleNamespace(id=1, title="News", username="news", broadcast=True, megagroup=False),
             SimpleNamespace(id=2, title="Jobs", username=None, broadcast=False, megagroup=True),
             SimpleNamespace(id=3, title="Personal", username=None, broadcast=False, megagroup=False),
+            SimpleNamespace(
+                id=7132934089, first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+            ),
         ]
 
         class DialogClient:
@@ -702,10 +787,25 @@ class TelegramCliTests(unittest.TestCase):
                 return iterate()
 
         result = __import__("asyncio").run(
-            import_telegram.list_dialogs(DialogClient(), get_peer_id=lambda entity: -100 - entity.id)
+            import_telegram.list_dialogs(
+                DialogClient(),
+                # Telethon reports a bot under its own positive user ID.
+                get_peer_id=lambda entity: entity.id if entity.id > 0 and getattr(
+                    entity, "bot", False,
+                ) else -100 - entity.id,
+            )
         )
-        self.assertEqual([item["type"] for item in result], ["supergroup", "broadcast"])
-        self.assertEqual([item["peer_id"] for item in result], [-102, -101])
+        self.assertEqual([item["type"] for item in result], ["supergroup", "broadcast", "bot"])
+        self.assertEqual([item["peer_id"] for item in result], [-102, -101, 7132934089])
+        # A bot is a User entity: its display name comes from the name parts.
+        self.assertEqual(result[-1]["title"], "Vacancy Bot")
+
+    def test_dialog_title_falls_back_to_username_when_a_bot_has_no_name_parts(self):
+        self.assertEqual(
+            import_telegram.dialog_title(SimpleNamespace(username="vacancy_bot", bot=True)),
+            "@vacancy_bot",
+        )
+        self.assertEqual(import_telegram.dialog_title(SimpleNamespace(bot=True)), "")
 
     def test_normalize_cli_is_a_thin_human_confirmed_projection_without_raw_text(self):
         lead = REAL_DOMAIN.build_lead(
