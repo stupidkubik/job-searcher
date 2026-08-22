@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-clickhouse-senior-typescript-frontend-20260822",
+  "command": "add",
+  "args": {
+    "company": "ClickHouse",
+    "role": "Senior Software Engineer (Typescript / FrontEnd) - AI/ML",
+    "source": "Company Careers",
+    "source_url": "https://job-boards.greenhouse.io/clickhouse/jobs/5996876004",
+    "source_job_id": "5996876004",
+    "original_url": "https://job-boards.greenhouse.io/clickhouse/jobs/5996876004",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Senior",
+    "location": "United States (remote)",
+    "remote_policy": "Country-specific",
+    "stack": "TypeScript; JavaScript; React; Python; AI/ML; APIs; AWS; Azure; GCP",
+    "salary": "$141,000–$195,000/year",
+    "decision_reason": "work_authorization",
+    "notes": "Verified on 2026-08-22: exact Greenhouse application form is live but asks whether the candidate requires US work sponsorship. The role requires 5+ years of production engineering, full-stack AI/ML experience and backend TypeScript or Python."
+  }
+}
