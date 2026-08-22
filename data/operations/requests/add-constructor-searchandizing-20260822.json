@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "add-constructor-searchandizing-20260822",
+  "command": "add",
+  "args": {
+    "company": "Constructor",
+    "role": "Full Stack Engineer: Searchandizing",
+    "source": "Company Careers",
+    "source_url": "https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "source_job_id": "7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "original_url": "https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "level": "Unknown",
+    "location": "Remote; Armenia; Croatia; Poland; Portugal; Serbia; Spain; United Kingdom",
+    "remote_policy": "Serbia",
+    "stack": "React; TypeScript; Python; Testing; CI/CD; Deployment",
+    "salary": "$90K–$120K USD + stock options",
+    "match_score": 6.5,
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "next_action": "submit application",
+    "notes": "Official Ashby listing and application form checked on 2026-08-22. Best available Constructor fit: React/TypeScript dashboard role, but a stretch due to solid Python/backend and full-stack ownership requirements; Serbia is explicitly listed."
+  }
+}
