@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-constructor-searchandizing-20260822-v3",
+  "command": "add",
+  "args": {
+    "company": "Constructor",
+    "role": "Full Stack Engineer: Searchandizing",
+    "source": "Company Careers",
+    "source_url": "https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "source_job_id": "7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "original_url": "https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Unknown",
+    "location": "Remote (Serbia eligible)",
+    "remote_policy": "Serbia",
+    "stack": "React; TypeScript; Python; APIs; Testing; CI/CD",
+    "salary": "Unknown",
+    "match_score": 7,
+    "notes": "Best current Constructor match for a junior/stretch application: frontend-led role with React and TypeScript; Python/backend experience is the main gap. First-party Ashby listing and Apply route were checked on 2026-08-22."
+  }
+}
