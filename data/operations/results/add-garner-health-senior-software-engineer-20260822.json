@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-22T21:01:19Z",
+  "job_id": "job-0351",
+  "operation_id": "add-garner-health-senior-software-engineer-20260822",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0351",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-22",
+        "job_id": "job-0351",
+        "source": "Company Careers",
+        "source_job_id": "5816910004",
+        "source_url": "https://job-boards.greenhouse.io/garnerhealth/jobs/5816910004"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

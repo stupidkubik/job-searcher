@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-22** · Jobs: **350**
+Dataset updated: **2026-08-22** · Jobs: **351**
 
-[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (304)](#archive)
+[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (305)](#archive)
 
 ## Action now
 
@@ -71,10 +71,11 @@ Dataset updated: **2026-08-22** · Jobs: **350**
 
 <details>
 
-<summary>Archive (304)</summary>
+<summary>Archive (305)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: work authorization | [Garner Health — Senior Software Engineer](<https://job-boards.greenhouse.io/garnerhealth/jobs/5816910004>) · job-0351 | work authorization | Open | 2026-08-22 |
 | Skipped: geo restriction | [Supabase — API Engineer](<https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e>) · job-0350 | geo restriction | Open | 2026-08-22 |
 | Skipped: stack mismatch | [Supabase — Anti Abuse Engineer](<https://jobs.ashbyhq.com/supabase/c59d03d5-60c4-43ce-9556-04acab8d87cb>) · job-0349 | stack mismatch | Open | 2026-08-22 |
 | Skipped: role not frontend | [Supabase — Product Designer](<https://jobs.ashbyhq.com/supabase/97fe8e68-28c5-42db-a763-60113f0b31fd>) · job-0348 | role not frontend | Open | 2026-08-22 |
