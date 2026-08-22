@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-22** · Jobs: **352**
+Dataset updated: **2026-08-22** · Jobs: **354**
 
-[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (306)](#archive)
+[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (308)](#archive)
 
 ## Action now
 
@@ -71,10 +71,12 @@ Dataset updated: **2026-08-22** · Jobs: **352**
 
 <details>
 
-<summary>Archive (306)</summary>
+<summary>Archive (308)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Nebius — Software Engineer (Early Talent)](<https://careers.nebius.com/?gh_jid=4812138101>) · job-0354 | geo restriction | Open | 2026-08-22 |
+| Skipped: geo restriction | [Nebius — Frontend Engineer - User Interface](<https://careers.nebius.com/?gh_jid=4872193101>) · job-0353 | geo restriction | Open | 2026-08-22 |
 | Skipped: work authorization | [ClickHouse — Senior Software Engineer (Typescript / FrontEnd) - AI/ML](<https://job-boards.greenhouse.io/clickhouse/jobs/5996876004>) · job-0352 | work authorization | Open | 2026-08-22 |
 | Skipped: work authorization | [Garner Health — Senior Software Engineer](<https://job-boards.greenhouse.io/garnerhealth/jobs/5816910004>) · job-0351 | work authorization | Open | 2026-08-22 |
 | Skipped: geo restriction | [Supabase — API Engineer](<https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e>) · job-0350 | geo restriction | Open | 2026-08-22 |

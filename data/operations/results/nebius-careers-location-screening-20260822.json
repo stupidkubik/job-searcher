@@ -1,0 +1,56 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-22T21:11:36Z",
+  "jobs": [],
+  "operation_id": "nebius-careers-location-screening-20260822",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4872193101",
+        "command": "add",
+        "job_id": "job-0353",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0353",
+            "source": "Company Careers",
+            "source_job_id": "4872193101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4872193101"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4812138101",
+        "command": "add",
+        "job_id": "job-0354",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0354",
+            "source": "Company Careers",
+            "source_job_id": "4812138101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4812138101"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
