@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-garner-health-senior-software-engineer-20260822",
+  "command": "add",
+  "args": {
+    "company": "Garner Health",
+    "role": "Senior Software Engineer",
+    "source": "Company Careers",
+    "source_url": "https://job-boards.greenhouse.io/garnerhealth/jobs/5816910004",
+    "source_job_id": "5816910004",
+    "original_url": "https://job-boards.greenhouse.io/garnerhealth/jobs/5816910004",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Senior",
+    "location": "Remote (United States)",
+    "remote_policy": "Country-specific",
+    "stack": "TypeScript; React; Python; Go; AWS; Kubernetes; Airflow; dbt",
+    "salary": "$200,000–$255,000/year",
+    "decision_reason": "work_authorization",
+    "notes": "Verified on 2026-08-22: the Greenhouse application form requires current US work authorization and a US state of residence. The role also requires 4+ years of engineering experience and mentoring early-career engineers."
+  }
+}
