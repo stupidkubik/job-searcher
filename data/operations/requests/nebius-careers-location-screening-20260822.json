@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "operation_id": "nebius-careers-location-screening-20260822",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "nebius:4872193101",
+      "args": {
+        "company": "Nebius",
+        "role": "Frontend Engineer - User Interface",
+        "source": "Company Careers",
+        "source_url": "https://careers.nebius.com/?gh_jid=4872193101",
+        "source_job_id": "4872193101",
+        "original_url": "https://careers.nebius.com/?gh_jid=4872193101",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Remote - United States",
+        "remote_policy": "Country-specific",
+        "stack": "Unknown",
+        "salary": "Unknown",
+        "decision_reason": "geo_restriction",
+        "notes": "Verified in Nebius official careers search on 2026-08-22: exact frontend listing is marked Remote - United States. In this Browser, the gh_jid detail route did not render description or application form, so stack and Apply availability remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "nebius:4812138101",
+      "args": {
+        "company": "Nebius",
+        "role": "Software Engineer (Early Talent)",
+        "source": "Company Careers",
+        "source_url": "https://careers.nebius.com/?gh_jid=4812138101",
+        "source_job_id": "4812138101",
+        "original_url": "https://careers.nebius.com/?gh_jid=4812138101",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Amsterdam",
+        "remote_policy": "Unclear",
+        "stack": "Unknown",
+        "salary": "Unknown",
+        "decision_reason": "geo_restriction",
+        "notes": "Verified in Nebius official careers search on 2026-08-22: exact Early Talent listing is located in Amsterdam. In this Browser, the gh_jid detail route did not render description or application form, so work format, eligibility, stack and Apply availability remain unverified."
+      }
+    }
+  ]
+}
