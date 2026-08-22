@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "operation_id": "supabase-careers-screening-20260822",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "supabase:d2707c73-fe36-4f23-b53a-dde88d7f1132",
+      "args": {
+        "company": "Supabase",
+        "role": "Commercial FinOps Lead",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/d2707c73-fe36-4f23-b53a-dde88d7f1132",
+        "source_job_id": "d2707c73-fe36-4f23-b53a-dde88d7f1132",
+        "original_url": "https://jobs.ashbyhq.com/supabase/d2707c73-fe36-4f23-b53a-dde88d7f1132",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Senior",
+        "location": "Remote, Anywhere",
+        "remote_policy": "Global",
+        "stack": "FinOps; SQL; BI; AWS; GCP; Cloudflare",
+        "salary": "Unknown",
+        "decision_reason": "role_not_frontend",
+        "notes": "Verified on 2026-08-22: global Ashby application form is live. Function-owning FinOps/vendor-management role requiring 5+ years; not a frontend position."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "supabase:59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+      "args": {
+        "company": "Supabase",
+        "role": "Senior Data Analyst - Marketing",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+        "source_job_id": "59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+        "original_url": "https://jobs.ashbyhq.com/supabase/59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Senior",
+        "location": "Remote, Anywhere",
+        "remote_policy": "Global",
+        "stack": "SQL; Python; R; Marketing Analytics; Experimentation; Media Mix Modeling",
+        "salary": "Unknown",
+        "decision_reason": "role_not_frontend",
+        "notes": "Verified on 2026-08-22: global Ashby application form is live. Senior marketing measurement role requiring 6+ years and specialised analytics experience; not frontend."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "supabase:4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+      "args": {
+        "company": "Supabase",
+        "role": "Brand Designer",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+        "source_job_id": "4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+        "original_url": "https://jobs.ashbyhq.com/supabase/4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Unknown",
+        "location": "Remote, Anywhere",
+        "remote_policy": "Global",
+        "stack": "Figma; Adobe Creative Suite; Brand Design; Print; Video",
+        "salary": "Unknown",
+        "decision_reason": "role_not_frontend",
+        "notes": "Verified on 2026-08-22: global Ashby application form is live. Brand/visual storytelling role across print, video, events and marketing assets; outside frontend target."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "supabase:97fe8e68-28c5-42db-a763-60113f0b31fd",
+      "args": {
+        "company": "Supabase",
+        "role": "Product Designer",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/97fe8e68-28c5-42db-a763-60113f0b31fd",
+        "source_job_id": "97fe8e68-28c5-42db-a763-60113f0b31fd",
+        "original_url": "https://jobs.ashbyhq.com/supabase/97fe8e68-28c5-42db-a763-60113f0b31fd",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Unknown",
+        "location": "Remote, Anywhere",
+        "remote_policy": "Global",
+        "stack": "Product Design; Figma; Prototyping; User Research; Design Systems",
+        "salary": "Unknown",
+        "decision_reason": "role_not_frontend",
+        "notes": "Verified on 2026-08-22: global Ashby application form is live. Coding with AI is mentioned, but the scope is product design, research and prototypes rather than a frontend engineering role."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "supabase:c59d03d5-60c4-43ce-9556-04acab8d87cb",
+      "args": {
+        "company": "Supabase",
+        "role": "Anti Abuse Engineer",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/c59d03d5-60c4-43ce-9556-04acab8d87cb",
+        "source_job_id": "c59d03d5-60c4-43ce-9556-04acab8d87cb",
+        "original_url": "https://jobs.ashbyhq.com/supabase/c59d03d5-60c4-43ce-9556-04acab8d87cb",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Senior",
+        "location": "Remote, Anywhere (APAC or US West Coast preferred)",
+        "remote_policy": "Global",
+        "stack": "Security Operations; Trust and Safety; SQL; Python; Incident Response; SIEM",
+        "salary": "Unknown",
+        "decision_reason": "stack_mismatch",
+        "notes": "Verified on 2026-08-22: global Ashby application form is live. Requires 3+ years in security operations, trust and safety or abuse engineering plus incident-response experience; not the frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "supabase:620bcab3-787c-4ffe-bd37-5d45e209925e",
+      "args": {
+        "company": "Supabase",
+        "role": "API Engineer",
+        "source": "Company Careers",
+        "source_url": "https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e",
+        "source_job_id": "620bcab3-787c-4ffe-bd37-5d45e209925e",
+        "original_url": "https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Senior",
+        "location": "AMER",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Node.js; NestJS; PostgreSQL; OAuth; JWT; Docker; CI/CD",
+        "salary": "Unknown",
+        "decision_reason": "geo_restriction",
+        "notes": "Verified on 2026-08-22: Ashby application form is live but the role is remote only in AMER. It also requires 5+ years of backend API development, so it is outside both geography and target level."
+      }
+    }
+  ]
+}
