@@ -1,0 +1,136 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-22T20:52:35Z",
+  "jobs": [],
+  "operation_id": "supabase-careers-screening-20260822",
+  "result": {
+    "count": 6,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:d2707c73-fe36-4f23-b53a-dde88d7f1132",
+        "command": "add",
+        "job_id": "job-0345",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0345",
+            "source": "Company Careers",
+            "source_job_id": "d2707c73-fe36-4f23-b53a-dde88d7f1132",
+            "source_url": "https://jobs.ashbyhq.com/supabase/d2707c73-fe36-4f23-b53a-dde88d7f1132"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+        "command": "add",
+        "job_id": "job-0346",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0346",
+            "source": "Company Careers",
+            "source_job_id": "59083a14-b2b6-4dd8-8037-739aa1ad1e22",
+            "source_url": "https://jobs.ashbyhq.com/supabase/59083a14-b2b6-4dd8-8037-739aa1ad1e22"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+        "command": "add",
+        "job_id": "job-0347",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0347",
+            "source": "Company Careers",
+            "source_job_id": "4a85c92b-1d0d-43ee-8dbc-0e45a58be208",
+            "source_url": "https://jobs.ashbyhq.com/supabase/4a85c92b-1d0d-43ee-8dbc-0e45a58be208"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:97fe8e68-28c5-42db-a763-60113f0b31fd",
+        "command": "add",
+        "job_id": "job-0348",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0348",
+            "source": "Company Careers",
+            "source_job_id": "97fe8e68-28c5-42db-a763-60113f0b31fd",
+            "source_url": "https://jobs.ashbyhq.com/supabase/97fe8e68-28c5-42db-a763-60113f0b31fd"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:c59d03d5-60c4-43ce-9556-04acab8d87cb",
+        "command": "add",
+        "job_id": "job-0349",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0349",
+            "source": "Company Careers",
+            "source_job_id": "c59d03d5-60c4-43ce-9556-04acab8d87cb",
+            "source_url": "https://jobs.ashbyhq.com/supabase/c59d03d5-60c4-43ce-9556-04acab8d87cb"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "supabase:620bcab3-787c-4ffe-bd37-5d45e209925e",
+        "command": "add",
+        "job_id": "job-0350",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-22",
+            "job_id": "job-0350",
+            "source": "Company Careers",
+            "source_job_id": "620bcab3-787c-4ffe-bd37-5d45e209925e",
+            "source_url": "https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

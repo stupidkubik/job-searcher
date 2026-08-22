@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-22** · Jobs: **344**
+Dataset updated: **2026-08-22** · Jobs: **350**
 
-[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (298)](#archive)
+[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (304)](#archive)
 
 ## Action now
 
@@ -71,10 +71,16 @@ Dataset updated: **2026-08-22** · Jobs: **344**
 
 <details>
 
-<summary>Archive (298)</summary>
+<summary>Archive (304)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Supabase — API Engineer](<https://jobs.ashbyhq.com/supabase/620bcab3-787c-4ffe-bd37-5d45e209925e>) · job-0350 | geo restriction | Open | 2026-08-22 |
+| Skipped: stack mismatch | [Supabase — Anti Abuse Engineer](<https://jobs.ashbyhq.com/supabase/c59d03d5-60c4-43ce-9556-04acab8d87cb>) · job-0349 | stack mismatch | Open | 2026-08-22 |
+| Skipped: role not frontend | [Supabase — Product Designer](<https://jobs.ashbyhq.com/supabase/97fe8e68-28c5-42db-a763-60113f0b31fd>) · job-0348 | role not frontend | Open | 2026-08-22 |
+| Skipped: role not frontend | [Supabase — Brand Designer](<https://jobs.ashbyhq.com/supabase/4a85c92b-1d0d-43ee-8dbc-0e45a58be208>) · job-0347 | role not frontend | Open | 2026-08-22 |
+| Skipped: role not frontend | [Supabase — Senior Data Analyst - Marketing](<https://jobs.ashbyhq.com/supabase/59083a14-b2b6-4dd8-8037-739aa1ad1e22>) · job-0346 | role not frontend | Open | 2026-08-22 |
+| Skipped: role not frontend | [Supabase — Commercial FinOps Lead](<https://jobs.ashbyhq.com/supabase/d2707c73-fe36-4f23-b53a-dde88d7f1132>) · job-0345 | role not frontend | Open | 2026-08-22 |
 | Skipped: other | [Undisclosed (hirify-814491) — Junior Frontend Developer (React)](<https://hirify.me/jobs/814491-junior-frontend-developer-react>) · job-0343 | other | Not checked | 2026-08-21 |
 | Skipped: other | [Interview Copilot AI — Frontend Engineer (React)](<https://hirify.me/jobs/904774-frontend-engineer-react>) · job-0342 | other | Not checked | 2026-08-21 |
 | Skipped: geo restriction | [Aist.tech — React JS Разработчик (React)](<https://hirify.me/jobs/823302-react-frontend-developer>) · job-0341 | geo restriction | Not checked | 2026-08-21 |
