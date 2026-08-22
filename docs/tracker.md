@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-21** · Jobs: **343**
+Dataset updated: **2026-08-22** · Jobs: **344**
 
-[Action now (4)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (298)](#archive)
+[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (298)](#archive)
 
 ## Action now
 
@@ -14,6 +14,7 @@ Dataset updated: **2026-08-21** · Jobs: **343**
 | Reviewing | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | 8.5 | — | Open | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
 | Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
+| Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
 
 ## Applications
 

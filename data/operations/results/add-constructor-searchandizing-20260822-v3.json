@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-22T20:40:33Z",
+  "job_id": "job-0344",
+  "operation_id": "add-constructor-searchandizing-20260822-v3",
+  "result": {
+    "application_path": "applications/job-0344-constructor-full-stack-engineer-searchan.md",
+    "application_status": "reviewing",
+    "job_id": "job-0344",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-22",
+        "job_id": "job-0344",
+        "source": "Company Careers",
+        "source_job_id": "7fe40d9e-a06b-4f8b-963b-7b5d172a2f78",
+        "source_url": "https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
