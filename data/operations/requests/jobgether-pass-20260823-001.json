@@ -1,0 +1,179 @@
+{
+  "version": 1,
+  "operation_id": "jobgether-pass-20260823-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a3ec5572da8cde35c769a56",
+      "args": {
+        "company": "Fintros",
+        "role": "React Developer",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a3ec5572da8cde35c769a56-react-developer-at-fintros",
+        "source_job_id": "6a3ec5572da8cde35c769a56",
+        "original_url": "https://fintros.breezy.hr/p/d68f6eda2bce-react-developer",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Junior",
+        "location": "Remote (any location)",
+        "remote_policy": "Global",
+        "stack": "Next.js; TypeScript; React; React Hooks; GraphQL; Apollo Client; Styled Components; Jest; AWS; Vercel",
+        "match_score": 9,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "next_action": "review stale-looking 2021 copy before applying",
+        "notes": "Jobgether labels the card 30+ days old, while the description still references a September 2021 launch. The exact Fintros Breezy listing and public application form were nevertheless live on 2026-08-23 and state Remote (any location). Strong junior React/Next.js fit; confirm the team is actively hiring before investing in the application."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a6ab74d1b23f4f87b465cb4",
+      "args": {
+        "company": "Itconsulting",
+        "role": "Junior Angular/React Developer",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a6ab74d1b23f4f87b465cb4-junior-angular-react-developer",
+        "source_job_id": "6a6ab74d1b23f4f87b465cb4",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "Remote (Jobgether claim)",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; HTML; CSS; Angular; React; Vue.js; WordPress",
+        "decision_reason": "other",
+        "notes": "Jobgether says worldwide remote and 1+ year, but the role requires Italian. The employer site has only generic career profiles and no exact vacancy or public Apply route, so current status and geography remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a88fbb51de6f4542a4e5a53",
+      "args": {
+        "company": "Karaz Platform منصة كرز",
+        "role": "Frontend Developer (Next.js) – Junior to Senior",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a88fbb51de6f4542a4e5a53-frontend-developer-next.js---junior-to-senior",
+        "source_job_id": "6a88fbb51de6f4542a4e5a53",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "Remote worldwide (Jobgether claim)",
+        "remote_policy": "Unclear",
+        "stack": "Next.js; React; TypeScript; JavaScript; HTML; CSS; Tailwind CSS; Frontend Testing; REST APIs",
+        "next_action": "find exact employer vacancy or public Apply route",
+        "notes": "Excellent stack and level fit in a fresh Jobgether card, with USD-based negotiable salary and work-from-anywhere language. Karaz's official product site is live but exposes no careers page, exact requisition or application route; Jobgether itself shows no Apply link."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a7fc14e490731f1e1a1b615",
+      "args": {
+        "company": "Digisperts Technology Company Limited",
+        "role": "Frontend Developer Intern",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a7fc14e490731f1e1a1b615-frontend-developer-intern",
+        "source_job_id": "6a7fc14e490731f1e1a1b615",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "Remote worldwide (Jobgether claim)",
+        "remote_policy": "Unclear",
+        "stack": "HTML; CSS; JavaScript; Responsive Web Design; Git",
+        "salary": "₦20,000/month professional-development allowance",
+        "decision_reason": "salary_too_low",
+        "notes": "Six-month internship with only a ₦20,000 monthly professional-development allowance, far below the profile minimum. The employer website returned a certificate/502 error, so first-party status and Apply could not be verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:69a521217f0cfae7f125f324",
+      "args": {
+        "company": "TALPRO INDIA PRIVATE LIMITED",
+        "role": "Front End Developer - NextJS",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/69a521217f0cfae7f125f324-front-end-developer---nextjs",
+        "source_job_id": "69a521217f0cfae7f125f324",
+        "original_url": "https://talproindia.zohorecruit.in/jobs/Careers/28024000016716129/",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Middle",
+        "location": "Remote (country unspecified)",
+        "remote_policy": "Unclear",
+        "stack": "HTML; CSS; JavaScript; React; Next.js; Angular; Vue.js; Git; Sass; Webpack; REST APIs",
+        "posted_at": "2024-06-14",
+        "match_score": 6,
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "next_action": "confirm requisition is active and Serbia is eligible",
+        "notes": "Official Zoho requisition is still rendered and exposes an application entry point, but it was posted on 2024-06-14, requires at least 3 years of frontend experience, and gives no eligible-country detail. Jobgether incorrectly classifies it as entry-level and worldwide."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a5a66c3ac00a71a5a98ce0e",
+      "args": {
+        "company": "FlexiSAF Edusoft Limited",
+        "role": "AI Native Frontend Development Intern",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a5a66c3ac00a71a5a98ce0e-ai-native-frontend-development-intern",
+        "source_job_id": "6a5a66c3ac00a71a5a98ce0e",
+        "original_url": "https://flexisaf.zohorecruit.com/jobs/Careers/440366000014982027/",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "level": "Intern",
+        "location": "Remote (Jobgether claim)",
+        "remote_policy": "Unclear",
+        "stack": "HTML; CSS; JavaScript; React; AI-assisted Development",
+        "salary": "Unpaid",
+        "decision_reason": "closed_before_application",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "notes": "Jobgether still lists the September-December 2026 unpaid cohort, but the exact official FlexiSAF Zoho page says the posting is no longer available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a6aa9401b23f4f87b46203e",
+      "args": {
+        "company": "NirApad9",
+        "role": "Front End Developer - Internship",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a6aa9401b23f4f87b46203e-front-end-developer---internship",
+        "source_job_id": "6a6aa9401b23f4f87b46203e",
+        "original_url": "https://nirapad9.zohorecruit.com/jobs/Careers/624025000005578001/",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Intern",
+        "location": "Remote (country unspecified)",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; React; HTML; CSS; Git; Webpack; CI/CD; REST APIs",
+        "salary": "Volunteer / unpaid",
+        "posted_at": "2024-08-26",
+        "decision_reason": "salary_too_low",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "The official Zoho requisition remains live with an application button, but it is explicitly a volunteer unpaid internship and was posted on 2024-08-26."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jobgether:6a58f90bac00a71a5a9559e4",
+      "args": {
+        "company": "Orion Innovation",
+        "role": "Software Engineer Intern - Bioinformatics & Genomics",
+        "source": "Other",
+        "source_url": "https://jobgether.com/offer/6a58f90bac00a71a5a9559e4-software-engineer-intern---bioinformatics-genomics",
+        "source_job_id": "6a58f90bac00a71a5a9559e4",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "Serbia",
+        "remote_policy": "Serbia",
+        "stack": "Python; Java; JavaScript; TypeScript; React; Angular; SQL; AWS; CI/CD; Bioinformatics",
+        "decision_reason": "other",
+        "notes": "Serbia-compatible internship, but applicants must currently be enrolled in an undergraduate or graduate program and the work is primarily bioinformatics/backend rather than frontend. Jobgether exposes no exact official Apply route, so employer status remains unverified."
+      }
+    }
+  ]
+}
