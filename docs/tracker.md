@@ -2,7 +2,7 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-22** · Jobs: **354**
+Dataset updated: **2026-08-23** · Jobs: **354**
 
 [Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (308)](#archive)
 
@@ -21,21 +21,16 @@ Dataset updated: **2026-08-22** · Jobs: **354**
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
 | Applied | [CVAT.ai — Frontend Developer](<https://www.cvat.ai/job/frontend-developer>) · job-0001 | Applied | 2026-08-09 | follow-up · 2026-08-16 | — |
-| Applied | [Nortal — AI - Driven FrontEnd Developer](<https://nortal.career.page/talent-community/jobs/5958?lang=en-us>) · job-0056 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [TransPerfect / Avatria — Commerce & Content Front End Technical Consultant](<https://transperfect.recruitee.com/o/commerce-and-content-front-end-technical-consultant-contractor-freelancer>) · job-0064 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [Zoftify — Travel Software Development — Frontend Developer (React)](<https://zoftify.bamboohr.com/careers/29/>) · job-0078 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
-| Applied | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | Applied | 2026-08-18 | — | [Open](../applications/job-0218-nove8-front-end-developer.md) |
-| Applied | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
-| Applied | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | Applied | 2026-08-17 | — | [Open](../applications/job-0219-addi-frontend-engineer-ic2.md) |
 | Applied | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | Applied | 2026-08-17 | — | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
-| Applied | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | Applied | 2026-08-17 | — | [Open](../applications/job-0257-unknown-senior-frontend-engineer-ai.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
 | Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
 | Applied | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | — |
@@ -54,6 +49,11 @@ Dataset updated: **2026-08-22** · Jobs: **354**
 | Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
 | Applied | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
 | Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
+| Rejected | [Nortal — AI - Driven FrontEnd Developer](<https://nortal.career.page/talent-community/jobs/5958?lang=en-us>) · job-0056 | Applied | 2026-08-10 | — | [Open](../applications/job-0056-nortal-ai-driven-frontend-developer.md) |
+| Rejected | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
+| Rejected | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | Applied | 2026-08-18 | — | [Open](../applications/job-0218-nove8-front-end-developer.md) |
+| Rejected | [Addi — Frontend Engineer IC2](<https://jobs.ashbyhq.com/addi/6534a249-6193-479c-a60a-722a984311ef>) · job-0219 | Applied | 2026-08-17 | — | [Open](../applications/job-0219-addi-frontend-engineer-ic2.md) |
+| Rejected | [Unknown — Senior Frontend Engineer (AI)](<https://hirify.me/jobs/761916-senior-frontend-engineer-ai>) · job-0257 | Applied | 2026-08-17 | — | [Open](../applications/job-0257-unknown-senior-frontend-engineer-ai.md) |
 | Rejected | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | [Open](../applications/job-0053-storyteller-ai-operations-manager.md) |
 | Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
 | Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
