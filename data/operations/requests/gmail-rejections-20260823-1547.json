@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "operation_id": "gmail-rejections-20260823-1547",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0056",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-16"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-20"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0145",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-19"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0218",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-18"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-18"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0219",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-18"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0257",
+      "expected": {
+        "application_status": "applied",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "application_status": "rejected",
+        "confirmed_by_user": true,
+        "response_at": "2026-08-18"
+      }
+    }
+  ]
+}
