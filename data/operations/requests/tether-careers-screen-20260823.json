@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "operation_id": "tether-careers-screen-20260823",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "tether:bare-developer-100-remote-worldwide-c-javascript-4",
+      "args": {
+        "company": "Tether Operations Limited",
+        "role": "Bare Developer (100% Remote - Worldwide) - C / JavaScript",
+        "source": "Company Careers",
+        "source_url": "https://careers.tether.io/o/bare-developer-100-remote-worldwide-c-javascript-4",
+        "source_job_id": "bare-developer-100-remote-worldwide-c-javascript-4",
+        "original_url": "https://careers.tether.io/o/bare-developer-100-remote-worldwide-c-javascript-4",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Unknown",
+        "remote_policy": "Global",
+        "stack": "C; JavaScript; Node.js; Native Addons; N-API; node-gyp; libuv; Cross-compilation",
+        "decision_reason": "stack_mismatch",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Live official Recruitee listing and working application form verified 2026-08-23. This is a systems/runtime role requiring strong cross-platform C, native addons, libuv, Node.js internals, mobile toolchains and cross-compilation; JavaScript overlap alone is insufficient."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "tether:research-engineer-intern-videomultimodal-llm-remote",
+      "args": {
+        "company": "Tether Operations Limited",
+        "role": "Research Engineer Intern (Multimodal LLM)",
+        "source": "Company Careers",
+        "source_url": "https://careers.tether.io/o/research-engineer-intern-videomultimodal-llm-remote",
+        "source_job_id": "research-engineer-intern-videomultimodal-llm-remote",
+        "original_url": "https://careers.tether.io/o/research-engineer-intern-videomultimodal-llm-remote",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Intern",
+        "remote_policy": "Unclear",
+        "stack": "Python; PyTorch; LLM; Computer Vision; Multimodal Models; Distributed Training",
+        "decision_reason": "stack_mismatch",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Live official listing and working application form verified 2026-08-23. Internship is for current MSc/PhD candidates with PyTorch and LLM, computer-vision or multimodal research experience; it is unrelated to the frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "tether:p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+      "args": {
+        "company": "Tether Operations Limited",
+        "role": "P2P Node.js Engineer - Holepunch (100% Remote, Worldwide)",
+        "source": "Company Careers",
+        "source_url": "https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+        "source_job_id": "p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+        "original_url": "https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Senior",
+        "remote_policy": "Global",
+        "stack": "JavaScript; Node.js; P2P; Kademlia; BitTorrent; libp2p; Hypercore; UDP; TCP/IP; Cryptography; C; libuv",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Live official listing and working application form verified 2026-08-23. Requires extensive P2P/network-protocol expertise and prefers 5+ years building production P2P or distributed systems; it is not a junior frontend role."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "tether:software-engineer-p2p-search-team-100-remote-worldwide",
+      "args": {
+        "company": "Tether Operations Limited",
+        "role": "Software Engineer P2P - Search Team (100% Remote, Worldwide)",
+        "source": "Company Careers",
+        "source_url": "https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide",
+        "source_job_id": "software-engineer-p2p-search-team-100-remote-worldwide",
+        "original_url": "https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Unknown",
+        "remote_policy": "Global",
+        "stack": "P2P; Kademlia DHT; Distributed Indexing; Distributed Databases; CRDTs; TCP/IP; Search Engines; Hypercore; Hyperswarm",
+        "decision_reason": "role_not_frontend",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Live official listing and working application form verified 2026-08-23. The role is deep distributed-systems and P2P search engineering with no frontend scope; requirements include DHTs, CRDTs, network protocols and high-performance concurrent networking."
+      }
+    }
+  ]
+}
