@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-23** · Jobs: **354**
+Dataset updated: **2026-08-23** · Jobs: **358**
 
-[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (308)](#archive)
+[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (312)](#archive)
 
 ## Action now
 
@@ -71,10 +71,14 @@ Dataset updated: **2026-08-23** · Jobs: **354**
 
 <details>
 
-<summary>Archive (308)</summary>
+<summary>Archive (312)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Tether Operations Limited — Software Engineer P2P - Search Team (100% Remote, Worldwide)](<https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide>) · job-0358 | role not frontend | Open | 2026-08-23 |
+| Skipped: seniority too high | [Tether Operations Limited — P2P Node.js Engineer - Holepunch (100% Remote, Worldwide)](<https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide>) · job-0357 | seniority too high | Open | 2026-08-23 |
+| Skipped: stack mismatch | [Tether Operations Limited — Research Engineer Intern (Multimodal LLM)](<https://careers.tether.io/o/research-engineer-intern-videomultimodal-llm-remote>) · job-0356 | stack mismatch | Open | 2026-08-23 |
+| Skipped: stack mismatch | [Tether Operations Limited — Bare Developer (100% Remote - Worldwide) - C / JavaScript](<https://careers.tether.io/o/bare-developer-100-remote-worldwide-c-javascript-4>) · job-0355 | stack mismatch | Open | 2026-08-23 |
 | Skipped: geo restriction | [Nebius — Software Engineer (Early Talent)](<https://careers.nebius.com/?gh_jid=4812138101>) · job-0354 | geo restriction | Open | 2026-08-22 |
 | Skipped: geo restriction | [Nebius — Frontend Engineer - User Interface](<https://careers.nebius.com/?gh_jid=4872193101>) · job-0353 | geo restriction | Open | 2026-08-22 |
 | Skipped: work authorization | [ClickHouse — Senior Software Engineer (Typescript / FrontEnd) - AI/ML](<https://job-boards.greenhouse.io/clickhouse/jobs/5996876004>) · job-0352 | work authorization | Open | 2026-08-22 |

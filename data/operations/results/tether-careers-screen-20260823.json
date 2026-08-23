@@ -1,0 +1,96 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-23T14:12:06Z",
+  "jobs": [],
+  "operation_id": "tether-careers-screen-20260823",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tether:bare-developer-100-remote-worldwide-c-javascript-4",
+        "command": "add",
+        "job_id": "job-0355",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0355",
+            "source": "Company Careers",
+            "source_job_id": "bare-developer-100-remote-worldwide-c-javascript-4",
+            "source_url": "https://careers.tether.io/o/bare-developer-100-remote-worldwide-c-javascript-4"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tether:research-engineer-intern-videomultimodal-llm-remote",
+        "command": "add",
+        "job_id": "job-0356",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0356",
+            "source": "Company Careers",
+            "source_job_id": "research-engineer-intern-videomultimodal-llm-remote",
+            "source_url": "https://careers.tether.io/o/research-engineer-intern-videomultimodal-llm-remote"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tether:p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+        "command": "add",
+        "job_id": "job-0357",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0357",
+            "source": "Company Careers",
+            "source_job_id": "p2p-nodejs-engineer-holepunch-100-remote-worldwide",
+            "source_url": "https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tether:software-engineer-p2p-search-team-100-remote-worldwide",
+        "command": "add",
+        "job_id": "job-0358",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0358",
+            "source": "Company Careers",
+            "source_job_id": "software-engineer-p2p-search-team-100-remote-worldwide",
+            "source_url": "https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
