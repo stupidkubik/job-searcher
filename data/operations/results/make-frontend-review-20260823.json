@@ -1,0 +1,76 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-23T20:43:55Z",
+  "jobs": [],
+  "operation_id": "make-frontend-review-20260823",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": "applications/job-0359-make-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "make:frontend-engineer",
+        "command": "add",
+        "job_id": "job-0359",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0359",
+            "source": "Company Careers",
+            "source_job_id": "frontend-engineer",
+            "source_url": "https://make.recruitee.com/o/frontend-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0360-make-frontend-engineer-freelance.md",
+        "application_status": "reviewing",
+        "client_ref": "make:frontend-engineer-freelance",
+        "command": "add",
+        "job_id": "job-0360",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0360",
+            "source": "Company Careers",
+            "source_job_id": "frontend-engineer-freelance",
+            "source_url": "https://make.recruitee.com/o/frontend-engineer-freelance"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0361-make-general-application-remote-g.md",
+        "application_status": "reviewing",
+        "client_ref": "make:general-application",
+        "command": "add",
+        "job_id": "job-0361",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-23",
+            "job_id": "job-0361",
+            "source": "Company Careers",
+            "source_job_id": "general-application",
+            "source_url": "https://make.recruitee.com/o/general-application"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

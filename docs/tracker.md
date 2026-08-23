@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-23** · Jobs: **358**
+Dataset updated: **2026-08-23** · Jobs: **361**
 
-[Action now (5)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (312)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (4)](#to-verify) · [Archive (312)](#archive)
 
 ## Action now
 
@@ -13,8 +13,11 @@ Dataset updated: **2026-08-23** · Jobs: **358**
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Reviewing | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | 8.5 | — | Open | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
 | Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
+| Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
+| Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
+| Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
 
 ## Applications
 
