@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "add-saldo-ai-junior-fullstack-20260823",
+  "command": "add",
+  "args": {
+    "company": "Сальдо",
+    "role": "AI Junior+ Full-stack Developer",
+    "source": "Other",
+    "source_url": "https://career.habr.com/vacancies/1000168143",
+    "source_job_id": "1000168143",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "level": "Junior+",
+    "location": "Remote",
+    "remote_policy": "Unclear",
+    "stack": "JavaScript; TypeScript; React; Vue; REST API; Git; LLM API; Agentic systems; Telegram Bot API; Databases",
+    "salary": "$450-$800/month, part-time 4h/day",
+    "posted_at": "2026-08-11",
+    "match_score": 6.5,
+    "first_party_verified": "no",
+    "apply_verified": "unknown",
+    "notes": "Habr Career listing is open and shows a guest application form. Employer website saldo.chat has no careers section. Part-time 5/2, 4 hours/day; high-risk niche; salary paid in USDT BEP20."
+  }
+}
