@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-08-23T21:47:04Z",
+  "job_id": "job-0362",
+  "operation_id": "add-saldo-ai-junior-fullstack-20260823",
+  "result": {
+    "application_path": "applications/job-0362-сальдо-ai-junior-full-stack-develop.md",
+    "application_status": "reviewing",
+    "job_id": "job-0362",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-08-23",
+        "job_id": "job-0362",
+        "source": "Other",
+        "source_job_id": "1000168143",
+        "source_url": "https://career.habr.com/vacancies/1000168143"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
