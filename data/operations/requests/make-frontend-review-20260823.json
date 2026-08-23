@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "operation_id": "make-frontend-review-20260823",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "make:frontend-engineer",
+      "args": {
+        "company": "Make",
+        "role": "Frontend Engineer",
+        "source": "Company Careers",
+        "source_url": "https://make.recruitee.com/o/frontend-engineer",
+        "source_job_id": "frontend-engineer",
+        "original_url": "https://make.recruitee.com/o/frontend-engineer",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote worldwide; 2–3 hours daily Central Time overlap",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; APIs; Testing; Cursor; Claude Code; Codex; AI-assisted Development",
+        "salary": "Unknown",
+        "match_score": 6.5,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Official Recruitee listing and application form verified 2026-08-23. Strong stack and AI-workflow fit, but the role explicitly requires 5+ years of frontend, 2+ years of React, a large-scale system built from scratch, and highly independent ownership. Form requires agency/external-client experience and a short video."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "make:frontend-engineer-freelance",
+      "args": {
+        "company": "Make",
+        "role": "Frontend Engineer (Freelance)",
+        "source": "Company Careers",
+        "source_url": "https://make.recruitee.com/o/frontend-engineer-freelance",
+        "source_job_id": "frontend-engineer-freelance",
+        "original_url": "https://make.recruitee.com/o/frontend-engineer-freelance",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote worldwide; 2–3 hours daily Central Time overlap",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; APIs; Testing; Cursor; Claude Code; Codex; AI-assisted Development",
+        "salary": "Unknown",
+        "match_score": 7,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Official Recruitee listing and application form verified 2026-08-23. Full-time freelance project runs August–December 2026 and is globally remote. Same 5+ years frontend, 2+ years React, large-scale-from-scratch and autonomous-ownership requirements as the permanent role. Form asks about full-time availability and requires a short video."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "make:general-application",
+      "args": {
+        "company": "Make",
+        "role": "General Application - Remote (global)",
+        "source": "Company Careers",
+        "source_url": "https://make.recruitee.com/o/general-application",
+        "source_job_id": "general-application",
+        "original_url": "https://make.recruitee.com/o/general-application",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Unknown",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "Frontend Engineering; React; TypeScript; AI-assisted Development",
+        "salary": "Unknown",
+        "match_score": 8,
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Official global talent-pool listing and application form verified 2026-08-23. The form explicitly asks for area of expertise and desired role/seniority, making it the clearest route to request Junior/Junior+ frontend consideration. Requires CV and a short video covering goals, strengths, largest project and workplace values."
+      }
+    }
+  ]
+}
