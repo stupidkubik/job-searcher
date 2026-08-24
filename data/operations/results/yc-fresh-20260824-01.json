@@ -1,0 +1,176 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-24T15:49:48Z",
+  "jobs": [],
+  "operation_id": "yc-fresh-20260824-01",
+  "result": {
+    "count": 8,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:RCbNRRq",
+        "command": "add",
+        "job_id": "job-0382",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0382",
+            "source": "YC Work at a Startup",
+            "source_job_id": "RCbNRRq",
+            "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/RCbNRRq-software-engineering-intern"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:xLdkDw5",
+        "command": "add",
+        "job_id": "job-0383",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0383",
+            "source": "YC Work at a Startup",
+            "source_job_id": "xLdkDw5",
+            "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/xLdkDw5-founding-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:dk1ep2K",
+        "command": "add",
+        "job_id": "job-0384",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0384",
+            "source": "YC Work at a Startup",
+            "source_job_id": "dk1ep2K",
+            "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/dk1ep2K-gtm-engineer-intern"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:Qque3dk",
+        "command": "add",
+        "job_id": "job-0385",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0385",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Qque3dk",
+            "source_url": "https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:5Schb9r",
+        "command": "add",
+        "job_id": "job-0386",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0386",
+            "source": "YC Work at a Startup",
+            "source_job_id": "5Schb9r",
+            "source_url": "https://www.ycombinator.com/companies/pax/jobs/5Schb9r-software-engineer-early-career"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:X07JUDl",
+        "command": "add",
+        "job_id": "job-0387",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0387",
+            "source": "YC Work at a Startup",
+            "source_job_id": "X07JUDl",
+            "source_url": "https://www.ycombinator.com/companies/caribou/jobs/X07JUDl-full-stack-software-engineer-frontend-leaning"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:pBZFivv",
+        "command": "add",
+        "job_id": "job-0388",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0388",
+            "source": "YC Work at a Startup",
+            "source_job_id": "pBZFivv",
+            "source_url": "https://www.ycombinator.com/companies/seeing-systems/jobs/pBZFivv-software-engineering-intern"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:sHSh8zw",
+        "command": "add",
+        "job_id": "job-0389",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0389",
+            "source": "YC Work at a Startup",
+            "source_job_id": "sHSh8zw",
+            "source_url": "https://www.ycombinator.com/companies/clinikally/jobs/sHSh8zw-frontend-engineer"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

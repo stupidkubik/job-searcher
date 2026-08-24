@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **381**
+Dataset updated: **2026-08-24** · Jobs: **389**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (328)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (336)](#archive)
 
 ## Action now
 
@@ -78,10 +78,18 @@ Dataset updated: **2026-08-24** · Jobs: **381**
 
 <details>
 
-<summary>Archive (328)</summary>
+<summary>Archive (336)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Clinikally — Frontend Engineer](<https://www.ycombinator.com/companies/clinikally/jobs/sHSh8zw-frontend-engineer>) · job-0389 | geo restriction | Not checked | 2026-08-24 |
+| Skipped: role not frontend | [Seeing Systems — Software Engineering Intern](<https://www.ycombinator.com/companies/seeing-systems/jobs/pBZFivv-software-engineering-intern>) · job-0388 | role not frontend | Not checked | 2026-08-24 |
+| Skipped: geo restriction | [Caribou — Full Stack Software Engineer (Frontend-leaning)](<https://www.ycombinator.com/companies/caribou/jobs/X07JUDl-full-stack-software-engineer-frontend-leaning>) · job-0387 | geo restriction | Not checked | 2026-08-24 |
+| Skipped: geo restriction | [Pax — Software Engineer (Early Career)](<https://www.ycombinator.com/companies/pax/jobs/5Schb9r-software-engineer-early-career>) · job-0386 | geo restriction | Not checked | 2026-08-24 |
+| Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-08-24 |
+| Skipped: role not frontend | [TraceRoot.AI — GTM Engineer Intern](<https://www.ycombinator.com/companies/traceroot-ai/jobs/dk1ep2K-gtm-engineer-intern>) · job-0384 | role not frontend | Not checked | 2026-08-24 |
+| Skipped: geo restriction | [TraceRoot.AI — Founding Engineer](<https://www.ycombinator.com/companies/traceroot-ai/jobs/xLdkDw5-founding-engineer>) · job-0383 | geo restriction | Not checked | 2026-08-24 |
+| Skipped: geo restriction | [TraceRoot.AI — Software Engineering Intern](<https://www.ycombinator.com/companies/traceroot-ai/jobs/RCbNRRq-software-engineering-intern>) · job-0382 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: salary too low | [SIL International — Web Developer](<https://wycliffe.wd1.myworkdayjobs.com/SIL_Careers/job/Worldwide/Web-Developer_R11565-2>) · job-0381 | salary too low | Open | 2026-08-24 |
 | Closed | [ApplyChill — Vibecoder](<https://www.linkedin.com/jobs/view/4452897796/>) · job-0379 | closed before application | Closed | 2026-08-24 |
 | Skipped: stack mismatch | [SAP Fioneer — SAP Fiori Developer](<https://www.linkedin.com/jobs/view/4456213512/>) · job-0378 | stack mismatch | Open | 2026-08-24 |
