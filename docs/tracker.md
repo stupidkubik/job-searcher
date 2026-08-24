@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **393**
+Dataset updated: **2026-08-24** · Jobs: **394**
 
-[Action now (10)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (338)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (338)](#archive)
 
 ## Action now
 
@@ -20,6 +20,7 @@ Dataset updated: **2026-08-24** · Jobs: **393**
 | Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
 | Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
 | Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
+| Reviewing | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | 5.5 | — | Open | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
 
 ## Applications
 
