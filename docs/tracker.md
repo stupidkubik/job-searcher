@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **363**
+Dataset updated: **2026-08-24** · Jobs: **369**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (5)](#to-verify) · [Archive (313)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (7)](#to-verify) · [Archive (317)](#archive)
 
 ## Action now
 
@@ -65,7 +65,9 @@ Dataset updated: **2026-08-24** · Jobs: **363**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
+| Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
@@ -75,10 +77,14 @@ Dataset updated: **2026-08-24** · Jobs: **363**
 
 <details>
 
-<summary>Archive (313)</summary>
+<summary>Archive (317)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: salary too low | [PeakTew — Flutter Front End Developer I Mobile app & website](<https://wellfound.com/jobs/4538951-flutter-front-end-developer-i-mobile-app-website>) · job-0369 | salary too low | Open | 2026-08-24 |
+| Skipped: geo restriction | [Fitmate Coach — Junior Frontend Software Engineer](<https://careers.fitmatecoach.com/roles/junior-frontend-developer?utm_source=wellfound&utm_medium=post>) · job-0368 | geo restriction | Open | 2026-08-24 |
+| Skipped: seniority too high | [Horizon Asset Investments — Front-End Developer (Full-Time, Remote)](<https://wellfound.com/jobs/4584341-front-end-developer-full-time-remote>) · job-0366 | seniority too high | Open | 2026-08-24 |
+| Skipped: salary too low | [Scanwick — Founding Frontend Engineer](<https://wellfound.com/jobs/4551014-founding-frontend-engineer>) · job-0365 | salary too low | Open | 2026-08-24 |
 | Skipped: geo restriction | [Undisclosed healthcare / biotech company — Junior SharePoint Dashboard Developer](<https://hirify.me/jobs/915722-junior-sharepoint-dashboard-developer-sharepoint>) · job-0363 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: role not frontend | [Tether Operations Limited — Software Engineer P2P - Search Team (100% Remote, Worldwide)](<https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide>) · job-0358 | role not frontend | Open | 2026-08-23 |
 | Skipped: seniority too high | [Tether Operations Limited — P2P Node.js Engineer - Holepunch (100% Remote, Worldwide)](<https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide>) · job-0357 | seniority too high | Open | 2026-08-23 |
