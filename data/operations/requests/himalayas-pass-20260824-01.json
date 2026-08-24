@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-pass-20260824-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "himalayas:talent-sam:front-end-developer",
+      "args": {
+        "company": "Talent Sam",
+        "role": "Front-End Developer",
+        "source": "Himalayas",
+        "source_url": "https://himalayas.app/companies/talent-sam/jobs/front-end-developer",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Worldwide",
+        "remote_policy": "Global",
+        "stack": "HTML5; CSS3; JavaScript; TypeScript; React; Angular; Vue.js; REST APIs; Git; GitHub; Tailwind CSS; Material UI; Responsive Design; Web Accessibility",
+        "salary": "Unknown",
+        "posted_at": "2026-08-21",
+        "match_score": 7.5,
+        "next_action": "verify first-party Apply route",
+        "notes": "Himalayas exact card is open to all countries and lists a matching frontend stack. Himalayas Apply routes to a Himalayas sign-up gate, so the employer ATS and application availability remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:sil-international:web-developer",
+      "args": {
+        "company": "SIL International",
+        "role": "Web Developer",
+        "source": "Himalayas",
+        "source_url": "https://himalayas.app/companies/sil-international/jobs/web-developer",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Worldwide",
+        "remote_policy": "Global",
+        "stack": "JavaScript; HTML; CSS; WordPress; PHP; APIs; SEO",
+        "salary": "Volunteer",
+        "posted_at": "2026-08-22",
+        "match_score": 3,
+        "decision_reason": "salary_too_low",
+        "notes": "Exact Himalayas card says Position Type: Volunteer and describes a 40-hour weekly commitment. This is below the minimum compensation requirement."
+      }
+    }
+  ]
+}
