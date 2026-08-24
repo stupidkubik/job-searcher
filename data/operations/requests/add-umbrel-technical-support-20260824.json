@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "operation_id": "add-umbrel-technical-support-20260824",
+  "command": "add",
+  "args": {
+    "company": "Umbrel",
+    "role": "Customer Support (technical)",
+    "source": "Company Careers",
+    "source_url": "https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474",
+    "source_job_id": "127412b8-7730-4311-9be2-2977806a0474",
+    "original_url": "https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "location": "Remote",
+    "remote_policy": "Unclear",
+    "level": "Unknown",
+    "stack": "Linux; SSH; Terminal; Technical Support; Discord",
+    "salary": "Unknown",
+    "found_at": "2026-08-24",
+    "match_score": 5.5,
+    "verified_at": "2026-08-24",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "notes": "Official Ashby listing is open and the application form loads. The role is technical customer support rather than frontend development. Relevant overlap: written communication, user-facing support, documentation, debugging with engineers, and basic Linux/SSH/Terminal skills. The listing says Remote but does not state eligible countries, so geographic eligibility remains unclear."
+  }
+}
