@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-23** · Jobs: **362**
+Dataset updated: **2026-08-24** · Jobs: **363**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (5)](#to-verify) · [Archive (312)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (5)](#to-verify) · [Archive (313)](#archive)
 
 ## Action now
 
@@ -75,10 +75,11 @@ Dataset updated: **2026-08-23** · Jobs: **362**
 
 <details>
 
-<summary>Archive (312)</summary>
+<summary>Archive (313)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Undisclosed healthcare / biotech company — Junior SharePoint Dashboard Developer](<https://hirify.me/jobs/915722-junior-sharepoint-dashboard-developer-sharepoint>) · job-0363 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: role not frontend | [Tether Operations Limited — Software Engineer P2P - Search Team (100% Remote, Worldwide)](<https://careers.tether.io/o/software-engineer-p2p-search-team-100-remote-worldwide>) · job-0358 | role not frontend | Open | 2026-08-23 |
 | Skipped: seniority too high | [Tether Operations Limited — P2P Node.js Engineer - Holepunch (100% Remote, Worldwide)](<https://careers.tether.io/o/p2p-nodejs-engineer-holepunch-100-remote-worldwide>) · job-0357 | seniority too high | Open | 2026-08-23 |
 | Skipped: stack mismatch | [Tether Operations Limited — Research Engineer Intern (Multimodal LLM)](<https://careers.tether.io/o/research-engineer-intern-videomultimodal-llm-remote>) · job-0356 | stack mismatch | Open | 2026-08-23 |
