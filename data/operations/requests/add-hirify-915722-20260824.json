@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "add-hirify-915722-20260824",
+  "command": "add",
+  "args": {
+    "company": "Undisclosed healthcare / biotech company",
+    "role": "Junior SharePoint Dashboard Developer",
+    "source": "Hirify",
+    "source_url": "https://hirify.me/jobs/915722-junior-sharepoint-dashboard-developer-sharepoint",
+    "source_job_id": "915722",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "level": "Junior",
+    "location": "Remote, EU candidates",
+    "remote_policy": "Europe",
+    "stack": "SharePoint; SharePoint Online; Microsoft 365; Power BI; Power Apps; Power Automate; HTML; CSS; JavaScript",
+    "found_at": "2026-08-24",
+    "decision_reason": "geo_restriction",
+    "notes": "Fresh Hirify card sourced from two Telegram posts. Text says candidates from the EU; profile has Serbian work authorization and Serbia is outside the EU. Browser could load Hirify but both Telegram source pages returned Site Unavailable, so employer identity, first-party status, and Apply route remain unverified. Candidate also lacks evidenced hands-on SharePoint/Power Platform experience."
+  }
+}
