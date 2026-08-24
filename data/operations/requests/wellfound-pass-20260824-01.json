@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "operation_id": "wellfound-pass-20260824-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wellfound:4607003",
+      "args": {
+        "company": "Interview Copilot AI",
+        "role": "Frontend Engineer",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone",
+        "source_job_id": "4607003",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Junior/Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; HTML; CSS; Electron; WebSockets; Accessibility; Frontend Testing",
+        "salary": "$150K–$230K/year + 0.1%–0.5% equity",
+        "match_score": 8.5,
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Fresh global frontend role; native Wellfound form is accessible, but no exact employer careers/ATS listing was found, so first-party and Apply verification remain unknown. Main stretch: practical shipped-product ownership and the card's 3 years of experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4551014",
+      "args": {
+        "company": "Scanwick",
+        "role": "Founding Frontend Engineer",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4551014-founding-frontend-engineer",
+        "source_job_id": "4551014",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; TypeScript; Tailwind CSS; REST APIs; Dashboards; Data Visualization; React Native",
+        "salary": "Equity only; monthly data/internet support",
+        "decision_reason": "salary_too_low",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "The exact card is active and global, but the pre-revenue founding role explicitly offers no fixed salary; applications are also accepted by email at info@scanwick.com."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4584341",
+      "args": {
+        "company": "Horizon Asset Investments",
+        "role": "Front-End Developer (Full-Time, Remote)",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4584341-front-end-developer-full-time-remote",
+        "source_job_id": "4584341",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; Next.js; TypeScript; Tailwind CSS; Zustand; Redux Toolkit; WebSockets; SSE; Web Workers; TradingView; D3.js; Playwright; Vitest",
+        "salary": "Unknown",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Despite the 3-year label, the mandatory scope is senior: high-frequency trading UI, backpressure and buffering, Web Workers, advanced charting, auth/security, observability, and staged rollouts. The card says Wellfound applications are ignored and requests CV plus cover letter by email."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4572840",
+      "args": {
+        "company": "Billcit",
+        "role": "Full Stack Developer",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4572840-full-stack-developer",
+        "source_job_id": "4572840",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Junior",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "JavaScript; TypeScript; React; Next.js; Node.js; Express.js; REST APIs; PostgreSQL; MySQL; MongoDB; Tailwind CSS",
+        "salary": "₹9L–₹11L/year",
+        "match_score": 8,
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Strong junior/full-stack stretch: 0–2 years and freshers with projects are explicitly welcome. The native Wellfound form is accessible, but no exact employer careers/ATS listing was found; the lower end of the salary range is below the $1,000/month target and preferred time zones are UTC+5 to UTC+7."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4622453",
+      "args": {
+        "company": "Fitmate Coach",
+        "role": "Junior Frontend Software Engineer",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4622453-junior-frontend-software-engineer",
+        "source_job_id": "4622453",
+        "original_url": "https://careers.fitmatecoach.com/roles/junior-frontend-developer?utm_source=wellfound&utm_medium=post",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Junior",
+        "location": "United States / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "HTML; CSS; JavaScript; Svelte; React Native; Accessibility; AI-assisted Coding",
+        "salary": "$80K–$110K/year",
+        "decision_reason": "geo_restriction",
+        "verified_at": "2026-08-24",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Excellent junior shape and explicit support for self-taught candidates and AI coding tools, but the official careers page requires US residence and US work authorization without sponsorship. The first-party application route is live."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4538951",
+      "args": {
+        "company": "PeakTew",
+        "role": "Flutter Front End Developer I Mobile app & website",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4538951-flutter-front-end-developer-i-mobile-app-website",
+        "source_job_id": "4538951",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Intern",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "Flutter; Dart; React; JavaScript; HTML; CSS; APIs; WebSockets",
+        "salary": "Unpaid",
+        "decision_reason": "salary_too_low",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Fresh global internship, but it is explicitly unpaid, framed as a free-time student-led project, and requires enrollment in Computer Science or a related program."
+      }
+    }
+  ]
+}
