@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **379**
+Dataset updated: **2026-08-24** · Jobs: **381**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (7)](#to-verify) · [Archive (327)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (328)](#archive)
 
 ## Action now
 
@@ -68,6 +68,7 @@ Dataset updated: **2026-08-24** · Jobs: **379**
 | Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
+| Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
@@ -77,10 +78,11 @@ Dataset updated: **2026-08-24** · Jobs: **379**
 
 <details>
 
-<summary>Archive (327)</summary>
+<summary>Archive (328)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: salary too low | [SIL International — Web Developer](<https://wycliffe.wd1.myworkdayjobs.com/SIL_Careers/job/Worldwide/Web-Developer_R11565-2>) · job-0381 | salary too low | Open | 2026-08-24 |
 | Closed | [ApplyChill — Vibecoder](<https://www.linkedin.com/jobs/view/4452897796/>) · job-0379 | closed before application | Closed | 2026-08-24 |
 | Skipped: stack mismatch | [SAP Fioneer — SAP Fiori Developer](<https://www.linkedin.com/jobs/view/4456213512/>) · job-0378 | stack mismatch | Open | 2026-08-24 |
 | Skipped: geo restriction | [Talon.One — Frontend Engineer](<https://www.linkedin.com/jobs/view/4456493770/>) · job-0377 | geo restriction | Open | 2026-08-24 |

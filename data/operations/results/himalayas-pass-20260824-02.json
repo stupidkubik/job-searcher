@@ -1,0 +1,56 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-24T15:31:32Z",
+  "jobs": [],
+  "operation_id": "himalayas-pass-20260824-02",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": "applications/job-0380-talent-sam-front-end-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:talent-sam:front-end-developer",
+        "command": "add",
+        "job_id": "job-0380",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0380",
+            "source": "Himalayas",
+            "source_job_id": "",
+            "source_url": "https://himalayas.app/companies/talent-sam/jobs/front-end-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:sil-international:web-developer",
+        "command": "add",
+        "job_id": "job-0381",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0381",
+            "source": "Himalayas",
+            "source_job_id": "R11565",
+            "source_url": "https://himalayas.app/companies/sil-international/jobs/web-developer"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
