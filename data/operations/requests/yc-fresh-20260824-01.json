@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "operation_id": "yc-fresh-20260824-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "yc:RCbNRRq",
+      "args": {
+        "company": "TraceRoot.AI",
+        "role": "Software Engineering Intern",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/RCbNRRq-software-engineering-intern",
+        "source_job_id": "RCbNRRq",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "San Francisco, CA, US / Remote",
+        "remote_policy": "Hybrid",
+        "stack": "React; TypeScript; Node.js; Python; AI Agents; Open-source SDKs",
+        "salary": "$4K - $8K / monthly",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong level and stack signal, but the exact YC description requires working in person with the founders in San Francisco at least 3 days per week. YC native Apply is live; TraceRoot's public website has no exact careers/ATS requisition, so first-party status remains unknown."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:xLdkDw5",
+      "args": {
+        "company": "TraceRoot.AI",
+        "role": "Founding Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/xLdkDw5-founding-engineer",
+        "source_job_id": "xLdkDw5",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "San Francisco, CA, US",
+        "remote_policy": "On-site",
+        "stack": "React; TypeScript; Node.js; Python; AI Agents",
+        "salary": "$120K - $220K + 0.50% - 2.00%",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact YC role requires at least 3 years and in-person work with the founders in San Francisco at least 3 days per week; incompatible with the Serbia-based search. No exact employer careers/ATS requisition was available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:dk1ep2K",
+      "args": {
+        "company": "TraceRoot.AI",
+        "role": "GTM Engineer Intern",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/traceroot-ai/jobs/dk1ep2K-gtm-engineer-intern",
+        "source_job_id": "dk1ep2K",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "San Francisco, CA, US / Remote (US; CA)",
+        "remote_policy": "Country-specific",
+        "stack": "Python; TypeScript; SQL; PostHog; Clay; n8n; AI Tools",
+        "salary": "$4K - $6K / monthly",
+        "decision_reason": "role_not_frontend",
+        "notes": "Adjacent internship is PLG, outbound automation, analytics and developer marketing rather than frontend product development; it also requires in-person work in San Francisco at least 3 days per week and is US/California-scoped."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:Qque3dk",
+      "args": {
+        "company": "Authologic",
+        "role": "Senior Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer",
+        "source_job_id": "Qque3dk",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Warsaw, Masovian Voivodeship, PL / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; TypeScript; Vue.js; React; HTML; CSS; Redux Toolkit; TanStack Query; Tailwind CSS; AI Workflows",
+        "salary": "$57.5K - $71.5K",
+        "decision_reason": "seniority_too_high",
+        "notes": "New exact YC requisition is distinct from HqKLn2C and explicitly requires 6+ years plus professional English and Polish. Authologic's public site has no careers listing; YC native Apply is current but does not establish first-party verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:5Schb9r",
+      "args": {
+        "company": "Pax",
+        "role": "Software Engineer (Early Career)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/pax/jobs/5Schb9r-software-engineer-early-career",
+        "source_job_id": "5Schb9r",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Graduate",
+        "location": "San Francisco, CA, US",
+        "remote_policy": "On-site",
+        "stack": "React; Next.js; FastAPI; SQLModel; PostgreSQL; LLMs",
+        "salary": "$130K - $170K + 0.50%",
+        "decision_reason": "geo_restriction",
+        "notes": "Excellent early-career signal and relevant React/Next.js project experience, but the exact YC description says San Francisco in-person is a hard requirement with no remote; visa support is limited to TN visas or transfers."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:X07JUDl",
+      "args": {
+        "company": "Caribou",
+        "role": "Full Stack Software Engineer (Frontend-leaning)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/caribou/jobs/X07JUDl-full-stack-software-engineer-frontend-leaning",
+        "source_job_id": "X07JUDl",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "London, England, GB / San Francisco, CA, US",
+        "remote_policy": "Hybrid",
+        "stack": "TypeScript; React; Next.js; Tailwind; shadcn/ui; React Flow; PostgreSQL; Go; Design Systems",
+        "salary": "£80K - £100K GBP + 0.10% - 1.00%",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong frontend/design-system and AI-assisted development overlap, but the exact role requires office presence twice weekly in London or San Francisco and 3+ years building production web applications."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:pBZFivv",
+      "args": {
+        "company": "Seeing Systems",
+        "role": "Software Engineering Intern",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/seeing-systems/jobs/pBZFivv-software-engineering-intern",
+        "source_job_id": "pBZFivv",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Intern",
+        "location": "London, England, GB / Christchurch, England, GB",
+        "remote_policy": "On-site",
+        "stack": "Python; Arduino; ROS; ROS2; AirSim; SLAM; Computer Vision; AI Tools",
+        "salary": "£2K - £3K GBP / monthly",
+        "decision_reason": "role_not_frontend",
+        "notes": "Internship is onsite in England and focused on drone autonomy, robotics, perception, sensor fusion and embedded systems rather than frontend web development."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:sHSh8zw",
+      "args": {
+        "company": "Clinikally",
+        "role": "Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/clinikally/jobs/sHSh8zw-frontend-engineer",
+        "source_job_id": "sHSh8zw",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Gurugram, Haryana, India",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; TypeScript; React; Next.js; SSR; SSG; ISR; Accessibility; Frontend Performance; SEO",
+        "salary": "₹10 - ₹15 INR",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong frontend stack, but the exact role is work-from-office in Sector 44, Gurgaon, India and requires 3+ years of hands-on frontend experience."
+      }
+    }
+  ]
+}
