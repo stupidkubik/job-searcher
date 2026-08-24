@@ -1,0 +1,96 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-24T16:09:29Z",
+  "jobs": [],
+  "operation_id": "op-20260824-hiringcafe-fresh-pass-v2",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": "applications/job-0390-supabase-developer-relations-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "hiringcafe:51cmzbfi3u7hn4id",
+        "command": "add",
+        "job_id": "job-0390",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0390",
+            "source": "HiringCafe",
+            "source_job_id": "51cmzbfi3u7hn4id",
+            "source_url": "https://hiringcafe.com/job/developer-relations-engineer-supabase-north-america-51cmzbfi3u7hn4id"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0391-discovered-labs-content-engineer-internal.md",
+        "application_status": "reviewing",
+        "client_ref": "hiringcafe:utfgeaip70h3l4qu",
+        "command": "add",
+        "job_id": "job-0391",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0391",
+            "source": "HiringCafe",
+            "source_job_id": "utfgeaip70h3l4qu",
+            "source_url": "https://hiringcafe.com/job/content-engineer-internal-discovered-labs-north-america-utfgeaip70h3l4qu"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:w693ra9zqph4ytmr",
+        "command": "add",
+        "job_id": "job-0392",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0392",
+            "source": "HiringCafe",
+            "source_job_id": "w693ra9zqph4ytmr",
+            "source_url": "https://hiringcafe.com/job/project-employee-nba-social-content-publisher-nba-secaucus-new-jersey-w693ra9zqph4ytmr"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hiringcafe:vobzjezvr43qk73p",
+        "command": "add",
+        "job_id": "job-0393",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0393",
+            "source": "HiringCafe",
+            "source_job_id": "vobzjezvr43qk73p",
+            "source_url": "https://hiringcafe.com/job/software-engineer-c-authentication-and-identity-remote-f-m-d-vobzjezvr43qk73p"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **389**
+Dataset updated: **2026-08-24** · Jobs: **393**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (336)](#archive)
+[Action now (10)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (338)](#archive)
 
 ## Action now
 
@@ -12,9 +12,11 @@ Dataset updated: **2026-08-24** · Jobs: **389**
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Reviewing | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | 8.5 | — | Open | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
+| Reviewing | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | 8.5 | — | Open | [Open](../applications/job-0391-discovered-labs-content-engineer-internal.md) |
 | Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
+| Reviewing | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | 7.4 | — | Open | [Open](../applications/job-0390-supabase-developer-relations-engineer.md) |
 | Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
 | Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
 | Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
@@ -78,10 +80,12 @@ Dataset updated: **2026-08-24** · Jobs: **389**
 
 <details>
 
-<summary>Archive (336)</summary>
+<summary>Archive (338)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [SecurityBridge — Software Engineer (C, Authentication & Identity) – Remote (f/m/d)](<https://hiringcafe.com/job/software-engineer-c-authentication-and-identity-remote-f-m-d-vobzjezvr43qk73p>) · job-0393 | stack mismatch | Not checked | 2026-08-24 |
+| Skipped: geo restriction | [NBA — Project Employee, NBA Social Content Publisher](<https://nba.wd108.myworkdayjobs.com/nbacareers/job/Secaucus-USA---Non-Off-Staff/Project-Employee--NBA-Social-Content-Publisher_JR000953-1>) · job-0392 | geo restriction | Open | 2026-08-24 |
 | Skipped: geo restriction | [Clinikally — Frontend Engineer](<https://www.ycombinator.com/companies/clinikally/jobs/sHSh8zw-frontend-engineer>) · job-0389 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: role not frontend | [Seeing Systems — Software Engineering Intern](<https://www.ycombinator.com/companies/seeing-systems/jobs/pBZFivv-software-engineering-intern>) · job-0388 | role not frontend | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [Caribou — Full Stack Software Engineer (Frontend-leaning)](<https://www.ycombinator.com/companies/caribou/jobs/X07JUDl-full-stack-software-engineer-frontend-leaning>) · job-0387 | geo restriction | Not checked | 2026-08-24 |
