@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "operation_id": "op-20260824-hiringcafe-fresh-pass-v2",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:51cmzbfi3u7hn4id",
+      "args": {
+        "company": "Supabase",
+        "role": "Developer Relations Engineer",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/developer-relations-engineer-supabase-north-america-51cmzbfi3u7hn4id",
+        "source_job_id": "51cmzbfi3u7hn4id",
+        "original_url": "https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Unknown",
+        "location": "Anywhere in the world",
+        "remote_policy": "Global",
+        "stack": "JavaScript; TypeScript; Postgres; React; Svelte; Vue; Next.js; Stripe",
+        "posted_at": "2026-08-21",
+        "match_score": 7.4,
+        "notes": "First-party Ashby role and live application verified. Globally remote. Strong JS/TS, React/Next.js and technical-content overlap; main gap is public-facing DevRel work, including video, livestreams and events.",
+        "first_party_verified": "yes",
+        "apply_verified": "yes"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:utfgeaip70h3l4qu",
+      "args": {
+        "company": "Discovered Labs",
+        "role": "Content Engineer (Internal)",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/content-engineer-internal-discovered-labs-north-america-utfgeaip70h3l4qu",
+        "source_job_id": "utfgeaip70h3l4qu",
+        "original_url": "https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote (International), ideally within +/-4 hours of GMT",
+        "remote_policy": "Global",
+        "stack": "AI workflows; LinkedIn; YouTube; SEO; AEO; CRM; content analytics",
+        "salary": "$45,000-$65,000/year (or EUR/GBP equivalent)",
+        "posted_at": "2026-08-19",
+        "match_score": 8.5,
+        "notes": "First-party Dover listing and live Apply form verified. Strong overlap with editorial ownership, editing in another person's voice, video/content production, AI workflow design, systems thinking and source verification. Stretch: explicitly senior IC, content-performance ownership and near-native written English. Loom pitch is encouraged and the form asks for a brief Loom video.",
+        "first_party_verified": "yes",
+        "apply_verified": "yes"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:w693ra9zqph4ytmr",
+      "args": {
+        "company": "NBA",
+        "role": "Project Employee, NBA Social Content Publisher",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/project-employee-nba-social-content-publisher-nba-secaucus-new-jersey-w693ra9zqph4ytmr",
+        "source_job_id": "w693ra9zqph4ytmr",
+        "original_url": "https://nba.wd108.myworkdayjobs.com/nbacareers/job/Secaucus-USA---Non-Off-Staff/Project-Employee--NBA-Social-Content-Publisher_JR000953-1",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Unknown",
+        "location": "Secaucus, USA",
+        "remote_policy": "Country-specific",
+        "salary": "$2,307.69 biweekly",
+        "posted_at": "2026-08-20",
+        "match_score": 3.5,
+        "decision_reason": "geo_restriction",
+        "notes": "HiringCafe labels the role anywhere in the world, but first-party Workday lists Secaucus, USA. Apply route is live. Temporary role up to 10 months and requires sports-media publishing plus deep NBA editorial expertise.",
+        "first_party_verified": "yes",
+        "apply_verified": "yes"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hiringcafe:vobzjezvr43qk73p",
+      "args": {
+        "company": "SecurityBridge",
+        "role": "Software Engineer (C, Authentication & Identity) – Remote (f/m/d)",
+        "source": "HiringCafe",
+        "source_url": "https://hiringcafe.com/job/software-engineer-c-authentication-and-identity-remote-f-m-d-vobzjezvr43qk73p",
+        "source_job_id": "vobzjezvr43qk73p",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "Worldwide",
+        "remote_policy": "Global",
+        "stack": "C; Kerberos; OIDC; OAuth2; SAML; RADIUS; TLS; PKI; Windows; Linux",
+        "match_score": 1,
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact HiringCafe card inspected. Hard blocker: 3-5+ years of professional C plus authentication/identity and PKI expertise; no frontend relevance. Employer ATS and Apply route were not pursued after the hard mismatch.",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown"
+      }
+    }
+  ]
+}
