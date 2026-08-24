@@ -1,0 +1,216 @@
+{
+  "command": "batch",
+  "executed_at": "2026-08-24T15:00:59Z",
+  "jobs": [],
+  "operation_id": "linkedin-mail-scan-20260824-2",
+  "result": {
+    "count": 10,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4457876559",
+        "command": "add",
+        "job_id": "job-0370",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0370",
+            "source": "LinkedIn",
+            "source_job_id": "4457876559",
+            "source_url": "https://www.linkedin.com/jobs/view/4457876559/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4456671189",
+        "command": "add",
+        "job_id": "job-0371",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0371",
+            "source": "LinkedIn",
+            "source_job_id": "4456671189",
+            "source_url": "https://www.linkedin.com/jobs/view/4456671189/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4413834597",
+        "command": "add",
+        "job_id": "job-0372",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0372",
+            "source": "LinkedIn",
+            "source_job_id": "4413834597",
+            "source_url": "https://www.linkedin.com/jobs/view/4413834597/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4418831594",
+        "command": "add",
+        "job_id": "job-0373",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0373",
+            "source": "LinkedIn",
+            "source_job_id": "4418831594",
+            "source_url": "https://www.linkedin.com/jobs/view/4418831594/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4456749203",
+        "command": "add",
+        "job_id": "job-0374",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0374",
+            "source": "LinkedIn",
+            "source_job_id": "4456749203",
+            "source_url": "https://www.linkedin.com/jobs/view/4456749203/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4453888229",
+        "command": "add",
+        "job_id": "job-0375",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0375",
+            "source": "LinkedIn",
+            "source_job_id": "4453888229",
+            "source_url": "https://www.linkedin.com/jobs/view/4453888229/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4456613512",
+        "command": "add",
+        "job_id": "job-0376",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0376",
+            "source": "LinkedIn",
+            "source_job_id": "4456613512",
+            "source_url": "https://www.linkedin.com/jobs/view/4456613512/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4456493770",
+        "command": "add",
+        "job_id": "job-0377",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0377",
+            "source": "LinkedIn",
+            "source_job_id": "4456493770",
+            "source_url": "https://www.linkedin.com/jobs/view/4456493770/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4456213512",
+        "command": "add",
+        "job_id": "job-0378",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0378",
+            "source": "LinkedIn",
+            "source_job_id": "4456213512",
+            "source_url": "https://www.linkedin.com/jobs/view/4456213512/"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "linkedin:4452897796",
+        "command": "add",
+        "job_id": "job-0379",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-08-24",
+            "job_id": "job-0379",
+            "source": "LinkedIn",
+            "source_job_id": "4452897796",
+            "source_url": "https://www.linkedin.com/jobs/view/4452897796/"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

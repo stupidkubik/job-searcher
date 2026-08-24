@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **369**
+Dataset updated: **2026-08-24** · Jobs: **379**
 
-[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (7)](#to-verify) · [Archive (317)](#archive)
+[Action now (8)](#action-now) · [Applications (37)](#applications) · [To verify (7)](#to-verify) · [Archive (327)](#archive)
 
 ## Action now
 
@@ -77,10 +77,20 @@ Dataset updated: **2026-08-24** · Jobs: **369**
 
 <details>
 
-<summary>Archive (317)</summary>
+<summary>Archive (327)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Closed | [ApplyChill — Vibecoder](<https://www.linkedin.com/jobs/view/4452897796/>) · job-0379 | closed before application | Closed | 2026-08-24 |
+| Skipped: stack mismatch | [SAP Fioneer — SAP Fiori Developer](<https://www.linkedin.com/jobs/view/4456213512/>) · job-0378 | stack mismatch | Open | 2026-08-24 |
+| Skipped: geo restriction | [Talon.One — Frontend Engineer](<https://www.linkedin.com/jobs/view/4456493770/>) · job-0377 | geo restriction | Open | 2026-08-24 |
+| Skipped: geo restriction | [Waitwhile — Frontend Software Engineer](<https://careers.waitwhile.com/jobs/8254729-frontend-software-engineer>) · job-0376 | geo restriction | Open | 2026-08-24 |
+| Skipped: geo restriction | [Conquer AI — Software Engineer](<https://www.linkedin.com/jobs/view/4453888229/>) · job-0375 | geo restriction | Open | 2026-08-24 |
+| Skipped: geo restriction | [Subsidia — Frontend Software Engineer(Junior)](<https://www.linkedin.com/jobs/view/4456749203/>) · job-0374 | geo restriction | Open | 2026-08-24 |
+| Skipped: other | [Revolut — Graduate Programme 2027: Software Engineer (Frontend)](<https://www.revolut.com/careers/position/90f8f44d-d656-4c74-a6a5-a470b858179d>) · job-0373 | other | Open | 2026-08-24 |
+| Skipped: geo restriction | [Accenture DACH — (Junior) Frontend Engineer (all genders)](<https://www.accenture.com/at-de/careers/jobdetails?id=R00330201_de&src=LINKEDINJP>) · job-0372 | geo restriction | Open | 2026-08-24 |
+| Closed | [Interia.pl Group — Junior Frontend Developer/ka](<https://kariera.interia.pl/aktualne-oferty-pracy/oferta/junior-frontend-developerka,oid,591480-20100957-4893717>) · job-0371 | closed before application | Closed | 2026-08-24 |
+| Closed | [FetchJobs.co — Frontend Developer](<https://www.linkedin.com/jobs/view/4457876559/>) · job-0370 | closed before application | Closed | 2026-08-24 |
 | Skipped: salary too low | [PeakTew — Flutter Front End Developer I Mobile app & website](<https://wellfound.com/jobs/4538951-flutter-front-end-developer-i-mobile-app-website>) · job-0369 | salary too low | Open | 2026-08-24 |
 | Skipped: geo restriction | [Fitmate Coach — Junior Frontend Software Engineer](<https://careers.fitmatecoach.com/roles/junior-frontend-developer?utm_source=wellfound&utm_medium=post>) · job-0368 | geo restriction | Open | 2026-08-24 |
 | Skipped: seniority too high | [Horizon Asset Investments — Front-End Developer (Full-Time, Remote)](<https://wellfound.com/jobs/4584341-front-end-developer-full-time-remote>) · job-0366 | seniority too high | Open | 2026-08-24 |
