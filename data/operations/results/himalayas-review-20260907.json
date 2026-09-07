@@ -1,0 +1,28 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-07T09:50:27Z",
+  "jobs": [],
+  "operation_id": "himalayas-review-20260907",
+  "result": {
+    "client_ref": "himalayas:https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "reviewing",
+          "company": "micro1",
+          "id": "job-0405",
+          "listing_status": "unknown",
+          "reason": "похоже: company 1.00, role 0.84",
+          "role": "Design & Frontend Specialist"
+        }
+      ],
+      "reason": "unresolved_duplicate"
+    },
+    "index": 1,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
