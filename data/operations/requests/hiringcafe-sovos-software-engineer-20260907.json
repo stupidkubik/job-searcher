@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-sovos-software-engineer-20260907",
+  "command": "add",
+  "args": {
+    "company": "Sovos",
+    "role": "Software Engineer II (Node.js & React)",
+    "level": "Junior/Middle",
+    "source": "HiringCafe",
+    "source_url": "https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp",
+    "source_job_id": "mh02jhkjkvkf6ngp",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "remote_policy": "Europe",
+    "stack": "Node.js; JavaScript; React; MySQL; TypeScript; Cypress; REST APIs",
+    "decision_reason": "other",
+    "notes": "HiringCafe card posted 6 days ago. The detailed listing requires fluency in Portuguese and English; the candidate profile confirms English B2 and Russian native only. This mandatory language requirement makes the role unsuitable. First-party route was not pursued after the hard blocker."
+  }
+}
