@@ -19,6 +19,7 @@ write path меняются, этот файл и корневой [`README.md`]
 | source/ATS playbooks | [`sources/README.md`](sources/README.md) |
 | локальный Telegram discovery adapter | [`sources/telegram.md`](sources/telegram.md) |
 | реализованное и будущие изменения | [`roadmap.md`](roadmap.md) |
+| план исправления write path и бутстрапа агента | [`agent-write-path-plan-2026-09-07.md`](agent-write-path-plan-2026-09-07.md) |
 | generated browser view | [`tracker.md`](tracker.md) |
 
 ## Historical records
@@ -40,6 +41,9 @@ write path меняются, этот файл и корневой [`README.md`]
 - [`telegram-source-integration-analysis.md`](telegram-source-integration-analysis.md) —
   варианты получения вакансий из Telegram, ограничения API и рекомендуемая
   архитектура; предложение, а не реализованный source contract.
+- [`agent-ergonomics-analysis-2026-09-07.md`](agent-ergonomics-analysis-2026-09-07.md) —
+  замеры write-path'а, бутстрапа и кодовой базы с точки зрения ИИ-агента;
+  исследование и основание для плана выше, не контракт.
 
 ## Матрица обновлений
 
