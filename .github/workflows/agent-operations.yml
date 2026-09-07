@@ -39,6 +39,15 @@ jobs:
             exit 1
           fi
 
+      - name: Reject merge commits
+        if: github.event_name == 'push'
+        run: |
+          read -r -a parents <<< "$(git rev-list --parents -n 1 HEAD)"
+          if [[ "${#parents[@]}" -gt 2 ]]; then
+            echo "this delivery path is not supported: commit the request directly to main" >&2
+            exit 1
+          fi
+
       - name: Find the one new request
         id: request
         if: github.event_name == 'push'
@@ -107,92 +116,7 @@ jobs:
               sys.exit("main may add exactly one new operation request before execution")
           PY
 
-      - name: Validate and apply the declarative operation
-        id: operation
+      - name: Apply the declarative operation and push the audited result
         env:
           REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch_request.outputs.path }}
-        run: |
-          python3 scripts/agent_operations.py validate "$REQUEST_PATH" --format json
-          set +e
-          python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > "$RUNNER_TEMP/operation-output.json"
-          set -e
-          python3 - <<'PY'
-          import json
-          import os
-          import re
-          import sys
-
-          payload = json.load(open(os.path.join(os.environ["RUNNER_TEMP"], "operation-output.json"), encoding="utf-8"))
-          operation_id = payload.get("operation_id")
-          risk = payload.get("risk")
-          status = payload.get("status")
-          if not isinstance(operation_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{2,79}", operation_id):
-              sys.exit("runner returned an invalid operation_id")
-          if risk not in {"low", "medium", "none"} or status not in {"completed", "conflict", "rejected"}:
-              sys.exit("runner returned an invalid risk or status")
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"id={operation_id}\n")
-              output.write(f"risk={risk}\n")
-              output.write(f"status={status}\n")
-          PY
-
-      - name: Validate resulting tracker state
-        if: steps.operation.outputs.status != 'rejected'
-        run: |
-          python3 scripts/jobs.py validate --strict
-          python3 scripts/jobs.py render-tracker
-          python3 scripts/jobs.py render-tracker --check
-          python3 -m unittest discover -s tests -v
-          python3 scripts/jobs.py dupes --format json
-
-      - name: Enforce changed-file allowlist
-        env:
-          OPERATION_ID: ${{ steps.operation.outputs.id }}
-          STATUS: ${{ steps.operation.outputs.status }}
-        run: |
-          python3 - <<'PY'
-          import os
-          import re
-          import subprocess
-          import sys
-
-          operation_id = os.environ["OPERATION_ID"]
-          expected_result = f"data/operations/results/{operation_id}.json"
-          raw = subprocess.check_output(["git", "status", "--porcelain=v1", "-z"])
-          paths = []
-          for entry in raw.split(b"\0"):
-              if not entry:
-                  continue
-              path = entry[3:].decode("utf-8")
-              paths.append(path)
-          if os.environ["STATUS"] == "rejected":
-              if paths != [expected_result]:
-                  sys.exit("a rejected operation must change exactly its own result file: " + ", ".join(paths))
-          else:
-              allowed = {"data/jobs.csv", "data/job_sources.csv", "docs/tracker.md", expected_result}
-              for path in paths:
-                  if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
-                      continue
-                  sys.exit(f"operation changed forbidden path: {path}")
-              if expected_result not in paths:
-                  sys.exit("operation did not write its immutable result")
-          PY
-
-      - name: Commit and push the audited result
-        env:
-          OPERATION_ID: ${{ steps.operation.outputs.id }}
-          STATUS: ${{ steps.operation.outputs.status }}
-        run: |
-          git config user.name "job-tracker-agent[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/jobs.csv data/job_sources.csv docs/tracker.md data/operations/results applications
-          if [[ "${STATUS}" == "rejected" ]]; then
-            git commit -m "jobs: reject agent operation ${OPERATION_ID}"
-          else
-            git commit -m "jobs: apply agent operation ${OPERATION_ID}"
-          fi
-          git push origin "HEAD:${GITHUB_REF_NAME}"
-          if [[ "${STATUS}" == "rejected" ]]; then
-            echo "operation rejected: see data/operations/results/${OPERATION_ID}.json" >&2
-            exit 1
-          fi
+        run: scripts/ci/apply_operation.sh "$REQUEST_PATH"

@@ -12,6 +12,7 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parents[1]
 WORKFLOW = PROJECT / ".github" / "workflows" / "agent-operations.yml"
 VALIDATE_WORKFLOW = PROJECT / ".github" / "workflows" / "validate.yml"
+APPLY_SCRIPT = PROJECT / "scripts" / "ci" / "apply_operation.sh"
 LIVE_REQUESTS_DIR = PROJECT / "data" / "operations" / "requests"
 LIVE_RESULTS_DIR = PROJECT / "data" / "operations" / "results"
 
@@ -116,19 +117,42 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("Не создавать operation-ветки или PR", instructions)
 
     def test_workflow_keeps_its_operation_output_outside_the_checkout(self):
-        workflow = WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn('> "$RUNNER_TEMP/operation-output.json"', workflow)
-        self.assertIn('os.environ["RUNNER_TEMP"], "operation-output.json"', workflow)
-        self.assertNotIn('> operation-output.json', workflow)
+        script = APPLY_SCRIPT.read_text(encoding="utf-8")
+        self.assertIn('> "$OUTPUT_JSON"', script)
+        self.assertIn('OUTPUT_JSON="${RUNNER_TEMP:-/tmp}/operation-output.json"', script)
+        self.assertNotIn('> operation-output.json', script)
 
     def test_workflows_keep_the_generated_tracker_in_sync(self):
-        operation_workflow = WORKFLOW.read_text(encoding="utf-8")
+        apply_script = APPLY_SCRIPT.read_text(encoding="utf-8")
         validation_workflow = VALIDATE_WORKFLOW.read_text(encoding="utf-8")
-        self.assertIn("python3 scripts/jobs.py render-tracker", operation_workflow)
-        self.assertIn("python3 scripts/jobs.py render-tracker --check", operation_workflow)
-        self.assertIn('"docs/tracker.md"', operation_workflow)
-        self.assertIn("git add data/jobs.csv data/job_sources.csv docs/tracker.md", operation_workflow)
+        self.assertIn("python3 scripts/jobs.py render-tracker", apply_script)
+        self.assertIn("python3 scripts/jobs.py render-tracker --check", apply_script)
+        self.assertIn('"docs/tracker.md"', apply_script)
+        self.assertIn("git add data/jobs.csv data/job_sources.csv docs/tracker.md", apply_script)
         self.assertIn("python scripts/jobs.py render-tracker --check", validation_workflow)
+
+    def test_operation_workflow_delegates_apply_and_push_to_the_retry_script(self):
+        workflow = WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("scripts/ci/apply_operation.sh", workflow)
+        self.assertIn("Reject merge commits", workflow)
+        self.assertTrue(APPLY_SCRIPT.exists())
+
+    def test_pull_requests_touching_operation_requests_are_rejected(self):
+        validation_workflow = VALIDATE_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("reject-request-prs", validation_workflow)
+        self.assertIn("data/operations/requests/", validation_workflow)
+        self.assertIn(
+            "this delivery path is not supported: commit the request directly to main",
+            validation_workflow,
+        )
+
+    def test_apply_script_reapplies_on_a_lost_push_race_without_rebasing(self):
+        script = APPLY_SCRIPT.read_text(encoding="utf-8")
+        self.assertIn("git fetch origin main", script)
+        self.assertIn("git reset --hard origin/main", script)
+        self.assertNotIn("git rebase", script)
+        self.assertNotIn("git merge", script)
+        self.assertIn('rm -f "$RESULT_PATH"', script)
 
     def test_medium_risk_add_creates_job_provenance_card_and_result(self):
         request = self.write_operation({

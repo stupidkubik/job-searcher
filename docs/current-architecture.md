@@ -72,7 +72,20 @@ immutable JSON request but cannot edit canonical CSV or executable policy. The
 trusted workflow validates the request, applies it through the same jobs
 functions, validates the whole dataset, regenerates the tracker and restricts
 changed paths before committing directly to `main`. Connector operations do not
-create operation branches or review PRs.
+create operation branches or review PRs: `validate.yml` rejects any pull
+request touching `data/operations/requests/**` before merge, and the operation
+workflow separately refuses to run against a merge commit, so this delivery
+path fails visibly either way.
+
+The final push to `main` can lose a race with a second operation that pushes
+first; `scripts/ci/apply_operation.sh` never rebases over canonical data to
+recover. Instead it fetches and hard-resets to the new `origin/main`, drops its
+own not-yet-pushed result file, and reapplies the same request from scratch
+(up to three attempts) — which also re-checks the optimistic lock honestly
+instead of silently overwriting a row that changed in the meantime. Manual
+runner check: commit two operation requests roughly a workflow-run apart so
+the second run's push loses the race, and confirm both end up with their own
+result file and their own canonical commit on `main`, in either order.
 
 Atomic batches may mix existing-job updates and new `add` children. Add IDs are
 assigned only inside the isolated transaction and returned through stable

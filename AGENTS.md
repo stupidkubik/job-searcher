@@ -66,7 +66,10 @@
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. Каждый request создаётся
   непосредственно в `main`, где runner применяет его и коммитит audited result.
-  Не создавать operation-ветки или PR для connector operations. Не использовать
+  Не создавать operation-ветки или PR для connector operations. Путь через PR
+  не поддерживается технически: `validate.yml` отклоняет любой pull request,
+  меняющий `data/operations/requests/**`, ещё до merge — так об этом узнают
+  раньше, чем по невнятной ошибке раннера после. Не использовать
   GitHub file API для прямого
   изменения `data/jobs.csv` или `data/job_sources.csv`: он обходит write-path.
 - Значения полей — по-английски и строго из enum в `data/schema.md`.

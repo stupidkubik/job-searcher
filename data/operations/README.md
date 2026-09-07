@@ -277,6 +277,24 @@ workflow, or executable files. A `rejected` result is the one exception: its
 allowlist is exactly its own result file, since a rejected operation must not
 touch canonical data.
 
+The request must reach `main` as a direct, non-merge push. This is enforced
+twice: `validate.yml` fails any pull request that touches
+`data/operations/requests/**` before it can be merged, and the operation
+workflow independently refuses to run against a merge commit. Both failures
+say the same thing: this delivery path is not supported, commit the request
+directly to `main`.
+
+The final push to `main` can lose a race with another operation that pushed
+first — `concurrency` on the operation workflow serializes the runs
+themselves, but does not rebase an already-checked-out run onto the new tip.
+`scripts/ci/apply_operation.sh` handles this without ever rebasing over
+canonical data: on a non-fast-forward push it fetches and hard-resets to the
+new `origin/main` (which already contains this run's own request commit),
+deletes its own not-yet-pushed result file, and reapplies the same request
+from scratch — up to three attempts. A reapply is also a correct re-check of
+the optimistic lock: if the row changed in the meantime, the retry produces an
+honest `conflict` result instead of silently overwriting it.
+
 ### Result status and the `rejected` shape
 
 Every `apply` produces exactly one of three `status` values:
