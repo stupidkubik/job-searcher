@@ -121,7 +121,7 @@ change a branch's delivery mode based on it.
 | `verify` | record completed first-party and Apply verification | needs listing and both verification values |
 | `set` | schedule a next action or close an already-applied listing | narrow field allowlist only |
 | `status` | record a human lifecycle event | literal `confirmed_by_user=true` required |
-| `batch` | apply up to 100 distinct updates/additions together | `atomic=true`; add IDs are assigned inside the transaction |
+| `batch` | apply distinct updates/additions together | `atomic=true` caps at 10 and rolls back on any conflict; `atomic=false` caps at 100 and keeps whatever children apply (`status=partial`); add IDs are assigned inside the transaction |
 
 `status` is the only connector command for `applied`, `interviewing`, `offer`,
 `rejected`, `ghosted`, and `withdrawn`. The user must explicitly report or
@@ -140,11 +140,17 @@ An `add` batch child has no `job_id` or `expected`: it carries a unique stable
 `client_ref` and validated add args. The runner assigns sequential job IDs in
 child order inside the isolated dataset and returns the `client_ref → job_id`
 mapping. A duplicate/source-reference conflict in any add child rolls back the
-whole batch.
+whole batch under `atomic=true`; under `atomic=false` only that child is
+recorded as `conflict` and excluded, and the rest of the batch still applies.
+The same split governs a stale optimistic-lock precondition on a non-add
+child. Every conflicting child, and a conflicting single-operation `add`, gets
+a `retry` object: ready-to-send `as_separate`/`as_duplicate` fragments for an
+add conflict, or the same request with a refreshed `expected` for a stale
+lock — always under a fresh `operation_id`.
 
 An operation ID can have exactly one result, regardless of whether that result
-is `completed`, `conflict`, or `rejected`. The presence of a request file is
-not completion; the agent waits for the matching file in
+is `completed`, `conflict`, `partial`, or `rejected`. The presence of a request
+file is not completion; the agent waits for the matching file in
 `data/operations/results/` and the runner's canonical diff on `main`.
 
 A request that fails contract validation, or trips an internal invariant
@@ -188,7 +194,7 @@ reason visible without creating a duplicate attempt.
 
 The v1 manifest intentionally retains `args` and `expected`: flattening them or
 dropping the lock would make requests shorter but weaken the policy boundary.
-`operation_id` duplicates the filename and `atomic=true` is currently mandatory
-for every batch; simplifying those two redundancies belongs to a separate,
-versioned v2 contract with backward compatibility. A stronger revision token is
-also future work: `last_update` is a date, not a per-write revision.
+`operation_id` duplicating the filename is a redundancy that simplifying
+belongs to a separate, versioned v2 contract with backward compatibility. A
+stronger revision token is also future work: `last_update` is a date, not a
+per-write revision.

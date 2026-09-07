@@ -159,7 +159,14 @@ GitHub connector не исполняет эти shell-команды. Для н�
 ожидаемую семантику, а запись выполняется только созданием одного нового
 immutable request по контракту `data/operations/README.md` непосредственно в
 `main`. Разрешены `screen`,
-`add`, `verify`, `status`, ограниченный `set` и `batch` только с `atomic=true`;
+`add`, `verify`, `status`, ограниченный `set` и `batch`. `batch.atomic=true`
+допускает не более 10 операций и откатывает всё при первом же конфликте;
+`batch.atomic=false` допускает до 100 и применяет всех детей, кроме реально
+конфликтующих (`unresolved_duplicate` / `source_reference_conflict` /
+`stale_operation`) — результат тогда `status=partial`. Любой отказ по схеме
+(неизвестное поле, недопустимое значение) отклоняет весь batch в обоих
+режимах. Каждый конфликтующий child и каждый конфликтующий одиночный `add`
+несут готовый к отправке `retry`-фрагмент под новым `operation_id`.
 `add` разрешён и как batch child со стабильным `client_ref`, а `job_id`
 назначается runner-ом внутри общей транзакции; `ingest` не поддерживается.
 `status` для `applied`, `interviewing`, `offer`,

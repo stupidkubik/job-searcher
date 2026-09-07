@@ -17,6 +17,10 @@ RESULTS_DIR = ROOT / "data" / "operations" / "results"
 OPERATION_VERSION = 1
 MAX_REQUEST_BYTES = 64 * 1024
 MAX_BATCH_OPERATIONS = 100
+# atomic:true batches roll back entirely on a single child conflict, so the
+# blast radius of one bad child is capped tighter than atomic:false, which
+# keeps whatever children succeed (Э4, docs/agent-write-path-plan-2026-09-07.md).
+MAX_ATOMIC_BATCH_OPERATIONS = 10
 OPERATION_ID_RE = re.compile(r"[a-z0-9][a-z0-9._-]{2,79}\Z")
 JOB_ID_RE = re.compile(r"job-\d{4,}\Z")
 SINGLE_TOP_LEVEL_FIELDS = {"version","operation_id","command","job_id","expected","args"}
@@ -276,16 +280,21 @@ def validate_operation(value):
         return {"version":OPERATION_VERSION,"operation_id":operation_id,"command":"add","args":validate_add_args(value["args"])}
     if command=="batch":
         require_field_set(value,BATCH_TOP_LEVEL_FIELDS,BATCH_TOP_LEVEL_FIELDS,"operation")
-        if value["atomic"] is not True: raise contract_error("batch.atomic must be true",code="batch_not_atomic",field="atomic",allowed=[True],hint="partial (atomic=false) batches are not supported yet")
+        atomic=value["atomic"]
+        if not isinstance(atomic,bool): raise contract_error("batch.atomic must be a boolean",code="batch_not_atomic",field="atomic",allowed=[True,False])
         entries=value["operations"]
         if not isinstance(entries,list) or not entries: raise contract_error("batch.operations must be a non-empty array",code="bad_type",field="operations")
-        if len(entries)>MAX_BATCH_OPERATIONS: raise contract_error(f"batch.operations exceeds {MAX_BATCH_OPERATIONS} entries",code="bad_format",field="operations",hint=f"split into batches of at most {MAX_BATCH_OPERATIONS}")
+        limit=MAX_ATOMIC_BATCH_OPERATIONS if atomic else MAX_BATCH_OPERATIONS
+        if len(entries)>limit:
+            hint=(f"atomic batches are capped at {MAX_ATOMIC_BATCH_OPERATIONS} entries; split it up or set atomic=false"
+                  if atomic else f"split into batches of at most {MAX_BATCH_OPERATIONS}")
+            raise contract_error(f"batch.operations exceeds {limit} entries",code="bad_format",field="operations",hint=hint)
         operations=[validate_child(entry,i) for i,entry in enumerate(entries)]
         ids=[x["job_id"] for x in operations if x["command"]!="add"]
         if len(ids)!=len(set(ids)): raise contract_error("batch may contain each job_id only once",code="invariant_violation",field="operations")
         client_refs=[x["client_ref"] for x in operations if x["command"]=="add"]
         if len(client_refs)!=len(set(client_refs)): raise contract_error("batch may contain each add client_ref only once",code="invariant_violation",field="operations")
-        return {"version":OPERATION_VERSION,"operation_id":operation_id,"command":"batch","atomic":True,"operations":operations}
+        return {"version":OPERATION_VERSION,"operation_id":operation_id,"command":"batch","atomic":atomic,"operations":operations}
     require_field_set(value,SINGLE_TOP_LEVEL_FIELDS,SINGLE_TOP_LEVEL_FIELDS,"operation")
     if command not in {"screen","verify","set","status"}: raise contract_error("command must be add, screen, verify, set, status, or batch",code="unsupported_command",field="command",allowed=["add","screen","verify","set","status","batch"])
     child=validate_child({"command":command,"job_id":value["job_id"],"expected":value["expected"],"args":value["args"]})
@@ -376,46 +385,101 @@ def batch_preconditions(operation,rows_by_id):
         row=rows_by_id.get(child["job_id"])
         if row is None: raise contract_error(f"job {child['job_id']} was not found",code="unknown_job",field="job_id")
         mismatches=precondition_mismatches(row,child["expected"])
-        if mismatches: conflicts.append({"job_id":child["job_id"],"command":child["command"],"mismatches":mismatches})
+        if mismatches:
+            conflicts.append({
+                "job_id":child["job_id"],"command":child["command"],"mismatches":mismatches,
+                "retry":stale_retry_fragment(child["command"],child["job_id"],child["expected"],child["args"],mismatches),
+            })
     return conflicts
-def add_conflict_details(error):
+def add_retry_fragments(args,error,client_ref=None):
+    """Ready-to-send `add` requests for a duplicate/source-reference conflict
+    (P5, Э4): as_separate always resends the same args with force=true;
+    as_duplicate attaches a source reference to the one job the conflict
+    unambiguously points at, and is omitted when a fuzzy duplicate matched
+    more than one candidate (the caller must pick)."""
+    base={k:v for k,v in args.items() if k not in ("force","duplicate_of")}
+    def shape(inner_args):
+        fragment={"command":"add","args":inner_args}
+        if client_ref is not None: fragment["client_ref"]=client_ref
+        return fragment
+    fragments={"as_separate":shape({**base,"force":True})}
+    if isinstance(error,jobs.UnresolvedDuplicate):
+        candidate_ids=list(error.candidates.keys())
+        duplicate_of=candidate_ids[0] if len(candidate_ids)==1 else None
+    else:
+        duplicate_of=error.existing["job_id"]
+    if duplicate_of:
+        dup_args={k:v for k,v in base.items() if k in ADD_DUPLICATE_ARGS}
+        dup_args["duplicate_of"]=duplicate_of
+        fragments["as_duplicate"]=shape(dup_args)
+    return fragments
+def add_conflict_details(error,args,client_ref=None):
     if isinstance(error,jobs.UnresolvedDuplicate):
         candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason} for row,reason in error.candidates.values()]
-        return {"reason":"unresolved_duplicate","candidates":candidates}
-    return {"reason":"source_reference_conflict","message":error.message,"existing":error.existing}
+        details={"reason":"unresolved_duplicate","candidates":candidates}
+    else:
+        details={"reason":"source_reference_conflict","message":error.message,"existing":error.existing}
+    details["retry"]=add_retry_fragments(args,error,client_ref=client_ref)
+    return details
+def refreshed_expected(expected,mismatches):
+    """The same optimistic lock with each stale field replaced by its current
+    actual value, so a stale_operation retry fragment is valid without the
+    caller having to re-derive it (P5, Э4)."""
+    return {**expected,**{k:v["actual"] for k,v in mismatches.items()}}
+def stale_retry_fragment(command,job_id,expected,args,mismatches):
+    return {"command":command,"job_id":job_id,"expected":refreshed_expected(expected,mismatches),"args":args}
 def apply_add(operation):
     args=dict(operation["args"]); force=args.pop("force",False); duplicate_of=args.pop("duplicate_of",None)
     if duplicate_of and not any(row["id"]==duplicate_of for row in jobs.load()): raise contract_error(f"job {duplicate_of} was not found",code="unknown_job",field="args.duplicate_of")
     applied=jobs.add_job(args,force=force,duplicate_of=duplicate_of,no_file=False)
     updated=applied["job"]
     return updated,{"outcome":"source_reference_added" if applied.get("duplicate_of") else "job_added","job_id":updated["id"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"application_path":applied.get("application_path"),"source_reference":applied.get("source_reference"),"warnings":applied["warnings"]}
-def execute_batch(operation):
-    child_results=[]
+def execute_batch(operation,atomic,stale_conflicts):
+    """Applies every batch child inside one isolated transaction.
+
+    atomic=True keeps the original all-or-nothing behavior: any child conflict
+    raises BatchConflict, which aborts before the transaction is ever
+    committed. atomic=False instead records a conflicting child with its own
+    status and excludes it from the applied set (P6, Э4); `stale_conflicts`
+    (job_id -> precomputed batch_preconditions() entry) lets it skip a stale
+    non-add child without recomputing its mismatches.
+    """
+    child_results=[]; applied=0
     with temporary_tracker_workspace() as temp_root:
         for index,child in enumerate(operation["operations"]):
             if child["command"]=="add":
                 try: updated,details=apply_add(child)
                 except (jobs.UnresolvedDuplicate,jobs.SourceReferenceConflict) as error:
-                    raise BatchConflict({"reason":"batch_child_conflict","index":index,"command":"add","client_ref":child["client_ref"],"conflict":add_conflict_details(error)}) from error
-                child_results.append({"client_ref":child["client_ref"],"command":"add",**details})
+                    conflict=add_conflict_details(error,child["args"],client_ref=child["client_ref"])
+                    if atomic:
+                        raise BatchConflict({"reason":"batch_child_conflict","index":index,"command":"add","client_ref":child["client_ref"],"conflict":conflict}) from error
+                    child_results.append({"client_ref":child["client_ref"],"command":"add","status":"conflict","conflict":conflict})
+                    continue
+                child_results.append({"client_ref":child["client_ref"],"command":"add","status":"completed",**details})
+                applied+=1
                 continue
-            current=read_job(child["job_id"]); applied=apply_operation(child,current); updated=applied["job"]
-            child_results.append({"job_id":child["job_id"],"command":child["command"],"outcome":applied["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"stage_reached":updated["stage_reached"],"warnings":applied["warnings"]})
+            if child["job_id"] in stale_conflicts:
+                conflict=stale_conflicts[child["job_id"]]
+                child_results.append({"job_id":child["job_id"],"command":child["command"],"status":"conflict","reason":"stale_operation","mismatches":conflict["mismatches"],"retry":conflict["retry"]})
+                continue
+            current=read_job(child["job_id"]); applied_child=apply_operation(child,current); updated=applied_child["job"]
+            child_results.append({"job_id":child["job_id"],"command":child["command"],"status":"completed","outcome":applied_child["outcome"],"application_status":updated["application_status"],"listing_status":updated["listing_status"],"stage_reached":updated["stage_reached"],"warnings":applied_child["warnings"]})
+            applied+=1
         temp_rows=[dict(row) for row in jobs.load()]; temp_sources=[dict(row) for row in jobs.load_job_sources()]
         errors,warnings=jobs.validate_dataset(temp_rows,temp_sources)
         if errors: raise contract_error("batch dataset validation failed: "+"; ".join(errors),code="invariant_violation",layer="jobs")
         app_writes=changed_application_writes(temp_root)
-    jobs.apply_dataset_transaction(temp_rows,temp_sources,app_writes)
-    return child_results,warnings
+    if applied: jobs.apply_dataset_transaction(temp_rows,temp_sources,app_writes)
+    return child_results,warnings,applied
 def _execute_operation(operation):
     if operation["command"]=="add":
         risk="medium"
         try: updated,details=apply_add(operation)
         except jobs.UnresolvedDuplicate as error:
-            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error))
+            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error,operation["args"]))
             return result,write_result(result)
         except jobs.SourceReferenceConflict as error:
-            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error))
+            result=operation_result(operation,status="conflict",risk=risk,details=add_conflict_details(error,operation["args"]))
             return result,write_result(result)
         errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
         if errors: raise contract_error("post-operation dataset validation failed: "+"; ".join(errors),code="invariant_violation",layer="jobs")
@@ -423,19 +487,30 @@ def _execute_operation(operation):
         result=operation_result(operation,status="completed",risk=risk,details=details,job_id=updated["id"])
         return result,write_result(result)
     if operation["command"]=="batch":
+        atomic=operation["atomic"]
         rows_by_id={row["id"]:row for row in jobs.load()}; conflicts=batch_preconditions(operation,rows_by_id); risk=classify_risk(operation,rows_by_id)
-        if conflicts:
-            result=operation_result(operation,status="conflict",risk=risk,details={"reason":"stale_operation","conflicts":conflicts})
+        if atomic:
+            if conflicts:
+                result=operation_result(operation,status="conflict",risk=risk,details={"reason":"stale_operation","conflicts":conflicts})
+                return result,write_result(result)
+            try: children,warnings,_applied=execute_batch(operation,atomic=True,stale_conflicts={})
+            except BatchConflict as error:
+                result=operation_result(operation,status="conflict",risk=risk,details=error.details)
+                return result,write_result(result)
+            result=operation_result(operation,status="completed",risk=risk,details={"outcome":"atomic_batch_applied","count":len(children),"total":len(children),"operations":children,"warnings":warnings})
             return result,write_result(result)
-        try: children,warnings=execute_batch(operation)
-        except BatchConflict as error:
-            result=operation_result(operation,status="conflict",risk=risk,details=error.details)
-            return result,write_result(result)
-        result=operation_result(operation,status="completed",risk=risk,details={"outcome":"atomic_batch_applied","count":len(children),"operations":children,"warnings":warnings})
+        stale_by_job_id={conflict["job_id"]:conflict for conflict in conflicts}
+        children,warnings,applied=execute_batch(operation,atomic=False,stale_conflicts=stale_by_job_id)
+        total=len(children); conflicted=total-applied
+        if applied==0: status,outcome="conflict","batch_fully_conflicted"
+        elif conflicted==0: status,outcome="completed","batch_applied"
+        else: status,outcome="partial","partial_batch_applied"
+        result=operation_result(operation,status=status,risk=risk,details={"outcome":outcome,"count":applied,"total":total,"operations":children,"warnings":warnings})
         return result,write_result(result)
     row=read_job(operation["job_id"]); risk=classify_risk(operation,{row["id"]:row}); mismatches=precondition_mismatches(row,operation["expected"])
     if mismatches:
-        result=operation_result(operation,status="conflict",risk=risk,details={"reason":"stale_operation","mismatches":mismatches})
+        retry=stale_retry_fragment(operation["command"],operation["job_id"],operation["expected"],operation["args"],mismatches)
+        result=operation_result(operation,status="conflict",risk=risk,details={"reason":"stale_operation","mismatches":mismatches,"retry":retry})
         return result,write_result(result)
     applied=apply_operation(operation,row); updated=applied["job"]; errors,validation_warnings=jobs.validate_dataset(jobs.load(),jobs.load_job_sources())
     if errors: raise contract_error("post-operation dataset validation failed: "+"; ".join(errors),code="invariant_violation",layer="jobs")

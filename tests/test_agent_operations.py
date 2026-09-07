@@ -785,7 +785,7 @@ class ErrorTaxonomyTests(unittest.TestCase):
                                                                    "source_job_id": "dup-1", "notes": "should be ignored"}}),
              "duplicate_add_extra_fields", None),
             ("tax-batch-not-atomic", json.dumps({"version": 1, "operation_id": "tax-batch-not-atomic",
-                                                   "command": "batch", "atomic": False, "operations": []}),
+                                                   "command": "batch", "atomic": "true", "operations": []}),
              "batch_not_atomic", "atomic"),
             ("tax-unknown-job", json.dumps({"version": 1, "operation_id": "tax-unknown-job", "command": "screen",
                                              "job_id": "job-9999", "expected": {"application_status": "not_started"},

@@ -177,10 +177,19 @@ An unresolved fuzzy duplicate or a conflicting source reference produces an
 immutable `conflict` result without adding a row. A confirmed duplicate is sent
 as a new request with `duplicate_of`. Every `add` is classified as medium risk.
 
-## Phase B: atomic batch
+## Phase B: batch
 
-A batch contains up to 100 unique job operations and must explicitly opt into
-atomic execution:
+A batch declares an explicit `atomic` boolean and is capped by mode:
+`atomic: true` allows at most **10** operations (a single conflicting child
+still discards the whole batch, so the blast radius of one bad child is kept
+small); `atomic: false` allows up to **100** and keeps whatever children
+succeed instead of rolling everything back (P6, Э4 in
+[`docs/agent-write-path-plan-2026-09-07.md`](../../docs/agent-write-path-plan-2026-09-07.md)).
+Static schema validation is unconditional in both modes: a child that fails
+contract validation rejects the whole request before anything is applied.
+Only the three *runtime* outcomes — `unresolved_duplicate`,
+`source_reference_conflict`, `stale_operation` — are partial under
+`atomic: false`.
 
 ```json
 {
@@ -229,27 +238,43 @@ atomic execution:
 
 Batch guarantees:
 
-- every child schema and every optimistic-lock precondition is checked before
-  any canonical write;
+- every child schema is checked before any canonical write, in both modes;
 - duplicate existing-job `job_id` entries and duplicate add `client_ref` values
-  are rejected;
+  are rejected, in both modes;
 - children execute against an isolated tracker copy using the existing
   `jobs.py` write functions;
-- the resulting dataset is validated as a whole;
-- the real tracker is replaced through one `jobs.apply_dataset_transaction`;
-- if a child fails after previous children have run in the isolated copy, the
-  canonical dataset remains unchanged;
-- one immutable result records either `atomic_batch_applied` or the complete
-  stale-operation conflict list.
+- the resulting dataset (the children that actually applied) is validated as a
+  whole;
+- the real tracker is replaced through one `jobs.apply_dataset_transaction`,
+  only when at least one child applied;
+- `atomic: true`: an optimistic-lock mismatch on any child, or an unresolved
+  duplicate/source-reference conflict on any add child, discards every child
+  and produces one `conflict` result — either `stale_operation` (checked
+  up front, so no isolated copy work happens) or `batch_child_conflict`
+  (raised while applying);
+- `atomic: false`: the same two runtime conflicts are recorded on their own
+  child instead, which is excluded from the applied set; every other child
+  still applies. The result `status` is `completed` (every child applied),
+  `partial` (some did), or `conflict` (none did — canonical data is
+  unchanged, exactly as for a rejected atomic batch).
 
 An `add` child has exactly `command`, a caller-assigned stable `client_ref`, and
 `args`; it does not provide `job_id` or `expected`. IDs are allocated in child
 order inside the isolated transaction and the immutable result maps each
-`client_ref` to its assigned `job_id`. An unresolved duplicate or source
-reference conflict in any add child produces `batch_child_conflict` and rolls
-back every earlier child. `status` can also be a batch child, but every entry
-still requires `confirmed_by_user=true`. Declarative ingest remains outside the
-current agent gateway.
+`client_ref` to its assigned `job_id`. `status` can also be a batch child, but
+every entry still requires `confirmed_by_user=true`. Declarative ingest
+remains outside the current agent gateway.
+
+Every conflicting child — in either mode, and in a single-operation `add` or
+non-batch update too — carries a `retry` object with requests ready to resend
+under a **new** `operation_id` (P5, Э4): `as_separate` resends the same args
+with `force: true`; `as_duplicate` attaches a source reference to the job the
+conflict unambiguously points at (omitted when a fuzzy duplicate matched more
+than one candidate — the caller picks from `candidates` instead) for an add
+conflict, or repeats the same `command`/`job_id`/`args` with `expected`
+refreshed to the row's current values for a `stale_operation` conflict. Each
+fragment validates on its own as a batch child or a single operation; it does
+not carry `version`/`operation_id` since a retry always needs a fresh one.
 
 `screen` and `set` are low-risk. `add`, `status`, and `verify` with enrichment
 or a transition to `reviewing`/`apply` are medium-risk. A batch inherits the
@@ -297,12 +322,15 @@ honest `conflict` result instead of silently overwriting it.
 
 ### Result status and the `rejected` shape
 
-Every `apply` produces exactly one of three `status` values:
+Every `apply` produces exactly one of four `status` values:
 
 - `completed` — the operation applied; canonical data changed as described in
   `result`.
 - `conflict` — an optimistic-lock mismatch or an unresolved duplicate; canonical
   data is unchanged.
+- `partial` — `atomic: false` batch only: at least one child applied and at
+  least one conflicted; canonical data reflects only the children that
+  applied.
 - `rejected` — the request failed contract validation, or an internal
   invariant broke before any canonical write; canonical data is unchanged.
   `risk` is `none`. Unlike `conflict`, a `rejected` result also makes the GitHub

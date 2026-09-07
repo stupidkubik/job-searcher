@@ -45,7 +45,7 @@ risk = payload.get("risk")
 status = payload.get("status")
 if not isinstance(operation_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{2,79}", operation_id):
     sys.exit("runner returned an invalid operation_id")
-if risk not in {"low", "medium", "none"} or status not in {"completed", "conflict", "rejected"}:
+if risk not in {"low", "medium", "none"} or status not in {"completed", "conflict", "partial", "rejected"}:
     sys.exit("runner returned an invalid risk or status")
 print(status)
 PY
