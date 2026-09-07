@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-07** · Jobs: **408**
+Dataset updated: **2026-09-07** · Jobs: **409**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (12)](#to-verify) · [Archive (348)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (348)](#archive)
 
 ## Action now
 
@@ -71,6 +71,7 @@ Dataset updated: **2026-09-07** · Jobs: **408**
 | Reviewing | [ListLab — Remote Frontend Developer](<https://jaabz.com/jobs/267973-remote-frontend-developer>) · job-0404 | First party + Apply + Listing | 8.5 | verify first-party | 2026-09-07 |
 | Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
+| Reviewing | [Epic Games — Web Engineer Intern](<https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy>) · job-0409 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |

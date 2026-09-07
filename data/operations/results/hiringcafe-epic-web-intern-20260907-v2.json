@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-07T10:39:00Z",
+  "job_id": "job-0409",
+  "operation_id": "hiringcafe-epic-web-intern-20260907-v2",
+  "result": {
+    "application_path": "applications/job-0409-epic-games-web-engineer-intern.md",
+    "application_status": "reviewing",
+    "job_id": "job-0409",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-07",
+        "job_id": "job-0409",
+        "source": "HiringCafe",
+        "source_job_id": "7nwvkx1o4wvc3bmy",
+        "source_url": "https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
