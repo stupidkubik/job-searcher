@@ -39,10 +39,17 @@ VERIFY_WORKFLOW_ARGS = {"application_status","next_action","next_action_date"}
 ADD_CONTROL_ARGS = {"duplicate_of","force"}
 ADD_ALLOWED_ARGS = set(jobs.ADD_INPUT_FIELDS) | ADD_CONTROL_ARGS
 ADD_REQUIRED_ARGS = set(jobs.ADD_REQUIRED_INPUT_FIELDS)
-ADD_APPLICATION_STATUSES = {"not_started","reviewing"}
+# Named differently from jobs.ADD_APPLICATION_STATUSES: the connector may not
+# set application_status=apply directly (that transition needs a passed
+# verification), so this allowlist is a strict subset of the CLI's.
+CONNECTOR_ADD_APPLICATION_STATUSES = {"not_started","reviewing"}
 ADD_DUPLICATE_ARGS = ADD_REQUIRED_ARGS | {
     "source_url","source_job_id","found_at","duplicate_of","force",
 }
+# Shared with render-contract so the generated table can never name a
+# decision_reason value the validator itself would reject.
+ADD_VERIFY_DECISION_REASONS = jobs.PRE_APPLICATION_REASONS - {"duplicate_listing"}
+STATUS_DECISION_REASONS = {"no_response_timeout","withdrawn_by_me"}
 ADD_UNKNOWN_ARG_HINTS = {
     "next_action": "create the job first, then send a separate set operation with next_action",
     "next_action_date": "create the job first, then send a separate set operation with next_action_date",
@@ -109,7 +116,7 @@ def validate_verify_args(args,prefix="args"):
     if out["listing_status"] not in {"open","closed"}: raise contract_error(f"{prefix}.listing_status must be open or closed",code="bad_enum_value",field=f"{prefix}.listing_status",allowed=["open","closed"])
     for k in ("first_party_verified","apply_verified"):
         if out[k] not in {"yes","no"}: raise OperationError(f"{prefix}.{k} must be yes or no")
-    if "decision_reason" in out and out["decision_reason"] not in jobs.PRE_APPLICATION_REASONS-{"duplicate_listing"}: raise OperationError(f"{prefix}.decision_reason is not allowed for verify")
+    if "decision_reason" in out and out["decision_reason"] not in ADD_VERIFY_DECISION_REASONS: raise OperationError(f"{prefix}.decision_reason is not allowed for verify")
     workflow=VERIFY_WORKFLOW_ARGS & set(out)
     if "decision_reason" in out and workflow: raise OperationError("workflow args cannot be combined with decision_reason")
     if "application_status" in out:
@@ -159,7 +166,7 @@ def validate_status_args(args,prefix="args"):
         out[k]=clean_text(v,f"{prefix}.{k}")
     if out["application_status"] not in jobs.APPLICATION_STATUSES: raise contract_error(f"{prefix}.application_status is not a known status",code="bad_enum_value",field=f"{prefix}.application_status",allowed=sorted(jobs.APPLICATION_STATUSES))
     if "stage" in out and out["stage"] not in jobs.STAGES: raise contract_error(f"{prefix}.stage is not a known stage",code="bad_enum_value",field=f"{prefix}.stage",allowed=sorted(jobs.STAGES))
-    if "decision_reason" in out and out["decision_reason"] not in {"no_response_timeout","withdrawn_by_me"}: raise contract_error(f"{prefix}.decision_reason is not allowed for status",code="bad_enum_value",field=f"{prefix}.decision_reason",allowed=["no_response_timeout","withdrawn_by_me"])
+    if "decision_reason" in out and out["decision_reason"] not in STATUS_DECISION_REASONS: raise contract_error(f"{prefix}.decision_reason is not allowed for status",code="bad_enum_value",field=f"{prefix}.decision_reason",allowed=sorted(STATUS_DECISION_REASONS))
     for k in ("applied_at","response_at","next_action_date"):
         if k in out and out[k]:
             try: datetime.strptime(out[k],"%Y-%m-%d")
@@ -184,7 +191,7 @@ def validate_add_args(args,prefix="args"):
     for k in ADD_REQUIRED_ARGS:
         if not out[k].strip(): raise contract_error(f"{prefix}.{k} must not be empty",code="bad_format",field=f"{prefix}.{k}")
     if out["source"] not in jobs.SOURCES: raise contract_error(f"{prefix}.source is not a known source",code="bad_enum_value",field=f"{prefix}.source",allowed=sorted(jobs.SOURCES))
-    if out.get("application_status","not_started") not in ADD_APPLICATION_STATUSES: raise contract_error("add may set application_status only to not_started or reviewing",code="bad_enum_value",field=f"{prefix}.application_status",allowed=sorted(ADD_APPLICATION_STATUSES))
+    if out.get("application_status","not_started") not in CONNECTOR_ADD_APPLICATION_STATUSES: raise contract_error("add may set application_status only to not_started or reviewing",code="bad_enum_value",field=f"{prefix}.application_status",allowed=sorted(CONNECTOR_ADD_APPLICATION_STATUSES))
     for k,allowed in (
         ("listing_status",jobs.LISTING_STATUSES),
         ("first_party_verified",jobs.VERIFICATION),
@@ -204,8 +211,7 @@ def validate_add_args(args,prefix="args"):
         except ValueError as error: raise contract_error(f"{prefix}.match_score must be a number from 1 to 10",code="bad_format",field=f"{prefix}.match_score") from error
         if not math.isfinite(score) or not 1<=score<=10: raise contract_error(f"{prefix}.match_score must be a number from 1 to 10",code="bad_format",field=f"{prefix}.match_score")
     reason=out.get("decision_reason","")
-    allowed_reasons=jobs.PRE_APPLICATION_REASONS-{"duplicate_listing"}
-    if reason and reason not in allowed_reasons: raise contract_error(f"{prefix}.decision_reason is not allowed for add",code="bad_enum_value",field=f"{prefix}.decision_reason",allowed=sorted(allowed_reasons))
+    if reason and reason not in ADD_VERIFY_DECISION_REASONS: raise contract_error(f"{prefix}.decision_reason is not allowed for add",code="bad_enum_value",field=f"{prefix}.decision_reason",allowed=sorted(ADD_VERIFY_DECISION_REASONS))
     if reason=="other" and not out.get("notes","").strip(): raise contract_error("add decision_reason=other requires non-empty notes",code="invariant_violation",field=f"{prefix}.notes")
     status=out.get("application_status","not_started")
     if reason and status!="not_started": raise contract_error("add decision_reason requires application_status=not_started",code="invariant_violation",field=f"{prefix}.decision_reason")
@@ -459,11 +465,138 @@ def execute(path):
         wrapped=OperationError(f"unexpected process exit while applying the operation: {error}",code="invariant_violation",layer="jobs")
         result=rejected_result(operation_id,command,wrapped)
         return result,write_result(result)
+# --- render-contract (docs/agent-write-path-plan-2026-09-07.md, Э2) ---
+# The tables below are assembled from the same allowlists validate_*_args()
+# enforces, so contract.md cannot silently drift from what the runner accepts.
+CONTRACT_PATH=ROOT/"data"/"operations"/"contract.md"
+FIELD_TYPE_OVERRIDES={
+    "match_score":"number (1-10)","force":"boolean","confirmed_by_user":"boolean",
+    "duplicate_of":"job-NNNN","job_id":"job-NNNN","expected":"object (subset of canonical fields, non-empty)",
+    "client_ref":"text (caller-assigned, unique per request)",
+    "posted_at":"date (YYYY-MM-DD)","found_at":"date (YYYY-MM-DD)","applied_at":"date (YYYY-MM-DD)",
+    "response_at":"date (YYYY-MM-DD)","next_action_date":"date (YYYY-MM-DD)",
+    "original_url":"URL","source_url":"URL",
+}
+FIELD_NOTES={
+    "force":"explicitly resolves a fuzzy duplicate candidate or a shared discovery URL",
+    "duplicate_of":"attaches a new source reference to an existing job instead of creating one",
+    "client_ref":"maps this child's assigned job_id back to the caller inside the result",
+    "confirmed_by_user":"must be the literal boolean true; set only after the human reports or requests the event",
+    "notes":"single line; long context belongs in applications/<id>.md",
+    "match_score":"decimal values are allowed, e.g. 7.5",
+    "stage":"stage_reached only increases; a lower stage is rejected",
+    "expected":"optimistic lock; must include last_update and the fields the decision depends on",
+    "job_id":"must match job-NNNN and already exist",
+}
+ADD_FIELD_ENUMS={
+    "source":jobs.SOURCES,"application_status":sorted(CONNECTOR_ADD_APPLICATION_STATUSES),
+    "listing_status":jobs.LISTING_STATUSES,"first_party_verified":jobs.VERIFICATION,
+    "apply_verified":jobs.VERIFICATION,"level":jobs.LEVELS,"remote_policy":jobs.REMOTE,
+    "decision_reason":sorted(ADD_VERIFY_DECISION_REASONS),
+}
+VERIFY_FIELD_ENUMS={
+    "listing_status":["open","closed"],"first_party_verified":["yes","no"],"apply_verified":["yes","no"],
+    "level":jobs.LEVELS,"remote_policy":jobs.REMOTE,"decision_reason":sorted(ADD_VERIFY_DECISION_REASONS),
+    "application_status":["apply"],
+}
+SCREEN_FIELD_ENUMS={"decision_reason":sorted(jobs.SCREEN_REASONS)}
+SET_FIELD_ENUMS={"listing_status":["closed"]}
+STATUS_FIELD_ENUMS={
+    "application_status":jobs.APPLICATION_STATUSES,"stage":jobs.STAGES,
+    "decision_reason":sorted(STATUS_DECISION_REASONS),
+}
+CONTRACT_INVARIANTS=[
+    "`first_party_verified=yes` requires a non-empty `original_url`.",
+    "`apply_verified=yes` requires `first_party_verified=yes`.",
+    "`listing_status=closed` before an application requires `decision_reason=closed_before_application`.",
+    "`application_status=apply` requires a passed open verification and a non-empty `next_action`.",
+]
+ALL_ARG_ALLOWLISTS=(ADD_ALLOWED_ARGS,VERIFY_ALLOWED_ARGS,SCREEN_ALLOWED_ARGS,SET_ALLOWED_ARGS,STATUS_ALLOWED_ARGS)
+def fields_no_command_accepts():
+    accepted=set().union(*ALL_ARG_ALLOWLISTS)
+    return sorted(set(jobs.FIELDS)-accepted)
+def markdown_table(headers,rows):
+    lines=["| "+" | ".join(headers)+" |","| "+" | ".join("---" for _ in headers)+" |"]
+    lines+=["| "+" | ".join(row)+" |" for row in rows]
+    return "\n".join(lines)+"\n"
+def contract_table(fields,required,enums,notes_overrides=None):
+    notes_overrides=notes_overrides or {}
+    rows=[]
+    for field in sorted(fields):
+        allowed_values=enums.get(field)
+        allowed_display=", ".join(f"`{value}`" for value in allowed_values) if allowed_values else "—"
+        note=notes_overrides.get(field,FIELD_NOTES.get(field,""))
+        type_label="enum" if allowed_values is not None else FIELD_TYPE_OVERRIDES.get(field,"text")
+        rows.append((f"`{field}`",type_label,allowed_display,"yes" if field in required else "no",note))
+    return markdown_table(("Field","Type","Allowed values","Required","Note"),rows)
+def render_contract_markdown():
+    parts=[
+        "# Operation field contract\n",
+        "> Generated from `scripts/agent_operations.py` and `scripts/jobs.py` by "
+        "`python3 scripts/agent_operations.py render-contract`. Do not edit manually.\n",
+        "This is the single source of truth for which connector command accepts which "
+        "field. It is assembled from the same allowlists the runner enforces, so it "
+        "cannot drift silently from actual validation. See "
+        "[`README.md`](README.md) for the full request/result contract.\n",
+        "## `add`\n",
+        contract_table(ADD_ALLOWED_ARGS,ADD_REQUIRED_ARGS,ADD_FIELD_ENUMS),
+        "## `add` with `duplicate_of`\n",
+        "A duplicate add only attaches a new source reference to an existing job; any "
+        "canonical field beside the ones below is rejected (`duplicate_add_extra_fields`).\n",
+        contract_table(ADD_DUPLICATE_ARGS,ADD_REQUIRED_ARGS,ADD_FIELD_ENUMS),
+        "## `verify`\n",
+        contract_table(VERIFY_ALLOWED_ARGS,VERIFY_REQUIRED_ARGS,VERIFY_FIELD_ENUMS),
+        "## `screen`\n",
+        contract_table(SCREEN_ALLOWED_ARGS,SCREEN_REQUIRED_ARGS,SCREEN_FIELD_ENUMS),
+        "## `set`\n",
+        "At least one field is required.\n",
+        contract_table(SET_ALLOWED_ARGS,set(),SET_FIELD_ENUMS,
+                        notes_overrides={"listing_status":"allowed only after a human application already exists"}),
+        "## `status`\n",
+        contract_table(STATUS_ALLOWED_ARGS,STATUS_REQUIRED_ARGS,STATUS_FIELD_ENUMS),
+        "## Batch child: `add` (with `client_ref`)\n",
+        "Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expected`.\n",
+        contract_table({"client_ref"}|ADD_ALLOWED_ARGS,{"client_ref"}|ADD_REQUIRED_ARGS,ADD_FIELD_ENUMS),
+        "## Batch child: existing job (`screen` / `verify` / `set` / `status`)\n",
+        "Every non-`add` batch child carries `job_id` and a non-empty `expected` "
+        "optimistic lock in addition to its command-specific `args` (see the matching "
+        "section above).\n",
+        contract_table({"job_id","expected"},{"job_id","expected"},{}),
+        "## Fields no command accepts\n",
+        "Written only by the runner, never by a connector command: "
+        +", ".join(f"`{field}`" for field in fields_no_command_accepts())+".\n",
+        "## Invariants across fields\n",
+        "\n".join(f"- {line}" for line in CONTRACT_INVARIANTS)+"\n",
+        "## Canonical enum values (reference)\n",
+        markdown_table(("Field","Values"),[
+            (f"`{field}`",", ".join(f"`{value}`" for value in values))
+            for field,values in jobs.ENUMS.items()
+        ]),
+    ]
+    return "\n\n".join(part.rstrip("\n") for part in parts)+"\n"
+def write_or_check_contract(markdown,check):
+    expected=markdown.encode("utf-8")
+    if check: return CONTRACT_PATH.exists() and CONTRACT_PATH.read_bytes()==expected
+    CONTRACT_PATH.parent.mkdir(parents=True,exist_ok=True)
+    with CONTRACT_PATH.open("wb") as file: file.write(expected)
+    return True
 def main():
     parser=argparse.ArgumentParser(description="Execute declarative Phase A/B agent operations"); subparsers=parser.add_subparsers(dest="command",required=True)
     validate=subparsers.add_parser("validate"); validate.add_argument("request",type=Path); validate.add_argument("--format",choices=("text","json"),default="text")
     apply=subparsers.add_parser("apply"); apply.add_argument("request",type=Path); apply.add_argument("--format",choices=("text","json"),default="text")
+    render_contract=subparsers.add_parser("render-contract",help="regenerate data/operations/contract.md from the code-level allowlists")
+    render_contract.add_argument("--check",action="store_true",help="check freshness without writing")
+    render_contract.add_argument("--format",choices=("text","json"),default="text")
     args=parser.parse_args()
+    if args.command=="render-contract":
+        up_to_date=write_or_check_contract(render_contract_markdown(),args.check)
+        payload={"ok":up_to_date if args.check else True,"command":"render-contract","path":CONTRACT_PATH.relative_to(ROOT).as_posix(),"up_to_date":up_to_date}
+        if args.format=="json": print_json(payload)
+        elif not args.check: print("data/operations/contract.md rendered")
+        elif up_to_date: print("data/operations/contract.md is up to date")
+        else: print("data/operations/contract.md is out of date; run: python3 scripts/agent_operations.py render-contract",file=sys.stderr)
+        if args.check and not up_to_date: raise SystemExit(1)
+        return
     try:
         if args.command=="validate":
             operation=load_operation(args.request); payload={"ok":True,"command":"validate","operation":operation}

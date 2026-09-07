@@ -10,6 +10,15 @@ the separately installed Browser plugin for source/ATS/Apply navigation, then
 use this connector path only for repository reads and immutable writes. Web
 search results do not satisfy Browser preflight or first-party verification.
 
+[`contract.md`](contract.md) is the generated field-by-field reference: which
+field each command accepts, its type and allowed values, which fields no
+command accepts at all, and the cross-field invariants. It is assembled from
+the same allowlists this document's schemas summarize below, so read it before
+building an unfamiliar `args` object — a field or value it does not list is
+rejected. Regenerate it with
+`python3 scripts/agent_operations.py render-contract` after changing any
+allowlist in `scripts/agent_operations.py`.
+
 ```text
 connector → requests/<operation_id>.json → trusted GitHub Actions runner
                                               ├→ jobs.py → canonical CSV/cards
@@ -91,7 +100,12 @@ Allowed single commands:
   permits only `application_status=not_started|reviewing`. External sources
   require `source_url` or `source_job_id`. Optional `duplicate_of` attaches the
   new source reference to an existing canonical job; optional boolean `force`
-  explicitly resolves a fuzzy duplicate or shared discovery URL.
+  explicitly resolves a fuzzy duplicate or shared discovery URL. **A
+  `duplicate_of` add takes only the required fields plus a source reference**
+  (`source_url`/`source_job_id`/`found_at`) and `force` — any other canonical
+  field next to `duplicate_of` is rejected as `duplicate_add_extra_fields`,
+  since it would silently be ignored on the existing job. See
+  [`contract.md`](contract.md) for the exact field list of both forms.
 
 - `screen`: requires `decision_reason`; optional `notes`. It works only before
   application, clears the next action, and leaves listing/verification fields

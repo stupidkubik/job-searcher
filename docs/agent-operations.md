@@ -5,7 +5,11 @@
 Этот документ описывает действующий путь записи через GitHub connector и
 trusted GitHub Actions runner. Полный, machine-enforced JSON contract находится
 в [`data/operations/README.md`](../data/operations/README.md); он является
-единственным источником истины для формы request. Правила поведения агента — в
+единственным источником истины для формы request. Какое поле принимает какая
+команда — в сгенерированном
+[`data/operations/contract.md`](../data/operations/contract.md)
+(`python3 scripts/agent_operations.py render-contract`), собранном из тех же
+allowlist'ов, что enforces runner. Правила поведения агента — в
 [`AGENTS.md`](../AGENTS.md), а код policy — в
 [`scripts/agent_operations.py`](../scripts/agent_operations.py).
 

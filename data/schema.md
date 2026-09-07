@@ -11,6 +11,14 @@ facts и не существует без строки в `jobs.csv`. Все з�
 Первые три колонки — `id`, `application_status`, `listing_status`: состояние
 нашей заявки и состояние объявления хранятся независимо.
 
+Какая agent-команда (`add`/`verify`/`screen`/`set`/`status`) вправе писать
+конкретное поле — не в этом файле: это генерируется из кода в
+[`data/operations/contract.md`](operations/contract.md). Поле, которого нет ни
+в одной таблице `contract.md`, находится в разделе «Fields no command
+accepts» — таких пишет только runner (`id`, `verified_at`, `last_update`,
+`stage_reached`) или человек напрямую в `applications/<id>.md`/CV
+(`contact_name`, `contact_url`, `cover_letter`).
+
 ## Порядок колонок
 
 ```text
