@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-07T10:28:46Z",
+  "job_id": "job-0408",
+  "operation_id": "hiringcafe-sovos-software-engineer-20260907",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0408",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-07",
+        "job_id": "job-0408",
+        "source": "HiringCafe",
+        "source_job_id": "mh02jhkjkvkf6ngp",
+        "source_url": "https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

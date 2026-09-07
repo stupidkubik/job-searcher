@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-07** · Jobs: **407**
+Dataset updated: **2026-09-07** · Jobs: **408**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (12)](#to-verify) · [Archive (347)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (12)](#to-verify) · [Archive (348)](#archive)
 
 ## Action now
 
@@ -85,10 +85,11 @@ Dataset updated: **2026-09-07** · Jobs: **407**
 
 <details>
 
-<summary>Archive (347)</summary>
+<summary>Archive (348)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Tether Operations Limited — Frontend Software Engineer (100% Remote)](<https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366>) · job-0407 | seniority too high | Not checked | 2026-09-07 |
 | Skipped: geo restriction | [Major Scale — Design Engineer / Front End Engineer / Product Engineer](<https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote>) · job-0403 | geo restriction | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Talanto — Frontend Developer (React, Next.js, NestJS)](<https://jaabz.com/jobs/268358-frontend-developer-react-nextjs-nestjs>) · job-0402 | seniority too high | Not checked | 2026-09-07 |
