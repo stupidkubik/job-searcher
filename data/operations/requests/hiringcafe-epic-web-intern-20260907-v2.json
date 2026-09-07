@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-epic-web-intern-20260907-v2",
+  "command": "add",
+  "args": {
+    "company": "Epic Games",
+    "role": "Web Engineer Intern",
+    "level": "Intern",
+    "source": "HiringCafe",
+    "source_url": "https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy",
+    "source_job_id": "7nwvkx1o4wvc3bmy",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "remote_policy": "On-site",
+    "stack": "React; Next.js; TypeScript; Tailwind CSS; NestJS; Node.js; AWS; Kubernetes; CI/CD; JavaScript",
+    "match_score": 8.2,
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "HiringCafe card posted 1 week ago. On-site in Novi Sad, Serbia. Strong junior-level overlap: React, Next.js, TypeScript, Tailwind CSS, production code, internal tools and developer platforms. The description states a flexible start date in 2027 and requires legal authorization to work in the posting location. HiringCafe's employer Apply button did not resolve in Browser, so first-party listing and application route remain unverified."
+  }
+}
