@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from datetime import date, timedelta
+from io import StringIO
 from pathlib import Path
 
 from scripts import jobs
@@ -1205,6 +1206,94 @@ class JobsCliTests(unittest.TestCase):
         tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
         self.assertEqual(tracker.count("No jobs."), 4)
         self.assertIn("<summary>Archive (0)</summary>", tracker)
+
+    def test_render_index_active_slice_matches_application_status_not_listing_status(self):
+        rows = [
+            self.tracker_row(1, application_status="not_started", listing_status="unknown"),
+            self.tracker_row(2, application_status="reviewing", listing_status="open"),
+            self.tracker_row(3, application_status="applied", listing_status="closed", applied_at="2026-08-05", stage_reached="Applied"),
+            self.tracker_row(4, application_status="interviewing", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Tech interview"),
+            self.tracker_row(5, application_status="offer", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Offer"),
+            self.tracker_row(6, application_status="rejected", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Recruiter screen"),
+            self.tracker_row(7, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"),
+            self.tracker_row(8, application_status="withdrawn", applied_at="2026-08-05", stage_reached="Applied", decision_reason="withdrawn_by_me"),
+            self.tracker_row(9, listing_status="closed", decision_reason="closed_before_application"),
+            self.tracker_row(10, decision_reason="geo_restriction"),
+        ]
+        self.write_tracker_dataset(rows)
+
+        result = self.invoke("render-index", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+        active_text = (self.root / "data" / "index" / "active.csv").read_text(encoding="utf-8")
+        active_rows = list(csv.DictReader(StringIO(active_text)))
+        self.assertEqual(
+            [row["id"] for row in active_rows],
+            ["job-0001", "job-0002", "job-0003", "job-0004", "job-0005"],
+        )
+        # job-0003 stays active despite listing_status=closed: the application is still in flight.
+        self.assertEqual(active_rows[2]["listing_status"], "closed")
+        self.assertEqual(set(active_rows[0].keys()), set(jobs.FIELDS))
+
+    def test_render_index_known_tsv_has_no_urls_and_keys_tsv_groups_by_source(self):
+        rows = [
+            self.tracker_row(1, company="Acme, Inc."),
+            self.tracker_row(2, company="Beta Co"),
+            self.tracker_row(3, company="Gamma LLC"),
+        ]
+        source_rows = [
+            {"job_id": "job-0001", "source": "Himalayas", "source_url": "https://himalayas.app/companies/acme/jobs/1", "source_job_id": "", "found_at": "2026-08-01"},
+            {"job_id": "job-0002", "source": "Himalayas", "source_url": "https://himalayas.app/companies/beta/jobs/2", "source_job_id": "", "found_at": "2026-08-01"},
+            {"job_id": "job-0003", "source": "Manual", "source_url": "", "source_job_id": "manual-ref-1", "found_at": "2026-08-01"},
+        ]
+        self.write_tracker_dataset(rows, source_rows)
+
+        result = self.invoke("render-index", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+        known = (self.root / "data" / "index" / "known.tsv").read_text(encoding="utf-8")
+        self.assertNotIn("http", known)
+        self.assertEqual(
+            known.splitlines()[0],
+            "id\tcompany\trole\tapplication_status\tlisting_status\tdecision_reason",
+        )
+        self.assertIn("job-0001\tAcme, Inc.\t", known)
+
+        keys = (self.root / "data" / "index" / "keys.tsv").read_text(encoding="utf-8").splitlines()
+        self.assertIn("# Himalayas\tprefix=https://himalayas.app/companies/", keys)
+        self.assertIn("job-0001\tacme/jobs/1", keys)
+        self.assertIn("job-0002\tbeta/jobs/2", keys)
+        self.assertIn("# Manual\tprefix=", keys)
+        self.assertIn("job-0003\tmanual-ref-1", keys)
+
+    def test_render_index_is_deterministic_and_check_is_read_only(self):
+        self.write_tracker_dataset([self.tracker_row(1)])
+        jobs_before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        missing = self.invoke("render-index", "--check", "--format", "json")
+        self.assertEqual(missing.returncode, 1)
+        self.assertFalse(all(json.loads(missing.stdout)["up_to_date"].values()))
+        self.assertFalse((self.root / "data" / "index").exists())
+
+        first = self.invoke("render-index")
+        self.assertEqual(first.returncode, 0, first.stderr)
+        index_dir = self.root / "data" / "index"
+        first_bytes = {path.name: path.read_bytes() for path in index_dir.iterdir()}
+        second = self.invoke("render-index")
+        self.assertEqual(second.returncode, 0, second.stderr)
+        self.assertEqual({path.name: path.read_bytes() for path in index_dir.iterdir()}, first_bytes)
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), jobs_before)
+
+        fresh = self.invoke("render-index", "--check", "--format", "json")
+        self.assertEqual(fresh.returncode, 0, fresh.stderr)
+        self.assertTrue(all(json.loads(fresh.stdout)["up_to_date"].values()))
+
+        (index_dir / "known.tsv").write_text("stale\n", encoding="utf-8")
+        stale = self.invoke("render-index", "--check", "--format", "json")
+        self.assertEqual(stale.returncode, 1)
+        payload = json.loads(stale.stdout)
+        self.assertEqual(payload["up_to_date"], {"known": False, "keys": True, "active": True})
+        self.assertEqual((index_dir / "known.tsv").read_text(encoding="utf-8"), "stale\n")
 
 
 class PackageImportTests(unittest.TestCase):

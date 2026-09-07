@@ -56,6 +56,8 @@ PY
     python3 scripts/jobs.py validate --strict
     python3 scripts/jobs.py render-tracker
     python3 scripts/jobs.py render-tracker --check
+    python3 scripts/jobs.py render-index
+    python3 scripts/jobs.py render-index --check
     python3 -m unittest discover -s tests -v
     python3 scripts/jobs.py dupes --format json
     echo "::endgroup::"
@@ -75,7 +77,11 @@ if status == "rejected":
     if paths != [expected_result]:
         sys.exit("a rejected operation must change exactly its own result file: " + ", ".join(paths))
 else:
-    allowed = {"data/jobs.csv", "data/job_sources.csv", "docs/tracker.md", expected_result}
+    allowed = {
+        "data/jobs.csv", "data/job_sources.csv", "docs/tracker.md",
+        "data/index/known.tsv", "data/index/keys.tsv", "data/index/active.csv",
+        expected_result,
+    }
     for path in paths:
         if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
             continue
@@ -85,7 +91,7 @@ else:
 PY
   echo "::endgroup::"
 
-  git add data/jobs.csv data/job_sources.csv docs/tracker.md data/operations/results applications
+  git add data/jobs.csv data/job_sources.csv docs/tracker.md data/index data/operations/results applications
   if [[ "$STATUS" == "rejected" ]]; then
     git commit -m "jobs: reject agent operation ${OPERATION_ID}"
   else

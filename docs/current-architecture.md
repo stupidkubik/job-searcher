@@ -56,6 +56,7 @@ data/inbox/                 local immutable JSONL batches (Git-ignored)
 data/operations/            connector requests and immutable results
 data/jobs.csv               canonical jobs
 data/job_sources.csv        canonical provenance references
+data/index/                 generated compact bootstrap projections (render-index)
 applications/               long-form job context
 scripts/jobs.py             local canonical write path and projections
 scripts/agent_operations.py trusted declarative connector executor
@@ -126,14 +127,21 @@ of the runner's system timezone.
 
 ## Derived views and validation
 
-`docs/tracker.md` is deterministically rendered from canonical data. A valid
-write is complete only after:
+`docs/tracker.md` and `data/index/{known.tsv,keys.tsv,active.csv}` are
+deterministically rendered from canonical data (`render-tracker` and
+`render-index`). A valid write is complete only after:
 
 1. strict dataset validation;
-2. tracker regeneration and exact freshness check;
+2. tracker and index regeneration and exact freshness check;
 3. unit tests;
 4. duplicate review;
 5. for connector operations, immutable result and changed-path enforcement.
+
+`data/index/*` exists so an agent's bootstrap read can skip the full
+`jobs.csv`/`job_sources.csv` (see `AGENTS.md`): `known.tsv` and `keys.tsv`
+carry enough of the dataset for dedup, `active.csv` enough for picking up
+in-flight work. Reading the full CSV is still allowed, but the launch prompt
+requires stating why the compact index was not enough.
 
 The CI workflow validates pushes to `main`, pull requests and manual runs. The
 operation workflow owns canonical connector writes; the source-discovery

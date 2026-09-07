@@ -22,6 +22,8 @@ write path меняются, этот файл и корневой [`README.md`]
 | реализованное и будущие изменения | [`roadmap.md`](roadmap.md) |
 | план исправления write path и бутстрапа агента | [`agent-write-path-plan-2026-09-07.md`](agent-write-path-plan-2026-09-07.md) |
 | generated browser view | [`tracker.md`](tracker.md) |
+| generated bootstrap-индексы для дедупа и активного среза | `data/index/known.tsv`, `data/index/keys.tsv`, `data/index/active.csv` (`render-index`) |
+| компактный bootstrap-профиль кандидата | [`config/profile-digest.md`](../config/profile-digest.md) |
 
 ## Historical records
 
@@ -58,6 +60,8 @@ write path меняются, этот файл и корневой [`README.md`]
 | ChatGPT Browser/GitHub capability boundary или launch prompt | `AGENTS.md`, `docs/agent-operations.md`, `docs/sources/README.md`, `docs/current-architecture.md` |
 | каталог или основной entry point | `README.md`, `docs/current-architecture.md`, этот индекс |
 | временная семантика | `data/schema.md`, raw/artifact contracts и boundary tests |
+| поле CSV меняется настолько, что затрагивает bootstrap-индексы | перегенерировать `data/index/*` (`render-index`), `data/schema.md` |
+| `config/profile.md` меняется в гео/уровне/стеке/компенсации/work authorization/red flags | обновить `config/profile-digest.md`; тест проверяет наличие обязательных ключей |
 
 Планы и исторические аудиты не следует переписывать задним числом. Вместо этого
 обновляется действующий документ, а изменение фиксируется обычным Git diff.

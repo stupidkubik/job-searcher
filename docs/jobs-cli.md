@@ -363,6 +363,33 @@ python3 scripts/jobs.py render-tracker --check --format json
 Повторная генерация на тех же input bytes детерминирована, а запись проходит
 через temporary file и `os.replace`.
 
+## Bootstrap-индексы
+
+`render-index` собирает три компактных generated артефакта в `data/index/`
+для бутстрапа агента (docs/agent-write-path-plan-2026-09-07.md, Э6):
+`known.tsv` (id/company/role/application_status/listing_status/decision_reason,
+без URL — company/role-дедуп hint), `keys.tsv` (точный дедуп-ключ каждой
+source reference — `source_job_id`, иначе нормализованный `source_url` —
+сгруппированный по `source` с вырезанным общим префиксом) и `active.csv`
+(все канонические поля для активного среза: `reviewing`/`apply`/`applied`/
+`interviewing`/`offer`, плюс `not_started` без `decision_reason`).
+
+```bash
+# Атомарно пересобрать все три артефакта.
+python3 scripts/jobs.py render-index
+
+# Проверить freshness без записи.
+python3 scripts/jobs.py render-index --check
+python3 scripts/jobs.py render-index --check --format json
+```
+
+Тот же exact-freshness контракт, что у `render-tracker`: `--check` завершится
+с кодом `1`, если хотя бы один из трёх файлов отсутствует или отличается хотя
+бы одним байтом; JSON-ответ перечисляет `up_to_date` для каждого файла
+отдельно. `data/jobs.csv` и `data/job_sources.csv` остаются единственным
+источником истины — полное чтение CSV не запрещено, но требует объяснения,
+почему компактных индексов было недостаточно (см. `AGENTS.md`).
+
 ## Удалённые агенты и GitHub connector
 
 GitHub connector может создавать только один новый immutable request в

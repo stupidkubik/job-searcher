@@ -40,6 +40,8 @@ jobs:
         run: python scripts/jobs.py validate --strict
       - name: Проверка актуальности browser tracker
         run: python scripts/jobs.py render-tracker --check
+      - name: Проверка актуальности bootstrap-индексов
+        run: python scripts/jobs.py render-index --check
       - name: Проверка актуальности operation field contract
         run: python scripts/agent_operations.py render-contract --check
       - name: Unit tests write-path

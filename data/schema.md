@@ -108,6 +108,25 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 `Applied`. `listing_status` остаётся отдельным свойством объявления и не
 заменяет человеческий статус решения/отклика.
 
+### Bootstrap-индексы (`data/index/`)
+
+Три файла генерируются из `jobs.csv`/`job_sources.csv` командой
+`python3 scripts/jobs.py render-index` (тот же exact-freshness контракт
+`--check`, что у `render-tracker`); вручную не редактируются
+(docs/agent-write-path-plan-2026-09-07.md, Э6).
+
+| Файл | Содержимое |
+|---|---|
+| `data/index/known.tsv` | `id, company, role, application_status, listing_status, decision_reason` для каждой строки, без URL — company/role-дедуп hint. |
+| `data/index/keys.tsv` | Точный дедуп-ключ каждой source reference из `job_sources.csv` (`source_job_id`, иначе нормализованный `source_url`), сгруппирован по `source` с вырезанным общим префиксом. |
+| `data/index/active.csv` | Полные канонические поля для активного среза. |
+
+Активный срез в `active.csv` — **не** то же самое, что «Active candidate» выше:
+это `application_status` в `reviewing`/`apply`/`applied`/`interviewing`/`offer`,
+либо `not_started` с пустым `decision_reason`; в отличие от «Active candidate»,
+`listing_status` не учитывается — уже поданная или находящаяся на интервью
+заявка остаётся в срезе, даже если объявление закрылось после отклика.
+
 ## Source references: `data/job_sources.csv`
 
 ```text

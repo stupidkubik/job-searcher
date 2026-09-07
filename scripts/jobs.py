@@ -14,6 +14,7 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from difflib import SequenceMatcher
+from io import StringIO
 from pathlib import Path
 from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 
@@ -29,6 +30,10 @@ JOB_SOURCES_PATH = ROOT / "data" / "job_sources.csv"
 APPS_DIR = ROOT / "applications"
 TEMPLATE_PATH = APPS_DIR / "_TEMPLATE.md"
 TRACKER_PATH = ROOT / "docs" / "tracker.md"
+INDEX_DIR = ROOT / "data" / "index"
+KNOWN_INDEX_PATH = INDEX_DIR / "known.tsv"
+KEYS_INDEX_PATH = INDEX_DIR / "keys.tsv"
+ACTIVE_INDEX_PATH = INDEX_DIR / "active.csv"
 
 V1_FIELDS = [
     "id", "status", "company", "role", "level", "original_url", "source_url", "source",
@@ -2703,6 +2708,144 @@ def write_or_check_tracker(markdown, check):
     return True
 
 
+def index_tsv_value(value):
+    """A tab or newline in a cell would silently corrupt a naive TSV read;
+    company/role text is single-line by contract, but this stays defensive."""
+    return (value or "").replace("\t", " ").replace("\n", " ").replace("\r", " ")
+
+
+def render_known_index(rows):
+    """Compact company/role dedup hint (docs/agent-write-path-plan-2026-09-07.md,
+    Э6): no URLs, so it is not the exact-match dedup key — that's keys.tsv."""
+    lines = ["id\tcompany\trole\tapplication_status\tlisting_status\tdecision_reason"]
+    for row in sorted(rows, key=lambda item: item["id"]):
+        lines.append("\t".join(index_tsv_value(row[field]) for field in (
+            "id", "company", "role", "application_status", "listing_status", "decision_reason",
+        )))
+    return ("\n".join(lines) + "\n").encode("utf-8")
+
+
+def index_reference_key(reference):
+    source_job_id = (reference.get("source_job_id") or "").strip()
+    return source_job_id if source_job_id else norm_url(reference.get("source_url") or "")
+
+
+def index_common_prefix(values):
+    """Longest shared prefix across a source's keys, cut back to the last `/`
+    so a stripped suffix stays a readable path fragment rather than an
+    arbitrary substring."""
+    if len(values) < 2:
+        return ""
+    prefix = values[0]
+    for value in values[1:]:
+        while not value.startswith(prefix):
+            prefix = prefix[:-1]
+            if not prefix:
+                return ""
+    cut = prefix.rfind("/")
+    return prefix[:cut + 1] if cut >= 0 else ""
+
+
+def render_keys_index(source_rows):
+    """Exact-match dedup key per source reference (docs/agent-write-path-plan-
+    2026-09-07.md, Э6): source_job_id when known, else normalized source_url.
+    Grouped by source with the group's common URL prefix stripped to keep the
+    file small; every reference in job_sources.csv is included, not just the
+    one recorded on jobs.csv, since a confirmed duplicate may add another."""
+    by_source = {}
+    for reference in source_rows:
+        key = index_reference_key(reference)
+        if not key:
+            continue
+        by_source.setdefault(reference["source"], []).append((reference["job_id"], key))
+    blocks = []
+    for source in sorted(by_source):
+        entries = sorted(by_source[source])
+        prefix = index_common_prefix([key for _, key in entries])
+        blocks.append(f"# {index_tsv_value(source)}\tprefix={prefix}")
+        for job_id, key in entries:
+            blocks.append(f"{job_id}\t{key[len(prefix):]}")
+    return ("\n".join(blocks) + "\n").encode("utf-8") if blocks else b""
+
+
+ACTIVE_INDEX_APPLICATION_STATUSES = {"reviewing", "apply", "applied", "interviewing", "offer"}
+
+
+def is_active_index_row(row):
+    """docs/agent-write-path-plan-2026-09-07.md, Э6: reviewing/apply/applied/
+    interviewing/offer, plus not_started with no decision_reason yet. Unlike
+    is_active_candidate(), this ignores listing_status: an already-applied or
+    interviewing job still belongs in the bootstrap slice even after its
+    listing closes, since the application itself is still in flight."""
+    if row["application_status"] in ACTIVE_INDEX_APPLICATION_STATUSES:
+        return True
+    return row["application_status"] == "not_started" and not row["decision_reason"]
+
+
+def render_active_index(rows):
+    """All canonical fields for the active slice."""
+    active_rows = sorted((row for row in rows if is_active_index_row(row)), key=lambda item: item["id"])
+    buffer = StringIO(newline="")
+    writer = csv.DictWriter(buffer, fieldnames=FIELDS, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows({key: row.get(key) or "" for key in FIELDS} for row in active_rows)
+    return buffer.getvalue().encode("utf-8")
+
+
+def write_or_check_index_file(path, data, check):
+    """Atomically write a generated index artifact, or compare it byte-for-
+    byte (same exact-freshness contract as write_or_check_tracker)."""
+    if check:
+        return path.exists() and path.read_bytes() == data
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{path.stem}-", suffix=path.suffix, dir=path.parent)
+    try:
+        with os.fdopen(descriptor, "wb") as file:
+            file.write(data)
+            file.flush()
+            os.fsync(file.fileno())
+        os.replace(temporary_name, path)
+    except BaseException:
+        Path(temporary_name).unlink(missing_ok=True)
+        raise
+    return True
+
+
+def cmd_render_index(args):
+    rows = load()
+    source_rows = load_job_sources(allow_missing=True)
+    ensure_dataset_valid(rows, source_rows, emit_warnings=False)
+    artifacts = {
+        "known": (KNOWN_INDEX_PATH, render_known_index(rows)),
+        "keys": (KEYS_INDEX_PATH, render_keys_index(source_rows)),
+        "active": (ACTIVE_INDEX_PATH, render_active_index(rows)),
+    }
+    up_to_date = {name: write_or_check_index_file(path, data, args.check) for name, (path, data) in artifacts.items()}
+    all_up_to_date = all(up_to_date.values())
+    result = {
+        "ok": all_up_to_date if args.check else True,
+        "command": "render-index",
+        "paths": {name: path.relative_to(ROOT).as_posix() for name, (path, _) in artifacts.items()},
+        "up_to_date": up_to_date,
+    }
+    if args.format == "json":
+        print_json(result)
+    elif args.check:
+        if all_up_to_date:
+            print("data/index/* is up to date")
+        else:
+            stale = [name for name, ok in up_to_date.items() if not ok]
+            print(
+                "data/index/* is out of date for: " + ", ".join(stale)
+                + "; run: python3 scripts/jobs.py render-index",
+                file=sys.stderr,
+            )
+    else:
+        print("data/index/* rendered")
+    if args.check and not all_up_to_date:
+        raise SystemExit(1)
+
+
 def cmd_render_tracker(args):
     rows = load()
     source_references = load_job_sources()
@@ -3154,6 +3297,12 @@ def main():
     render_tracker.add_argument("--check", action="store_true", help="проверить freshness без записи")
     render_tracker.add_argument("--format", choices=("text", "json"), default="text")
     render_tracker.set_defaults(func=cmd_render_tracker)
+    render_index = subparsers.add_parser(
+        "render-index", help="собрать компактные bootstrap-индексы data/index/*",
+    )
+    render_index.add_argument("--check", action="store_true", help="проверить freshness без записи")
+    render_index.add_argument("--format", choices=("text", "json"), default="text")
+    render_index.set_defaults(func=cmd_render_index)
     migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
     migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
     migrate.add_argument("--format", choices=("text", "json"), default="text")

@@ -115,6 +115,17 @@ class DocumentationMapTests(unittest.TestCase):
                 f"{filename}: source playbook is duplicating the common lifecycle",
             )
 
+    def test_profile_digest_carries_every_required_bootstrap_key(self):
+        """docs/agent-write-path-plan-2026-09-07.md, Э6: profile-digest.md
+        drift from config/profile.md is guarded by this required-key check,
+        not by re-deriving the digest from the full profile."""
+        digest = PROJECT / "config" / "profile-digest.md"
+        self.assert_local_links_exist(digest)
+        body = digest.read_text(encoding="utf-8")
+        for key in ("Level", "Geo", "Work authorization", "Minimum compensation", "Stack", "Red flags"):
+            self.assertIn(f"**{key}**", body, f"profile-digest.md: missing required key {key}")
+        self.assertLess(len(body.encode("utf-8")), 4096, "profile-digest.md is no longer a compact digest")
+
     def test_message_sources_do_not_confuse_message_and_vacancy_identity(self):
         source_dir = PROJECT / "docs" / "sources"
         hn = (source_dir / "hacker-news-who-is-hiring.md").read_text(encoding="utf-8")

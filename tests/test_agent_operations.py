@@ -131,6 +131,16 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("git add data/jobs.csv data/job_sources.csv docs/tracker.md", apply_script)
         self.assertIn("python scripts/jobs.py render-tracker --check", validation_workflow)
 
+    def test_workflows_keep_the_generated_indexes_in_sync(self):
+        apply_script = APPLY_SCRIPT.read_text(encoding="utf-8")
+        validation_workflow = VALIDATE_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("python3 scripts/jobs.py render-index", apply_script)
+        self.assertIn("python3 scripts/jobs.py render-index --check", apply_script)
+        for path in ('"data/index/known.tsv"', '"data/index/keys.tsv"', '"data/index/active.csv"'):
+            self.assertIn(path, apply_script)
+        self.assertIn("git add data/jobs.csv data/job_sources.csv docs/tracker.md data/index", apply_script)
+        self.assertIn("python scripts/jobs.py render-index --check", validation_workflow)
+
     def test_operation_workflow_delegates_apply_and_push_to_the_retry_script(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("scripts/ci/apply_operation.sh", workflow)
