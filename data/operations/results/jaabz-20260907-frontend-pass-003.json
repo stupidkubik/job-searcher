@@ -1,0 +1,236 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-07T09:36:42Z",
+  "jobs": [],
+  "operation_id": "jaabz-20260907-frontend-pass-003",
+  "result": {
+    "count": 11,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:270418",
+        "command": "add",
+        "job_id": "job-0395",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0395",
+            "source": "Jaabz",
+            "source_job_id": "270418",
+            "source_url": "https://jaabz.com/jobs/270418-frontend-developer-remote"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:271148",
+        "command": "add",
+        "job_id": "job-0396",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0396",
+            "source": "Jaabz",
+            "source_job_id": "271148",
+            "source_url": "https://jaabz.com/jobs/271148-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:271110",
+        "command": "add",
+        "job_id": "job-0397",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0397",
+            "source": "Jaabz",
+            "source_job_id": "271110",
+            "source_url": "https://jaabz.com/jobs/271110-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:270603",
+        "command": "add",
+        "job_id": "job-0398",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0398",
+            "source": "Jaabz",
+            "source_job_id": "270603",
+            "source_url": "https://jaabz.com/jobs/270603-frontend-software-development-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:269369",
+        "command": "add",
+        "job_id": "job-0049",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0049",
+            "source": "Jaabz",
+            "source_job_id": "269369",
+            "source_url": "https://jaabz.com/jobs/269369-frontend-developer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:269403",
+        "command": "add",
+        "job_id": "job-0399",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0399",
+            "source": "Jaabz",
+            "source_job_id": "269403",
+            "source_url": "https://jaabz.com/jobs/269403-senior-aitypescript-entwicklerin-remote-mwd-in-ki-startup"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:269283",
+        "command": "add",
+        "job_id": "job-0400",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0400",
+            "source": "Jaabz",
+            "source_job_id": "269283",
+            "source_url": "https://jaabz.com/jobs/269283-product-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0401-techjobsdata-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "jaabz:269068",
+        "command": "add",
+        "job_id": "job-0401",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0401",
+            "source": "Jaabz",
+            "source_job_id": "269068",
+            "source_url": "https://jaabz.com/jobs/269068-frontend-engineer"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:268358",
+        "command": "add",
+        "job_id": "job-0402",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0402",
+            "source": "Jaabz",
+            "source_job_id": "268358",
+            "source_url": "https://jaabz.com/jobs/268358-frontend-developer-react-nextjs-nestjs"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "jaabz:268181",
+        "command": "add",
+        "job_id": "job-0403",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0403",
+            "source": "Jaabz",
+            "source_job_id": "268181",
+            "source_url": "https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0404-listlab-remote-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "jaabz:267973",
+        "command": "add",
+        "job_id": "job-0404",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0404",
+            "source": "Jaabz",
+            "source_job_id": "267973",
+            "source_url": "https://jaabz.com/jobs/267973-remote-frontend-developer"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

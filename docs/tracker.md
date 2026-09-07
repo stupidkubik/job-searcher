@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-08-24** · Jobs: **394**
+Dataset updated: **2026-09-07** · Jobs: **404**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (8)](#to-verify) · [Archive (338)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (10)](#to-verify) · [Archive (346)](#archive)
 
 ## Action now
 
@@ -68,10 +68,12 @@ Dataset updated: **2026-08-24** · Jobs: **394**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [ListLab — Remote Frontend Developer](<https://jaabz.com/jobs/267973-remote-frontend-developer>) · job-0404 | First party + Apply + Listing | 8.5 | verify first-party | 2026-09-07 |
 | Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
+| Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
@@ -81,10 +83,18 @@ Dataset updated: **2026-08-24** · Jobs: **394**
 
 <details>
 
-<summary>Archive (338)</summary>
+<summary>Archive (346)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Major Scale — Design Engineer / Front End Engineer / Product Engineer](<https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote>) · job-0403 | geo restriction | Not checked | 2026-09-07 |
+| Skipped: seniority too high | [Talanto — Frontend Developer (React, Next.js, NestJS)](<https://jaabz.com/jobs/268358-frontend-developer-react-nextjs-nestjs>) · job-0402 | seniority too high | Not checked | 2026-09-07 |
+| Skipped: geo restriction | [Clera — Product Engineer](<https://jaabz.com/jobs/269283-product-engineer>) · job-0400 | geo restriction | Not checked | 2026-09-07 |
+| Skipped: other | [dreifach.ai — (Senior) AI/TypeScript Entwickler:in, remote (m/w/d) in KI-Startup](<https://join.com/companies/dreifach/16645211-senior-ai-typescript-entwickler-in-remote-m-w-d-in-ki-startup>) · job-0399 | other | Open | 2026-09-07 |
+| Skipped: seniority too high | [The Pokémon Company International — Frontend Software Development Engineer](<https://jaabz.com/jobs/270603-frontend-software-development-engineer>) · job-0398 | seniority too high | Not checked | 2026-09-07 |
+| Skipped: geo restriction | [PPLIED — Frontend Developer](<https://jaabz.com/jobs/271110-frontend-developer>) · job-0397 | geo restriction | Not checked | 2026-09-07 |
+| Closed | [AgileGrid Solutions — Frontend Developer](<https://jaabz.com/jobs/271148-frontend-developer>) · job-0396 | closed before application | Closed | 2026-09-07 |
+| Skipped: seniority too high | [torentify — Frontend Developer - Remote](<https://jaabz.com/jobs/270418-frontend-developer-remote>) · job-0395 | seniority too high | Not checked | 2026-09-07 |
 | Skipped: stack mismatch | [SecurityBridge — Software Engineer (C, Authentication & Identity) – Remote (f/m/d)](<https://hiringcafe.com/job/software-engineer-c-authentication-and-identity-remote-f-m-d-vobzjezvr43qk73p>) · job-0393 | stack mismatch | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [NBA — Project Employee, NBA Social Content Publisher](<https://nba.wd108.myworkdayjobs.com/nbacareers/job/Secaucus-USA---Non-Off-Staff/Project-Employee--NBA-Social-Content-Publisher_JR000953-1>) · job-0392 | geo restriction | Open | 2026-08-24 |
 | Skipped: geo restriction | [Clinikally — Frontend Engineer](<https://www.ycombinator.com/companies/clinikally/jobs/sHSh8zw-frontend-engineer>) · job-0389 | geo restriction | Not checked | 2026-08-24 |
