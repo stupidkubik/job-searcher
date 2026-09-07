@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-perena-frontend-20260907",
+  "command": "add",
+  "args": {
+    "company": "Perena",
+    "role": "Frontend Engineer",
+    "level": "Middle",
+    "source": "HiringCafe",
+    "source_url": "https://hiringcafe.com/job/frontend-engineer-perena-united-states-nshobltxq25va79h",
+    "source_job_id": "nshobltxq25va79h",
+    "original_url": "https://app.dover.com/apply/de74c6d9-f6cb-4865-888a-9e57883d29c6/b3c97469-ac37-4106-92c1-5f1b28196ea9",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "remote_policy": "Global",
+    "stack": "Next.js; TypeScript; React; Tailwind CSS; Radix; shadcn/ui; Solana wallet adapters; Figma; Testing; CI/CD",
+    "match_score": 7.8,
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "next_action": "review role and prepare application",
+    "notes": "HiringCafe card posted 5 days ago. First-party Dover listing and live application form verified on 2026-09-07; role is Remote (International). Strong React, TypeScript, Next.js, component-library, testing, CI/CD and Figma fit. Stretch: 3+ years of professional frontend experience and unfamiliar Solana wallet/on-chain work; employer explicitly invites earlier-career candidates with demonstrated ownership."
+  }
+}
