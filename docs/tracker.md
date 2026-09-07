@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-07** · Jobs: **404**
+Dataset updated: **2026-09-07** · Jobs: **407**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (10)](#to-verify) · [Archive (346)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (12)](#to-verify) · [Archive (347)](#archive)
 
 ## Action now
 
@@ -74,8 +74,10 @@ Dataset updated: **2026-09-07** · Jobs: **404**
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
+| Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
+| Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
 
@@ -83,10 +85,11 @@ Dataset updated: **2026-09-07** · Jobs: **404**
 
 <details>
 
-<summary>Archive (346)</summary>
+<summary>Archive (347)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Tether Operations Limited — Frontend Software Engineer (100% Remote)](<https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366>) · job-0407 | seniority too high | Not checked | 2026-09-07 |
 | Skipped: geo restriction | [Major Scale — Design Engineer / Front End Engineer / Product Engineer](<https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote>) · job-0403 | geo restriction | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Talanto — Frontend Developer (React, Next.js, NestJS)](<https://jaabz.com/jobs/268358-frontend-developer-react-nextjs-nestjs>) · job-0402 | seniority too high | Not checked | 2026-09-07 |
 | Skipped: geo restriction | [Clera — Product Engineer](<https://jaabz.com/jobs/269283-product-engineer>) · job-0400 | geo restriction | Not checked | 2026-09-07 |

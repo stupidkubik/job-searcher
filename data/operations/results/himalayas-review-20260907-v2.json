@@ -1,0 +1,76 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-07T09:52:12Z",
+  "jobs": [],
+  "operation_id": "himalayas-review-20260907-v2",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": "applications/job-0405-micro1-design-frontend-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:https://himalayas.app/companies/micro1/jobs/design-frontend-specialist",
+        "command": "add",
+        "job_id": "job-0405",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0405",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/micro1/jobs/design-frontend-specialist",
+            "source_url": "https://himalayas.app/companies/micro1/jobs/design-frontend-specialist"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0406-micro1-frontend-engineer-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist",
+        "command": "add",
+        "job_id": "job-0406",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0406",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist",
+            "source_url": "https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist"
+          }
+        },
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366",
+        "command": "add",
+        "job_id": "job-0407",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-07",
+            "job_id": "job-0407",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366",
+            "source_url": "https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366"
+          }
+        },
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
