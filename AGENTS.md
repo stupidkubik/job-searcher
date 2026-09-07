@@ -163,8 +163,19 @@ immutable request по контракту `data/operations/README.md` непос
 `rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
 человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
 считать операцию завершённой, пока runner не создал соответствующий result и
-canonical diff в `main`. Дождаться matching result и successful workflow перед
+canonical diff в `main`. Дождаться matching result и завершения workflow перед
 отчётом об операции.
+
+У результата ровно три возможных `status`: `completed`, `conflict` и
+`rejected`. `rejected` — это не «упало без объяснения»: любой отказ по
+контракту или внутренний invariant runner'а всегда даёт файл в
+`data/operations/results/<operation_id>.json` с машиночитаемым `error.code` из
+закрытого набора (см. `data/operations/README.md`); canonical данные при
+`rejected` не меняются, но прогон workflow специально завершается красным —
+чтобы отказ был виден и человеку, а не только агенту. Результат неизменяем
+независимо от `status`: чтобы повторить отклонённую или конфликтную операцию,
+исправить причину и отправить **новый** `operation_id`, никогда не
+переписывать существующий request или результат.
 
 ## Порядок обработки одной вакансии
 

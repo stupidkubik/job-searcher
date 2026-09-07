@@ -213,6 +213,15 @@ class SourceReferenceConflict(Exception):
         self.existing = existing
 
 
+class ValidationError(Exception):
+    """A rejected write reachable from the connector path.
+
+    Raised instead of calling die() so agent_operations.execute() can catch it
+    and record a machine-readable rejected result; the CLI still catches this
+    at the top of main() and prints the same "error: ..." text via die().
+    """
+
+
 @dataclass(frozen=True)
 class JobIdRange:
     start: int
@@ -638,7 +647,7 @@ def ensure_valid(rows, emit_warnings=True):
 def ensure_dataset_valid(job_rows, source_rows, emit_warnings=True):
     errors, warnings = validate_dataset(job_rows, source_rows)
     if errors:
-        die("изменение отклонено:\n  " + "\n  ".join(errors))
+        raise ValidationError("изменение отклонено:\n  " + "\n  ".join(errors))
     if emit_warnings:
         for warning in warnings:
             print(f"warn:  {warning}")
@@ -849,9 +858,9 @@ def build_add_row(rows, values):
     role = clean_value(values.get("role")).strip()
     source = clean_value(values.get("source")).strip()
     if not company or not role or not source:
-        die("company, role и source обязательны при создании вакансии")
+        raise ValidationError("company, role и source обязательны при создании вакансии")
     if source not in SOURCES:
-        die(f"source: недопустимое значение {source!r}")
+        raise ValidationError(f"source: недопустимое значение {source!r}")
     application_status = clean_value(values.get("application_status") or "not_started")
     listing_status = clean_value(values.get("listing_status") or "unknown")
     first_party_verified = clean_value(values.get("first_party_verified") or "unknown")
@@ -860,7 +869,7 @@ def build_add_row(rows, values):
     remote_policy = clean_value(values.get("remote_policy") or "Unclear")
     decision_reason = clean_value(values.get("decision_reason"))
     if application_status not in ADD_APPLICATION_STATUSES:
-        die(f"application_status: недопустимое значение {application_status!r} для add")
+        raise ValidationError(f"application_status: недопустимое значение {application_status!r} для add")
     for key, value, allowed in (
         ("listing_status", listing_status, LISTING_STATUSES),
         ("first_party_verified", first_party_verified, VERIFICATION),
@@ -869,9 +878,9 @@ def build_add_row(rows, values):
         ("remote_policy", remote_policy, REMOTE),
     ):
         if value not in allowed:
-            die(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(f"{key}: недопустимое значение {value!r}")
     if decision_reason and decision_reason not in REASONS:
-        die(f"decision_reason: недопустимое значение {decision_reason!r}")
+        raise ValidationError(f"decision_reason: недопустимое значение {decision_reason!r}")
     notes = clean_value(values.get("notes"))
     identifier = next_id(rows)
     verification_touched = (
@@ -914,11 +923,11 @@ def build_source_reference(job_id, values, default_found_at):
     source_job_id = clean_value(values.get("source_job_id")).strip()
     found_at = clean_value(values.get("found_at")).strip() or default_found_at
     if not source:
-        die("source обязателен для source reference")
+        raise ValidationError("source обязателен для source reference")
     if source not in SOURCES:
-        die(f"source: недопустимое значение {source!r}")
+        raise ValidationError(f"source: недопустимое значение {source!r}")
     if not source_url and not source_job_id:
-        die("для внешнего источника нужен --source-url или --source-job-id")
+        raise ValidationError("для внешнего источника нужен --source-url или --source-job-id")
     return {
         "job_id": job_id,
         "source": source,
@@ -1120,7 +1129,7 @@ def prepare_add(values, force=False, no_file=False):
         if source_reference_created:
             new_source_rows.append(source_reference)
     elif row["source"] not in SOURCES_WITHOUT_EXTERNAL_REFERENCE:
-        die(f"source={row['source']} требует source_url или source_job_id")
+        raise ValidationError(f"source={row['source']} требует source_url или source_job_id")
     app_path, app_body = (None, None)
     if should_create_application_card(row, no_file):
         app_path, app_body = render_application_card(row)
@@ -1554,7 +1563,7 @@ def apply_dataset_transaction(rows, source_rows, application_writes=()):
     """Replace an already validated dataset or restore every replaced file."""
     validation_errors, _warnings = validate_dataset(rows, source_rows)
     if validation_errors:
-        die("ingest transaction отклонена:\n  " + "\n  ".join(validation_errors))
+        raise ValidationError("ingest transaction отклонена:\n  " + "\n  ".join(validation_errors))
     with dataset_write_lock():
         staged, backups, replaced = [], {}, []
         failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
@@ -1807,28 +1816,28 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
     """enforce_protected=False is only for internal callers (status_job) that have
     already run the human-confirmed lifecycle gate in apply_status_change."""
     if not assignments and not stage:
-        die("нечего менять: укажите field=value и/или --stage")
+        raise ValidationError("нечего менять: укажите field=value и/или --stage")
     verification_touched = False
     for key, raw_value in assignments:
         value = clean_value(raw_value)
         if key not in FIELDS:
-            die(f"неизвестное поле: {key}")
+            raise ValidationError(f"неизвестное поле: {key}")
         if enforce_protected and key in SET_PROTECTED:
-            die(f"поле {key} управляется скриптом и не меняется через field=value")
+            raise ValidationError(f"поле {key} управляется скриптом и не меняется через field=value")
         if key == "decision_reason" and value == "duplicate_listing" and row["decision_reason"] != "duplicate_listing":
-            die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+            raise ValidationError("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
         if key in ENUMS and value and value not in ENUMS[key]:
-            die(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(f"{key}: недопустимое значение {value!r}")
         row[key] = value.replace("\n", " ")
         verification_touched = verification_touched or key in {
             "listing_status", "first_party_verified", "apply_verified",
         }
     if stage:
         if stage not in STAGES:
-            die(f"недопустимая стадия: {stage}")
+            raise ValidationError(f"недопустимая стадия: {stage}")
         current = row["stage_reached"] or "None"
         if STAGES.index(stage) < STAGES.index(current):
-            die(f"stage_reached нельзя понижать: {current} -> {stage}")
+            raise ValidationError(f"stage_reached нельзя понижать: {current} -> {stage}")
         row["stage_reached"] = stage
         if STAGES.index("Recruiter screen") <= STAGES.index(stage) <= STAGES.index("Final interview") and row["application_status"] == "applied":
             row["application_status"] = "interviewing"
@@ -1874,13 +1883,13 @@ def validate_status_date(value, field):
         return None
     value = clean_value(value).strip()
     if not value:
-        die(f"status: {field} не может быть пустой датой")
+        raise ValidationError(f"status: {field} не может быть пустой датой")
     try:
         parsed = datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError:
-        die(f"status: {field} должна быть YYYY-MM-DD")
+        raise ValidationError(f"status: {field} должна быть YYYY-MM-DD")
     if parsed > business_date():
-        die(f"status: {field} не может быть в будущем")
+        raise ValidationError(f"status: {field} не может быть в будущем")
     return value
 
 
@@ -1890,62 +1899,62 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
     """Record a user-confirmed lifecycle event without opening arbitrary set fields."""
     target = clean_value(application_status).strip()
     if target not in APPLICATION_STATUSES:
-        die(f"status: недопустимый application_status {target!r}")
+        raise ValidationError(f"status: недопустимый application_status {target!r}")
     if row["applied_at"] and target in PRE_APPLICATION_STATUSES:
-        die("status: нельзя вернуть отправленную заявку в pre-application состояние")
+        raise ValidationError("status: нельзя вернуть отправленную заявку в pre-application состояние")
     if stage is not None:
         stage = clean_value(stage).strip()
         if stage not in STAGES:
-            die(f"status: недопустимая стадия {stage!r}")
+            raise ValidationError(f"status: недопустимая стадия {stage!r}")
     if target in PRE_APPLICATION_STATUSES and stage not in {None, "None"}:
-        die(f"status: application_status={target} не принимает post-application stage")
+        raise ValidationError(f"status: application_status={target} не принимает post-application stage")
     if target == "applied" and stage not in {None, "Applied"}:
-        die("status: application_status=applied допускает только stage=Applied")
+        raise ValidationError("status: application_status=applied допускает только stage=Applied")
     if target == "interviewing" and stage in {"None", "Applied", "Offer"}:
-        die("status: interviewing требует interview stage")
+        raise ValidationError("status: interviewing требует interview stage")
     if target == "offer" and stage not in {None, "Offer"}:
-        die("status: application_status=offer требует stage=Offer")
+        raise ValidationError("status: application_status=offer требует stage=Offer")
 
     applied_at = validate_status_date(applied_at, "applied_at")
     response_at = validate_status_date(response_at, "response_at")
     if target in PRE_APPLICATION_STATUSES and (applied_at is not None or response_at is not None):
-        die("status: pre-application состояние не принимает applied_at/response_at")
+        raise ValidationError("status: pre-application состояние не принимает applied_at/response_at")
     if target == "applied" and response_at is not None:
-        die("status: application_status=applied не принимает response_at")
+        raise ValidationError("status: application_status=applied не принимает response_at")
     if next_action_date is not None:
         next_action_date = clean_value(next_action_date).strip()
         if next_action_date:
             try:
                 datetime.strptime(next_action_date, "%Y-%m-%d")
             except ValueError:
-                die("status: next_action_date должна быть YYYY-MM-DD")
+                raise ValidationError("status: next_action_date должна быть YYYY-MM-DD")
 
     effective_applied_at = applied_at or row["applied_at"]
     if target in NEEDS_APPLIED_AT and not effective_applied_at and target != "applied":
-        die(f"status: переход в {target} без существующей заявки требует --applied-at")
+        raise ValidationError(f"status: переход в {target} без существующей заявки требует --applied-at")
     effective_next_action = row["next_action"] if next_action is None else clean_value(next_action).strip()
     if target == "apply" and not effective_next_action:
-        die("status: application_status=apply требует --next-action")
+        raise ValidationError("status: application_status=apply требует --next-action")
     if target in TERMINAL_APPLICATION_STATUSES and (
         (next_action is not None and clean_value(next_action).strip())
         or (next_action_date is not None and next_action_date)
     ):
-        die(f"status: application_status={target} не принимает следующий шаг")
+        raise ValidationError(f"status: application_status={target} не принимает следующий шаг")
     if next_action_date and (next_action is None or not clean_value(next_action).strip()):
-        die("status: next_action_date требует явный --next-action")
+        raise ValidationError("status: next_action_date требует явный --next-action")
 
     supplied_reason = None if decision_reason is None else clean_value(decision_reason).strip()
     if target == "ghosted":
         if supplied_reason not in {None, "no_response_timeout"}:
-            die("status: ghosted допускает только decision_reason=no_response_timeout")
+            raise ValidationError("status: ghosted допускает только decision_reason=no_response_timeout")
         final_reason = "no_response_timeout"
     elif target == "withdrawn":
         if supplied_reason not in {None, "withdrawn_by_me"}:
-            die("status: withdrawn допускает только decision_reason=withdrawn_by_me")
+            raise ValidationError("status: withdrawn допускает только decision_reason=withdrawn_by_me")
         final_reason = "withdrawn_by_me"
     else:
         if supplied_reason:
-            die(f"status: decision_reason не используется для application_status={target}")
+            raise ValidationError(f"status: decision_reason не используется для application_status={target}")
         final_reason = ""
 
     if target == "interviewing" and stage is None:
@@ -2026,13 +2035,13 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
     """Record a pre-application screening decision without claiming verification."""
     decision_reason = clean_value(decision_reason).strip()
     if decision_reason not in SCREEN_REASONS:
-        die(f"screen: недопустимая decision_reason {decision_reason!r}")
+        raise ValidationError(f"screen: недопустимая decision_reason {decision_reason!r}")
     if row["application_status"] not in {"not_started", "reviewing", "apply"} or row["applied_at"]:
-        die("screen допустим только до фактической отправки заявки")
+        raise ValidationError("screen допустим только до фактической отправки заявки")
     if notes is not None:
         row["notes"] = clean_value(notes).strip()
     if decision_reason == "other" and not row["notes"]:
-        die("screen decision_reason=other требует --notes")
+        raise ValidationError("screen decision_reason=other требует --notes")
     row["application_status"] = "not_started"
     row["decision_reason"] = decision_reason
     row["next_action"] = ""
@@ -2071,7 +2080,7 @@ def apply_verify_enrichment(row, **values):
             continue
         value = clean_value(raw_value).strip()
         if key in ENUMS and value and value not in ENUMS[key]:
-            die(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(f"{key}: недопустимое значение {value!r}")
         row[key] = value
 
 
@@ -2081,24 +2090,24 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
                          application_status=None, next_action=None, next_action_date=None):
     """Apply verification fields to an in-memory row and return its outcome."""
     if decision_reason == "duplicate_listing":
-        die("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+        raise ValidationError("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
     if application_status is not None:
         application_status = clean_value(application_status).strip()
         if application_status != "apply":
-            die("verify может установить application_status только в apply")
+            raise ValidationError("verify может установить application_status только в apply")
         next_action = clean_value(next_action or "").strip()
         if not next_action:
-            die("application_status=apply требует --next-action")
+            raise ValidationError("application_status=apply требует --next-action")
         if next_action_date is not None:
             next_action_date = clean_value(next_action_date).strip()
             try:
                 datetime.strptime(next_action_date, "%Y-%m-%d")
             except ValueError:
-                die("--next-action-date должна иметь формат YYYY-MM-DD")
+                raise ValidationError("--next-action-date должна иметь формат YYYY-MM-DD")
     elif next_action is not None or next_action_date is not None:
-        die("--next-action и --next-action-date допустимы только с --application-status apply")
+        raise ValidationError("--next-action и --next-action-date допустимы только с --application-status apply")
     if decision_reason and application_status is not None:
-        die("--decision-reason нельзя сочетать с --application-status apply")
+        raise ValidationError("--decision-reason нельзя сочетать с --application-status apply")
     if original_url is not None:
         row["original_url"] = clean_value(original_url).strip()
     if notes is not None:
@@ -2123,7 +2132,7 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     pre_application = row["application_status"] in {"not_started", "reviewing", "apply"}
     if decision_reason:
         if not pre_application:
-            die("--decision-reason допустим только до отклика")
+            raise ValidationError("--decision-reason допустим только до отклика")
         row["application_status"] = "not_started"
         row["decision_reason"] = decision_reason
         row["next_action"] = ""
@@ -2132,7 +2141,7 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     elif passed:
         if application_status == "apply":
             if not pre_application:
-                die("application_status=apply допустим только до фактической отправки заявки")
+                raise ValidationError("application_status=apply допустим только до фактической отправки заявки")
             row["application_status"] = "apply"
             row["next_action"] = next_action
             row["next_action_date"] = next_action_date or ""
@@ -2145,7 +2154,7 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
                 row["next_action_date"] = ""
             outcome = "ready_for_review" if pre_application else "verified_after_application"
     elif pre_application:
-        die("для непрошедшей verification до отклика нужен --decision-reason")
+        raise ValidationError("для непрошедшей verification до отклика нужен --decision-reason")
     else:
         outcome = "verified_after_application"
     row["last_update"] = today()
@@ -3188,7 +3197,10 @@ def main():
     report.add_argument("--format", choices=("text", "json"), default="text")
     report.set_defaults(func=cmd_report)
     args = parser.parse_args()
-    args.func(args)
+    try:
+        args.func(args)
+    except ValidationError as error:
+        die(str(error))
 
 
 if __name__ == "__main__":

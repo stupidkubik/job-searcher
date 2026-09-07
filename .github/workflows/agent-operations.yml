@@ -113,7 +113,9 @@ jobs:
           REQUEST_PATH: ${{ steps.request.outputs.path || steps.dispatch_request.outputs.path }}
         run: |
           python3 scripts/agent_operations.py validate "$REQUEST_PATH" --format json
+          set +e
           python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > "$RUNNER_TEMP/operation-output.json"
+          set -e
           python3 - <<'PY'
           import json
           import os
@@ -126,7 +128,7 @@ jobs:
           status = payload.get("status")
           if not isinstance(operation_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{2,79}", operation_id):
               sys.exit("runner returned an invalid operation_id")
-          if risk not in {"low", "medium"} or status not in {"completed", "conflict"}:
+          if risk not in {"low", "medium", "none"} or status not in {"completed", "conflict", "rejected"}:
               sys.exit("runner returned an invalid risk or status")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"id={operation_id}\n")
@@ -135,6 +137,7 @@ jobs:
           PY
 
       - name: Validate resulting tracker state
+        if: steps.operation.outputs.status != 'rejected'
         run: |
           python3 scripts/jobs.py validate --strict
           python3 scripts/jobs.py render-tracker
@@ -145,6 +148,7 @@ jobs:
       - name: Enforce changed-file allowlist
         env:
           OPERATION_ID: ${{ steps.operation.outputs.id }}
+          STATUS: ${{ steps.operation.outputs.status }}
         run: |
           python3 - <<'PY'
           import os
@@ -161,21 +165,34 @@ jobs:
                   continue
               path = entry[3:].decode("utf-8")
               paths.append(path)
-          allowed = {"data/jobs.csv", "data/job_sources.csv", "docs/tracker.md", expected_result}
-          for path in paths:
-              if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
-                  continue
-              sys.exit(f"operation changed forbidden path: {path}")
-          if expected_result not in paths:
-              sys.exit("operation did not write its immutable result")
+          if os.environ["STATUS"] == "rejected":
+              if paths != [expected_result]:
+                  sys.exit("a rejected operation must change exactly its own result file: " + ", ".join(paths))
+          else:
+              allowed = {"data/jobs.csv", "data/job_sources.csv", "docs/tracker.md", expected_result}
+              for path in paths:
+                  if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
+                      continue
+                  sys.exit(f"operation changed forbidden path: {path}")
+              if expected_result not in paths:
+                  sys.exit("operation did not write its immutable result")
           PY
 
       - name: Commit and push the audited result
         env:
           OPERATION_ID: ${{ steps.operation.outputs.id }}
+          STATUS: ${{ steps.operation.outputs.status }}
         run: |
           git config user.name "job-tracker-agent[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/jobs.csv data/job_sources.csv docs/tracker.md data/operations/results applications
-          git commit -m "jobs: apply agent operation ${OPERATION_ID}"
+          if [[ "${STATUS}" == "rejected" ]]; then
+            git commit -m "jobs: reject agent operation ${OPERATION_ID}"
+          else
+            git commit -m "jobs: apply agent operation ${OPERATION_ID}"
+          fi
           git push origin "HEAD:${GITHUB_REF_NAME}"
+          if [[ "${STATUS}" == "rejected" ]]; then
+            echo "operation rejected: see data/operations/results/${OPERATION_ID}.json" >&2
+            exit 1
+          fi

@@ -219,9 +219,14 @@ class AgentBatchOperationsTests(unittest.TestCase):
         )
 
         self.assertEqual(result.returncode, 1)
-        self.assertIn("allowed only after an application exists", result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
+        self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
+        self.assertIn("allowed only after an application exists", payload["result"]["error"]["message"])
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before_bytes)
-        self.assertFalse(list((self.root / "data" / "operations" / "results").glob("*.json")))
+        result_files = list((self.root / "data" / "operations" / "results").glob("*.json"))
+        self.assertEqual(len(result_files), 1)
+        self.assertEqual(json.loads(result_files[0].read_text(encoding="utf-8"))["status"], "rejected")
 
     def test_batch_rejects_duplicate_job_ids(self):
         self.seed_job("OneCo")

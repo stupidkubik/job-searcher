@@ -487,9 +487,14 @@ class AgentOperationsTests(unittest.TestCase):
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
         self.assertEqual(result.returncode, 1)
-        self.assertIn("только до фактической отправки", result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
+        self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
+        self.assertIn("только до фактической отправки", payload["result"]["error"]["message"])
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
-        self.assertFalse((self.root / "data" / "operations" / "results" / "op-screen-batch-reject-001.json").exists())
+        result_path = self.root / "data" / "operations" / "results" / "op-screen-batch-reject-001.json"
+        self.assertTrue(result_path.exists())
+        self.assertEqual(json.loads(result_path.read_text(encoding="utf-8"))["status"], "rejected")
 
     def test_verify_rejects_human_only_application_statuses_before_writing(self):
         row = self.seed_job()
@@ -512,9 +517,13 @@ class AgentOperationsTests(unittest.TestCase):
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
         self.assertEqual(result.returncode, 1)
-        self.assertIn("verify may set application_status only to apply", result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
+        self.assertIn("verify may set application_status only to apply", payload["result"]["error"]["message"])
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
-        self.assertFalse(list((self.root / "data" / "operations" / "results").glob("*.json")))
+        result_files = list((self.root / "data" / "operations" / "results").glob("*.json"))
+        self.assertEqual(len(result_files), 1)
+        self.assertEqual(json.loads(result_files[0].read_text(encoding="utf-8"))["status"], "rejected")
 
     def test_medium_risk_status_records_user_confirmed_lifecycle_events(self):
         self.seed_job()
@@ -623,6 +632,194 @@ class AgentOperationsTests(unittest.TestCase):
         rows = self.rows()
         self.assertEqual((rows[0]["application_status"], rows[0]["decision_reason"]), ("ghosted", "no_response_timeout"))
         self.assertEqual((rows[1]["application_status"], rows[1]["decision_reason"]), ("withdrawn", "withdrawn_by_me"))
+
+
+class ErrorTaxonomyTests(unittest.TestCase):
+    """Every apply failure must leave a rejected result behind (docs/agent-write-path-plan-2026-09-07.md, Э1)."""
+
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.root = Path(self.temporary.name)
+        for directory in (
+            "data", "applications", "scripts", "data/operations/requests", "data/operations/results",
+        ):
+            (self.root / directory).mkdir(parents=True, exist_ok=True)
+        for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
+            shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
+        for name in ("jobs.csv", "job_sources.csv"):
+            header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
+            (self.root / "data" / name).write_text(header + "\n", encoding="utf-8")
+        shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def invoke_jobs(self, *arguments):
+        return subprocess.run(
+            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
+            text=True, capture_output=True,
+        )
+
+    def invoke_operation(self, *arguments):
+        return subprocess.run(
+            [sys.executable, "scripts/agent_operations.py", *arguments], cwd=self.root,
+            text=True, capture_output=True,
+        )
+
+    def rows(self):
+        with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
+            return list(csv.DictReader(file))
+
+    def seed_job(self):
+        created = self.invoke_jobs(
+            "add", "--company", "OperationCo", "--role", "Frontend Developer",
+            "--source", "Manual", "--no-file",
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        return self.rows()[0]
+
+    def write_request(self, operation_id, payload):
+        path = self.root / "data" / "operations" / "requests" / f"{operation_id}.json"
+        path.write_text(json.dumps(payload), encoding="utf-8")
+        return path
+
+    def apply_and_reject(self, operation_id, payload, before=None):
+        """Apply a request expected to fail and return its rejected result payload."""
+        request = self.write_request(operation_id, payload)
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        response = json.loads(result.stdout)
+        self.assertFalse(response["ok"])
+        self.assertEqual(response["status"], "rejected")
+        result_path = self.root / "data" / "operations" / "results" / f"{operation_id}.json"
+        self.assertTrue(result_path.exists())
+        on_disk = json.loads(result_path.read_text(encoding="utf-8"))
+        self.assertEqual(on_disk["status"], "rejected")
+        self.assertEqual(on_disk, response["result"])
+        if before is not None:
+            self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+        return on_disk
+
+    def test_every_wave_one_code_produces_a_matching_rejected_result(self):
+        row = self.seed_job()
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        add_args = {
+            "company": "TaxonomyCo", "role": "Frontend Developer",
+            "source": "Manual", "found_at": "2026-09-07",
+        }
+        cases = [
+            ("tax-invalid-json", "not json at all", "invalid_json", None),
+            ("tax-too-large", json.dumps({"version": 1, "operation_id": "tax-too-large", "command": "add",
+                                           "args": {**add_args, "notes": "x" * 70_000}}), "request_too_large", None),
+            ("tax-unsupported-command", json.dumps({"version": 1, "operation_id": "tax-unsupported-command",
+                                                      "command": "ingest", "job_id": "job-0001",
+                                                      "expected": {}, "args": {}}), "unsupported_command", "command"),
+            ("tax-unknown-top-level", json.dumps({"version": 1, "operation_id": "tax-unknown-top-level",
+                                                    "command": "add", "args": add_args, "extra": True}),
+             "unknown_top_level_fields", None),
+            ("tax-missing-top-level", json.dumps({"version": 1, "operation_id": "tax-missing-top-level",
+                                                    "command": "add"}), "missing_top_level_fields", None),
+            ("tax-unknown-args", json.dumps({"version": 1, "operation_id": "tax-unknown-args", "command": "add",
+                                              "args": {**add_args, "next_action": "follow up"}}),
+             "unknown_args", "args.next_action"),
+            ("tax-missing-args", json.dumps({"version": 1, "operation_id": "tax-missing-args", "command": "add",
+                                              "args": {"company": "TaxonomyCo"}}), "missing_args", None),
+            ("tax-bad-type", json.dumps({"version": 1, "operation_id": "tax-bad-type", "command": "add",
+                                          "args": {**add_args, "force": "yes"}}), "bad_type", "args.force"),
+            ("tax-bad-enum", json.dumps({"version": 1, "operation_id": "tax-bad-enum", "command": "add",
+                                          "args": {**add_args, "source": "NotASource"}}), "bad_enum_value",
+             "args.source"),
+            ("tax-bad-format", json.dumps({"version": 1, "operation_id": "tax-bad-format", "command": "add",
+                                            "args": {**add_args, "posted_at": "07/09/2026"}}), "bad_format",
+             "args.posted_at"),
+            ("tax-duplicate-extra-fields", json.dumps({"version": 1, "operation_id": "tax-duplicate-extra-fields",
+                                                         "command": "add",
+                                                         "args": {"company": "OperationCo", "role": "Frontend Developer",
+                                                                   "source": "Manual", "duplicate_of": row["id"],
+                                                                   "source_job_id": "dup-1", "notes": "should be ignored"}}),
+             "duplicate_add_extra_fields", None),
+            ("tax-batch-not-atomic", json.dumps({"version": 1, "operation_id": "tax-batch-not-atomic",
+                                                   "command": "batch", "atomic": False, "operations": []}),
+             "batch_not_atomic", "atomic"),
+            ("tax-unknown-job", json.dumps({"version": 1, "operation_id": "tax-unknown-job", "command": "screen",
+                                             "job_id": "job-9999", "expected": {"application_status": "not_started"},
+                                             "args": {"decision_reason": "geo_restriction"}}), "unknown_job", None),
+            ("tax-filename-mismatch", json.dumps({"version": 1, "operation_id": "does-not-match-filename",
+                                                    "command": "add", "args": add_args}), "filename_mismatch", None),
+        ]
+        for operation_id, raw_content, expected_code, expected_field in cases:
+            with self.subTest(code=expected_code):
+                path = self.root / "data" / "operations" / "requests" / f"{operation_id}.json"
+                path.write_text(raw_content, encoding="utf-8")
+                result = self.invoke_operation("apply", str(path), "--format", "json")
+                self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+                response = json.loads(result.stdout)
+                self.assertFalse(response["ok"])
+                self.assertEqual(response["status"], "rejected")
+                self.assertEqual(response["result"]["error"]["code"], expected_code)
+                if expected_field is not None:
+                    self.assertEqual(response["result"]["error"]["field"], expected_field)
+                on_disk = json.loads(
+                    (self.root / "data" / "operations" / "results" / f"{operation_id}.json").read_text(encoding="utf-8"),
+                )
+                self.assertEqual(on_disk["status"], "rejected")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
+    def test_result_exists_blocks_retry_of_a_rejected_operation_without_a_new_id(self):
+        payload = {"version": 1, "operation_id": "tax-retry-rejected", "command": "add",
+                   "args": {"company": "TaxonomyCo", "role": "Frontend Developer", "source": "Manual",
+                            "next_action": "follow up"}}
+        self.apply_and_reject("tax-retry-rejected", payload)
+
+        repeat = self.invoke_operation(
+            "apply", str(self.root / "data" / "operations" / "requests" / "tax-retry-rejected.json"), "--format", "json",
+        )
+        self.assertEqual(repeat.returncode, 1)
+        self.assertIn("already has a result", repeat.stderr)
+        result_files = list((self.root / "data" / "operations" / "results").glob("tax-retry-rejected*.json"))
+        self.assertEqual(len(result_files), 1)
+
+    def test_closed_error_code_set_matches_the_documented_taxonomy(self):
+        from scripts import agent_operations as ops
+
+        documented = {
+            "invalid_json", "request_too_large", "filename_mismatch", "unsupported_command",
+            "unknown_top_level_fields", "missing_top_level_fields", "unknown_args", "missing_args",
+            "bad_type", "bad_enum_value", "bad_format", "duplicate_add_extra_fields",
+            "invariant_violation", "unknown_job", "result_exists", "batch_not_atomic",
+        }
+        self.assertEqual(ops.ERROR_CODES, documented)
+        with self.assertRaises(ValueError):
+            ops.contract_error("bad code", code="not_a_real_code")
+
+    def test_unconverted_jobs_systemexit_is_caught_as_invariant_violation(self):
+        import unittest.mock as mock
+
+        from scripts import agent_operations as ops
+        from scripts import jobs
+
+        with ops.temporary_tracker_workspace() as temp_root:
+            requests_dir = temp_root / "data" / "operations" / "requests"
+            results_dir = temp_root / "data" / "operations" / "results"
+            requests_dir.mkdir(parents=True, exist_ok=True)
+            row = jobs.load()[0]
+            payload = {
+                "version": 1, "operation_id": "tax-systemexit-safety-net", "command": "screen",
+                "job_id": row["id"], "expected": {"application_status": row["application_status"]},
+                "args": {"decision_reason": "geo_restriction"},
+            }
+            request_path = requests_dir / "tax-systemexit-safety-net.json"
+            request_path.write_text(json.dumps(payload), encoding="utf-8")
+            before = jobs.CSV_PATH.read_bytes()
+            with mock.patch.object(ops, "REQUESTS_DIR", requests_dir), \
+                 mock.patch.object(ops, "RESULTS_DIR", results_dir), \
+                 mock.patch.object(jobs, "screen_job", side_effect=SystemExit(1)):
+                result, result_file = ops.execute(request_path)
+            self.assertEqual(result["status"], "rejected")
+            self.assertEqual(result["error"]["code"], "invariant_violation")
+            self.assertEqual(result["error"]["layer"], "jobs")
+            self.assertTrue(result_file.exists())
+            self.assertEqual(jobs.CSV_PATH.read_bytes(), before)
 
 
 if __name__ == "__main__":

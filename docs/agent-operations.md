@@ -92,7 +92,10 @@ applications/job-*.md
 
 Any change to `scripts/`, `.github/`, `config/`, schema or other policy files is
 rejected. Changes to this policy follow the ordinary reviewed repository path;
-they cannot be bundled into an agent operation.
+they cannot be bundled into an agent operation. A `rejected` result narrows this
+further: the only path it may touch is its own
+`data/operations/results/<operation-id>.json`, since a rejected operation must
+leave canonical data untouched.
 
 ## Delivery
 
@@ -136,9 +139,19 @@ mapping. A duplicate/source-reference conflict in any add child rolls back the
 whole batch.
 
 An operation ID can have exactly one result, regardless of whether that result
-is `completed` or `conflict`. The presence of a request file is not completion;
-the agent waits for the matching file in `data/operations/results/` and the
-canonical diff/PR.
+is `completed`, `conflict`, or `rejected`. The presence of a request file is
+not completion; the agent waits for the matching file in
+`data/operations/results/` and the runner's canonical diff on `main`.
+
+A request that fails contract validation, or trips an internal invariant
+before any canonical write, gets a `rejected` result instead of a silent
+runner crash: `error.code` names one value from a closed taxonomy (see
+[`data/operations/README.md`](../data/operations/README.md#result-status-and-the-rejected-shape)
+for the full list and JSON shape). Canonical data never changes for a
+`rejected` result, but unlike `conflict` the GitHub Actions run itself ends
+red, since that is what makes an agent-invisible failure visible to a human.
+Retrying means a new `operation_id`; the runner never overwrites an existing
+result, rejected or not.
 
 ## Generated browser-view lifecycle
 

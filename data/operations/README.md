@@ -259,4 +259,62 @@ changed-path allowlist, and pushes the audited commit directly to `main`.
 The runner permits only these changed paths: `data/jobs.csv`,
 `data/job_sources.csv`, `docs/tracker.md`, the expected immutable result, and
 new `applications/job-*.md` cards. It rejects any operation that changes policy,
-workflow, or executable files.
+workflow, or executable files. A `rejected` result is the one exception: its
+allowlist is exactly its own result file, since a rejected operation must not
+touch canonical data.
+
+### Result status and the `rejected` shape
+
+Every `apply` produces exactly one of three `status` values:
+
+- `completed` — the operation applied; canonical data changed as described in
+  `result`.
+- `conflict` — an optimistic-lock mismatch or an unresolved duplicate; canonical
+  data is unchanged.
+- `rejected` — the request failed contract validation, or an internal
+  invariant broke before any canonical write; canonical data is unchanged.
+  `risk` is `none`. Unlike `conflict`, a `rejected` result also makes the GitHub
+  Actions run itself fail (non-zero exit): the run being red is what tells a
+  human to look, since the agent already has the machine-readable reason in the
+  result file.
+
+A `rejected` result always carries a structured `error`:
+
+```json
+{
+  "version": 1,
+  "operation_id": "jaabz-20260907-frontend-pass-004",
+  "status": "rejected",
+  "command": "add",
+  "executed_at": "2026-09-07T12:34:56Z",
+  "risk": "none",
+  "error": {
+    "code": "unknown_args",
+    "layer": "operations",
+    "field": "args.next_action",
+    "message": "unknown add args: next_action",
+    "allowed": ["company", "role", "source", "..."],
+    "hint": "create the job first, then send a separate set operation with next_action"
+  }
+}
+```
+
+`error.code` is one value from a closed set (`invalid_json`,
+`request_too_large`, `filename_mismatch`, `unsupported_command`,
+`unknown_top_level_fields`, `missing_top_level_fields`, `unknown_args`,
+`missing_args`, `bad_type`, `bad_enum_value`, `bad_format`,
+`duplicate_add_extra_fields`, `invariant_violation`, `unknown_job`,
+`result_exists`, `batch_not_atomic`); `layer` is `operations` for a contract
+violation caught before any tracker call, or `jobs` for a rule enforced deeper
+in `jobs.py`. `field`, `allowed`, and `hint` are present when they add
+information; only `code`, `layer`, and `message` are guaranteed. A closed-set
+test keeps `error.code` from growing new ad hoc values.
+
+`command` reflects the request's own top-level `command` field whenever the
+raw JSON could be read at all, and is `unknown` only when it could not (for
+example `invalid_json`).
+
+**A rejected result is immutable, exactly like a completed or conflict one.**
+Retrying a rejected operation means fixing the request and sending it under a
+**new** `operation_id`; the runner refuses to overwrite an existing result
+(`error.code: "result_exists"`), even a rejected one.
