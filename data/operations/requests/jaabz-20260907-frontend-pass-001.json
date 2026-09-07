@@ -1,0 +1,243 @@
+{
+  "version": 1,
+  "operation_id": "jaabz-20260907-frontend-pass-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "jaabz:270418",
+      "args": {
+        "company": "torentify",
+        "role": "Frontend Developer - Remote",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/270418-frontend-developer-remote",
+        "source_job_id": "270418",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Naarden, Netherlands / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Angular; React; Vue.js; REST APIs; Cypress; Git; Docker; Azure DevOps",
+        "salary": "€3,900–€5,300/month",
+        "posted_at": "2026-09-05",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Jaabz text identifies Yellowtail while the card and LinkedIn Apply route identify torentify, so the real employer remains unresolved. The role requires 5+ years, mentoring junior developers, and good written and spoken Dutch; Apply resolves only to LinkedIn job 4462863520, not an employer careers page."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:271148",
+      "args": {
+        "company": "AgileGrid Solutions",
+        "role": "Frontend Developer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/271148-frontend-developer",
+        "source_job_id": "271148",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "level": "Associate",
+        "location": "United States / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "HTML; CSS; JavaScript; jQuery; WordPress; Drupal; Joomla; PHP; MySQL",
+        "decision_reason": "closed_before_application",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "The downstream LinkedIn listing 4464021692 says it is no longer accepting applications. The copied description names grabjobs while the poster is AgileGrid Solutions, and no exact employer careers or ATS listing was available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:271110",
+      "args": {
+        "company": "PPLIED",
+        "role": "Frontend Developer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/271110-frontend-developer",
+        "source_job_id": "271110",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior",
+        "location": "United States / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; React; Vue.js; HTML; CSS; REST APIs; Accessibility; Responsive Design",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "LinkedIn job 4461804495 is live and country-tagged United States Remote, which does not establish eligibility from Serbia. Apply on company website resolves to PPLIED's generic candidate-account registration, not an exact vacancy application."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:270603",
+      "args": {
+        "company": "The Pokémon Company International",
+        "role": "Frontend Software Development Engineer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/270603-frontend-software-development-engineer",
+        "source_job_id": "270603",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "United States / Hybrid",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; Frontend Architecture; State Management; Accessibility; Performance; Headless CMS; Design Systems",
+        "salary": "$117,000–$211,000/year",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Jaabz states 5–7 years of relevant professional software engineering experience and a United States hybrid role. Apply points to LinkedIn job 4460762930; an exact employer careers or ATS listing was not confirmed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:269369",
+      "args": {
+        "company": "Netrolynx AI",
+        "role": "Frontend Developer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/269369-frontend-developer",
+        "source_job_id": "269369",
+        "duplicate_of": "job-0049",
+        "notes": "Same Netrolynx AI UK-remote frontend government-client role already tracked as job-0049; the repost requires UK security-clearance residency eligibility."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:269403",
+      "args": {
+        "company": "dreifach.ai",
+        "role": "(Senior) AI/TypeScript Entwickler:in, remote (m/w/d) in KI-Startup",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/269403-senior-aitypescript-entwicklerin-remote-mwd-in-ki-startup",
+        "source_job_id": "269403",
+        "original_url": "https://join.com/companies/dreifach/16645211-senior-ai-typescript-entwickler-in-remote-m-w-d-in-ki-startup",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "level": "Senior",
+        "location": "Remote, including outside Germany",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; React; Solid; Vue; Astro; Backend Frameworks; Relational Databases; Cloud Infrastructure; LLMs; Effect.ts",
+        "salary": "€55,000–€73,000/year",
+        "decision_reason": "other",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "The exact JOIN listing and Apply button were live on 2026-09-07 and remote work outside Germany is allowed. Hard blocker: the employer explicitly requires very good German, which is not present in the candidate profile; the title is also senior-leaning."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:269283",
+      "args": {
+        "company": "Clera",
+        "role": "Product Engineer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/269283-product-engineer",
+        "source_job_id": "269283",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "Berlin, Germany",
+        "remote_policy": "On-site",
+        "stack": "TypeScript; React; Tailwind CSS; Design Systems; UX Research; AI Agents",
+        "salary": "€70,000–€110,000/year",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "This is a separate Berlin on-site Product Engineer opening, not the US-only Clera role in job-0120. The description explicitly says the role is not remote; visa sponsorship is offered, but the profile limits on-site work to Novi Sad. Apply resolves to LinkedIn job 4461261864 rather than an exact employer careers page."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:269068",
+      "args": {
+        "company": "TechJobsData",
+        "role": "Frontend Engineer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/269068-frontend-engineer",
+        "source_job_id": "269068",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "United Kingdom / Remote",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; React; Vue.js; CSS; Redux; Zustand; Pinia; Accessibility; Performance",
+        "salary": "$95,000–$160,000/year",
+        "match_score": 7,
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "next_action": "verify real employer and Serbia eligibility",
+        "notes": "Strong UI stack but the description requires 3+ years building production frontend applications. Jaabz and LinkedIn identify TechJobsData rather than a clearly resolved end employer, and the LinkedIn route did not expose an exact employer ATS application."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:268358",
+      "args": {
+        "company": "Talanto",
+        "role": "Frontend Developer (React, Next.js, NestJS)",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/268358-frontend-developer-react-nextjs-nestjs",
+        "source_job_id": "268358",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Senior",
+        "location": "Lisbon, Porto, or Braga, Portugal",
+        "remote_policy": "On-site",
+        "stack": "React; Next.js; NestJS; TypeScript; Frontend Architecture; Backend Microservices",
+        "salary": "Unknown",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "The role requires at least 5 years of professional React experience plus 3+ years each with Next.js and NestJS. Relocation and visa sponsorship are offered, but the Apply route resolves only to LinkedIn job 4460538568."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:268181",
+      "args": {
+        "company": "Major Scale",
+        "role": "Design Engineer / Front End Engineer / Product Engineer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote",
+        "source_job_id": "268181",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "level": "Middle",
+        "location": "New York City / United States Remote",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; Next.js; Accessibility; REST APIs; GraphQL; Node.js; Python",
+        "salary": "$160,000–$260,000+/year",
+        "decision_reason": "geo_restriction",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "The description explicitly limits remote hiring to candidates based in the United States, with NYC hybrid as the alternative. Apply resolves to LinkedIn job 4458678771 rather than a resolved employer careers page."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "jaabz:267973",
+      "args": {
+        "company": "ListLab",
+        "role": "Remote Frontend Developer",
+        "source": "Jaabz",
+        "source_url": "https://jaabz.com/jobs/267973-remote-frontend-developer",
+        "source_job_id": "267973",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "United States / Remote",
+        "remote_policy": "Unclear",
+        "stack": "React; Vue.js; Angular; HTML; CSS; JavaScript; TypeScript; Accessibility; Design Systems",
+        "salary": "Up to $115,000/year",
+        "match_score": 8.5,
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "next_action": "verify Serbia eligibility and exact application route",
+        "notes": "Strong frontend-specialist fit with flexible full-time, part-time, or fractional commitment and no explicit years requirement in the visible text. Cross-border eligibility from Serbia is not stated, and LinkedIn job 4458039305 did not expose a usable exact employer application route."
+      }
+    }
+  ]
+}
