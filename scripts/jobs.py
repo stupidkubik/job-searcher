@@ -77,7 +77,7 @@ ADD_REQUIRED_INPUT_FIELDS = {"company", "role", "source"}
 LISTING_STATUSES = ["open", "closed", "unknown"]
 VERIFICATION = ["yes", "no", "unknown"]
 STAGES = ["None", "Applied", "Recruiter screen", "Tech interview", "Test task", "Final interview", "Offer"]
-LEVELS = ["Intern", "Graduate", "Junior", "Junior+", "Associate", "Junior/Middle", "Middle", "Senior", "Unknown"]
+LEVELS = ["Intern", "Graduate", "Junior", "Junior+", "Associate", "Junior/Middle", "Middle", "Senior", "Lead", "Unknown"]
 REMOTE = ["Global", "Europe", "EMEA", "Serbia", "Country-specific", "Hybrid", "On-site", "Unclear"]
 SOURCES = [
     "Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely",
@@ -395,6 +395,10 @@ def norm_url(value):
 
 COMPANY_NOISE = {"ltd", "limited", "inc", "incorporated", "llc", "llp", "plc", "gmbh", "ag", "bv", "nv", "ab", "oy", "oyj", "as", "sa", "sas", "srl", "spa", "doo", "ooo", "corp", "corporation", "co", "company", "group", "holding", "holdings", "the"}
 ROLE_NOISE = {"developer", "engineer", "software", "web", "senior", "junior", "middle", "mid", "associate", "graduate", "intern", "internship", "remote", "m", "f", "d", "x", "the", "and"}
+# Undisclosed/anonymized listings all read as the same company to SequenceMatcher
+# (company_score=1.00 against each other), which turned every such pair into a
+# false duplicate candidate. See docs/agent-write-path-plan-2026-09-07.md, Э5/P7.
+PLACEHOLDER_COMPANY_RE = re.compile(r"^(undisclosed|unknown|confidential|n/?a)\b", re.IGNORECASE)
 
 
 def without_noise(text, noise):
@@ -837,12 +841,15 @@ def find_duplicate_candidates(rows, company, role, original_url):
         for row in rows:
             if row["original_url"] and norm_url(row["original_url"]) == norm_url(original_url):
                 hits[row["id"]] = (row, "совпадение canonical original_url")
-    company_norm, role_norm = without_noise(company, COMPANY_NOISE), without_noise(role, ROLE_NOISE)
-    for row in rows:
-        company_score = similarity(company_norm, without_noise(row["company"], COMPANY_NOISE))
-        role_score = similarity(role_norm, without_noise(row["role"], ROLE_NOISE))
-        if company_score >= .85 and role_score >= .75:
-            hits.setdefault(row["id"], (row, f"похоже: company {company_score:.2f}, role {role_score:.2f}"))
+    if not PLACEHOLDER_COMPANY_RE.match(company.strip()):
+        company_norm, role_norm = without_noise(company, COMPANY_NOISE), without_noise(role, ROLE_NOISE)
+        for row in rows:
+            if PLACEHOLDER_COMPANY_RE.match(row["company"].strip()):
+                continue
+            company_score = similarity(company_norm, without_noise(row["company"], COMPANY_NOISE))
+            role_score = similarity(role_norm, without_noise(row["role"], ROLE_NOISE))
+            if company_score >= .85 and role_score >= .75:
+                hits.setdefault(row["id"], (row, f"похоже: company {company_score:.2f}, role {role_score:.2f}"))
     return hits
 
 

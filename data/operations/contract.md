@@ -16,14 +16,14 @@ This is the single source of truth for which connector command accepts which fie
 | `first_party_verified` | enum | `yes`, `no`, `unknown` | no |  |
 | `force` | boolean | — | no | explicitly resolves a fuzzy duplicate candidate or a shared discovery URL |
 | `found_at` | date (YYYY-MM-DD) | — | no |  |
-| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` | no |  |
+| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Lead`, `Unknown` | no |  |
 | `listing_status` | enum | `open`, `closed`, `unknown` | no |  |
 | `location` | text | — | no |  |
 | `match_score` | number (1-10) | — | no | decimal values are allowed, e.g. 7.5 |
 | `notes` | text | — | no | single line; long context belongs in applications/<id>.md |
 | `original_url` | URL | — | no |  |
 | `posted_at` | date (YYYY-MM-DD) | — | no |  |
-| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no |  |
+| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no | a bare "Remote" with no country list is not a valid value; use Unclear |
 | `role` | text | — | yes |  |
 | `salary` | text | — | no |  |
 | `source` | enum | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Telegram`, `Himalayas`, `Startit Jobs`, `Hired Valley`, `Relocate.me`, `Remote OK`, `Geekjob`, `TalentMove`, `Company Careers`, `Referral`, `Manual`, `Other` | yes |  |
@@ -54,14 +54,14 @@ A duplicate add only attaches a new source reference to an existing job; any can
 | `apply_verified` | enum | `yes`, `no` | yes |  |
 | `decision_reason` | enum | `already_applied`, `closed_before_application`, `company_not_interesting`, `geo_restriction`, `other`, `role_not_frontend`, `salary_too_low`, `seniority_too_high`, `seniority_too_low`, `stack_mismatch`, `work_authorization` | no |  |
 | `first_party_verified` | enum | `yes`, `no` | yes |  |
-| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` | no |  |
+| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Lead`, `Unknown` | no |  |
 | `listing_status` | enum | `open`, `closed` | yes |  |
 | `match_score` | number (1-10) | — | no | decimal values are allowed, e.g. 7.5 |
 | `next_action` | text | — | no |  |
 | `next_action_date` | date (YYYY-MM-DD) | — | no |  |
 | `notes` | text | — | no | single line; long context belongs in applications/<id>.md |
 | `original_url` | URL | — | no |  |
-| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no |  |
+| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no | a bare "Remote" with no country list is not a valid value; use Unclear |
 | `salary` | text | — | no |  |
 | `stack` | text | — | no |  |
 
@@ -112,14 +112,14 @@ Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expec
 | `first_party_verified` | enum | `yes`, `no`, `unknown` | no |  |
 | `force` | boolean | — | no | explicitly resolves a fuzzy duplicate candidate or a shared discovery URL |
 | `found_at` | date (YYYY-MM-DD) | — | no |  |
-| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` | no |  |
+| `level` | enum | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Lead`, `Unknown` | no |  |
 | `listing_status` | enum | `open`, `closed`, `unknown` | no |  |
 | `location` | text | — | no |  |
 | `match_score` | number (1-10) | — | no | decimal values are allowed, e.g. 7.5 |
 | `notes` | text | — | no | single line; long context belongs in applications/<id>.md |
 | `original_url` | URL | — | no |  |
 | `posted_at` | date (YYYY-MM-DD) | — | no |  |
-| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no |  |
+| `remote_policy` | enum | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` | no | a bare "Remote" with no country list is not a valid value; use Unclear |
 | `role` | text | — | yes |  |
 | `salary` | text | — | no |  |
 | `source` | enum | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Telegram`, `Himalayas`, `Startit Jobs`, `Hired Valley`, `Relocate.me`, `Remote OK`, `Geekjob`, `TalentMove`, `Company Careers`, `Referral`, `Manual`, `Other` | yes |  |
@@ -156,7 +156,7 @@ Written only by the runner, never by a connector command: `contact_name`, `conta
 | `first_party_verified` | `yes`, `no`, `unknown` |
 | `apply_verified` | `yes`, `no`, `unknown` |
 | `stage_reached` | `None`, `Applied`, `Recruiter screen`, `Tech interview`, `Test task`, `Final interview`, `Offer` |
-| `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` |
+| `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Lead`, `Unknown` |
 | `remote_policy` | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` |
 | `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Telegram`, `Himalayas`, `Startit Jobs`, `Hired Valley`, `Relocate.me`, `Remote OK`, `Geekjob`, `TalentMove`, `Company Careers`, `Referral`, `Manual`, `Other` |
 | `decision_reason` | `geo_restriction`, `work_authorization`, `seniority_too_high`, `seniority_too_low`, `stack_mismatch`, `role_not_frontend`, `salary_too_low`, `company_not_interesting`, `closed_before_application`, `already_applied`, `duplicate_listing`, `no_response_timeout`, `withdrawn_by_me`, `other` |

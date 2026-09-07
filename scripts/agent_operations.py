@@ -144,6 +144,7 @@ def validate_verify_args(args,prefix="args"):
     if "level" in out and out["level"] not in jobs.LEVELS: raise OperationError(f"{prefix}.level is not a known level")
     if "remote_policy" in out and out["remote_policy"] not in jobs.REMOTE: raise OperationError(f"{prefix}.remote_policy is not a known remote policy")
     if "original_url" in out and out["original_url"] and not jobs.valid_http_url(out["original_url"]): raise OperationError(f"{prefix}.original_url must be an absolute http(s) URL")
+    if out["first_party_verified"]=="yes" and not out.get("original_url","").strip(): raise contract_error("first_party_verified=yes requires original_url",code="invariant_violation",field=f"{prefix}.original_url")
     return out
 def validate_set_args(args,prefix="args"):
     if not isinstance(args,dict) or not args: raise OperationError(f"{prefix} must be a non-empty object")
@@ -572,6 +573,7 @@ FIELD_NOTES={
     "stage":"stage_reached only increases; a lower stage is rejected",
     "expected":"optimistic lock; must include last_update and the fields the decision depends on",
     "job_id":"must match job-NNNN and already exist",
+    "remote_policy":"a bare \"Remote\" with no country list is not a valid value; use Unclear",
 }
 ADD_FIELD_ENUMS={
     "source":jobs.SOURCES,"application_status":sorted(CONNECTOR_ADD_APPLICATION_STATUSES),

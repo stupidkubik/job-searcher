@@ -9,7 +9,6 @@ compared against the same numbers before and after each change.
 import argparse
 import csv
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -17,6 +16,9 @@ ROOT = Path(__file__).resolve().parent.parent.parent
 CSV_PATH = ROOT / "data" / "jobs.csv"
 REQUESTS_DIR = ROOT / "data" / "operations" / "requests"
 RESULTS_DIR = ROOT / "data" / "operations" / "results"
+
+sys.path.insert(0, str(ROOT / "scripts"))
+import jobs  # noqa: E402
 
 # Boot set as measured in docs/agent-ergonomics-analysis-2026-09-07.md
 # section 2.1; excludes the per-source playbook, whose weight varies.
@@ -28,8 +30,6 @@ BOOT_SET = [
     ROOT / "config" / "profile.md",
     ROOT / "data" / "operations" / "README.md",
 ]
-
-PLACEHOLDER_COMPANY_RE = re.compile(r"^(undisclosed|unknown|confidential|n/?a)\b", re.IGNORECASE)
 
 
 def load_rows():
@@ -67,7 +67,7 @@ def build_report():
     not_started = [row for row in rows if row.get("application_status") == "not_started"]
     empty_original_url = [row for row in rows if not row.get("original_url", "").strip()]
     placeholder_company = [
-        row for row in rows if PLACEHOLDER_COMPANY_RE.match((row.get("company") or "").strip())
+        row for row in rows if jobs.PLACEHOLDER_COMPANY_RE.match((row.get("company") or "").strip())
     ]
 
     jobs_total = len(rows)

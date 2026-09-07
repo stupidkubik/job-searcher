@@ -571,6 +571,32 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual(len(result_files), 1)
         self.assertEqual(json.loads(result_files[0].read_text(encoding="utf-8"))["status"], "rejected")
 
+    def test_verify_requires_original_url_when_first_party_verified_yes(self):
+        row = self.seed_job()
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        request = self.write_operation({
+            "version": 1,
+            "operation_id": "op-missing-original-url-001",
+            "command": "verify",
+            "job_id": "job-0001",
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {
+                "listing_status": "open",
+                "first_party_verified": "yes",
+                "apply_verified": "no",
+            },
+        })
+
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+
+        self.assertEqual(result.returncode, 1)
+        payload = json.loads(result.stdout)
+        self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
+        error = payload["result"]["error"]
+        self.assertEqual(error["code"], "invariant_violation")
+        self.assertEqual(error["field"], "operation.args.original_url")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_medium_risk_status_records_user_confirmed_lifecycle_events(self):
         self.seed_job()
         operations = [

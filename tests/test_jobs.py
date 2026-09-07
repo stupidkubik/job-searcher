@@ -275,6 +275,21 @@ class JobsCliTests(unittest.TestCase):
             sources = list(csv.DictReader(file))
         self.assertEqual((len(sources), sources[1]["job_id"], sources[1]["source_url"]), (2, "job-0001", "https://mirror.example/jobs/1"))
 
+    def test_placeholder_company_pairs_skip_fuzzy_duplicate_matching(self):
+        self.assertEqual(self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/1", "--no-file").returncode, 0)
+        second = self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/2", "--no-file", "--format", "json")
+        self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
+        self.assertEqual(len(self.rows()), 2)
+
+    def test_placeholder_company_pair_still_conflicts_on_matching_source_job_id(self):
+        self.assertEqual(self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/1", "--source-job-id", "abc123", "--no-file").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+        conflict = self.add("Unknown Company", "Backend Developer", "--source-url", "https://boards.example.test/1-mirror", "--source-job-id", "abc123", "--no-file", "--format", "json")
+        self.assertEqual(conflict.returncode, 2, conflict.stdout + conflict.stderr)
+        payload = json.loads(conflict.stdout)
+        self.assertEqual(payload["error"], "source_reference_conflict")
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
+
     def test_set_advances_lifecycle_and_cannot_lower_stage(self):
         self.assertEqual(self.add("FlowCo", "Frontend Developer", "--no-file").returncode, 0)
         applied = self.invoke("status", "job-0001", "--application-status", "applied", "--cv-version", "frontend-2026-08")

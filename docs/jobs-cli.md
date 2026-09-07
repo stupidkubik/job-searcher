@@ -193,7 +193,8 @@ read-only `workflow_dispatch` для `narrow` и `broad` и загружает a
 атомарным изменением ставит listing status, оба verification-флага и дату. В той
 же операции можно записать подтверждённые `level`, `remote_policy`, `stack`,
 `salary` и `match_score`; это безопасные enrichment-поля, не меняющие историю
-отклика.
+отклика. `--first-party-verified yes` требует непустой `--original-url` — то же
+правило, что и в `add`.
 Для подтверждённой открытой вакансии команда переводит `not_started` в
 `reviewing`, очищает `verify first-party` и создаёт/синхронизирует карточку:
 

@@ -111,7 +111,8 @@ Allowed single commands:
   application, clears the next action, and leaves listing/verification fields
   untouched. `closed_before_application` and `duplicate_listing` are forbidden.
 - `verify`: requires `listing_status`, `first_party_verified`, and
-  `apply_verified`; optional fields are `original_url`, `decision_reason`,
+  `apply_verified`; optional fields are `original_url` (required when
+  `first_party_verified=yes`, same as `add`), `decision_reason`,
   `notes`, `level`, `remote_policy`, `stack`, `salary`, and `match_score`.
   A passed open verification may additionally set
   `application_status=apply` with a non-empty `next_action` (and optional

@@ -64,7 +64,7 @@ id,application_status,listing_status,company,role,level,original_url,source_url,
 | `application_status` | `not_started`, `reviewing`, `apply`, `applied`, `interviewing`, `offer`, `rejected`, `ghosted`, `withdrawn` |
 | `listing_status` | `open`, `closed`, `unknown` |
 | `first_party_verified`, `apply_verified` | `yes`, `no`, `unknown` |
-| `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Unknown` |
+| `level` | `Intern`, `Graduate`, `Junior`, `Junior+`, `Associate`, `Junior/Middle`, `Middle`, `Senior`, `Lead`, `Unknown` |
 | `source` | `Hirify`, `Jaabz`, `LinkedIn`, `Welcome to the Jungle`, `We Work Remotely`, `HiringCafe`, `Hacker News — Who is Hiring?`, `Hacker News — Who Wants to Be Hired?`, `YC Work at a Startup`, `Wellfound`, `HelloWorld.rs`, `Reactiflux Discord`, `Find My Remote / Telegram`, `Telegram`, `Himalayas`, `Startit Jobs`, `Hired Valley`, `Relocate.me`, `Remote OK`, `Geekjob`, `TalentMove`, `Company Careers`, `Referral`, `Manual`, `Other` |
 | `remote_policy` | `Global`, `Europe`, `EMEA`, `Serbia`, `Country-specific`, `Hybrid`, `On-site`, `Unclear` |
 | `stage_reached` | `None` → `Applied` → `Recruiter screen` → `Tech interview` → `Test task` → `Final interview` → `Offer` |
