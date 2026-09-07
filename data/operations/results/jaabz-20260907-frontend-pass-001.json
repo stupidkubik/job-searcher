@@ -1,0 +1,26 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "allowed": [
+      "company",
+      "duplicate_of",
+      "force",
+      "found_at",
+      "role",
+      "source",
+      "source_job_id",
+      "source_url"
+    ],
+    "code": "duplicate_add_extra_fields",
+    "field": "operations[4].args.notes",
+    "hint": "a duplicate add only takes source_url/source_job_id (plus force); canonical fields belong to the original job",
+    "layer": "operations",
+    "message": "duplicate add contains canonical fields that would be ignored: notes"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "jaabz-20260907-frontend-pass-001",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

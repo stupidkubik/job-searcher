@@ -1,0 +1,25 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "allowed": [
+      "Country-specific",
+      "EMEA",
+      "Europe",
+      "Global",
+      "Hybrid",
+      "On-site",
+      "Serbia",
+      "Unclear"
+    ],
+    "code": "bad_enum_value",
+    "field": "operations[1].args.remote_policy",
+    "layer": "operations",
+    "message": "operations[1].args.remote_policy is not a known value"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "hiringcafe-week-20260820-02",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

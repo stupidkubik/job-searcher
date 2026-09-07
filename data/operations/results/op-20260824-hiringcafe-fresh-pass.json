@@ -1,0 +1,14 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "code": "contract_violation",
+    "layer": "operations",
+    "message": "operations[0].args.first_party_verified must be a string"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "op-20260824-hiringcafe-fresh-pass",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

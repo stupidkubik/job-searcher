@@ -61,6 +61,16 @@ ERROR_CODES = frozenset({
     "unknown_top_level_fields","missing_top_level_fields","unknown_args","missing_args",
     "bad_type","bad_enum_value","bad_format","duplicate_add_extra_fields",
     "invariant_violation","unknown_job","result_exists","batch_not_atomic",
+    # Written only by scripts/maintenance/backfill_missing_results.py (Э1b): a
+    # historical request that passes contract validation today but has no
+    # result file, i.e. it was lost before the runner ever applied it.
+    "lost_before_apply",
+    # OperationError's own default when raised without an explicit code: the
+    # validate_verify_args/validate_set_args/validate_screen_args/clean_text/
+    # validate_expected branches that Э1's wave 1 did not migrate yet. A
+    # future wave replaces each remaining bare `raise OperationError(...)`
+    # with `contract_error(..., code=...)` and this becomes unreachable.
+    "contract_violation",
 })
 class OperationError(ValueError):
     def __init__(self,message,*,code="contract_violation",field=None,allowed=None,hint=None,layer="operations"):

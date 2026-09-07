@@ -1,0 +1,14 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "code": "lost_before_apply",
+    "layer": "operations",
+    "message": "request passed today's contract validation but has no matching result; it was lost before the runner ever applied it (see RC-9, the push race, in docs/agent-ergonomics-analysis-2026-09-07.md). This is not a retroactive success: canonical data was never changed. Resubmit as a new operation_id if the change is still wanted."
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "status-0055-0130-20260812",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

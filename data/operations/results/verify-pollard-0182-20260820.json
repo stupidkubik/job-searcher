@@ -1,0 +1,19 @@
+{
+  "backfilled": true,
+  "command": "verify",
+  "error": {
+    "allowed": [
+      "open",
+      "closed"
+    ],
+    "code": "bad_enum_value",
+    "field": "operation.args.listing_status",
+    "layer": "operations",
+    "message": "operation.args.listing_status must be open or closed"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "verify-pollard-0182-20260820",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

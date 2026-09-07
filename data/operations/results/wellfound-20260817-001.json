@@ -1,0 +1,40 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "allowed": [
+      "application_status",
+      "apply_verified",
+      "company",
+      "decision_reason",
+      "duplicate_of",
+      "first_party_verified",
+      "force",
+      "found_at",
+      "level",
+      "listing_status",
+      "location",
+      "match_score",
+      "notes",
+      "original_url",
+      "posted_at",
+      "remote_policy",
+      "role",
+      "salary",
+      "source",
+      "source_job_id",
+      "source_url",
+      "stack"
+    ],
+    "code": "unknown_args",
+    "field": "operations[4].args.verified_at",
+    "hint": "verified_at is computed by the runner from verify; do not send it directly",
+    "layer": "operations",
+    "message": "unknown add args: verified_at"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "wellfound-20260817-001",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

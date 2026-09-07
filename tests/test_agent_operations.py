@@ -12,6 +12,28 @@ from pathlib import Path
 PROJECT = Path(__file__).resolve().parents[1]
 WORKFLOW = PROJECT / ".github" / "workflows" / "agent-operations.yml"
 VALIDATE_WORKFLOW = PROJECT / ".github" / "workflows" / "validate.yml"
+LIVE_REQUESTS_DIR = PROJECT / "data" / "operations" / "requests"
+LIVE_RESULTS_DIR = PROJECT / "data" / "operations" / "results"
+
+
+class RequestResultInvariantTests(unittest.TestCase):
+    """Every committed request must end up with a matching result
+    (docs/agent-write-path-plan-2026-09-07.md, Э1b). Before Э1, a rejected
+    apply left no result file at all; this guardian keeps that regression
+    from recurring silently."""
+
+    def test_every_request_has_a_matching_result(self):
+        request_ids = {path.stem for path in LIVE_REQUESTS_DIR.glob("*.json")}
+        result_ids = {path.stem for path in LIVE_RESULTS_DIR.glob("*.json")}
+        missing = sorted(request_ids - result_ids)
+        self.assertEqual(
+            missing, [],
+            "these requests have no result file: " + ", ".join(missing) + ". "
+            "Run scripts/maintenance/backfill_missing_results.py for a historical "
+            "request. If you just committed one of these yourself, its workflow run "
+            "may simply not have finished yet — git pull and re-check before "
+            "assuming this is a real regression.",
+        )
 
 
 class AgentOperationsTests(unittest.TestCase):
@@ -787,6 +809,7 @@ class ErrorTaxonomyTests(unittest.TestCase):
             "unknown_top_level_fields", "missing_top_level_fields", "unknown_args", "missing_args",
             "bad_type", "bad_enum_value", "bad_format", "duplicate_add_extra_fields",
             "invariant_violation", "unknown_job", "result_exists", "batch_not_atomic",
+            "lost_before_apply", "contract_violation",
         }
         self.assertEqual(ops.ERROR_CODES, documented)
         with self.assertRaises(ValueError):

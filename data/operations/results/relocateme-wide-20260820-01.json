@@ -1,0 +1,26 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "allowed": [
+      "Associate",
+      "Graduate",
+      "Intern",
+      "Junior",
+      "Junior+",
+      "Junior/Middle",
+      "Middle",
+      "Senior",
+      "Unknown"
+    ],
+    "code": "bad_enum_value",
+    "field": "operations[3].args.level",
+    "layer": "operations",
+    "message": "operations[3].args.level is not a known value"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "relocateme-wide-20260820-01",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

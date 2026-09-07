@@ -1,0 +1,25 @@
+{
+  "backfilled": true,
+  "command": "add",
+  "error": {
+    "allowed": [
+      "Country-specific",
+      "EMEA",
+      "Europe",
+      "Global",
+      "Hybrid",
+      "On-site",
+      "Serbia",
+      "Unclear"
+    ],
+    "code": "bad_enum_value",
+    "field": "args.remote_policy",
+    "layer": "operations",
+    "message": "args.remote_policy is not a known value"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "add-serpapi-junior-fullstack-20260812",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

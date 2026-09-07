@@ -1,0 +1,26 @@
+{
+  "backfilled": true,
+  "command": "batch",
+  "error": {
+    "allowed": [
+      "company",
+      "duplicate_of",
+      "force",
+      "found_at",
+      "role",
+      "source",
+      "source_job_id",
+      "source_url"
+    ],
+    "code": "duplicate_add_extra_fields",
+    "field": "operations[11].args.application_status",
+    "hint": "a duplicate add only takes source_url/source_job_id (plus force); canonical fields belong to the original job",
+    "layer": "operations",
+    "message": "duplicate add contains canonical fields that would be ignored: application_status, apply_verified, decision_reason, first_party_verified, listing_status, notes"
+  },
+  "executed_at": "2026-09-07T17:49:55Z",
+  "operation_id": "linkedin-email-20260817-screen-batch-01",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}

@@ -318,11 +318,17 @@ A `rejected` result always carries a structured `error`:
 `unknown_top_level_fields`, `missing_top_level_fields`, `unknown_args`,
 `missing_args`, `bad_type`, `bad_enum_value`, `bad_format`,
 `duplicate_add_extra_fields`, `invariant_violation`, `unknown_job`,
-`result_exists`, `batch_not_atomic`); `layer` is `operations` for a contract
-violation caught before any tracker call, or `jobs` for a rule enforced deeper
-in `jobs.py`. `field`, `allowed`, and `hint` are present when they add
-information; only `code`, `layer`, and `message` are guaranteed. A closed-set
-test keeps `error.code` from growing new ad hoc values.
+`result_exists`, `batch_not_atomic`, `lost_before_apply`,
+`contract_violation`); `layer` is `operations` for a contract violation caught
+before any tracker call, or `jobs` for a rule enforced deeper in `jobs.py`.
+`field`, `allowed`, and `hint` are present when they add information; only
+`code`, `layer`, and `message` are guaranteed. A closed-set test keeps
+`error.code` from growing new ad hoc values. `contract_violation` is the
+generic fallback for a handful of `verify`/`set`/`screen` validation branches
+that a later wave still has to migrate to a specific code; `lost_before_apply`
+is written only by `scripts/maintenance/backfill_missing_results.py` for a
+historical request that has no result even though it still passes contract
+validation today.
 
 `command` reflects the request's own top-level `command` field whenever the
 raw JSON could be read at all, and is `unknown` only when it could not (for
