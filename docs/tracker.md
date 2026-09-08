@@ -2,7 +2,7 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-07** · Jobs: **409**
+Dataset updated: **2026-09-08** · Jobs: **409**
 
 [Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (348)](#archive)
 
@@ -90,6 +90,8 @@ Dataset updated: **2026-09-07** · Jobs: **409**
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
+| Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-09-08 |
 | Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Tether Operations Limited — Frontend Software Engineer (100% Remote)](<https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366>) · job-0407 | seniority too high | Not checked | 2026-09-07 |
 | Skipped: geo restriction | [Major Scale — Design Engineer / Front End Engineer / Product Engineer](<https://jaabz.com/jobs/268181-design-engineer-front-end-engineer-product-engineer-nycremote>) · job-0403 | geo restriction | Not checked | 2026-09-07 |
@@ -106,7 +108,6 @@ Dataset updated: **2026-09-07** · Jobs: **409**
 | Skipped: role not frontend | [Seeing Systems — Software Engineering Intern](<https://www.ycombinator.com/companies/seeing-systems/jobs/pBZFivv-software-engineering-intern>) · job-0388 | role not frontend | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [Caribou — Full Stack Software Engineer (Frontend-leaning)](<https://www.ycombinator.com/companies/caribou/jobs/X07JUDl-full-stack-software-engineer-frontend-leaning>) · job-0387 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [Pax — Software Engineer (Early Career)](<https://www.ycombinator.com/companies/pax/jobs/5Schb9r-software-engineer-early-career>) · job-0386 | geo restriction | Not checked | 2026-08-24 |
-| Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-08-24 |
 | Skipped: role not frontend | [TraceRoot.AI — GTM Engineer Intern](<https://www.ycombinator.com/companies/traceroot-ai/jobs/dk1ep2K-gtm-engineer-intern>) · job-0384 | role not frontend | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [TraceRoot.AI — Founding Engineer](<https://www.ycombinator.com/companies/traceroot-ai/jobs/xLdkDw5-founding-engineer>) · job-0383 | geo restriction | Not checked | 2026-08-24 |
 | Skipped: geo restriction | [TraceRoot.AI — Software Engineering Intern](<https://www.ycombinator.com/companies/traceroot-ai/jobs/RCbNRRq-software-engineering-intern>) · job-0382 | geo restriction | Not checked | 2026-08-24 |
@@ -290,7 +291,6 @@ Dataset updated: **2026-09-07** · Jobs: **409**
 | Skipped: geo restriction | [Sitefire — Founding Product Engineer](<https://www.ycombinator.com/companies/sitefire/jobs/P6tu0WO-founding-product-engineer>) · job-0209 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Windmill — Product Software Engineer](<https://www.ycombinator.com/companies/windmill/jobs/aXpL7BC-product-software-engineer>) · job-0208 | geo restriction | Not checked | 2026-08-14 |
 | Skipped: geo restriction | [Runway — Full Stack Engineer](<https://www.ycombinator.com/companies/runway/jobs/0s9VB2H-full-stack-engineer>) · job-0207 | geo restriction | Not checked | 2026-08-14 |
-| Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-08-14 |
 | Skipped: role not frontend | [Lago — Solutions Engineer](<https://www.ycombinator.com/companies/lago/jobs/mZ5vHl6-solutions-engineer>) · job-0205 | role not frontend | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [Bloom — Founding Engineer](<https://www.ycombinator.com/companies/bloom-4/jobs/Tb6dGeS-founding-engineer>) · job-0204 | seniority too high | Not checked | 2026-08-14 |
 | Skipped: seniority too high | [Eight Sleep — Full Stack Engineer, Web](<https://www.ycombinator.com/companies/eight-sleep/jobs/9TaFbm2-full-stack-engineer-web>) · job-0203 | seniority too high | Not checked | 2026-08-14 |

@@ -1,0 +1,40 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T11:43:21Z",
+  "jobs": [
+    "job-0206",
+    "job-0385"
+  ],
+  "operation_id": "yc-20260908-recent-pass-003",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0206",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0385",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
