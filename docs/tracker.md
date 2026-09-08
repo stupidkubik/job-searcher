@@ -2,21 +2,24 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-08** · Jobs: **413**
+Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (352)](#archive)
+[Action now (14)](#action-now) · [Applications (37)](#applications) · [To verify (18)](#to-verify) · [Archive (356)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | 9.3 | — | Open | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
 | Reviewing | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | 8.5 | — | Open | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
 | Reviewing | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | 8.5 | — | Open | [Open](../applications/job-0391-discovered-labs-content-engineer-internal.md) |
+| Reviewing | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | 8.1 | — | Open | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Reviewing | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | 8 | — | Open | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | 7.5 | — | Open | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Reviewing | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | 7.4 | — | Open | [Open](../applications/job-0390-supabase-developer-relations-engineer.md) |
+| Reviewing | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | 7.4 | — | Open | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
 | Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
 | Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
@@ -71,14 +74,19 @@ Dataset updated: **2026-09-08** · Jobs: **413**
 | Reviewing | [ListLab — Remote Frontend Developer](<https://jaabz.com/jobs/267973-remote-frontend-developer>) · job-0404 | First party + Apply + Listing | 8.5 | verify first-party | 2026-09-07 |
 | Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
+| Reviewing | [Undisclosed (TalentMove 269674) — Junior Frontend Developer (React / TypeScript)](<https://talent-move.ru/jobs/frontend-developer-react-type-script-060926-269674/>) · job-0416 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Epic Games — Web Engineer Intern](<https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy>) · job-0409 | First party + Apply + Listing | 8.2 | verify first-party | Never |
+| Reviewing | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
+| Reviewing | [Undisclosed digital studio (TalentMove 264516) — Frontend Engineer](<https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/>) · job-0423 | First party + Apply + Listing | 7.3 | verify first-party | Never |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
+| Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | verify first-party | Never |
+| Reviewing | [SahayPay Technologies — Frontend Engineer (React)](<https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/>) · job-0419 | First party + Apply + Listing | 4.8 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
 
@@ -86,10 +94,14 @@ Dataset updated: **2026-09-08** · Jobs: **413**
 
 <details>
 
-<summary>Archive (352)</summary>
+<summary>Archive (356)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Slate (Supporting Cast) — Software Engineer](<https://jobs.lever.co/slate/557fe4ab-d292-4069-8c63-36752f3da91d>) · job-0425 | geo restriction | Open | 2026-09-08 |
+| Skipped: role not frontend | [Undisclosed (TalentMove 266369) — Product Engineer](<https://talent-move.ru/jobs/product-engineer-remote-020926-266369/>) · job-0424 | role not frontend | Not checked | 2026-09-08 |
+| Skipped: salary too low | [MartSpec — Frontend Developer Intern (React / TypeScript)](<https://martspec.com/en/careers/frontend-engineer>) · job-0420 | salary too low | Open | 2026-09-08 |
+| Skipped: seniority too high | [Talent Magnet / CareerGo — Frontend Developer (React / TypeScript)](<https://hh.ru/vacancy/136400949>) · job-0417 | seniority too high | Open | 2026-09-08 |
 | Skipped: geo restriction | [Huwise — Software Engineer](<https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer>) · job-0413 | geo restriction | Open | 2026-09-08 |
 | Skipped: geo restriction | [Indy — Software Engineer - Developer Experience](<https://jobs.indy.fr/jobs/6168323-software-engineer-developer-experience>) · job-0412 | geo restriction | Open | 2026-09-08 |
 | Skipped: seniority too high | [Yooli — FULL TIME: Software Engineer Position - React and Rest](<https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1>) · job-0411 | seniority too high | Not checked | 2026-09-08 |

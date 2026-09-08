@@ -1,0 +1,269 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T12:57:52Z",
+  "jobs": [],
+  "operation_id": "talentmove-20260908-14d-001",
+  "result": {
+    "count": 12,
+    "operations": [
+      {
+        "application_path": "applications/job-0414-constructor-fullstack-engineer-prospect.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-270045",
+        "command": "add",
+        "job_id": "job-0414",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0414",
+            "source": "TalentMove",
+            "source_job_id": "270045",
+            "source_url": "https://talent-move.ru/jobs/fullstack-engineer-prospect-ui-solutions-remote-070926-270045/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0415-aicerts-ai-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-269837",
+        "command": "add",
+        "job_id": "job-0415",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0415",
+            "source": "TalentMove",
+            "source_job_id": "269837",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-aicerts-ai-remote-070926-269837/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0416-undisclosed-talentmove-26967-junior-frontend-developer-re.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-269674",
+        "command": "add",
+        "job_id": "job-0416",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0416",
+            "source": "TalentMove",
+            "source_job_id": "269674",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-react-type-script-060926-269674/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tm-269162",
+        "command": "add",
+        "job_id": "job-0417",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0417",
+            "source": "TalentMove",
+            "source_job_id": "269162",
+            "source_url": "https://talent-move.ru/jobs/frontend-razrabotchik-react-type-script-250k-260926-269162/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0418-xforia-inc-react-js-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-268258",
+        "command": "add",
+        "job_id": "job-0418",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0418",
+            "source": "TalentMove",
+            "source_job_id": "268258",
+            "source_url": "https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0419-sahaypay-technologies-frontend-engineer-react.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-267504",
+        "command": "add",
+        "job_id": "job-0419",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0419",
+            "source": "TalentMove",
+            "source_job_id": "267504",
+            "source_url": "https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tm-266697",
+        "command": "add",
+        "job_id": "job-0420",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0420",
+            "source": "TalentMove",
+            "source_job_id": "266697",
+            "source_url": "https://talent-move.ru/jobs/stazher-frontend-razrabotchik-martspec-020926-266697/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0421-undisclosed-talentmove-26068-frontend-developer-intern-re.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-260684",
+        "command": "add",
+        "job_id": "job-0421",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0421",
+            "source": "TalentMove",
+            "source_job_id": "260684",
+            "source_url": "https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0422-atorline-junior-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-268878",
+        "command": "add",
+        "job_id": "job-0422",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0422",
+            "source": "TalentMove",
+            "source_job_id": "268878",
+            "source_url": "https://talent-move.ru/jobs/junior-frontend-developer-atorline-202609-268878/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0423-undisclosed-digital-studio-t-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "tm-264516",
+        "command": "add",
+        "job_id": "job-0423",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0423",
+            "source": "TalentMove",
+            "source_job_id": "264516",
+            "source_url": "https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tm-266369",
+        "command": "add",
+        "job_id": "job-0424",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0424",
+            "source": "TalentMove",
+            "source_job_id": "266369",
+            "source_url": "https://talent-move.ru/jobs/product-engineer-remote-020926-266369/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "tm-262930",
+        "command": "add",
+        "job_id": "job-0425",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0425",
+            "source": "TalentMove",
+            "source_job_id": "262930",
+            "source_url": "https://talent-move.ru/jobs/junior-software-engineer-slate-remote-270826-262930/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 12,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
