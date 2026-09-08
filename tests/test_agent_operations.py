@@ -1,5 +1,6 @@
 import csv
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -34,6 +35,134 @@ class RequestResultInvariantTests(unittest.TestCase):
             "request. If you just committed one of these yourself, its workflow run "
             "may simply not have finished yet — git pull and re-check before "
             "assuming this is a real regression.",
+        )
+
+
+class ApplyOperationScriptTests(unittest.TestCase):
+    """Executes scripts/ci/apply_operation.sh instead of grepping it.
+
+    docs/agent-write-path-plan-2026-09-07.md, Э1 promises that no path
+    through the runner ends without a machine-readable result. Every other
+    test in this file proves that for `agent_operations.py apply` alone,
+    while the runner reaches it through this shell wrapper -- so a
+    contract-rejecting step placed in front of `apply` restores the silent
+    failure without breaking a single string assertion. Only running the
+    script catches that, so this test runs it against a real throwaway
+    repository with a bare origin.
+    """
+
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        base = Path(self.temporary.name)
+        self.root = base / "checkout"
+        self.origin = base / "origin.git"
+        for directory in (
+            "scripts/ci",
+            "data/operations/requests",
+            "data/operations/results",
+            "data/index",
+            "applications",
+            "docs",
+        ):
+            (self.root / directory).mkdir(parents=True, exist_ok=True)
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+            "agent_operations.py",
+        ):
+            shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
+        shutil.copy2(APPLY_SCRIPT, self.root / "scripts" / "ci" / "apply_operation.sh")
+        for name in ("jobs.csv", "job_sources.csv"):
+            header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
+            (self.root / "data" / name).write_text(header + "\n", encoding="utf-8")
+        shutil.copy2(PROJECT / "applications" / "_TEMPLATE.md", self.root / "applications" / "_TEMPLATE.md")
+        (self.root / "docs" / "tracker.md").write_text("# tracker\n", encoding="utf-8")
+        for name in ("known.tsv", "keys.tsv", "active.csv"):
+            (self.root / "data" / "index" / name).write_text("", encoding="utf-8")
+        # Mirror the real checkout: __pycache__ is ignored, and results/ is a
+        # tracked directory, so the changed-path allowlist sees a new result as
+        # its own path rather than as one collapsed untracked directory.
+        (self.root / ".gitignore").write_text("__pycache__/\n", encoding="utf-8")
+        (self.root / "data" / "operations" / "results" / ".gitkeep").write_text("", encoding="utf-8")
+
+        self.git("init", "--bare", str(self.origin), cwd=base)
+        self.git("init")
+        self.git("config", "user.email", "test@example.invalid")
+        self.git("config", "user.name", "test")
+        self.git("remote", "add", "origin", str(self.origin))
+
+    def tearDown(self):
+        self.temporary.cleanup()
+
+    def git(self, *arguments, cwd=None):
+        done = subprocess.run(["git", *arguments], cwd=cwd or self.root, text=True, capture_output=True)
+        self.assertEqual(done.returncode, 0, done.stderr)
+        return done.stdout
+
+    def run_script(self, request_relative_path):
+        environment = {
+            **os.environ,
+            "GITHUB_REF_NAME": "main",
+            "RUNNER_TEMP": self.temporary.name,
+        }
+        return subprocess.run(
+            ["bash", "scripts/ci/apply_operation.sh", request_relative_path],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
+            env=environment,
+        )
+
+    def test_a_contract_rejection_still_commits_and_pushes_its_result(self):
+        relative = "data/operations/requests/op-script-rejection-001.json"
+        (self.root / relative).write_text(
+            json.dumps(
+                {
+                    "version": 1,
+                    "operation_id": "op-script-rejection-001",
+                    "command": "add",
+                    "args": {
+                        "company": "ScriptCo",
+                        "role": "Frontend Engineer",
+                        "source": "Manual",
+                        "next_action": "follow up",
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.git("add", "--all")
+        self.git("commit", "--message", "seed")
+
+        done = self.run_script(relative)
+
+        self.assertEqual(done.returncode, 1, done.stdout + done.stderr)
+        result_path = self.root / "data" / "operations" / "results" / "op-script-rejection-001.json"
+        self.assertTrue(
+            result_path.exists(),
+            "the runner script ended without a result file: " + done.stdout + done.stderr,
+        )
+        result = json.loads(result_path.read_text(encoding="utf-8"))
+        self.assertEqual(result["status"], "rejected")
+        self.assertEqual(result["error"]["code"], "unknown_args")
+        self.assertEqual(result["error"]["field"], "args.next_action")
+        self.assertIn(
+            "jobs: reject agent operation op-script-rejection-001", self.git("log", "-1", "--format=%s")
+        )
+        self.assertIn(
+            "op-script-rejection-001.json",
+            self.git("show", "--name-only", "--format=", "HEAD"),
+        )
+        self.assertIn(
+            "jobs: reject agent operation op-script-rejection-001",
+            self.git("log", "-1", "--format=%s", "main", cwd=self.origin),
         )
 
 

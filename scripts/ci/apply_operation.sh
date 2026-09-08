@@ -27,8 +27,13 @@ git config user.name "job-tracker-agent[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
 for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
-  echo "::group::attempt ${attempt}/${MAX_ATTEMPTS}: validate and apply"
-  python3 scripts/agent_operations.py validate "$REQUEST_PATH" --format json
+  # No pre-flight `validate` here on purpose: `apply` performs the very same
+  # load_operation() checks, but converts a contract rejection into a
+  # machine-readable results/<id>.json (Э1). A pre-flight validate exits
+  # non-zero under `set -e` and would kill this script before the rejected
+  # result is ever written, leaving the agent with a silent failure -- exactly
+  # the failure mode Э1 exists to remove.
+  echo "::group::attempt ${attempt}/${MAX_ATTEMPTS}: apply"
   set +e
   python3 scripts/agent_operations.py apply "$REQUEST_PATH" --format json > "$OUTPUT_JSON"
   set -e
