@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-0359-0360-company-closed",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0359",
+      "expected": {
+        "last_update": "2026-08-23",
+        "application_status": "reviewing",
+        "listing_status": "open"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "original_url": "https://make.recruitee.com/o/frontend-engineer",
+        "decision_reason": "closed_before_application",
+        "notes": "User reports the role was closed by the company; recorded as closed before application."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0360",
+      "expected": {
+        "last_update": "2026-08-23",
+        "application_status": "reviewing",
+        "listing_status": "open"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "original_url": "https://make.recruitee.com/o/frontend-engineer-freelance",
+        "decision_reason": "closed_before_application",
+        "notes": "User reports the role was closed by the company; recorded as closed before application."
+      }
+    }
+  ]
+}
