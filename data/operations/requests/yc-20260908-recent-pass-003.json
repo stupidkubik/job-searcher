@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "operation_id": "yc-20260908-recent-pass-003",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0206",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "other",
+        "last_update": "2026-08-14"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Rechecked 2026-09-08: YC exact listing is live; remote within CET ±3 hours and native Apply requires YC authentication. Cogram's careers section links back to YC, so no exact first-party requisition was available. Hard blocker remains: the role requires having founded or co-founded a tech company and 3+ years of production software across backend and frontend."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0385",
+      "expected": {
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "seniority_too_high",
+        "last_update": "2026-08-24"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "Rechecked 2026-09-08: YC exact listing is live and native Apply opens YC authentication. Authologic's public site has no exact careers listing and /careers returns 404, so first-party status remains unknown. Hard blockers remain: 6+ years of experience and professional fluency in both English and Polish."
+      }
+    }
+  ]
+}
