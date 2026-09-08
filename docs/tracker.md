@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-08** · Jobs: **409**
+Dataset updated: **2026-09-08** · Jobs: **411**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (348)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (350)](#archive)
 
 ## Action now
 
@@ -86,10 +86,12 @@ Dataset updated: **2026-09-08** · Jobs: **409**
 
 <details>
 
-<summary>Archive (348)</summary>
+<summary>Archive (350)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Yooli — FULL TIME: Software Engineer Position - React and Rest](<https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1>) · job-0411 | seniority too high | Not checked | 2026-09-08 |
+| Skipped: geo restriction | [Wonderdog — Full-Stack Product Engineer - Agentic First](<https://weworkremotely.com/remote-jobs/wonderdog-full-stack-product-engineer-agentic-first>) · job-0410 | geo restriction | Not checked | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
 | Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-09-08 |
 | Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
