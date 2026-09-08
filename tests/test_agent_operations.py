@@ -1,6 +1,7 @@
 import csv
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -275,6 +276,27 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('> "$OUTPUT_JSON"', script)
         self.assertIn('OUTPUT_JSON="${RUNNER_TEMP:-/tmp}/operation-output.json"', script)
         self.assertNotIn("> operation-output.json", script)
+
+    def test_documented_runner_allowlist_matches_the_one_the_runner_enforces(self):
+        """The changed-path allowlist is stated in three places: the script
+        that enforces it, the connector contract, and the write-path
+        overview. Э6 added data/index/* to the script alone, so both
+        documents described a narrower runner than the real one — read as
+        "the runner will reject this", which is the opposite of true.
+        """
+        script = APPLY_SCRIPT.read_text(encoding="utf-8")
+        block = script.split("allowed = {", 1)[1].split("}", 1)[0]
+        enforced = set(re.findall(r'"([^"]+)"', block))
+        self.assertIn("data/jobs.csv", enforced, "could not parse the allowlist out of the script")
+
+        for relative in ("data/operations/README.md", "docs/agent-operations.md"):
+            body = (PROJECT / relative).read_text(encoding="utf-8")
+            for path in sorted(enforced):
+                self.assertIn(
+                    path,
+                    body,
+                    f"{relative} does not mention {path}, which the runner actually permits",
+                )
 
     def test_workflows_keep_the_generated_tracker_in_sync(self):
         apply_script = APPLY_SCRIPT.read_text(encoding="utf-8")

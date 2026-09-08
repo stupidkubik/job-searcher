@@ -23,6 +23,7 @@ allowlist in `scripts/agent_operations.py`.
 connector → requests/<operation_id>.json → trusted GitHub Actions runner
                                               ├→ jobs.py → canonical CSV/cards
                                               ├→ render-tracker → docs/tracker.md
+                                              ├→ render-index → data/index/*
                                               └→ results/<operation_id>.json
                                                            ↓
                                               audited commit on main
@@ -35,11 +36,12 @@ commits the canonical result directly to `main`. Operation branches and review
 PRs are not part of this write path.
 
 The runner creates the matching result exactly once. It then
-strictly validates the resulting dataset, regenerates and exact-checks
-[`docs/tracker.md`](../../docs/tracker.md), runs the unit suite, enforces its
-changed-file allowlist, and commits the result. `docs/tracker.md` is a generated
-side effect of the trusted runner: the connector must neither edit nor include it
-in a request.
+strictly validates the resulting dataset, regenerates and exact-checks both
+generated projections — [`docs/tracker.md`](../../docs/tracker.md) for the human
+and `data/index/*` for the next agent run — runs the unit suite, enforces its
+changed-file allowlist, and commits the result. Both are generated side effects
+of the trusted runner: the connector must neither edit them nor include them in
+a request.
 
 Operation `executed_at` values are exact UTC timestamps. Calendar fields written
 to the tracker, including default `found_at`, `verified_at`, and `last_update`,
@@ -51,17 +53,23 @@ use `Europe/Belgrade` independently of the GitHub runner's process timezone.
 2. Create the request directly on `main`.
 3. Add exactly one new file named
    `data/operations/requests/<operation_id>.json` in the commit. Do not edit
-   canonical CSV, cards, `docs/tracker.md`, or an existing request.
+   canonical CSV, cards, `docs/tracker.md`, `data/index/*`, or an existing
+   request.
 4. Wait for the matching immutable result in `data/operations/results/` and the
    runner's canonical diff. A request is not complete merely because its JSON
    file was created.
-5. Wait for the matching result and successful workflow on `main` before
-   reporting completion.
+5. Wait for the workflow run on `main` to finish — finish, not succeed. A
+   `rejected` result deliberately ends the run red (see
+   [Result status and the rejected shape](#result-status-and-the-rejected-shape)),
+   so the pair "finished run + result file" is the completion signal, and only
+   a missing result is an unfinished operation.
+6. Read the result before reporting the outcome, and retry only under a new
+   `operation_id`.
 
 For a completed operation the audited commit on `main` contains the immutable
-request and result, any permitted canonical changes, and a fresh tracker page. For a
-`conflict`, canonical data remains unchanged; the immutable result explains why
-the request could not be applied.
+request and result, any permitted canonical changes, and a fresh tracker page
+plus fresh bootstrap indexes. For a `conflict`, canonical data remains
+unchanged; the immutable result explains why the request could not be applied.
 
 ## Single-operation schema
 
@@ -293,15 +301,18 @@ python3 scripts/agent_operations.py apply data/operations/requests/op-20260811-0
 
 `apply` delegates canonical writes to the same tracker functions as the manual
 CLI, then writes one immutable result file. The workflow runs strict validation,
-regenerates and exact-checks `docs/tracker.md`, runs all unit tests, checks the
-changed-path allowlist, and pushes the audited commit directly to `main`.
+regenerates and exact-checks `docs/tracker.md` and `data/index/*`, runs all unit
+tests, checks the changed-path allowlist, and pushes the audited commit directly
+to `main`.
 
 The runner permits only these changed paths: `data/jobs.csv`,
-`data/job_sources.csv`, `docs/tracker.md`, the expected immutable result, and
-new `applications/job-*.md` cards. It rejects any operation that changes policy,
-workflow, or executable files. A `rejected` result is the one exception: its
-allowlist is exactly its own result file, since a rejected operation must not
-touch canonical data.
+`data/job_sources.csv`, `docs/tracker.md`, `data/index/known.tsv`,
+`data/index/keys.tsv`, `data/index/active.csv`, the expected immutable result,
+and new `applications/job-*.md` cards. It rejects any operation that changes
+policy, workflow, or executable files. A `rejected` result is the one
+exception: its allowlist is exactly its own result file, since a rejected
+operation must not touch canonical data — there is nothing to re-render, so the
+runner skips both generated projections for it.
 
 The request must reach `main` as a direct, non-merge push. This is enforced
 twice: `validate.yml` fails any pull request that touches

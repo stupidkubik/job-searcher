@@ -1,6 +1,6 @@
 # Agent operations: trusted connector write-path
 
-Статус: implemented — 2026-08-14
+Статус: implemented — 2026-08-14, последняя ревизия write-path'а 2026-09-08
 
 Этот документ описывает действующий путь записи через GitHub connector и
 trusted GitHub Actions runner. Полный, machine-enforced JSON contract находится
@@ -39,13 +39,15 @@ rendered page или действующего Apply route. После устан
 ```text
 Use @GitHub to open https://github.com/stupidkubik/job-searcher and follow AGENTS.md. Use @Browser—not web search—for every source page, employer careers/ATS listing, and Apply-route check.
 
-Bootstrap by reading exactly these, through GitHub, in this order: config/profile-digest.md (candidate digest), data/index/known.tsv and data/index/keys.tsv (deduplication indexes), data/index/active.csv (open work), then docs/sources/README.md and the one playbook it names for the requested source. Do not read data/jobs.csv, data/job_sources.csv, config/profile.md, or docs/tracker.md in full unless an index is insufficient for a specific decision; say why when you do.
+Bootstrap by reading exactly these, through GitHub, in this order: config/profile-digest.md (candidate digest), data/index/known.tsv and data/index/keys.tsv (deduplication indexes), data/index/active.csv (open work), then docs/sources/README.md and the one playbook it names for the requested source. Do not read data/jobs.csv, data/job_sources.csv, or config/profile.md in full unless an index is genuinely insufficient for a specific decision; say why when you do. Never read docs/tracker.md at all—it is a generated view for the human, and nothing in it is absent from the indexes.
 
 Then perform a Browser preflight: open the requested source URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop and report the exact limitation. Do not silently substitute web search, cached/indexed results, Crawled metadata, or GitHub tools.
 
 Search the requested source using its playbook. Deduplicate against the indexes before analysis, verify every promising job on the employer's current careers/ATS page, check the actual Apply route and geographic eligibility, and record every inspected exact vacancy—even closed, unsuitable, or duplicate.
 
-Write only through immutable connector requests. Before building a request, read data/operations/contract.md and pass only fields it allows for that command—an unlisted field or an off-enum value gets the whole request rejected. Commit exactly one new file, data/operations/requests/<operation_id>.json, directly to main; never open a pull request and never touch another file in that commit. Keep an atomic batch at 10 children or fewer, a non-atomic batch at 100 or fewer. Then wait for data/operations/results/<operation_id>.json and the runner's canonical diff on main before reporting the operation complete; if a result reports rejected or conflict, fix the cause and submit a NEW operation_id—never rewrite an existing request or result. Never edit canonical CSV files or docs/tracker.md, never submit applications, and never set a job to applied.
+Write only through immutable connector requests. Before building a request, read data/operations/contract.md and pass only fields it allows for that command—an unlisted field or an off-enum value gets the whole request rejected, and no command anywhere accepts next_action or verified_at. Commit exactly one new file, data/operations/requests/<operation_id>.json, directly to main; never open a pull request and never touch another file in that commit. Keep an atomic batch at 10 children or fewer, a non-atomic batch at 100 or fewer. Never edit data/jobs.csv, data/job_sources.csv, data/index/*, or docs/tracker.md yourself—the runner regenerates the last two in the same audited commit. Never submit applications and never set a job to applied.
+
+An operation is complete only when data/operations/results/<operation_id>.json exists and the runner's workflow has finished; a committed request is not a result. Read that file—it always exists, one per operation_id, and it is your only error channel: status is completed, partial, conflict, or rejected. A rejected result deliberately turns the GitHub Actions run red while leaving canonical data untouched; that is a readable outcome, not a lost operation, so read error.code, error.field and error.hint instead of resubmitting blindly. A conflict—or any conflicting child of a non-atomic batch—carries a ready-to-send retry fragment; use it. Every retry, in every case, goes out under a NEW operation_id: requests and results are immutable and are never rewritten.
 ```
 
 ## Назначение
@@ -70,6 +72,7 @@ trusted GitHub Actions runner
         ├─ write immutable result
         ├─ validate canonical dataset
         ├─ render and exact-check docs/tracker.md
+        ├─ render and exact-check data/index/*
         ├─ run unit tests and changed-path allowlist
         ▼
 audited commit on main
@@ -92,9 +95,16 @@ The runner may change only:
 data/jobs.csv
 data/job_sources.csv
 docs/tracker.md
+data/index/known.tsv
+data/index/keys.tsv
+data/index/active.csv
 data/operations/results/<operation-id>.json
 applications/job-*.md
 ```
+
+The two generated projections — `docs/tracker.md` and `data/index/*` — are in
+this list because the runner regenerates them from the canonical write in the
+same commit, not because a request may address them.
 
 Any change to `scripts/`, `.github/`, `config/`, schema or other policy files is
 rejected. Changes to this policy follow the ordinary reviewed repository path;
@@ -171,26 +181,44 @@ For every request outcome the runner executes the normal quality gates after
 the operation executor:
 
 1. `jobs.py validate --strict` validates canonical CSV and source references.
-2. `jobs.py render-tracker` regenerates the browser view.
-3. `jobs.py render-tracker --check` proves exact freshness.
+2. `jobs.py render-tracker` regenerates the human browser view, and
+   `render-tracker --check` proves exact freshness.
+3. `jobs.py render-index` regenerates the agent bootstrap indexes
+   (`data/index/known.tsv`, `keys.tsv`, `active.csv`), and
+   `render-index --check` proves exact freshness.
 4. The unit suite and changed-path allowlist must pass.
-5. The runner commits its result and generated tracker directly to `main`.
+5. The runner commits its result and both generated projections directly to
+   `main`.
 
-Thus a successful connector operation cannot leave `docs/tracker.md` stale. A
-conflict preserves the existing canonical view; its immutable result makes the
-reason visible without creating a duplicate attempt.
+Thus a successful connector operation cannot leave `docs/tracker.md` or the
+bootstrap indexes stale — which matters for the indexes in particular, since
+they are what the next agent run boots from. A conflict preserves the existing
+canonical view; its immutable result makes the reason visible without creating
+a duplicate attempt.
+
+A `rejected` result skips steps 1-3 by design: canonical data did not change,
+so there is nothing to re-render, and the changed-path allowlist then demands
+exactly one path — the result file itself.
 
 ## Connector checklist
 
-1. Read the current job data and avoid reprocessing a terminal or duplicate
-   record.
+1. Boot from `config/profile-digest.md` and `data/index/*`, and avoid
+   reprocessing a terminal or duplicate record.
 2. Verify the first-party listing before any full analysis; use `screen` only
    when a blocker is known without such verification.
-3. Create one new request whose filename equals `operation_id`.
-4. Create it directly on `main`.
-5. Do not edit any generated or canonical file beside the request.
-6. Wait for the matching immutable result and audited diff in `main`.
-7. Wait for the successful workflow before reporting the operation complete.
+3. Read `contract.md` and build `args` from the table for that command only.
+4. Create one new request whose filename equals `operation_id`, directly on
+   `main`, and edit no other file in that commit.
+5. Wait for the matching immutable result in `data/operations/results/` and for
+   the workflow run to finish.
+6. Read the result before reporting. `completed` and `partial` carry the
+   canonical diff; `conflict` and `rejected` carry the reason and, where
+   applicable, a `retry` fragment.
+7. Do not wait for a green run: a `rejected` result ends the run red on
+   purpose. The finished run plus the result file is the completion signal —
+   red with a result is an answer, and only a missing result is an
+   unfinished operation.
+8. Retry only under a new `operation_id`.
 
 ## v1 boundary and future hardening
 

@@ -46,10 +46,10 @@ python3 scripts/jobs.py status job-0001 \
   --application-status applied --applied-at 2026-08-12 \
   --cv-version frontend-2026-08
 
-# После любого изменения
+# После любого изменения: canonical проверка и оба generated-представления
 python3 scripts/jobs.py validate --strict
-python3 scripts/jobs.py render-tracker
-python3 scripts/jobs.py render-tracker --check
+python3 scripts/jobs.py render-tracker && python3 scripts/jobs.py render-tracker --check
+python3 scripts/jobs.py render-index && python3 scripts/jobs.py render-index --check
 ```
 
 Для неподходящей или закрытой позиции всё равно создаётся запись, например:
@@ -68,8 +68,10 @@ python3 scripts/jobs.py add \
 | правила работы ИИ-агента | [AGENTS.md](AGENTS.md) |
 | индекс документации и правила её обновления | [docs/README.md](docs/README.md) |
 | текущая архитектура | [docs/current-architecture.md](docs/current-architecture.md) |
-| основной browser UI | [docs/tracker.md](docs/tracker.md) |
+| основной browser UI (для человека) | [docs/tracker.md](docs/tracker.md) |
+| bootstrap-индексы, с которых читает агент | [data/index/](data/index/) (`render-index`) |
 | профиль, приоритеты и доказательства | [config/profile.md](config/profile.md) |
+| компактный профиль для бутстрапа агента | [config/profile-digest.md](config/profile-digest.md) |
 | поисковые запросы | [config/search-queries.md](config/search-queries.md) |
 | playbooks по ATS и источникам | [docs/sources/](docs/sources/) |
 | canonical storage вакансий | [data/jobs.csv](data/jobs.csv) |
@@ -77,14 +79,14 @@ python3 scripts/jobs.py add \
 | поля и допустимые значения | [data/schema.md](data/schema.md) |
 | raw discovery batches | [data/inbox/README.md](data/inbox/README.md) |
 | connector operation contract | [data/operations/README.md](data/operations/README.md) |
+| какая команда принимает какое поле | [data/operations/contract.md](data/operations/contract.md) (`render-contract`) |
 | CLI и полный набор команд | [docs/jobs-cli.md](docs/jobs-cli.md) |
 | подробности по вакансии | [applications/](applications/) |
 | актуальные версии резюме | [cv/current/](cv/current/) |
 | шаблоны писем | [templates/](templates/) |
 | отчёты | [reports/](reports/) |
-| historical pre-v1 architecture research | [docs/architecture.md](docs/architecture.md) |
-| дальнейшие улучшения | [docs/roadmap.md](docs/roadmap.md) |
-| подробный план Tracker v2 | [docs/tracker-v2-plan.md](docs/tracker-v2-plan.md) |
+| дальнейшие улучшения и незакрытые остатки | [docs/roadmap.md](docs/roadmap.md) |
+| закрытые планы и аудиты (историю решений) | раздел «Historical records» в [docs/README.md](docs/README.md) |
 
 ## Как устроен поток данных
 
@@ -122,6 +124,8 @@ Himalayas read-only workflow, atomic source batches и точная trust bounda
 ```bash
 python3 scripts/jobs.py validate --strict
 python3 scripts/jobs.py render-tracker --check
+python3 scripts/jobs.py render-index --check
+python3 scripts/agent_operations.py render-contract --check
 python3 -m unittest discover -s tests -v
 python3 scripts/jobs.py dupes
 ```

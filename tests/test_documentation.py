@@ -142,6 +142,10 @@ class DocumentationMapTests(unittest.TestCase):
             "data/index/active.csv",
             "config/profile-digest.md",
             "docs/sources/README.md",
+            # data/index/* is a CI-gated generated view exactly like
+            # docs/tracker.md, so the write-path contract has to name it;
+            # otherwise a local write leaves a stale index and reds validate.yml.
+            "render-index",
         ):
             self.assertIn(required.lower(), agents.lower(), f"AGENTS.md: missing {required}")
 
@@ -154,6 +158,25 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertIn("NEW operation_id", prompt)
         self.assertNotIn("read the full data/jobs.csv", prompt)
 
+    def test_launch_prompt_matches_the_contract_it_launches(self):
+        """The prompt is the only part of the contract an agent reads before
+        it can read anything else, so a promise it makes that AGENTS.md
+        contradicts is worse than a missing one."""
+        prompt = (PROJECT / "docs" / "agent-operations.md").read_text(encoding="utf-8")
+        launch = prompt.split("### Recommended ChatGPT launch prompt", 1)[1].split("```", 2)[1]
+
+        # G-14: the tracker is human-only. An earlier draft listed it among the
+        # files not to read "in full", which reads as conditional permission.
+        self.assertIn("Never read docs/tracker.md at all", launch)
+        # Э1: the result file, not the workflow colour, is the error channel.
+        self.assertIn("data/operations/results/<operation_id>.json", launch)
+        self.assertIn("error.code", launch)
+        self.assertIn("NEW operation_id", launch)
+        # Э4 batch limits and Э6 generated indexes the agent must not hand-edit.
+        self.assertIn("data/index/*", launch)
+        for status in ("completed", "partial", "conflict", "rejected"):
+            self.assertIn(status, launch, f"launch prompt does not name result status {status}")
+
     def test_message_sources_do_not_confuse_message_and_vacancy_identity(self):
         source_dir = PROJECT / "docs" / "sources"
         hn = (source_dir / "hacker-news-who-is-hiring.md").read_text(encoding="utf-8")
@@ -165,29 +188,63 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertIn("<server_id>:<channel_id>:<message_id>", discord)
         self.assertIn("оставить unset до наблюдения", startit)
 
+    def test_no_contract_tells_the_agent_to_wait_for_a_green_workflow_run(self):
+        """Э1 made a rejected operation end its run red on purpose, so "wait
+        for a successful run" became an instruction that can never be
+        satisfied by a rejection: the agent would hang on, or misreport, an
+        operation that has in fact already answered it."""
+        for relative in ("AGENTS.md", "docs/agent-operations.md", "data/operations/README.md"):
+            body = (PROJECT / relative).read_text(encoding="utf-8")
+            for phrase in ("successful workflow", "успешного прогона", "успешный прогон"):
+                self.assertNotIn(
+                    phrase,
+                    body,
+                    f"{relative}: a rejected result ends the run red, so waiting on {phrase!r} "
+                    "would strand the agent on an operation that already has an answer",
+                )
+
+    def historical_documents(self):
+        """The Historical records section of docs/README.md, as filenames.
+
+        Derived from the index rather than hardcoded: a document archived by
+        adding one line there must become guarded by the same commit, which a
+        fixed list in this file would silently miss.
+        """
+        index = (PROJECT / "docs" / "README.md").read_text(encoding="utf-8")
+        section = index.split("## Historical records", 1)[1].split("\n## ", 1)[0]
+        # Only the link that opens a list item names an archived document; a
+        # link later in the same sentence is a cross-reference to a living one.
+        names = sorted(set(re.findall(r"(?m)^(?:- |  )\[`([a-z0-9][a-z0-9.-]*\.md)`\]", section)))
+        self.assertTrue(names, "docs/README.md: Historical records section links no document")
+        return names
+
     def test_historical_documents_carry_the_not_a_contract_banner(self):
         """docs/agent-write-path-plan-2026-09-07.md, Э9/G-13: a historical
         record read via grep (not the docs/README.md index) must still be
         recognizable as non-authoritative, so the banner lives in the file
         itself, not only in the index entry that links to it."""
         banner = "> Historical record. Not a contract."
-        for name in (
-            "architecture.md",
-            "setup-plan.md",
-            "tracker-v2-plan.md",
-            "tracker-browser-view-plan.md",
-            "tracker-v2-feedback.md",
-            "tracker-status-audit-2026-08-12.md",
-            "telegram-source-integration-plan.md",
-            "telegram-source-integration-analysis.md",
-        ):
+        names = self.historical_documents()
+        # Glob-only entries (tracker-*-feedback.md, tracker-*-audit-*.md) carry
+        # no link to extract, so name them here to keep them covered.
+        for name in (*names, "tracker-v2-feedback.md", "tracker-status-audit-2026-08-12.md"):
             body = (PROJECT / "docs" / name).read_text(encoding="utf-8")
             self.assertIn(banner, body, f"docs/{name}: missing historical-record banner")
             self.assertLess(
                 body.index(banner),
-                200,
+                400,
                 f"docs/{name}: banner is not near the top of the file",
             )
+
+    def test_a_historical_document_is_not_also_advertised_as_a_living_contract(self):
+        """A closed plan left in the living-documents table is worse than one
+        with no entry at all: the agent reads the table top-down and would
+        take it for a current instruction."""
+        index = (PROJECT / "docs" / "README.md").read_text(encoding="utf-8")
+        table = index.split("## Действующие документы", 1)[1].split("\n## ", 1)[0]
+        living = set(re.findall(r"\]\(([^)]+)\)", table))
+        for name in self.historical_documents():
+            self.assertNotIn(name, living, f"docs/{name} is both historical and a living document")
 
 
 if __name__ == "__main__":

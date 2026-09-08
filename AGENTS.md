@@ -82,11 +82,11 @@ runner отклонит целиком запросом `rejected` — не пы
 
 ## Как писать в CSV
 
-- Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` / `verify` /
-  `ingest` / `render-tracker`). Ручная правка canonical CSV — исключение.
-  Разовые исторические миграции (`migrate-v2`, `repair-himalayas-screening`,
-  `backfill-sources`) не входят в `jobs.py`: это отдельные скрипты в
-  `scripts/maintenance/`, вне write-path агента.
+- Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` /
+  `verify` / `ingest` / `render-tracker` / `render-index`). Ручная правка
+  canonical CSV — исключение. Разовые исторические миграции (`migrate-v2`,
+  `repair-himalayas-screening`, `backfill-sources`) не входят в `jobs.py`: это
+  отдельные скрипты в `scripts/maintenance/`, вне write-path агента.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. Каждый request создаётся
@@ -116,10 +116,12 @@ runner отклонит целиком запросом `rejected` — не пы
 - `docs/tracker.md` — generated browser view; не редактировать его вручную.
   Это документ только для человека: агент его не читает и не включает в
   request.
-- После canonical write сначала выполнить `python3 scripts/jobs.py validate --strict`, затем
-  `python3 scripts/jobs.py render-tracker` и
-  `python3 scripts/jobs.py render-tracker --check`. Trusted connector runner
-  коммитит generated view вместе с canonical result.
+- После canonical write сначала выполнить `python3 scripts/jobs.py validate
+  --strict`, затем перегенерировать оба generated-представления:
+  `render-tracker` и `render-index`, каждое со своим `--check`. Оба проверяются
+  в `validate.yml`, поэтому устаревший `data/index/*` роняет CI так же, как
+  устаревший `docs/tracker.md`. Trusted connector runner коммитит оба
+  представления вместе с canonical result.
 
 ## Командный минимум для агента
 
@@ -176,6 +178,7 @@ python3 scripts/jobs.py ingest data/inbox/<batch>.jsonl \
 python3 scripts/jobs.py validate --strict --format json
 python3 scripts/jobs.py dupes --format json
 python3 scripts/jobs.py render-tracker --check --format json
+python3 scripts/jobs.py render-index --check --format json
 ```
 
 `dupes` — отчёт для проверки, а не разрешение автоматически объединить строки.
