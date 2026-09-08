@@ -1,0 +1,68 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T11:40:03Z",
+  "jobs": [],
+  "operation_id": "yc-20260908-recent-pass-001",
+  "result": {
+    "client_ref": "yc:Qque3dk",
+    "command": "add",
+    "conflict": {
+      "candidates": [
+        {
+          "application_status": "not_started",
+          "company": "Authologic",
+          "id": "job-0385",
+          "listing_status": "unknown",
+          "reason": "looks similar: company 1.00, role 1.00",
+          "role": "Senior Frontend Engineer"
+        }
+      ],
+      "reason": "unresolved_duplicate",
+      "retry": {
+        "as_duplicate": {
+          "args": {
+            "company": "Authologic",
+            "duplicate_of": "job-0385",
+            "found_at": "2026-09-08",
+            "role": "Senior Frontend Engineer",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Qque3dk",
+            "source_url": "https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer"
+          },
+          "client_ref": "yc:Qque3dk",
+          "command": "add"
+        },
+        "as_separate": {
+          "args": {
+            "application_status": "not_started",
+            "apply_verified": "no",
+            "company": "Authologic",
+            "decision_reason": "seniority_too_high",
+            "first_party_verified": "no",
+            "force": true,
+            "found_at": "2026-09-08",
+            "level": "Senior",
+            "listing_status": "unknown",
+            "location": "Warsaw, Masovian Voivodeship, Poland / Remote",
+            "notes": "YC listing is live and its native Apply route opens YC authentication, but Authologic's public site has no exact careers listing and /careers returns 404. Hard blockers: 6+ years of experience and professional fluency in both English and Polish.",
+            "posted_at": "2026-08-31",
+            "remote_policy": "Unclear",
+            "role": "Senior Frontend Engineer",
+            "salary": "$57.5K - $71.5K",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Qque3dk",
+            "source_url": "https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer",
+            "stack": "JavaScript; TypeScript; Vue.js; React; CSS; HTML; Redux Toolkit; Tailwind CSS"
+          },
+          "client_ref": "yc:Qque3dk",
+          "command": "add"
+        }
+      }
+    },
+    "index": 0,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
