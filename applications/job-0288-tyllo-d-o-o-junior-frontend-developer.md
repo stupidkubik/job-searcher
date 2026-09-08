@@ -3,8 +3,8 @@ id: job-0288
 company: Tyllo d.o.o.
 role: Junior Frontend Developer
 original_url: https://tyllo.net/
-verified_at: 2026-08-20
-listing_status: unknown
+verified_at: 2026-09-08
+listing_status: closed
 first_party_verified: no
 apply_verified: no
 ---

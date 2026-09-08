@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (15)](#to-verify) · [Archive (364)](#archive)
+[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (14)](#to-verify) · [Archive (365)](#archive)
 
 ## Action now
 
@@ -66,7 +66,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
 | Reviewing | [Epic Games — Web Engineer Intern](<https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy>) · job-0409 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
@@ -86,7 +85,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 <details>
 
-<summary>Archive (364)</summary>
+<summary>Archive (365)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -107,6 +106,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Closed | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | closed before application | Closed | 2026-09-08 |
 | Closed | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | closed before application | Closed | 2026-09-08 |
 | Skipped: role not frontend | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | role not frontend | Open | 2026-09-08 |
+| Closed | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | closed before application | Closed | 2026-09-08 |
 | Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-09-08 |
 | Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Tether Operations Limited — Frontend Software Engineer (100% Remote)](<https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366>) · job-0407 | seniority too high | Not checked | 2026-09-07 |

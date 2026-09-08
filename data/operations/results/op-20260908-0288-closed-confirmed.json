@@ -1,0 +1,17 @@
+{
+  "command": "verify",
+  "executed_at": "2026-09-08T18:43:36Z",
+  "job_id": "job-0288",
+  "operation_id": "op-20260908-0288-closed-confirmed",
+  "result": {
+    "application_path": "applications/job-0288-tyllo-d-o-o-junior-frontend-developer.md",
+    "application_status": "not_started",
+    "listing_status": "closed",
+    "outcome": "blocked",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
