@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "operation_id": "wttj-20260908-recent-pass-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wttj:indy:devx-h-f-lyon",
+      "args": {
+        "company": "Indy",
+        "role": "Software Engineer - Developer Experience",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/indy/jobs/devx-h-f_lyon",
+        "original_url": "https://jobs.indy.fr/jobs/6168323-software-engineer-developer-experience",
+        "found_at": "2026-09-08",
+        "posted_at": "2026-08-26",
+        "location": "Paris / Lyon, France; remote only within 3 hours by train of Lyon",
+        "remote_policy": "Country-specific",
+        "level": "Middle",
+        "salary": "€50K - €65K",
+        "stack": "TypeScript; Node.js; Vite; pnpm; Nx; GitHub Actions; CI/CD; Heroku; AWS; Aiven; Monitoring; Security",
+        "match_score": 2,
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "notes": "Employer Teamtailor listing and Apply form are live; candidates must live in Paris/Lyon or within 3 hours by train of Lyon and visit monthly; role also requires 3+ years of backend TypeScript and DevX/tooling experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:huwise:software-engineer",
+      "args": {
+        "company": "Huwise",
+        "role": "Software Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer",
+        "original_url": "https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer",
+        "found_at": "2026-09-08",
+        "posted_at": "2026-09-07",
+        "location": "Paris / Nantes, France; fully remote only within metropolitan France",
+        "remote_policy": "Country-specific",
+        "level": "Middle",
+        "salary": "€50K - €60K",
+        "stack": "Python; Django; Django REST Framework; Elasticsearch; MariaDB; Celery; RabbitMQ; Neo4j; React; TypeScript; Svelte; HTML; CSS; Snowflake; Kubernetes; Datadog; Docker; GitHub",
+        "match_score": 1,
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "notes": "Official Huwise careers page delegates vacancies to WTTJ; the exact listing and native Apply form are live. Fully remote is limited to metropolitan France, and the role is backend-dominant with 3+ years expected."
+      }
+    }
+  ]
+}
