@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "epic-0409-verify-20260908",
+  "command": "verify",
+  "job_id": "job-0409",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "last_update": "2026-09-07"
+  },
+  "args": {
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "original_url": "https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004",
+    "remote_policy": "On-site",
+    "stack": "JavaScript; TypeScript; React; Next.js; Tailwind CSS; NestJS; Node.js; AWS; Kubernetes; Containers; CI/CD; AI-assisted development",
+    "match_score": 8.6,
+    "notes": "Official Epic Games requisition R27423 and embedded Apply form verified live on 2026-09-08. On-site in Novi Sad; flexible 2027 start; requires legal authorization in Serbia, 40 hours/week, education details, and links to directly contributed projects. Strong stack and local-work-authorization fit. Main risk: Epic's general Early Careers page focuses on candidates with under 1 year of formal work experience and active students or graduates within 1 year, while the exact role itself only asks for familiarity through coursework, projects, or prior experience."
+  }
+}
