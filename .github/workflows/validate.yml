@@ -36,6 +36,12 @@ jobs:
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
+      - name: Install lint tooling
+        run: pip install -r requirements/dev.txt
+      - name: Lint (ruff check)
+        run: ruff check .
+      - name: Format check (ruff format)
+        run: ruff format --check .
       - name: Проверка схемы jobs.csv
         run: python scripts/jobs.py validate --strict
       - name: Проверка актуальности browser tracker

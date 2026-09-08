@@ -1,0 +1,15 @@
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ruff.lint]
+# docs/agent-write-path-plan-2026-09-07.md, Э9/G-10: pyflakes + pycodestyle
+# only, no mypy and no opinionated plugin rules (pyupgrade, flake8-datetimez,
+# pylint, ...) that would fight this codebase's established style.
+select = ["E", "F", "W"]
+# `ruff format` owns line wrapping and compound-statement splitting; E501,
+# E701 and E702 would just flag what formatting already fixes on `ruff format`.
+ignore = ["E501", "E701", "E702"]

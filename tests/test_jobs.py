@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from datetime import date, timedelta
+from datetime import timedelta
 from io import StringIO
 from pathlib import Path
 

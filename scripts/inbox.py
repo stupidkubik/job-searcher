@@ -5,7 +5,6 @@ import argparse
 import hashlib
 import json
 import re
-import sys
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlsplit

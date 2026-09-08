@@ -1,0 +1,4 @@
+# Lint/format tooling only (docs/agent-write-path-plan-2026-09-07.md, Э9/G-10).
+# Not a runtime dependency: scripts/jobs.py and scripts/agent_operations.py
+# use only the standard library.
+ruff==0.16.6

@@ -12,7 +12,7 @@ import tempfile
 import unicodedata
 from contextlib import contextmanager
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from io import StringIO
 from pathlib import Path

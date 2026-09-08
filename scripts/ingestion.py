@@ -1,9 +1,9 @@
 """Pure normalization and classification helpers for ``jobs.py ingest``."""
 
 try:  # Direct CLI execution places scripts/ on sys.path.
-    from inbox import load_batch
+    from inbox import load_batch  # noqa: F401 -- re-exported for `jobs.py`'s `from ingestion import load_batch`
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.ingestion.
-    from scripts.inbox import load_batch
+    from scripts.inbox import load_batch  # noqa: F401
 
 
 FRONTEND_SIGNALS = (

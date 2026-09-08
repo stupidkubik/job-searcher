@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-import argparse, json, math, re, shutil, sys, tempfile
+import argparse
+import json
+import math
+import re
+import shutil
+import sys
+import tempfile
 from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
