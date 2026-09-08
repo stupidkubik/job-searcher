@@ -312,7 +312,7 @@ job-0310	Picnic	Software Engineer - Consumer Products	not_started	unknown	stack_
 job-0311	Picnic	Senior Software Engineer - Warehouse Systems	not_started	unknown	seniority_too_high
 job-0312	Vinted	Director of Engineering, Frontend technologies, Marketplace (Limited-time Relocation Bonus)	not_started	unknown	seniority_too_high
 job-0313	Welltech	Head of Growth - Paid Social	not_started	unknown	role_not_frontend
-job-0314	Synechron	Angular Software Engineer	reviewing	open	
+job-0314	Synechron	Angular Software Engineer	applied	open	
 job-0315	Scribe	Full-Stack Engineer, Enterprise Scale	not_started	unknown	stack_mismatch
 job-0316	Pypestream	Full-Stack Engineer	not_started	open	other
 job-0317	0G Labs	Product Engineer	not_started	unknown	stack_mismatch
@@ -389,7 +389,7 @@ job-0387	Caribou	Full Stack Software Engineer (Frontend-leaning)	not_started	unk
 job-0388	Seeing Systems	Software Engineering Intern	not_started	unknown	role_not_frontend
 job-0389	Clinikally	Frontend Engineer	not_started	unknown	geo_restriction
 job-0390	Supabase	Developer Relations Engineer	reviewing	open	
-job-0391	Discovered Labs	Content Engineer (Internal)	reviewing	open	
+job-0391	Discovered Labs	Content Engineer (Internal)	not_started	open	seniority_too_high
 job-0392	NBA	Project Employee, NBA Social Content Publisher	not_started	open	geo_restriction
 job-0393	SecurityBridge	Software Engineer (C, Authentication & Identity) – Remote (f/m/d)	not_started	unknown	stack_mismatch
 job-0394	Umbrel	Customer Support (technical)	reviewing	open	
@@ -420,7 +420,7 @@ job-0418	XFORIA Inc	React.JS Developer	reviewing	unknown
 job-0419	SahayPay Technologies	Frontend Engineer (React)	reviewing	unknown	
 job-0420	MartSpec	Frontend Developer Intern (React / TypeScript)	not_started	open	salary_too_low
 job-0421	Undisclosed (TalentMove 260684)	Frontend Developer Intern (React)	reviewing	unknown	
-job-0422	Atorline	Junior Frontend Developer	reviewing	open	
+job-0422	Atorline	Junior Frontend Developer	applied	open	
 job-0423	Undisclosed digital studio (TalentMove 264516)	Frontend Engineer	reviewing	unknown	
 job-0424	Undisclosed (TalentMove 266369)	Product Engineer	not_started	unknown	role_not_frontend
 job-0425	Slate (Supporting Cast)	Software Engineer	not_started	open	geo_restriction
