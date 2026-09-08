@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (18)](#to-verify) · [Archive (361)](#archive)
+[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (15)](#to-verify) · [Archive (364)](#archive)
 
 ## Action now
 
@@ -66,10 +66,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [ListLab — Remote Frontend Developer](<https://jaabz.com/jobs/267973-remote-frontend-developer>) · job-0404 | First party + Apply + Listing | 8.5 | verify first-party | 2026-09-07 |
-| Reviewing | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | First party + Apply | 8.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Tyllo d.o.o. — Junior Frontend Developer](<https://tyllo.net/>) · job-0288 | First party + Apply + Listing | 8.5 | verify first-party | 2026-08-20 |
-| Reviewing | [Undisclosed (TalentMove 269674) — Junior Frontend Developer (React / TypeScript)](<https://talent-move.ru/jobs/frontend-developer-react-type-script-060926-269674/>) · job-0416 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Epic Games — Web Engineer Intern](<https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy>) · job-0409 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
@@ -89,7 +86,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 <details>
 
-<summary>Archive (361)</summary>
+<summary>Archive (364)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -97,13 +94,16 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Skipped: role not frontend | [Undisclosed (TalentMove 266369) — Product Engineer](<https://talent-move.ru/jobs/product-engineer-remote-020926-266369/>) · job-0424 | role not frontend | Not checked | 2026-09-08 |
 | Skipped: salary too low | [MartSpec — Frontend Developer Intern (React / TypeScript)](<https://martspec.com/en/careers/frontend-engineer>) · job-0420 | salary too low | Open | 2026-09-08 |
 | Skipped: seniority too high | [Talent Magnet / CareerGo — Frontend Developer (React / TypeScript)](<https://hh.ru/vacancy/136400949>) · job-0417 | seniority too high | Open | 2026-09-08 |
+| Skipped: other | [Undisclosed (TalentMove 269674) — Junior Frontend Developer (React / TypeScript)](<https://talent-move.ru/jobs/frontend-developer-react-type-script-060926-269674/>) · job-0416 | other | Not checked | 2026-09-08 |
 | Skipped: geo restriction | [Huwise — Software Engineer](<https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer>) · job-0413 | geo restriction | Open | 2026-09-08 |
 | Skipped: geo restriction | [Indy — Software Engineer - Developer Experience](<https://jobs.indy.fr/jobs/6168323-software-engineer-developer-experience>) · job-0412 | geo restriction | Open | 2026-09-08 |
 | Skipped: seniority too high | [Yooli — FULL TIME: Software Engineer Position - React and Rest](<https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1>) · job-0411 | seniority too high | Not checked | 2026-09-08 |
 | Skipped: geo restriction | [Wonderdog — Full-Stack Product Engineer - Agentic First](<https://weworkremotely.com/remote-jobs/wonderdog-full-stack-product-engineer-agentic-first>) · job-0410 | geo restriction | Not checked | 2026-09-08 |
+| Closed | [ListLab — Remote Frontend Developer](<https://jaabz.com/jobs/267973-remote-frontend-developer>) · job-0404 | closed before application | Closed | 2026-09-08 |
 | Skipped: seniority too high | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | seniority too high | Open | 2026-09-08 |
 | Skipped: other | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | other | Open | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
+| Closed | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | closed before application | Closed | 2026-09-08 |
 | Closed | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | closed before application | Closed | 2026-09-08 |
 | Closed | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | closed before application | Closed | 2026-09-08 |
 | Skipped: role not frontend | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | role not frontend | Open | 2026-09-08 |

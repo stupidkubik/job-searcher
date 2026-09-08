@@ -3,8 +3,8 @@ id: job-0404
 company: ListLab
 role: Remote Frontend Developer
 original_url: 
-verified_at: 2026-09-07
-listing_status: unknown
+verified_at: 2026-09-08
+listing_status: closed
 first_party_verified: no
 apply_verified: no
 ---

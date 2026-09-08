@@ -3,10 +3,10 @@ id: job-0364
 company: Interview Copilot AI
 role: Frontend Engineer
 original_url: 
-verified_at: 2026-08-24
-listing_status: open
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-09-08
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # Interview Copilot AI — Frontend Engineer
