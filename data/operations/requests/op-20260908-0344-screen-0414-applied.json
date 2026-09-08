@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-0344-screen-0414-applied",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0344",
+      "expected": {
+        "last_update": "2026-08-22",
+        "application_status": "reviewing",
+        "listing_status": "open"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "Screened out by user: posting says, 'We're looking for a passionate and skilled backend engineer.'"
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0414",
+      "expected": {
+        "last_update": "2026-09-08",
+        "application_status": "reviewing",
+        "listing_status": "open"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-09-08",
+        "stage": "Applied"
+      }
+    }
+  ]
+}
