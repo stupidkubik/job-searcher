@@ -2,11 +2,11 @@
 id: job-0409
 company: Epic Games
 role: Web Engineer Intern
-original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+original_url: https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004
+verified_at: 2026-09-08
+listing_status: open
+first_party_verified: yes
+apply_verified: yes
 ---
 
 # Epic Games — Web Engineer Intern

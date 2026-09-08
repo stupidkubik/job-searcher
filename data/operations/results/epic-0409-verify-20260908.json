@@ -1,0 +1,17 @@
+{
+  "command": "verify",
+  "executed_at": "2026-09-08T19:12:32Z",
+  "job_id": "job-0409",
+  "operation_id": "epic-0409-verify-20260908",
+  "result": {
+    "application_path": "applications/job-0409-epic-games-web-engineer-intern.md",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "outcome": "ready_for_review",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

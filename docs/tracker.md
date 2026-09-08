@@ -4,13 +4,14 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (14)](#to-verify) · [Archive (365)](#archive)
+[Action now (3)](#action-now) · [Applications (44)](#applications) · [To verify (13)](#to-verify) · [Archive (365)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Reviewing | [Epic Games — Web Engineer Intern](<https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004>) · job-0409 | 8.6 | — | Open | [Open](../applications/job-0409-epic-games-web-engineer-intern.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 
 ## Applications
@@ -66,7 +67,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Epic Games — Web Engineer Intern](<https://hiringcafe.com/job/web-engineer-intern-epic-games-novi-sad-vojvodina-7nwvkx1o4wvc3bmy>) · job-0409 | First party + Apply + Listing | 8.2 | verify first-party | Never |
 | Reviewing | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
 | Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
