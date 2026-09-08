@@ -118,9 +118,7 @@ def require_external_data_dir(data_dir: Path) -> Path:
     resolved = Path(data_dir).expanduser().resolve()
     repository = ROOT.resolve()
     if resolved == repository or repository in resolved.parents:
-        raise TelegramImportError(
-            "Telegram data directory must be outside the repository checkout"
-        )
+        raise TelegramImportError("Telegram data directory must be outside the repository checkout")
     return resolved
 
 
@@ -290,12 +288,14 @@ async def list_dialogs(client: Any, *, get_peer_id) -> list[dict[str, Any]]:
         kind = dialog_type(entity)
         if kind is None:
             continue
-        dialogs.append({
-            "peer_id": int(get_peer_id(entity)),
-            "title": dialog_title(entity),
-            "username": getattr(entity, "username", None),
-            "type": kind,
-        })
+        dialogs.append(
+            {
+                "peer_id": int(get_peer_id(entity)),
+                "title": dialog_title(entity),
+                "username": getattr(entity, "username", None),
+                "type": kind,
+            }
+        )
     return sorted(dialogs, key=lambda item: item["peer_id"])
 
 
@@ -509,9 +509,7 @@ async def collect_pull(
                 errors.append(_safe_peer_error(peer_id, error))
 
         unique, duplicate_count = telegram_leads.deduplicate_leads(candidates, seen)
-        batch_path = telegram_leads.commit_lead_batch(
-            data_dir, unique, cursor_updates, run_at=run_at
-        )
+        batch_path = telegram_leads.commit_lead_batch(data_dir, unique, cursor_updates, run_at=run_at)
     return {
         # A skipped message is a discovery candidate the operator has to inspect
         # by hand, so it degrades the run status exactly like a failed peer.
@@ -606,9 +604,7 @@ def format_output(payload: Any, output_format: str) -> str:
     if output_format == "json":
         return json.dumps(payload, ensure_ascii=False, sort_keys=True)
     if isinstance(payload, list):
-        return "\n".join(
-            "\t".join(f"{key}={value}" for key, value in item.items()) for item in payload
-        )
+        return "\n".join("\t".join(f"{key}={value}" for key, value in item.items()) for item in payload)
     if isinstance(payload, dict):
         return "\n".join(f"{key}: {value}" for key, value in payload.items())
     return str(payload)
@@ -651,9 +647,7 @@ def build_parser() -> argparse.ArgumentParser:
         help="include private message text in local output",
     )
 
-    preview = commands.add_parser(
-        "preview", help="read-only bounded look at one peer; stores nothing"
-    )
+    preview = commands.add_parser("preview", help="read-only bounded look at one peer; stores nothing")
     preview.add_argument("peer_id", type=int)
     preview.add_argument("--limit", type=_positive_int, default=DEFAULT_PREVIEW_LIMIT)
     preview.add_argument("--keyword", action="append", dest="keywords")
@@ -665,9 +659,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     pull = commands.add_parser("pull", help="pull bounded history from allowlisted peers only")
     pull.add_argument("--max-age-days", type=_positive_int, default=DEFAULT_MAX_AGE_DAYS)
-    pull.add_argument(
-        "--max-messages-per-peer", type=_positive_int, default=DEFAULT_MAX_MESSAGES_PER_PEER
-    )
+    pull.add_argument("--max-messages-per-peer", type=_positive_int, default=DEFAULT_MAX_MESSAGES_PER_PEER)
     pull.add_argument("--keyword", action="append", dest="keywords")
 
     normalize = commands.add_parser(
@@ -736,7 +728,7 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "leads":
             if args.leads_command == "list":
                 stored = list(telegram_leads.iter_stored_leads(data_dir))
-                selected = stored[-args.limit:]
+                selected = stored[-args.limit :]
                 payload = {
                     "status": "ok",
                     "count": len(stored),
@@ -747,9 +739,7 @@ def main(argv: list[str] | None = None) -> int:
                 lead = telegram_leads.find_lead(data_dir, args.identity)
                 payload = {
                     "status": "ok",
-                    "lead": telegram_leads.lead_summary(
-                        lead, include_text=args.include_text
-                    ),
+                    "lead": telegram_leads.lead_summary(lead, include_text=args.include_text),
                 }
             exit_code = 0
         elif args.command == "normalize":
@@ -761,9 +751,7 @@ def main(argv: list[str] | None = None) -> int:
                 application_url=args.application_url,
                 raw_location=args.raw_location,
             )
-            inbox_batch = telegram_leads.write_inbox_batch(
-                Path(args.inbox_dir), [record], validate=True
-            )
+            inbox_batch = telegram_leads.write_inbox_batch(Path(args.inbox_dir), [record], validate=True)
             payload = {
                 "status": "ok",
                 "identity": args.identity,

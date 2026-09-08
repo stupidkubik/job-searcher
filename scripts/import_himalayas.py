@@ -35,25 +35,129 @@ MAX_PAGES_PER_PASS = 50
 # `locationRestrictions` contains either a country object (normally with alpha2)
 # or a display name. Keep the Europe pass local: the documented search endpoint
 # has country and worldwide filters, but no Europe-region filter.
-EUROPE_ALPHA2 = frozenset({
-    "AD", "AL", "AM", "AT", "AX", "AZ", "BA", "BE", "BG", "BY", "CH", "CY",
-    "CZ", "DE", "DK", "EE", "ES", "FI", "FO", "FR", "GB", "GE", "GG", "GI",
-    "GR", "HR", "HU", "IE", "IM", "IS", "IT", "JE", "KZ", "LI", "LT", "LU",
-    "LV", "MC", "MD", "ME", "MK", "MT", "NL", "NO", "PL", "PT", "RO", "RS",
-    "RU", "SE", "SI", "SJ", "SK", "SM", "TR", "UA", "VA", "XK",
-})
-EUROPE_LOCATION_NAMES = frozenset({
-    "andorra", "armenia", "austria", "azerbaijan", "belarus", "belgium",
-    "bosnia and herzegovina", "bulgaria", "croatia", "cyprus", "czech republic",
-    "czechia", "denmark", "estonia", "finland", "france", "georgia", "germany",
-    "greece", "hungary", "iceland", "ireland", "italy", "kazakhstan", "kosovo",
-    "latvia", "liechtenstein", "lithuania", "luxembourg", "malta", "moldova",
-    "monaco", "montenegro", "netherlands", "north macedonia", "norway", "poland",
-    "portugal", "romania", "russia", "san marino", "serbia", "slovakia", "slovenia",
-    "spain", "sweden", "switzerland", "turkey", "ukraine", "united kingdom",
-    "vatican city", "europe", "european union", "eu", "eea", "european economic area",
-    "emea",
-})
+EUROPE_ALPHA2 = frozenset(
+    {
+        "AD",
+        "AL",
+        "AM",
+        "AT",
+        "AX",
+        "AZ",
+        "BA",
+        "BE",
+        "BG",
+        "BY",
+        "CH",
+        "CY",
+        "CZ",
+        "DE",
+        "DK",
+        "EE",
+        "ES",
+        "FI",
+        "FO",
+        "FR",
+        "GB",
+        "GE",
+        "GG",
+        "GI",
+        "GR",
+        "HR",
+        "HU",
+        "IE",
+        "IM",
+        "IS",
+        "IT",
+        "JE",
+        "KZ",
+        "LI",
+        "LT",
+        "LU",
+        "LV",
+        "MC",
+        "MD",
+        "ME",
+        "MK",
+        "MT",
+        "NL",
+        "NO",
+        "PL",
+        "PT",
+        "RO",
+        "RS",
+        "RU",
+        "SE",
+        "SI",
+        "SJ",
+        "SK",
+        "SM",
+        "TR",
+        "UA",
+        "VA",
+        "XK",
+    }
+)
+EUROPE_LOCATION_NAMES = frozenset(
+    {
+        "andorra",
+        "armenia",
+        "austria",
+        "azerbaijan",
+        "belarus",
+        "belgium",
+        "bosnia and herzegovina",
+        "bulgaria",
+        "croatia",
+        "cyprus",
+        "czech republic",
+        "czechia",
+        "denmark",
+        "estonia",
+        "finland",
+        "france",
+        "georgia",
+        "germany",
+        "greece",
+        "hungary",
+        "iceland",
+        "ireland",
+        "italy",
+        "kazakhstan",
+        "kosovo",
+        "latvia",
+        "liechtenstein",
+        "lithuania",
+        "luxembourg",
+        "malta",
+        "moldova",
+        "monaco",
+        "montenegro",
+        "netherlands",
+        "north macedonia",
+        "norway",
+        "poland",
+        "portugal",
+        "romania",
+        "russia",
+        "san marino",
+        "serbia",
+        "slovakia",
+        "slovenia",
+        "spain",
+        "sweden",
+        "switzerland",
+        "turkey",
+        "ukraine",
+        "united kingdom",
+        "vatican city",
+        "europe",
+        "european union",
+        "eu",
+        "eea",
+        "european economic area",
+        "emea",
+    }
+)
 GEO_PASSES = {
     "serbia": "Serbia",
     "worldwide": "Worldwide",
@@ -248,9 +352,13 @@ def has_next_page(response, page):
     """Use documented response metadata; never silently truncate a search."""
     total_count, limit = response.get("totalCount"), response.get("limit")
     if not all(isinstance(value, int) and not isinstance(value, bool) for value in (total_count, limit)):
-        raise HimalayasImportError("Himalayas response must include integer totalCount and limit for pagination")
+        raise HimalayasImportError(
+            "Himalayas response must include integer totalCount and limit for pagination"
+        )
     if limit <= 0 or total_count < 0:
-        raise HimalayasImportError("Himalayas pagination metadata must use non-negative totalCount and positive limit")
+        raise HimalayasImportError(
+            "Himalayas pagination metadata must use non-negative totalCount and positive limit"
+        )
     return page * limit < total_count
 
 
@@ -382,11 +490,15 @@ def main():
     parser = argparse.ArgumentParser(description="Сохранить Himalayas discovery results как raw JSONL")
     selection = parser.add_mutually_exclusive_group()
     selection.add_argument("--narrow", action="store_true", help="registry narrow queries (default)")
-    selection.add_argument("--broad", action="store_true", help="registry broad queries and fallback age window")
+    selection.add_argument(
+        "--broad", action="store_true", help="registry broad queries and fallback age window"
+    )
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--output", type=Path, help="новый immutable .jsonl внутри data/inbox/")
     mode.add_argument("--artifact", type=Path, help="новый read-only discovery artifact без canonical write")
-    mode.add_argument("--dry-run", action="store_true", help="запросить и классифицировать без записи raw batch")
+    mode.add_argument(
+        "--dry-run", action="store_true", help="запросить и классифицировать без записи raw batch"
+    )
     args = parser.parse_args()
     started_at = utc_instant()
     try:
@@ -422,7 +534,11 @@ def main():
     result = {
         "ok": not errors,
         "command": "import_himalayas",
-        "mode": "dry_run" if args.dry_run else "write_artifact" if args.artifact is not None else "write_raw_batch",
+        "mode": "dry_run"
+        if args.dry_run
+        else "write_artifact"
+        if args.artifact is not None
+        else "write_raw_batch",
         "selection": run["selection"],
         "run_started_at": artifact_payload["run_started_at"],
         "run_finished_at": artifact_payload["run_finished_at"],

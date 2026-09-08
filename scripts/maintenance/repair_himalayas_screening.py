@@ -21,7 +21,10 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import jobs  # noqa: E402
 
 HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS = {
-    "job-0102", "job-0110", "job-0111", "job-0124",
+    "job-0102",
+    "job-0110",
+    "job-0111",
+    "job-0124",
 }
 HIMALAYAS_SCREENING_REPAIR_IDS = tuple(
     f"job-{number:04d}"
@@ -29,7 +32,10 @@ HIMALAYAS_SCREENING_REPAIR_IDS = tuple(
     if f"job-{number:04d}" not in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
 )
 HIMALAYAS_SCREENING_REPAIR_FIELDS = (
-    "listing_status", "first_party_verified", "apply_verified", "verified_at",
+    "listing_status",
+    "first_party_verified",
+    "apply_verified",
+    "verified_at",
 )
 HIMALAYAS_SCREENING_REPAIR_FROM = {
     "listing_status": "open",
@@ -66,7 +72,8 @@ def repair_himalayas_screening(*, check=False):
 
     targets = [by_id[job_id] for job_id in HIMALAYAS_SCREENING_REPAIR_IDS]
     wrong_batch = [
-        row["id"] for row in targets
+        row["id"]
+        for row in targets
         if row["source"] != "Himalayas"
         or row["application_status"] != "not_started"
         or not row["decision_reason"]
@@ -74,12 +81,10 @@ def repair_himalayas_screening(*, check=False):
     ]
     if wrong_batch:
         jobs.die(
-            "repair-himalayas-screening: rows do not match the old screening batch: "
-            + ", ".join(wrong_batch)
+            "repair-himalayas-screening: rows do not match the old screening batch: " + ", ".join(wrong_batch)
         )
     wrong_exclusions = sorted(
-        job_id for job_id in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
-        if by_id[job_id]["source"] != "Himalayas"
+        job_id for job_id in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS if by_id[job_id]["source"] != "Himalayas"
     )
     if wrong_exclusions:
         jobs.die(
@@ -135,7 +140,9 @@ def repair_himalayas_screening(*, check=False):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--check", action="store_true", help="report the repair without writing it")
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args()

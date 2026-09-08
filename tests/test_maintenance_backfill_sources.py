@@ -37,14 +37,18 @@ class BackfillSourcesTests(unittest.TestCase):
 
     def invoke_backfill(self, *arguments):
         return subprocess.run(
-            [sys.executable, BACKFILL_SCRIPT, *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, BACKFILL_SCRIPT, *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_migrate(self, *arguments):
         return subprocess.run(
-            [sys.executable, MIGRATE_SCRIPT, *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, MIGRATE_SCRIPT, *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self, name):

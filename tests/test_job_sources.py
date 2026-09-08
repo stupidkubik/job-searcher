@@ -30,8 +30,10 @@ class JobSourcesTests(unittest.TestCase):
 
     def invoke(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self, name):
@@ -40,12 +42,23 @@ class JobSourcesTests(unittest.TestCase):
 
     def add_linkedin(self, company, role, source_url, *extra):
         return self.invoke(
-            "add", "--company", company, "--role", role, "--source", "LinkedIn",
-            "--source-url", source_url, "--no-file", *extra,
+            "add",
+            "--company",
+            company,
+            "--role",
+            role,
+            "--source",
+            "LinkedIn",
+            "--source-url",
+            source_url,
+            "--no-file",
+            *extra,
         )
 
     def test_new_external_job_creates_primary_source_reference(self):
-        created = self.add_linkedin("ReferenceCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/100")
+        created = self.add_linkedin(
+            "ReferenceCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/100"
+        )
         self.assertEqual(created.returncode, 0, created.stderr)
         references = self.rows("job_sources.csv")
         self.assertEqual(len(references), 1)
@@ -55,13 +68,22 @@ class JobSourcesTests(unittest.TestCase):
         )
 
     def test_confirmed_duplicate_adds_reference_without_new_job_and_is_idempotent(self):
-        self.assertEqual(self.add_linkedin(
-            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/101",
-            "--found-at", "2026-08-01",
-        ).returncode, 0)
+        self.assertEqual(
+            self.add_linkedin(
+                "CanonicalCo",
+                "Frontend Developer",
+                "https://www.linkedin.com/jobs/view/101",
+                "--found-at",
+                "2026-08-01",
+            ).returncode,
+            0,
+        )
         duplicate = self.add_linkedin(
-            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/102",
-            "--duplicate-of", "job-0001",
+            "CanonicalCo",
+            "Frontend Developer",
+            "https://www.linkedin.com/jobs/view/102",
+            "--duplicate-of",
+            "job-0001",
         )
         self.assertEqual(duplicate.returncode, 0, duplicate.stderr)
         self.assertEqual(len(self.rows("jobs.csv")), 1)
@@ -71,21 +93,35 @@ class JobSourcesTests(unittest.TestCase):
         self.assertEqual(self.rows("job_sources.csv")[1]["found_at"], tracker_today)
 
         repeated = self.add_linkedin(
-            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/102",
-            "--duplicate-of", "job-0001",
+            "CanonicalCo",
+            "Frontend Developer",
+            "https://www.linkedin.com/jobs/view/102",
+            "--duplicate-of",
+            "job-0001",
         )
         self.assertEqual(repeated.returncode, 0, repeated.stderr)
         self.assertEqual(len(self.rows("jobs.csv")), 1)
         self.assertEqual(len(self.rows("job_sources.csv")), 2)
 
     def test_confirmed_duplicate_preserves_explicit_source_found_at(self):
-        self.assertEqual(self.add_linkedin(
-            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/111",
-            "--found-at", "2026-08-01",
-        ).returncode, 0)
+        self.assertEqual(
+            self.add_linkedin(
+                "CanonicalCo",
+                "Frontend Developer",
+                "https://www.linkedin.com/jobs/view/111",
+                "--found-at",
+                "2026-08-01",
+            ).returncode,
+            0,
+        )
         duplicate = self.add_linkedin(
-            "CanonicalCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/112",
-            "--duplicate-of", "job-0001", "--found-at", "2026-08-13",
+            "CanonicalCo",
+            "Frontend Developer",
+            "https://www.linkedin.com/jobs/view/112",
+            "--duplicate-of",
+            "job-0001",
+            "--found-at",
+            "2026-08-13",
         )
 
         self.assertEqual(duplicate.returncode, 0, duplicate.stderr)
@@ -93,15 +129,22 @@ class JobSourcesTests(unittest.TestCase):
 
     def test_source_job_id_cannot_point_to_two_canonical_jobs(self):
         first = self.add_linkedin(
-            "FirstCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/201",
-            "--source-job-id", "linkedin-201",
+            "FirstCo",
+            "Frontend Developer",
+            "https://www.linkedin.com/jobs/view/201",
+            "--source-job-id",
+            "linkedin-201",
         )
         self.assertEqual(first.returncode, 0, first.stderr)
         before_jobs = (self.root / "data" / "jobs.csv").read_bytes()
         before_sources = (self.root / "data" / "job_sources.csv").read_bytes()
         conflicting = self.add_linkedin(
-            "SecondCo", "Frontend Developer", "https://www.linkedin.com/jobs/view/202",
-            "--source-job-id", "linkedin-201", "--force",
+            "SecondCo",
+            "Frontend Developer",
+            "https://www.linkedin.com/jobs/view/202",
+            "--source-job-id",
+            "linkedin-201",
+            "--force",
         )
         self.assertEqual(conflicting.returncode, 2)
         self.assertIn("source + source_job_id", conflicting.stdout)
@@ -109,7 +152,9 @@ class JobSourcesTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), before_sources)
 
     def test_shared_discovery_url_requires_explicit_force(self):
-        self.assertEqual(self.add_linkedin("FirstCo", "Frontend Developer", "https://wellfound.com/jobs").returncode, 0)
+        self.assertEqual(
+            self.add_linkedin("FirstCo", "Frontend Developer", "https://wellfound.com/jobs").returncode, 0
+        )
         blocked = self.add_linkedin("SecondCo", "Frontend Developer", "https://wellfound.com/jobs")
         self.assertEqual(blocked.returncode, 2)
         self.assertIn("source_url уже принадлежит", blocked.stdout)

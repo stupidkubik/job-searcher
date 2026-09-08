@@ -16,15 +16,27 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.inbo
 
 
 REQUIRED_FIELDS = {
-    "source", "source_job_id", "company", "role", "source_url",
-    "application_url", "posted_at", "raw_location", "found_at",
+    "source",
+    "source_job_id",
+    "company",
+    "role",
+    "source_url",
+    "application_url",
+    "posted_at",
+    "raw_location",
+    "found_at",
 }
 OPTIONAL_FIELDS = {"payload"}
 DATE_PATTERN = re.compile(r"\d{4}-\d{2}-\d{2}\Z")
 HARD_FILTER_REASONS = {
-    "geo_restriction", "work_authorization", "seniority_too_high",
-    "seniority_too_low", "stack_mismatch", "role_not_frontend",
-    "salary_too_low", "company_not_interesting",
+    "geo_restriction",
+    "work_authorization",
+    "seniority_too_high",
+    "seniority_too_low",
+    "stack_mismatch",
+    "role_not_frontend",
+    "salary_too_low",
+    "company_not_interesting",
 }
 
 
@@ -114,26 +126,32 @@ def load_batch(path):
     entries = []
     for line_number, line in enumerate(text.splitlines(), start=1):
         if not line.strip():
-            entries.append({
-                "line": line_number,
-                "record": None,
-                "errors": [f"line {line_number}: пустая строка не является JSON object"],
-            })
+            entries.append(
+                {
+                    "line": line_number,
+                    "record": None,
+                    "errors": [f"line {line_number}: пустая строка не является JSON object"],
+                }
+            )
             continue
         try:
             record = json.loads(line)
         except json.JSONDecodeError as error:
-            entries.append({
-                "line": line_number,
-                "record": None,
-                "errors": [f"line {line_number}: некорректный JSON: {error.msg}"],
-            })
+            entries.append(
+                {
+                    "line": line_number,
+                    "record": None,
+                    "errors": [f"line {line_number}: некорректный JSON: {error.msg}"],
+                }
+            )
             continue
-        entries.append({
-            "line": line_number,
-            "record": record,
-            "errors": validate_record(record, line_number, configured_sources),
-        })
+        entries.append(
+            {
+                "line": line_number,
+                "record": record,
+                "errors": validate_record(record, line_number, configured_sources),
+            }
+        )
     return {"batch_id": batch_id, "entries": entries, "errors": []}
 
 

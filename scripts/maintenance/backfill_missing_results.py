@@ -58,7 +58,8 @@ def build_backfill_result(operation_id):
         result = ops.rejected_result(operation_id, command, error)
     else:
         lost_error = ops.contract_error(
-            LOST_BEFORE_APPLY_MESSAGE, code="lost_before_apply",
+            LOST_BEFORE_APPLY_MESSAGE,
+            code="lost_before_apply",
         )
         result = ops.rejected_result(operation_id, operation["command"], lost_error)
     result["backfilled"] = True
@@ -71,11 +72,13 @@ def run(dry_run):
         result = build_backfill_result(operation_id)
         if not dry_run:
             ops.write_result(result)
-        created.append({
-            "operation_id": operation_id,
-            "command": result["command"],
-            "error_code": result["error"]["code"],
-        })
+        created.append(
+            {
+                "operation_id": operation_id,
+                "command": result["command"],
+                "error_code": result["error"]["code"],
+            }
+        )
     return created
 
 
@@ -85,13 +88,19 @@ def print_text(created, dry_run):
         return
     verb = "would backfill" if dry_run else "backfilled"
     for entry in created:
-        print(f"{verb}: {entry['operation_id']}  command={entry['command']}  error.code={entry['error_code']}")
+        print(
+            f"{verb}: {entry['operation_id']}  command={entry['command']}  error.code={entry['error_code']}"
+        )
     print(f"\n{len(created)} result(s) {'would be ' if dry_run else ''}written")
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--dry-run", action="store_true", help="report what would be written without writing it")
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="report what would be written without writing it"
+    )
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args()
 

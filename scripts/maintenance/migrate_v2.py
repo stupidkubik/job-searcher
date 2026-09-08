@@ -19,18 +19,62 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import jobs  # noqa: E402
 
 V1_FIELDS = [
-    "id", "status", "company", "role", "level", "original_url", "source_url", "source",
-    "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
-    "match_score", "stage_reached", "decision_reason", "applied_at",
-    "response_at", "next_action", "next_action_date", "cv_version",
-    "cover_letter", "contact_name", "contact_url", "last_update", "notes",
+    "id",
+    "status",
+    "company",
+    "role",
+    "level",
+    "original_url",
+    "source_url",
+    "source",
+    "location",
+    "remote_policy",
+    "stack",
+    "salary",
+    "posted_at",
+    "found_at",
+    "match_score",
+    "stage_reached",
+    "decision_reason",
+    "applied_at",
+    "response_at",
+    "next_action",
+    "next_action_date",
+    "cv_version",
+    "cover_letter",
+    "contact_name",
+    "contact_url",
+    "last_update",
+    "notes",
 ]
 V1_LEGACY_FIELDS = [
-    "id", "company", "role", "level", "original_url", "source_url", "source",
-    "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
-    "match_score", "status", "stage_reached", "decision_reason", "applied_at",
-    "response_at", "next_action", "next_action_date", "cv_version",
-    "cover_letter", "contact_name", "contact_url", "last_update", "notes",
+    "id",
+    "company",
+    "role",
+    "level",
+    "original_url",
+    "source_url",
+    "source",
+    "location",
+    "remote_policy",
+    "stack",
+    "salary",
+    "posted_at",
+    "found_at",
+    "match_score",
+    "status",
+    "stage_reached",
+    "decision_reason",
+    "applied_at",
+    "response_at",
+    "next_action",
+    "next_action_date",
+    "cv_version",
+    "cover_letter",
+    "contact_name",
+    "contact_url",
+    "last_update",
+    "notes",
 ]
 V1_STATUS_MAPPING = {
     "New": ("not_started", "unknown"),
@@ -65,13 +109,15 @@ def migrate_v1_rows(rows):
             jobs.die(f"row {line}: unknown v1 status={status!r}")
         application_status, listing_status = V1_STATUS_MAPPING[status]
         row = {key: legacy.get(key) or "" for key in jobs.FIELDS}
-        row.update({
-            "application_status": application_status,
-            "listing_status": listing_status,
-            "verified_at": "",
-            "first_party_verified": "unknown",
-            "apply_verified": "unknown",
-        })
+        row.update(
+            {
+                "application_status": application_status,
+                "listing_status": listing_status,
+                "verified_at": "",
+                "first_party_verified": "unknown",
+                "apply_verified": "unknown",
+            }
+        )
         if status == "Closed":
             row["decision_reason"] = "closed_before_application"
         elif status == "Duplicate":
@@ -86,7 +132,9 @@ def migration_summary_payload(rows):
         "unique_ids": len({row["id"] for row in rows}),
         "with_applied_at": sum(bool(row["applied_at"]) for row in rows),
         "listing_status_closed": sum(row["listing_status"] == "closed" for row in rows),
-        "decision_reason_duplicate_listing": sum(row["decision_reason"] == "duplicate_listing" for row in rows),
+        "decision_reason_duplicate_listing": sum(
+            row["decision_reason"] == "duplicate_listing" for row in rows
+        ),
     }
 
 
@@ -102,7 +150,9 @@ def migration_summary(rows):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--check", action="store_true", help="report the migration without writing it")
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args()

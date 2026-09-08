@@ -27,7 +27,8 @@ class RequestResultInvariantTests(unittest.TestCase):
         result_ids = {path.stem for path in LIVE_RESULTS_DIR.glob("*.json")}
         missing = sorted(request_ids - result_ids)
         self.assertEqual(
-            missing, [],
+            missing,
+            [],
             "these requests have no result file: " + ", ".join(missing) + ". "
             "Run scripts/maintenance/backfill_missing_results.py for a historical "
             "request. If you just committed one of these yourself, its workflow run "
@@ -41,7 +42,11 @@ class AgentOperationsTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         for directory in (
-            "data", "applications", "scripts", "data/operations/requests", "data/operations/results",
+            "data",
+            "applications",
+            "scripts",
+            "data/operations/requests",
+            "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
         for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
@@ -56,14 +61,18 @@ class AgentOperationsTests(unittest.TestCase):
 
     def invoke_jobs(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_operation(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/agent_operations.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/agent_operations.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self):
@@ -76,8 +85,14 @@ class AgentOperationsTests(unittest.TestCase):
 
     def seed_job(self):
         created = self.invoke_jobs(
-            "add", "--company", "OperationCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--no-file",
+            "add",
+            "--company",
+            "OperationCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         return self.rows()[0]
@@ -119,7 +134,7 @@ class AgentOperationsTests(unittest.TestCase):
         script = APPLY_SCRIPT.read_text(encoding="utf-8")
         self.assertIn('> "$OUTPUT_JSON"', script)
         self.assertIn('OUTPUT_JSON="${RUNNER_TEMP:-/tmp}/operation-output.json"', script)
-        self.assertNotIn('> operation-output.json', script)
+        self.assertNotIn("> operation-output.json", script)
 
     def test_workflows_keep_the_generated_tracker_in_sync(self):
         apply_script = APPLY_SCRIPT.read_text(encoding="utf-8")
@@ -164,24 +179,26 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn('rm -f "$RESULT_PATH"', script)
 
     def test_medium_risk_add_creates_job_provenance_card_and_result(self):
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-001",
-            "command": "add",
-            "args": {
-                "company": "ConnectorCo",
-                "role": "Frontend Engineer",
-                "source": "LinkedIn",
-                "source_url": "https://www.linkedin.com/jobs/view/12345",
-                "original_url": "https://careers.example.test/jobs/frontend",
-                "application_status": "reviewing",
-                "listing_status": "open",
-                "first_party_verified": "yes",
-                "apply_verified": "yes",
-                "remote_policy": "Europe",
-                "match_score": 8.5,
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-001",
+                "command": "add",
+                "args": {
+                    "company": "ConnectorCo",
+                    "role": "Frontend Engineer",
+                    "source": "LinkedIn",
+                    "source_url": "https://www.linkedin.com/jobs/view/12345",
+                    "original_url": "https://careers.example.test/jobs/frontend",
+                    "application_status": "reviewing",
+                    "listing_status": "open",
+                    "first_party_verified": "yes",
+                    "apply_verified": "yes",
+                    "remote_policy": "Europe",
+                    "match_score": 8.5,
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -200,19 +217,21 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertTrue((self.root / payload["result_path"]).exists())
 
     def test_add_with_screening_blocker_does_not_create_application_card(self):
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-blocked-001",
-            "command": "add",
-            "args": {
-                "company": "BlockedCo",
-                "role": "Frontend Developer",
-                "source": "Himalayas",
-                "source_job_id": "blocked-123",
-                "decision_reason": "geo_restriction",
-                "notes": "Remote is limited to the United States.",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-blocked-001",
+                "command": "add",
+                "args": {
+                    "company": "BlockedCo",
+                    "role": "Frontend Developer",
+                    "source": "Himalayas",
+                    "source_job_id": "blocked-123",
+                    "decision_reason": "geo_restriction",
+                    "notes": "Remote is limited to the United States.",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -225,17 +244,19 @@ class AgentOperationsTests(unittest.TestCase):
     def test_add_records_unresolved_duplicate_as_immutable_conflict(self):
         self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-conflict-001",
-            "command": "add",
-            "args": {
-                "company": "OperationCo",
-                "role": "Frontend Developer",
-                "source": "LinkedIn",
-                "source_url": "https://www.linkedin.com/jobs/view/duplicate",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-conflict-001",
+                "command": "add",
+                "args": {
+                    "company": "OperationCo",
+                    "role": "Frontend Developer",
+                    "source": "LinkedIn",
+                    "source_url": "https://www.linkedin.com/jobs/view/duplicate",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -253,23 +274,35 @@ class AgentOperationsTests(unittest.TestCase):
         used to tell the connector to retry with --force; the retry object
         already does that (force=true), so the message itself must not."""
         self.seed_job()
-        first = self.write_operation({
-            "version": 1, "operation_id": "op-add-shared-url-001", "command": "add",
-            "args": {
-                "company": "AlphaSource Co", "role": "Backend Engineer",
-                "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/shared-1",
-            },
-        })
+        first = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-shared-url-001",
+                "command": "add",
+                "args": {
+                    "company": "AlphaSource Co",
+                    "role": "Backend Engineer",
+                    "source": "LinkedIn",
+                    "source_url": "https://www.linkedin.com/jobs/view/shared-1",
+                },
+            }
+        )
         self.assertEqual(self.invoke_operation("apply", str(first), "--format", "json").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
-        conflicting = self.write_operation({
-            "version": 1, "operation_id": "op-add-shared-url-002", "command": "add",
-            "args": {
-                "company": "Totally Different Studio", "role": "Marketing Lead",
-                "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/shared-1",
-            },
-        })
+        conflicting = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-shared-url-002",
+                "command": "add",
+                "args": {
+                    "company": "Totally Different Studio",
+                    "role": "Marketing Lead",
+                    "source": "LinkedIn",
+                    "source_url": "https://www.linkedin.com/jobs/view/shared-1",
+                },
+            }
+        )
         result = self.invoke_operation("apply", str(conflicting), "--format", "json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -285,18 +318,20 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_add_can_attach_a_confirmed_duplicate_source_reference(self):
         self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-source-001",
-            "command": "add",
-            "args": {
-                "company": "OperationCo",
-                "role": "Frontend Developer",
-                "source": "LinkedIn",
-                "source_url": "https://www.linkedin.com/jobs/view/another-location",
-                "duplicate_of": "job-0001",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-source-001",
+                "command": "add",
+                "args": {
+                    "company": "OperationCo",
+                    "role": "Frontend Developer",
+                    "source": "LinkedIn",
+                    "source_url": "https://www.linkedin.com/jobs/view/another-location",
+                    "duplicate_of": "job-0001",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -307,27 +342,31 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual(self.source_rows()[0]["job_id"], "job-0001")
 
     def test_add_rejects_human_only_status_and_missing_external_reference(self):
-        human_only = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-applied-001",
-            "command": "add",
-            "args": {
-                "company": "UnsafeCo",
-                "role": "Frontend Developer",
-                "source": "Manual",
-                "application_status": "applied",
-            },
-        })
-        missing_reference = self.write_operation({
-            "version": 1,
-            "operation_id": "op-add-no-source-001",
-            "command": "add",
-            "args": {
-                "company": "NoSourceCo",
-                "role": "Frontend Developer",
-                "source": "LinkedIn",
-            },
-        })
+        human_only = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-applied-001",
+                "command": "add",
+                "args": {
+                    "company": "UnsafeCo",
+                    "role": "Frontend Developer",
+                    "source": "Manual",
+                    "application_status": "applied",
+                },
+            }
+        )
+        missing_reference = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-no-source-001",
+                "command": "add",
+                "args": {
+                    "company": "NoSourceCo",
+                    "role": "Frontend Developer",
+                    "source": "LinkedIn",
+                },
+            }
+        )
 
         first = self.invoke_operation("validate", str(human_only), "--format", "json")
         second = self.invoke_operation("validate", str(missing_reference), "--format", "json")
@@ -340,20 +379,22 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_low_risk_verify_uses_jobs_write_path_and_records_immutable_result(self):
         row = self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-close-001",
-            "command": "verify",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "listing_status": "closed",
-                "first_party_verified": "yes",
-                "apply_verified": "no",
-                "original_url": "https://careers.example.test/jobs/operation",
-                "decision_reason": "closed_before_application",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-close-001",
+                "command": "verify",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "listing_status": "closed",
+                    "first_party_verified": "yes",
+                    "apply_verified": "no",
+                    "original_url": "https://careers.example.test/jobs/operation",
+                    "decision_reason": "closed_before_application",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -374,24 +415,26 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_medium_risk_verify_can_promote_to_reviewing_and_enrich(self):
         row = self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-review-001",
-            "command": "verify",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "listing_status": "open",
-                "first_party_verified": "yes",
-                "apply_verified": "yes",
-                "original_url": "https://careers.example.test/jobs/operation",
-                "level": "Junior",
-                "remote_policy": "Europe",
-                "stack": "React; TypeScript",
-                "salary": "1200 USD/month",
-                "match_score": 8.5,
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-review-001",
+                "command": "verify",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "listing_status": "open",
+                    "first_party_verified": "yes",
+                    "apply_verified": "yes",
+                    "original_url": "https://careers.example.test/jobs/operation",
+                    "level": "Junior",
+                    "remote_policy": "Europe",
+                    "stack": "React; TypeScript",
+                    "salary": "1200 USD/month",
+                    "match_score": 8.5,
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -400,28 +443,35 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
         updated = self.rows()[0]
         self.assertEqual(
-            (updated["application_status"], updated["level"], updated["remote_policy"], updated["match_score"]),
+            (
+                updated["application_status"],
+                updated["level"],
+                updated["remote_policy"],
+                updated["match_score"],
+            ),
             ("reviewing", "Junior", "Europe", "8.5"),
         )
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
 
     def test_medium_risk_verify_can_record_a_human_started_application(self):
         row = self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-active-application-001",
-            "command": "verify",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "listing_status": "open",
-                "first_party_verified": "yes",
-                "apply_verified": "yes",
-                "original_url": "https://careers.example.test/jobs/operation",
-                "application_status": "apply",
-                "next_action": "complete the required interview",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-active-application-001",
+                "command": "verify",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "listing_status": "open",
+                    "first_party_verified": "yes",
+                    "apply_verified": "yes",
+                    "original_url": "https://careers.example.test/jobs/operation",
+                    "application_status": "apply",
+                    "next_action": "complete the required interview",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -438,14 +488,16 @@ class AgentOperationsTests(unittest.TestCase):
     def test_stale_precondition_records_conflict_without_canonical_write(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-conflict-001",
-            "command": "set",
-            "job_id": "job-0001",
-            "expected": {"application_status": "reviewing", "last_update": row["last_update"]},
-            "args": {"next_action": "verify first-party"},
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-conflict-001",
+                "command": "set",
+                "job_id": "job-0001",
+                "expected": {"application_status": "reviewing", "last_update": row["last_update"]},
+                "args": {"next_action": "verify first-party"},
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -457,17 +509,19 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_allowlisted_set_can_schedule_the_next_safe_action(self):
         row = self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-next-action-001",
-            "command": "set",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "next_action": "verify first-party",
-                "next_action_date": "2026-08-12",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-next-action-001",
+                "command": "set",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "next_action": "verify first-party",
+                    "next_action_date": "2026-08-12",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -481,17 +535,19 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_low_risk_screen_preserves_listing_and_verification_fields(self):
         row = self.seed_job()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-screen-001",
-            "command": "screen",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "listing_status": "unknown"},
-            "args": {
-                "decision_reason": "geo_restriction",
-                "notes": "Himalayas restricts this role to Latin America.",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-screen-001",
+                "command": "screen",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "listing_status": "unknown"},
+                "args": {
+                    "decision_reason": "geo_restriction",
+                    "notes": "Himalayas restricts this role to Latin America.",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -499,38 +555,55 @@ class AgentOperationsTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual((payload["status"], payload["risk"]), ("completed", "low"))
         updated = self.rows()[0]
-        self.assertEqual((updated["application_status"], updated["decision_reason"]), ("not_started", "geo_restriction"))
+        self.assertEqual(
+            (updated["application_status"], updated["decision_reason"]), ("not_started", "geo_restriction")
+        )
         for field in ("listing_status", "verified_at", "first_party_verified", "apply_verified"):
             self.assertEqual(updated[field], row[field])
 
     def test_atomic_batch_applies_multiple_screen_decisions_once(self):
         first = self.seed_job()
         created = self.invoke_jobs(
-            "add", "--company", "Second OperationCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--force", "--no-file",
+            "add",
+            "--company",
+            "Second OperationCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--force",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         second = self.rows()[1]
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-screen-batch-001",
-            "command": "batch",
-            "atomic": True,
-            "operations": [
-                {
-                    "command": "screen",
-                    "job_id": "job-0001",
-                    "expected": {"application_status": "not_started", "last_update": first["last_update"]},
-                    "args": {"decision_reason": "geo_restriction"},
-                },
-                {
-                    "command": "screen",
-                    "job_id": "job-0002",
-                    "expected": {"application_status": "not_started", "last_update": second["last_update"]},
-                    "args": {"decision_reason": "seniority_too_high"},
-                },
-            ],
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-screen-batch-001",
+                "command": "batch",
+                "atomic": True,
+                "operations": [
+                    {
+                        "command": "screen",
+                        "job_id": "job-0001",
+                        "expected": {
+                            "application_status": "not_started",
+                            "last_update": first["last_update"],
+                        },
+                        "args": {"decision_reason": "geo_restriction"},
+                    },
+                    {
+                        "command": "screen",
+                        "job_id": "job-0002",
+                        "expected": {
+                            "application_status": "not_started",
+                            "last_update": second["last_update"],
+                        },
+                        "args": {"decision_reason": "seniority_too_high"},
+                    },
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -547,33 +620,47 @@ class AgentOperationsTests(unittest.TestCase):
     def test_atomic_batch_rejects_every_write_if_a_later_screen_is_forbidden(self):
         first = self.seed_job()
         created = self.invoke_jobs(
-            "add", "--company", "Applied OperationCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--force", "--no-file",
+            "add",
+            "--company",
+            "Applied OperationCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--force",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
-        self.assertEqual(self.invoke_jobs("status", "job-0002", "--application-status", "applied").returncode, 0)
+        self.assertEqual(
+            self.invoke_jobs("status", "job-0002", "--application-status", "applied").returncode, 0
+        )
         second = self.rows()[1]
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-screen-batch-reject-001",
-            "command": "batch",
-            "atomic": True,
-            "operations": [
-                {
-                    "command": "screen",
-                    "job_id": "job-0001",
-                    "expected": {"application_status": "not_started", "last_update": first["last_update"]},
-                    "args": {"decision_reason": "geo_restriction"},
-                },
-                {
-                    "command": "screen",
-                    "job_id": "job-0002",
-                    "expected": {"application_status": "applied", "last_update": second["last_update"]},
-                    "args": {"decision_reason": "seniority_too_high"},
-                },
-            ],
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-screen-batch-reject-001",
+                "command": "batch",
+                "atomic": True,
+                "operations": [
+                    {
+                        "command": "screen",
+                        "job_id": "job-0001",
+                        "expected": {
+                            "application_status": "not_started",
+                            "last_update": first["last_update"],
+                        },
+                        "args": {"decision_reason": "geo_restriction"},
+                    },
+                    {
+                        "command": "screen",
+                        "job_id": "job-0002",
+                        "expected": {"application_status": "applied", "last_update": second["last_update"]},
+                        "args": {"decision_reason": "seniority_too_high"},
+                    },
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -581,7 +668,9 @@ class AgentOperationsTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
         self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
-        self.assertIn("allowed only before an application is actually submitted", payload["result"]["error"]["message"])
+        self.assertIn(
+            "allowed only before an application is actually submitted", payload["result"]["error"]["message"]
+        )
         self.assertNotRegex(payload["result"]["error"]["message"], r"[Ѐ-ӿ]")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         result_path = self.root / "data" / "operations" / "results" / "op-screen-batch-reject-001.json"
@@ -591,27 +680,31 @@ class AgentOperationsTests(unittest.TestCase):
     def test_verify_rejects_human_only_application_statuses_before_writing(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-human-only-001",
-            "command": "verify",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "listing_status": "open",
-                "first_party_verified": "yes",
-                "apply_verified": "yes",
-                "application_status": "applied",
-                "next_action": "submit application",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-human-only-001",
+                "command": "verify",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "listing_status": "open",
+                    "first_party_verified": "yes",
+                    "apply_verified": "yes",
+                    "application_status": "applied",
+                    "next_action": "submit application",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
         self.assertEqual(result.returncode, 1)
         payload = json.loads(result.stdout)
         self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
-        self.assertIn("verify may set application_status only to apply", payload["result"]["error"]["message"])
+        self.assertIn(
+            "verify may set application_status only to apply", payload["result"]["error"]["message"]
+        )
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         result_files = list((self.root / "data" / "operations" / "results").glob("*.json"))
         self.assertEqual(len(result_files), 1)
@@ -620,18 +713,20 @@ class AgentOperationsTests(unittest.TestCase):
     def test_verify_requires_original_url_when_first_party_verified_yes(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-missing-original-url-001",
-            "command": "verify",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "listing_status": "open",
-                "first_party_verified": "yes",
-                "apply_verified": "no",
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-missing-original-url-001",
+                "command": "verify",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "listing_status": "open",
+                    "first_party_verified": "yes",
+                    "apply_verified": "no",
+                },
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -646,38 +741,56 @@ class AgentOperationsTests(unittest.TestCase):
     def test_medium_risk_status_records_user_confirmed_lifecycle_events(self):
         self.seed_job()
         operations = [
-            ("op-status-applied-001", "not_started", {
-                "application_status": "applied",
-                "confirmed_by_user": True,
-                "applied_at": "2026-08-11",
-                "cv_version": "frontend-2026-08",
-                "next_action": "follow-up",
-            }),
-            ("op-status-interview-001", "applied", {
-                "application_status": "interviewing",
-                "confirmed_by_user": True,
-                "stage": "Recruiter screen",
-                "response_at": "2026-08-12",
-                "next_action": "prepare recruiter screen",
-            }),
-            ("op-status-offer-001", "interviewing", {
-                "application_status": "offer",
-                "confirmed_by_user": True,
-            }),
-            ("op-status-rejected-001", "offer", {
-                "application_status": "rejected",
-                "confirmed_by_user": True,
-            }),
+            (
+                "op-status-applied-001",
+                "not_started",
+                {
+                    "application_status": "applied",
+                    "confirmed_by_user": True,
+                    "applied_at": "2026-08-11",
+                    "cv_version": "frontend-2026-08",
+                    "next_action": "follow-up",
+                },
+            ),
+            (
+                "op-status-interview-001",
+                "applied",
+                {
+                    "application_status": "interviewing",
+                    "confirmed_by_user": True,
+                    "stage": "Recruiter screen",
+                    "response_at": "2026-08-12",
+                    "next_action": "prepare recruiter screen",
+                },
+            ),
+            (
+                "op-status-offer-001",
+                "interviewing",
+                {
+                    "application_status": "offer",
+                    "confirmed_by_user": True,
+                },
+            ),
+            (
+                "op-status-rejected-001",
+                "offer",
+                {
+                    "application_status": "rejected",
+                    "confirmed_by_user": True,
+                },
+            ),
         ]
         for operation_id, expected_status, args in operations:
-            request = self.write_operation({
-                "version": 1,
-                "operation_id": operation_id,
-                "command": "status",
-                "job_id": "job-0001",
-                "expected": {"application_status": expected_status},
-                "args": args,
-            })
+            request = self.write_operation(
+                {
+                    "version": 1,
+                    "operation_id": operation_id,
+                    "command": "status",
+                    "job_id": "job-0001",
+                    "expected": {"application_status": expected_status},
+                    "args": args,
+                }
+            )
             result = self.invoke_operation("apply", str(request), "--format", "json")
             self.assertEqual(result.returncode, 0, result.stderr)
             payload = json.loads(result.stdout)
@@ -692,17 +805,19 @@ class AgentOperationsTests(unittest.TestCase):
     def test_status_requires_explicit_user_confirmation(self):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-status-unconfirmed-001",
-            "command": "status",
-            "job_id": "job-0001",
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {
-                "application_status": "applied",
-                "confirmed_by_user": False,
-            },
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-status-unconfirmed-001",
+                "command": "status",
+                "job_id": "job-0001",
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "application_status": "applied",
+                    "confirmed_by_user": False,
+                },
+            }
+        )
 
         result = self.invoke_operation("validate", str(request), "--format", "json")
 
@@ -713,34 +828,43 @@ class AgentOperationsTests(unittest.TestCase):
     def test_atomic_batch_can_record_confirmed_ghosted_and_withdrawn_events(self):
         self.seed_job()
         created = self.invoke_jobs(
-            "add", "--company", "Second OperationCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--force", "--no-file",
+            "add",
+            "--company",
+            "Second OperationCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--force",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         for job_id in ("job-0001", "job-0002"):
             applied = self.invoke_jobs("status", job_id, "--application-status", "applied")
             self.assertEqual(applied.returncode, 0, applied.stderr)
         rows = self.rows()
-        request = self.write_operation({
-            "version": 1,
-            "operation_id": "op-status-terminal-batch-001",
-            "command": "batch",
-            "atomic": True,
-            "operations": [
-                {
-                    "command": "status",
-                    "job_id": "job-0001",
-                    "expected": {"application_status": "applied", "last_update": rows[0]["last_update"]},
-                    "args": {"application_status": "ghosted", "confirmed_by_user": True},
-                },
-                {
-                    "command": "status",
-                    "job_id": "job-0002",
-                    "expected": {"application_status": "applied", "last_update": rows[1]["last_update"]},
-                    "args": {"application_status": "withdrawn", "confirmed_by_user": True},
-                },
-            ],
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-status-terminal-batch-001",
+                "command": "batch",
+                "atomic": True,
+                "operations": [
+                    {
+                        "command": "status",
+                        "job_id": "job-0001",
+                        "expected": {"application_status": "applied", "last_update": rows[0]["last_update"]},
+                        "args": {"application_status": "ghosted", "confirmed_by_user": True},
+                    },
+                    {
+                        "command": "status",
+                        "job_id": "job-0002",
+                        "expected": {"application_status": "applied", "last_update": rows[1]["last_update"]},
+                        "args": {"application_status": "withdrawn", "confirmed_by_user": True},
+                    },
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -748,8 +872,12 @@ class AgentOperationsTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual((payload["status"], payload["risk"]), ("completed", "medium"))
         rows = self.rows()
-        self.assertEqual((rows[0]["application_status"], rows[0]["decision_reason"]), ("ghosted", "no_response_timeout"))
-        self.assertEqual((rows[1]["application_status"], rows[1]["decision_reason"]), ("withdrawn", "withdrawn_by_me"))
+        self.assertEqual(
+            (rows[0]["application_status"], rows[0]["decision_reason"]), ("ghosted", "no_response_timeout")
+        )
+        self.assertEqual(
+            (rows[1]["application_status"], rows[1]["decision_reason"]), ("withdrawn", "withdrawn_by_me")
+        )
 
 
 class ErrorTaxonomyTests(unittest.TestCase):
@@ -759,7 +887,11 @@ class ErrorTaxonomyTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         for directory in (
-            "data", "applications", "scripts", "data/operations/requests", "data/operations/results",
+            "data",
+            "applications",
+            "scripts",
+            "data/operations/requests",
+            "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
         for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
@@ -774,14 +906,18 @@ class ErrorTaxonomyTests(unittest.TestCase):
 
     def invoke_jobs(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_operation(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/agent_operations.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/agent_operations.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self):
@@ -790,8 +926,14 @@ class ErrorTaxonomyTests(unittest.TestCase):
 
     def seed_job(self):
         created = self.invoke_jobs(
-            "add", "--company", "OperationCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--no-file",
+            "add",
+            "--company",
+            "OperationCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         return self.rows()[0]
@@ -822,48 +964,188 @@ class ErrorTaxonomyTests(unittest.TestCase):
         row = self.seed_job()
         before = (self.root / "data" / "jobs.csv").read_bytes()
         add_args = {
-            "company": "TaxonomyCo", "role": "Frontend Developer",
-            "source": "Manual", "found_at": "2026-09-07",
+            "company": "TaxonomyCo",
+            "role": "Frontend Developer",
+            "source": "Manual",
+            "found_at": "2026-09-07",
         }
         cases = [
             ("tax-invalid-json", "not json at all", "invalid_json", None),
-            ("tax-too-large", json.dumps({"version": 1, "operation_id": "tax-too-large", "command": "add",
-                                           "args": {**add_args, "notes": "x" * 70_000}}), "request_too_large", None),
-            ("tax-unsupported-command", json.dumps({"version": 1, "operation_id": "tax-unsupported-command",
-                                                      "command": "ingest", "job_id": "job-0001",
-                                                      "expected": {}, "args": {}}), "unsupported_command", "command"),
-            ("tax-unknown-top-level", json.dumps({"version": 1, "operation_id": "tax-unknown-top-level",
-                                                    "command": "add", "args": add_args, "extra": True}),
-             "unknown_top_level_fields", None),
-            ("tax-missing-top-level", json.dumps({"version": 1, "operation_id": "tax-missing-top-level",
-                                                    "command": "add"}), "missing_top_level_fields", None),
-            ("tax-unknown-args", json.dumps({"version": 1, "operation_id": "tax-unknown-args", "command": "add",
-                                              "args": {**add_args, "next_action": "follow up"}}),
-             "unknown_args", "args.next_action"),
-            ("tax-missing-args", json.dumps({"version": 1, "operation_id": "tax-missing-args", "command": "add",
-                                              "args": {"company": "TaxonomyCo"}}), "missing_args", None),
-            ("tax-bad-type", json.dumps({"version": 1, "operation_id": "tax-bad-type", "command": "add",
-                                          "args": {**add_args, "force": "yes"}}), "bad_type", "args.force"),
-            ("tax-bad-enum", json.dumps({"version": 1, "operation_id": "tax-bad-enum", "command": "add",
-                                          "args": {**add_args, "source": "NotASource"}}), "bad_enum_value",
-             "args.source"),
-            ("tax-bad-format", json.dumps({"version": 1, "operation_id": "tax-bad-format", "command": "add",
-                                            "args": {**add_args, "posted_at": "07/09/2026"}}), "bad_format",
-             "args.posted_at"),
-            ("tax-duplicate-extra-fields", json.dumps({"version": 1, "operation_id": "tax-duplicate-extra-fields",
-                                                         "command": "add",
-                                                         "args": {"company": "OperationCo", "role": "Frontend Developer",
-                                                                   "source": "Manual", "duplicate_of": row["id"],
-                                                                   "source_job_id": "dup-1", "notes": "should be ignored"}}),
-             "duplicate_add_extra_fields", None),
-            ("tax-batch-not-atomic", json.dumps({"version": 1, "operation_id": "tax-batch-not-atomic",
-                                                   "command": "batch", "atomic": "true", "operations": []}),
-             "batch_not_atomic", "atomic"),
-            ("tax-unknown-job", json.dumps({"version": 1, "operation_id": "tax-unknown-job", "command": "screen",
-                                             "job_id": "job-9999", "expected": {"application_status": "not_started"},
-                                             "args": {"decision_reason": "geo_restriction"}}), "unknown_job", None),
-            ("tax-filename-mismatch", json.dumps({"version": 1, "operation_id": "does-not-match-filename",
-                                                    "command": "add", "args": add_args}), "filename_mismatch", None),
+            (
+                "tax-too-large",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-too-large",
+                        "command": "add",
+                        "args": {**add_args, "notes": "x" * 70_000},
+                    }
+                ),
+                "request_too_large",
+                None,
+            ),
+            (
+                "tax-unsupported-command",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-unsupported-command",
+                        "command": "ingest",
+                        "job_id": "job-0001",
+                        "expected": {},
+                        "args": {},
+                    }
+                ),
+                "unsupported_command",
+                "command",
+            ),
+            (
+                "tax-unknown-top-level",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-unknown-top-level",
+                        "command": "add",
+                        "args": add_args,
+                        "extra": True,
+                    }
+                ),
+                "unknown_top_level_fields",
+                None,
+            ),
+            (
+                "tax-missing-top-level",
+                json.dumps({"version": 1, "operation_id": "tax-missing-top-level", "command": "add"}),
+                "missing_top_level_fields",
+                None,
+            ),
+            (
+                "tax-unknown-args",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-unknown-args",
+                        "command": "add",
+                        "args": {**add_args, "next_action": "follow up"},
+                    }
+                ),
+                "unknown_args",
+                "args.next_action",
+            ),
+            (
+                "tax-missing-args",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-missing-args",
+                        "command": "add",
+                        "args": {"company": "TaxonomyCo"},
+                    }
+                ),
+                "missing_args",
+                None,
+            ),
+            (
+                "tax-bad-type",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-bad-type",
+                        "command": "add",
+                        "args": {**add_args, "force": "yes"},
+                    }
+                ),
+                "bad_type",
+                "args.force",
+            ),
+            (
+                "tax-bad-enum",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-bad-enum",
+                        "command": "add",
+                        "args": {**add_args, "source": "NotASource"},
+                    }
+                ),
+                "bad_enum_value",
+                "args.source",
+            ),
+            (
+                "tax-bad-format",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-bad-format",
+                        "command": "add",
+                        "args": {**add_args, "posted_at": "07/09/2026"},
+                    }
+                ),
+                "bad_format",
+                "args.posted_at",
+            ),
+            (
+                "tax-duplicate-extra-fields",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-duplicate-extra-fields",
+                        "command": "add",
+                        "args": {
+                            "company": "OperationCo",
+                            "role": "Frontend Developer",
+                            "source": "Manual",
+                            "duplicate_of": row["id"],
+                            "source_job_id": "dup-1",
+                            "notes": "should be ignored",
+                        },
+                    }
+                ),
+                "duplicate_add_extra_fields",
+                None,
+            ),
+            (
+                "tax-batch-not-atomic",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-batch-not-atomic",
+                        "command": "batch",
+                        "atomic": "true",
+                        "operations": [],
+                    }
+                ),
+                "batch_not_atomic",
+                "atomic",
+            ),
+            (
+                "tax-unknown-job",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "tax-unknown-job",
+                        "command": "screen",
+                        "job_id": "job-9999",
+                        "expected": {"application_status": "not_started"},
+                        "args": {"decision_reason": "geo_restriction"},
+                    }
+                ),
+                "unknown_job",
+                None,
+            ),
+            (
+                "tax-filename-mismatch",
+                json.dumps(
+                    {
+                        "version": 1,
+                        "operation_id": "does-not-match-filename",
+                        "command": "add",
+                        "args": add_args,
+                    }
+                ),
+                "filename_mismatch",
+                None,
+            ),
         ]
         for operation_id, raw_content, expected_code, expected_field in cases:
             with self.subTest(code=expected_code):
@@ -878,19 +1160,32 @@ class ErrorTaxonomyTests(unittest.TestCase):
                 if expected_field is not None:
                     self.assertEqual(response["result"]["error"]["field"], expected_field)
                 on_disk = json.loads(
-                    (self.root / "data" / "operations" / "results" / f"{operation_id}.json").read_text(encoding="utf-8"),
+                    (self.root / "data" / "operations" / "results" / f"{operation_id}.json").read_text(
+                        encoding="utf-8"
+                    ),
                 )
                 self.assertEqual(on_disk["status"], "rejected")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_result_exists_blocks_retry_of_a_rejected_operation_without_a_new_id(self):
-        payload = {"version": 1, "operation_id": "tax-retry-rejected", "command": "add",
-                   "args": {"company": "TaxonomyCo", "role": "Frontend Developer", "source": "Manual",
-                            "next_action": "follow up"}}
+        payload = {
+            "version": 1,
+            "operation_id": "tax-retry-rejected",
+            "command": "add",
+            "args": {
+                "company": "TaxonomyCo",
+                "role": "Frontend Developer",
+                "source": "Manual",
+                "next_action": "follow up",
+            },
+        }
         self.apply_and_reject("tax-retry-rejected", payload)
 
         repeat = self.invoke_operation(
-            "apply", str(self.root / "data" / "operations" / "requests" / "tax-retry-rejected.json"), "--format", "json",
+            "apply",
+            str(self.root / "data" / "operations" / "requests" / "tax-retry-rejected.json"),
+            "--format",
+            "json",
         )
         self.assertEqual(repeat.returncode, 1)
         self.assertIn("already has a result", repeat.stderr)
@@ -901,11 +1196,24 @@ class ErrorTaxonomyTests(unittest.TestCase):
         from scripts import agent_operations as ops
 
         documented = {
-            "invalid_json", "request_too_large", "filename_mismatch", "unsupported_command",
-            "unknown_top_level_fields", "missing_top_level_fields", "unknown_args", "missing_args",
-            "bad_type", "bad_enum_value", "bad_format", "duplicate_add_extra_fields",
-            "invariant_violation", "unknown_job", "result_exists", "batch_not_atomic",
-            "lost_before_apply", "contract_violation",
+            "invalid_json",
+            "request_too_large",
+            "filename_mismatch",
+            "unsupported_command",
+            "unknown_top_level_fields",
+            "missing_top_level_fields",
+            "unknown_args",
+            "missing_args",
+            "bad_type",
+            "bad_enum_value",
+            "bad_format",
+            "duplicate_add_extra_fields",
+            "invariant_violation",
+            "unknown_job",
+            "result_exists",
+            "batch_not_atomic",
+            "lost_before_apply",
+            "contract_violation",
         }
         self.assertEqual(ops.ERROR_CODES, documented)
         with self.assertRaises(ValueError):
@@ -918,7 +1226,8 @@ class ErrorTaxonomyTests(unittest.TestCase):
         with flags intact for the human operator."""
         row = self.seed_job()
         self.assertEqual(
-            self.invoke_jobs("status", row["id"], "--application-status", "applied").returncode, 0,
+            self.invoke_jobs("status", row["id"], "--application-status", "applied").returncode,
+            0,
         )
         applied = self.rows()[0]
 
@@ -926,11 +1235,17 @@ class ErrorTaxonomyTests(unittest.TestCase):
         self.assertEqual(cli_rejection.returncode, 1)
         self.assertIn("только до фактической отправки", cli_rejection.stderr)
 
-        rejected = self.apply_and_reject("op-screen-after-applied-001", {
-            "version": 1, "operation_id": "op-screen-after-applied-001", "command": "screen",
-            "job_id": row["id"], "expected": {"application_status": "applied", "last_update": applied["last_update"]},
-            "args": {"decision_reason": "geo_restriction"},
-        })
+        rejected = self.apply_and_reject(
+            "op-screen-after-applied-001",
+            {
+                "version": 1,
+                "operation_id": "op-screen-after-applied-001",
+                "command": "screen",
+                "job_id": row["id"],
+                "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+                "args": {"decision_reason": "geo_restriction"},
+            },
+        )
         error = rejected["error"]
         self.assertEqual(error["code"], "invariant_violation")
         self.assertEqual(error["layer"], "jobs")
@@ -951,16 +1266,21 @@ class ErrorTaxonomyTests(unittest.TestCase):
             requests_dir.mkdir(parents=True, exist_ok=True)
             row = jobs.load()[0]
             payload = {
-                "version": 1, "operation_id": "tax-systemexit-safety-net", "command": "screen",
-                "job_id": row["id"], "expected": {"application_status": row["application_status"]},
+                "version": 1,
+                "operation_id": "tax-systemexit-safety-net",
+                "command": "screen",
+                "job_id": row["id"],
+                "expected": {"application_status": row["application_status"]},
                 "args": {"decision_reason": "geo_restriction"},
             }
             request_path = requests_dir / "tax-systemexit-safety-net.json"
             request_path.write_text(json.dumps(payload), encoding="utf-8")
             before = jobs.CSV_PATH.read_bytes()
-            with mock.patch.object(ops, "REQUESTS_DIR", requests_dir), \
-                 mock.patch.object(ops, "RESULTS_DIR", results_dir), \
-                 mock.patch.object(jobs, "screen_job", side_effect=SystemExit(1)):
+            with (
+                mock.patch.object(ops, "REQUESTS_DIR", requests_dir),
+                mock.patch.object(ops, "RESULTS_DIR", results_dir),
+                mock.patch.object(jobs, "screen_job", side_effect=SystemExit(1)),
+            ):
                 result, result_file = ops.execute(request_path)
             self.assertEqual(result["status"], "rejected")
             self.assertEqual(result["error"]["code"], "invariant_violation")

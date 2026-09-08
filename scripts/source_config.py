@@ -11,12 +11,24 @@ ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config" / "sources.toml"
 SOURCE_TYPES = {"api", "job_board", "manual", "messaging"}
 REQUIRED_SOURCE_FIELDS = {
-    "enabled", "type", "cadence_hours", "max_age_days", "geo", "aggregator",
-    "verification", "caveats",
+    "enabled",
+    "type",
+    "cadence_hours",
+    "max_age_days",
+    "geo",
+    "aggregator",
+    "verification",
+    "caveats",
 }
 OPTIONAL_SOURCE_FIELDS = {
-    "broad_cadence_hours", "fallback_max_age_days", "feed_url", "search_url",
-    "narrow_queries", "broad_queries", "employment_types", "seniority",
+    "broad_cadence_hours",
+    "fallback_max_age_days",
+    "feed_url",
+    "search_url",
+    "narrow_queries",
+    "broad_queries",
+    "employment_types",
+    "seniority",
 }
 REQUIRED_VERIFICATION_FIELDS = {"first_party_required", "apply_required"}
 
@@ -87,7 +99,9 @@ def validate_source(source_name, source):
         if field in source:
             require_string_list(source_name, field, source[field])
     for field in ("feed_url", "search_url"):
-        if field in source and (not isinstance(source[field], str) or not source[field].startswith("https://")):
+        if field in source and (
+            not isinstance(source[field], str) or not source[field].startswith("https://")
+        ):
             error(source_name, f"{field} должен быть https URL")
     return source
 

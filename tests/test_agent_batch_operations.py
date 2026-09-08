@@ -16,8 +16,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         for directory in (
-            "data", "applications", "scripts",
-            "data/operations/requests", "data/operations/results",
+            "data",
+            "applications",
+            "scripts",
+            "data/operations/requests",
+            "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
         for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
@@ -33,15 +36,21 @@ class AgentBatchOperationsTests(unittest.TestCase):
     def invoke(self, script, *arguments):
         return subprocess.run(
             [sys.executable, script, *arguments],
-            cwd=self.root, text=True, capture_output=True,
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def seed_job(self, company):
         created = self.invoke(
-            "scripts/jobs.py", "add",
-            "--company", company,
-            "--role", "Frontend Developer",
-            "--source", "Manual",
+            "scripts/jobs.py",
+            "add",
+            "--company",
+            company,
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
             "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
@@ -102,7 +111,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         )
 
         result = self.invoke(
-            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "apply",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -128,7 +141,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         )
 
         result = self.invoke(
-            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "apply",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -146,7 +163,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         request = self.write_batch("batch-add-ref-conflict-001", [child, child])
 
         result = self.invoke(
-            "scripts/agent_operations.py", "validate", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "validate",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 1)
@@ -165,7 +186,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         )
 
         result = self.invoke(
-            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "apply",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -188,7 +213,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         request = self.write_batch("batch-conflict-001", [first, second])
 
         result = self.invoke(
-            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "apply",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -215,7 +244,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         request = self.write_batch("batch-runtime-fail-001", [first, second])
 
         result = self.invoke(
-            "scripts/agent_operations.py", "apply", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "apply",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 1)
@@ -235,7 +268,11 @@ class AgentBatchOperationsTests(unittest.TestCase):
         request = self.write_batch("batch-duplicate-001", [child, child])
 
         result = self.invoke(
-            "scripts/agent_operations.py", "validate", str(request), "--format", "json",
+            "scripts/agent_operations.py",
+            "validate",
+            str(request),
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 1)
@@ -253,7 +290,11 @@ class BatchAtomicityTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         for directory in (
-            "data", "applications", "scripts", "data/operations/requests", "data/operations/results",
+            "data",
+            "applications",
+            "scripts",
+            "data/operations/requests",
+            "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
         for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
@@ -268,14 +309,18 @@ class BatchAtomicityTests(unittest.TestCase):
 
     def invoke_jobs(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_operation(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/agent_operations.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/agent_operations.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self):
@@ -289,8 +334,14 @@ class BatchAtomicityTests(unittest.TestCase):
 
     def seed_job(self, company, role="Frontend Developer"):
         created = self.invoke_jobs(
-            "add", "--company", company, "--role", role,
-            "--source", "Manual", "--no-file",
+            "add",
+            "--company",
+            company,
+            "--role",
+            role,
+            "--source",
+            "Manual",
+            "--no-file",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         return self.rows()[-1]
@@ -298,16 +349,22 @@ class BatchAtomicityTests(unittest.TestCase):
     def test_atomic_batch_over_the_ten_child_limit_is_rejected_by_contract(self):
         operations = [
             {
-                "command": "screen", "job_id": "job-0001",
+                "command": "screen",
+                "job_id": "job-0001",
                 "expected": {"application_status": "not_started"},
                 "args": {"decision_reason": "geo_restriction"},
             }
             for _ in range(11)
         ]
-        request = self.write_operation({
-            "version": 1, "operation_id": "atomic-over-limit", "command": "batch",
-            "atomic": True, "operations": operations,
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "atomic-over-limit",
+                "command": "batch",
+                "atomic": True,
+                "operations": operations,
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -320,16 +377,22 @@ class BatchAtomicityTests(unittest.TestCase):
     def test_non_atomic_batch_allows_up_to_a_hundred_children(self):
         operations = [
             {
-                "command": "screen", "job_id": "job-0001",
+                "command": "screen",
+                "job_id": "job-0001",
                 "expected": {"application_status": "not_started"},
                 "args": {"decision_reason": "geo_restriction"},
             }
             for _ in range(101)
         ]
-        request = self.write_operation({
-            "version": 1, "operation_id": "partial-over-limit", "command": "batch",
-            "atomic": False, "operations": operations,
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "partial-over-limit",
+                "command": "batch",
+                "atomic": False,
+                "operations": operations,
+            }
+        )
 
         result = self.invoke_operation("validate", str(request), "--format", "json")
 
@@ -338,26 +401,36 @@ class BatchAtomicityTests(unittest.TestCase):
 
     def test_non_atomic_batch_applies_the_rest_when_one_add_child_conflicts(self):
         self.seed_job("Existing OperationCo")
-        request = self.write_operation({
-            "version": 1, "operation_id": "partial-add-conflict", "command": "batch",
-            "atomic": False,
-            "operations": [
-                {
-                    "command": "add", "client_ref": "child-duplicate",
-                    "args": {
-                        "company": "Existing OperationCo", "role": "Frontend Developer",
-                        "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/111",
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "partial-add-conflict",
+                "command": "batch",
+                "atomic": False,
+                "operations": [
+                    {
+                        "command": "add",
+                        "client_ref": "child-duplicate",
+                        "args": {
+                            "company": "Existing OperationCo",
+                            "role": "Frontend Developer",
+                            "source": "LinkedIn",
+                            "source_url": "https://www.linkedin.com/jobs/view/111",
+                        },
                     },
-                },
-                {
-                    "command": "add", "client_ref": "child-new",
-                    "args": {
-                        "company": "Second OperationCo", "role": "Backend Developer",
-                        "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/222",
+                    {
+                        "command": "add",
+                        "client_ref": "child-new",
+                        "args": {
+                            "company": "Second OperationCo",
+                            "role": "Backend Developer",
+                            "source": "LinkedIn",
+                            "source_url": "https://www.linkedin.com/jobs/view/222",
+                        },
                     },
-                },
-            ],
-        })
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -379,28 +452,38 @@ class BatchAtomicityTests(unittest.TestCase):
         self.assertTrue(retry["as_separate"]["args"]["force"])
 
         from scripts import agent_operations as ops
+
         ops.validate_child(retry["as_duplicate"])
         ops.validate_child(retry["as_separate"])
 
     def test_non_atomic_batch_skips_a_stale_child_and_offers_a_refreshed_retry(self):
         first = self.seed_job("Stale One Co")
         second = self.seed_job("Stale Two Co", role="Backend Developer")
-        request = self.write_operation({
-            "version": 1, "operation_id": "partial-stale-conflict", "command": "batch",
-            "atomic": False,
-            "operations": [
-                {
-                    "command": "screen", "job_id": first["id"],
-                    "expected": {"application_status": "not_started", "last_update": first["last_update"]},
-                    "args": {"decision_reason": "geo_restriction"},
-                },
-                {
-                    "command": "screen", "job_id": second["id"],
-                    "expected": {"application_status": "not_started", "last_update": "2000-01-01"},
-                    "args": {"decision_reason": "seniority_too_high"},
-                },
-            ],
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "partial-stale-conflict",
+                "command": "batch",
+                "atomic": False,
+                "operations": [
+                    {
+                        "command": "screen",
+                        "job_id": first["id"],
+                        "expected": {
+                            "application_status": "not_started",
+                            "last_update": first["last_update"],
+                        },
+                        "args": {"decision_reason": "geo_restriction"},
+                    },
+                    {
+                        "command": "screen",
+                        "job_id": second["id"],
+                        "expected": {"application_status": "not_started", "last_update": "2000-01-01"},
+                        "args": {"decision_reason": "seniority_too_high"},
+                    },
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 
@@ -415,6 +498,7 @@ class BatchAtomicityTests(unittest.TestCase):
         self.assertEqual(conflict["retry"]["expected"]["last_update"], second["last_update"])
 
         from scripts import agent_operations as ops
+
         ops.validate_child(conflict["retry"])
 
         rows_by_id = {row["id"]: row for row in self.rows()}
@@ -424,19 +508,26 @@ class BatchAtomicityTests(unittest.TestCase):
     def test_non_atomic_batch_with_every_child_conflicting_changes_nothing(self):
         self.seed_job("Solo Existing Co")
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1, "operation_id": "partial-all-conflict", "command": "batch",
-            "atomic": False,
-            "operations": [
-                {
-                    "command": "add", "client_ref": "only-child",
-                    "args": {
-                        "company": "Solo Existing Co", "role": "Frontend Developer",
-                        "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/999",
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "partial-all-conflict",
+                "command": "batch",
+                "atomic": False,
+                "operations": [
+                    {
+                        "command": "add",
+                        "client_ref": "only-child",
+                        "args": {
+                            "company": "Solo Existing Co",
+                            "role": "Frontend Developer",
+                            "source": "LinkedIn",
+                            "source_url": "https://www.linkedin.com/jobs/view/999",
+                        },
                     },
-                },
-            ],
-        })
+                ],
+            }
+        )
 
         result = self.invoke_operation("apply", str(request), "--format", "json")
 

@@ -7,18 +7,38 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.inge
 
 
 FRONTEND_SIGNALS = (
-    "frontend", "front end", "react", "ui engineer", "ui developer",
-    "user interface", "web developer", "web engineer", "creative developer",
-    "design engineer", "product engineer",
+    "frontend",
+    "front end",
+    "react",
+    "ui engineer",
+    "ui developer",
+    "user interface",
+    "web developer",
+    "web engineer",
+    "creative developer",
+    "design engineer",
+    "product engineer",
 )
 TOO_SENIOR_SIGNALS = (
-    "senior", " sr ", "lead", "staff", "principal", "manager", "director",
-    "architect", "head of",
+    "senior",
+    " sr ",
+    "lead",
+    "staff",
+    "principal",
+    "manager",
+    "director",
+    "architect",
+    "head of",
 )
 EXPLICIT_HARD_FILTER_REASONS = {
-    "geo_restriction", "work_authorization", "seniority_too_high",
-    "seniority_too_low", "stack_mismatch", "role_not_frontend",
-    "salary_too_low", "company_not_interesting",
+    "geo_restriction",
+    "work_authorization",
+    "seniority_too_high",
+    "seniority_too_low",
+    "stack_mismatch",
+    "role_not_frontend",
+    "salary_too_low",
+    "company_not_interesting",
 }
 
 
@@ -126,11 +146,13 @@ def fuzzy_candidates(values, job_rows, without_noise, similarity, company_noise,
         company_score = similarity(company, without_noise(job["company"], company_noise))
         role_score = similarity(role, without_noise(job["role"], role_noise))
         if company_score >= 0.85 and role_score >= 0.75:
-            candidates.append({
-                "id": job["id"],
-                "company": job["company"],
-                "role": job["role"],
-                "company_similarity": round(company_score, 4),
-                "role_similarity": round(role_score, 4),
-            })
+            candidates.append(
+                {
+                    "id": job["id"],
+                    "company": job["company"],
+                    "role": job["role"],
+                    "company_similarity": round(company_score, 4),
+                    "role_similarity": round(role_score, 4),
+                }
+            )
     return candidates

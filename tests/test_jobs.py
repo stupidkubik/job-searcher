@@ -39,8 +39,12 @@ class JobsCliTests(unittest.TestCase):
 
     def invoke(self, *arguments, input_text=None, env=None):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, input=input_text, capture_output=True, env=env,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            input=input_text,
+            capture_output=True,
+            env=env,
         )
 
     def rows(self):
@@ -56,27 +60,57 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("проверено записей: 0; source references: 0; ошибок: 0", result.stdout)
 
     def test_new_job_board_sources_are_accepted(self):
-        for index, source in enumerate((
-            "Welcome to the Jungle", "We Work Remotely", "HiringCafe",
-            "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
-            "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
-            "Find My Remote / Telegram", "Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
-            "Relocate.me", "Remote OK", "Geekjob", "TalentMove",
-        ), start=1):
+        for index, source in enumerate(
+            (
+                "Welcome to the Jungle",
+                "We Work Remotely",
+                "HiringCafe",
+                "Hacker News — Who is Hiring?",
+                "Hacker News — Who Wants to Be Hired?",
+                "YC Work at a Startup",
+                "Wellfound",
+                "HelloWorld.rs",
+                "Reactiflux Discord",
+                "Find My Remote / Telegram",
+                "Telegram",
+                "Himalayas",
+                "Startit Jobs",
+                "Hired Valley",
+                "Relocate.me",
+                "Remote OK",
+                "Geekjob",
+                "TalentMove",
+            ),
+            start=1,
+        ):
             result = self.invoke(
-                "add", "--company", f"{source} Co", "--role", "Frontend Developer",
-                "--source", source, "--source-url", f"https://source.example.test/{index}", "--no-file",
+                "add",
+                "--company",
+                f"{source} Co",
+                "--role",
+                "Frontend Developer",
+                "--source",
+                source,
+                "--source-url",
+                f"https://source.example.test/{index}",
+                "--no-file",
             )
             self.assertEqual(result.returncode, 0, result.stderr)
 
     def test_add_issues_id_creates_card_and_renders_verification_snapshot(self):
         result = self.add(
-            "Example Co", "Frontend Engineer",
-            "--application-status", "reviewing",
-            "--listing-status", "open",
-            "--original-url", "https://careers.example.test/jobs/frontend",
-            "--first-party-verified", "yes",
-            "--apply-verified", "yes",
+            "Example Co",
+            "Frontend Engineer",
+            "--application-status",
+            "reviewing",
+            "--listing-status",
+            "open",
+            "--original-url",
+            "https://careers.example.test/jobs/frontend",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         row = self.rows()[0]
@@ -94,9 +128,12 @@ class JobsCliTests(unittest.TestCase):
 
     def test_skipped_add_does_not_create_card(self):
         result = self.add(
-            "BlockedCo", "Frontend Developer",
-            "--application-status", "not_started",
-            "--decision-reason", "geo_restriction",
+            "BlockedCo",
+            "Frontend Developer",
+            "--application-status",
+            "not_started",
+            "--decision-reason",
+            "geo_restriction",
         )
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(self.rows()[0]["application_status"], "not_started")
@@ -117,8 +154,15 @@ class JobsCliTests(unittest.TestCase):
         environment = {**os.environ, "JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}
 
         result = self.invoke(
-            "add", "--company", "AtomicCo", "--role", "Frontend Developer", "--source", "Manual",
-            "--source-url", "https://careers.example.test/atomic",
+            "add",
+            "--company",
+            "AtomicCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--source-url",
+            "https://careers.example.test/atomic",
             env=environment,
         )
 
@@ -128,7 +172,9 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "job_sources.csv").read_bytes(), sources_before)
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
 
-        retried = self.add("AtomicCo", "Frontend Developer", "--source-url", "https://careers.example.test/atomic")
+        retried = self.add(
+            "AtomicCo", "Frontend Developer", "--source-url", "https://careers.example.test/atomic"
+        )
         self.assertEqual(retried.returncode, 0, retried.stderr)
         self.assertEqual(len(self.rows()), 1)
 
@@ -149,11 +195,13 @@ class JobsCliTests(unittest.TestCase):
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
 
     def test_add_accepts_json_from_stdin_without_cli_field_merge(self):
-        input_text = json.dumps({
-            "company": "Stdin ExampleCo",
-            "role": "Frontend Developer",
-            "source": "Manual",
-        })
+        input_text = json.dumps(
+            {
+                "company": "Stdin ExampleCo",
+                "role": "Frontend Developer",
+                "source": "Manual",
+            }
+        )
         result = self.invoke("add", "--stdin", "--no-file", "--format", "json", input_text=input_text)
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
@@ -173,7 +221,10 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
         mutually_exclusive = self.invoke(
-            "add", "--json", str(VALID_JSON_FIXTURE), "--stdin",
+            "add",
+            "--json",
+            str(VALID_JSON_FIXTURE),
+            "--stdin",
             input_text='{"company":"Ignored","role":"Frontend Developer","source":"Manual"}',
         )
         self.assertEqual(mutually_exclusive.returncode, 1)
@@ -195,34 +246,105 @@ class JobsCliTests(unittest.TestCase):
         dupes = self.invoke("dupes", "--format", "json")
         self.assertEqual(dupes.returncode, 0, dupes.stderr)
         duplicate_payload = json.loads(dupes.stdout)
-        self.assertEqual((duplicate_payload["ok"], duplicate_payload["command"], duplicate_payload["candidates"]), (True, "dupes", []))
+        self.assertEqual(
+            (duplicate_payload["ok"], duplicate_payload["command"], duplicate_payload["candidates"]),
+            (True, "dupes", []),
+        )
 
     def test_canonical_url_duplicate_requires_explicit_decision(self):
-        self.assertEqual(self.add("ExeQut", "Front-End Software Developer", "--original-url", "https://example.com/jobs/1/", "--source-url", "https://source.example.test/exequt", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add(
+                "ExeQut",
+                "Front-End Software Developer",
+                "--original-url",
+                "https://example.com/jobs/1/",
+                "--source-url",
+                "https://source.example.test/exequt",
+                "--no-file",
+            ).returncode,
+            0,
+        )
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        duplicate = self.add("EXEQUT Ltd.", "Frontend Developer", "--original-url", "https://example.com/jobs/1?utm_source=board#apply", "--no-file", "--format", "json")
+        duplicate = self.add(
+            "EXEQUT Ltd.",
+            "Frontend Developer",
+            "--original-url",
+            "https://example.com/jobs/1?utm_source=board#apply",
+            "--no-file",
+            "--format",
+            "json",
+        )
         self.assertEqual(duplicate.returncode, 2)
         payload = json.loads(duplicate.stdout)
         self.assertEqual((payload["ok"], payload["error"]), (False, "unresolved_duplicate"))
         self.assertEqual(payload["candidates"][0]["id"], "job-0001")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
-        confirmed = self.add("EXEQUT Ltd.", "Frontend Developer", "--source-url", "https://mirror.example/jobs/1", "--duplicate-of", "job-0001", "--no-file")
+        confirmed = self.add(
+            "EXEQUT Ltd.",
+            "Frontend Developer",
+            "--source-url",
+            "https://mirror.example/jobs/1",
+            "--duplicate-of",
+            "job-0001",
+            "--no-file",
+        )
         self.assertEqual(confirmed.returncode, 0, confirmed.stderr)
         self.assertEqual(len(self.rows()), 1)
         with (self.root / "data" / "job_sources.csv").open(newline="", encoding="utf-8") as file:
             sources = list(csv.DictReader(file))
-        self.assertEqual((len(sources), sources[1]["job_id"], sources[1]["source_url"]), (2, "job-0001", "https://mirror.example/jobs/1"))
+        self.assertEqual(
+            (len(sources), sources[1]["job_id"], sources[1]["source_url"]),
+            (2, "job-0001", "https://mirror.example/jobs/1"),
+        )
 
     def test_placeholder_company_pairs_skip_fuzzy_duplicate_matching(self):
-        self.assertEqual(self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/1", "--no-file").returncode, 0)
-        second = self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/2", "--no-file", "--format", "json")
+        self.assertEqual(
+            self.add(
+                "Undisclosed Company",
+                "Frontend Developer",
+                "--source-url",
+                "https://boards.example.test/1",
+                "--no-file",
+            ).returncode,
+            0,
+        )
+        second = self.add(
+            "Undisclosed Company",
+            "Frontend Developer",
+            "--source-url",
+            "https://boards.example.test/2",
+            "--no-file",
+            "--format",
+            "json",
+        )
         self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
         self.assertEqual(len(self.rows()), 2)
 
     def test_placeholder_company_pair_still_conflicts_on_matching_source_job_id(self):
-        self.assertEqual(self.add("Undisclosed Company", "Frontend Developer", "--source-url", "https://boards.example.test/1", "--source-job-id", "abc123", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add(
+                "Undisclosed Company",
+                "Frontend Developer",
+                "--source-url",
+                "https://boards.example.test/1",
+                "--source-job-id",
+                "abc123",
+                "--no-file",
+            ).returncode,
+            0,
+        )
         before = (self.root / "data" / "jobs.csv").read_bytes()
-        conflict = self.add("Unknown Company", "Backend Developer", "--source-url", "https://boards.example.test/1-mirror", "--source-job-id", "abc123", "--no-file", "--format", "json")
+        conflict = self.add(
+            "Unknown Company",
+            "Backend Developer",
+            "--source-url",
+            "https://boards.example.test/1-mirror",
+            "--source-job-id",
+            "abc123",
+            "--no-file",
+            "--format",
+            "json",
+        )
         self.assertEqual(conflict.returncode, 2, conflict.stdout + conflict.stderr)
         payload = json.loads(conflict.stdout)
         self.assertEqual(payload["error"], "source_reference_conflict")
@@ -230,7 +352,9 @@ class JobsCliTests(unittest.TestCase):
 
     def test_set_advances_lifecycle_and_cannot_lower_stage(self):
         self.assertEqual(self.add("FlowCo", "Frontend Developer", "--no-file").returncode, 0)
-        applied = self.invoke("status", "job-0001", "--application-status", "applied", "--cv-version", "frontend-2026-08")
+        applied = self.invoke(
+            "status", "job-0001", "--application-status", "applied", "--cv-version", "frontend-2026-08"
+        )
         self.assertEqual(applied.returncode, 0, applied.stderr)
         row = self.rows()[0]
         self.assertEqual(row["application_status"], "applied")
@@ -247,7 +371,12 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.add("GateCo", "Frontend Developer", "--no-file").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
-        for field in ("application_status=applied", "applied_at=2026-08-01", "response_at=2026-08-01", "decision_reason=other"):
+        for field in (
+            "application_status=applied",
+            "applied_at=2026-08-01",
+            "response_at=2026-08-01",
+            "decision_reason=other",
+        ):
             attempt = self.invoke("set", "job-0001", field)
             self.assertNotEqual(attempt.returncode, 0)
             self.assertIn("управляется скриптом", attempt.stderr)
@@ -276,9 +405,18 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
 
         applied = self.invoke(
-            "status", "job-0001", "--application-status", "applied",
-            "--applied-at", "2026-08-10", "--cv-version", "frontend-2026-08",
-            "--next-action", "follow-up", "--format", "json",
+            "status",
+            "job-0001",
+            "--application-status",
+            "applied",
+            "--applied-at",
+            "2026-08-10",
+            "--cv-version",
+            "frontend-2026-08",
+            "--next-action",
+            "follow-up",
+            "--format",
+            "json",
         )
         self.assertEqual(applied.returncode, 0, applied.stderr)
         row = self.rows()[0]
@@ -289,10 +427,20 @@ class JobsCliTests(unittest.TestCase):
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
 
         interviewing = self.invoke(
-            "status", "job-0001", "--application-status", "interviewing",
-            "--stage", "Tech interview", "--response-at", "2026-08-11",
-            "--next-action", "prepare technical interview",
-            "--next-action-date", "2026-08-15", "--format", "json",
+            "status",
+            "job-0001",
+            "--application-status",
+            "interviewing",
+            "--stage",
+            "Tech interview",
+            "--response-at",
+            "2026-08-11",
+            "--next-action",
+            "prepare technical interview",
+            "--next-action-date",
+            "2026-08-15",
+            "--format",
+            "json",
         )
         self.assertEqual(interviewing.returncode, 0, interviewing.stderr)
         row = self.rows()[0]
@@ -302,7 +450,12 @@ class JobsCliTests(unittest.TestCase):
         )
 
         rejected = self.invoke(
-            "status", "job-0001", "--application-status", "rejected", "--format", "json",
+            "status",
+            "job-0001",
+            "--application-status",
+            "rejected",
+            "--format",
+            "json",
         )
         self.assertEqual(rejected.returncode, 0, rejected.stderr)
         row = self.rows()[0]
@@ -316,34 +469,47 @@ class JobsCliTests(unittest.TestCase):
         reviewing = self.invoke("status", "job-0001", "--application-status", "reviewing")
         self.assertEqual(reviewing.returncode, 0, reviewing.stderr)
         apply = self.invoke(
-            "status", "job-0001", "--application-status", "apply",
-            "--next-action", "submit application",
+            "status",
+            "job-0001",
+            "--application-status",
+            "apply",
+            "--next-action",
+            "submit application",
         )
         self.assertEqual(apply.returncode, 0, apply.stderr)
 
         self.assertEqual(
-            self.invoke("status", "job-0002", "--application-status", "applied").returncode, 0,
+            self.invoke("status", "job-0002", "--application-status", "applied").returncode,
+            0,
         )
         offer = self.invoke("status", "job-0002", "--application-status", "offer")
         self.assertEqual(offer.returncode, 0, offer.stderr)
 
         self.assertEqual(
-            self.invoke("status", "job-0003", "--application-status", "applied").returncode, 0,
+            self.invoke("status", "job-0003", "--application-status", "applied").returncode,
+            0,
         )
         ghosted = self.invoke("status", "job-0003", "--application-status", "ghosted")
         self.assertEqual(ghosted.returncode, 0, ghosted.stderr)
 
         self.assertEqual(
-            self.invoke("status", "job-0004", "--application-status", "applied").returncode, 0,
+            self.invoke("status", "job-0004", "--application-status", "applied").returncode,
+            0,
         )
         withdrawn = self.invoke("status", "job-0004", "--application-status", "withdrawn")
         self.assertEqual(withdrawn.returncode, 0, withdrawn.stderr)
 
         rows = self.rows()
-        self.assertEqual((rows[0]["application_status"], rows[0]["next_action"]), ("apply", "submit application"))
+        self.assertEqual(
+            (rows[0]["application_status"], rows[0]["next_action"]), ("apply", "submit application")
+        )
         self.assertEqual((rows[1]["application_status"], rows[1]["stage_reached"]), ("offer", "Offer"))
-        self.assertEqual((rows[2]["application_status"], rows[2]["decision_reason"]), ("ghosted", "no_response_timeout"))
-        self.assertEqual((rows[3]["application_status"], rows[3]["decision_reason"]), ("withdrawn", "withdrawn_by_me"))
+        self.assertEqual(
+            (rows[2]["application_status"], rows[2]["decision_reason"]), ("ghosted", "no_response_timeout")
+        )
+        self.assertEqual(
+            (rows[3]["application_status"], rows[3]["decision_reason"]), ("withdrawn", "withdrawn_by_me")
+        )
 
     def test_status_rejects_invented_post_application_history_without_writing(self):
         self.assertEqual(self.add("UnsafeLifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
@@ -374,20 +540,29 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
         apply_without_first_party = self.add(
-            "ApplyOnlyCo", "Frontend Developer",
-            "--original-url", "https://careers.example.test/apply-only",
-            "--apply-verified", "yes", "--no-file",
+            "ApplyOnlyCo",
+            "Frontend Developer",
+            "--original-url",
+            "https://careers.example.test/apply-only",
+            "--apply-verified",
+            "yes",
+            "--no-file",
         )
         self.assertNotEqual(apply_without_first_party.returncode, 0)
         self.assertIn("apply_verified=yes требует first_party_verified=yes", apply_without_first_party.stderr)
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
         valid = self.add(
-            "VerifiedCo", "Frontend Developer",
-            "--original-url", "https://careers.example.test/verified",
-            "--listing-status", "open",
-            "--first-party-verified", "yes",
-            "--apply-verified", "yes",
+            "VerifiedCo",
+            "Frontend Developer",
+            "--original-url",
+            "https://careers.example.test/verified",
+            "--listing-status",
+            "open",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
             "--no-file",
         )
         self.assertEqual(valid.returncode, 0, valid.stderr)
@@ -427,14 +602,33 @@ class JobsCliTests(unittest.TestCase):
 
     def test_verify_promotes_a_confirmed_candidate_and_creates_a_card(self):
         added = self.invoke(
-            "add", "--company", "CandidateCo", "--role", "Frontend Developer", "--source", "Himalayas",
-            "--source-url", "https://himalayas.app/jobs/candidate", "--source-job-id", "candidate-001", "--no-file",
+            "add",
+            "--company",
+            "CandidateCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Himalayas",
+            "--source-url",
+            "https://himalayas.app/jobs/candidate",
+            "--source-job-id",
+            "candidate-001",
+            "--no-file",
         )
         self.assertEqual(added.returncode, 0, added.stderr)
         verified = self.invoke(
-            "verify", "job-0001", "--listing-status", "open",
-            "--first-party-verified", "yes", "--apply-verified", "yes",
-            "--original-url", "https://careers.example.test/jobs/candidate", "--format", "json",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "open",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
+            "--original-url",
+            "https://careers.example.test/jobs/candidate",
+            "--format",
+            "json",
         )
         self.assertEqual(verified.returncode, 0, verified.stderr)
         payload = json.loads(verified.stdout)
@@ -449,8 +643,15 @@ class JobsCliTests(unittest.TestCase):
 
     def test_verify_syncs_an_existing_card_even_when_verification_fails(self):
         added = self.invoke(
-            "add", "--company", "StaleCardCo", "--role", "Frontend Developer",
-            "--source", "Manual", "--application-status", "apply",
+            "add",
+            "--company",
+            "StaleCardCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--application-status",
+            "apply",
         )
         self.assertEqual(added.returncode, 0, added.stderr)
         card_path = self.root / "applications" / "job-0001-stalecardco-frontend-developer.md"
@@ -458,10 +659,20 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("original_url: \n", card_path.read_text(encoding="utf-8"))
 
         failed = self.invoke(
-            "verify", "job-0001", "--listing-status", "closed",
-            "--first-party-verified", "yes", "--apply-verified", "no",
-            "--original-url", "https://careers.example.test/jobs/stale",
-            "--decision-reason", "closed_before_application", "--format", "json",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "closed",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "no",
+            "--original-url",
+            "https://careers.example.test/jobs/stale",
+            "--decision-reason",
+            "closed_before_application",
+            "--format",
+            "json",
         )
 
         self.assertEqual(failed.returncode, 0, failed.stderr)
@@ -479,8 +690,16 @@ class JobsCliTests(unittest.TestCase):
 
     def test_verify_migrates_missing_fields_in_legacy_application_card(self):
         added = self.invoke(
-            "add", "--company", "LegacyCo", "--role", "Product Engineer",
-            "--source", "Manual", "--application-status", "apply", "--no-file",
+            "add",
+            "--company",
+            "LegacyCo",
+            "--role",
+            "Product Engineer",
+            "--source",
+            "Manual",
+            "--application-status",
+            "apply",
+            "--no-file",
         )
         self.assertEqual(added.returncode, 0, added.stderr)
         card_path = self.root / "applications" / "job-0001-legacyco-product-engineer.md"
@@ -496,10 +715,18 @@ class JobsCliTests(unittest.TestCase):
         )
 
         verified = self.invoke(
-            "verify", "job-0001", "--listing-status", "open",
-            "--first-party-verified", "yes", "--apply-verified", "yes",
-            "--original-url", "https://careers.example.test/jobs/legacy",
-            "--format", "json",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "open",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
+            "--original-url",
+            "https://careers.example.test/jobs/legacy",
+            "--format",
+            "json",
         )
 
         self.assertEqual(verified.returncode, 0, verified.stderr)
@@ -510,25 +737,57 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("first_party_verified: yes", card)
         self.assertIn("apply_verified: yes", card)
         for field in (
-            "id", "company", "role", "original_url", "verified_at",
-            "listing_status", "first_party_verified", "apply_verified",
+            "id",
+            "company",
+            "role",
+            "original_url",
+            "verified_at",
+            "listing_status",
+            "first_party_verified",
+            "apply_verified",
         ):
             self.assertEqual(card.count(f"{field}:"), 1)
 
     def test_verify_can_enrich_safe_job_facts_in_the_same_transaction(self):
         added = self.invoke(
-            "add", "--company", "EnrichedCo", "--role", "Frontend Developer", "--source", "Himalayas",
-            "--source-url", "https://himalayas.app/jobs/enriched", "--source-job-id", "enriched-001", "--no-file",
+            "add",
+            "--company",
+            "EnrichedCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Himalayas",
+            "--source-url",
+            "https://himalayas.app/jobs/enriched",
+            "--source-job-id",
+            "enriched-001",
+            "--no-file",
         )
         self.assertEqual(added.returncode, 0, added.stderr)
 
         verified = self.invoke(
-            "verify", "job-0001", "--listing-status", "open",
-            "--first-party-verified", "yes", "--apply-verified", "yes",
-            "--original-url", "https://careers.example.test/jobs/enriched",
-            "--level", "Intern", "--remote-policy", "Europe",
-            "--stack", "React; TypeScript", "--salary", "1200 USD/month",
-            "--match-score", "8.5", "--format", "json",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "open",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
+            "--original-url",
+            "https://careers.example.test/jobs/enriched",
+            "--level",
+            "Intern",
+            "--remote-policy",
+            "Europe",
+            "--stack",
+            "React; TypeScript",
+            "--salary",
+            "1200 USD/month",
+            "--match-score",
+            "8.5",
+            "--format",
+            "json",
         )
 
         self.assertEqual(verified.returncode, 0, verified.stderr)
@@ -536,35 +795,60 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(
             {key: row[key] for key in ("level", "remote_policy", "stack", "salary", "match_score")},
             {
-                "level": "Intern", "remote_policy": "Europe", "stack": "React; TypeScript",
-                "salary": "1200 USD/month", "match_score": "8.5",
+                "level": "Intern",
+                "remote_policy": "Europe",
+                "stack": "React; TypeScript",
+                "salary": "1200 USD/month",
+                "match_score": "8.5",
             },
         )
 
     def test_verify_records_a_hard_blocker_without_creating_a_card(self):
         self.assertEqual(
             self.invoke(
-                "add", "--company", "GeoCo", "--role", "Frontend Developer", "--source", "Himalayas",
-                "--source-url", "https://himalayas.app/jobs/geo", "--source-job-id", "geo-001", "--no-file",
+                "add",
+                "--company",
+                "GeoCo",
+                "--role",
+                "Frontend Developer",
+                "--source",
+                "Himalayas",
+                "--source-url",
+                "https://himalayas.app/jobs/geo",
+                "--source-job-id",
+                "geo-001",
+                "--no-file",
             ).returncode,
             0,
         )
         blocked = self.invoke(
-            "verify", "job-0001", "--listing-status", "open",
-            "--first-party-verified", "yes", "--apply-verified", "yes",
-            "--original-url", "https://careers.example.test/jobs/geo",
-            "--decision-reason", "geo_restriction",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "open",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "yes",
+            "--original-url",
+            "https://careers.example.test/jobs/geo",
+            "--decision-reason",
+            "geo_restriction",
         )
         self.assertEqual(blocked.returncode, 0, blocked.stderr)
         row = self.rows()[0]
-        self.assertEqual((row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction"))
+        self.assertEqual(
+            (row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction")
+        )
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
 
     def test_screen_records_a_skip_without_claiming_first_party_verification(self):
         self.assertEqual(self.add("ScreenCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(
             self.invoke(
-                "set", "job-0001", "next_action=verify first-party",
+                "set",
+                "job-0001",
+                "next_action=verify first-party",
                 "next_action_date=2026-08-12",
             ).returncode,
             0,
@@ -572,16 +856,23 @@ class JobsCliTests(unittest.TestCase):
         before = self.rows()[0]
 
         screened = self.invoke(
-            "screen", "job-0001", "--decision-reason", "geo_restriction",
-            "--notes", "Discovery source restricts the role to Latin America.",
-            "--format", "json",
+            "screen",
+            "job-0001",
+            "--decision-reason",
+            "geo_restriction",
+            "--notes",
+            "Discovery source restricts the role to Latin America.",
+            "--format",
+            "json",
         )
 
         self.assertEqual(screened.returncode, 0, screened.stderr)
         payload = json.loads(screened.stdout)
         self.assertEqual((payload["command"], payload["outcome"]), ("screen", "screened_out"))
         row = self.rows()[0]
-        self.assertEqual((row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction"))
+        self.assertEqual(
+            (row["application_status"], row["decision_reason"]), ("not_started", "geo_restriction")
+        )
         self.assertEqual((row["next_action"], row["next_action_date"]), ("", ""))
         for field in ("listing_status", "verified_at", "first_party_verified", "apply_verified"):
             self.assertEqual(row[field], before[field])
@@ -602,9 +893,16 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         applied_at = self.rows()[0]["applied_at"]
         closed = self.invoke(
-            "verify", "job-0001", "--listing-status", "closed",
-            "--first-party-verified", "yes", "--apply-verified", "no",
-            "--original-url", "https://careers.example.test/jobs/closed",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "closed",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "no",
+            "--original-url",
+            "https://careers.example.test/jobs/closed",
         )
         self.assertEqual(closed.returncode, 0, closed.stderr)
         row = self.rows()[0]
@@ -625,7 +923,12 @@ class JobsCliTests(unittest.TestCase):
         long_ago = (business_date() - timedelta(days=90)).isoformat()
         self.assertEqual(
             self.invoke(
-                "status", "job-0001", "--application-status", "applied", "--applied-at", long_ago,
+                "status",
+                "job-0001",
+                "--application-status",
+                "applied",
+                "--applied-at",
+                long_ago,
             ).returncode,
             0,
         )
@@ -653,8 +956,13 @@ class JobsCliTests(unittest.TestCase):
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
         rejected = self.add(
-            "ReasonCo", "Frontend Developer", "--application-status", "reviewing",
-            "--decision-reason", "geo_restriction", "--no-file",
+            "ReasonCo",
+            "Frontend Developer",
+            "--application-status",
+            "reviewing",
+            "--decision-reason",
+            "geo_restriction",
+            "--no-file",
         )
 
         self.assertEqual(rejected.returncode, 1)
@@ -662,10 +970,16 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_stale_lists_only_active_candidates_and_never_mutates_dataset(self):
-        self.assertEqual(self.add("StaleCo", "Frontend Developer", "--match-score", "8", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add("StaleCo", "Frontend Developer", "--match-score", "8", "--no-file").returncode, 0
+        )
         self.assertEqual(
             self.add(
-                "SkippedCo", "Frontend Developer", "--decision-reason", "geo_restriction", "--no-file",
+                "SkippedCo",
+                "Frontend Developer",
+                "--decision-reason",
+                "geo_restriction",
+                "--no-file",
             ).returncode,
             0,
         )
@@ -673,7 +987,9 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.invoke("set", "job-0003", "listing_status=open").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
-        result = self.invoke("stale", "--days", "7", "--date", business_date().isoformat(), "--format", "json")
+        result = self.invoke(
+            "stale", "--days", "7", "--date", business_date().isoformat(), "--format", "json"
+        )
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
@@ -700,21 +1016,60 @@ class JobsCliTests(unittest.TestCase):
         reference = business_date()
         yesterday = (reference.fromordinal(reference.toordinal() - 1)).isoformat()
         tomorrow = (reference.fromordinal(reference.toordinal() + 1)).isoformat()
-        self.assertEqual(self.add("OverdueLow", "Frontend Developer", "--match-score", "6", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0001", "next_action=follow-up", f"next_action_date={yesterday}").returncode, 0)
-        self.assertEqual(self.add("OverdueHigh", "Frontend Developer", "--match-score", "9", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0002", "next_action=follow-up", f"next_action_date={yesterday}").returncode, 0)
+        self.assertEqual(
+            self.add("OverdueLow", "Frontend Developer", "--match-score", "6", "--no-file").returncode, 0
+        )
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0001", "next_action=follow-up", f"next_action_date={yesterday}"
+            ).returncode,
+            0,
+        )
+        self.assertEqual(
+            self.add("OverdueHigh", "Frontend Developer", "--match-score", "9", "--no-file").returncode, 0
+        )
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0002", "next_action=follow-up", f"next_action_date={yesterday}"
+            ).returncode,
+            0,
+        )
         self.assertEqual(self.add("TodayCo", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0003", "next_action=follow-up", f"next_action_date={reference.isoformat()}").returncode, 0)
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0003", "next_action=follow-up", f"next_action_date={reference.isoformat()}"
+            ).returncode,
+            0,
+        )
         self.assertEqual(self.add("FutureFollow", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0004", "next_action=follow-up", f"next_action_date={tomorrow}").returncode, 0)
-        self.assertEqual(self.add("ApplyCo", "Frontend Developer", "--application-status", "apply", "--no-file").returncode, 0)
-        self.assertEqual(self.add("ReviewCo", "Frontend Developer", "--application-status", "reviewing", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0004", "next_action=follow-up", f"next_action_date={tomorrow}"
+            ).returncode,
+            0,
+        )
+        self.assertEqual(
+            self.add(
+                "ApplyCo", "Frontend Developer", "--application-status", "apply", "--no-file"
+            ).returncode,
+            0,
+        )
+        self.assertEqual(
+            self.add(
+                "ReviewCo", "Frontend Developer", "--application-status", "reviewing", "--no-file"
+            ).returncode,
+            0,
+        )
         self.assertEqual(self.add("VerifyCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.add("InterviewCo", "Frontend Developer", "--no-file").returncode, 0)
         self.assertEqual(self.invoke("status", "job-0008", "--application-status", "applied").returncode, 0)
         self.assertEqual(self.invoke("set", "job-0008", "--stage", "Tech interview").returncode, 0)
-        self.assertEqual(self.invoke("set", "job-0008", "next_action=prepare technical interview", f"next_action_date={tomorrow}").returncode, 0)
+        self.assertEqual(
+            self.invoke(
+                "set", "job-0008", "next_action=prepare technical interview", f"next_action_date={tomorrow}"
+            ).returncode,
+            0,
+        )
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
         result = self.invoke("todo", "--date", reference.isoformat(), "--format", "json")
@@ -722,10 +1077,18 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         sections = payload["sections"]
-        self.assertEqual(payload["section_order"], [
-            "overdue", "today", "follow_ups", "apply_not_submitted", "stale_review",
-            "verification_queue", "upcoming_interview_test",
-        ])
+        self.assertEqual(
+            payload["section_order"],
+            [
+                "overdue",
+                "today",
+                "follow_ups",
+                "apply_not_submitted",
+                "stale_review",
+                "verification_queue",
+                "upcoming_interview_test",
+            ],
+        )
         self.assertEqual([item["id"] for item in sections["overdue"]], ["job-0002", "job-0001"])
         self.assertEqual([item["id"] for item in sections["today"]], ["job-0003"])
         self.assertEqual([item["id"] for item in sections["follow_ups"]], ["job-0004"])
@@ -741,13 +1104,27 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.invoke("status", "job-0001", "--application-status", "applied").returncode, 0)
         self.assertEqual(
             self.add(
-                "AppliedVerified", "Frontend Developer", "--application-status", "reviewing",
-                "--listing-status", "open", "--original-url", "https://careers.example.test/verified",
-                "--first-party-verified", "yes", "--apply-verified", "yes", "--force", "--no-file",
-            ).returncode, 0,
+                "AppliedVerified",
+                "Frontend Developer",
+                "--application-status",
+                "reviewing",
+                "--listing-status",
+                "open",
+                "--original-url",
+                "https://careers.example.test/verified",
+                "--first-party-verified",
+                "yes",
+                "--apply-verified",
+                "yes",
+                "--force",
+                "--no-file",
+            ).returncode,
+            0,
         )
         self.assertEqual(self.invoke("status", "job-0002", "--application-status", "applied").returncode, 0)
-        self.assertEqual(self.add("RejectedUnverified", "Frontend Developer", "--force", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add("RejectedUnverified", "Frontend Developer", "--force", "--no-file").returncode, 0
+        )
         self.assertEqual(self.invoke("status", "job-0003", "--application-status", "applied").returncode, 0)
         self.assertEqual(self.invoke("status", "job-0003", "--application-status", "rejected").returncode, 0)
         before = (self.root / "data" / "jobs.csv").read_bytes()
@@ -765,33 +1142,56 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(self.add("ManualCo", "Frontend Developer", "--no-file").returncode, 0)
         for number in (2, 3):
             added = self.invoke(
-                "add", "--company", f"Himalayas {number}", "--role", "Frontend Developer",
-                "--source", "Himalayas", "--source-url", f"https://himalayas.app/jobs/{number}", "--force", "--no-file",
+                "add",
+                "--company",
+                f"Himalayas {number}",
+                "--role",
+                "Frontend Developer",
+                "--source",
+                "Himalayas",
+                "--source-url",
+                f"https://himalayas.app/jobs/{number}",
+                "--force",
+                "--no-file",
             )
             self.assertEqual(added.returncode, 0, added.stderr)
         before = (self.root / "data" / "jobs.csv").read_bytes()
 
         result = self.invoke(
-            "todo", "--source", "Himalayas", "--id-range", "job-0003:job-0003", "--format", "json",
+            "todo",
+            "--source",
+            "Himalayas",
+            "--id-range",
+            "job-0003:job-0003",
+            "--format",
+            "json",
         )
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["filters"], {"source": "Himalayas", "id_range": "job-0003:job-0003"})
         self.assertEqual([item["id"] for item in payload["sections"]["verification_queue"]], ["job-0003"])
-        self.assertTrue(all(
-            item["id"] == "job-0003"
-            for section in payload["sections"].values()
-            for item in section
-        ))
+        self.assertTrue(
+            all(item["id"] == "job-0003" for section in payload["sections"].values() for item in section)
+        )
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_stats_and_report_use_structured_v2_fields(self):
         self.assertEqual(
             self.add(
-                "VerifiedCo", "Frontend Developer", "--application-status", "reviewing",
-                "--listing-status", "open", "--original-url", "https://careers.example.test/verified",
-                "--first-party-verified", "yes", "--apply-verified", "yes", "--no-file",
+                "VerifiedCo",
+                "Frontend Developer",
+                "--application-status",
+                "reviewing",
+                "--listing-status",
+                "open",
+                "--original-url",
+                "https://careers.example.test/verified",
+                "--first-party-verified",
+                "yes",
+                "--apply-verified",
+                "yes",
+                "--no-file",
             ).returncode,
             0,
         )
@@ -811,9 +1211,18 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(payload["stale"]["count"], 1)
         self.assertEqual(payload["funnel"]["applications"], 1)
         self.assertEqual(payload["funnel"]["responses"], 1)
-        self.assertEqual(payload["sources"], [{
-            "source": "Manual", "found": 2, "applied": 1, "responses": 1, "response_rate": 100.0,
-        }])
+        self.assertEqual(
+            payload["sources"],
+            [
+                {
+                    "source": "Manual",
+                    "found": 2,
+                    "applied": 1,
+                    "responses": 1,
+                    "response_rate": 100.0,
+                }
+            ],
+        )
         report = self.invoke("report", "--date", business_date().isoformat())
         self.assertEqual(report.returncode, 0, report.stderr)
         self.assertIn("## Verification coverage", report.stdout)
@@ -823,8 +1232,13 @@ class JobsCliTests(unittest.TestCase):
     def test_report_leads_with_derived_state_and_lists_open_as_a_property(self):
         self.assertEqual(
             self.add(
-                "OpenButSkippedCo", "Frontend Developer", "--listing-status", "open",
-                "--decision-reason", "geo_restriction", "--no-file",
+                "OpenButSkippedCo",
+                "Frontend Developer",
+                "--listing-status",
+                "open",
+                "--decision-reason",
+                "geo_restriction",
+                "--no-file",
             ).returncode,
             0,
         )
@@ -838,7 +1252,9 @@ class JobsCliTests(unittest.TestCase):
         self.assertIn("## Основной статус", report.stdout)
         self.assertIn("| Skipped: geo_restriction | 1 |", report.stdout)
         self.assertIn("## Свойства объявлений", report.stdout)
-        self.assertLess(report.stdout.index("## Основной статус"), report.stdout.index("## Свойства объявлений"))
+        self.assertLess(
+            report.stdout.index("## Основной статус"), report.stdout.index("## Свойства объявлений")
+        )
 
     def test_rejected_write_does_not_change_csv(self):
         self.assertEqual(self.add("SafeCo", "Frontend Developer", "--no-file").returncode, 0)
@@ -850,7 +1266,9 @@ class JobsCliTests(unittest.TestCase):
 
     def test_fuzzy_dupes_and_report(self):
         self.assertEqual(self.add("CoinsPaid", "Frontend Developer", "--no-file").returncode, 0)
-        self.assertEqual(self.add("Coins Paid", "Software Engineer, Frontend", "--force", "--no-file").returncode, 0)
+        self.assertEqual(
+            self.add("Coins Paid", "Software Engineer, Frontend", "--force", "--no-file").returncode, 0
+        )
         dupes = self.invoke("dupes")
         self.assertEqual(dupes.returncode, 0)
         self.assertIn("пар-кандидатов: 1", dupes.stdout)
@@ -862,22 +1280,24 @@ class JobsCliTests(unittest.TestCase):
         with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
             fields = csv.DictReader(file).fieldnames
         row = {field: "" for field in fields}
-        row.update({
-            "id": f"job-{number:04d}",
-            "application_status": "not_started",
-            "listing_status": "unknown",
-            "company": f"Company {number}",
-            "role": "Frontend Developer",
-            "level": "Unknown",
-            "source": "Manual",
-            "remote_policy": "Unclear",
-            "salary": "Unknown",
-            "found_at": "2026-08-01",
-            "stage_reached": "None",
-            "first_party_verified": "unknown",
-            "apply_verified": "unknown",
-            "last_update": "2026-08-10",
-        })
+        row.update(
+            {
+                "id": f"job-{number:04d}",
+                "application_status": "not_started",
+                "listing_status": "unknown",
+                "company": f"Company {number}",
+                "role": "Frontend Developer",
+                "level": "Unknown",
+                "source": "Manual",
+                "remote_policy": "Unclear",
+                "salary": "Unknown",
+                "found_at": "2026-08-01",
+                "stage_reached": "None",
+                "first_party_verified": "unknown",
+                "apply_verified": "unknown",
+                "last_update": "2026-08-10",
+            }
+        )
         row.update(changes)
         return row
 
@@ -897,28 +1317,111 @@ class JobsCliTests(unittest.TestCase):
 
     def test_render_tracker_classifies_every_status_once_and_renders_links(self):
         rows = [
-            self.tracker_row(1, listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/one", match_score="7", next_action="prepare CV", next_action_date="2026-08-13"),
-            self.tracker_row(2, application_status="reviewing", listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/two", match_score="8"),
-            self.tracker_row(3, application_status="apply", listing_status="open", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/three", match_score="9"),
+            self.tracker_row(
+                1,
+                listing_status="open",
+                first_party_verified="yes",
+                apply_verified="yes",
+                verified_at="2026-08-09",
+                original_url="https://careers.example.test/one",
+                match_score="7",
+                next_action="prepare CV",
+                next_action_date="2026-08-13",
+            ),
+            self.tracker_row(
+                2,
+                application_status="reviewing",
+                listing_status="open",
+                first_party_verified="yes",
+                apply_verified="yes",
+                verified_at="2026-08-09",
+                original_url="https://careers.example.test/two",
+                match_score="8",
+            ),
+            self.tracker_row(
+                3,
+                application_status="apply",
+                listing_status="open",
+                first_party_verified="yes",
+                apply_verified="yes",
+                verified_at="2026-08-09",
+                original_url="https://careers.example.test/three",
+                match_score="9",
+            ),
             self.tracker_row(4),
-            self.tracker_row(5, application_status="reviewing", listing_status="open", first_party_verified="no", apply_verified="no", verified_at="2026-08-09"),
-            self.tracker_row(6, application_status="apply", first_party_verified="yes", apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/six"),
-            self.tracker_row(7, application_status="applied", listing_status="closed", applied_at="2026-08-05", stage_reached="Applied"),
-            self.tracker_row(8, application_status="interviewing", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Tech interview"),
-            self.tracker_row(9, application_status="offer", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Offer"),
-            self.tracker_row(10, application_status="rejected", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Recruiter screen"),
-            self.tracker_row(11, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"),
-            self.tracker_row(12, application_status="withdrawn", applied_at="2026-08-05", stage_reached="Applied", decision_reason="withdrawn_by_me"),
+            self.tracker_row(
+                5,
+                application_status="reviewing",
+                listing_status="open",
+                first_party_verified="no",
+                apply_verified="no",
+                verified_at="2026-08-09",
+            ),
+            self.tracker_row(
+                6,
+                application_status="apply",
+                first_party_verified="yes",
+                apply_verified="yes",
+                verified_at="2026-08-09",
+                original_url="https://careers.example.test/six",
+            ),
+            self.tracker_row(
+                7,
+                application_status="applied",
+                listing_status="closed",
+                applied_at="2026-08-05",
+                stage_reached="Applied",
+            ),
+            self.tracker_row(
+                8,
+                application_status="interviewing",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Tech interview",
+            ),
+            self.tracker_row(
+                9,
+                application_status="offer",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Offer",
+            ),
+            self.tracker_row(
+                10,
+                application_status="rejected",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Recruiter screen",
+            ),
+            self.tracker_row(
+                11, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"
+            ),
+            self.tracker_row(
+                12,
+                application_status="withdrawn",
+                applied_at="2026-08-05",
+                stage_reached="Applied",
+                decision_reason="withdrawn_by_me",
+            ),
             self.tracker_row(13, listing_status="closed", decision_reason="closed_before_application"),
             self.tracker_row(14, listing_status="open", decision_reason="geo_restriction"),
             self.tracker_row(15, decision_reason="duplicate_listing", notes="Duplicate of job-0001"),
-            self.tracker_row(16, company="Acme | [Web] <script> `do` *bold*", original_url="https://careers.example.test/special"),
+            self.tracker_row(
+                16,
+                company="Acme | [Web] <script> `do` *bold*",
+                original_url="https://careers.example.test/special",
+            ),
             self.tracker_row(17, source_url="", original_url=""),
         ]
-        source_rows = [{
-            "job_id": "job-0017", "source": "Manual",
-            "source_url": "https://source.example.test/primary", "source_job_id": "", "found_at": "2026-08-01",
-        }]
+        source_rows = [
+            {
+                "job_id": "job-0017",
+                "source": "Manual",
+                "source_url": "https://source.example.test/primary",
+                "source_job_id": "",
+                "found_at": "2026-08-01",
+            }
+        ]
         self.write_tracker_dataset(rows, source_rows)
         (self.root / "applications" / "job-0001-example.md").write_text("# Card\n", encoding="utf-8")
 
@@ -926,29 +1429,36 @@ class JobsCliTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(payload, {
-            "ok": True,
-            "command": "render-tracker",
-            "path": "docs/tracker.md",
-            "up_to_date": True,
-            "counts": {"action_now": 3, "applications": 6, "to_verify": 5, "archive": 3},
-        })
+        self.assertEqual(
+            payload,
+            {
+                "ok": True,
+                "command": "render-tracker",
+                "path": "docs/tracker.md",
+                "up_to_date": True,
+                "counts": {"action_now": 3, "applications": 6, "to_verify": 5, "archive": 3},
+            },
+        )
         tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
         self.assertIn("Dataset updated: **2026-08-10** · Jobs: **17**", tracker)
         self.assertIn("[Action now (3)](#action-now)", tracker)
         self.assertIn("Ready to apply", tracker)
         self.assertIn("Not checked", tracker)
         self.assertIn("Skipped: geo restriction", tracker)
-        self.assertIn("[Company 1 — Frontend Developer](<https://careers.example.test/one>) · job-0001", tracker)
-        self.assertIn("[Company 17 — Frontend Developer](<https://source.example.test/primary>) · job-0017", tracker)
+        self.assertIn(
+            "[Company 1 — Frontend Developer](<https://careers.example.test/one>) · job-0001", tracker
+        )
+        self.assertIn(
+            "[Company 17 — Frontend Developer](<https://source.example.test/primary>) · job-0017", tracker
+        )
         self.assertIn("[Open](../applications/job-0001-example.md)", tracker)
         self.assertIn(r"Acme \| \[Web\] \<script\> \`do\` \*bold\*", tracker)
         self.assertIn("First party + Apply + Listing", tracker)
         self.assertIn("<details>", tracker)
-        action_now = tracker[tracker.index("## Action now"):tracker.index("## Applications")]
-        applications = tracker[tracker.index("## Applications"):tracker.index("## To verify")]
-        to_verify = tracker[tracker.index("## To verify"):tracker.index("## Archive")]
-        archive = tracker[tracker.index("## Archive"):]
+        action_now = tracker[tracker.index("## Action now") : tracker.index("## Applications")]
+        applications = tracker[tracker.index("## Applications") : tracker.index("## To verify")]
+        to_verify = tracker[tracker.index("## To verify") : tracker.index("## Archive")]
+        archive = tracker[tracker.index("## Archive") :]
         self.assertIn("job-0003", action_now)
         self.assertIn("job-0007", applications)
         self.assertIn("job-0006", to_verify)
@@ -960,8 +1470,12 @@ class JobsCliTests(unittest.TestCase):
 
     def test_render_tracker_is_deterministic_and_check_is_read_only(self):
         row = self.tracker_row(
-            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
-            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+            1,
+            listing_status="open",
+            first_party_verified="yes",
+            apply_verified="yes",
+            verified_at="2026-08-09",
+            original_url="https://careers.example.test/one",
         )
         self.write_tracker_dataset([row])
         jobs_before = (self.root / "data" / "jobs.csv").read_bytes()
@@ -993,8 +1507,13 @@ class JobsCliTests(unittest.TestCase):
 
         self.assertEqual(self.invoke("render-tracker").returncode, 0)
         changed = self.tracker_row(
-            1, company="Changed Company", listing_status="open", first_party_verified="yes",
-            apply_verified="yes", verified_at="2026-08-09", original_url="https://careers.example.test/one",
+            1,
+            company="Changed Company",
+            listing_status="open",
+            first_party_verified="yes",
+            apply_verified="yes",
+            verified_at="2026-08-09",
+            original_url="https://careers.example.test/one",
         )
         self.write_tracker_dataset([changed])
         changed_check = self.invoke("render-tracker", "--check", "--format", "json")
@@ -1003,8 +1522,12 @@ class JobsCliTests(unittest.TestCase):
 
     def test_render_tracker_finds_legacy_dashless_card_names(self):
         row = self.tracker_row(
-            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
-            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+            1,
+            listing_status="open",
+            first_party_verified="yes",
+            apply_verified="yes",
+            verified_at="2026-08-09",
+            original_url="https://careers.example.test/one",
         )
         self.write_tracker_dataset([row])
         (self.root / "applications" / "job-0001.md").write_text("# Legacy card\n", encoding="utf-8")
@@ -1017,8 +1540,12 @@ class JobsCliTests(unittest.TestCase):
 
     def test_render_tracker_rejects_invalid_data_or_ambiguous_cards_without_overwriting(self):
         row = self.tracker_row(
-            1, listing_status="open", first_party_verified="yes", apply_verified="yes",
-            verified_at="2026-08-09", original_url="https://careers.example.test/one",
+            1,
+            listing_status="open",
+            first_party_verified="yes",
+            apply_verified="yes",
+            verified_at="2026-08-09",
+            original_url="https://careers.example.test/one",
         )
         self.write_tracker_dataset([row])
         self.assertEqual(self.invoke("render-tracker").returncode, 0)
@@ -1044,9 +1571,15 @@ class JobsCliTests(unittest.TestCase):
         result = self.invoke("render-tracker", "--format", "json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(json.loads(result.stdout)["counts"], {
-            "action_now": 0, "applications": 0, "to_verify": 0, "archive": 0,
-        })
+        self.assertEqual(
+            json.loads(result.stdout)["counts"],
+            {
+                "action_now": 0,
+                "applications": 0,
+                "to_verify": 0,
+                "archive": 0,
+            },
+        )
         tracker = (self.root / "docs" / "tracker.md").read_text(encoding="utf-8")
         self.assertEqual(tracker.count("No jobs."), 4)
         self.assertIn("<summary>Archive (0)</summary>", tracker)
@@ -1055,12 +1588,44 @@ class JobsCliTests(unittest.TestCase):
         rows = [
             self.tracker_row(1, application_status="not_started", listing_status="unknown"),
             self.tracker_row(2, application_status="reviewing", listing_status="open"),
-            self.tracker_row(3, application_status="applied", listing_status="closed", applied_at="2026-08-05", stage_reached="Applied"),
-            self.tracker_row(4, application_status="interviewing", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Tech interview"),
-            self.tracker_row(5, application_status="offer", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Offer"),
-            self.tracker_row(6, application_status="rejected", applied_at="2026-08-05", response_at="2026-08-06", stage_reached="Recruiter screen"),
-            self.tracker_row(7, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"),
-            self.tracker_row(8, application_status="withdrawn", applied_at="2026-08-05", stage_reached="Applied", decision_reason="withdrawn_by_me"),
+            self.tracker_row(
+                3,
+                application_status="applied",
+                listing_status="closed",
+                applied_at="2026-08-05",
+                stage_reached="Applied",
+            ),
+            self.tracker_row(
+                4,
+                application_status="interviewing",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Tech interview",
+            ),
+            self.tracker_row(
+                5,
+                application_status="offer",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Offer",
+            ),
+            self.tracker_row(
+                6,
+                application_status="rejected",
+                applied_at="2026-08-05",
+                response_at="2026-08-06",
+                stage_reached="Recruiter screen",
+            ),
+            self.tracker_row(
+                7, application_status="ghosted", applied_at="2026-08-05", stage_reached="Applied"
+            ),
+            self.tracker_row(
+                8,
+                application_status="withdrawn",
+                applied_at="2026-08-05",
+                stage_reached="Applied",
+                decision_reason="withdrawn_by_me",
+            ),
             self.tracker_row(9, listing_status="closed", decision_reason="closed_before_application"),
             self.tracker_row(10, decision_reason="geo_restriction"),
         ]
@@ -1086,9 +1651,27 @@ class JobsCliTests(unittest.TestCase):
             self.tracker_row(3, company="Gamma LLC"),
         ]
         source_rows = [
-            {"job_id": "job-0001", "source": "Himalayas", "source_url": "https://himalayas.app/companies/acme/jobs/1", "source_job_id": "", "found_at": "2026-08-01"},
-            {"job_id": "job-0002", "source": "Himalayas", "source_url": "https://himalayas.app/companies/beta/jobs/2", "source_job_id": "", "found_at": "2026-08-01"},
-            {"job_id": "job-0003", "source": "Manual", "source_url": "", "source_job_id": "manual-ref-1", "found_at": "2026-08-01"},
+            {
+                "job_id": "job-0001",
+                "source": "Himalayas",
+                "source_url": "https://himalayas.app/companies/acme/jobs/1",
+                "source_job_id": "",
+                "found_at": "2026-08-01",
+            },
+            {
+                "job_id": "job-0002",
+                "source": "Himalayas",
+                "source_url": "https://himalayas.app/companies/beta/jobs/2",
+                "source_job_id": "",
+                "found_at": "2026-08-01",
+            },
+            {
+                "job_id": "job-0003",
+                "source": "Manual",
+                "source_url": "",
+                "source_job_id": "manual-ref-1",
+                "found_at": "2026-08-01",
+            },
         ]
         self.write_tracker_dataset(rows, source_rows)
 
@@ -1172,21 +1755,35 @@ class TrackerSectionTotalityTests(unittest.TestCase):
     def test_every_validated_row_lands_in_exactly_one_section(self):
         base = {field: "" for field in jobs.FIELDS}
         base.update(
-            id="job-0001", company="Company", role="Frontend Developer",
-            source="Manual", found_at="2026-08-01", last_update="2026-08-01",
+            id="job-0001",
+            company="Company",
+            role="Frontend Developer",
+            source="Manual",
+            found_at="2026-08-01",
+            last_update="2026-08-01",
             notes="job-0002 original",
         )
         checked = 0
         for application_status, listing_status, reason, first_party, apply_verified in itertools.product(
-            jobs.APPLICATION_STATUSES, jobs.LISTING_STATUSES, ("", *jobs.REASONS),
-            jobs.VERIFICATION, jobs.VERIFICATION,
+            jobs.APPLICATION_STATUSES,
+            jobs.LISTING_STATUSES,
+            ("", *jobs.REASONS),
+            jobs.VERIFICATION,
+            jobs.VERIFICATION,
         ):
             for applied_at, response_at, stage, original_url, verified_at in self.SHAPES:
                 row = dict(
-                    base, application_status=application_status, listing_status=listing_status,
-                    decision_reason=reason, first_party_verified=first_party,
-                    apply_verified=apply_verified, applied_at=applied_at, response_at=response_at,
-                    stage_reached=stage, original_url=original_url, verified_at=verified_at,
+                    base,
+                    application_status=application_status,
+                    listing_status=listing_status,
+                    decision_reason=reason,
+                    first_party_verified=first_party,
+                    apply_verified=apply_verified,
+                    applied_at=applied_at,
+                    response_at=response_at,
+                    stage_reached=stage,
+                    original_url=original_url,
+                    verified_at=verified_at,
                 )
                 errors, _warnings = jobs.validate_rows([row])
                 if errors:

@@ -44,7 +44,8 @@ def backfill_source_references(job_rows, source_rows):
         reference = jobs.build_source_reference(job_id, job, job["found_at"])
         normalized = jobs.norm_url(reference["source_url"])
         shared_url = any(
-            existing["source_url"] and jobs.norm_url(existing["source_url"]) == normalized
+            existing["source_url"]
+            and jobs.norm_url(existing["source_url"]) == normalized
             and existing["job_id"] != job_id
             for existing in prepared_rows
         )
@@ -70,7 +71,9 @@ def print_backfill_summary(summary, changed):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--check", action="store_true", help="report the backfill without writing it")
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args()
@@ -82,13 +85,19 @@ def main():
     if args.format == "json":
         if not args.check:
             jobs.save_job_sources(new_source_rows)
-        print(json.dumps({
-            "ok": True,
-            "command": "backfill-sources",
-            "mode": "check" if args.check else "apply",
-            "summary": summary,
-            "saved": not args.check,
-        }, ensure_ascii=False, sort_keys=True))
+        print(
+            json.dumps(
+                {
+                    "ok": True,
+                    "command": "backfill-sources",
+                    "mode": "check" if args.check else "apply",
+                    "summary": summary,
+                    "saved": not args.check,
+                },
+                ensure_ascii=False,
+                sort_keys=True,
+            )
+        )
         return 0
     print_backfill_summary(summary, changed=not args.check)
     if args.check:

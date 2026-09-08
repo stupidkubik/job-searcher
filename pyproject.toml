@@ -1,6 +1,10 @@
 [tool.ruff]
 line-length = 110
 target-version = "py312"
+# Only scripts/ and tests/ are Python source; ruff also formats/lints fenced
+# Python in Markdown by default, which would rewrite embedded code samples in
+# historical docs/reports/*.md and corrupt what they record as-of their date.
+include = ["scripts/**/*.py", "tests/**/*.py"]
 
 [tool.ruff.format]
 quote-style = "double"

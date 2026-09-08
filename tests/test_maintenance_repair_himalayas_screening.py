@@ -36,14 +36,18 @@ class RepairHimalayasScreeningTests(unittest.TestCase):
 
     def invoke_repair(self, *arguments):
         return subprocess.run(
-            [sys.executable, SCRIPT, *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, SCRIPT, *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_jobs(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self):
@@ -58,25 +62,27 @@ class RepairHimalayasScreeningTests(unittest.TestCase):
         for number in range(99, 127):
             job_id = f"job-{number:04d}"
             row = {field: "" for field in fields}
-            row.update({
-                "id": job_id,
-                "application_status": "not_started",
-                "listing_status": "open",
-                "company": f"Himalayas Co {number}",
-                "role": "Frontend Developer",
-                "level": "Unknown",
-                "source": "Himalayas",
-                "remote_policy": "Unclear",
-                "salary": "Unknown",
-                "found_at": "2026-08-11",
-                "stage_reached": "None",
-                "decision_reason": "geo_restriction",
-                "verified_at": "2026-08-11",
-                "first_party_verified": "no",
-                "apply_verified": "no",
-                "last_update": "2026-08-11",
-                "notes": f"Preserve note {number}",
-            })
+            row.update(
+                {
+                    "id": job_id,
+                    "application_status": "not_started",
+                    "listing_status": "open",
+                    "company": f"Himalayas Co {number}",
+                    "role": "Frontend Developer",
+                    "level": "Unknown",
+                    "source": "Himalayas",
+                    "remote_policy": "Unclear",
+                    "salary": "Unknown",
+                    "found_at": "2026-08-11",
+                    "stage_reached": "None",
+                    "decision_reason": "geo_restriction",
+                    "verified_at": "2026-08-11",
+                    "first_party_verified": "no",
+                    "apply_verified": "no",
+                    "last_update": "2026-08-11",
+                    "notes": f"Preserve note {number}",
+                }
+            )
             if job_id in exclusions:
                 row["original_url"] = f"https://careers.example.test/{job_id}"
                 row["first_party_verified"] = "yes"
@@ -116,9 +122,15 @@ class RepairHimalayasScreeningTests(unittest.TestCase):
         after = {row["id"]: row for row in self.rows()}
         for job_id in target_ids:
             self.assertEqual(
-                {key: after[job_id][key] for key in (
-                    "listing_status", "first_party_verified", "apply_verified", "verified_at",
-                )},
+                {
+                    key: after[job_id][key]
+                    for key in (
+                        "listing_status",
+                        "first_party_verified",
+                        "apply_verified",
+                        "verified_at",
+                    )
+                },
                 {
                     "listing_status": "unknown",
                     "first_party_verified": "unknown",

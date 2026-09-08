@@ -55,8 +55,7 @@ class MalformedHistoryClient:
     def iter_messages(self, peer_id, *, limit, min_id, offset_date, reverse):
         async def iterate():
             selected = [
-                message for message in self.messages
-                if not isinstance(message.id, int) or message.id > min_id
+                message for message in self.messages if not isinstance(message.id, int) or message.id > min_id
             ]
             for message in sorted(selected, key=lambda item: item.id or 0)[:limit]:
                 self.yielded.append(message.id)
@@ -96,9 +95,14 @@ class FakeClient:
         return self.entities.get(peer_id, SimpleNamespace(title="Channel", username=None))
 
     def iter_messages(self, peer_id, *, limit, min_id, offset_date, reverse):
-        self.iter_calls.append({
-            "peer_id": peer_id, "limit": limit, "min_id": min_id, "reverse": reverse,
-        })
+        self.iter_calls.append(
+            {
+                "peer_id": peer_id,
+                "limit": limit,
+                "min_id": min_id,
+                "reverse": reverse,
+            }
+        )
         self.offset_dates.append(offset_date)
 
         async def iterate():
@@ -187,12 +191,14 @@ class FakeLeadDomain:
 
     def commit_lead_batch(self, data_dir, leads, cursor_updates, *, run_at):
         assert self.locked
-        self.commits.append({
-            "data_dir": data_dir,
-            "leads": leads,
-            "cursor_updates": cursor_updates,
-            "run_at": run_at,
-        })
+        self.commits.append(
+            {
+                "data_dir": data_dir,
+                "leads": leads,
+                "cursor_updates": cursor_updates,
+                "run_at": run_at,
+            }
+        )
         for peer_id, message_id in cursor_updates.items():
             self.state["peers"][str(peer_id)] = {"last_message_id": message_id}
         self.seen.update(lead["identity"] for lead in leads)
@@ -202,10 +208,14 @@ class FakeLeadDomain:
 class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
     async def test_initial_pull_starts_at_retention_cutoff_instead_of_oldest_history(self):
         peer_id = -100123
-        client = FakeClient({peer_id: [
-            FakeMessage(1, "old frontend", age_hours=24 * 30),
-            FakeMessage(2, "recent frontend", age_hours=24),
-        ]})
+        client = FakeClient(
+            {
+                peer_id: [
+                    FakeMessage(1, "old frontend", age_hours=24 * 30),
+                    FakeMessage(2, "recent frontend", age_hours=24),
+                ]
+            }
+        )
         domain = FakeLeadDomain()
         with patch.object(import_telegram, "telegram_leads", domain):
             summary = await import_telegram.collect_pull(
@@ -224,14 +234,18 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_fake_client_pull_runs_end_to_end_with_real_domain_and_storage(self):
         peer_id = -100123
-        client = FakeClient({
-            peer_id: [FakeMessage(
-                15,
-                "Frontend https://jobs.example.test/15",
-                edit_date=NOW - timedelta(minutes=5),
-                fwd_from=SimpleNamespace(from_name="Recruiter", channel_id=None, from_id=None),
-            )],
-        })
+        client = FakeClient(
+            {
+                peer_id: [
+                    FakeMessage(
+                        15,
+                        "Frontend https://jobs.example.test/15",
+                        edit_date=NOW - timedelta(minutes=5),
+                        fwd_from=SimpleNamespace(from_name="Recruiter", channel_id=None, from_id=None),
+                    )
+                ],
+            }
+        )
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)
             summary = await import_telegram.collect_pull(
@@ -254,19 +268,23 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
     async def test_pull_is_bounded_to_allowlist_and_keeps_edit_metadata(self):
         peer_id = -100123
         edited_at = NOW - timedelta(minutes=10)
-        client = FakeClient({
-            peer_id: [
-                FakeMessage(14, "Frontend role", edit_date=edited_at),
-                FakeMessage(13, "https://jobs.example.test/role"),
-                FakeMessage(12, "unrelated announcement"),
-                FakeMessage(11, "old frontend", age_hours=24 * 8),
-            ],
-            -100999: [FakeMessage(50, "frontend outside allowlist")],
-        })
-        domain = FakeLeadDomain(state={
-            "version": 1,
-            "peers": {str(peer_id): {"last_message_id": 10}},
-        })
+        client = FakeClient(
+            {
+                peer_id: [
+                    FakeMessage(14, "Frontend role", edit_date=edited_at),
+                    FakeMessage(13, "https://jobs.example.test/role"),
+                    FakeMessage(12, "unrelated announcement"),
+                    FakeMessage(11, "old frontend", age_hours=24 * 8),
+                ],
+                -100999: [FakeMessage(50, "frontend outside allowlist")],
+            }
+        )
+        domain = FakeLeadDomain(
+            state={
+                "version": 1,
+                "peers": {str(peer_id): {"last_message_id": 10}},
+            }
+        )
         with patch.object(import_telegram, "telegram_leads", domain):
             summary = await import_telegram.collect_pull(
                 client,
@@ -279,21 +297,39 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
             )
 
         self.assertEqual(client.entity_calls, [peer_id])
-        self.assertEqual(client.iter_calls, [{
-            "peer_id": peer_id, "limit": 26, "min_id": 10, "reverse": True,
-        }])
-        self.assertEqual(client.yielded, [
-            (peer_id, 11), (peer_id, 12), (peer_id, 13), (peer_id, 14),
-        ])
+        self.assertEqual(
+            client.iter_calls,
+            [
+                {
+                    "peer_id": peer_id,
+                    "limit": 26,
+                    "min_id": 10,
+                    "reverse": True,
+                }
+            ],
+        )
+        self.assertEqual(
+            client.yielded,
+            [
+                (peer_id, 11),
+                (peer_id, 12),
+                (peer_id, 13),
+                (peer_id, 14),
+            ],
+        )
         self.assertNotIn((-100999, 50), client.yielded)
         self.assertEqual(summary["fetched"], 4)
         self.assertEqual(summary["matched"], 2)
         self.assertEqual(summary["written"], 2)
         self.assertEqual(domain.build_calls[-1]["edited_at"], edited_at)
         self.assertEqual(domain.commits[0]["cursor_updates"], {peer_id: 14})
-        self.assertEqual(domain.lock_events, [
-            ("enter", Path("/local/telegram")), ("exit", Path("/local/telegram")),
-        ])
+        self.assertEqual(
+            domain.lock_events,
+            [
+                ("enter", Path("/local/telegram")),
+                ("exit", Path("/local/telegram")),
+            ],
+        )
 
     async def test_empty_channel_still_commits_successful_cursor_transaction(self):
         peer_id = -100123
@@ -320,12 +356,13 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_exact_n_messages_is_not_reported_as_backlog(self):
         peer_id = -100123
-        client = FakeClient({peer_id: [
-            FakeMessage(message_id, "frontend") for message_id in (13, 12, 11)
-        ]})
-        domain = FakeLeadDomain(state={
-            "version": 1, "peers": {str(peer_id): {"last_message_id": 10}},
-        })
+        client = FakeClient({peer_id: [FakeMessage(message_id, "frontend") for message_id in (13, 12, 11)]})
+        domain = FakeLeadDomain(
+            state={
+                "version": 1,
+                "peers": {str(peer_id): {"last_message_id": 10}},
+            }
+        )
         with patch.object(import_telegram, "telegram_leads", domain):
             summary = await import_telegram.collect_pull(
                 client,
@@ -342,12 +379,15 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_n_plus_one_sentinel_advances_n_then_next_run_finishes_without_skip(self):
         peer_id = -100123
-        client = FakeClient({peer_id: [
-            FakeMessage(message_id, "frontend") for message_id in (14, 13, 12, 11)
-        ]})
-        domain = FakeLeadDomain(state={
-            "version": 1, "peers": {str(peer_id): {"last_message_id": 10}},
-        })
+        client = FakeClient(
+            {peer_id: [FakeMessage(message_id, "frontend") for message_id in (14, 13, 12, 11)]}
+        )
+        domain = FakeLeadDomain(
+            state={
+                "version": 1,
+                "peers": {str(peer_id): {"last_message_id": 10}},
+            }
+        )
         with patch.object(import_telegram, "telegram_leads", domain):
             first = await import_telegram.collect_pull(
                 client,
@@ -372,9 +412,7 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(second["fetched"], 1)
         self.assertEqual(second["backlog_peers"], [])
         self.assertEqual(domain.commits[1]["cursor_updates"], {peer_id: 14})
-        self.assertEqual(
-            [call["message_id"] for call in domain.build_calls], [11, 12, 13, 14]
-        )
+        self.assertEqual([call["message_id"] for call in domain.build_calls], [11, 12, 13, 14])
 
     async def test_peer_failure_produces_partial_summary_and_does_not_advance_failed_cursor(self):
         good, failed = -100111, -100222
@@ -391,23 +429,35 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
                 now=NOW,
             )
         self.assertEqual(summary["status"], "partial")
-        self.assertEqual(summary["peers"], {
-            "requested": 2, "completed": 1, "failed": 1, "backlog": 0,
-        })
+        self.assertEqual(
+            summary["peers"],
+            {
+                "requested": 2,
+                "completed": 1,
+                "failed": 1,
+                "backlog": 0,
+            },
+        )
         self.assertEqual(summary["errors"], [{"peer_id": failed, "kind": "RuntimeError"}])
         self.assertEqual(domain.commits[0]["cursor_updates"], {good: 7})
 
     async def test_unusable_message_does_not_strand_the_rest_of_the_peer(self):
         peer_id = -100123
-        client = MalformedHistoryClient([
-            FakeMessage(11, "Frontend https://jobs.example.test/11"),
-            MalformedMessage(12),
-            FakeMessage(13, "Frontend https://jobs.example.test/13"),
-        ])
+        client = MalformedHistoryClient(
+            [
+                FakeMessage(11, "Frontend https://jobs.example.test/11"),
+                MalformedMessage(12),
+                FakeMessage(13, "Frontend https://jobs.example.test/13"),
+            ]
+        )
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)
             first = await import_telegram.collect_pull(
-                client, data_dir, peer_ids=[peer_id], keywords=["frontend"], now=NOW,
+                client,
+                data_dir,
+                peer_ids=[peer_id],
+                keywords=["frontend"],
+                now=NOW,
             )
             state = REAL_DOMAIN.load_state(data_dir)
             second = await import_telegram.collect_pull(
@@ -417,45 +467,57 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
                 keywords=["frontend"],
                 now=NOW + timedelta(minutes=1),
             )
-            identities = [
-                lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)
-            ]
+            identities = [lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)]
 
         # The unusable message is reported instead of aborting the peer: the rest
         # of the channel is collected on the same run and the cursor moves past
         # it, so the next run is not a permanent retry of the same failure.
-        self.assertEqual(first["peers"], {
-            "requested": 1, "completed": 1, "failed": 0, "backlog": 0,
-        })
+        self.assertEqual(
+            first["peers"],
+            {
+                "requested": 1,
+                "completed": 1,
+                "failed": 0,
+                "backlog": 0,
+            },
+        )
         self.assertEqual((first["fetched"], first["written"], first["skipped"]), (3, 2, 1))
-        self.assertEqual(first["skipped_messages"], [{
-            "peer_id": peer_id,
-            "kind": "TelegramImportError",
-            "detail": "Telegram returned a message without a valid date",
-            "message_id": 12,
-        }])
+        self.assertEqual(
+            first["skipped_messages"],
+            [
+                {
+                    "peer_id": peer_id,
+                    "kind": "TelegramImportError",
+                    "detail": "Telegram returned a message without a valid date",
+                    "message_id": 12,
+                }
+            ],
+        )
         self.assertEqual(first["status"], "partial")
         self.assertEqual(state["peers"][str(peer_id)]["last_message_id"], 13)
         self.assertEqual(identities, [f"telegram:{peer_id}:11", f"telegram:{peer_id}:13"])
-        self.assertEqual(
-            (second["status"], second["fetched"], second["duplicates"]), ("ok", 0, 0)
-        )
+        self.assertEqual((second["status"], second["fetched"], second["duplicates"]), ("ok", 0, 0))
 
     async def test_message_without_usable_id_is_skipped_and_a_later_message_advances(self):
         peer_id = -100123
         unidentified = FakeMessage(None, "Frontend https://jobs.example.test/unknown")
-        client = MalformedHistoryClient([
-            unidentified, FakeMessage(21, "Frontend https://jobs.example.test/21"),
-        ])
+        client = MalformedHistoryClient(
+            [
+                unidentified,
+                FakeMessage(21, "Frontend https://jobs.example.test/21"),
+            ]
+        )
         with tempfile.TemporaryDirectory() as temporary:
             data_dir = Path(temporary)
             summary = await import_telegram.collect_pull(
-                client, data_dir, peer_ids=[peer_id], keywords=["frontend"], now=NOW,
+                client,
+                data_dir,
+                peer_ids=[peer_id],
+                keywords=["frontend"],
+                now=NOW,
             )
             state = REAL_DOMAIN.load_state(data_dir)
-            identities = [
-                lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)
-            ]
+            identities = [lead["message_identity"] for lead in REAL_DOMAIN.iter_stored_leads(data_dir)]
 
         # Without an ID the cursor cannot skip this message on its own, so the
         # next identified message is what advances past it.
@@ -467,13 +529,19 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
 
     def test_skip_reports_own_contract_detail_but_never_provider_text(self):
         own = import_telegram._safe_message_error(
-            -100123, 12, import_telegram.TelegramImportError("safe operator detail"),
+            -100123,
+            12,
+            import_telegram.TelegramImportError("safe operator detail"),
         )
         domain = import_telegram._safe_message_error(
-            -100123, 12, REAL_DOMAIN.TelegramLeadError("permalink must be a non-empty string"),
+            -100123,
+            12,
+            REAL_DOMAIN.TelegramLeadError("permalink must be a non-empty string"),
         )
         provider = import_telegram._safe_message_error(
-            -100123, 12, RuntimeError("session id 12345"),
+            -100123,
+            12,
+            RuntimeError("session id 12345"),
         )
         self.assertEqual(own["detail"], "safe operator detail")
         self.assertEqual(domain["detail"], "permalink must be a non-empty string")
@@ -481,18 +549,28 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
 
     async def test_preview_reads_a_bot_chat_newest_first_and_touches_no_storage(self):
         peer_id = 7132934089
-        client = FakeClient({peer_id: [
-            FakeMessage(11, "old frontend https://jobs.example.test/11", age_hours=96),
-            FakeMessage(12, "unrelated chatter"),
-            FakeMessage(13, "react role https://jobs.example.test/13"),
-        ]})
+        client = FakeClient(
+            {
+                peer_id: [
+                    FakeMessage(11, "old frontend https://jobs.example.test/11", age_hours=96),
+                    FakeMessage(12, "unrelated chatter"),
+                    FakeMessage(13, "react role https://jobs.example.test/13"),
+                ]
+            }
+        )
         client.entities[peer_id] = SimpleNamespace(
-            first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+            first_name="Vacancy",
+            last_name="Bot",
+            username="vacancy_bot",
+            bot=True,
         )
         domain = FakeLeadDomain()
         with patch.object(import_telegram, "telegram_leads", domain):
             result = await import_telegram.preview_peer(
-                client, peer_id=peer_id, limit=2, keywords=["frontend", "react"],
+                client,
+                peer_id=peer_id,
+                limit=2,
+                keywords=["frontend", "react"],
             )
 
         # A count bound, newest first: the two most recent messages, not a window.
@@ -500,7 +578,8 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual((result["returned"], result["matched"], result["with_urls"]), (2, 1, 1))
         self.assertEqual(result["messages"][0]["matched_terms"], ["react"])
         self.assertEqual(
-            result["messages"][0]["outbound_urls"], ["https://jobs.example.test/13"],
+            result["messages"][0]["outbound_urls"],
+            ["https://jobs.example.test/13"],
         )
         self.assertEqual((result["type"], result["pullable"]), ("bot", False))
         self.assertEqual(result["title"], "Vacancy Bot")
@@ -517,7 +596,10 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         with patch.object(import_telegram, "telegram_leads", domain):
             default = await import_telegram.preview_peer(client, peer_id=peer_id, keywords=["react"])
             lean = await import_telegram.preview_peer(
-                client, peer_id=peer_id, keywords=["react"], include_text=False,
+                client,
+                peer_id=peer_id,
+                keywords=["react"],
+                include_text=False,
             )
 
         # For a vacancy feed the text is the payload, so dropping it is the
@@ -541,7 +623,10 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
         peer_id = 7132934089
         client = FakeClient({peer_id: [FakeMessage(5, "Frontend react")]})
         client.entities[peer_id] = SimpleNamespace(
-            first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+            first_name="Vacancy",
+            last_name="Bot",
+            username="vacancy_bot",
+            bot=True,
         )
         domain = FakeLeadDomain()
         with patch.object(import_telegram, "telegram_leads", domain):
@@ -570,9 +655,16 @@ class TelegramPullTests(unittest.IsolatedAsyncioTestCase):
                 client, Path("/local/telegram"), peer_ids=[peer_id], keywords=["frontend"], now=NOW
             )
         self.assertEqual(client.entity_calls, [peer_id])
-        self.assertEqual(summary["errors"], [{
-            "peer_id": peer_id, "kind": "FloodWaitError", "retry_after_seconds": 91,
-        }])
+        self.assertEqual(
+            summary["errors"],
+            [
+                {
+                    "peer_id": peer_id,
+                    "kind": "FloodWaitError",
+                    "retry_after_seconds": 91,
+                }
+            ],
+        )
 
     async def test_pull_refuses_empty_allowlist_without_touching_client(self):
         client = FakeClient({-100123: [FakeMessage(1, "frontend")]})
@@ -592,20 +684,29 @@ class TelegramCliTests(unittest.TestCase):
             ["login"],
             ["allowlist", "show"],
             [
-                "normalize", "telegram:-100123:9",
-                "--company", "Example",
-                "--role", "Frontend Developer",
-                "--application-url", "https://example.test/jobs/9",
-                "--raw-location", "Serbia",
+                "normalize",
+                "telegram:-100123:9",
+                "--company",
+                "Example",
+                "--role",
+                "Frontend Developer",
+                "--application-url",
+                "https://example.test/jobs/9",
+                "--raw-location",
+                "Serbia",
             ],
         ]
         for command in commands:
             with self.subTest(command=command):
                 stderr = io.StringIO()
                 with redirect_stderr(stderr):
-                    exit_code = import_telegram.main([
-                        "--data-dir", str(forbidden), *command,
-                    ])
+                    exit_code = import_telegram.main(
+                        [
+                            "--data-dir",
+                            str(forbidden),
+                            *command,
+                        ]
+                    )
                 self.assertEqual(exit_code, 1)
                 self.assertIn("outside the repository checkout", stderr.getvalue())
         self.assertFalse(forbidden.exists())
@@ -618,17 +719,25 @@ class TelegramCliTests(unittest.TestCase):
         for status, summary in summaries.items():
             with self.subTest(status=status):
                 stdout = io.StringIO()
-                with patch.object(
-                    import_telegram, "_run_network_command", new=AsyncMock(return_value=summary)
-                ), redirect_stdout(stdout):
+                with (
+                    patch.object(
+                        import_telegram, "_run_network_command", new=AsyncMock(return_value=summary)
+                    ),
+                    redirect_stdout(stdout),
+                ):
                     exit_code = import_telegram.main(["--data-dir", "/tmp/telegram-test", "pull"])
                 self.assertEqual(exit_code, 0 if status == "ok" else 2)
 
     def test_provider_exception_text_is_not_logged(self):
         stderr = io.StringIO()
-        with patch.object(
-            import_telegram, "_run_network_command", new=AsyncMock(side_effect=RuntimeError("secret detail"))
-        ), redirect_stderr(stderr):
+        with (
+            patch.object(
+                import_telegram,
+                "_run_network_command",
+                new=AsyncMock(side_effect=RuntimeError("secret detail")),
+            ),
+            redirect_stderr(stderr),
+        ):
             exit_code = import_telegram.main(["--data-dir", "/tmp/telegram-test", "login"])
         self.assertEqual(exit_code, 1)
         self.assertIn("RuntimeError", stderr.getvalue())
@@ -652,9 +761,14 @@ class TelegramCliTests(unittest.TestCase):
             )
             mode = data_dir.stat().st_mode & 0o777
         self.assertEqual(mode, 0o700)
-        self.assertEqual(calls[0][0], (
-            str(resolved_data_dir / "telegram"), 123, "super-secret",
-        ))
+        self.assertEqual(
+            calls[0][0],
+            (
+                str(resolved_data_dir / "telegram"),
+                123,
+                "super-secret",
+            ),
+        )
         self.assertEqual(calls[0][1], {"flood_sleep_threshold": 0, "request_retries": 1})
 
     def test_optional_dependency_is_lazy_and_missing_dependency_has_safe_error(self):
@@ -775,7 +889,11 @@ class TelegramCliTests(unittest.TestCase):
             SimpleNamespace(id=2, title="Jobs", username=None, broadcast=False, megagroup=True),
             SimpleNamespace(id=3, title="Personal", username=None, broadcast=False, megagroup=False),
             SimpleNamespace(
-                id=7132934089, first_name="Vacancy", last_name="Bot", username="vacancy_bot", bot=True,
+                id=7132934089,
+                first_name="Vacancy",
+                last_name="Bot",
+                username="vacancy_bot",
+                bot=True,
             ),
         ]
 
@@ -784,15 +902,23 @@ class TelegramCliTests(unittest.TestCase):
                 async def iterate():
                     for entity in entities:
                         yield SimpleNamespace(entity=entity)
+
                 return iterate()
 
         result = __import__("asyncio").run(
             import_telegram.list_dialogs(
                 DialogClient(),
                 # Telethon reports a bot under its own positive user ID.
-                get_peer_id=lambda entity: entity.id if entity.id > 0 and getattr(
-                    entity, "bot", False,
-                ) else -100 - entity.id,
+                get_peer_id=lambda entity: (
+                    entity.id
+                    if entity.id > 0
+                    and getattr(
+                        entity,
+                        "bot",
+                        False,
+                    )
+                    else -100 - entity.id
+                ),
             )
         )
         self.assertEqual([item["type"] for item in result], ["supergroup", "broadcast", "bot"])
@@ -825,15 +951,24 @@ class TelegramCliTests(unittest.TestCase):
             REAL_DOMAIN.write_lead_batch(data_dir, [lead], run_at=NOW)
             stdout = io.StringIO()
             with redirect_stdout(stdout):
-                exit_code = import_telegram.main([
-                    "--data-dir", str(data_dir),
-                    "normalize", lead["message_identity"],
-                    "--company", "Example",
-                    "--role", "Frontend Developer",
-                    "--application-url", "https://example.test/jobs/9",
-                    "--raw-location", "Serbia",
-                    "--inbox-dir", str(inbox_dir),
-                ])
+                exit_code = import_telegram.main(
+                    [
+                        "--data-dir",
+                        str(data_dir),
+                        "normalize",
+                        lead["message_identity"],
+                        "--company",
+                        "Example",
+                        "--role",
+                        "Frontend Developer",
+                        "--application-url",
+                        "https://example.test/jobs/9",
+                        "--raw-location",
+                        "Serbia",
+                        "--inbox-dir",
+                        str(inbox_dir),
+                    ]
+                )
             payload = json.loads(stdout.getvalue())
             record = json.loads(Path(payload["inbox_batch"]).read_text(encoding="utf-8"))
 
@@ -865,24 +1000,43 @@ class TelegramCliTests(unittest.TestCase):
 
             listed_stdout = io.StringIO()
             with redirect_stdout(listed_stdout):
-                list_exit = import_telegram.main([
-                    "--data-dir", str(data_dir), "leads", "list", "--limit", "1",
-                ])
+                list_exit = import_telegram.main(
+                    [
+                        "--data-dir",
+                        str(data_dir),
+                        "leads",
+                        "list",
+                        "--limit",
+                        "1",
+                    ]
+                )
             listed = json.loads(listed_stdout.getvalue())
 
             hidden_stdout = io.StringIO()
             with redirect_stdout(hidden_stdout):
-                hidden_exit = import_telegram.main([
-                    "--data-dir", str(data_dir), "leads", "show", leads[0]["message_identity"],
-                ])
+                hidden_exit = import_telegram.main(
+                    [
+                        "--data-dir",
+                        str(data_dir),
+                        "leads",
+                        "show",
+                        leads[0]["message_identity"],
+                    ]
+                )
             hidden = json.loads(hidden_stdout.getvalue())
 
             shown_stdout = io.StringIO()
             with redirect_stdout(shown_stdout):
-                shown_exit = import_telegram.main([
-                    "--data-dir", str(data_dir), "leads", "show", leads[0]["message_identity"],
-                    "--include-text",
-                ])
+                shown_exit = import_telegram.main(
+                    [
+                        "--data-dir",
+                        str(data_dir),
+                        "leads",
+                        "show",
+                        leads[0]["message_identity"],
+                        "--include-text",
+                    ]
+                )
             shown = json.loads(shown_stdout.getvalue())
 
         self.assertEqual((list_exit, hidden_exit, shown_exit), (0, 0, 0))

@@ -38,7 +38,8 @@ FIRST_PARTY_SOURCES = {"Company Careers"}
 
 def rows_to_backfill(rows):
     return [
-        row for row in rows
+        row
+        for row in rows
         if not row.get("original_url", "").strip()
         and row.get("source") in FIRST_PARTY_SOURCES
         and row.get("source_url", "").strip()
@@ -70,7 +71,9 @@ def print_text(changed, dry_run):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     parser.add_argument("--dry-run", action="store_true", help="report what would change without writing it")
     parser.add_argument("--format", choices=("text", "json"), default="text")
     args = parser.parse_args()

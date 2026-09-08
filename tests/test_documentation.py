@@ -184,7 +184,8 @@ class DocumentationMapTests(unittest.TestCase):
             body = (PROJECT / "docs" / name).read_text(encoding="utf-8")
             self.assertIn(banner, body, f"docs/{name}: missing historical-record banner")
             self.assertLess(
-                body.index(banner), 200,
+                body.index(banner),
+                200,
                 f"docs/{name}: banner is not near the top of the file",
             )
 

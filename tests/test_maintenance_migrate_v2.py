@@ -48,18 +48,23 @@ class MigrateV2Tests(unittest.TestCase):
 
     def invoke_migrate(self, *arguments):
         return subprocess.run(
-            [sys.executable, SCRIPT, *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, SCRIPT, *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def invoke_jobs(self, *arguments):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
         )
 
     def rows(self):
         import csv
+
         with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
             return {row["id"]: row for row in csv.DictReader(file)}
 

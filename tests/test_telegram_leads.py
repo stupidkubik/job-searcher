@@ -45,10 +45,16 @@ class TelegramLeadDomainTests(unittest.TestCase):
             f"-1001234567890:42:sha256:{digest}",
         )
         first = telegram_leads.vacancy_candidate_identity(
-            -1001234567890, 42, company="  Example  Co ", role="RÉACT Engineer",
+            -1001234567890,
+            42,
+            company="  Example  Co ",
+            role="RÉACT Engineer",
         )
         second = telegram_leads.vacancy_candidate_identity(
-            -1001234567890, 42, company="example co", role="réact   engineer",
+            -1001234567890,
+            42,
+            company="example co",
+            role="réact   engineer",
         )
         self.assertEqual(first, second)
 
@@ -60,9 +66,13 @@ class TelegramLeadDomainTests(unittest.TestCase):
             {"url": "javascript:alert(1)"},
             {"offset": utf16_offset, "length": len("https://jobs.example.test/a")},
         ]
-        self.assertEqual(telegram_leads.extract_http_urls(text, entities), [
-            "https://redirect.example.test/role", "https://jobs.example.test/a",
-        ])
+        self.assertEqual(
+            telegram_leads.extract_http_urls(text, entities),
+            [
+                "https://redirect.example.test/role",
+                "https://jobs.example.test/a",
+            ],
+        )
 
     def test_unicode_keyword_matching_and_empty_text_are_deterministic(self):
         self.assertEqual(
@@ -96,7 +106,8 @@ class TelegramLeadDomainTests(unittest.TestCase):
         first = self.lead()
         second = self.lead(message_id=43, permalink="https://t.me/frontend_jobs/43")
         unique, duplicates = telegram_leads.deduplicate_leads(
-            [first, first, second], seen_identities={first["message_identity"]},
+            [first, first, second],
+            seen_identities={first["message_identity"]},
         )
         self.assertEqual([lead["message_id"] for lead in unique], [43])
         self.assertEqual(duplicates, 2)
@@ -123,17 +134,29 @@ class TelegramLeadDomainTests(unittest.TestCase):
     def test_projection_uses_company_role_fallback_without_exact_outbound_url(self):
         lead = self.lead(text="Two roles, contact the author", matched_terms=["role"])
         frontend = telegram_leads.project_confirmed_lead(
-            lead, company="ExampleCo", role="Frontend Engineer",
-            application_url="https://careers.example.test/jobs/shared", raw_location="Europe",
+            lead,
+            company="ExampleCo",
+            role="Frontend Engineer",
+            application_url="https://careers.example.test/jobs/shared",
+            raw_location="Europe",
         )
         designer = telegram_leads.project_confirmed_lead(
-            lead, company="ExampleCo", role="Product Designer",
-            application_url="https://careers.example.test/jobs/shared", raw_location="Europe",
+            lead,
+            company="ExampleCo",
+            role="Product Designer",
+            application_url="https://careers.example.test/jobs/shared",
+            raw_location="Europe",
         )
         self.assertNotEqual(frontend["source_job_id"], designer["source_job_id"])
-        self.assertEqual(frontend["source_job_id"], telegram_leads.vacancy_candidate_identity(
-            lead["peer_id"], lead["message_id"], company="ExampleCo", role="Frontend Engineer",
-        ))
+        self.assertEqual(
+            frontend["source_job_id"],
+            telegram_leads.vacancy_candidate_identity(
+                lead["peer_id"],
+                lead["message_id"],
+                company="ExampleCo",
+                role="Frontend Engineer",
+            ),
+        )
 
 
 class TelegramLeadStorageTests(unittest.TestCase):
@@ -192,8 +215,11 @@ class TelegramLeadStorageTests(unittest.TestCase):
 
     def test_inbox_batch_publishes_without_changing_shared_directory_permissions(self):
         record = telegram_leads.project_confirmed_lead(
-            self.lead(), company="ExampleCo", role="Frontend Engineer",
-            application_url="https://careers.example.test/jobs/42", raw_location="Worldwide",
+            self.lead(),
+            company="ExampleCo",
+            role="Frontend Engineer",
+            application_url="https://careers.example.test/jobs/42",
+            raw_location="Worldwide",
         )
         inbox_dir = self.root / "shared-inbox"
         inbox_dir.mkdir()
@@ -209,14 +235,20 @@ class TelegramLeadStorageTests(unittest.TestCase):
 
     def test_immutable_batches_collision_safe_and_seen_identity_dedupe(self):
         run_at = datetime(2026, 8, 20, 12, tzinfo=timezone.utc)
-        with patch.object(telegram_leads.secrets, "token_hex", side_effect=["aaaaaaaa", "aaaaaaaa", "bbbbbbbb"]):
+        with patch.object(
+            telegram_leads.secrets, "token_hex", side_effect=["aaaaaaaa", "aaaaaaaa", "bbbbbbbb"]
+        ):
             first = telegram_leads.write_lead_batch(self.data_dir, [self.lead()], run_at=run_at)
             second = telegram_leads.write_lead_batch(self.data_dir, [self.lead(43)], run_at=run_at)
         self.assertNotEqual(first, second)
         self.assertEqual(first.read_bytes(), first.read_bytes())
-        self.assertEqual(telegram_leads.load_seen_identities(self.data_dir), {
-            "telegram:-1001234567890:42", "telegram:-1001234567890:43",
-        })
+        self.assertEqual(
+            telegram_leads.load_seen_identities(self.data_dir),
+            {
+                "telegram:-1001234567890:42",
+                "telegram:-1001234567890:43",
+            },
+        )
         if os.name != "nt":
             self.assertEqual(stat.S_IMODE(first.stat().st_mode), 0o600)
 
@@ -224,7 +256,9 @@ class TelegramLeadStorageTests(unittest.TestCase):
         inbox_dir = self.root / "data" / "inbox"
         with self.assertRaisesRegex(telegram_leads.TelegramLeadError, "immutable batch"):
             telegram_leads.write_inbox_batch(
-                inbox_dir, [{"not_json": object()}], validate=False,
+                inbox_dir,
+                [{"not_json": object()}],
+                validate=False,
             )
         self.assertEqual(list(inbox_dir.glob("telegram-*.jsonl")), [])
         self.assertEqual(list(inbox_dir.glob(".*.tmp")), [])
@@ -232,7 +266,9 @@ class TelegramLeadStorageTests(unittest.TestCase):
         with patch.object(telegram_leads.os, "link", side_effect=OSError("publish failed")):
             with self.assertRaisesRegex(telegram_leads.TelegramLeadError, "publish failed"):
                 telegram_leads.write_inbox_batch(
-                    inbox_dir, [{"complete": True}], validate=False,
+                    inbox_dir,
+                    [{"complete": True}],
+                    validate=False,
                 )
         self.assertEqual(list(inbox_dir.glob("telegram-*.jsonl")), [])
         self.assertEqual(list(inbox_dir.glob(".*.tmp")), [])
@@ -256,7 +292,9 @@ class TelegramLeadStorageTests(unittest.TestCase):
             patch.object(telegram_leads.os, "link", side_effect=observed_link),
         ):
             path = telegram_leads.write_inbox_batch(
-                inbox_dir, [{"complete": True}], validate=False,
+                inbox_dir,
+                [{"complete": True}],
+                validate=False,
             )
 
         self.assertTrue(path.exists())
@@ -274,7 +312,9 @@ class TelegramLeadStorageTests(unittest.TestCase):
         with patch.object(telegram_leads, "_fsync_directory", side_effect=fail_batch_directory):
             with self.assertRaisesRegex(telegram_leads.TelegramLeadError, "directory fsync failed"):
                 telegram_leads.commit_lead_batch(
-                    self.data_dir, [self.lead()], {peer_id: 42},
+                    self.data_dir,
+                    [self.lead()],
+                    {peer_id: 42},
                 )
 
         self.assertEqual(calls, 1)
@@ -287,11 +327,15 @@ class TelegramLeadStorageTests(unittest.TestCase):
         peer_id = -1001234567890
         run_at = datetime(2026, 8, 20, 12, tzinfo=timezone.utc)
         first = telegram_leads.commit_lead_batch(
-            self.data_dir, [self.lead()], {peer_id: 42}, run_at=run_at,
+            self.data_dir,
+            [self.lead()],
+            {peer_id: 42},
+            run_at=run_at,
         )
         self.assertTrue(first.exists())
         self.assertEqual(
-            telegram_leads.load_state(self.data_dir)["peers"][str(peer_id)]["last_message_id"], 42,
+            telegram_leads.load_state(self.data_dir)["peers"][str(peer_id)]["last_message_id"],
+            42,
         )
 
         def crash(batch_path):
@@ -300,11 +344,15 @@ class TelegramLeadStorageTests(unittest.TestCase):
 
         with self.assertRaisesRegex(RuntimeError, "simulated crash"):
             telegram_leads.commit_lead_batch(
-                self.data_dir, [self.lead(43)], {peer_id: 43}, run_at=run_at,
+                self.data_dir,
+                [self.lead(43)],
+                {peer_id: 43},
+                run_at=run_at,
                 before_state_write=crash,
             )
         self.assertEqual(
-            telegram_leads.load_state(self.data_dir)["peers"][str(peer_id)]["last_message_id"], 42,
+            telegram_leads.load_state(self.data_dir)["peers"][str(peer_id)]["last_message_id"],
+            42,
         )
         self.assertIn("telegram:-1001234567890:43", telegram_leads.load_seen_identities(self.data_dir))
 
@@ -322,7 +370,8 @@ class TelegramLeadStorageTests(unittest.TestCase):
             if os.name != "nt":
                 self.assertEqual(stat.S_IMODE(lock_path.stat().st_mode), 0o600)
             with self.assertRaisesRegex(
-                telegram_leads.TelegramLeadError, "another Telegram pull is already running",
+                telegram_leads.TelegramLeadError,
+                "another Telegram pull is already running",
             ):
                 with telegram_leads.pull_lock(self.data_dir):
                     self.fail("concurrent lock must not be acquired")
@@ -350,8 +399,11 @@ class TelegramLeadStorageTests(unittest.TestCase):
 
     def test_write_inbox_batch_is_immutable_owner_only(self):
         record = telegram_leads.project_confirmed_lead(
-            self.lead(), company="ExampleCo", role="Frontend Engineer",
-            application_url="https://careers.example.test/jobs/42", raw_location="Worldwide",
+            self.lead(),
+            company="ExampleCo",
+            role="Frontend Engineer",
+            application_url="https://careers.example.test/jobs/42",
+            raw_location="Worldwide",
         )
         inbox_dir = self.root / "data" / "inbox"
         first = telegram_leads.write_inbox_batch(inbox_dir, [record], validate=True)

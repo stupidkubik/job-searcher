@@ -36,62 +36,169 @@ KEYS_INDEX_PATH = INDEX_DIR / "keys.tsv"
 ACTIVE_INDEX_PATH = INDEX_DIR / "active.csv"
 
 FIELDS = [
-    "id", "application_status", "listing_status", "company", "role", "level",
-    "original_url", "source_url", "source", "location", "remote_policy", "stack",
-    "salary", "posted_at", "found_at", "match_score", "stage_reached",
-    "decision_reason", "applied_at", "response_at", "next_action",
-    "next_action_date", "cv_version", "cover_letter", "contact_name", "contact_url",
-    "verified_at", "first_party_verified", "apply_verified", "last_update", "notes",
+    "id",
+    "application_status",
+    "listing_status",
+    "company",
+    "role",
+    "level",
+    "original_url",
+    "source_url",
+    "source",
+    "location",
+    "remote_policy",
+    "stack",
+    "salary",
+    "posted_at",
+    "found_at",
+    "match_score",
+    "stage_reached",
+    "decision_reason",
+    "applied_at",
+    "response_at",
+    "next_action",
+    "next_action_date",
+    "cv_version",
+    "cover_letter",
+    "contact_name",
+    "contact_url",
+    "verified_at",
+    "first_party_verified",
+    "apply_verified",
+    "last_update",
+    "notes",
 ]
 JOB_SOURCE_FIELDS = ["job_id", "source", "source_url", "source_job_id", "found_at"]
 REQUIRED = [
-    "id", "company", "role", "source", "found_at", "application_status",
-    "listing_status", "stage_reached", "first_party_verified", "apply_verified",
+    "id",
+    "company",
+    "role",
+    "source",
+    "found_at",
+    "application_status",
+    "listing_status",
+    "stage_reached",
+    "first_party_verified",
+    "apply_verified",
     "last_update",
 ]
 DATE_FIELDS = [
-    "posted_at", "found_at", "applied_at", "response_at", "next_action_date",
-    "verified_at", "last_update",
+    "posted_at",
+    "found_at",
+    "applied_at",
+    "response_at",
+    "next_action_date",
+    "verified_at",
+    "last_update",
 ]
 APPLICATION_STATUSES = [
-    "not_started", "reviewing", "apply", "applied", "interviewing", "offer",
-    "rejected", "ghosted", "withdrawn",
+    "not_started",
+    "reviewing",
+    "apply",
+    "applied",
+    "interviewing",
+    "offer",
+    "rejected",
+    "ghosted",
+    "withdrawn",
 ]
 ADD_APPLICATION_STATUSES = ["not_started", "reviewing", "apply"]
 ADD_INPUT_FIELDS = {
-    "company", "role", "source", "application_status", "listing_status",
-    "first_party_verified", "apply_verified", "level", "remote_policy",
-    "original_url", "source_url", "location", "stack", "salary", "posted_at",
-    "found_at", "match_score", "decision_reason", "notes", "source_job_id",
+    "company",
+    "role",
+    "source",
+    "application_status",
+    "listing_status",
+    "first_party_verified",
+    "apply_verified",
+    "level",
+    "remote_policy",
+    "original_url",
+    "source_url",
+    "location",
+    "stack",
+    "salary",
+    "posted_at",
+    "found_at",
+    "match_score",
+    "decision_reason",
+    "notes",
+    "source_job_id",
 }
 ADD_REQUIRED_INPUT_FIELDS = {"company", "role", "source"}
 LISTING_STATUSES = ["open", "closed", "unknown"]
 VERIFICATION = ["yes", "no", "unknown"]
 STAGES = ["None", "Applied", "Recruiter screen", "Tech interview", "Test task", "Final interview", "Offer"]
-LEVELS = ["Intern", "Graduate", "Junior", "Junior+", "Associate", "Junior/Middle", "Middle", "Senior", "Lead", "Unknown"]
+LEVELS = [
+    "Intern",
+    "Graduate",
+    "Junior",
+    "Junior+",
+    "Associate",
+    "Junior/Middle",
+    "Middle",
+    "Senior",
+    "Lead",
+    "Unknown",
+]
 REMOTE = ["Global", "Europe", "EMEA", "Serbia", "Country-specific", "Hybrid", "On-site", "Unclear"]
 SOURCES = [
-    "Hirify", "Jaabz", "LinkedIn", "Welcome to the Jungle", "We Work Remotely",
-    "HiringCafe", "Hacker News — Who is Hiring?", "Hacker News — Who Wants to Be Hired?",
-    "YC Work at a Startup", "Wellfound", "HelloWorld.rs", "Reactiflux Discord",
-    "Find My Remote / Telegram", "Telegram", "Himalayas", "Startit Jobs", "Hired Valley",
-    "Relocate.me", "Remote OK", "Geekjob", "TalentMove", "Company Careers",
-    "Referral", "Manual", "Other",
+    "Hirify",
+    "Jaabz",
+    "LinkedIn",
+    "Welcome to the Jungle",
+    "We Work Remotely",
+    "HiringCafe",
+    "Hacker News — Who is Hiring?",
+    "Hacker News — Who Wants to Be Hired?",
+    "YC Work at a Startup",
+    "Wellfound",
+    "HelloWorld.rs",
+    "Reactiflux Discord",
+    "Find My Remote / Telegram",
+    "Telegram",
+    "Himalayas",
+    "Startit Jobs",
+    "Hired Valley",
+    "Relocate.me",
+    "Remote OK",
+    "Geekjob",
+    "TalentMove",
+    "Company Careers",
+    "Referral",
+    "Manual",
+    "Other",
 ]
 SOURCES_ALLOWING_SHARED_DISCOVERY_URLS = {"Telegram"}
 REASONS = [
-    "geo_restriction", "work_authorization", "seniority_too_high", "seniority_too_low",
-    "stack_mismatch", "role_not_frontend", "salary_too_low", "company_not_interesting",
-    "closed_before_application", "already_applied", "duplicate_listing",
-    "no_response_timeout", "withdrawn_by_me", "other",
+    "geo_restriction",
+    "work_authorization",
+    "seniority_too_high",
+    "seniority_too_low",
+    "stack_mismatch",
+    "role_not_frontend",
+    "salary_too_low",
+    "company_not_interesting",
+    "closed_before_application",
+    "already_applied",
+    "duplicate_listing",
+    "no_response_timeout",
+    "withdrawn_by_me",
+    "other",
 ]
 NEEDS_APPLIED_AT = {"applied", "interviewing", "offer", "rejected", "ghosted", "withdrawn"}
 RESPONDED_APPLICATION_STATUSES = {"interviewing", "offer", "rejected"}
 PRE_APPLICATION_REASONS = set(REASONS) - {"no_response_timeout", "withdrawn_by_me"}
 SCREEN_REASONS = PRE_APPLICATION_REASONS - {"closed_before_application", "duplicate_listing"}
 SET_PROTECTED = {
-    "id", "stage_reached", "verified_at", "last_update",
-    "application_status", "applied_at", "response_at", "decision_reason",
+    "id",
+    "stage_reached",
+    "verified_at",
+    "last_update",
+    "application_status",
+    "applied_at",
+    "response_at",
+    "decision_reason",
 }
 VERIFY_ENRICHMENT_FIELDS = {"level", "remote_policy", "stack", "salary", "match_score"}
 ENUMS = {
@@ -141,6 +248,7 @@ TRACKER_APPLICATION_STATUS_ORDER = {
     "withdrawn": 5,
 }
 
+
 class JobsArgumentParser(argparse.ArgumentParser):
     """Argparse с едиными кодами завершения для CLI."""
 
@@ -183,8 +291,16 @@ class ValidationError(Exception):
     __str__ returns cli_hint_ru, that call site needs no change.
     """
 
-    def __init__(self, message_en, *, code="invariant_violation", field=None,
-                 allowed=None, agent_hint=None, cli_hint_ru=None):
+    def __init__(
+        self,
+        message_en,
+        *,
+        code="invariant_violation",
+        field=None,
+        allowed=None,
+        agent_hint=None,
+        cli_hint_ru=None,
+    ):
         self.message_en = message_en
         self.code = code
         self.field = field
@@ -308,7 +424,9 @@ def read_job_sources_csv():
 def load():
     header, rows = read_csv()
     if header != FIELDS:
-        die("заголовок jobs.csv не совпадает со схемой v2; для v1 используйте scripts/maintenance/migrate_v2.py")
+        die(
+            "заголовок jobs.csv не совпадает со схемой v2; для v1 используйте scripts/maintenance/migrate_v2.py"
+        )
     return rows
 
 
@@ -336,7 +454,9 @@ def save(rows):
 
 
 def save_job_sources(rows):
-    descriptor, temporary_name = tempfile.mkstemp(prefix="job-sources-", suffix=".csv", dir=JOB_SOURCES_PATH.parent)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix="job-sources-", suffix=".csv", dir=JOB_SOURCES_PATH.parent
+    )
     try:
         with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
             writer = csv.DictWriter(file, fieldnames=JOB_SOURCE_FIELDS, lineterminator="\n")
@@ -366,11 +486,63 @@ def norm_url(value):
         for key, val in parse_qsl(parts.query, keep_blank_values=True)
         if not key.lower().startswith("utm_") and key.lower() not in {"ref", "referrer"}
     ]
-    return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip("/") or "/", urlencode(query), ""))
+    return urlunsplit(
+        (parts.scheme.lower(), parts.netloc.lower(), parts.path.rstrip("/") or "/", urlencode(query), "")
+    )
 
 
-COMPANY_NOISE = {"ltd", "limited", "inc", "incorporated", "llc", "llp", "plc", "gmbh", "ag", "bv", "nv", "ab", "oy", "oyj", "as", "sa", "sas", "srl", "spa", "doo", "ooo", "corp", "corporation", "co", "company", "group", "holding", "holdings", "the"}
-ROLE_NOISE = {"developer", "engineer", "software", "web", "senior", "junior", "middle", "mid", "associate", "graduate", "intern", "internship", "remote", "m", "f", "d", "x", "the", "and"}
+COMPANY_NOISE = {
+    "ltd",
+    "limited",
+    "inc",
+    "incorporated",
+    "llc",
+    "llp",
+    "plc",
+    "gmbh",
+    "ag",
+    "bv",
+    "nv",
+    "ab",
+    "oy",
+    "oyj",
+    "as",
+    "sa",
+    "sas",
+    "srl",
+    "spa",
+    "doo",
+    "ooo",
+    "corp",
+    "corporation",
+    "co",
+    "company",
+    "group",
+    "holding",
+    "holdings",
+    "the",
+}
+ROLE_NOISE = {
+    "developer",
+    "engineer",
+    "software",
+    "web",
+    "senior",
+    "junior",
+    "middle",
+    "mid",
+    "associate",
+    "graduate",
+    "intern",
+    "internship",
+    "remote",
+    "m",
+    "f",
+    "d",
+    "x",
+    "the",
+    "and",
+}
 # Undisclosed/anonymized listings all read as the same company to SequenceMatcher
 # (company_score=1.00 against each other), which turned every such pair into a
 # false duplicate candidate. See docs/agent-write-path-plan-2026-09-07.md, Э5/P7.
@@ -392,7 +564,9 @@ def slug(value):
 
 
 def next_id(rows):
-    numbers = [int(match.group(1)) for row in rows if (match := re.fullmatch(r"job-(\d{4,})", row["id"] or ""))]
+    numbers = [
+        int(match.group(1)) for row in rows if (match := re.fullmatch(r"job-(\d{4,})", row["id"] or ""))
+    ]
     return f"job-{max(numbers, default=0) + 1:04d}"
 
 
@@ -443,7 +617,9 @@ def validate_rows(rows):
                 error(line, f"{identifier}: {key}={value!r} — ожидается YYYY-MM-DD")
             else:
                 if key != "next_action_date" and parsed > business_date():
-                    warnings.append(f"строка {line}: {identifier}: {key}={value} в будущем — опечатка в годе?")
+                    warnings.append(
+                        f"строка {line}: {identifier}: {key}={value} в будущем — опечатка в годе?"
+                    )
         score = (row.get("match_score") or "").strip()
         if score:
             try:
@@ -460,7 +636,10 @@ def validate_rows(rows):
                 urls.setdefault(norm_url(original_url), []).append((line, row))
         cover_letter = (row.get("cover_letter") or "").strip()
         if cover_letter and cover_letter != "no" and "/" not in cover_letter:
-            error(line, f"{identifier}: cover_letter должен быть 'no' или путём (например cv/cover-letters/...), получено {cover_letter!r}")
+            error(
+                line,
+                f"{identifier}: cover_letter должен быть 'no' или путём (например cv/cover-letters/...), получено {cover_letter!r}",
+            )
         application_status = row.get("application_status") or ""
         listing_status = row.get("listing_status") or ""
         reason = row.get("decision_reason") or ""
@@ -469,16 +648,25 @@ def validate_rows(rows):
         apply_verified = row.get("apply_verified") or ""
         if application_status in NEEDS_APPLIED_AT and not (row.get("applied_at") or "").strip():
             error(line, f"{identifier}: application_status={application_status} требует applied_at")
-        if application_status in RESPONDED_APPLICATION_STATUSES and not (row.get("response_at") or "").strip():
+        if (
+            application_status in RESPONDED_APPLICATION_STATUSES
+            and not (row.get("response_at") or "").strip()
+        ):
             error(line, f"{identifier}: application_status={application_status} требует response_at")
-        if application_status in {"not_started", "reviewing", "apply"} and (row.get("applied_at") or "").strip():
+        if (
+            application_status in {"not_started", "reviewing", "apply"}
+            and (row.get("applied_at") or "").strip()
+        ):
             error(line, f"{identifier}: application_status={application_status} несовместим с applied_at")
         if application_status == "withdrawn" and not reason:
             error(line, f"{identifier}: application_status=withdrawn требует decision_reason")
         if reason == "other" and not (row.get("notes") or "").strip():
             error(line, f"{identifier}: decision_reason=other требует пояснения в notes")
         if reason and application_status in IN_PROGRESS_APPLICATION_STATUSES:
-            error(line, f"{identifier}: decision_reason={reason} несовместим с application_status={application_status}; закрытое решение хранится как not_started")
+            error(
+                line,
+                f"{identifier}: decision_reason={reason} несовместим с application_status={application_status}; закрытое решение хранится как not_started",
+            )
         elif reason in PRE_APPLICATION_REASONS and application_status != "not_started":
             error(line, f"{identifier}: decision_reason={reason} требует application_status=not_started")
         if reason == "closed_before_application":
@@ -488,9 +676,15 @@ def validate_rows(rows):
                 error(line, f"{identifier}: closed_before_application несовместим с applied_at")
         if listing_status == "closed" and application_status in PRE_APPLICATION_STATUSES:
             if application_status != "not_started":
-                error(line, f"{identifier}: listing_status=closed до отклика требует application_status=not_started")
+                error(
+                    line,
+                    f"{identifier}: listing_status=closed до отклика требует application_status=not_started",
+                )
             elif reason != "closed_before_application":
-                error(line, f"{identifier}: closed before application требует decision_reason=closed_before_application")
+                error(
+                    line,
+                    f"{identifier}: closed before application требует decision_reason=closed_before_application",
+                )
         if reason == "duplicate_listing":
             if application_status != "not_started":
                 error(line, f"{identifier}: duplicate_listing требует application_status=not_started")
@@ -509,19 +703,35 @@ def validate_rows(rows):
             error(line, f"{identifier}: apply_verified=yes требует verified_at")
         if application_status in NEEDS_APPLIED_AT and (row.get("stage_reached") or "None") == "None":
             error(line, f"{identifier}: application_status={application_status}, но stage_reached=None")
-        if row.get("stage_reached") == "Offer" and application_status not in {"offer", "rejected", "withdrawn"}:
-            warnings.append(f"строка {line}: {identifier}: stage=Offer при application_status={application_status}")
+        if row.get("stage_reached") == "Offer" and application_status not in {
+            "offer",
+            "rejected",
+            "withdrawn",
+        }:
+            warnings.append(
+                f"строка {line}: {identifier}: stage=Offer при application_status={application_status}"
+            )
         try:
-            if row.get("response_at") and row.get("applied_at") and datetime.strptime(row["response_at"], "%Y-%m-%d") < datetime.strptime(row["applied_at"], "%Y-%m-%d"):
+            if (
+                row.get("response_at")
+                and row.get("applied_at")
+                and datetime.strptime(row["response_at"], "%Y-%m-%d")
+                < datetime.strptime(row["applied_at"], "%Y-%m-%d")
+            ):
                 error(line, f"{identifier}: response_at раньше applied_at")
         except ValueError:
             pass
         if "\n" in (row.get("notes") or ""):
             error(line, f"{identifier}: перевод строки в notes; длинный текст → applications/{identifier}.md")
     for canonical, entries in urls.items():
-        if len(entries) > 1 and len([row for _, row in entries if row.get("decision_reason") != "duplicate_listing"]) != 1:
+        if (
+            len(entries) > 1
+            and len([row for _, row in entries if row.get("decision_reason") != "duplicate_listing"]) != 1
+        ):
             labels = ", ".join(f"{row['id']}@{line}" for line, row in entries)
-            errors.append(f"canonical original_url={canonical!r}: ожидается ровно одна оригинальная запись, получено: {labels}")
+            errors.append(
+                f"canonical original_url={canonical!r}: ожидается ровно одна оригинальная запись, получено: {labels}"
+            )
     for line, identifier, original in duplicate_refs:
         if original == identifier:
             error(line, f"{identifier}: duplicate_listing ссылается сам на себя")
@@ -552,7 +762,9 @@ def temporal_notices(rows):
             continue
         days = (business_date() - applied).days
         if days > GHOST_AFTER_DAYS:
-            notices.append(f"строка {line}: {identifier}: {days} дней без ответа → application_status=ghosted?")
+            notices.append(
+                f"строка {line}: {identifier}: {days} дней без ответа → application_status=ghosted?"
+            )
     return notices
 
 
@@ -592,7 +804,9 @@ def validate_job_sources(job_rows, source_rows):
                 error(line, f"{identifier}: found_at={found_at!r} — ожидается YYYY-MM-DD")
             else:
                 if parsed > business_date():
-                    warnings.append(f"job_sources.csv:{line}: {identifier}: found_at={found_at} в будущем — опечатка в годе?")
+                    warnings.append(
+                        f"job_sources.csv:{line}: {identifier}: found_at={found_at} в будущем — опечатка в годе?"
+                    )
         if "\n" in source_job_id:
             error(line, f"{identifier}: source_job_id содержит перевод строки")
         if source_job_id:
@@ -603,7 +817,10 @@ def validate_job_sources(job_rows, source_rows):
         if source_url:
             key = (job_id, source, norm_url(source_url))
             if key in source_urls:
-                error(line, f"{identifier}: дубль source_url для той же вакансии (уже в строке {source_urls[key]})")
+                error(
+                    line,
+                    f"{identifier}: дубль source_url для той же вакансии (уже в строке {source_urls[key]})",
+                )
             source_urls[key] = line
     return errors, warnings
 
@@ -657,19 +874,24 @@ def find_duplicate_candidates(rows, company, role, original_url):
                 continue
             company_score = similarity(company_norm, without_noise(row["company"], COMPANY_NOISE))
             role_score = similarity(role_norm, without_noise(row["role"], ROLE_NOISE))
-            if company_score >= .85 and role_score >= .75:
-                hits.setdefault(row["id"], (
-                    row,
-                    f"похоже: company {company_score:.2f}, role {role_score:.2f}",
-                    f"looks similar: company {company_score:.2f}, role {role_score:.2f}",
-                ))
+            if company_score >= 0.85 and role_score >= 0.75:
+                hits.setdefault(
+                    row["id"],
+                    (
+                        row,
+                        f"похоже: company {company_score:.2f}, role {role_score:.2f}",
+                        f"looks similar: company {company_score:.2f}, role {role_score:.2f}",
+                    ),
+                )
     return hits
 
 
 def print_duplicate_candidates(candidates):
     print("возможные дубли:")
     for row, reason_text, _reason_en in candidates.values():
-        print(f"  {row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]  ({reason_text})")
+        print(
+            f"  {row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]  ({reason_text})"
+        )
     print("\nэто дубль -> повторите с --duplicate-of job-NNNN\nэто другая вакансия -> повторите с --force")
 
 
@@ -685,7 +907,9 @@ def build_add_row(rows, values):
     if source not in SOURCES:
         raise ValidationError(
             f"source: {source!r} is not a recognized value",
-            code="bad_enum_value", field="source", allowed=sorted(SOURCES),
+            code="bad_enum_value",
+            field="source",
+            allowed=sorted(SOURCES),
             cli_hint_ru=f"source: недопустимое значение {source!r}",
         )
     application_status = clean_value(values.get("application_status") or "not_started")
@@ -698,7 +922,8 @@ def build_add_row(rows, values):
     if application_status not in ADD_APPLICATION_STATUSES:
         raise ValidationError(
             f"application_status: {application_status!r} is not valid for add",
-            code="bad_enum_value", field="application_status",
+            code="bad_enum_value",
+            field="application_status",
             allowed=sorted(ADD_APPLICATION_STATUSES),
             cli_hint_ru=f"application_status: недопустимое значение {application_status!r} для add",
         )
@@ -712,48 +937,52 @@ def build_add_row(rows, values):
         if value not in allowed:
             raise ValidationError(
                 f"{key}: {value!r} is not a recognized enum member",
-                code="bad_enum_value", field=key, allowed=sorted(allowed),
+                code="bad_enum_value",
+                field=key,
+                allowed=sorted(allowed),
                 cli_hint_ru=f"{key}: недопустимое значение {value!r}",
             )
     if decision_reason and decision_reason not in REASONS:
         raise ValidationError(
             f"decision_reason: {decision_reason!r} is not a recognized value",
-            code="bad_enum_value", field="decision_reason", allowed=sorted(REASONS),
+            code="bad_enum_value",
+            field="decision_reason",
+            allowed=sorted(REASONS),
             cli_hint_ru=f"decision_reason: недопустимое значение {decision_reason!r}",
         )
     notes = clean_value(values.get("notes"))
     identifier = next_id(rows)
     verification_touched = (
-        listing_status != "unknown"
-        or first_party_verified != "unknown"
-        or apply_verified != "unknown"
+        listing_status != "unknown" or first_party_verified != "unknown" or apply_verified != "unknown"
     )
     row = {key: "" for key in FIELDS}
-    row.update({
-        "id": identifier,
-        "application_status": application_status,
-        "listing_status": listing_status,
-        "company": company,
-        "role": role,
-        "level": level,
-        "original_url": clean_value(values.get("original_url")),
-        "source_url": clean_value(values.get("source_url")),
-        "source": source,
-        "location": clean_value(values.get("location")),
-        "remote_policy": remote_policy,
-        "stack": clean_value(values.get("stack")),
-        "salary": clean_value(values.get("salary")) or "Unknown",
-        "posted_at": clean_value(values.get("posted_at")),
-        "found_at": clean_value(values.get("found_at")) or today(),
-        "match_score": clean_value(values.get("match_score")),
-        "stage_reached": "None",
-        "decision_reason": decision_reason,
-        "first_party_verified": first_party_verified,
-        "apply_verified": apply_verified,
-        "verified_at": today() if verification_touched else "",
-        "last_update": today(),
-        "notes": notes,
-    })
+    row.update(
+        {
+            "id": identifier,
+            "application_status": application_status,
+            "listing_status": listing_status,
+            "company": company,
+            "role": role,
+            "level": level,
+            "original_url": clean_value(values.get("original_url")),
+            "source_url": clean_value(values.get("source_url")),
+            "source": source,
+            "location": clean_value(values.get("location")),
+            "remote_policy": remote_policy,
+            "stack": clean_value(values.get("stack")),
+            "salary": clean_value(values.get("salary")) or "Unknown",
+            "posted_at": clean_value(values.get("posted_at")),
+            "found_at": clean_value(values.get("found_at")) or today(),
+            "match_score": clean_value(values.get("match_score")),
+            "stage_reached": "None",
+            "decision_reason": decision_reason,
+            "first_party_verified": first_party_verified,
+            "apply_verified": apply_verified,
+            "verified_at": today() if verification_touched else "",
+            "last_update": today(),
+            "notes": notes,
+        }
+    )
     return row
 
 
@@ -770,7 +999,9 @@ def build_source_reference(job_id, values, default_found_at):
     if source not in SOURCES:
         raise ValidationError(
             f"source: {source!r} is not a recognized value",
-            code="bad_enum_value", field="source", allowed=sorted(SOURCES),
+            code="bad_enum_value",
+            field="source",
+            allowed=sorted(SOURCES),
             cli_hint_ru=f"source: недопустимое значение {source!r}",
         )
     if not source_url and not source_job_id:
@@ -798,7 +1029,8 @@ def prepare_source_reference(source_rows, reference, force=False):
                 if existing["job_id"] == reference["job_id"]:
                     return existing, False
                 raise SourceReferenceConflict(
-                    f"source + source_job_id уже принадлежат {existing['job_id']}", existing,
+                    f"source + source_job_id уже принадлежат {existing['job_id']}",
+                    existing,
                     message_en=f"source + source_job_id already belong to {existing['job_id']}",
                 )
     if source_url:
@@ -830,14 +1062,18 @@ def source_reference_payload(reference, created):
 
 
 def should_create_application_card(row, no_file):
-    return not no_file and not (
-        row["application_status"] == "not_started" and row["decision_reason"]
-    )
+    return not no_file and not (row["application_status"] == "not_started" and row["decision_reason"])
 
 
 APPLICATION_CARD_FRONT_MATTER_FIELDS = (
-    "id", "company", "role", "original_url", "verified_at", "listing_status",
-    "first_party_verified", "apply_verified",
+    "id",
+    "company",
+    "role",
+    "original_url",
+    "verified_at",
+    "listing_status",
+    "first_party_verified",
+    "apply_verified",
 )
 
 
@@ -856,8 +1092,7 @@ def sync_application_card_front_matter(body, row, app_path):
     missing = []
     for key in APPLICATION_CARD_FRONT_MATTER_FIELDS:
         matches = [
-            index for index in range(1, closing_index)
-            if re.match(rf"^{re.escape(key)}\s*:", lines[index])
+            index for index in range(1, closing_index) if re.match(rf"^{re.escape(key)}\s*:", lines[index])
         ]
         if len(matches) > 1:
             die(f"{app_path}: front matter поле {key} указано несколько раз")
@@ -886,7 +1121,11 @@ def render_application_card(row, update_existing=False):
         return app_path, body if body != original_body else None
     if not TEMPLATE_PATH.exists():
         die(f"не найден шаблон {TEMPLATE_PATH}")
-    body = TEMPLATE_PATH.read_text(encoding="utf-8").replace("{{company}}", row["company"]).replace("{{role}}", row["role"])
+    body = (
+        TEMPLATE_PATH.read_text(encoding="utf-8")
+        .replace("{{company}}", row["company"])
+        .replace("{{role}}", row["role"])
+    )
     body = sync_application_card_front_matter(body, row, TEMPLATE_PATH)
     return app_path, body
 
@@ -908,7 +1147,9 @@ def prepare_add(values, force=False, no_file=False):
     if row["source_url"] or source_job_id:
         candidate_reference = build_source_reference(row["id"], values, row["found_at"])
         source_reference, source_reference_created = prepare_source_reference(
-            source_rows, candidate_reference, force=force,
+            source_rows,
+            candidate_reference,
+            force=force,
         )
         if source_reference_created:
             new_source_rows.append(source_reference)
@@ -968,16 +1209,20 @@ def add_job(values, force=False, duplicate_of=None, no_file=False):
         "warnings": plan.warnings,
         "application_path": created_path.relative_to(ROOT).as_posix() if created_path else None,
         "source_reference": source_reference_payload(plan.source_reference, plan.source_reference_created)
-        if plan.source_reference else None,
+        if plan.source_reference
+        else None,
     }
 
 
 def ingest_job_values(rows, fields, decision_reason="", next_action=""):
     """Build an unverified canonical job from a normalized raw record."""
-    row = build_add_row(rows, {
-        **fields,
-        "decision_reason": decision_reason,
-    })
+    row = build_add_row(
+        rows,
+        {
+            **fields,
+            "decision_reason": decision_reason,
+        },
+    )
     row["next_action"] = next_action
     row["next_action_date"] = ""
     return row
@@ -1019,9 +1264,7 @@ def load_ingest_resolutions(path, batch_id):
         return {}, [f"resolution {path}: ожидается JSON object"]
     expected_fields = {"version", "batch_id", "resolutions"}
     if set(payload) != expected_fields:
-        errors.append(
-            f"resolution {path}: поля должны быть ровно {', '.join(sorted(expected_fields))}"
-        )
+        errors.append(f"resolution {path}: поля должны быть ровно {', '.join(sorted(expected_fields))}")
     if payload.get("version") != INGEST_RESOLUTION_VERSION:
         errors.append(f"resolution {path}: version должен быть {INGEST_RESOLUTION_VERSION}")
     if payload.get("batch_id") != batch_id:
@@ -1090,12 +1333,18 @@ def plan_ingest(path, resolution_path=None):
     """Classify an immutable raw batch without changing canonical files."""
     try:  # Direct CLI execution places scripts/ on sys.path.
         from ingestion import (
-            deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
+            deterministic_duplicate,
+            fuzzy_candidates,
+            load_batch,
+            normalize_record,
             relevance_or_hard_filter,
         )
     except ModuleNotFoundError:  # Unit tests may import this module as scripts.jobs.
         from scripts.ingestion import (
-            deterministic_duplicate, fuzzy_candidates, load_batch, normalize_record,
+            deterministic_duplicate,
+            fuzzy_candidates,
+            load_batch,
+            normalize_record,
             relevance_or_hard_filter,
         )
 
@@ -1115,22 +1364,28 @@ def plan_ingest(path, resolution_path=None):
     for entry in batch["entries"]:
         line_number = entry["line"]
         if entry["errors"]:
-            outcomes.append({
-                "line": line_number,
-                "outcome": "invalid",
-                "reason": "raw_validation",
-                "errors": entry["errors"],
-            })
+            outcomes.append(
+                {
+                    "line": line_number,
+                    "outcome": "invalid",
+                    "reason": "raw_validation",
+                    "errors": entry["errors"],
+                }
+            )
             continue
         record = entry["record"]
         fields = normalize_record(record)
         if fields["source"] not in SOURCES:
-            outcomes.append({
-                "line": line_number,
-                "outcome": "invalid",
-                "reason": "canonical_source_unknown",
-                "errors": [f"line {line_number}: source={fields['source']!r} не входит в canonical source enum"],
-            })
+            outcomes.append(
+                {
+                    "line": line_number,
+                    "outcome": "invalid",
+                    "reason": "canonical_source_unknown",
+                    "errors": [
+                        f"line {line_number}: source={fields['source']!r} не входит в canonical source enum"
+                    ],
+                }
+            )
             continue
 
         relevance, filter_reason = relevance_or_hard_filter(record, norm(fields["role"]))
@@ -1153,21 +1408,25 @@ def plan_ingest(path, resolution_path=None):
             try:
                 _reference, created = add_ingest_reference(source_rows, job_id, fields)
             except SourceReferenceConflict as error:
-                outcomes.append({
-                    "line": line_number,
-                    "outcome": "invalid",
-                    "reason": "source_reference_conflict",
-                    "errors": [f"line {line_number}: {error.message}"],
-                })
+                outcomes.append(
+                    {
+                        "line": line_number,
+                        "outcome": "invalid",
+                        "reason": "source_reference_conflict",
+                        "errors": [f"line {line_number}: {error.message}"],
+                    }
+                )
                 continue
             source_references_created += int(created)
-            outcomes.append({
-                "line": line_number,
-                "outcome": "duplicate",
-                "reason": reason,
-                "job_id": job_id,
-                "source_reference_created": created,
-            })
+            outcomes.append(
+                {
+                    "line": line_number,
+                    "outcome": "duplicate",
+                    "reason": reason,
+                    "job_id": job_id,
+                    "source_reference_created": created,
+                }
+            )
             continue
 
         if relevance == "skipped":
@@ -1175,69 +1434,88 @@ def plan_ingest(path, resolution_path=None):
             try:
                 _reference, created = add_ingest_reference(source_rows, row["id"], fields)
             except SourceReferenceConflict as error:
-                outcomes.append({
-                    "line": line_number,
-                    "outcome": "invalid",
-                    "reason": "source_reference_conflict",
-                    "errors": [f"line {line_number}: {error.message}"],
-                })
+                outcomes.append(
+                    {
+                        "line": line_number,
+                        "outcome": "invalid",
+                        "reason": "source_reference_conflict",
+                        "errors": [f"line {line_number}: {error.message}"],
+                    }
+                )
                 continue
             rows.append(row)
             job_lines[row["id"]] = line_number
             source_references_created += int(created)
-            outcomes.append({
-                "line": line_number,
-                "outcome": "skipped",
-                "reason": filter_reason,
-                "job_id": row["id"],
-            })
+            outcomes.append(
+                {
+                    "line": line_number,
+                    "outcome": "skipped",
+                    "reason": filter_reason,
+                    "job_id": row["id"],
+                }
+            )
             continue
 
         candidates = fuzzy_candidates(
-            fields, rows, without_noise, similarity, COMPANY_NOISE, ROLE_NOISE,
+            fields,
+            rows,
+            without_noise,
+            similarity,
+            COMPANY_NOISE,
+            ROLE_NOISE,
         )
         resolved_separate = False
         if candidates:
             resolution = resolutions.get(line_number)
             if resolution is None:
                 fuzzy = True
-                outcomes.append({
-                    "line": line_number,
-                    "outcome": "pending",
-                    "reason": "fuzzy_duplicate_requires_resolution",
-                    "candidates": candidates,
-                })
+                outcomes.append(
+                    {
+                        "line": line_number,
+                        "outcome": "pending",
+                        "reason": "fuzzy_duplicate_requires_resolution",
+                        "candidates": candidates,
+                    }
+                )
                 continue
             target_id = resolution_candidate_id(resolution, candidates, job_lines)
             if target_id is None:
-                outcomes.append({
-                    "line": line_number,
-                    "outcome": "invalid",
-                    "reason": "fuzzy_resolution_candidate_mismatch",
-                    "errors": [f"line {line_number}: resolution candidate не совпадает с fuzzy candidate"],
-                })
+                outcomes.append(
+                    {
+                        "line": line_number,
+                        "outcome": "invalid",
+                        "reason": "fuzzy_resolution_candidate_mismatch",
+                        "errors": [
+                            f"line {line_number}: resolution candidate не совпадает с fuzzy candidate"
+                        ],
+                    }
+                )
                 continue
             resolutions_used.add(line_number)
             if resolution["decision"] == "duplicate":
                 try:
                     _reference, created = add_ingest_reference(source_rows, target_id, fields)
                 except SourceReferenceConflict as error:
-                    outcomes.append({
-                        "line": line_number,
-                        "outcome": "invalid",
-                        "reason": "source_reference_conflict",
-                        "errors": [f"line {line_number}: {error.message}"],
-                    })
+                    outcomes.append(
+                        {
+                            "line": line_number,
+                            "outcome": "invalid",
+                            "reason": "source_reference_conflict",
+                            "errors": [f"line {line_number}: {error.message}"],
+                        }
+                    )
                     continue
                 source_references_created += int(created)
-                outcomes.append({
-                    "line": line_number,
-                    "outcome": "duplicate",
-                    "reason": "fuzzy_resolution",
-                    "resolution": "duplicate",
-                    "job_id": target_id,
-                    "source_reference_created": created,
-                })
+                outcomes.append(
+                    {
+                        "line": line_number,
+                        "outcome": "duplicate",
+                        "reason": "fuzzy_resolution",
+                        "resolution": "duplicate",
+                        "job_id": target_id,
+                        "source_reference_created": created,
+                    }
+                )
                 continue
             resolved_separate = True
 
@@ -1245,12 +1523,14 @@ def plan_ingest(path, resolution_path=None):
         try:
             _reference, created = add_ingest_reference(source_rows, row["id"], fields)
         except SourceReferenceConflict as error:
-            outcomes.append({
-                "line": line_number,
-                "outcome": "invalid",
-                "reason": "source_reference_conflict",
-                "errors": [f"line {line_number}: {error.message}"],
-            })
+            outcomes.append(
+                {
+                    "line": line_number,
+                    "outcome": "invalid",
+                    "reason": "source_reference_conflict",
+                    "errors": [f"line {line_number}: {error.message}"],
+                }
+            )
             continue
         rows.append(row)
         job_lines[row["id"]] = line_number
@@ -1308,7 +1588,9 @@ def dataset_write_lock():
 
 
 def stage_csv(target, fields, rows):
-    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-ingest-", suffix=".csv", dir=target.parent)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f"{target.stem}-ingest-", suffix=".csv", dir=target.parent
+    )
     temporary_path = Path(temporary_name)
     try:
         with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
@@ -1322,7 +1604,9 @@ def stage_csv(target, fields, rows):
 
 
 def stage_text(target, body):
-    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-ingest-", suffix=target.suffix, dir=target.parent)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f"{target.stem}-ingest-", suffix=target.suffix, dir=target.parent
+    )
     temporary_path = Path(temporary_name)
     try:
         with os.fdopen(descriptor, "w", encoding="utf-8") as file:
@@ -1336,7 +1620,9 @@ def stage_text(target, body):
 def backup_file(target):
     if not target.exists():
         return None
-    descriptor, temporary_name = tempfile.mkstemp(prefix=f"{target.stem}-backup-", suffix=target.suffix, dir=target.parent)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix=f"{target.stem}-backup-", suffix=target.suffix, dir=target.parent
+    )
     backup_path = Path(temporary_name)
     try:
         with os.fdopen(descriptor, "wb") as file:
@@ -1418,7 +1704,9 @@ def ingest_payload(plan, mode, applied=None, error=None):
         "resolution": {
             "path": plan.resolution_path,
             "used": plan.resolutions_used,
-        } if plan.resolution_path else None,
+        }
+        if plan.resolution_path
+        else None,
         "summary": plan.summary,
         "outcomes": plan.outcomes,
         "errors": plan.errors,
@@ -1434,8 +1722,10 @@ def print_ingest_text(payload):
         print(f"line {outcome['line']}: {outcome['outcome']} — {outcome['reason']}")
     summary = payload["summary"]
     print(
-        "summary: " + ", ".join(
-            f"{key}={summary[key]}" for key in ("input", "invalid", "noise", "skipped", "duplicates", "pending")
+        "summary: "
+        + ", ".join(
+            f"{key}={summary[key]}"
+            for key in ("input", "invalid", "noise", "skipped", "duplicates", "pending")
         )
     )
     for error in payload["errors"]:
@@ -1550,29 +1840,35 @@ def duplicate_candidates_payload(candidates):
 def cmd_add(args):
     try:
         result = add_job(
-            load_add_values(args), force=args.force, duplicate_of=args.duplicate_of,
+            load_add_values(args),
+            force=args.force,
+            duplicate_of=args.duplicate_of,
             no_file=args.no_file,
         )
     except UnresolvedDuplicate as error:
         if args.format == "json":
-            print_json({
-                "ok": False,
-                "command": "add",
-                "error": "unresolved_duplicate",
-                "candidates": duplicate_candidates_payload(error.candidates),
-            })
+            print_json(
+                {
+                    "ok": False,
+                    "command": "add",
+                    "error": "unresolved_duplicate",
+                    "candidates": duplicate_candidates_payload(error.candidates),
+                }
+            )
         else:
             print_duplicate_candidates(error.candidates)
         raise SystemExit(2)
     except SourceReferenceConflict as error:
         if args.format == "json":
-            print_json({
-                "ok": False,
-                "command": "add",
-                "error": "source_reference_conflict",
-                "message": error.message,
-                "existing": error.existing,
-            })
+            print_json(
+                {
+                    "ok": False,
+                    "command": "add",
+                    "error": "source_reference_conflict",
+                    "message": error.message,
+                    "existing": error.existing,
+                }
+            )
         else:
             print(f"source reference conflict: {error.message}")
             print("это отдельная reference -> повторите с --force")
@@ -1585,12 +1881,16 @@ def cmd_add(args):
     if result.get("duplicate_of"):
         reference = result["source_reference"]
         state = "добавлена" if reference["created"] else "уже существует"
-        print(f"{result['duplicate_of']}  source reference {state}: {reference['reference']['source_url'] or reference['reference']['source_job_id']}")
+        print(
+            f"{result['duplicate_of']}  source reference {state}: {reference['reference']['source_url'] or reference['reference']['source_job_id']}"
+        )
         return
     if result["application_path"]:
         print(f"создан {result['application_path']}")
     row = result["job"]
-    print(f"{row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]")
+    print(
+        f"{row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]"
+    )
 
 
 def parse_field_assignments(pairs):
@@ -1617,7 +1917,8 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
         if key not in FIELDS:
             raise ValidationError(
                 f"unknown field: {key}",
-                code="unknown_args", field=key,
+                code="unknown_args",
+                field=key,
                 cli_hint_ru=f"неизвестное поле: {key}",
             )
         if enforce_protected and key in SET_PROTECTED:
@@ -1626,7 +1927,11 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
                 field=key,
                 cli_hint_ru=f"поле {key} управляется скриптом и не меняется через field=value",
             )
-        if key == "decision_reason" and value == "duplicate_listing" and row["decision_reason"] != "duplicate_listing":
+        if (
+            key == "decision_reason"
+            and value == "duplicate_listing"
+            and row["decision_reason"] != "duplicate_listing"
+        ):
             raise ValidationError(
                 "duplicate_listing is created only by an add operation with duplicate_of set",
                 field="decision_reason",
@@ -1635,18 +1940,24 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
         if key in ENUMS and value and value not in ENUMS[key]:
             raise ValidationError(
                 f"{key}: {value!r} is not a recognized enum member",
-                code="bad_enum_value", field=key, allowed=sorted(ENUMS[key]),
+                code="bad_enum_value",
+                field=key,
+                allowed=sorted(ENUMS[key]),
                 cli_hint_ru=f"{key}: недопустимое значение {value!r}",
             )
         row[key] = value.replace("\n", " ")
         verification_touched = verification_touched or key in {
-            "listing_status", "first_party_verified", "apply_verified",
+            "listing_status",
+            "first_party_verified",
+            "apply_verified",
         }
     if stage:
         if stage not in STAGES:
             raise ValidationError(
                 f"{stage!r} is not a recognized stage",
-                code="bad_enum_value", field="stage", allowed=list(STAGES),
+                code="bad_enum_value",
+                field="stage",
+                allowed=list(STAGES),
                 cli_hint_ru=f"недопустимая стадия: {stage}",
             )
         current = row["stage_reached"] or "None"
@@ -1657,7 +1968,10 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
                 cli_hint_ru=f"stage_reached нельзя понижать: {current} -> {stage}",
             )
         row["stage_reached"] = stage
-        if STAGES.index("Recruiter screen") <= STAGES.index(stage) <= STAGES.index("Final interview") and row["application_status"] == "applied":
+        if (
+            STAGES.index("Recruiter screen") <= STAGES.index(stage) <= STAGES.index("Final interview")
+            and row["application_status"] == "applied"
+        ):
             row["application_status"] = "interviewing"
         if stage == "Offer" and row["application_status"] in {"applied", "interviewing"}:
             row["application_status"] = "offer"
@@ -1693,7 +2007,9 @@ def cmd_set(args):
     for warning in result["warnings"]:
         print(f"warn:  {warning}")
     row = result["job"]
-    print(f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}")
+    print(
+        f"{row['id']}  application_status={row['application_status']}  listing_status={row['listing_status']}  stage={row['stage_reached']}"
+    )
 
 
 def validate_status_date(value, field):
@@ -1703,7 +2019,8 @@ def validate_status_date(value, field):
     if not value:
         raise ValidationError(
             f"status: {field} cannot be an empty date",
-            code="bad_format", field=field,
+            code="bad_format",
+            field=field,
             cli_hint_ru=f"status: {field} не может быть пустой датой",
         )
     try:
@@ -1711,27 +2028,41 @@ def validate_status_date(value, field):
     except ValueError:
         raise ValidationError(
             f"status: {field} must be YYYY-MM-DD",
-            code="bad_format", field=field,
+            code="bad_format",
+            field=field,
             cli_hint_ru=f"status: {field} должна быть YYYY-MM-DD",
         )
     if parsed > business_date():
         raise ValidationError(
             f"status: {field} cannot be in the future",
-            code="bad_format", field=field,
+            code="bad_format",
+            field=field,
             cli_hint_ru=f"status: {field} не может быть в будущем",
         )
     return value
 
 
-def apply_status_change(row, *, application_status, stage=None, applied_at=None,
-                        response_at=None, decision_reason=None, next_action=None,
-                        next_action_date=None, cv_version=None, notes=None):
+def apply_status_change(
+    row,
+    *,
+    application_status,
+    stage=None,
+    applied_at=None,
+    response_at=None,
+    decision_reason=None,
+    next_action=None,
+    next_action_date=None,
+    cv_version=None,
+    notes=None,
+):
     """Record a user-confirmed lifecycle event without opening arbitrary set fields."""
     target = clean_value(application_status).strip()
     if target not in APPLICATION_STATUSES:
         raise ValidationError(
             f"status: {target!r} is not a recognized application_status",
-            code="bad_enum_value", field="application_status", allowed=sorted(APPLICATION_STATUSES),
+            code="bad_enum_value",
+            field="application_status",
+            allowed=sorted(APPLICATION_STATUSES),
             cli_hint_ru=f"status: недопустимый application_status {target!r}",
         )
     if row["applied_at"] and target in PRE_APPLICATION_STATUSES:
@@ -1745,7 +2076,9 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
         if stage not in STAGES:
             raise ValidationError(
                 f"status: {stage!r} is not a recognized stage",
-                code="bad_enum_value", field="stage", allowed=list(STAGES),
+                code="bad_enum_value",
+                field="stage",
+                allowed=list(STAGES),
                 cli_hint_ru=f"status: недопустимая стадия {stage!r}",
             )
     if target in PRE_APPLICATION_STATUSES and stage not in {None, "None"}:
@@ -1794,7 +2127,8 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
             except ValueError:
                 raise ValidationError(
                     "status: next_action_date must be YYYY-MM-DD",
-                    code="bad_format", field="next_action_date",
+                    code="bad_format",
+                    field="next_action_date",
                     cli_hint_ru="status: next_action_date должна быть YYYY-MM-DD",
                 )
 
@@ -1802,14 +2136,16 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
     if target in NEEDS_APPLIED_AT and not effective_applied_at and target != "applied":
         raise ValidationError(
             f"status: moving to {target} without an existing application requires applied_at",
-            field="applied_at", agent_hint="include an applied_at date in args",
+            field="applied_at",
+            agent_hint="include an applied_at date in args",
             cli_hint_ru=f"status: переход в {target} без существующей заявки требует --applied-at",
         )
     effective_next_action = row["next_action"] if next_action is None else clean_value(next_action).strip()
     if target == "apply" and not effective_next_action:
         raise ValidationError(
             "status: application_status=apply requires next_action",
-            field="next_action", agent_hint="include a non-empty next_action in args",
+            field="next_action",
+            agent_hint="include a non-empty next_action in args",
             cli_hint_ru="status: application_status=apply требует --next-action",
         )
     if target in TERMINAL_APPLICATION_STATUSES and (
@@ -1824,7 +2160,8 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
     if next_action_date and (next_action is None or not clean_value(next_action).strip()):
         raise ValidationError(
             "status: next_action_date requires an explicit next_action",
-            field="next_action_date", agent_hint="include a non-empty next_action in args",
+            field="next_action_date",
+            agent_hint="include a non-empty next_action in args",
             cli_hint_ru="status: next_action_date требует явный --next-action",
         )
 
@@ -1833,7 +2170,9 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
         if supplied_reason not in {None, "no_response_timeout"}:
             raise ValidationError(
                 "status: ghosted accepts only decision_reason=no_response_timeout",
-                code="bad_enum_value", field="decision_reason", allowed=["no_response_timeout"],
+                code="bad_enum_value",
+                field="decision_reason",
+                allowed=["no_response_timeout"],
                 cli_hint_ru="status: ghosted допускает только decision_reason=no_response_timeout",
             )
         final_reason = "no_response_timeout"
@@ -1841,7 +2180,9 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
         if supplied_reason not in {None, "withdrawn_by_me"}:
             raise ValidationError(
                 "status: withdrawn accepts only decision_reason=withdrawn_by_me",
-                code="bad_enum_value", field="decision_reason", allowed=["withdrawn_by_me"],
+                code="bad_enum_value",
+                field="decision_reason",
+                allowed=["withdrawn_by_me"],
                 cli_hint_ru="status: withdrawn допускает только decision_reason=withdrawn_by_me",
             )
         final_reason = "withdrawn_by_me"
@@ -1922,10 +2263,7 @@ def cmd_status(args):
         print_json({"ok": True, "command": "status", **result})
         return
     row = result["job"]
-    print(
-        f"{row['id']}  application_status={row['application_status']}  "
-        f"stage={row['stage_reached']}"
-    )
+    print(f"{row['id']}  application_status={row['application_status']}  stage={row['stage_reached']}")
 
 
 def apply_screen_decision(row, *, decision_reason, notes=None):
@@ -1934,7 +2272,9 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
     if decision_reason not in SCREEN_REASONS:
         raise ValidationError(
             f"screen: {decision_reason!r} is not a recognized decision_reason",
-            code="bad_enum_value", field="decision_reason", allowed=sorted(SCREEN_REASONS),
+            code="bad_enum_value",
+            field="decision_reason",
+            allowed=sorted(SCREEN_REASONS),
             cli_hint_ru=f"screen: недопустимая decision_reason {decision_reason!r}",
         )
     if row["application_status"] not in {"not_started", "reviewing", "apply"} or row["applied_at"]:
@@ -1947,7 +2287,8 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
     if decision_reason == "other" and not row["notes"]:
         raise ValidationError(
             "screen decision_reason=other requires notes",
-            field="notes", agent_hint="include non-empty notes in args",
+            field="notes",
+            agent_hint="include non-empty notes in args",
             cli_hint_ru="screen decision_reason=other требует --notes",
         )
     row["application_status"] = "not_started"
@@ -1990,16 +2331,32 @@ def apply_verify_enrichment(row, **values):
         if key in ENUMS and value and value not in ENUMS[key]:
             raise ValidationError(
                 f"{key}: {value!r} is not a recognized enum member",
-                code="bad_enum_value", field=key, allowed=sorted(ENUMS[key]),
+                code="bad_enum_value",
+                field=key,
+                allowed=sorted(ENUMS[key]),
                 cli_hint_ru=f"{key}: недопустимое значение {value!r}",
             )
         row[key] = value
 
 
-def apply_verify_changes(row, *, listing_status, first_party_verified, apply_verified,
-                         original_url=None, decision_reason=None, notes=None, level=None,
-                         remote_policy=None, stack=None, salary=None, match_score=None,
-                         application_status=None, next_action=None, next_action_date=None):
+def apply_verify_changes(
+    row,
+    *,
+    listing_status,
+    first_party_verified,
+    apply_verified,
+    original_url=None,
+    decision_reason=None,
+    notes=None,
+    level=None,
+    remote_policy=None,
+    stack=None,
+    salary=None,
+    match_score=None,
+    application_status=None,
+    next_action=None,
+    next_action_date=None,
+):
     """Apply verification fields to an in-memory row and return its outcome."""
     if decision_reason == "duplicate_listing":
         raise ValidationError(
@@ -2012,14 +2369,17 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
         if application_status != "apply":
             raise ValidationError(
                 "verify may set application_status only to apply",
-                code="bad_enum_value", field="application_status", allowed=["apply"],
+                code="bad_enum_value",
+                field="application_status",
+                allowed=["apply"],
                 cli_hint_ru="verify может установить application_status только в apply",
             )
         next_action = clean_value(next_action or "").strip()
         if not next_action:
             raise ValidationError(
                 "application_status=apply requires next_action",
-                field="next_action", agent_hint="include a non-empty next_action in args",
+                field="next_action",
+                agent_hint="include a non-empty next_action in args",
                 cli_hint_ru="application_status=apply требует --next-action",
             )
         if next_action_date is not None:
@@ -2029,7 +2389,8 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
             except ValueError:
                 raise ValidationError(
                     "next_action_date must be YYYY-MM-DD",
-                    code="bad_format", field="next_action_date",
+                    code="bad_format",
+                    field="next_action_date",
                     cli_hint_ru="--next-action-date должна иметь формат YYYY-MM-DD",
                 )
     elif next_action is not None or next_action_date is not None:
@@ -2059,11 +2420,7 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     row["first_party_verified"] = first_party_verified
     row["apply_verified"] = apply_verified
     row["verified_at"] = today()
-    passed = (
-        listing_status == "open"
-        and first_party_verified == "yes"
-        and apply_verified == "yes"
-    )
+    passed = listing_status == "open" and first_party_verified == "yes" and apply_verified == "yes"
     pre_application = row["application_status"] in {"not_started", "reviewing", "apply"}
     if decision_reason:
         if not pre_application:
@@ -2099,7 +2456,8 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     elif pre_application:
         raise ValidationError(
             "a verification that did not pass requires decision_reason before an application response",
-            field="decision_reason", agent_hint="include decision_reason in args",
+            field="decision_reason",
+            agent_hint="include decision_reason in args",
             cli_hint_ru="для непрошедшей verification до отклика нужен --decision-reason",
         )
     else:
@@ -2119,10 +2477,24 @@ def prepare_verified_application_write(row, passed):
     return application_path, application_body, application_card_created
 
 
-def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
-               original_url=None, decision_reason=None, notes=None, level=None,
-               remote_policy=None, stack=None, salary=None, match_score=None,
-               application_status=None, next_action=None, next_action_date=None):
+def verify_job(
+    job_id,
+    *,
+    listing_status,
+    first_party_verified,
+    apply_verified,
+    original_url=None,
+    decision_reason=None,
+    notes=None,
+    level=None,
+    remote_policy=None,
+    stack=None,
+    salary=None,
+    match_score=None,
+    application_status=None,
+    next_action=None,
+    next_action_date=None,
+):
     """Apply a completed first-party verification as one atomic dataset update."""
     rows = load()
     source_rows = load_job_sources()
@@ -2146,7 +2518,8 @@ def verify_job(job_id, *, listing_status, first_party_verified, apply_verified,
     )
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
     application_path, application_body, application_card_created = prepare_verified_application_write(
-        row, change["passed"],
+        row,
+        change["passed"],
     )
     application_writes = ((application_path, application_body),) if application_body is not None else ()
     apply_dataset_transaction(rows, source_rows, application_writes)
@@ -2196,15 +2569,17 @@ def cmd_validate(args):
     notices = temporal_notices(rows)
     ok = not errors and not (warnings and args.strict)
     if args.format == "json":
-        print_json({
-            "ok": ok,
-            "command": "validate",
-            "checked": len(rows),
-            "source_references": len(source_rows),
-            "errors": errors,
-            "warnings": warnings,
-            "notices": notices,
-        })
+        print_json(
+            {
+                "ok": ok,
+                "command": "validate",
+                "checked": len(rows),
+                "source_references": len(source_rows),
+                "errors": errors,
+                "warnings": warnings,
+                "notices": notices,
+            }
+        )
         if not ok:
             raise SystemExit(1)
         return
@@ -2225,16 +2600,23 @@ def cmd_validate(args):
 def find_fuzzy_duplicates(rows, company_threshold, role_threshold):
     candidates = []
     for index, first in enumerate(rows):
-        for second in rows[index + 1:]:
-            company_score = similarity(without_noise(first["company"], COMPANY_NOISE), without_noise(second["company"], COMPANY_NOISE))
-            role_score = similarity(without_noise(first["role"], ROLE_NOISE), without_noise(second["role"], ROLE_NOISE))
+        for second in rows[index + 1 :]:
+            company_score = similarity(
+                without_noise(first["company"], COMPANY_NOISE),
+                without_noise(second["company"], COMPANY_NOISE),
+            )
+            role_score = similarity(
+                without_noise(first["role"], ROLE_NOISE), without_noise(second["role"], ROLE_NOISE)
+            )
             if company_score >= company_threshold and role_score >= role_threshold:
-                candidates.append({
-                    "company_similarity": round(company_score, 4),
-                    "role_similarity": round(role_score, 4),
-                    "first": first,
-                    "second": second,
-                })
+                candidates.append(
+                    {
+                        "company_similarity": round(company_score, 4),
+                        "role_similarity": round(role_score, 4),
+                        "first": first,
+                        "second": second,
+                    }
+                )
     return candidates
 
 
@@ -2242,11 +2624,13 @@ def cmd_dupes(args):
     rows = [row for row in load() if row["decision_reason"] != "duplicate_listing"]
     candidates = find_fuzzy_duplicates(rows, args.threshold, args.role_threshold)
     if args.format == "json":
-        print_json({
-            "ok": not (candidates and args.fail),
-            "command": "dupes",
-            "candidates": candidates,
-        })
+        print_json(
+            {
+                "ok": not (candidates and args.fail),
+                "command": "dupes",
+                "candidates": candidates,
+            }
+        )
     else:
         for candidate in candidates:
             first, second = candidate["first"], candidate["second"]
@@ -2486,10 +2870,7 @@ def tracker_payload(rows, source_references, application_cards):
     for row in rows:
         section = tracker_section(row)
         sections[section].append(tracker_item(row, source_references, application_cards))
-    sections = {
-        section: sort_tracker_items(section, sections[section])
-        for section in TRACKER_SECTION_ORDER
-    }
+    sections = {section: sort_tracker_items(section, sections[section]) for section in TRACKER_SECTION_ORDER}
     counts = {section: len(sections[section]) for section in TRACKER_SECTION_ORDER}
     if sum(counts.values()) != len(rows):
         raise ValueError("tracker section counts do not cover every canonical job")
@@ -2595,9 +2976,13 @@ def render_tracker_markdown(payload):
                     tracker_vacancy_cell(item),
                     markdown_escape(item["need_display"]),
                     markdown_escape(item["match_score"] or "—"),
-                    markdown_escape(tracker_action_display(
-                        item["next_action"], item["next_action_date"], fallback="verify first-party",
-                    )),
+                    markdown_escape(
+                        tracker_action_display(
+                            item["next_action"],
+                            item["next_action_date"],
+                            fallback="verify first-party",
+                        )
+                    ),
                     markdown_escape(item["verified_at"] or "Never"),
                 )
                 for item in payload["sections"]["to_verify"]
@@ -2654,9 +3039,19 @@ def render_known_index(rows):
     Э6): no URLs, so it is not the exact-match dedup key — that's keys.tsv."""
     lines = ["id\tcompany\trole\tapplication_status\tlisting_status\tdecision_reason"]
     for row in sorted(rows, key=lambda item: item["id"]):
-        lines.append("\t".join(index_tsv_value(row[field]) for field in (
-            "id", "company", "role", "application_status", "listing_status", "decision_reason",
-        )))
+        lines.append(
+            "\t".join(
+                index_tsv_value(row[field])
+                for field in (
+                    "id",
+                    "company",
+                    "role",
+                    "application_status",
+                    "listing_status",
+                    "decision_reason",
+                )
+            )
+        )
     return ("\n".join(lines) + "\n").encode("utf-8")
 
 
@@ -2678,7 +3073,7 @@ def index_common_prefix(values):
             if not prefix:
                 return ""
     cut = prefix.rfind("/")
-    return prefix[:cut + 1] if cut >= 0 else ""
+    return prefix[: cut + 1] if cut >= 0 else ""
 
 
 def render_keys_index(source_rows):
@@ -2699,7 +3094,7 @@ def render_keys_index(source_rows):
         prefix = index_common_prefix([key for _, key in entries])
         blocks.append(f"# {index_tsv_value(source)}\tprefix={prefix}")
         for job_id, key in entries:
-            blocks.append(f"{job_id}\t{key[len(prefix):]}")
+            blocks.append(f"{job_id}\t{key[len(prefix) :]}")
     return ("\n".join(blocks) + "\n").encode("utf-8") if blocks else b""
 
 
@@ -2755,7 +3150,9 @@ def cmd_render_index(args):
         "keys": (KEYS_INDEX_PATH, render_keys_index(source_rows)),
         "active": (ACTIVE_INDEX_PATH, render_active_index(rows)),
     }
-    up_to_date = {name: write_or_check_index_file(path, data, args.check) for name, (path, data) in artifacts.items()}
+    up_to_date = {
+        name: write_or_check_index_file(path, data, args.check) for name, (path, data) in artifacts.items()
+    }
     all_up_to_date = all(up_to_date.values())
     result = {
         "ok": all_up_to_date if args.check else True,
@@ -2771,7 +3168,8 @@ def cmd_render_index(args):
         else:
             stale = [name for name, ok in up_to_date.items() if not ok]
             print(
-                "data/index/* is out of date for: " + ", ".join(stale)
+                "data/index/* is out of date for: "
+                + ", ".join(stale)
                 + "; run: python3 scripts/jobs.py render-index",
                 file=sys.stderr,
             )
@@ -2805,7 +3203,9 @@ def cmd_render_tracker(args):
         if up_to_date:
             print("docs/tracker.md is up to date")
         else:
-            print("docs/tracker.md is out of date; run: python3 scripts/jobs.py render-tracker", file=sys.stderr)
+            print(
+                "docs/tracker.md is out of date; run: python3 scripts/jobs.py render-tracker", file=sys.stderr
+            )
     else:
         print("docs/tracker.md rendered")
     if args.check and not up_to_date:
@@ -2822,11 +3222,13 @@ def stale_entries(rows, days, reference_date):
         if verified_at is None:
             entries.append({"job": row, "reason": "never_verified", "age_days": None})
         elif verified_at < cutoff:
-            entries.append({
-                "job": row,
-                "reason": "verification_expired",
-                "age_days": (reference_date - verified_at).days,
-            })
+            entries.append(
+                {
+                    "job": row,
+                    "reason": "verification_expired",
+                    "age_days": (reference_date - verified_at).days,
+                }
+            )
     return entries
 
 
@@ -2870,7 +3272,9 @@ def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
             sections["overdue"].append(todo_item(row, action_date))
         elif action_date == reference:
             sections["today"].append(todo_item(row, action_date))
-        if "follow-up" in (row["next_action"] or "").casefold() and (not action_date or action_date > reference):
+        if "follow-up" in (row["next_action"] or "").casefold() and (
+            not action_date or action_date > reference
+        ):
             sections["follow_ups"].append(todo_item(row, action_date))
         if row["application_status"] == "apply":
             sections["apply_not_submitted"].append(todo_item(row, action_date))
@@ -2878,9 +3282,8 @@ def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
             stale = stale_by_id[row["id"]]
             stale_date = row["verified_at"] or row["last_update"]
             sections["stale_review"].append(todo_item(row, stale_date, stale["reason"]))
-        if (
-            is_active_candidate(row)
-            and (row["first_party_verified"] != "yes" or row["apply_verified"] != "yes")
+        if is_active_candidate(row) and (
+            row["first_party_verified"] != "yes" or row["apply_verified"] != "yes"
         ):
             sections["verification_queue"].append(todo_item(row, action_date or row["last_update"]))
         if is_active_candidate(row) and row["stage_reached"] in interview_stages:
@@ -2891,9 +3294,9 @@ def todo_sections(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
 def filter_todo_rows(rows, *, source=None, id_range=None):
     """Restrict the read-only queue without changing its classification rules."""
     return [
-        row for row in rows
-        if (source is None or row["source"] == source)
-        and (id_range is None or id_range.contains(row["id"]))
+        row
+        for row in rows
+        if (source is None or row["source"] == source) and (id_range is None or id_range.contains(row["id"]))
     ]
 
 
@@ -2908,40 +3311,42 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
     applied = [row for row in rows if row["applied_at"]]
     responses = [row for row in rows if row["response_at"]]
     fully_verified = [
-        row for row in active
-        if row["first_party_verified"] == "yes" and row["apply_verified"] == "yes"
+        row for row in active if row["first_party_verified"] == "yes" and row["apply_verified"] == "yes"
     ]
     funnel = []
     for stage in STAGES[1:]:
         reached = sum(STAGES.index(row["stage_reached"] or "None") >= STAGES.index(stage) for row in rows)
-        funnel.append({"stage": stage, "reached": reached, "percent_of_applications": percent(reached, len(applied))})
+        funnel.append(
+            {"stage": stage, "reached": reached, "percent_of_applications": percent(reached, len(applied))}
+        )
     sources = []
     for source in SOURCES:
         source_rows = [row for row in rows if row["source"] == source]
         if source_rows:
             source_applied = sum(bool(row["applied_at"]) for row in source_rows)
             source_responses = sum(bool(row["response_at"]) for row in source_rows)
-            sources.append({
-                "source": source,
-                "found": len(source_rows),
-                "applied": source_applied,
-                "responses": source_responses,
-                "response_rate": percent(source_responses, source_applied),
-            })
+            sources.append(
+                {
+                    "source": source,
+                    "found": len(source_rows),
+                    "applied": source_applied,
+                    "responses": source_responses,
+                    "response_rate": percent(source_responses, source_applied),
+                }
+            )
     cv_versions = []
     for version in sorted({row["cv_version"] for row in rows if row["cv_version"]} | {"not recorded"}):
-        version_rows = [
-            row for row in applied
-            if (row["cv_version"] or "not recorded") == version
-        ]
+        version_rows = [row for row in applied if (row["cv_version"] or "not recorded") == version]
         if version_rows:
             version_responses = sum(bool(row["response_at"]) for row in version_rows)
-            cv_versions.append({
-                "cv_version": version,
-                "applied": len(version_rows),
-                "responses": version_responses,
-                "response_rate": percent(version_responses, len(version_rows)),
-            })
+            cv_versions.append(
+                {
+                    "cv_version": version,
+                    "applied": len(version_rows),
+                    "responses": version_responses,
+                    "response_rate": percent(version_responses, len(version_rows)),
+                }
+            )
     stale_items = [
         {
             "id": entry["job"]["id"],
@@ -2949,17 +3354,25 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
             "reason": entry["reason"],
             "age_days": entry["age_days"],
         }
-        for entry in sorted(stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"]))
+        for entry in sorted(
+            stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"])
+        )
     ]
     state_order = [
-        "Not started", "Reviewing", "Apply", "Applied", "Interviewing", "Offer",
-        "Rejected", "Ghosted", "Withdrawn", "Closed", "Duplicate",
+        "Not started",
+        "Reviewing",
+        "Apply",
+        "Applied",
+        "Interviewing",
+        "Offer",
+        "Rejected",
+        "Ghosted",
+        "Withdrawn",
+        "Closed",
+        "Duplicate",
         *(f"Skipped: {reason}" for reason in REASONS),
     ]
-    derived_state_counts = {
-        state: sum(derived_state(row) == state for row in rows)
-        for state in state_order
-    }
+    derived_state_counts = {state: sum(derived_state(row) == state for row in rows) for state in state_order}
     return {
         "ok": True,
         "command": "stats",
@@ -2970,12 +3383,9 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
             for status in APPLICATION_STATUSES
         },
         "listing_status": {
-            status: sum(row["listing_status"] == status for row in rows)
-            for status in LISTING_STATUSES
+            status: sum(row["listing_status"] == status for row in rows) for status in LISTING_STATUSES
         },
-        "derived_state": {
-            state: amount for state, amount in derived_state_counts.items() if amount
-        },
+        "derived_state": {state: amount for state, amount in derived_state_counts.items() if amount},
         "derived": {
             "active_candidates": len(active),
             "skipped": sum(
@@ -2993,12 +3403,10 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
         "verification": {
             "eligible_records": len(active),
             "first_party_verified": {
-                value: sum(row["first_party_verified"] == value for row in active)
-                for value in VERIFICATION
+                value: sum(row["first_party_verified"] == value for row in active) for value in VERIFICATION
             },
             "apply_verified": {
-                value: sum(row["apply_verified"] == value for row in active)
-                for value in VERIFICATION
+                value: sum(row["apply_verified"] == value for row in active) for value in VERIFICATION
             },
             "fully_verified": len(fully_verified),
             "coverage_percent": percent(len(fully_verified), len(active)),
@@ -3013,8 +3421,7 @@ def stats_payload(rows, reference_date, stale_days=DEFAULT_STALE_DAYS):
         "sources": sources,
         "cv_versions": cv_versions,
         "decision_reasons": {
-            reason: sum(row["decision_reason"] == reason for row in rows)
-            for reason in REASONS
+            reason: sum(row["decision_reason"] == reason for row in rows) for reason in REASONS
         },
     }
 
@@ -3038,7 +3445,9 @@ def cmd_stale(args):
                 "reason": entry["reason"],
                 "age_days": entry["age_days"],
             }
-            for entry in sorted(stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"]))
+            for entry in sorted(
+                stale, key=lambda entry: (entry["job"]["verified_at"] or "0000-00-00", entry["job"]["id"])
+            )
         ],
     }
     if args.format == "json":
@@ -3051,7 +3460,9 @@ def cmd_stale(args):
     print("\n| id | Компания | Роль | Verified at | Причина | Возраст |\n|---|---|---|---|---|---:|")
     for job in payload["jobs"]:
         age = job["age_days"] if job["age_days"] is not None else "—"
-        print(f"| {job['id']} | {job['company']} | {job['role']} | {job['verified_at'] or '—'} | {job['reason']} | {age} |")
+        print(
+            f"| {job['id']} | {job['company']} | {job['role']} | {job['verified_at'] or '—'} | {job['reason']} | {age} |"
+        )
 
 
 def cmd_todo(args):
@@ -3085,7 +3496,9 @@ def cmd_todo(args):
         for item in items:
             priority = f"{item['priority']:g}" if item["priority"] is not None else "—"
             action = item["next_action"] or item["reason"] or "—"
-            print(f"| {item['date'] or '—'} | {priority} | {item['id']} | {item['company']} | {item['role']} | {action} |")
+            print(
+                f"| {item['date'] or '—'} | {priority} | {item['id']} | {item['company']} | {item['role']} | {action} |"
+            )
 
 
 def cmd_stats(args):
@@ -3096,7 +3509,9 @@ def cmd_stats(args):
     verification = payload["verification"]
     stale = payload["stale"]
     funnel = payload["funnel"]
-    coverage = f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    coverage = (
+        f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    )
     response_rate = f"{funnel['response_rate']:g}%" if funnel["response_rate"] is not None else "—"
     print(
         f"jobs={payload['jobs_total']}; active_candidates={payload['derived']['active_candidates']}; "
@@ -3115,7 +3530,9 @@ def cmd_report(args):
     for state, amount in payload["derived_state"].items():
         print(f"| {state} | {amount} |")
     verification = payload["verification"]
-    coverage = f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    coverage = (
+        f"{verification['coverage_percent']:g}%" if verification["coverage_percent"] is not None else "—"
+    )
     print(
         "\n## Verification coverage\n\n"
         f"Active candidates: **{verification['eligible_records']}**; fully verified: "
@@ -3125,20 +3542,30 @@ def cmd_report(args):
     print(f"\n## Stale verification\n\nOlder than {stale['days']} days: **{stale['count']}**.")
     print("\n## Воронка (по stage_reached)\n\n| Стадия | Достигли | % от откликов |\n|---|---:|---:|")
     for stage in payload["funnel"]["stages"]:
-        rate = f"{stage['percent_of_applications']:g}%" if stage["percent_of_applications"] is not None else "—"
+        rate = (
+            f"{stage['percent_of_applications']:g}%" if stage["percent_of_applications"] is not None else "—"
+        )
         print(f"| {stage['stage']} | {stage['reached']} | {rate} |")
     response_rate = payload["funnel"]["response_rate"]
     rate = f"{response_rate:g}%" if response_rate is not None else "—"
-    print(f"\nОтветов: **{payload['funnel']['responses']}** из **{payload['funnel']['applications']}** ({rate}).")
-    print("\n## Источники\n\n| Источник | Найдено | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|---:|")
+    print(
+        f"\nОтветов: **{payload['funnel']['responses']}** из **{payload['funnel']['applications']}** ({rate})."
+    )
+    print(
+        "\n## Источники\n\n| Источник | Найдено | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|---:|"
+    )
     for source in payload["sources"]:
         rate = f"{source['response_rate']:g}%" if source["response_rate"] is not None else "—"
-        print(f"| {source['source']} | {source['found']} | {source['applied']} | {source['responses']} | {rate} |")
+        print(
+            f"| {source['source']} | {source['found']} | {source['applied']} | {source['responses']} | {rate} |"
+        )
     print("\n## Версии CV\n\n| cv_version | Откликов | Ответов | Response rate |\n|---|---:|---:|---:|")
     for version in payload["cv_versions"]:
         rate = f"{version['response_rate']:g}%" if version["response_rate"] is not None else "—"
         print(f"| {version['cv_version']} | {version['applied']} | {version['responses']} | {rate} |")
-    print("\n## Свойства объявлений\n\n`listing_status` описывает объявление отдельно от основного статуса.\n")
+    print(
+        "\n## Свойства объявлений\n\n`listing_status` описывает объявление отдельно от основного статуса.\n"
+    )
     print("| Listing status | Кол-во |\n|---|---:|")
     for status, amount in payload["listing_status"].items():
         if amount:
@@ -3163,11 +3590,16 @@ def main():
     add.add_argument("--level", choices=LEVELS)
     add.add_argument("--remote-policy", dest="remote_policy", choices=REMOTE)
     for flag, destination in [
-        ("--original-url", "original_url"), ("--source-url", "source_url"),
+        ("--original-url", "original_url"),
+        ("--source-url", "source_url"),
         ("--source-job-id", "source_job_id"),
-        ("--location", "location"), ("--stack", "stack"), ("--salary", "salary"),
-        ("--posted-at", "posted_at"), ("--found-at", "found_at"),
-        ("--match-score", "match_score"), ("--notes", "notes"),
+        ("--location", "location"),
+        ("--stack", "stack"),
+        ("--salary", "salary"),
+        ("--posted-at", "posted_at"),
+        ("--found-at", "found_at"),
+        ("--match-score", "match_score"),
+        ("--notes", "notes"),
     ]:
         add.add_argument(flag, dest=destination)
     add.add_argument("--decision-reason", dest="decision_reason", choices=REASONS)
@@ -3217,7 +3649,9 @@ def main():
     verify.add_argument("--stack", help="стек через '; '")
     verify.add_argument("--salary", help="компенсация из первоисточника или Unknown")
     verify.add_argument("--match-score", help="оценка 1–10")
-    verify.add_argument("--application-status", choices=("apply",), help="зафиксировать начатый, но не отправленный процесс")
+    verify.add_argument(
+        "--application-status", choices=("apply",), help="зафиксировать начатый, но не отправленный процесс"
+    )
     verify.add_argument("--next-action", help="следующий шаг для application_status=apply")
     verify.add_argument("--next-action-date", help="дата следующего шага YYYY-MM-DD")
     verify.add_argument("--format", choices=("text", "json"), default="text")
@@ -3227,13 +3661,15 @@ def main():
     validate.add_argument("--format", choices=("text", "json"), default="text")
     validate.set_defaults(func=cmd_validate)
     render_tracker = subparsers.add_parser(
-        "render-tracker", help="собрать browser-first Markdown view из canonical dataset",
+        "render-tracker",
+        help="собрать browser-first Markdown view из canonical dataset",
     )
     render_tracker.add_argument("--check", action="store_true", help="проверить freshness без записи")
     render_tracker.add_argument("--format", choices=("text", "json"), default="text")
     render_tracker.set_defaults(func=cmd_render_tracker)
     render_index = subparsers.add_parser(
-        "render-index", help="собрать компактные bootstrap-индексы data/index/*",
+        "render-index",
+        help="собрать компактные bootstrap-индексы data/index/*",
     )
     render_index.add_argument("--check", action="store_true", help="проверить freshness без записи")
     render_index.add_argument("--format", choices=("text", "json"), default="text")
@@ -3245,8 +3681,8 @@ def main():
     ingest.add_argument("--format", choices=("text", "json"), default="text")
     ingest.set_defaults(func=cmd_ingest)
     dupes = subparsers.add_parser("dupes", help="fuzzy-поиск дублей")
-    dupes.add_argument("--threshold", type=float, default=.85)
-    dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=.75)
+    dupes.add_argument("--threshold", type=float, default=0.85)
+    dupes.add_argument("--role-threshold", dest="role_threshold", type=float, default=0.75)
     dupes.add_argument("--fail", action="store_true")
     dupes.add_argument("--format", choices=("text", "json"), default="text")
     dupes.set_defaults(func=cmd_dupes)

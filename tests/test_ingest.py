@@ -124,8 +124,11 @@ class IngestCliTests(unittest.TestCase):
 
     def invoke(self, *arguments, env=None):
         return subprocess.run(
-            [sys.executable, "scripts/jobs.py", *arguments], cwd=self.root,
-            text=True, capture_output=True, env=env,
+            [sys.executable, "scripts/jobs.py", *arguments],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
+            env=env,
         )
 
     def rows(self, name):
@@ -156,11 +159,16 @@ class IngestCliTests(unittest.TestCase):
     def write_resolutions(self, batch, resolutions, name="batch.resolution.json", batch_id=None):
         path = self.root / "inbox" / name
         batch_id = batch_id or "sha256:" + hashlib.sha256(batch.read_bytes()).hexdigest()
-        path.write_text(json.dumps({
-            "version": 1,
-            "batch_id": batch_id,
-            "resolutions": resolutions,
-        }), encoding="utf-8")
+        path.write_text(
+            json.dumps(
+                {
+                    "version": 1,
+                    "batch_id": batch_id,
+                    "resolutions": resolutions,
+                }
+            ),
+            encoding="utf-8",
+        )
         return path
 
     def snapshot(self):
@@ -173,16 +181,26 @@ class IngestCliTests(unittest.TestCase):
     def test_dry_run_classifies_every_line_without_writing(self):
         duplicate_url = "https://careers.example.test/jobs/existing"
         seeded = self.invoke(
-            "add", "--company", "ExistingCo", "--role", "Frontend Developer", "--source", "Manual",
-            "--original-url", duplicate_url, "--no-file",
+            "add",
+            "--company",
+            "ExistingCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+            "--original-url",
+            duplicate_url,
+            "--no-file",
         )
         self.assertEqual(seeded.returncode, 0, seeded.stderr)
-        batch = self.write_batch([
-            self.record("pending"),
-            self.record("noise", role="Account Executive"),
-            self.record("senior", role="Senior Frontend Engineer"),
-            self.record("duplicate", company="ExistingCo", application_url=duplicate_url),
-        ])
+        batch = self.write_batch(
+            [
+                self.record("pending"),
+                self.record("noise", role="Account Executive"),
+                self.record("senior", role="Senior Frontend Engineer"),
+                self.record("duplicate", company="ExistingCo", application_url=duplicate_url),
+            ]
+        )
         before = self.snapshot()
 
         result = self.invoke("ingest", str(batch), "--dry-run", "--format", "json")
@@ -191,10 +209,20 @@ class IngestCliTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertTrue(payload["ok"])
         self.assertEqual(payload["mode"], "dry_run")
-        self.assertEqual(payload["summary"], {
-            "input": 4, "invalid": 0, "noise": 1, "skipped": 1, "duplicates": 1, "pending": 1,
-        })
-        self.assertEqual([item["outcome"] for item in payload["outcomes"]], ["pending", "noise", "skipped", "duplicate"])
+        self.assertEqual(
+            payload["summary"],
+            {
+                "input": 4,
+                "invalid": 0,
+                "noise": 1,
+                "skipped": 1,
+                "duplicates": 1,
+                "pending": 1,
+            },
+        )
+        self.assertEqual(
+            [item["outcome"] for item in payload["outcomes"]], ["pending", "noise", "skipped", "duplicate"]
+        )
         self.assertEqual(payload["outcomes"][2]["reason"], "seniority_too_high")
         self.assertEqual(payload["outcomes"][3]["reason"], "canonical_original_url")
         self.assertEqual(self.snapshot(), before)
@@ -208,9 +236,17 @@ class IngestCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["error"], "invalid_batch")
-        self.assertEqual(payload["summary"], {
-            "input": 2, "invalid": 1, "noise": 0, "skipped": 0, "duplicates": 0, "pending": 1,
-        })
+        self.assertEqual(
+            payload["summary"],
+            {
+                "input": 2,
+                "invalid": 1,
+                "noise": 0,
+                "skipped": 0,
+                "duplicates": 0,
+                "pending": 1,
+            },
+        )
         invalid = payload["outcomes"][1]
         self.assertEqual((invalid["line"], invalid["outcome"]), (2, "invalid"))
         self.assertIn("line 2", invalid["errors"][0])
@@ -222,9 +258,14 @@ class IngestCliTests(unittest.TestCase):
         first = self.invoke("ingest", str(batch), "--format", "json")
         self.assertEqual(first.returncode, 0, first.stderr)
         first_payload = json.loads(first.stdout)
-        self.assertEqual(first_payload["applied"], {
-            "jobs_created": 2, "source_references_created": 2, "application_cards_created": 0,
-        })
+        self.assertEqual(
+            first_payload["applied"],
+            {
+                "jobs_created": 2,
+                "source_references_created": 2,
+                "application_cards_created": 0,
+            },
+        )
         self.assertEqual(len(self.rows("jobs.csv")), 2)
         self.assertEqual(len(self.rows("job_sources.csv")), 2)
         self.assertFalse(list((self.root / "applications").glob("job-*.md")))
@@ -237,31 +278,62 @@ class IngestCliTests(unittest.TestCase):
         repeated = self.invoke("ingest", str(batch), "--format", "json")
         self.assertEqual(repeated.returncode, 0, repeated.stderr)
         repeated_payload = json.loads(repeated.stdout)
-        self.assertEqual(repeated_payload["summary"], {
-            "input": 2, "invalid": 0, "noise": 0, "skipped": 0, "duplicates": 2, "pending": 0,
-        })
-        self.assertEqual(repeated_payload["applied"], {
-            "jobs_created": 0, "source_references_created": 0, "application_cards_created": 0,
-        })
+        self.assertEqual(
+            repeated_payload["summary"],
+            {
+                "input": 2,
+                "invalid": 0,
+                "noise": 0,
+                "skipped": 0,
+                "duplicates": 2,
+                "pending": 0,
+            },
+        )
+        self.assertEqual(
+            repeated_payload["applied"],
+            {
+                "jobs_created": 0,
+                "source_references_created": 0,
+                "application_cards_created": 0,
+            },
+        )
         self.assertEqual(self.snapshot(), before_repeat)
 
     def test_internship_is_not_auto_skipped_as_too_junior(self):
-        batch = self.write_batch([
-            self.record("intern", role="Frontend Developer Intern"),
-        ], "intern.jsonl")
+        batch = self.write_batch(
+            [
+                self.record("intern", role="Frontend Developer Intern"),
+            ],
+            "intern.jsonl",
+        )
 
         result = self.invoke("ingest", str(batch), "--dry-run", "--format", "json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(payload["summary"], {
-            "input": 1, "invalid": 0, "noise": 0, "skipped": 0, "duplicates": 0, "pending": 1,
-        })
+        self.assertEqual(
+            payload["summary"],
+            {
+                "input": 1,
+                "invalid": 0,
+                "noise": 0,
+                "skipped": 0,
+                "duplicates": 0,
+                "pending": 1,
+            },
+        )
         self.assertEqual(payload["outcomes"][0]["outcome"], "pending")
 
     def test_fuzzy_candidate_blocks_the_entire_batch_until_resolved(self):
         seeded = self.invoke(
-            "add", "--company", "Acme Studio Inc.", "--role", "Frontend Engineer", "--source", "Manual", "--no-file",
+            "add",
+            "--company",
+            "Acme Studio Inc.",
+            "--role",
+            "Frontend Engineer",
+            "--source",
+            "Manual",
+            "--no-file",
         )
         self.assertEqual(seeded.returncode, 0, seeded.stderr)
         batch = self.write_batch([self.record("fuzzy", company="Acme Studio", role="Frontend Developer")])
@@ -277,19 +349,32 @@ class IngestCliTests(unittest.TestCase):
         self.assertEqual(self.snapshot(), before)
 
     def test_fuzzy_resolution_can_keep_distinct_batch_records_separate(self):
-        batch = self.write_batch([
-            self.record("first", company="Acme Studio", role="Frontend Engineer"),
-            self.record("second", company="Acme Studio", role="Frontend Developer"),
-        ])
-        resolutions = self.write_resolutions(batch, [{
-            "line": 2,
-            "candidate": {"line": 1},
-            "decision": "separate",
-        }])
+        batch = self.write_batch(
+            [
+                self.record("first", company="Acme Studio", role="Frontend Engineer"),
+                self.record("second", company="Acme Studio", role="Frontend Developer"),
+            ]
+        )
+        resolutions = self.write_resolutions(
+            batch,
+            [
+                {
+                    "line": 2,
+                    "candidate": {"line": 1},
+                    "decision": "separate",
+                }
+            ],
+        )
         before = self.snapshot()
 
         dry_run = self.invoke(
-            "ingest", str(batch), "--resolutions", str(resolutions), "--dry-run", "--format", "json",
+            "ingest",
+            str(batch),
+            "--resolutions",
+            str(resolutions),
+            "--dry-run",
+            "--format",
+            "json",
         )
         self.assertEqual(dry_run.returncode, 0, dry_run.stderr)
         dry_payload = json.loads(dry_run.stdout)
@@ -301,43 +386,68 @@ class IngestCliTests(unittest.TestCase):
         applied = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
         self.assertEqual(applied.returncode, 0, applied.stderr)
         payload = json.loads(applied.stdout)
-        self.assertEqual(payload["applied"], {
-            "jobs_created": 2, "source_references_created": 2, "application_cards_created": 0,
-        })
+        self.assertEqual(
+            payload["applied"],
+            {
+                "jobs_created": 2,
+                "source_references_created": 2,
+                "application_cards_created": 0,
+            },
+        )
         self.assertEqual((len(self.rows("jobs.csv")), len(self.rows("job_sources.csv"))), (2, 2))
 
         repeated = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
         self.assertEqual(repeated.returncode, 0, repeated.stderr)
         repeated_payload = json.loads(repeated.stdout)
         self.assertEqual(repeated_payload["resolution"]["used"], 1)
-        self.assertEqual(repeated_payload["applied"], {
-            "jobs_created": 0, "source_references_created": 0, "application_cards_created": 0,
-        })
+        self.assertEqual(
+            repeated_payload["applied"],
+            {
+                "jobs_created": 0,
+                "source_references_created": 0,
+                "application_cards_created": 0,
+            },
+        )
 
     def test_fuzzy_resolution_can_merge_with_a_canonical_job(self):
         seeded = self.invoke(
-            "add", "--company", "Acme Studio Inc.", "--role", "Frontend Engineer", "--source", "Manual", "--no-file",
+            "add",
+            "--company",
+            "Acme Studio Inc.",
+            "--role",
+            "Frontend Engineer",
+            "--source",
+            "Manual",
+            "--no-file",
         )
         self.assertEqual(seeded.returncode, 0, seeded.stderr)
         batch = self.write_batch([self.record("fuzzy", company="Acme Studio", role="Frontend Developer")])
-        resolutions = self.write_resolutions(batch, [{
-            "line": 1,
-            "candidate": {"job_id": "job-0001"},
-            "decision": "duplicate",
-        }])
+        resolutions = self.write_resolutions(
+            batch,
+            [
+                {
+                    "line": 1,
+                    "candidate": {"job_id": "job-0001"},
+                    "decision": "duplicate",
+                }
+            ],
+        )
 
         result = self.invoke("ingest", str(batch), "--resolutions", str(resolutions), "--format", "json")
 
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertEqual(payload["outcomes"][0], {
-            "line": 1,
-            "outcome": "duplicate",
-            "reason": "fuzzy_resolution",
-            "resolution": "duplicate",
-            "job_id": "job-0001",
-            "source_reference_created": True,
-        })
+        self.assertEqual(
+            payload["outcomes"][0],
+            {
+                "line": 1,
+                "outcome": "duplicate",
+                "reason": "fuzzy_resolution",
+                "resolution": "duplicate",
+                "job_id": "job-0001",
+                "source_reference_created": True,
+            },
+        )
         self.assertEqual(len(self.rows("jobs.csv")), 1)
         self.assertEqual(len(self.rows("job_sources.csv")), 1)
 
@@ -358,7 +468,9 @@ class IngestCliTests(unittest.TestCase):
         def atomic_record(number):
             code = hashlib.sha256(str(number).encode("ascii")).hexdigest()[:12]
             return self.record(
-                f"atomic-{number}", company=f"Company {code}", role=f"Frontend {code}",
+                f"atomic-{number}",
+                company=f"Company {code}",
+                role=f"Frontend {code}",
             )
 
         batch = self.write_batch([atomic_record(number) for number in range(50)], "atomic.jsonl")
@@ -376,9 +488,14 @@ class IngestCliTests(unittest.TestCase):
         successful = self.invoke("ingest", str(batch), "--format", "json")
         self.assertEqual(successful.returncode, 0, successful.stderr)
         success_payload = json.loads(successful.stdout)
-        self.assertEqual(success_payload["applied"], {
-            "jobs_created": 50, "source_references_created": 50, "application_cards_created": 0,
-        })
+        self.assertEqual(
+            success_payload["applied"],
+            {
+                "jobs_created": 50,
+                "source_references_created": 50,
+                "application_cards_created": 0,
+            },
+        )
         self.assertEqual((len(self.rows("jobs.csv")), len(self.rows("job_sources.csv"))), (50, 50))
 
 

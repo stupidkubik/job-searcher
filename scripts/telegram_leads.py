@@ -30,22 +30,24 @@ SOURCE_NAME = "Telegram"
 DATA_DIR_ENV = "JOB_TRACKER_TELEGRAM_DIR"
 BUSINESS_TIMEZONE = ZoneInfo("Europe/Belgrade")
 URL_PATTERN = re.compile(r"https?://[^\s<>\"']+", re.IGNORECASE)
-LEAD_REQUIRED_FIELDS = frozenset({
-    "schema_version",
-    "message_identity",
-    "peer_id",
-    "message_id",
-    "channel_title",
-    "channel_username",
-    "posted_at",
-    "edited_at",
-    "found_at",
-    "permalink",
-    "text",
-    "outbound_urls",
-    "matched_terms",
-    "forwarded_from",
-})
+LEAD_REQUIRED_FIELDS = frozenset(
+    {
+        "schema_version",
+        "message_identity",
+        "peer_id",
+        "message_id",
+        "channel_title",
+        "channel_username",
+        "posted_at",
+        "edited_at",
+        "found_at",
+        "permalink",
+        "text",
+        "outbound_urls",
+        "matched_terms",
+        "forwarded_from",
+    }
+)
 
 
 class TelegramLeadError(ValueError):
@@ -330,16 +332,15 @@ def vacancy_candidate_identity(
         if company is None or role is None:
             raise TelegramLeadError("company and role are required when application_url is absent")
         material = (
-            _normalized_identity_text(company, "company")
-            + "\0"
-            + _normalized_identity_text(role, "role")
+            _normalized_identity_text(company, "company") + "\0" + _normalized_identity_text(role, "role")
         ).encode("utf-8")
     digest = hashlib.sha256(material).hexdigest()
     return f"{peer}:{message}:sha256:{digest}"
 
 
 def deduplicate_leads(
-    leads: Iterable[Mapping[str, Any]], seen_identities: Iterable[str] = (),
+    leads: Iterable[Mapping[str, Any]],
+    seen_identities: Iterable[str] = (),
 ) -> tuple[list[dict[str, Any]], int]:
     """Keep the first occurrence in deterministic input order."""
     seen = set(seen_identities)
@@ -492,7 +493,11 @@ def load_allowlist(data_dir: str | os.PathLike[str]) -> list[int]:
         raise TelegramLeadError(f"allowlist is missing: {path}") from error
     except (OSError, UnicodeDecodeError, json.JSONDecodeError) as error:
         raise TelegramLeadError(f"cannot read allowlist {path}: {error}") from error
-    if not isinstance(payload, dict) or payload.get("version") != 1 or set(payload) != {"version", "peer_ids"}:
+    if (
+        not isinstance(payload, dict)
+        or payload.get("version") != 1
+        or set(payload) != {"version", "peer_ids"}
+    ):
         raise TelegramLeadError("allowlist must be an object with version=1 and peer_ids")
     return _validate_allowlist(payload["peer_ids"])
 
@@ -580,7 +585,10 @@ def _run_stamp(run_at: datetime | None) -> str:
 
 
 def _write_jsonl_exclusive(
-    path: Path, records: Iterable[Mapping[str, Any]], *, private: bool = True,
+    path: Path,
+    records: Iterable[Mapping[str, Any]],
+    *,
+    private: bool = True,
 ) -> Path:
     """Durably publish a complete immutable JSONL file without overwrite.
 
@@ -596,7 +604,9 @@ def _write_jsonl_exclusive(
     descriptor: int | None = None
     try:
         descriptor, temporary_name = tempfile.mkstemp(
-            prefix=f".{path.name}.", suffix=".tmp", dir=parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            dir=parent,
         )
         temporary_path = Path(temporary_name)
         os.fchmod(descriptor, 0o600)

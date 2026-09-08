@@ -63,8 +63,9 @@ class TelegramRepositoryIntegrationTests(unittest.TestCase):
         validation = validate_batch(path)
         self.assertTrue(validation["ok"], validation["errors"])
 
-        with patch.object(jobs, "load", return_value=[]), patch.object(
-            jobs, "load_job_sources", return_value=[]
+        with (
+            patch.object(jobs, "load", return_value=[]),
+            patch.object(jobs, "load_job_sources", return_value=[]),
         ):
             plan = jobs.plan_ingest(path)
 
@@ -115,8 +116,9 @@ class TelegramRepositoryIntegrationTests(unittest.TestCase):
 
         validation = validate_batch(path)
         self.assertTrue(validation["ok"], validation["errors"])
-        with patch.object(jobs, "load", return_value=[]), patch.object(
-            jobs, "load_job_sources", return_value=[]
+        with (
+            patch.object(jobs, "load", return_value=[]),
+            patch.object(jobs, "load_job_sources", return_value=[]),
         ):
             plan = jobs.plan_ingest(path)
 

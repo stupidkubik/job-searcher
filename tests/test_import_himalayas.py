@@ -90,25 +90,44 @@ class HimalayasAdapterUnitTests(unittest.TestCase):
             return {"jobs": [europe_second], "totalCount": 3, "limit": 2}
 
         records, summary, errors = import_himalayas.collect_records(
-            settings, run, today_value=date(2026, 8, 11), fetch=fetch,
+            settings,
+            run,
+            today_value=date(2026, 8, 11),
+            fetch=fetch,
         )
 
         self.assertEqual(errors, [])
-        self.assertEqual([record["source_job_id"] for record in records], [
-            "guid-serbia", "guid-worldwide", "guid-europe-first", "guid-europe-second",
-        ])
-        self.assertEqual(summary, {
-            "queries": 1, "geo_passes": 3, "pages": 4, "fetched": 5,
-            "outside_geo_policy": 1, "outside_age_window": 0,
-            "duplicates": 0, "records": 4,
-        })
+        self.assertEqual(
+            [record["source_job_id"] for record in records],
+            [
+                "guid-serbia",
+                "guid-worldwide",
+                "guid-europe-first",
+                "guid-europe-second",
+            ],
+        )
+        self.assertEqual(
+            summary,
+            {
+                "queries": 1,
+                "geo_passes": 3,
+                "pages": 4,
+                "fetched": 5,
+                "outside_geo_policy": 1,
+                "outside_age_window": 0,
+                "duplicates": 0,
+                "records": 4,
+            },
+        )
         self.assertEqual(len(requested), 4)
         self.assertIn("seniority=Entry-level%2CMid-level", requested[0])
         self.assertIn("employment_type=Full+Time", requested[0])
         serbia_parameters = parse_qs(urlsplit(requested[0]).query)
         worldwide_parameters = parse_qs(urlsplit(requested[1]).query)
         europe_parameters = parse_qs(urlsplit(requested[2]).query)
-        self.assertEqual((serbia_parameters["country"], serbia_parameters["exclude_worldwide"]), (["Serbia"], ["true"]))
+        self.assertEqual(
+            (serbia_parameters["country"], serbia_parameters["exclude_worldwide"]), (["Serbia"], ["true"])
+        )
         self.assertEqual(worldwide_parameters["worldwide"], ["true"])
         self.assertEqual(europe_parameters["page"], ["1"])
         self.assertEqual(parse_qs(urlsplit(requested[3]).query)["page"], ["2"])
@@ -174,21 +193,29 @@ class HimalayasAdapterCliTests(unittest.TestCase):
             "seniority": ["Entry-level", "Mid-level"],
             "employment_types": ["Full Time", "Intern", "Contractor"],
         }
-        self.records = [{
-            "source": "Himalayas",
-            "source_job_id": "raw-001",
-            "company": "ExampleCo",
-            "role": "Frontend Developer",
-            "source_url": "https://himalayas.app/jobs/raw-001",
-            "application_url": "https://careers.example.test/jobs/raw-001",
-            "posted_at": "2026-08-10",
-            "raw_location": "Worldwide",
-            "found_at": "2026-08-11",
-            "payload": {"himalayas": {"guid": "raw-001"}},
-        }]
+        self.records = [
+            {
+                "source": "Himalayas",
+                "source_job_id": "raw-001",
+                "company": "ExampleCo",
+                "role": "Frontend Developer",
+                "source_url": "https://himalayas.app/jobs/raw-001",
+                "application_url": "https://careers.example.test/jobs/raw-001",
+                "posted_at": "2026-08-10",
+                "raw_location": "Worldwide",
+                "found_at": "2026-08-11",
+                "payload": {"himalayas": {"guid": "raw-001"}},
+            }
+        ]
         self.summary = {
-            "duplicates": 0, "fetched": 2, "geo_passes": 3, "outside_age_window": 1,
-            "outside_geo_policy": 0, "pages": 3, "queries": 1, "records": 1,
+            "duplicates": 0,
+            "fetched": 2,
+            "geo_passes": 3,
+            "outside_age_window": 1,
+            "outside_geo_policy": 0,
+            "pages": 3,
+            "queries": 1,
+            "records": 1,
         }
 
     def tearDown(self):
@@ -213,10 +240,19 @@ class HimalayasAdapterCliTests(unittest.TestCase):
 
         self.assertEqual((payload["mode"], payload["selection"]), ("write_raw_batch", "narrow"))
         self.assertEqual((payload["cadence_hours"], payload["max_age_days"]), (24, 7))
-        self.assertEqual(payload["summary"], {
-            "duplicates": 0, "fetched": 2, "geo_passes": 3, "outside_age_window": 1,
-            "outside_geo_policy": 0, "pages": 3, "queries": 1, "records": 1,
-        })
+        self.assertEqual(
+            payload["summary"],
+            {
+                "duplicates": 0,
+                "fetched": 2,
+                "geo_passes": 3,
+                "outside_age_window": 1,
+                "outside_geo_policy": 0,
+                "pages": 3,
+                "queries": 1,
+                "records": 1,
+            },
+        )
         self.assertEqual(payload["output"], "data/inbox/himalayas-test.jsonl")
         records = [json.loads(line) for line in output.read_text(encoding="utf-8").splitlines()]
         self.assertEqual(len(records), 1)
@@ -261,7 +297,7 @@ class HimalayasAdapterCliTests(unittest.TestCase):
         workflow = (PROJECT / ".github" / "workflows" / "source-discovery.yml").read_text(encoding="utf-8")
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("contents: read", workflow)
-        self.assertIn("--artifact \"$RUNNER_TEMP/himalayas-discovery.json\"", workflow)
+        self.assertIn('--artifact "$RUNNER_TEMP/himalayas-discovery.json"', workflow)
         self.assertIn('git status --porcelain > "$RUNNER_TEMP/git-status.txt"', workflow)
         self.assertIn('test ! -s "$RUNNER_TEMP/git-status.txt"', workflow)
         self.assertIn("actions/upload-artifact@v6", workflow)

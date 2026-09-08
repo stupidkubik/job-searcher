@@ -19,7 +19,9 @@ class ContractGenerationTests(unittest.TestCase):
     def test_render_contract_check_is_clean(self):
         result = subprocess.run(
             [sys.executable, "scripts/agent_operations.py", "render-contract", "--check"],
-            cwd=PROJECT, text=True, capture_output=True,
+            cwd=PROJECT,
+            text=True,
+            capture_output=True,
         )
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
 
@@ -32,7 +34,9 @@ class ContractGenerationTests(unittest.TestCase):
             "set": ops.SET_ALLOWED_ARGS,
             "status": ops.STATUS_ALLOWED_ARGS,
         }
-        sections = {name: section for name, section in self._sections(body).items() if name in command_allowlists}
+        sections = {
+            name: section for name, section in self._sections(body).items() if name in command_allowlists
+        }
         self.assertEqual(set(sections), set(command_allowlists))
         for name, allowed in command_allowlists.items():
             section = sections[name]
