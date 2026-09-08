@@ -245,8 +245,44 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual((payload["status"], payload["risk"]), ("conflict", "medium"))
         self.assertEqual(payload["result"]["result"]["reason"], "unresolved_duplicate")
         self.assertEqual(payload["result"]["result"]["candidates"][0]["id"], "job-0001")
+        self.assertNotRegex(payload["result"]["result"]["candidates"][0]["reason"], r"[Ѐ-ӿ]")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         self.assertTrue((self.root / payload["result_path"]).exists())
+
+    def test_add_source_reference_conflict_speaks_english_without_a_cli_flag(self):
+        """docs/agent-write-path-plan-2026-09-07.md, Э8: jobs.SourceReferenceConflict
+        used to tell the connector to retry with --force; the retry object
+        already does that (force=true), so the message itself must not."""
+        self.seed_job()
+        first = self.write_operation({
+            "version": 1, "operation_id": "op-add-shared-url-001", "command": "add",
+            "args": {
+                "company": "AlphaSource Co", "role": "Backend Engineer",
+                "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/shared-1",
+            },
+        })
+        self.assertEqual(self.invoke_operation("apply", str(first), "--format", "json").returncode, 0)
+        before = (self.root / "data" / "jobs.csv").read_bytes()
+
+        conflicting = self.write_operation({
+            "version": 1, "operation_id": "op-add-shared-url-002", "command": "add",
+            "args": {
+                "company": "Totally Different Studio", "role": "Marketing Lead",
+                "source": "LinkedIn", "source_url": "https://www.linkedin.com/jobs/view/shared-1",
+            },
+        })
+        result = self.invoke_operation("apply", str(conflicting), "--format", "json")
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["status"], "conflict")
+        details = payload["result"]["result"]
+        self.assertEqual(details["reason"], "source_reference_conflict")
+        self.assertIn("job-0002", details["message"])
+        self.assertNotRegex(details["message"], r"--[a-zA-Z]")
+        self.assertNotRegex(details["message"], r"[Ѐ-ӿ]")
+        self.assertTrue(details["retry"]["as_separate"]["args"]["force"])
+        self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
 
     def test_add_can_attach_a_confirmed_duplicate_source_reference(self):
         self.seed_job()
@@ -546,7 +582,8 @@ class AgentOperationsTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertEqual((payload["ok"], payload["status"]), (False, "rejected"))
         self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
-        self.assertIn("только до фактической отправки", payload["result"]["error"]["message"])
+        self.assertIn("allowed only before an application is actually submitted", payload["result"]["error"]["message"])
+        self.assertNotRegex(payload["result"]["error"]["message"], r"[Ѐ-ӿ]")
         self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         result_path = self.root / "data" / "operations" / "results" / "op-screen-batch-reject-001.json"
         self.assertTrue(result_path.exists())
@@ -874,6 +911,34 @@ class ErrorTaxonomyTests(unittest.TestCase):
         self.assertEqual(ops.ERROR_CODES, documented)
         with self.assertRaises(ValueError):
             ops.contract_error("bad code", code="not_a_real_code")
+
+    def test_jobs_layer_rejections_split_english_connector_message_from_russian_cli_text(self):
+        """docs/agent-write-path-plan-2026-09-07.md, Э8: a jobs.py business-rule
+        rejection (jobs.ValidationError) must speak English, hint-free of CLI
+        flags, to the connector, while the CLI keeps its original Russian text
+        with flags intact for the human operator."""
+        row = self.seed_job()
+        self.assertEqual(
+            self.invoke_jobs("status", row["id"], "--application-status", "applied").returncode, 0,
+        )
+        applied = self.rows()[0]
+
+        cli_rejection = self.invoke_jobs("screen", row["id"], "--decision-reason", "geo_restriction")
+        self.assertEqual(cli_rejection.returncode, 1)
+        self.assertIn("только до фактической отправки", cli_rejection.stderr)
+
+        rejected = self.apply_and_reject("op-screen-after-applied-001", {
+            "version": 1, "operation_id": "op-screen-after-applied-001", "command": "screen",
+            "job_id": row["id"], "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+            "args": {"decision_reason": "geo_restriction"},
+        })
+        error = rejected["error"]
+        self.assertEqual(error["code"], "invariant_violation")
+        self.assertEqual(error["layer"], "jobs")
+        self.assertIn("actually submitted", error["message"])
+        for text in (error["message"], error.get("hint", "")):
+            self.assertNotRegex(text, r"--[a-zA-Z]", f"connector-facing text names a CLI flag: {text!r}")
+            self.assertNotRegex(text, r"[Ѐ-ӿ]", f"connector-facing text is not English: {text!r}")
 
     def test_unconverted_jobs_systemexit_is_caught_as_invariant_violation(self):
         import unittest.mock as mock

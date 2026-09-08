@@ -377,6 +377,12 @@ is written only by `scripts/maintenance/backfill_missing_results.py` for a
 historical request that has no result even though it still passes contract
 validation today.
 
+`message` and `hint` are always English and never name a CLI flag, regardless
+of `layer` — the connector has no CLI (docs/agent-write-path-plan-2026-09-07.md,
+Э8). A `layer: "jobs"` rejection is `jobs.ValidationError`, which carries a
+separate Russian `cli_hint_ru` (may reference `--flag`s) that only `jobs.py`'s
+own CLI prints; the runner never serializes it into a result.
+
 `command` reflects the request's own top-level `command` field whenever the
 raw JSON could be read at all, and is `unknown` only when it could not (for
 example `invalid_json`).

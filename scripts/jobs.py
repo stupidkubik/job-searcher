@@ -211,20 +211,54 @@ class UnresolvedDuplicate(Exception):
 
 
 class SourceReferenceConflict(Exception):
-    """Source reference already belongs to another canonical job."""
+    """Source reference already belongs to another canonical job.
 
-    def __init__(self, message, existing):
+    `message` is Russian and may name a CLI flag (`jobs.py`'s own ingest/add
+    commands print it as-is); `message_en` is the flag-free English text
+    agent_operations.add_conflict_details() puts in a connector-facing
+    conflict result (docs/agent-write-path-plan-2026-09-07.md, Э8).
+    """
+
+    def __init__(self, message, existing, *, message_en=None):
         self.message = message
         self.existing = existing
+        self.message_en = message if message_en is None else message_en
 
 
 class ValidationError(Exception):
     """A rejected write reachable from the connector path.
 
     Raised instead of calling die() so agent_operations.execute() can catch it
-    and record a machine-readable rejected result; the CLI still catches this
-    at the top of main() and prints the same "error: ..." text via die().
+    and record a machine-readable rejected result. Two addressees, one
+    exception (docs/agent-write-path-plan-2026-09-07.md, Э8): the connector
+    only ever sees `message_en`/`agent_hint` (English, no CLI flags — it has
+    no CLI); the human CLI user sees `cli_hint_ru`, which may name flags. The
+    CLI still catches this at the top of main() and prints it via die(); since
+    __str__ returns cli_hint_ru, that call site needs no change.
     """
+
+    def __init__(self, message_en, *, code="invariant_violation", field=None,
+                 allowed=None, agent_hint=None, cli_hint_ru=None):
+        self.message_en = message_en
+        self.code = code
+        self.field = field
+        self.allowed = allowed
+        self.agent_hint = agent_hint
+        self.cli_hint_ru = message_en if cli_hint_ru is None else cli_hint_ru
+        super().__init__(self.cli_hint_ru)
+
+    def __str__(self):
+        return self.cli_hint_ru
+
+    def to_payload(self):
+        payload = {"code": self.code, "layer": "jobs", "message": self.message_en}
+        if self.field is not None:
+            payload["field"] = self.field
+        if self.allowed is not None:
+            payload["allowed"] = self.allowed
+        if self.agent_hint is not None:
+            payload["hint"] = self.agent_hint
+        return payload
 
 
 @dataclass(frozen=True)
@@ -656,7 +690,10 @@ def ensure_valid(rows, emit_warnings=True):
 def ensure_dataset_valid(job_rows, source_rows, emit_warnings=True):
     errors, warnings = validate_dataset(job_rows, source_rows)
     if errors:
-        raise ValidationError("изменение отклонено:\n  " + "\n  ".join(errors))
+        raise ValidationError(
+            "dataset failed validation after this write",
+            cli_hint_ru="изменение отклонено:\n  " + "\n  ".join(errors),
+        )
     if emit_warnings:
         for warning in warnings:
             print(f"warn:  {warning}")
@@ -841,11 +878,14 @@ def clean_value(value):
 
 
 def find_duplicate_candidates(rows, company, role, original_url):
+    """Each hit carries a reason in both languages (docs/agent-write-path-plan-2026-09-07.md, Э8):
+    reason_ru for jobs.py's own human CLI output, reason_en for agent_operations'
+    connector-facing conflict result. Neither addressee sees the other's text."""
     hits = {}
     if original_url:
         for row in rows:
             if row["original_url"] and norm_url(row["original_url"]) == norm_url(original_url):
-                hits[row["id"]] = (row, "совпадение canonical original_url")
+                hits[row["id"]] = (row, "совпадение canonical original_url", "canonical original_url matches")
     if not PLACEHOLDER_COMPANY_RE.match(company.strip()):
         company_norm, role_norm = without_noise(company, COMPANY_NOISE), without_noise(role, ROLE_NOISE)
         for row in rows:
@@ -854,13 +894,17 @@ def find_duplicate_candidates(rows, company, role, original_url):
             company_score = similarity(company_norm, without_noise(row["company"], COMPANY_NOISE))
             role_score = similarity(role_norm, without_noise(row["role"], ROLE_NOISE))
             if company_score >= .85 and role_score >= .75:
-                hits.setdefault(row["id"], (row, f"похоже: company {company_score:.2f}, role {role_score:.2f}"))
+                hits.setdefault(row["id"], (
+                    row,
+                    f"похоже: company {company_score:.2f}, role {role_score:.2f}",
+                    f"looks similar: company {company_score:.2f}, role {role_score:.2f}",
+                ))
     return hits
 
 
 def print_duplicate_candidates(candidates):
     print("возможные дубли:")
-    for row, reason_text in candidates.values():
+    for row, reason_text, _reason_en in candidates.values():
         print(f"  {row['id']}  {row['company']} — {row['role']}  [{row['application_status']}; {row['listing_status']}]  ({reason_text})")
     print("\nэто дубль -> повторите с --duplicate-of job-NNNN\nэто другая вакансия -> повторите с --force")
 
@@ -870,9 +914,16 @@ def build_add_row(rows, values):
     role = clean_value(values.get("role")).strip()
     source = clean_value(values.get("source")).strip()
     if not company or not role or not source:
-        raise ValidationError("company, role и source обязательны при создании вакансии")
+        raise ValidationError(
+            "company, role and source are required to create a job",
+            cli_hint_ru="company, role и source обязательны при создании вакансии",
+        )
     if source not in SOURCES:
-        raise ValidationError(f"source: недопустимое значение {source!r}")
+        raise ValidationError(
+            f"source: {source!r} is not a recognized value",
+            code="bad_enum_value", field="source", allowed=sorted(SOURCES),
+            cli_hint_ru=f"source: недопустимое значение {source!r}",
+        )
     application_status = clean_value(values.get("application_status") or "not_started")
     listing_status = clean_value(values.get("listing_status") or "unknown")
     first_party_verified = clean_value(values.get("first_party_verified") or "unknown")
@@ -881,7 +932,12 @@ def build_add_row(rows, values):
     remote_policy = clean_value(values.get("remote_policy") or "Unclear")
     decision_reason = clean_value(values.get("decision_reason"))
     if application_status not in ADD_APPLICATION_STATUSES:
-        raise ValidationError(f"application_status: недопустимое значение {application_status!r} для add")
+        raise ValidationError(
+            f"application_status: {application_status!r} is not valid for add",
+            code="bad_enum_value", field="application_status",
+            allowed=sorted(ADD_APPLICATION_STATUSES),
+            cli_hint_ru=f"application_status: недопустимое значение {application_status!r} для add",
+        )
     for key, value, allowed in (
         ("listing_status", listing_status, LISTING_STATUSES),
         ("first_party_verified", first_party_verified, VERIFICATION),
@@ -890,9 +946,17 @@ def build_add_row(rows, values):
         ("remote_policy", remote_policy, REMOTE),
     ):
         if value not in allowed:
-            raise ValidationError(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(
+                f"{key}: {value!r} is not a recognized enum member",
+                code="bad_enum_value", field=key, allowed=sorted(allowed),
+                cli_hint_ru=f"{key}: недопустимое значение {value!r}",
+            )
     if decision_reason and decision_reason not in REASONS:
-        raise ValidationError(f"decision_reason: недопустимое значение {decision_reason!r}")
+        raise ValidationError(
+            f"decision_reason: {decision_reason!r} is not a recognized value",
+            code="bad_enum_value", field="decision_reason", allowed=sorted(REASONS),
+            cli_hint_ru=f"decision_reason: недопустимое значение {decision_reason!r}",
+        )
     notes = clean_value(values.get("notes"))
     identifier = next_id(rows)
     verification_touched = (
@@ -935,11 +999,22 @@ def build_source_reference(job_id, values, default_found_at):
     source_job_id = clean_value(values.get("source_job_id")).strip()
     found_at = clean_value(values.get("found_at")).strip() or default_found_at
     if not source:
-        raise ValidationError("source обязателен для source reference")
+        raise ValidationError(
+            "source is required for a source reference",
+            cli_hint_ru="source обязателен для source reference",
+        )
     if source not in SOURCES:
-        raise ValidationError(f"source: недопустимое значение {source!r}")
+        raise ValidationError(
+            f"source: {source!r} is not a recognized value",
+            code="bad_enum_value", field="source", allowed=sorted(SOURCES),
+            cli_hint_ru=f"source: недопустимое значение {source!r}",
+        )
     if not source_url and not source_job_id:
-        raise ValidationError("для внешнего источника нужен --source-url или --source-job-id")
+        raise ValidationError(
+            "an external source needs source_url or source_job_id",
+            agent_hint="include source_url or source_job_id in args",
+            cli_hint_ru="для внешнего источника нужен --source-url или --source-job-id",
+        )
     return {
         "job_id": job_id,
         "source": source,
@@ -960,6 +1035,7 @@ def prepare_source_reference(source_rows, reference, force=False):
                     return existing, False
                 raise SourceReferenceConflict(
                     f"source + source_job_id уже принадлежат {existing['job_id']}", existing,
+                    message_en=f"source + source_job_id already belong to {existing['job_id']}",
                 )
     if source_url:
         normalized = norm_url(source_url)
@@ -979,6 +1055,8 @@ def prepare_source_reference(source_rows, reference, force=False):
                     raise SourceReferenceConflict(
                         f"source_url уже принадлежит {existing['job_id']}; используйте --force для shared discovery URL",
                         existing,
+                        message_en=f"source_url already belongs to {existing['job_id']}; "
+                        "retry with force=true if this is a separate shared discovery URL",
                     )
     return reference, True
 
@@ -1141,7 +1219,11 @@ def prepare_add(values, force=False, no_file=False):
         if source_reference_created:
             new_source_rows.append(source_reference)
     elif row["source"] not in SOURCES_WITHOUT_EXTERNAL_REFERENCE:
-        raise ValidationError(f"source={row['source']} требует source_url или source_job_id")
+        raise ValidationError(
+            f"source={row['source']} requires source_url or source_job_id",
+            agent_hint="include source_url or source_job_id in args",
+            cli_hint_ru=f"source={row['source']} требует source_url или source_job_id",
+        )
     app_path, app_body = (None, None)
     if should_create_application_card(row, no_file):
         app_path, app_body = render_application_card(row)
@@ -1575,7 +1657,10 @@ def apply_dataset_transaction(rows, source_rows, application_writes=()):
     """Replace an already validated dataset or restore every replaced file."""
     validation_errors, _warnings = validate_dataset(rows, source_rows)
     if validation_errors:
-        raise ValidationError("ingest transaction отклонена:\n  " + "\n  ".join(validation_errors))
+        raise ValidationError(
+            "dataset transaction rejected by validation",
+            cli_hint_ru="ingest transaction отклонена:\n  " + "\n  ".join(validation_errors),
+        )
     with dataset_write_lock():
         staged, backups, replaced = [], {}, []
         failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
@@ -1764,7 +1849,7 @@ def duplicate_candidates_payload(candidates):
             "listing_status": row["listing_status"],
             "reason": reason,
         }
-        for row, reason in candidates.values()
+        for row, reason, _reason_en in candidates.values()
     ]
 
 
@@ -1828,28 +1913,55 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
     """enforce_protected=False is only for internal callers (status_job) that have
     already run the human-confirmed lifecycle gate in apply_status_change."""
     if not assignments and not stage:
-        raise ValidationError("нечего менять: укажите field=value и/или --stage")
+        raise ValidationError(
+            "nothing to change: provide field=value and/or a stage",
+            cli_hint_ru="нечего менять: укажите field=value и/или --stage",
+        )
     verification_touched = False
     for key, raw_value in assignments:
         value = clean_value(raw_value)
         if key not in FIELDS:
-            raise ValidationError(f"неизвестное поле: {key}")
+            raise ValidationError(
+                f"unknown field: {key}",
+                code="unknown_args", field=key,
+                cli_hint_ru=f"неизвестное поле: {key}",
+            )
         if enforce_protected and key in SET_PROTECTED:
-            raise ValidationError(f"поле {key} управляется скриптом и не меняется через field=value")
+            raise ValidationError(
+                f"field {key} is computed by the runner and cannot be set via field=value",
+                field=key,
+                cli_hint_ru=f"поле {key} управляется скриптом и не меняется через field=value",
+            )
         if key == "decision_reason" and value == "duplicate_listing" and row["decision_reason"] != "duplicate_listing":
-            raise ValidationError("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+            raise ValidationError(
+                "duplicate_listing is created only by an add operation with duplicate_of set",
+                field="decision_reason",
+                cli_hint_ru="duplicate_listing создаётся только командой add --duplicate-of JOB_ID",
+            )
         if key in ENUMS and value and value not in ENUMS[key]:
-            raise ValidationError(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(
+                f"{key}: {value!r} is not a recognized enum member",
+                code="bad_enum_value", field=key, allowed=sorted(ENUMS[key]),
+                cli_hint_ru=f"{key}: недопустимое значение {value!r}",
+            )
         row[key] = value.replace("\n", " ")
         verification_touched = verification_touched or key in {
             "listing_status", "first_party_verified", "apply_verified",
         }
     if stage:
         if stage not in STAGES:
-            raise ValidationError(f"недопустимая стадия: {stage}")
+            raise ValidationError(
+                f"{stage!r} is not a recognized stage",
+                code="bad_enum_value", field="stage", allowed=list(STAGES),
+                cli_hint_ru=f"недопустимая стадия: {stage}",
+            )
         current = row["stage_reached"] or "None"
         if STAGES.index(stage) < STAGES.index(current):
-            raise ValidationError(f"stage_reached нельзя понижать: {current} -> {stage}")
+            raise ValidationError(
+                f"stage_reached cannot move backward: {current} -> {stage}",
+                field="stage",
+                cli_hint_ru=f"stage_reached нельзя понижать: {current} -> {stage}",
+            )
         row["stage_reached"] = stage
         if STAGES.index("Recruiter screen") <= STAGES.index(stage) <= STAGES.index("Final interview") and row["application_status"] == "applied":
             row["application_status"] = "interviewing"
@@ -1895,13 +2007,25 @@ def validate_status_date(value, field):
         return None
     value = clean_value(value).strip()
     if not value:
-        raise ValidationError(f"status: {field} не может быть пустой датой")
+        raise ValidationError(
+            f"status: {field} cannot be an empty date",
+            code="bad_format", field=field,
+            cli_hint_ru=f"status: {field} не может быть пустой датой",
+        )
     try:
         parsed = datetime.strptime(value, "%Y-%m-%d").date()
     except ValueError:
-        raise ValidationError(f"status: {field} должна быть YYYY-MM-DD")
+        raise ValidationError(
+            f"status: {field} must be YYYY-MM-DD",
+            code="bad_format", field=field,
+            cli_hint_ru=f"status: {field} должна быть YYYY-MM-DD",
+        )
     if parsed > business_date():
-        raise ValidationError(f"status: {field} не может быть в будущем")
+        raise ValidationError(
+            f"status: {field} cannot be in the future",
+            code="bad_format", field=field,
+            cli_hint_ru=f"status: {field} не может быть в будущем",
+        )
     return value
 
 
@@ -1911,62 +2035,129 @@ def apply_status_change(row, *, application_status, stage=None, applied_at=None,
     """Record a user-confirmed lifecycle event without opening arbitrary set fields."""
     target = clean_value(application_status).strip()
     if target not in APPLICATION_STATUSES:
-        raise ValidationError(f"status: недопустимый application_status {target!r}")
+        raise ValidationError(
+            f"status: {target!r} is not a recognized application_status",
+            code="bad_enum_value", field="application_status", allowed=sorted(APPLICATION_STATUSES),
+            cli_hint_ru=f"status: недопустимый application_status {target!r}",
+        )
     if row["applied_at"] and target in PRE_APPLICATION_STATUSES:
-        raise ValidationError("status: нельзя вернуть отправленную заявку в pre-application состояние")
+        raise ValidationError(
+            "status: an already-submitted application cannot move back to a pre-application state",
+            field="application_status",
+            cli_hint_ru="status: нельзя вернуть отправленную заявку в pre-application состояние",
+        )
     if stage is not None:
         stage = clean_value(stage).strip()
         if stage not in STAGES:
-            raise ValidationError(f"status: недопустимая стадия {stage!r}")
+            raise ValidationError(
+                f"status: {stage!r} is not a recognized stage",
+                code="bad_enum_value", field="stage", allowed=list(STAGES),
+                cli_hint_ru=f"status: недопустимая стадия {stage!r}",
+            )
     if target in PRE_APPLICATION_STATUSES and stage not in {None, "None"}:
-        raise ValidationError(f"status: application_status={target} не принимает post-application stage")
+        raise ValidationError(
+            f"status: application_status={target} does not accept a post-application stage",
+            field="stage",
+            cli_hint_ru=f"status: application_status={target} не принимает post-application stage",
+        )
     if target == "applied" and stage not in {None, "Applied"}:
-        raise ValidationError("status: application_status=applied допускает только stage=Applied")
+        raise ValidationError(
+            "status: application_status=applied accepts only stage=Applied",
+            field="stage",
+            cli_hint_ru="status: application_status=applied допускает только stage=Applied",
+        )
     if target == "interviewing" and stage in {"None", "Applied", "Offer"}:
-        raise ValidationError("status: interviewing требует interview stage")
+        raise ValidationError(
+            "status: interviewing requires an interview stage",
+            field="stage",
+            cli_hint_ru="status: interviewing требует interview stage",
+        )
     if target == "offer" and stage not in {None, "Offer"}:
-        raise ValidationError("status: application_status=offer требует stage=Offer")
+        raise ValidationError(
+            "status: application_status=offer requires stage=Offer",
+            field="stage",
+            cli_hint_ru="status: application_status=offer требует stage=Offer",
+        )
 
     applied_at = validate_status_date(applied_at, "applied_at")
     response_at = validate_status_date(response_at, "response_at")
     if target in PRE_APPLICATION_STATUSES and (applied_at is not None or response_at is not None):
-        raise ValidationError("status: pre-application состояние не принимает applied_at/response_at")
+        raise ValidationError(
+            "status: a pre-application state does not accept applied_at/response_at",
+            cli_hint_ru="status: pre-application состояние не принимает applied_at/response_at",
+        )
     if target == "applied" and response_at is not None:
-        raise ValidationError("status: application_status=applied не принимает response_at")
+        raise ValidationError(
+            "status: application_status=applied does not accept response_at",
+            field="response_at",
+            cli_hint_ru="status: application_status=applied не принимает response_at",
+        )
     if next_action_date is not None:
         next_action_date = clean_value(next_action_date).strip()
         if next_action_date:
             try:
                 datetime.strptime(next_action_date, "%Y-%m-%d")
             except ValueError:
-                raise ValidationError("status: next_action_date должна быть YYYY-MM-DD")
+                raise ValidationError(
+                    "status: next_action_date must be YYYY-MM-DD",
+                    code="bad_format", field="next_action_date",
+                    cli_hint_ru="status: next_action_date должна быть YYYY-MM-DD",
+                )
 
     effective_applied_at = applied_at or row["applied_at"]
     if target in NEEDS_APPLIED_AT and not effective_applied_at and target != "applied":
-        raise ValidationError(f"status: переход в {target} без существующей заявки требует --applied-at")
+        raise ValidationError(
+            f"status: moving to {target} without an existing application requires applied_at",
+            field="applied_at", agent_hint="include an applied_at date in args",
+            cli_hint_ru=f"status: переход в {target} без существующей заявки требует --applied-at",
+        )
     effective_next_action = row["next_action"] if next_action is None else clean_value(next_action).strip()
     if target == "apply" and not effective_next_action:
-        raise ValidationError("status: application_status=apply требует --next-action")
+        raise ValidationError(
+            "status: application_status=apply requires next_action",
+            field="next_action", agent_hint="include a non-empty next_action in args",
+            cli_hint_ru="status: application_status=apply требует --next-action",
+        )
     if target in TERMINAL_APPLICATION_STATUSES and (
         (next_action is not None and clean_value(next_action).strip())
         or (next_action_date is not None and next_action_date)
     ):
-        raise ValidationError(f"status: application_status={target} не принимает следующий шаг")
+        raise ValidationError(
+            f"status: application_status={target} does not accept a next step",
+            field="next_action",
+            cli_hint_ru=f"status: application_status={target} не принимает следующий шаг",
+        )
     if next_action_date and (next_action is None or not clean_value(next_action).strip()):
-        raise ValidationError("status: next_action_date требует явный --next-action")
+        raise ValidationError(
+            "status: next_action_date requires an explicit next_action",
+            field="next_action_date", agent_hint="include a non-empty next_action in args",
+            cli_hint_ru="status: next_action_date требует явный --next-action",
+        )
 
     supplied_reason = None if decision_reason is None else clean_value(decision_reason).strip()
     if target == "ghosted":
         if supplied_reason not in {None, "no_response_timeout"}:
-            raise ValidationError("status: ghosted допускает только decision_reason=no_response_timeout")
+            raise ValidationError(
+                "status: ghosted accepts only decision_reason=no_response_timeout",
+                code="bad_enum_value", field="decision_reason", allowed=["no_response_timeout"],
+                cli_hint_ru="status: ghosted допускает только decision_reason=no_response_timeout",
+            )
         final_reason = "no_response_timeout"
     elif target == "withdrawn":
         if supplied_reason not in {None, "withdrawn_by_me"}:
-            raise ValidationError("status: withdrawn допускает только decision_reason=withdrawn_by_me")
+            raise ValidationError(
+                "status: withdrawn accepts only decision_reason=withdrawn_by_me",
+                code="bad_enum_value", field="decision_reason", allowed=["withdrawn_by_me"],
+                cli_hint_ru="status: withdrawn допускает только decision_reason=withdrawn_by_me",
+            )
         final_reason = "withdrawn_by_me"
     else:
         if supplied_reason:
-            raise ValidationError(f"status: decision_reason не используется для application_status={target}")
+            raise ValidationError(
+                f"status: decision_reason is not used for application_status={target}",
+                field="decision_reason",
+                cli_hint_ru=f"status: decision_reason не используется для application_status={target}",
+            )
         final_reason = ""
 
     if target == "interviewing" and stage is None:
@@ -2047,13 +2238,24 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
     """Record a pre-application screening decision without claiming verification."""
     decision_reason = clean_value(decision_reason).strip()
     if decision_reason not in SCREEN_REASONS:
-        raise ValidationError(f"screen: недопустимая decision_reason {decision_reason!r}")
+        raise ValidationError(
+            f"screen: {decision_reason!r} is not a recognized decision_reason",
+            code="bad_enum_value", field="decision_reason", allowed=sorted(SCREEN_REASONS),
+            cli_hint_ru=f"screen: недопустимая decision_reason {decision_reason!r}",
+        )
     if row["application_status"] not in {"not_started", "reviewing", "apply"} or row["applied_at"]:
-        raise ValidationError("screen допустим только до фактической отправки заявки")
+        raise ValidationError(
+            "screen is allowed only before an application is actually submitted",
+            cli_hint_ru="screen допустим только до фактической отправки заявки",
+        )
     if notes is not None:
         row["notes"] = clean_value(notes).strip()
     if decision_reason == "other" and not row["notes"]:
-        raise ValidationError("screen decision_reason=other требует --notes")
+        raise ValidationError(
+            "screen decision_reason=other requires notes",
+            field="notes", agent_hint="include non-empty notes in args",
+            cli_hint_ru="screen decision_reason=other требует --notes",
+        )
     row["application_status"] = "not_started"
     row["decision_reason"] = decision_reason
     row["next_action"] = ""
@@ -2092,7 +2294,11 @@ def apply_verify_enrichment(row, **values):
             continue
         value = clean_value(raw_value).strip()
         if key in ENUMS and value and value not in ENUMS[key]:
-            raise ValidationError(f"{key}: недопустимое значение {value!r}")
+            raise ValidationError(
+                f"{key}: {value!r} is not a recognized enum member",
+                code="bad_enum_value", field=key, allowed=sorted(ENUMS[key]),
+                cli_hint_ru=f"{key}: недопустимое значение {value!r}",
+            )
         row[key] = value
 
 
@@ -2102,24 +2308,47 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
                          application_status=None, next_action=None, next_action_date=None):
     """Apply verification fields to an in-memory row and return its outcome."""
     if decision_reason == "duplicate_listing":
-        raise ValidationError("duplicate_listing создаётся только командой add --duplicate-of JOB_ID")
+        raise ValidationError(
+            "duplicate_listing is created only by an add operation with duplicate_of set",
+            field="decision_reason",
+            cli_hint_ru="duplicate_listing создаётся только командой add --duplicate-of JOB_ID",
+        )
     if application_status is not None:
         application_status = clean_value(application_status).strip()
         if application_status != "apply":
-            raise ValidationError("verify может установить application_status только в apply")
+            raise ValidationError(
+                "verify may set application_status only to apply",
+                code="bad_enum_value", field="application_status", allowed=["apply"],
+                cli_hint_ru="verify может установить application_status только в apply",
+            )
         next_action = clean_value(next_action or "").strip()
         if not next_action:
-            raise ValidationError("application_status=apply требует --next-action")
+            raise ValidationError(
+                "application_status=apply requires next_action",
+                field="next_action", agent_hint="include a non-empty next_action in args",
+                cli_hint_ru="application_status=apply требует --next-action",
+            )
         if next_action_date is not None:
             next_action_date = clean_value(next_action_date).strip()
             try:
                 datetime.strptime(next_action_date, "%Y-%m-%d")
             except ValueError:
-                raise ValidationError("--next-action-date должна иметь формат YYYY-MM-DD")
+                raise ValidationError(
+                    "next_action_date must be YYYY-MM-DD",
+                    code="bad_format", field="next_action_date",
+                    cli_hint_ru="--next-action-date должна иметь формат YYYY-MM-DD",
+                )
     elif next_action is not None or next_action_date is not None:
-        raise ValidationError("--next-action и --next-action-date допустимы только с --application-status apply")
+        raise ValidationError(
+            "next_action and next_action_date are allowed only with application_status=apply",
+            cli_hint_ru="--next-action и --next-action-date допустимы только с --application-status apply",
+        )
     if decision_reason and application_status is not None:
-        raise ValidationError("--decision-reason нельзя сочетать с --application-status apply")
+        raise ValidationError(
+            "decision_reason cannot be combined with application_status=apply",
+            field="decision_reason",
+            cli_hint_ru="--decision-reason нельзя сочетать с --application-status apply",
+        )
     if original_url is not None:
         row["original_url"] = clean_value(original_url).strip()
     if notes is not None:
@@ -2144,7 +2373,11 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     pre_application = row["application_status"] in {"not_started", "reviewing", "apply"}
     if decision_reason:
         if not pre_application:
-            raise ValidationError("--decision-reason допустим только до отклика")
+            raise ValidationError(
+                "decision_reason is allowed only before an application response",
+                field="decision_reason",
+                cli_hint_ru="--decision-reason допустим только до отклика",
+            )
         row["application_status"] = "not_started"
         row["decision_reason"] = decision_reason
         row["next_action"] = ""
@@ -2153,7 +2386,11 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
     elif passed:
         if application_status == "apply":
             if not pre_application:
-                raise ValidationError("application_status=apply допустим только до фактической отправки заявки")
+                raise ValidationError(
+                    "application_status=apply is allowed only before an application is actually submitted",
+                    field="application_status",
+                    cli_hint_ru="application_status=apply допустим только до фактической отправки заявки",
+                )
             row["application_status"] = "apply"
             row["next_action"] = next_action
             row["next_action_date"] = next_action_date or ""
@@ -2166,7 +2403,11 @@ def apply_verify_changes(row, *, listing_status, first_party_verified, apply_ver
                 row["next_action_date"] = ""
             outcome = "ready_for_review" if pre_application else "verified_after_application"
     elif pre_application:
-        raise ValidationError("для непрошедшей verification до отклика нужен --decision-reason")
+        raise ValidationError(
+            "a verification that did not pass requires decision_reason before an application response",
+            field="decision_reason", agent_hint="include decision_reason in args",
+            cli_hint_ru="для непрошедшей verification до отклика нужен --decision-reason",
+        )
     else:
         outcome = "verified_after_application"
     row["last_update"] = today()

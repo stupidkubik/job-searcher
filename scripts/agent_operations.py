@@ -416,10 +416,10 @@ def add_retry_fragments(args,error,client_ref=None):
     return fragments
 def add_conflict_details(error,args,client_ref=None):
     if isinstance(error,jobs.UnresolvedDuplicate):
-        candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason} for row,reason in error.candidates.values()]
+        candidates=[{"id":row["id"],"company":row["company"],"role":row["role"],"application_status":row["application_status"],"listing_status":row["listing_status"],"reason":reason_en} for row,_reason_ru,reason_en in error.candidates.values()]
         details={"reason":"unresolved_duplicate","candidates":candidates}
     else:
-        details={"reason":"source_reference_conflict","message":error.message,"existing":error.existing}
+        details={"reason":"source_reference_conflict","message":error.message_en,"existing":error.existing}
     details["retry"]=add_retry_fragments(args,error,client_ref=client_ref)
     return details
 def refreshed_expected(expected,mismatches):
@@ -529,7 +529,7 @@ def peek_command(path):
         return command if isinstance(command,str) else "unknown"
     except Exception: return "unknown"
 def error_payload(error):
-    if isinstance(error,OperationError): return error.to_payload()
+    if isinstance(error,(OperationError,jobs.ValidationError)): return error.to_payload()
     return {"code":"invariant_violation","layer":"jobs","message":str(error)}
 def rejected_result(operation_id,command,error):
     return {"version":OPERATION_VERSION,"operation_id":operation_id,"status":"rejected","command":command,"executed_at":utc_now(),"risk":"none","error":error_payload(error)}
