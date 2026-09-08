@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (3)](#action-now) · [Applications (44)](#applications) · [To verify (13)](#to-verify) · [Archive (365)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (367)](#archive)
 
 ## Action now
 
@@ -27,6 +27,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Applied | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | Applied | 2026-09-08 | — | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Applied | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | Applied | 2026-09-08 | — | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
+| Applied | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | Applied | 2026-09-08 | — | [Open](../applications/job-0380-talent-sam-front-end-developer.md) |
 | Applied | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | Applied | 2026-09-08 | — | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
 | Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
@@ -67,9 +68,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | First party + Apply + Listing | 8 | verify first-party | Never |
-| Reviewing | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | First party + Apply | 8 | verify first-party | 2026-08-24 |
-| Reviewing | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | First party + Apply | 7.5 | verify first-party | 2026-08-24 |
 | Reviewing | [Undisclosed digital studio (TalentMove 264516) — Frontend Engineer](<https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/>) · job-0423 | First party + Apply + Listing | 7.3 | verify first-party | Never |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
 | Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
@@ -85,12 +83,13 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 <details>
 
-<summary>Archive (365)</summary>
+<summary>Archive (367)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
 | Skipped: geo restriction | [Slate (Supporting Cast) — Software Engineer](<https://jobs.lever.co/slate/557fe4ab-d292-4069-8c63-36752f3da91d>) · job-0425 | geo restriction | Open | 2026-09-08 |
 | Skipped: role not frontend | [Undisclosed (TalentMove 266369) — Product Engineer](<https://talent-move.ru/jobs/product-engineer-remote-020926-266369/>) · job-0424 | role not frontend | Not checked | 2026-09-08 |
+| Skipped: other | [Undisclosed (TalentMove 260684) — Frontend Developer Intern (React)](<https://talent-move.ru/jobs/stazhor-frontend-developer-react-udalenka-240826-260684/>) · job-0421 | other | Not checked | 2026-09-08 |
 | Skipped: salary too low | [MartSpec — Frontend Developer Intern (React / TypeScript)](<https://martspec.com/en/careers/frontend-engineer>) · job-0420 | salary too low | Open | 2026-09-08 |
 | Skipped: seniority too high | [Talent Magnet / CareerGo — Frontend Developer (React / TypeScript)](<https://hh.ru/vacancy/136400949>) · job-0417 | seniority too high | Open | 2026-09-08 |
 | Skipped: other | [Undisclosed (TalentMove 269674) — Junior Frontend Developer (React / TypeScript)](<https://talent-move.ru/jobs/frontend-developer-react-type-script-060926-269674/>) · job-0416 | other | Not checked | 2026-09-08 |
@@ -102,6 +101,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Skipped: seniority too high | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | seniority too high | Open | 2026-09-08 |
 | Skipped: other | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | other | Open | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
+| Skipped: company not interesting | [Billcit — Full Stack Developer](<https://wellfound.com/jobs/4572840-full-stack-developer>) · job-0367 | company not interesting | Open | 2026-09-08 |
 | Closed | [Interview Copilot AI — Frontend Engineer](<https://wellfound.com/jobs/4607003-senior-full-stack-engineer-clone>) · job-0364 | closed before application | Closed | 2026-09-08 |
 | Closed | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | closed before application | Closed | 2026-09-08 |
 | Closed | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | closed before application | Closed | 2026-09-08 |
