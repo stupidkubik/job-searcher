@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-0404-0364-0416-cleanup",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0404",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-09-07"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed on 2026-09-08 that the listing is closed; no exact employer careers/ATS listing had been resolved previously."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0364",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-24"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed on 2026-09-08 that the listing is closed; no exact employer careers/ATS listing had been resolved previously."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0416",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User confirmed the TalentMove page is a candidate resume/profile, not a job vacancy."
+      }
+    }
+  ]
+}
