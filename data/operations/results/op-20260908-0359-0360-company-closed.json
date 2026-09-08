@@ -1,0 +1,40 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T18:27:19Z",
+  "jobs": [
+    "job-0359",
+    "job-0360"
+  ],
+  "operation_id": "op-20260908-0359-0360-company-closed",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0359",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0360",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}

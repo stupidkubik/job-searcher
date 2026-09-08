@@ -3,10 +3,10 @@ id: job-0360
 company: Make
 role: Frontend Engineer (Freelance)
 original_url: https://make.recruitee.com/o/frontend-engineer-freelance
-verified_at: 2026-08-23
-listing_status: open
+verified_at: 2026-09-08
+listing_status: closed
 first_party_verified: yes
-apply_verified: yes
+apply_verified: no
 ---
 
 # Make — Frontend Engineer (Freelance)

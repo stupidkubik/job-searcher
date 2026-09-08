@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (4)](#action-now) · [Applications (44)](#applications) · [To verify (18)](#to-verify) · [Archive (359)](#archive)
+[Action now (2)](#action-now) · [Applications (44)](#applications) · [To verify (18)](#to-verify) · [Archive (361)](#archive)
 
 ## Action now
 
@@ -12,8 +12,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
-| Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
-| Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
 
 ## Applications
 
@@ -91,7 +89,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 <details>
 
-<summary>Archive (359)</summary>
+<summary>Archive (361)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -106,6 +104,8 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Skipped: seniority too high | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | seniority too high | Open | 2026-09-08 |
 | Skipped: other | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | other | Open | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
+| Closed | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | closed before application | Closed | 2026-09-08 |
+| Closed | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | closed before application | Closed | 2026-09-08 |
 | Skipped: role not frontend | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | role not frontend | Open | 2026-09-08 |
 | Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-09-08 |
 | Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
