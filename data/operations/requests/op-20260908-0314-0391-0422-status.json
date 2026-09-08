@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-0314-0391-0422-status",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0314",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-20"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-09-08",
+        "stage": "Applied"
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0391",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "level": "Senior",
+        "last_update": "2026-08-24"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "User confirmed the role is not a fit for the current search; the vacancy is explicitly senior IC and its requirements exceed the target level."
+      }
+    },
+    {
+      "command": "status",
+      "job_id": "job-0422",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "applied_at": "2026-09-08",
+        "stage": "Applied"
+      }
+    }
+  ]
+}
