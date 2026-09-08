@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T12:29:53Z",
+  "jobs": [],
+  "operation_id": "wttj-20260908-recent-pass-001",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:indy:devx-h-f-lyon",
+        "command": "add",
+        "job_id": "job-0412",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0412",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/indy/jobs/devx-h-f_lyon"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:huwise:software-engineer",
+        "command": "add",
+        "job_id": "job-0413",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-08",
+            "job_id": "job-0413",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

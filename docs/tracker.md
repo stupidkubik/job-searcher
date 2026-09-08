@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-08** · Jobs: **411**
+Dataset updated: **2026-09-08** · Jobs: **413**
 
-[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (350)](#archive)
+[Action now (11)](#action-now) · [Applications (37)](#applications) · [To verify (13)](#to-verify) · [Archive (352)](#archive)
 
 ## Action now
 
@@ -86,10 +86,12 @@ Dataset updated: **2026-09-08** · Jobs: **411**
 
 <details>
 
-<summary>Archive (350)</summary>
+<summary>Archive (352)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Huwise — Software Engineer](<https://www.welcometothejungle.com/en/companies/huwise/jobs/software-engineer>) · job-0413 | geo restriction | Open | 2026-09-08 |
+| Skipped: geo restriction | [Indy — Software Engineer - Developer Experience](<https://jobs.indy.fr/jobs/6168323-software-engineer-developer-experience>) · job-0412 | geo restriction | Open | 2026-09-08 |
 | Skipped: seniority too high | [Yooli — FULL TIME: Software Engineer Position - React and Rest](<https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1>) · job-0411 | seniority too high | Not checked | 2026-09-08 |
 | Skipped: geo restriction | [Wonderdog — Full-Stack Product Engineer - Agentic First](<https://weworkremotely.com/remote-jobs/wonderdog-full-stack-product-engineer-agentic-first>) · job-0410 | geo restriction | Not checked | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
