@@ -83,9 +83,10 @@ runner отклонит целиком запросом `rejected` — не пы
 ## Как писать в CSV
 
 - Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` / `verify` /
-  `backfill-sources` / `repair-himalayas-screening` / `ingest` /
-  `render-tracker`). Ручная правка
-  canonical CSV — исключение.
+  `ingest` / `render-tracker`). Ручная правка canonical CSV — исключение.
+  Разовые исторические миграции (`migrate-v2`, `repair-himalayas-screening`,
+  `backfill-sources`) не входят в `jobs.py`: это отдельные скрипты в
+  `scripts/maintenance/`, вне write-path агента.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
   через `scripts/agent_operations.py` и `jobs.py`. Каждый request создаётся

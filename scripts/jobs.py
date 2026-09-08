@@ -35,20 +35,6 @@ KNOWN_INDEX_PATH = INDEX_DIR / "known.tsv"
 KEYS_INDEX_PATH = INDEX_DIR / "keys.tsv"
 ACTIVE_INDEX_PATH = INDEX_DIR / "active.csv"
 
-V1_FIELDS = [
-    "id", "status", "company", "role", "level", "original_url", "source_url", "source",
-    "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
-    "match_score", "stage_reached", "decision_reason", "applied_at",
-    "response_at", "next_action", "next_action_date", "cv_version",
-    "cover_letter", "contact_name", "contact_url", "last_update", "notes",
-]
-V1_LEGACY_FIELDS = [
-    "id", "company", "role", "level", "original_url", "source_url", "source",
-    "location", "remote_policy", "stack", "salary", "posted_at", "found_at",
-    "match_score", "status", "stage_reached", "decision_reason", "applied_at",
-    "response_at", "next_action", "next_action_date", "cv_version",
-    "cover_letter", "contact_name", "contact_url", "last_update", "notes",
-]
 FIELDS = [
     "id", "application_status", "listing_status", "company", "role", "level",
     "original_url", "source_url", "source", "location", "remote_policy", "stack",
@@ -154,46 +140,6 @@ TRACKER_APPLICATION_STATUS_ORDER = {
     "ghosted": 4,
     "withdrawn": 5,
 }
-
-V1_STATUS_MAPPING = {
-    "New": ("not_started", "unknown"),
-    "Reviewing": ("reviewing", "unknown"),
-    "Apply": ("apply", "unknown"),
-    "Applied": ("applied", "unknown"),
-    "Interviewing": ("interviewing", "unknown"),
-    "Offer": ("offer", "unknown"),
-    "Rejected": ("rejected", "unknown"),
-    "Ghosted": ("ghosted", "unknown"),
-    "Skipped": ("not_started", "unknown"),
-    "Closed": ("not_started", "closed"),
-    "Duplicate": ("not_started", "unknown"),
-    "Withdrawn": ("withdrawn", "unknown"),
-}
-
-HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS = {
-    "job-0102", "job-0110", "job-0111", "job-0124",
-}
-HIMALAYAS_SCREENING_REPAIR_IDS = tuple(
-    f"job-{number:04d}"
-    for number in range(99, 127)
-    if f"job-{number:04d}" not in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
-)
-HIMALAYAS_SCREENING_REPAIR_FIELDS = (
-    "listing_status", "first_party_verified", "apply_verified", "verified_at",
-)
-HIMALAYAS_SCREENING_REPAIR_FROM = {
-    "listing_status": "open",
-    "first_party_verified": "no",
-    "apply_verified": "no",
-    "verified_at": "2026-08-11",
-}
-HIMALAYAS_SCREENING_REPAIR_TO = {
-    "listing_status": "unknown",
-    "first_party_verified": "unknown",
-    "apply_verified": "unknown",
-    "verified_at": "",
-}
-
 
 class JobsArgumentParser(argparse.ArgumentParser):
     """Argparse с едиными кодами завершения для CLI."""
@@ -362,16 +308,7 @@ def read_job_sources_csv():
 def load():
     header, rows = read_csv()
     if header != FIELDS:
-        die("заголовок jobs.csv не совпадает со схемой v2; для v1 используйте migrate-v2")
-    return rows
-
-
-def load_v1():
-    header, rows = read_csv()
-    if tuple(header or []) not in {tuple(V1_FIELDS), tuple(V1_LEGACY_FIELDS)}:
-        if header == FIELDS:
-            die("jobs.csv уже использует схему v2; migrate-v2 больше не требуется")
-        die("заголовок jobs.csv не является поддерживаемой схемой v1")
+        die("заголовок jobs.csv не совпадает со схемой v2; для v1 используйте scripts/maintenance/migrate_v2.py")
     return rows
 
 
@@ -700,179 +637,6 @@ def ensure_dataset_valid(job_rows, source_rows, emit_warnings=True):
     return warnings
 
 
-def migrate_v1_rows(rows):
-    migrated = []
-    for line, legacy in enumerate(rows, start=2):
-        status = legacy.get("status") or ""
-        if status not in V1_STATUS_MAPPING:
-            die(f"строка {line}: неизвестный v1 status={status!r}")
-        application_status, listing_status = V1_STATUS_MAPPING[status]
-        row = {key: legacy.get(key) or "" for key in FIELDS}
-        row.update({
-            "application_status": application_status,
-            "listing_status": listing_status,
-            "verified_at": "",
-            "first_party_verified": "unknown",
-            "apply_verified": "unknown",
-        })
-        if status == "Closed":
-            row["decision_reason"] = "closed_before_application"
-        elif status == "Duplicate":
-            row["decision_reason"] = "duplicate_listing"
-        migrated.append(row)
-    return migrated
-
-
-def migration_summary_payload(rows):
-    return {
-        "rows": len(rows),
-        "unique_ids": len({row["id"] for row in rows}),
-        "with_applied_at": sum(bool(row["applied_at"]) for row in rows),
-        "listing_status_closed": sum(row["listing_status"] == "closed" for row in rows),
-        "decision_reason_duplicate_listing": sum(row["decision_reason"] == "duplicate_listing" for row in rows),
-    }
-
-
-def migration_summary(rows):
-    payload = migration_summary_payload(rows)
-    return [
-        f"строк: {payload['rows']}",
-        f"уникальных id: {payload['unique_ids']}",
-        f"с applied_at: {payload['with_applied_at']}",
-        f"listing_status=closed: {payload['listing_status_closed']}",
-        f"decision_reason=duplicate_listing: {payload['decision_reason_duplicate_listing']}",
-    ]
-
-
-def cmd_migrate_v2(args):
-    rows = migrate_v1_rows(load_v1())
-    ensure_valid(rows)
-    if args.format == "json":
-        payload = {
-            "ok": True,
-            "command": "migrate-v2",
-            "mode": "check" if args.check else "migrate",
-            "summary": migration_summary_payload(rows),
-        }
-        if not args.check:
-            save(rows)
-        payload["saved"] = not args.check
-        print_json(payload)
-        return
-    mode = "проверка" if args.check else "миграция выполнена"
-    print(f"v1 → v2: {mode}")
-    for line in migration_summary(rows):
-        print(line)
-    if args.check:
-        print("jobs.csv не изменён")
-        return
-    save(rows)
-    print("data/jobs.csv атомарно обновлён")
-
-
-def himalayas_screening_repair_state(row):
-    snapshot = {field: row[field] for field in HIMALAYAS_SCREENING_REPAIR_FIELDS}
-    if snapshot == HIMALAYAS_SCREENING_REPAIR_FROM:
-        return "pending"
-    if snapshot == HIMALAYAS_SCREENING_REPAIR_TO:
-        return "repaired"
-    return "unexpected"
-
-
-def repair_himalayas_screening(*, check=False):
-    """Repair the exact legacy Himalayas screening batch without reclassifying it."""
-    rows = load()
-    source_rows = load_job_sources()
-    by_id = {row["id"]: row for row in rows}
-    required_ids = set(HIMALAYAS_SCREENING_REPAIR_IDS) | HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
-    missing = sorted(required_ids - by_id.keys())
-    if missing:
-        die("repair-himalayas-screening: отсутствуют ожидаемые записи: " + ", ".join(missing))
-
-    targets = [by_id[job_id] for job_id in HIMALAYAS_SCREENING_REPAIR_IDS]
-    wrong_batch = [
-        row["id"] for row in targets
-        if row["source"] != "Himalayas"
-        or row["application_status"] != "not_started"
-        or not row["decision_reason"]
-        or not row["notes"]
-    ]
-    if wrong_batch:
-        die(
-            "repair-himalayas-screening: записи не соответствуют старому screening batch: "
-            + ", ".join(wrong_batch)
-        )
-    wrong_exclusions = sorted(
-        job_id for job_id in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
-        if by_id[job_id]["source"] != "Himalayas"
-    )
-    if wrong_exclusions:
-        die(
-            "repair-himalayas-screening: исключения больше не относятся к Himalayas: "
-            + ", ".join(wrong_exclusions)
-        )
-
-    states = {row["id"]: himalayas_screening_repair_state(row) for row in targets}
-    unexpected = sorted(job_id for job_id, state in states.items() if state == "unexpected")
-    pending = sorted(job_id for job_id, state in states.items() if state == "pending")
-    repaired = sorted(job_id for job_id, state in states.items() if state == "repaired")
-    if unexpected or (pending and repaired):
-        details = []
-        if unexpected:
-            details.append("unexpected=" + ",".join(unexpected))
-        if pending and repaired:
-            details.append(f"mixed pending={len(pending)}, repaired={len(repaired)}")
-        die("repair-himalayas-screening: смешанное или неожиданное состояние; " + "; ".join(details))
-
-    status = "ready" if pending else "already_applied"
-    payload = {
-        "ok": True,
-        "command": "repair-himalayas-screening",
-        "mode": "check" if check else "apply",
-        "status": status,
-        "target_count": len(HIMALAYAS_SCREENING_REPAIR_IDS),
-        "target_ids": list(HIMALAYAS_SCREENING_REPAIR_IDS),
-        "excluded_ids": sorted(HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS),
-        "changed": 0,
-    }
-    if check or status == "already_applied":
-        return payload
-
-    target_before = {row["id"]: dict(row) for row in targets}
-    excluded_before = {job_id: dict(by_id[job_id]) for job_id in HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS}
-    for row in targets:
-        row.update(HIMALAYAS_SCREENING_REPAIR_TO)
-
-    for row in targets:
-        before = target_before[row["id"]]
-        changed_fields = {field for field in FIELDS if row[field] != before[field]}
-        if changed_fields != set(HIMALAYAS_SCREENING_REPAIR_FIELDS):
-            die(f"repair-himalayas-screening: нарушен набор изменений для {row['id']}")
-        if row["decision_reason"] != before["decision_reason"] or row["notes"] != before["notes"]:
-            die(f"repair-himalayas-screening: decision_reason/notes изменены для {row['id']}")
-    if any(by_id[job_id] != before for job_id, before in excluded_before.items()):
-        die("repair-himalayas-screening: одно из исключений было изменено")
-
-    warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows)
-    payload.update({"status": "applied", "changed": len(targets), "warnings": warnings})
-    return payload
-
-
-def cmd_repair_himalayas_screening(args):
-    result = repair_himalayas_screening(check=args.check)
-    if args.format == "json":
-        print_json(result)
-        return
-    print(
-        f"Himalayas screening repair: {result['status']}; "
-        f"targets={result['target_count']}; changed={result['changed']}"
-    )
-    print("excluded: " + ", ".join(result["excluded_ids"]))
-    if args.check:
-        print("data/jobs.csv не изменён")
-
-
 def clean_value(value):
     return str(value or "").replace("\n", " ")
 
@@ -1063,76 +827,6 @@ def prepare_source_reference(source_rows, reference, force=False):
 
 def source_reference_payload(reference, created):
     return {"reference": reference, "created": created}
-
-
-def legacy_duplicate_origin(row):
-    match = re.search(r"\bjob-\d{4,}\b", row["notes"] or "")
-    if not match:
-        die(f"{row['id']}: legacy duplicate_listing не содержит id оригинала")
-    return match.group(0)
-
-
-def backfill_source_references(job_rows, source_rows):
-    prepared_rows = list(source_rows)
-    summary = {"scanned": 0, "created": 0, "existing": 0, "legacy_redirects": 0, "shared_urls": 0}
-    for job in job_rows:
-        summary["scanned"] += 1
-        if not job["source_url"]:
-            continue
-        job_id = job["id"]
-        if job["decision_reason"] == "duplicate_listing":
-            job_id = legacy_duplicate_origin(job)
-            summary["legacy_redirects"] += 1
-        reference = build_source_reference(job_id, job, job["found_at"])
-        normalized = norm_url(reference["source_url"])
-        shared_url = any(
-            existing["source_url"] and norm_url(existing["source_url"]) == normalized
-            and existing["job_id"] != job_id
-            for existing in prepared_rows
-        )
-        reference, created = prepare_source_reference(prepared_rows, reference, force=True)
-        if created:
-            prepared_rows.append(reference)
-            summary["created"] += 1
-            if shared_url:
-                summary["shared_urls"] += 1
-        else:
-            summary["existing"] += 1
-    return prepared_rows, summary
-
-
-def print_backfill_summary(summary, changed):
-    mode = "проверка" if not changed else "backfill выполнен"
-    print(f"source references: {mode}")
-    print(f"просмотрено job: {summary['scanned']}")
-    print(f"создано references: {summary['created']}")
-    print(f"существовало references: {summary['existing']}")
-    print(f"legacy duplicate redirects: {summary['legacy_redirects']}")
-    print(f"явно разрешено shared discovery URL: {summary['shared_urls']}")
-
-
-def cmd_backfill_sources(args):
-    job_rows = load()
-    source_rows = load_job_sources(allow_missing=True)
-    new_source_rows, summary = backfill_source_references(job_rows, source_rows)
-    ensure_dataset_valid(job_rows, new_source_rows)
-    if args.format == "json":
-        if not args.check:
-            save_job_sources(new_source_rows)
-        print_json({
-            "ok": True,
-            "command": "backfill-sources",
-            "mode": "check" if args.check else "apply",
-            "summary": summary,
-            "saved": not args.check,
-        })
-        return
-    print_backfill_summary(summary, changed=not args.check)
-    if args.check:
-        print("data/job_sources.csv не изменён")
-        return
-    save_job_sources(new_source_rows)
-    print("data/job_sources.csv атомарно обновлён")
 
 
 def should_create_application_card(row, no_file):
@@ -3544,21 +3238,6 @@ def main():
     render_index.add_argument("--check", action="store_true", help="проверить freshness без записи")
     render_index.add_argument("--format", choices=("text", "json"), default="text")
     render_index.set_defaults(func=cmd_render_index)
-    migrate = subparsers.add_parser("migrate-v2", help="однократно мигрировать v1 CSV в v2")
-    migrate.add_argument("--check", action="store_true", help="проверить миграцию без записи")
-    migrate.add_argument("--format", choices=("text", "json"), default="text")
-    migrate.set_defaults(func=cmd_migrate_v2)
-    repair_himalayas = subparsers.add_parser(
-        "repair-himalayas-screening",
-        help="исправить verification у старого Himalayas screening batch",
-    )
-    repair_himalayas.add_argument("--check", action="store_true", help="проверить repair без записи")
-    repair_himalayas.add_argument("--format", choices=("text", "json"), default="text")
-    repair_himalayas.set_defaults(func=cmd_repair_himalayas_screening)
-    backfill_sources = subparsers.add_parser("backfill-sources", help="создать source references из historical jobs")
-    backfill_sources.add_argument("--check", action="store_true", help="проверить backfill без записи")
-    backfill_sources.add_argument("--format", choices=("text", "json"), default="text")
-    backfill_sources.set_defaults(func=cmd_backfill_sources)
     ingest = subparsers.add_parser("ingest", help="классифицировать raw JSONL batch")
     ingest.add_argument("path", type=Path)
     ingest.add_argument("--dry-run", action="store_true", help="не изменять canonical dataset")

@@ -89,11 +89,12 @@ posted_at, found_at, match_score, decision_reason, notes
 принадлежать двум вакансиям. `validate` всегда проверяет обе таблицы как единый
 dataset.
 
-Для разовой миграции legacy-данных используйте:
+Для разовой миграции legacy-данных используйте (это отдельный maintenance-скрипт,
+не подкоманда `jobs.py`; см. docs/agent-write-path-plan-2026-09-07.md, Э9/G-12):
 
 ```bash
-python3 scripts/jobs.py backfill-sources --check
-python3 scripts/jobs.py backfill-sources
+python3 scripts/maintenance/backfill_sources.py --check
+python3 scripts/maintenance/backfill_sources.py
 ```
 
 Первая команда ничего не меняет. Вторая создаёт references из прежних
@@ -290,11 +291,13 @@ python3 scripts/jobs.py status job-0001 \
 ## Разовый repair старого Himalayas batch
 
 Для 24 screening-записей `job-0099…job-0126`, кроме `job-0102`, `job-0110`,
-`job-0111` и `job-0124`, есть отдельная строгая миграция:
+`job-0111` и `job-0124`, есть отдельная строгая миграция — отдельный
+maintenance-скрипт, не подкоманда `jobs.py` (см.
+docs/agent-write-path-plan-2026-09-07.md, Э9/G-12):
 
 ```bash
-python3 scripts/jobs.py repair-himalayas-screening --check --format json
-python3 scripts/jobs.py repair-himalayas-screening --format json
+python3 scripts/maintenance/repair_himalayas_screening.py --check --format json
+python3 scripts/maintenance/repair_himalayas_screening.py --format json
 ```
 
 Она заменяет только ошибочную verification-разметку `open/no/no/2026-08-11`

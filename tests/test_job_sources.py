@@ -10,7 +10,6 @@ from zoneinfo import ZoneInfo
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-V1_FIXTURE = PROJECT / "tests" / "fixtures" / "jobs-v1.csv"
 
 
 class JobSourcesTests(unittest.TestCase):
@@ -117,26 +116,6 @@ class JobSourcesTests(unittest.TestCase):
         forced = self.add_linkedin("SecondCo", "Frontend Developer", "https://wellfound.com/jobs", "--force")
         self.assertEqual(forced.returncode, 0, forced.stderr)
         self.assertEqual(len(self.rows("job_sources.csv")), 2)
-
-    def test_backfill_redirects_legacy_duplicate_and_is_idempotent(self):
-        shutil.copy2(V1_FIXTURE, self.root / "data" / "jobs.csv")
-        self.assertEqual(self.invoke("migrate-v2").returncode, 0)
-        preview = self.invoke("backfill-sources", "--check")
-        self.assertEqual(preview.returncode, 0, preview.stderr)
-        self.assertIn("создано references: 12", preview.stdout)
-        self.assertEqual(len(self.rows("job_sources.csv")), 0)
-
-        backfill = self.invoke("backfill-sources")
-        self.assertEqual(backfill.returncode, 0, backfill.stderr)
-        references = self.rows("job_sources.csv")
-        self.assertEqual(len(references), 12)
-        duplicate_reference = next(row for row in references if row["source_url"] == "https://source.test/11")
-        self.assertEqual(duplicate_reference["job_id"], "job-0001")
-
-        repeated = self.invoke("backfill-sources")
-        self.assertEqual(repeated.returncode, 0, repeated.stderr)
-        self.assertIn("создано references: 0", repeated.stdout)
-        self.assertEqual(len(self.rows("job_sources.csv")), 12)
 
     def test_validate_rejects_foreign_key(self):
         (self.root / "data" / "job_sources.csv").write_text(
