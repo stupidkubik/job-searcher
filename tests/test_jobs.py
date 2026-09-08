@@ -26,7 +26,17 @@ class JobsCliTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         for directory in ("data", "applications", "scripts"):
             (self.root / directory).mkdir()
-        for name in ("jobs.py", "tracker_time.py"):
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+        ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
         (self.root / "data" / "jobs.csv").write_text(header + "\n", encoding="utf-8")

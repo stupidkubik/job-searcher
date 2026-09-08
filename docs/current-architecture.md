@@ -58,7 +58,14 @@ data/jobs.csv               canonical jobs
 data/job_sources.csv        canonical provenance references
 data/index/                 generated compact bootstrap projections (render-index)
 applications/               long-form job context
-scripts/jobs.py             local canonical write path and projections
+scripts/jobs.py             thin CLI entry point; re-exports scripts/tracker_*.py
+scripts/tracker_paths.py    filesystem locations (Paths/PATHS)
+scripts/tracker_schema.py   canonical CSV schema, enums, write-path exceptions
+scripts/tracker_validate.py dataset I/O, integrity checks, duplicate detection
+scripts/tracker_write.py    add/set/status/screen/verify and the atomic transaction
+scripts/tracker_ingest.py   raw-batch ingest
+scripts/tracker_render.py   tracker Markdown, bootstrap indexes, todo/stats
+scripts/tracker_cli.py      argparse plumbing and every `cmd_*` handler
 scripts/agent_operations.py trusted declarative connector executor
 .github/workflows/          validation, operation runner, read-only discovery
 docs/tracker.md             generated browser projection

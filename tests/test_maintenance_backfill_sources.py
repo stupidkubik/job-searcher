@@ -24,7 +24,17 @@ class BackfillSourcesTests(unittest.TestCase):
         (self.root / "data").mkdir()
         (self.root / "scripts" / "maintenance").mkdir(parents=True)
         (self.root / "applications").mkdir()
-        for name in ("jobs.py", "tracker_time.py"):
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+        ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for script in (BACKFILL_SCRIPT, MIGRATE_SCRIPT):
             shutil.copy2(PROJECT / script, self.root / script)

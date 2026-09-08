@@ -122,6 +122,9 @@ ERROR_CODES = frozenset(
 
 
 class OperationError(ValueError):
+    """A connector-facing rejection; execute() catches it and writes a
+    `rejected` result via to_payload() instead of letting the process die."""
+
     def __init__(
         self, message, *, code="contract_violation", field=None, allowed=None, hint=None, layer="operations"
     ):
@@ -133,6 +136,7 @@ class OperationError(ValueError):
         self.layer = layer
 
     def to_payload(self):
+        """Serialize to the `error` object of a rejected/conflict result."""
         payload = {"code": self.code, "layer": self.layer, "message": str(self)}
         if self.field is not None:
             payload["field"] = self.field
@@ -144,31 +148,39 @@ class OperationError(ValueError):
 
 
 def contract_error(message, *, code, field=None, allowed=None, hint=None, layer="operations"):
+    """Build an OperationError with a code checked against the closed taxonomy."""
     if code not in ERROR_CODES:
         raise ValueError(f"unknown OperationError code: {code!r}")
     return OperationError(message, code=code, field=field, allowed=allowed, hint=hint, layer=layer)
 
 
 class BatchConflict(OperationError):
+    """Raised for one child of an atomic batch; apply_operation() rolls the
+    whole batch back so no partial write survives."""
+
     def __init__(self, details):
         super().__init__(details.get("reason", "batch_child_conflict"))
         self.details = details
 
 
 def die(message):
+    """Print to stderr and exit 1, matching jobs.py's own CLI error convention."""
     print(f"error: {message}", file=sys.stderr)
     raise SystemExit(1)
 
 
 def print_json(value):
+    """Print one line of deterministic (sorted-key) JSON for machine reading."""
     print(json.dumps(value, ensure_ascii=False, sort_keys=True))
 
 
 def utc_now():
+    """Return the current instant as an ISO-8601 UTC timestamp string."""
     return utc_timestamp()
 
 
 def clean_text(value, field):
+    """Reject anything but a single-line string for a connector-supplied field."""
     if not isinstance(value, str):
         raise OperationError(f"{field} must be a string")
     if "\n" in value or "\r" in value:
@@ -177,6 +189,8 @@ def clean_text(value, field):
 
 
 def resolve_request_path(value):
+    """Resolve a request path and confirm it is a direct .json file inside
+    data/operations/requests, rejecting traversal outside that directory."""
     path = Path(value)
     if not path.is_absolute():
         path = ROOT / path
@@ -191,10 +205,12 @@ def resolve_request_path(value):
 
 
 def result_path(operation_id):
+    """Path a result for this operation_id would live at, existing or not."""
     return RESULTS_DIR / f"{operation_id}.json"
 
 
 def validate_expected(expected, prefix="expected"):
+    """Check the optimistic-locking `expected` object's shape (non-empty dict)."""
     if not isinstance(expected, dict) or not expected:
         raise OperationError(f"{prefix} must be a non-empty object")
     unknown = sorted(set(expected) - (set(jobs.FIELDS) - {"id"}))
@@ -204,6 +220,8 @@ def validate_expected(expected, prefix="expected"):
 
 
 def validate_verify_args(args, prefix="args"):
+    """Validate a `verify` command's args against VERIFY_*_ARGS and the
+    field invariants (original_url, workflow args, enum values)."""
     if not isinstance(args, dict):
         raise OperationError(f"{prefix} must be an object")
     unknown = sorted(set(args) - VERIFY_ALLOWED_ARGS)
@@ -272,6 +290,7 @@ def validate_verify_args(args, prefix="args"):
 
 
 def validate_set_args(args, prefix="args"):
+    """Validate a `set` command's args against the small SET_ALLOWED_ARGS list."""
     if not isinstance(args, dict) or not args:
         raise OperationError(f"{prefix} must be a non-empty object")
     unknown = sorted(set(args) - SET_ALLOWED_ARGS)
@@ -291,6 +310,8 @@ def validate_set_args(args, prefix="args"):
 
 
 def validate_screen_args(args, prefix="args"):
+    """Validate a `screen` command's args: required decision_reason plus
+    notes required when the reason is `other`."""
     if not isinstance(args, dict):
         raise OperationError(f"{prefix} must be an object")
     unknown = sorted(set(args) - SCREEN_ALLOWED_ARGS)
@@ -311,6 +332,8 @@ def validate_screen_args(args, prefix="args"):
 
 
 def validate_status_args(args, prefix="args"):
+    """Validate a `status` command's args, requiring confirmed_by_user=true
+    since a status lifecycle event may only be recorded after a human confirms it."""
     if not isinstance(args, dict):
         raise contract_error(f"{prefix} must be an object", code="bad_type", field=prefix)
     unknown = sorted(set(args) - STATUS_ALLOWED_ARGS)
@@ -377,6 +400,8 @@ def validate_status_args(args, prefix="args"):
 
 
 def validate_add_args(args, prefix="args"):
+    """Validate an `add` command's args: allowed/required fields, enum
+    values, URL and date formats, and the match_score range."""
     if not isinstance(args, dict):
         raise contract_error(f"{prefix} must be an object", code="bad_type", field=prefix)
     unknown = sorted(set(args) - ADD_ALLOWED_ARGS)
@@ -565,6 +590,7 @@ def validate_add_args(args, prefix="args"):
 
 
 def require_field_set(value, allowed, required, prefix):
+    """Reject any top-level field outside `allowed` or missing from `required`."""
     unknown = sorted(set(value) - allowed)
     missing = sorted(required - set(value))
     if unknown:
@@ -584,6 +610,8 @@ def require_field_set(value, allowed, required, prefix):
 
 
 def validate_child(value, index=None):
+    """Validate one batch child (or a lone non-batch operation) and return
+    its normalized {command, job_id/client_ref, expected, args}."""
     prefix = f"operations[{index}]" if index is not None else "operation"
     if not isinstance(value, dict):
         raise contract_error(f"{prefix} must be an object", code="bad_type", field=prefix)
@@ -635,6 +663,8 @@ def validate_child(value, index=None):
 
 
 def validate_operation(value):
+    """Validate a whole request's top-level shape and dispatch to the
+    per-command/batch-child validators; returns the normalized operation."""
     if not isinstance(value, dict):
         raise contract_error("request must be a JSON object", code="bad_type", field="request")
     if value.get("version") != OPERATION_VERSION:
@@ -720,6 +750,7 @@ def validate_operation(value):
 
 
 def load_operation(path):
+    """Read, size-check and JSON-parse a request file, then validate it."""
     path = resolve_request_path(path)
     try:
         raw = path.read_bytes()
@@ -747,6 +778,7 @@ def load_operation(path):
 
 
 def read_job(job_id):
+    """Look up one canonical row by id, or raise the `unknown_job` rejection."""
     for row in jobs.load():
         if row["id"] == job_id:
             return row
@@ -754,10 +786,14 @@ def read_job(job_id):
 
 
 def precondition_mismatches(row, expected):
+    """Diff `expected` against the live row for optimistic-locking; empty
+    means the row still matches what the operation was written against."""
     return {k: {"expected": v, "actual": row.get(k, "")} for k, v in expected.items() if row.get(k, "") != v}
 
 
 def classify_child_risk(operation, row):
+    """Classify one job-targeting command's write risk (low/medium) from
+    its command and, for verify, whether it just passed a first-party check."""
     if operation["command"] == "add":
         return "medium"
     if operation["command"] == "status":
@@ -778,6 +814,7 @@ def classify_child_risk(operation, row):
 
 
 def classify_risk(operation, rows_by_id=None):
+    """Classify a whole operation's risk: a batch is medium if any child is."""
     if operation["command"] == "add":
         return "medium"
     if operation["command"] != "batch":
@@ -795,6 +832,8 @@ def classify_risk(operation, rows_by_id=None):
 
 
 def apply_operation(operation, row):
+    """Dispatch a validated, precondition-checked job-targeting command to
+    the matching jobs.py write function and normalize its result shape."""
     if operation["command"] == "verify":
         result = jobs.verify_job(operation["job_id"], **operation["args"])
         return {
@@ -837,6 +876,8 @@ def apply_operation(operation, row):
 
 
 def operation_result(operation, *, status, risk, details, job_id=None):
+    """Build the version/operation_id/status/risk envelope common to every
+    result, adding job_id or the batch's child job ids as appropriate."""
     result = {
         "version": OPERATION_VERSION,
         "operation_id": operation["operation_id"],
@@ -857,6 +898,7 @@ def operation_result(operation, *, status, risk, details, job_id=None):
 
 
 def write_result(result):
+    """Write a result immutably: `x` mode refuses to overwrite an existing one."""
     path = result_path(result["operation_id"])
     if path.exists():
         raise contract_error(
@@ -901,6 +943,8 @@ def temporary_tracker_workspace():
 
 
 def changed_application_writes(temp_root):
+    """Find application cards the temporary workspace created or changed,
+    so they can be copied back into the real applications/ directory."""
     writes = []
     for temp_path in sorted((temp_root / "applications").glob("job-*.md")):
         relative = temp_path.relative_to(temp_root)
@@ -912,6 +956,8 @@ def changed_application_writes(temp_root):
 
 
 def batch_preconditions(operation, rows_by_id):
+    """Return per-child optimistic-lock conflicts (stale `expected`) for
+    every job-targeting child, keyed by job_id."""
     conflicts = []
     for child in operation["operations"]:
         if child["command"] == "add":
@@ -962,6 +1008,8 @@ def add_retry_fragments(args, error, client_ref=None):
 
 
 def add_conflict_details(error, args, client_ref=None):
+    """Build the `result` object for an add that hit a duplicate or
+    source-reference conflict, including its retry fragments."""
     if isinstance(error, jobs.UnresolvedDuplicate):
         candidates = [
             {
@@ -993,6 +1041,7 @@ def refreshed_expected(expected, mismatches):
 
 
 def stale_retry_fragment(command, job_id, expected, args, mismatches):
+    """A ready-to-send retry for one child that failed its optimistic lock."""
     return {
         "command": command,
         "job_id": job_id,
@@ -1002,6 +1051,8 @@ def stale_retry_fragment(command, job_id, expected, args, mismatches):
 
 
 def apply_add(operation):
+    """Run a validated `add` (single or batch child) and shape its result,
+    resolving duplicate_of to a source reference when given."""
     args = dict(operation["args"])
     force = args.pop("force", False)
     duplicate_of = args.pop("duplicate_of", None)
@@ -1110,6 +1161,9 @@ def execute_batch(operation, atomic, stale_conflicts):
 
 
 def _execute_operation(operation):
+    """Apply a validated operation (add / batch / single job command) and
+    write its result; the top-level dispatcher `execute()` catches everything
+    this can raise and turns it into a `rejected` result instead."""
     if operation["command"] == "add":
         risk = "medium"
         try:
@@ -1237,6 +1291,8 @@ def _execute_operation(operation):
 
 
 def derive_operation_id(path):
+    """The result path is keyed by the request's filename, not its JSON
+    body: an unparseable or mismatched request still gets a rejected result."""
     stem = Path(path).stem
     return stem if OPERATION_ID_RE.fullmatch(stem) else None
 
@@ -1253,12 +1309,14 @@ def peek_command(path):
 
 
 def error_payload(error):
+    """The `error` object for a rejected result, from whichever layer raised."""
     if isinstance(error, (OperationError, jobs.ValidationError)):
         return error.to_payload()
     return {"code": "invariant_violation", "layer": "jobs", "message": str(error)}
 
 
 def rejected_result(operation_id, command, error):
+    """A `status: rejected` result: canonical data is untouched by contract."""
     return {
         "version": OPERATION_VERSION,
         "operation_id": operation_id,
@@ -1271,6 +1329,10 @@ def rejected_result(operation_id, command, error):
 
 
 def execute(path):
+    """Top-level entry point: load, validate and apply one request, catching
+    every OperationError/ValidationError/SystemExit into a rejected result
+    (docs/agent-write-path-plan-2026-09-07.md, Э1) instead of letting the
+    process die with no result file."""
     operation_id = derive_operation_id(path)
     if operation_id is not None and result_path(operation_id).exists():
         raise contract_error(
@@ -1375,17 +1437,21 @@ ALL_ARG_ALLOWLISTS = (
 
 
 def fields_no_command_accepts():
+    """Canonical fields no connector command allowlists: runner-computed only."""
     accepted = set().union(*ALL_ARG_ALLOWLISTS)
     return sorted(set(jobs.FIELDS) - accepted)
 
 
 def markdown_table(headers, rows):
+    """Render a plain GitHub-flavored Markdown table from string cells."""
     lines = ["| " + " | ".join(headers) + " |", "| " + " | ".join("---" for _ in headers) + " |"]
     lines += ["| " + " | ".join(row) + " |" for row in rows]
     return "\n".join(lines) + "\n"
 
 
 def contract_table(fields, required, enums, notes_overrides=None):
+    """One command's field table for contract.md: type, allowed values,
+    required, and a note, sourced from the same allowlists validation uses."""
     notes_overrides = notes_overrides or {}
     rows = []
     for field in sorted(fields):
@@ -1398,6 +1464,8 @@ def contract_table(fields, required, enums, notes_overrides=None):
 
 
 def render_contract_markdown():
+    """Assemble data/operations/contract.md from the same allowlists/enums
+    the validate_*_args() functions enforce (docs/agent-write-path-plan-2026-09-07.md, Э2)."""
     parts = [
         "# Operation field contract\n",
         "> Generated from `scripts/agent_operations.py` and `scripts/jobs.py` by "
@@ -1455,6 +1523,7 @@ def render_contract_markdown():
 
 
 def write_or_check_contract(markdown, check):
+    """Write contract.md, or (check=True) report whether it is already current."""
     expected = markdown.encode("utf-8")
     if check:
         return CONTRACT_PATH.exists() and CONTRACT_PATH.read_bytes() == expected
@@ -1465,6 +1534,7 @@ def write_or_check_contract(markdown, check):
 
 
 def main():
+    """CLI: `apply`/`validate` a request, or `render-contract` (optionally `--check`)."""
     parser = argparse.ArgumentParser(description="Execute declarative Phase A/B agent operations")
     subparsers = parser.add_subparsers(dest="command", required=True)
     validate = subparsers.add_parser("validate")

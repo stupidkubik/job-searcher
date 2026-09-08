@@ -23,7 +23,17 @@ class RepairHimalayasScreeningTests(unittest.TestCase):
         (self.root / "data").mkdir()
         (self.root / "scripts" / "maintenance").mkdir(parents=True)
         (self.root / "applications").mkdir()
-        for name in ("jobs.py", "tracker_time.py"):
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+        ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         shutil.copy2(PROJECT / SCRIPT, self.root / SCRIPT)
         for name in ("jobs.csv", "job_sources.csv"):

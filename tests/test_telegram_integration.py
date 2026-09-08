@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import jobs, telegram_leads
+from scripts import jobs, telegram_leads, tracker_ingest
 from scripts.inbox import validate_batch
 from scripts.source_config import CONFIG_PATH, load_source_config
 
@@ -64,8 +64,8 @@ class TelegramRepositoryIntegrationTests(unittest.TestCase):
         self.assertTrue(validation["ok"], validation["errors"])
 
         with (
-            patch.object(jobs, "load", return_value=[]),
-            patch.object(jobs, "load_job_sources", return_value=[]),
+            patch.object(tracker_ingest, "load", return_value=[]),
+            patch.object(tracker_ingest, "load_job_sources", return_value=[]),
         ):
             plan = jobs.plan_ingest(path)
 
@@ -117,8 +117,8 @@ class TelegramRepositoryIntegrationTests(unittest.TestCase):
         validation = validate_batch(path)
         self.assertTrue(validation["ok"], validation["errors"])
         with (
-            patch.object(jobs, "load", return_value=[]),
-            patch.object(jobs, "load_job_sources", return_value=[]),
+            patch.object(tracker_ingest, "load", return_value=[]),
+            patch.object(tracker_ingest, "load_job_sources", return_value=[]),
         ):
             plan = jobs.plan_ingest(path)
 

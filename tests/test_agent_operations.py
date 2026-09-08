@@ -49,7 +49,18 @@ class AgentOperationsTests(unittest.TestCase):
             "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
-        for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+            "agent_operations.py",
+        ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
             header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
@@ -894,7 +905,18 @@ class ErrorTaxonomyTests(unittest.TestCase):
             "data/operations/results",
         ):
             (self.root / directory).mkdir(parents=True, exist_ok=True)
-        for name in ("jobs.py", "agent_operations.py", "tracker_time.py"):
+        for name in (
+            "jobs.py",
+            "tracker_paths.py",
+            "tracker_schema.py",
+            "tracker_validate.py",
+            "tracker_write.py",
+            "tracker_ingest.py",
+            "tracker_render.py",
+            "tracker_cli.py",
+            "tracker_time.py",
+            "agent_operations.py",
+        ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
             header = (PROJECT / "data" / name).read_text(encoding="utf-8").splitlines()[0]
