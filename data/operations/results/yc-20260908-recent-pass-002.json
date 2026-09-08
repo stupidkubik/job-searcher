@@ -1,0 +1,66 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T11:41:24Z",
+  "jobs": [],
+  "operation_id": "yc-20260908-recent-pass-002",
+  "result": {
+    "client_ref": "yc:LDTrViN",
+    "command": "add",
+    "conflict": {
+      "existing": {
+        "found_at": "2026-08-14",
+        "job_id": "job-0206",
+        "source": "YC Work at a Startup",
+        "source_job_id": "LDTrViN",
+        "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer"
+      },
+      "message": "source + source_job_id already belong to job-0206",
+      "reason": "source_reference_conflict",
+      "retry": {
+        "as_duplicate": {
+          "args": {
+            "company": "Cogram",
+            "duplicate_of": "job-0206",
+            "found_at": "2026-09-08",
+            "role": "Ex Technical Founder (Product Engineer)",
+            "source": "YC Work at a Startup",
+            "source_job_id": "LDTrViN",
+            "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer"
+          },
+          "client_ref": "yc:LDTrViN",
+          "command": "add"
+        },
+        "as_separate": {
+          "args": {
+            "application_status": "not_started",
+            "apply_verified": "no",
+            "company": "Cogram",
+            "decision_reason": "seniority_too_high",
+            "first_party_verified": "no",
+            "force": true,
+            "found_at": "2026-09-08",
+            "level": "Middle",
+            "listing_status": "unknown",
+            "location": "Berlin, Germany / Remote (CET ±3 hours)",
+            "notes": "YC listing is live and the employer careers section links back to YC rather than an exact first-party requisition; native Apply requires YC authentication. Hard blockers: must have founded or co-founded a tech company, built product personally, and have 3+ years of production software experience across backend and frontend.",
+            "posted_at": "2026-09-07",
+            "remote_policy": "Europe",
+            "role": "Ex Technical Founder (Product Engineer)",
+            "salary": "€70K - €130K EUR; 0.10% - 0.50% equity",
+            "source": "YC Work at a Startup",
+            "source_job_id": "LDTrViN",
+            "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer",
+            "stack": "Python; FastAPI; PostgreSQL; Redis; React; TypeScript; React Native; Terraform; Kubernetes; AWS; Azure"
+          },
+          "client_ref": "yc:LDTrViN",
+          "command": "add"
+        }
+      }
+    },
+    "index": 1,
+    "reason": "batch_child_conflict"
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
