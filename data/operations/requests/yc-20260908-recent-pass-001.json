@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "operation_id": "yc-20260908-recent-pass-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "yc:Qque3dk",
+      "args": {
+        "company": "Authologic",
+        "role": "Senior Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Qque3dk",
+        "source_url": "https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Warsaw, Masovian Voivodeship, Poland / Remote",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; Vue.js; React; CSS; HTML; Redux Toolkit; Tailwind CSS",
+        "salary": "$57.5K - $71.5K",
+        "posted_at": "2026-08-31",
+        "found_at": "2026-09-08",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "YC listing is live and its native Apply route opens YC authentication, but Authologic's public site has no exact careers listing and /careers returns 404. Hard blockers: 6+ years of experience and professional fluency in both English and Polish."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:LDTrViN",
+      "args": {
+        "company": "Cogram",
+        "role": "Ex Technical Founder (Product Engineer)",
+        "source": "YC Work at a Startup",
+        "source_job_id": "LDTrViN",
+        "source_url": "https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "seniority_too_high",
+        "level": "Middle",
+        "location": "Berlin, Germany / Remote (CET ±3 hours)",
+        "remote_policy": "Europe",
+        "stack": "Python; FastAPI; PostgreSQL; Redis; React; TypeScript; React Native; Terraform; Kubernetes; AWS; Azure",
+        "salary": "€70K - €130K EUR; 0.10% - 0.50% equity",
+        "posted_at": "2026-09-07",
+        "found_at": "2026-09-08",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "force": true,
+        "notes": "YC listing is live and the employer careers section links back to YC rather than an exact first-party requisition; native Apply requires YC authentication. Hard blockers: must have founded or co-founded a tech company, built product personally, and have 3+ years of production software experience across backend and frontend."
+      }
+    }
+  ]
+}
