@@ -165,6 +165,29 @@ class DocumentationMapTests(unittest.TestCase):
         self.assertIn("<server_id>:<channel_id>:<message_id>", discord)
         self.assertIn("оставить unset до наблюдения", startit)
 
+    def test_historical_documents_carry_the_not_a_contract_banner(self):
+        """docs/agent-write-path-plan-2026-09-07.md, Э9/G-13: a historical
+        record read via grep (not the docs/README.md index) must still be
+        recognizable as non-authoritative, so the banner lives in the file
+        itself, not only in the index entry that links to it."""
+        banner = "> Historical record. Not a contract."
+        for name in (
+            "architecture.md",
+            "setup-plan.md",
+            "tracker-v2-plan.md",
+            "tracker-browser-view-plan.md",
+            "tracker-v2-feedback.md",
+            "tracker-status-audit-2026-08-12.md",
+            "telegram-source-integration-plan.md",
+            "telegram-source-integration-analysis.md",
+        ):
+            body = (PROJECT / "docs" / name).read_text(encoding="utf-8")
+            self.assertIn(banner, body, f"docs/{name}: missing historical-record banner")
+            self.assertLess(
+                body.index(banner), 200,
+                f"docs/{name}: banner is not near the top of the file",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,5 +1,7 @@
 # Исследование архитектуры `job-searcher`
 
+> Historical record. Not a contract.
+
 > Historical pre-v1 research, not a current operating document. It records the
 > repository state before the v1/v2 migration and must not be used as an
 > instruction. Current sources are [`AGENTS.md`](../AGENTS.md),

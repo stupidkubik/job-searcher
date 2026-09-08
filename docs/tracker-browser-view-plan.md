@@ -1,5 +1,7 @@
 # План browser-first представления job tracker
 
+> Historical record. Not a contract.
+
 Статус: implemented — 2026-08-12
 
 Результат: [`tracker.md`](tracker.md), команда `render-tracker`, freshness gate

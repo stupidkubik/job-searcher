@@ -1,5 +1,7 @@
 # Аудит статусов tracker
 
+> Historical record. Not a contract.
+
 Дата среза: 2026-08-12
 Dataset: 131 вакансия, `data/jobs.csv` после commit `690ee8c`
 

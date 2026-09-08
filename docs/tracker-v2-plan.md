@@ -1,5 +1,7 @@
 # Tracker v2 — план реализации
 
+> Historical record. Not a contract.
+
 Дата: 2026-08-11
 Статус: implemented through Phase 6 — 2026-08-12; retained as an implementation record
 

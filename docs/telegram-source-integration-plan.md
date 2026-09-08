@@ -1,5 +1,7 @@
 # План реализации Telegram-источника
 
+> Historical record. Not a contract.
+
 Статус: первая поставка реализована и проверена — 2026-08-21  
 Основание: [`telegram-source-integration-analysis.md`](telegram-source-integration-analysis.md)  
 Цель первой поставки: локальный безопасный discovery-поток от Telegram до

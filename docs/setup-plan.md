@@ -1,5 +1,7 @@
 # План развертывания `job-searcher`
 
+> Historical record. Not a contract.
+
 > Historical pre-v1 rollout plan, retained for context only. Its commands,
 > files, and statuses describe the predecessor repository and are not current
 > instructions. Use [`AGENTS.md`](../AGENTS.md) and
