@@ -6,12 +6,23 @@
 
 ## Перед любым поиском вакансий
 
-1. Прочитать `data/jobs.csv` целиком.
-2. Прочитать `config/profile.md` (приоритеты, гео, стек, компенсация).
-3. Прочитать `data/job_sources.csv` целиком.
-4. Если для источника есть playbook в `docs/sources/`, прочитать его.
-5. Для browser-assisted поиска выполнить Browser preflight ниже.
-6. Только потом искать новое.
+1. Прочитать `config/profile-digest.md` (компактный профиль: гео, уровень,
+   стек, минимальная компенсация, work authorization, красные флаги).
+2. Прочитать `data/index/known.tsv` (id, company, role и статусы каждой
+   записи — для проверки «эта вакансия уже разбиралась»).
+3. Прочитать `data/index/keys.tsv` (source → source_job_id/URL по
+   источникам — для дедупа по provenance).
+4. Прочитать `data/index/active.csv` (полный срез активных записей).
+5. Прочитать `docs/sources/README.md` — точка входа в playbook'и
+   источников; если для запрошенного источника есть отдельный playbook,
+   прочитать и его.
+6. Для browser-assisted поиска выполнить Browser preflight ниже.
+7. Только потом искать новое.
+
+Полные `data/jobs.csv`, `data/job_sources.csv` и `config/profile.md` читать
+только по явной необходимости — когда индексов и дайджеста не хватает для
+конкретного решения — и объяснить эту необходимость в отчёте об операции, а
+не читать их как стандартный шаг бутстрапа.
 
 Не анализировать заново вакансию, которая уже есть в CSV. Если её
 `application_status=applied` / `rejected` — не откликаться повторно; для
@@ -38,6 +49,19 @@
   browser pass, назвать точное ограничение и не подменять его web search.
   Продолжить можно только через явно разрешённый source adapter/API либо после
   нового Browser-enabled запуска.
+
+## Контракт полей
+
+До сборки любого `add`/`verify`/`set`/`screen`/`status`/`batch` request
+прочитать [`data/operations/contract.md`](data/operations/contract.md) —
+сгенерированную таблицу «команда × поле» с допустимыми значениями и
+инвариантами между полями. Это единственный источник истины по тому, какая
+команда какое поле принимает: он собирается из кода и не может разойтись с
+runner'ом незаметно. Поле вне таблицы своей команды или значение вне enum'а
+runner отклонит целиком запросом `rejected` — не пытаться угадать синтаксис
+или добавить поле «на всякий случай». В частности, ни `add`, ни `verify`, ни
+`set`, ни `screen` не принимают `next_action` или `verified_at` — оба
+вычисляются runner'ом.
 
 ## Железные правила
 
@@ -89,6 +113,8 @@
 - Никаких переводов строк в ячейках. Длинный текст → `applications/<id>.md`.
 - Разделитель в `stack` — `; `, не запятая.
 - `docs/tracker.md` — generated browser view; не редактировать его вручную.
+  Это документ только для человека: агент его не читает и не включает в
+  request.
 - После canonical write сначала выполнить `python3 scripts/jobs.py validate --strict`, затем
   `python3 scripts/jobs.py render-tracker` и
   `python3 scripts/jobs.py render-tracker --check`. Trusted connector runner

@@ -39,11 +39,13 @@ rendered page или действующего Apply route. После устан
 ```text
 Use @GitHub to open https://github.com/stupidkubik/job-searcher and follow AGENTS.md. Use @Browser—not web search—for every source page, employer careers/ATS listing, and Apply-route check.
 
-Before searching, read the full data/jobs.csv, config/profile.md, data/job_sources.csv, and the relevant playbook in docs/sources/ through GitHub. Then perform a Browser preflight: open the requested source URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop and report the exact limitation. Do not silently substitute web search, cached/indexed results, Crawled metadata, or GitHub tools.
+Bootstrap by reading exactly these, through GitHub, in this order: config/profile-digest.md (candidate digest), data/index/known.tsv and data/index/keys.tsv (deduplication indexes), data/index/active.csv (open work), then docs/sources/README.md and the one playbook it names for the requested source. Do not read data/jobs.csv, data/job_sources.csv, config/profile.md, or docs/tracker.md in full unless an index is insufficient for a specific decision; say why when you do.
 
-Search the requested source using its playbook. Deduplicate before analysis, verify every promising job on the employer's current careers/ATS page, check the actual Apply route and geographic eligibility, and record every inspected exact vacancy—even closed, unsuitable, or duplicate.
+Then perform a Browser preflight: open the requested source URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop and report the exact limitation. Do not silently substitute web search, cached/indexed results, Crawled metadata, or GitHub tools.
 
-Use @GitHub for repository operations. Write only through immutable connector requests described in data/operations/README.md. Never edit canonical CSV files directly, submit applications, or set a job to applied.
+Search the requested source using its playbook. Deduplicate against the indexes before analysis, verify every promising job on the employer's current careers/ATS page, check the actual Apply route and geographic eligibility, and record every inspected exact vacancy—even closed, unsuitable, or duplicate.
+
+Write only through immutable connector requests. Before building a request, read data/operations/contract.md and pass only fields it allows for that command—an unlisted field or an off-enum value gets the whole request rejected. Commit exactly one new file, data/operations/requests/<operation_id>.json, directly to main; never open a pull request and never touch another file in that commit. Keep an atomic batch at 10 children or fewer, a non-atomic batch at 100 or fewer. Then wait for data/operations/results/<operation_id>.json and the runner's canonical diff on main before reporting the operation complete; if a result reports rejected or conflict, fix the cause and submit a NEW operation_id—never rewrite an existing request or result. Never edit canonical CSV files or docs/tracker.md, never submit applications, and never set a job to applied.
 ```
 
 ## Назначение

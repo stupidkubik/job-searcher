@@ -126,6 +126,34 @@ class DocumentationMapTests(unittest.TestCase):
             self.assertIn(f"**{key}**", body, f"profile-digest.md: missing required key {key}")
         self.assertLess(len(body.encode("utf-8")), 4096, "profile-digest.md is no longer a compact digest")
 
+    def test_agents_md_bootstraps_from_indexes_not_full_csv(self):
+        """docs/agent-write-path-plan-2026-09-07.md, Э7: the agent-facing
+        bootstrap order and the launch prompt draft must point at the
+        generated indexes and the field contract, not at a full-CSV read."""
+        agents = re.sub(r"\s+", " ", (PROJECT / "AGENTS.md").read_text(encoding="utf-8"))
+        self.assert_local_links_exist(PROJECT / "AGENTS.md")
+
+        for required in (
+            "pull request",
+            "считать операцию завершённой",
+            "data/operations/contract.md",
+            "data/index/known.tsv",
+            "data/index/keys.tsv",
+            "data/index/active.csv",
+            "config/profile-digest.md",
+            "docs/sources/README.md",
+        ):
+            self.assertIn(required.lower(), agents.lower(), f"AGENTS.md: missing {required}")
+
+        self.assertNotIn("Прочитать `data/jobs.csv` целиком", agents)
+        self.assertNotIn("Прочитать `data/job_sources.csv` целиком", agents)
+
+        prompt = (PROJECT / "docs" / "agent-operations.md").read_text(encoding="utf-8")
+        self.assertIn("config/profile-digest.md", prompt)
+        self.assertIn("data/operations/contract.md", prompt)
+        self.assertIn("NEW operation_id", prompt)
+        self.assertNotIn("read the full data/jobs.csv", prompt)
+
     def test_message_sources_do_not_confuse_message_and_vacancy_identity(self):
         source_dir = PROJECT / "docs" / "sources"
         hn = (source_dir / "hacker-news-who-is-hiring.md").read_text(encoding="utf-8")
