@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-0394-applied-confirmed",
+  "command": "status",
+  "job_id": "job-0394",
+  "expected": {
+    "last_update": "2026-08-24",
+    "application_status": "reviewing",
+    "listing_status": "open"
+  },
+  "args": {
+    "application_status": "applied",
+    "confirmed_by_user": true,
+    "stage": "Applied",
+    "notes": "User confirmed on 2026-09-08 that this application had already been submitted; exact submission date was not reconstructed."
+  }
+}
