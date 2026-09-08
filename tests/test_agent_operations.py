@@ -1275,7 +1275,7 @@ class ErrorTaxonomyTests(unittest.TestCase):
             }
             request_path = requests_dir / "tax-systemexit-safety-net.json"
             request_path.write_text(json.dumps(payload), encoding="utf-8")
-            before = jobs.CSV_PATH.read_bytes()
+            before = jobs.PATHS.csv_path.read_bytes()
             with (
                 mock.patch.object(ops, "REQUESTS_DIR", requests_dir),
                 mock.patch.object(ops, "RESULTS_DIR", results_dir),
@@ -1286,7 +1286,7 @@ class ErrorTaxonomyTests(unittest.TestCase):
             self.assertEqual(result["error"]["code"], "invariant_violation")
             self.assertEqual(result["error"]["layer"], "jobs")
             self.assertTrue(result_file.exists())
-            self.assertEqual(jobs.CSV_PATH.read_bytes(), before)
+            self.assertEqual(jobs.PATHS.csv_path.read_bytes(), before)
 
 
 if __name__ == "__main__":

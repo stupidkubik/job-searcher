@@ -24,16 +24,60 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.jobs
     from scripts.tracker_time import business_date
 
 
-ROOT = Path(__file__).resolve().parent.parent
-CSV_PATH = ROOT / "data" / "jobs.csv"
-JOB_SOURCES_PATH = ROOT / "data" / "job_sources.csv"
-APPS_DIR = ROOT / "applications"
-TEMPLATE_PATH = APPS_DIR / "_TEMPLATE.md"
-TRACKER_PATH = ROOT / "docs" / "tracker.md"
-INDEX_DIR = ROOT / "data" / "index"
-KNOWN_INDEX_PATH = INDEX_DIR / "known.tsv"
-KEYS_INDEX_PATH = INDEX_DIR / "keys.tsv"
-ACTIVE_INDEX_PATH = INDEX_DIR / "active.csv"
+@dataclass
+class Paths:
+    """Every filesystem location jobs.py reads or writes, derived from one
+    mutable `root`.
+
+    docs/agent-write-path-plan-2026-09-07.md, Э10: agent_operations.py's
+    `temporary_tracker_workspace()` repoints the whole tracker at a scratch
+    copy for the duration of one operation by reassigning a single field
+    (`PATHS.root`) instead of patching several separate module globals. Every
+    reader in this module goes through `PATHS.<name>` rather than a
+    module-level constant captured at import time, so that reassignment is
+    the only thing that has to work for the repoint to take effect.
+    """
+
+    root: Path
+
+    @property
+    def csv_path(self):
+        return self.root / "data" / "jobs.csv"
+
+    @property
+    def job_sources_path(self):
+        return self.root / "data" / "job_sources.csv"
+
+    @property
+    def apps_dir(self):
+        return self.root / "applications"
+
+    @property
+    def template_path(self):
+        return self.apps_dir / "_TEMPLATE.md"
+
+    @property
+    def tracker_path(self):
+        return self.root / "docs" / "tracker.md"
+
+    @property
+    def index_dir(self):
+        return self.root / "data" / "index"
+
+    @property
+    def known_index_path(self):
+        return self.index_dir / "known.tsv"
+
+    @property
+    def keys_index_path(self):
+        return self.index_dir / "keys.tsv"
+
+    @property
+    def active_index_path(self):
+        return self.index_dir / "active.csv"
+
+
+PATHS = Paths(root=Path(__file__).resolve().parent.parent)
 
 FIELDS = [
     "id",
@@ -406,17 +450,17 @@ def print_json(payload):
 
 
 def read_csv():
-    if not CSV_PATH.exists():
-        die(f"не найден {CSV_PATH}")
-    with CSV_PATH.open(newline="", encoding="utf-8") as file:
+    if not PATHS.csv_path.exists():
+        die(f"не найден {PATHS.csv_path}")
+    with PATHS.csv_path.open(newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         return reader.fieldnames, list(reader)
 
 
 def read_job_sources_csv():
-    if not JOB_SOURCES_PATH.exists():
-        die(f"не найден {JOB_SOURCES_PATH}")
-    with JOB_SOURCES_PATH.open(newline="", encoding="utf-8") as file:
+    if not PATHS.job_sources_path.exists():
+        die(f"не найден {PATHS.job_sources_path}")
+    with PATHS.job_sources_path.open(newline="", encoding="utf-8") as file:
         reader = csv.DictReader(file)
         return reader.fieldnames, list(reader)
 
@@ -431,7 +475,7 @@ def load():
 
 
 def load_job_sources(allow_missing=False):
-    if allow_missing and not JOB_SOURCES_PATH.exists():
+    if allow_missing and not PATHS.job_sources_path.exists():
         return []
     header, rows = read_job_sources_csv()
     if header != JOB_SOURCE_FIELDS:
@@ -441,13 +485,13 @@ def load_job_sources(allow_missing=False):
 
 def save(rows):
     """Атомарно заменяет CSV, чтобы ошибка не оставила обрезанный файл."""
-    descriptor, temporary_name = tempfile.mkstemp(prefix="jobs-", suffix=".csv", dir=CSV_PATH.parent)
+    descriptor, temporary_name = tempfile.mkstemp(prefix="jobs-", suffix=".csv", dir=PATHS.csv_path.parent)
     try:
         with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
             writer = csv.DictWriter(file, fieldnames=FIELDS, lineterminator="\n")
             writer.writeheader()
             writer.writerows({key: row.get(key) or "" for key in FIELDS} for row in rows)
-        os.replace(temporary_name, CSV_PATH)
+        os.replace(temporary_name, PATHS.csv_path)
     except BaseException:
         Path(temporary_name).unlink(missing_ok=True)
         raise
@@ -455,14 +499,14 @@ def save(rows):
 
 def save_job_sources(rows):
     descriptor, temporary_name = tempfile.mkstemp(
-        prefix="job-sources-", suffix=".csv", dir=JOB_SOURCES_PATH.parent
+        prefix="job-sources-", suffix=".csv", dir=PATHS.job_sources_path.parent
     )
     try:
         with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
             writer = csv.DictWriter(file, fieldnames=JOB_SOURCE_FIELDS, lineterminator="\n")
             writer.writeheader()
             writer.writerows({key: row.get(key) or "" for key in JOB_SOURCE_FIELDS} for row in rows)
-        os.replace(temporary_name, JOB_SOURCES_PATH)
+        os.replace(temporary_name, PATHS.job_sources_path)
     except BaseException:
         Path(temporary_name).unlink(missing_ok=True)
         raise
@@ -1108,7 +1152,7 @@ def sync_application_card_front_matter(body, row, app_path):
 
 
 def application_card_path(row):
-    return APPS_DIR / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
+    return PATHS.apps_dir / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
 
 
 def render_application_card(row, update_existing=False):
@@ -1119,14 +1163,14 @@ def render_application_card(row, update_existing=False):
         original_body = app_path.read_text(encoding="utf-8")
         body = sync_application_card_front_matter(original_body, row, app_path)
         return app_path, body if body != original_body else None
-    if not TEMPLATE_PATH.exists():
-        die(f"не найден шаблон {TEMPLATE_PATH}")
+    if not PATHS.template_path.exists():
+        die(f"не найден шаблон {PATHS.template_path}")
     body = (
-        TEMPLATE_PATH.read_text(encoding="utf-8")
+        PATHS.template_path.read_text(encoding="utf-8")
         .replace("{{company}}", row["company"])
         .replace("{{role}}", row["role"])
     )
-    body = sync_application_card_front_matter(body, row, TEMPLATE_PATH)
+    body = sync_application_card_front_matter(body, row, PATHS.template_path)
     return app_path, body
 
 
@@ -1207,7 +1251,7 @@ def add_job(values, force=False, duplicate_of=None, no_file=False):
     return {
         "job": plan.row,
         "warnings": plan.warnings,
-        "application_path": created_path.relative_to(ROOT).as_posix() if created_path else None,
+        "application_path": created_path.relative_to(PATHS.root).as_posix() if created_path else None,
         "source_reference": source_reference_payload(plan.source_reference, plan.source_reference_created)
         if plan.source_reference
         else None,
@@ -1573,7 +1617,7 @@ def plan_ingest(path, resolution_path=None):
 @contextmanager
 def dataset_write_lock():
     """Serialize the multi-file ingest replacement on platforms with flock."""
-    lock_path = CSV_PATH.parent / ".ingest.lock"
+    lock_path = PATHS.csv_path.parent / ".ingest.lock"
     with lock_path.open("a+", encoding="utf-8") as lock_file:
         try:
             import fcntl
@@ -1650,8 +1694,8 @@ def apply_dataset_transaction(rows, source_rows, application_writes=()):
             failure_after = None
         try:
             staged = [
-                (CSV_PATH, stage_csv(CSV_PATH, FIELDS, rows)),
-                (JOB_SOURCES_PATH, stage_csv(JOB_SOURCES_PATH, JOB_SOURCE_FIELDS, source_rows)),
+                (PATHS.csv_path, stage_csv(PATHS.csv_path, FIELDS, rows)),
+                (PATHS.job_sources_path, stage_csv(PATHS.job_sources_path, JOB_SOURCE_FIELDS, source_rows)),
             ]
             staged.extend((path, stage_text(path, body)) for path, body in application_writes)
             for target, _temporary in staged:
@@ -2242,7 +2286,7 @@ def status_job(job_id, **values):
         "job": row,
         "warnings": warnings,
         "outcome": outcome,
-        "application_path": application_path.relative_to(ROOT).as_posix() if application_path else None,
+        "application_path": application_path.relative_to(PATHS.root).as_posix() if application_path else None,
     }
 
 
@@ -2527,7 +2571,7 @@ def verify_job(
         "job": row,
         "warnings": warnings,
         "outcome": change["outcome"],
-        "application_path": application_path.relative_to(ROOT).as_posix() if application_path else None,
+        "application_path": application_path.relative_to(PATHS.root).as_posix() if application_path else None,
         "application_card_created": application_card_created,
     }
 
@@ -2745,12 +2789,14 @@ def tracker_application_cards(rows):
     cards = {}
     for row in rows:
         job_id = row["id"]
-        matches = sorted(set(APPS_DIR.glob(f"{job_id}-*.md")) | set(APPS_DIR.glob(f"{job_id}.md")))
+        matches = sorted(
+            set(PATHS.apps_dir.glob(f"{job_id}-*.md")) | set(PATHS.apps_dir.glob(f"{job_id}.md"))
+        )
         if len(matches) > 1:
             names = ", ".join(path.name for path in matches)
             raise ValueError(f"{row['id']}: multiple application cards match: {names}")
         if matches:
-            cards[row["id"]] = matches[0].relative_to(ROOT).as_posix()
+            cards[row["id"]] = matches[0].relative_to(PATHS.root).as_posix()
     return cards
 
 
@@ -3013,15 +3059,17 @@ def write_or_check_tracker(markdown, check):
     """Atomically write the generated artifact or compare it byte-for-byte."""
     expected = markdown.encode("utf-8")
     if check:
-        return TRACKER_PATH.exists() and TRACKER_PATH.read_bytes() == expected
-    TRACKER_PATH.parent.mkdir(parents=True, exist_ok=True)
-    descriptor, temporary_name = tempfile.mkstemp(prefix="tracker-", suffix=".md", dir=TRACKER_PATH.parent)
+        return PATHS.tracker_path.exists() and PATHS.tracker_path.read_bytes() == expected
+    PATHS.tracker_path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(
+        prefix="tracker-", suffix=".md", dir=PATHS.tracker_path.parent
+    )
     try:
         with os.fdopen(descriptor, "wb") as file:
             file.write(expected)
             file.flush()
             os.fsync(file.fileno())
-        os.replace(temporary_name, TRACKER_PATH)
+        os.replace(temporary_name, PATHS.tracker_path)
     except BaseException:
         Path(temporary_name).unlink(missing_ok=True)
         raise
@@ -3146,9 +3194,9 @@ def cmd_render_index(args):
     source_rows = load_job_sources(allow_missing=True)
     ensure_dataset_valid(rows, source_rows, emit_warnings=False)
     artifacts = {
-        "known": (KNOWN_INDEX_PATH, render_known_index(rows)),
-        "keys": (KEYS_INDEX_PATH, render_keys_index(source_rows)),
-        "active": (ACTIVE_INDEX_PATH, render_active_index(rows)),
+        "known": (PATHS.known_index_path, render_known_index(rows)),
+        "keys": (PATHS.keys_index_path, render_keys_index(source_rows)),
+        "active": (PATHS.active_index_path, render_active_index(rows)),
     }
     up_to_date = {
         name: write_or_check_index_file(path, data, args.check) for name, (path, data) in artifacts.items()
@@ -3157,7 +3205,7 @@ def cmd_render_index(args):
     result = {
         "ok": all_up_to_date if args.check else True,
         "command": "render-index",
-        "paths": {name: path.relative_to(ROOT).as_posix() for name, (path, _) in artifacts.items()},
+        "paths": {name: path.relative_to(PATHS.root).as_posix() for name, (path, _) in artifacts.items()},
         "up_to_date": up_to_date,
     }
     if args.format == "json":
@@ -3193,7 +3241,7 @@ def cmd_render_tracker(args):
     result = {
         "ok": up_to_date if args.check else True,
         "command": "render-tracker",
-        "path": TRACKER_PATH.relative_to(ROOT).as_posix(),
+        "path": PATHS.tracker_path.relative_to(PATHS.root).as_posix(),
         "up_to_date": up_to_date,
         "counts": payload["counts"],
     }

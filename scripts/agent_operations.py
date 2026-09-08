@@ -877,31 +877,27 @@ def write_result(result):
 
 @contextmanager
 def temporary_tracker_workspace():
-    original = {
-        "ROOT": jobs.ROOT,
-        "CSV_PATH": jobs.CSV_PATH,
-        "JOB_SOURCES_PATH": jobs.JOB_SOURCES_PATH,
-        "APPS_DIR": jobs.APPS_DIR,
-        "TEMPLATE_PATH": jobs.TEMPLATE_PATH,
-    }
+    """Repoint jobs.PATHS at a scratch copy of the tracker for one operation.
+
+    docs/agent-write-path-plan-2026-09-07.md, Э10: jobs.py derives every path
+    (csv_path, apps_dir, template_path, ...) from `PATHS.root`, so reassigning
+    that one field is enough; nothing here has to know the individual derived
+    paths.
+    """
+    original_root = jobs.PATHS.root
     with tempfile.TemporaryDirectory(prefix="agent-batch-") as directory:
         temp_root = Path(directory)
         temp_data = temp_root / "data"
         temp_apps = temp_root / "applications"
         temp_data.mkdir(parents=True)
-        shutil.copy2(original["CSV_PATH"], temp_data / "jobs.csv")
-        shutil.copy2(original["JOB_SOURCES_PATH"], temp_data / "job_sources.csv")
-        shutil.copytree(original["APPS_DIR"], temp_apps)
+        shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
+        shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
+        shutil.copytree(original_root / "applications", temp_apps)
         try:
-            jobs.ROOT = temp_root
-            jobs.CSV_PATH = temp_data / "jobs.csv"
-            jobs.JOB_SOURCES_PATH = temp_data / "job_sources.csv"
-            jobs.APPS_DIR = temp_apps
-            jobs.TEMPLATE_PATH = temp_apps / "_TEMPLATE.md"
+            jobs.PATHS.root = temp_root
             yield temp_root
         finally:
-            for key, value in original.items():
-                setattr(jobs, key, value)
+            jobs.PATHS.root = original_root
 
 
 def changed_application_writes(temp_root):
