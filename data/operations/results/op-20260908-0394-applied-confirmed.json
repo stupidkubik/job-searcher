@@ -1,0 +1,17 @@
+{
+  "command": "status",
+  "executed_at": "2026-09-08T18:24:36Z",
+  "job_id": "job-0394",
+  "operation_id": "op-20260908-0394-applied-confirmed",
+  "result": {
+    "application_path": "applications/job-0394-umbrel-customer-support-technical.md",
+    "application_status": "applied",
+    "listing_status": "open",
+    "outcome": "status_changed",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

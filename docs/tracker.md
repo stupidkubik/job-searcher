@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (5)](#action-now) · [Applications (43)](#applications) · [To verify (18)](#to-verify) · [Archive (359)](#archive)
+[Action now (4)](#action-now) · [Applications (44)](#applications) · [To verify (18)](#to-verify) · [Archive (359)](#archive)
 
 ## Action now
 
@@ -14,7 +14,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
 | Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
-| Reviewing | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | 5.5 | — | Open | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
 
 ## Applications
 
@@ -29,6 +28,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Applied | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | Applied | 2026-09-08 | — | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Applied | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | Applied | 2026-09-08 | — | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
+| Applied | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | Applied | 2026-09-08 | — | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
 | Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Applied | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | Applied | 2026-09-08 | — | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
