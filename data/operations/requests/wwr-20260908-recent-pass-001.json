@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "operation_id": "wwr-20260908-recent-pass-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wwr:wonderdog-full-stack-product-engineer-agentic-first",
+      "args": {
+        "company": "Wonderdog",
+        "role": "Full-Stack Product Engineer - Agentic First",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/wonderdog-full-stack-product-engineer-agentic-first",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "geo_restriction",
+        "level": "Unknown",
+        "location": "Remote (United States; Canada)",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; Full Stack; UI; APIs; Databases; Testing; AI Coding Agents; Mobile",
+        "salary": "$100,000 or more USD",
+        "posted_at": "2026-09-07",
+        "found_at": "2026-09-08",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "WWR exact listing is live, but it is explicitly geolocked to the United States and Canada; the Apply route requires WWR sign-in to verify eligibility. Wonderdog's public site has no careers listing and /careers returns 404, so no exact first-party requisition or external Apply route was available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:yooli-full-time-software-engineer-position-react-and-rest-1",
+      "args": {
+        "company": "Yooli",
+        "role": "FULL TIME: Software Engineer Position - React and Rest",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/yooli-full-time-software-engineer-position-react-and-rest-1",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Australia / Remote",
+        "remote_policy": "Global",
+        "stack": "React; Vite; TypeScript; NestJS; Node.js; REST APIs; PostgreSQL; Prisma; SQL; AWS; Redux; Git; CI/CD",
+        "posted_at": "2026-09-04",
+        "found_at": "2026-09-08",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "WWR exact listing is live and labeled Anywhere in the World, but Apply is hidden behind WWR account registration. Yooli's public site has no careers listing and /careers returns 404. Hard blocker: the role is explicitly Senior, requires at least 7 years overall and 5 years of NestJS REST API work, and is primarily backend/database focused."
+      }
+    }
+  ]
+}
