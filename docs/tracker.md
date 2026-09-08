@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-08** · Jobs: **425**
 
-[Action now (7)](#action-now) · [Applications (42)](#applications) · [To verify (18)](#to-verify) · [Archive (358)](#archive)
+[Action now (5)](#action-now) · [Applications (43)](#applications) · [To verify (18)](#to-verify) · [Archive (359)](#archive)
 
 ## Action now
 
@@ -12,8 +12,6 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
-| Reviewing | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | 7.4 | — | Open | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
-| Reviewing | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | 7 | — | Open | [Open](../applications/job-0344-constructor-full-stack-engineer-searchan.md) |
 | Reviewing | [Make — Frontend Engineer (Freelance)](<https://make.recruitee.com/o/frontend-engineer-freelance>) · job-0360 | 7 | — | Open | [Open](../applications/job-0360-make-frontend-engineer-freelance.md) |
 | Reviewing | [Make — Frontend Engineer](<https://make.recruitee.com/o/frontend-engineer>) · job-0359 | 6.5 | — | Open | [Open](../applications/job-0359-make-frontend-engineer.md) |
 | Reviewing | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | 5.5 | — | Open | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
@@ -31,6 +29,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Applied | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | Applied | 2026-09-08 | — | [Open](../applications/job-0278-kolum-product-engineer.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Applied | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | Applied | 2026-09-08 | — | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
+| Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Applied | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | Applied | 2026-09-08 | — | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
 | Applied | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
@@ -92,7 +91,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 
 <details>
 
-<summary>Archive (358)</summary>
+<summary>Archive (359)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -107,6 +106,7 @@ Dataset updated: **2026-09-08** · Jobs: **425**
 | Skipped: seniority too high | [Discovered Labs — Content Engineer (Internal)](<https://app.dover.com/apply/a4044564-83b1-4700-9726-e9020da4f44e/c2fd143e-fe42-4af1-8316-46ad4a7a23f4>) · job-0391 | seniority too high | Open | 2026-09-08 |
 | Skipped: other | [Supabase — Developer Relations Engineer](<https://jobs.ashbyhq.com/supabase/26f7817d-ca92-4094-a2b5-f22e07a218c4/application>) · job-0390 | other | Open | 2026-09-08 |
 | Skipped: seniority too high | [Authologic — Senior Frontend Engineer](<https://www.ycombinator.com/companies/authologic/jobs/Qque3dk-senior-frontend-engineer>) · job-0385 | seniority too high | Not checked | 2026-09-08 |
+| Skipped: role not frontend | [Constructor — Full Stack Engineer: Searchandizing](<https://jobs.ashbyhq.com/constructor/7fe40d9e-a06b-4f8b-963b-7b5d172a2f78>) · job-0344 | role not frontend | Open | 2026-09-08 |
 | Skipped: other | [Cogram — Ex Technical Founder (Product Engineer)](<https://www.ycombinator.com/companies/cogram/jobs/LDTrViN-ex-technical-founder-product-engineer>) · job-0206 | other | Not checked | 2026-09-08 |
 | Skipped: other | [Sovos — Software Engineer II (Node.js & React)](<https://hiringcafe.com/job/software-engineer-ii-node-js-and-react-sovos-lisbon-lisbon-mh02jhkjkvkf6ngp>) · job-0408 | other | Not checked | 2026-09-07 |
 | Skipped: seniority too high | [Tether Operations Limited — Frontend Software Engineer (100% Remote)](<https://himalayas.app/companies/tether-operations-limited/jobs/frontend-software-engineer-100-remote-1529132366>) · job-0407 | seniority too high | Not checked | 2026-09-07 |

@@ -1,0 +1,40 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-08T18:21:20Z",
+  "jobs": [
+    "job-0344",
+    "job-0414"
+  ],
+  "operation_id": "op-20260908-0344-screen-0414-applied",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0344",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "applied",
+        "command": "status",
+        "job_id": "job-0414",
+        "listing_status": "open",
+        "outcome": "status_changed",
+        "stage_reached": "Applied",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
