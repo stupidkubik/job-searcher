@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "operation_id": "op-20260908-2148-0380-applied-close-0367-0421",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0380",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-24"
+      },
+      "args": {
+        "application_status": "applied",
+        "confirmed_by_user": true,
+        "stage": "Applied",
+        "applied_at": "2026-09-08",
+        "notes": "Application submitted by user on 2026-09-08 after reviewing the Talent Sam / Simera role."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0367",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-08-24"
+      },
+      "args": {
+        "decision_reason": "company_not_interesting",
+        "notes": "User decided not to pursue Billcit after company and role research."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0421",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User decided not to pursue this undisclosed TalentMove internship."
+      }
+    }
+  ]
+}
