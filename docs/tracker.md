@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **434**
+Dataset updated: **2026-09-13** · Jobs: **435**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (376)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (377)](#archive)
 
 ## Action now
 
@@ -83,10 +83,11 @@ Dataset updated: **2026-09-13** · Jobs: **434**
 
 <details>
 
-<summary>Archive (376)</summary>
+<summary>Archive (377)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Arista Networks — Senior C++ Engineer - SONiC](<https://www.helloworld.rs/posao/Senior-cplusplus-Engineer-SONiC/Arista-Networks/739863>) · job-0435 | seniority too high | Not checked | 2026-09-13 |
 | Skipped: role not frontend | [NB SOFT Agencija za programiranje — eCommerce Content and Implementation Specialist praksa](<https://www.helloworld.rs/posao/eCommerce-Content-and-Implementation-Specialist-praksa/NB-SOFT-Agencija-za-programiranje/753311>) · job-0434 | role not frontend | Not checked | 2026-09-13 |
 | Skipped: stack mismatch | [NB SOFT Agencija za programiranje — Junior PHP programer - praksa](<https://www.helloworld.rs/posao/Junior-PHP-programer-praksa/NB-SOFT-Agencija-za-programiranje/753313>) · job-0433 | stack mismatch | Not checked | 2026-09-13 |
 | Skipped: other | [Log-hub d.o.o. — Junior Full Stack Developer](<https://www.helloworld.rs/posao/Junior-Full-Stack-Developer/Log-hub-d.o.o/751410>) · job-0432 | other | Not checked | 2026-09-13 |
