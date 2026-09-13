@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-prontopro-junior-20260913-003",
+  "command": "add",
+  "args": {
+    "company": "ProntoPro",
+    "role": "Junior Frontend Engineer",
+    "source": "HiringCafe",
+    "source_job_id": "hiringcafe:gekwlvku0jhknwfm",
+    "source_url": "https://hiringcafe.com/job/junior-frontend-engineer-prontopro-milan-lombardy-gekwlvku0jhknwfm",
+    "original_url": "https://prontopro.applytojob.com/apply/gICvgmDKVH/Junior-Frontend-Engineer",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior",
+    "location": "Milan, Italy (remote)",
+    "remote_policy": "Country-specific",
+    "stack": "HTML; CSS; JavaScript; TypeScript; React or React Native; Node.js; REST APIs; Testing; Git",
+    "match_score": 7,
+    "decision_reason": "geo_restriction",
+    "found_at": "2026-09-13",
+    "notes": "Current employer application form is live and the role is junior with 1–3 years of experience, but it explicitly asks whether the candidate has an Italian work permit; the candidate has Serbian work authorization only."
+  }
+}
