@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "operation_id": "remote-ok-junior-frontend-screen-20260913-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "remoteok-1134413",
+      "args": {
+        "company": "Arabian Private Holdings",
+        "role": "Junior UI Engineer",
+        "source": "Remote OK",
+        "source_job_id": "1134413",
+        "source_url": "https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413",
+        "found_at": "2026-09-13",
+        "level": "Junior",
+        "location": "Birmingham, United Kingdom",
+        "remote_policy": "Global",
+        "stack": "HTML; CSS; JavaScript; React; Vue; responsive UI",
+        "application_status": "reviewing",
+        "notes": "Source says fully remote global firm and entry-level UI work, but the 2-month-old card exposes no employer careers URL; /l/1134413 returns to Remote OK, so open status and Serbia eligibility remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "remoteok-1135285",
+      "args": {
+        "company": "PULSE (MENA)",
+        "role": "Junior Front End Developer",
+        "source": "Remote OK",
+        "source_job_id": "1135285",
+        "source_url": "https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285",
+        "found_at": "2026-09-13",
+        "level": "Junior",
+        "location": "Riyadh, Saudi Arabia",
+        "remote_policy": "Country-specific",
+        "stack": "HTML5; CSS3; JavaScript; React; TypeScript; Tailwind CSS; REST; Git",
+        "application_status": "reviewing",
+        "notes": "Source says full-time remote, 0-2 years, and MENA time-zone collaboration, but the 2-month-old card exposes no employer careers URL; /l/1135285 returns to Remote OK, so open status and Serbia eligibility remain unverified."
+      }
+    }
+  ]
+}
