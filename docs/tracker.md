@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **428**
+Dataset updated: **2026-09-13** · Jobs: **429**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (370)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (371)](#archive)
 
 ## Action now
 
@@ -83,10 +83,11 @@ Dataset updated: **2026-09-13** · Jobs: **428**
 
 <details>
 
-<summary>Archive (370)</summary>
+<summary>Archive (371)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Viseven — Junior Front-end Developer](<https://jobs.lever.co/viseven/8ce9699e-7799-4d3f-9349-b27119cef04e>) · job-0429 | geo restriction | Open | 2026-09-13 |
 | Skipped: geo restriction | [ProntoPro — Junior Frontend Engineer](<https://prontopro.applytojob.com/apply/gICvgmDKVH/Junior-Frontend-Engineer>) · job-0428 | geo restriction | Open | 2026-09-13 |
 | Skipped: stack mismatch | [Clarity AI — Junior Software Engineer - Consumer Team](<https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101>) · job-0427 | stack mismatch | Open | 2026-09-13 |
 | Skipped: other | [MojoRank — Junior Front End Developer](<https://job-boards.greenhouse.io/mojorank/jobs/6713707003>) · job-0426 | other | Open | 2026-09-13 |

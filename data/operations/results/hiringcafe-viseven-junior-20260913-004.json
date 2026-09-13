@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-13T19:42:41Z",
+  "job_id": "job-0429",
+  "operation_id": "hiringcafe-viseven-junior-20260913-004",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0429",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-13",
+        "job_id": "job-0429",
+        "source": "HiringCafe",
+        "source_job_id": "hiringcafe:5lefg1aisnxrhno6",
+        "source_url": "https://hiringcafe.com/job/junior-front-end-developer-viseven-casablanca-casablanca-settat-5lefg1aisnxrhno6"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
