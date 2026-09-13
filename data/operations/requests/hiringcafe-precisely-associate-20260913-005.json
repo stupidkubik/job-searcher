@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-precisely-associate-20260913-005",
+  "command": "add",
+  "args": {
+    "company": "Precisely",
+    "role": "Associate Experience Engineer",
+    "source": "HiringCafe",
+    "source_job_id": "hiringcafe:cgvyu438k5oke9po",
+    "source_url": "https://hiringcafe.com/job/associate-experience-engineer-precisely-bielsko-bia-a-silesian-cgvyu438k5oke9po",
+    "original_url": "https://www.precisely.com/careers-and-culture/international-jobs/job/?gh_jid=4723457005",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior",
+    "location": "Poland (remote; Bielsko-Biała office)",
+    "remote_policy": "Country-specific",
+    "stack": "React or Vue; UX; Automated Testing; CI/CD; AI-assisted development; Design systems; Accessibility; Observability",
+    "match_score": 7.5,
+    "decision_reason": "geo_restriction",
+    "found_at": "2026-09-13",
+    "notes": "Current employer listing and Greenhouse application form are live. The role is associate-level with 0–2 years of frontend/UX/QA experience, but the form explicitly asks whether the candidate is located in Poland; Serbia is not eligible."
+  }
+}
