@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-13T19:43:46Z",
+  "job_id": "job-0430",
+  "operation_id": "hiringcafe-precisely-associate-20260913-005",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0430",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-13",
+        "job_id": "job-0430",
+        "source": "HiringCafe",
+        "source_job_id": "hiringcafe:cgvyu438k5oke9po",
+        "source_url": "https://hiringcafe.com/job/associate-experience-engineer-precisely-bielsko-bia-a-silesian-cgvyu438k5oke9po"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
