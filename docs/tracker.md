@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **435**
+Dataset updated: **2026-09-13** · Jobs: **437**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (377)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (379)](#archive)
 
 ## Action now
 
@@ -83,10 +83,12 @@ Dataset updated: **2026-09-13** · Jobs: **435**
 
 <details>
 
-<summary>Archive (377)</summary>
+<summary>Archive (379)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [PayPay — Cloud Platform Engineer (DB Specialist)](<https://relocate.me/japan/tokyo/paypay/cloud-platform-engineer-db-specialist-9564>) · job-0437 | seniority too high | Not checked | 2026-09-13 |
+| Skipped: other | [The Global Move — 1700+ Curated Visa Sponsorship and Remote Tech Jobs (Paid Option)](<https://relocate.me/remote/remote/the-global-move/1700-curated-visa-sponsorship-and-remote-tech-jobs-paid-option-10080>) · job-0436 | other | Not checked | 2026-09-13 |
 | Skipped: seniority too high | [Arista Networks — Senior C++ Engineer - SONiC](<https://www.helloworld.rs/posao/Senior-cplusplus-Engineer-SONiC/Arista-Networks/739863>) · job-0435 | seniority too high | Not checked | 2026-09-13 |
 | Skipped: role not frontend | [NB SOFT Agencija za programiranje — eCommerce Content and Implementation Specialist praksa](<https://www.helloworld.rs/posao/eCommerce-Content-and-Implementation-Specialist-praksa/NB-SOFT-Agencija-za-programiranje/753311>) · job-0434 | role not frontend | Not checked | 2026-09-13 |
 | Skipped: stack mismatch | [NB SOFT Agencija za programiranje — Junior PHP programer - praksa](<https://www.helloworld.rs/posao/Junior-PHP-programer-praksa/NB-SOFT-Agencija-za-programiranje/753313>) · job-0433 | stack mismatch | Not checked | 2026-09-13 |
