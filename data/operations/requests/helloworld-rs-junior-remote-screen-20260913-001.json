@@ -1,0 +1,79 @@
+{
+  "version": 1,
+  "operation_id": "helloworld-rs-junior-remote-screen-20260913-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "helloworld-751861",
+      "args": {
+        "company": "netcare d.o.o.",
+        "role": "Software Tester for Web-projects",
+        "source": "HelloWorld.rs",
+        "source_job_id": "751861",
+        "source_url": "https://www.helloworld.rs/posao/Software-Tester-for-Web-projects/netcare-d.o.o/751861",
+        "found_at": "2026-09-13",
+        "level": "Junior",
+        "location": "Beograd, Serbia",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; HTML; CSS; XML; QA",
+        "decision_reason": "role_not_frontend",
+        "notes": "Live HelloWorld.rs card; hybrid in Belgrade and testing-focused, so excluded from this remote-only frontend pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld-751410",
+      "args": {
+        "company": "Log-hub d.o.o.",
+        "role": "Junior Full Stack Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "751410",
+        "source_url": "https://www.helloworld.rs/posao/Junior-Full-Stack-Developer/Log-hub-d.o.o/751410",
+        "found_at": "2026-09-13",
+        "level": "Junior",
+        "location": "Beograd, Serbia",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; Angular; Node.js; Python; Redis; MongoDB; Express; REST",
+        "decision_reason": "other",
+        "notes": "Live HelloWorld.rs card; hybrid in Belgrade, so excluded from this remote-only pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld-753313",
+      "args": {
+        "company": "NB SOFT Agencija za programiranje",
+        "role": "Junior PHP programer - praksa",
+        "source": "HelloWorld.rs",
+        "source_job_id": "753313",
+        "source_url": "https://www.helloworld.rs/posao/Junior-PHP-programer-praksa/NB-SOFT-Agencija-za-programiranje/753313",
+        "found_at": "2026-09-13",
+        "level": "Intern",
+        "location": "Beograd, Serbia",
+        "remote_policy": "On-site",
+        "stack": "PHP; JavaScript; HTML; CSS; jQuery; Bootstrap",
+        "decision_reason": "stack_mismatch",
+        "notes": "Live HelloWorld.rs card; on-site internship in Belgrade and PHP-focused, so excluded from this remote-only frontend pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld-753311",
+      "args": {
+        "company": "NB SOFT Agencija za programiranje",
+        "role": "eCommerce Content and Implementation Specialist praksa",
+        "source": "HelloWorld.rs",
+        "source_job_id": "753311",
+        "source_url": "https://www.helloworld.rs/posao/eCommerce-Content-and-Implementation-Specialist-praksa/NB-SOFT-Agencija-za-programiranje/753311",
+        "found_at": "2026-09-13",
+        "level": "Intern",
+        "location": "Beograd, Serbia",
+        "remote_policy": "On-site",
+        "decision_reason": "role_not_frontend",
+        "notes": "Live HelloWorld.rs card; on-site internship in Belgrade and content/implementation role, so excluded from this remote-only frontend pass."
+      }
+    }
+  ]
+}
