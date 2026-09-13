@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "greenhouse-clarityai-junior-20260913-002",
+  "command": "add",
+  "args": {
+    "company": "Clarity AI",
+    "role": "Junior Software Engineer - Consumer Team",
+    "source": "Company Careers",
+    "source_job_id": "greenhouse:clarityai:4847799101",
+    "source_url": "https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101",
+    "original_url": "https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior",
+    "location": "Remote (GMT+2-compatible supported regions)",
+    "remote_policy": "Unclear",
+    "stack": "Kotlin; Spring Boot; TypeScript; React; REST APIs; PostgreSQL; AI coding agents; Testing",
+    "match_score": 4.5,
+    "decision_reason": "stack_mismatch",
+    "found_at": "2026-09-13",
+    "notes": "Current Greenhouse vacancy and full Apply form are live; it allows remote work from supported GMT+2-compatible regions, but requires Java or Kotlin microservices and Spring Boot while React is limited to smaller frontend tasks."
+  }
+}
