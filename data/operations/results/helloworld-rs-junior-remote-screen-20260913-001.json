@@ -1,0 +1,101 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-13T20:08:05Z",
+  "jobs": [],
+  "operation_id": "helloworld-rs-junior-remote-screen-20260913-001",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld-751861",
+        "command": "add",
+        "job_id": "job-0431",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0431",
+            "source": "HelloWorld.rs",
+            "source_job_id": "751861",
+            "source_url": "https://www.helloworld.rs/posao/Software-Tester-for-Web-projects/netcare-d.o.o/751861"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld-751410",
+        "command": "add",
+        "job_id": "job-0432",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0432",
+            "source": "HelloWorld.rs",
+            "source_job_id": "751410",
+            "source_url": "https://www.helloworld.rs/posao/Junior-Full-Stack-Developer/Log-hub-d.o.o/751410"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld-753313",
+        "command": "add",
+        "job_id": "job-0433",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0433",
+            "source": "HelloWorld.rs",
+            "source_job_id": "753313",
+            "source_url": "https://www.helloworld.rs/posao/Junior-PHP-programer-praksa/NB-SOFT-Agencija-za-programiranje/753313"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld-753311",
+        "command": "add",
+        "job_id": "job-0434",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0434",
+            "source": "HelloWorld.rs",
+            "source_job_id": "753311",
+            "source_url": "https://www.helloworld.rs/posao/eCommerce-Content-and-Implementation-Specialist-praksa/NB-SOFT-Agencija-za-programiranje/753311"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
