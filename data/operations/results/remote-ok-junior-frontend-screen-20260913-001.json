@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-13T20:16:03Z",
+  "jobs": [],
+  "operation_id": "remote-ok-junior-frontend-screen-20260913-001",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": "applications/job-0438-arabian-private-holdings-junior-ui-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "remoteok-1134413",
+        "command": "add",
+        "job_id": "job-0438",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0438",
+            "source": "Remote OK",
+            "source_job_id": "1134413",
+            "source_url": "https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0439-pulse-mena-junior-front-end-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "remoteok-1135285",
+        "command": "add",
+        "job_id": "job-0439",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-13",
+            "job_id": "job-0439",
+            "source": "Remote OK",
+            "source_job_id": "1135285",
+            "source_url": "https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
