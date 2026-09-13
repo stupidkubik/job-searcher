@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "operation_id": "relocate-me-remote-junior-screen-20260913-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "relocate-10080",
+      "args": {
+        "company": "The Global Move",
+        "role": "1700+ Curated Visa Sponsorship and Remote Tech Jobs (Paid Option)",
+        "source": "Relocate.me",
+        "source_job_id": "10080",
+        "source_url": "https://relocate.me/remote/remote/the-global-move/1700-curated-visa-sponsorship-and-remote-tech-jobs-paid-option-10080",
+        "found_at": "2026-09-13",
+        "location": "Remote",
+        "remote_policy": "Global",
+        "decision_reason": "other",
+        "notes": "Live Relocate.me card advertises paid access to a third-party job archive, not an individual employer vacancy, so excluded from this junior role pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocate-9564",
+      "args": {
+        "company": "PayPay",
+        "role": "Cloud Platform Engineer (DB Specialist)",
+        "source": "Relocate.me",
+        "source_job_id": "9564",
+        "source_url": "https://relocate.me/japan/tokyo/paypay/cloud-platform-engineer-db-specialist-9564",
+        "found_at": "2026-09-13",
+        "level": "Senior",
+        "location": "Tokyo, Japan",
+        "remote_policy": "Hybrid",
+        "stack": "Python; Shell; Go; SQL; PostgreSQL; MySQL; AWS; Terraform; Jenkins; Ansible",
+        "decision_reason": "seniority_too_high",
+        "notes": "Live Relocate.me card says hybrid Tokyo work and requires 5+ years of DBA experience, so excluded from this remote-only junior frontend pass."
+      }
+    }
+  ]
+}
