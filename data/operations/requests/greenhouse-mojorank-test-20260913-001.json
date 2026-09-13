@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "greenhouse-mojorank-test-20260913-001",
+  "command": "add",
+  "args": {
+    "company": "MojoRank",
+    "role": "Junior Front End Developer",
+    "source": "Company Careers",
+    "source_job_id": "greenhouse:mojorank:6713707003",
+    "source_url": "https://job-boards.greenhouse.io/mojorank/jobs/6713707003",
+    "original_url": "https://job-boards.greenhouse.io/mojorank/jobs/6713707003",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior",
+    "location": "Kraków",
+    "remote_policy": "Unclear",
+    "decision_reason": "other",
+    "found_at": "2026-09-13",
+    "notes": "Current Greenhouse post and Apply form are live, but the MojoRank board contains numerous explicit test jobs and this role is listed in Kraków; vague remote/hybrid wording does not establish Serbia eligibility."
+  }
+}
