@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-13T19:41:25Z",
+  "job_id": "job-0428",
+  "operation_id": "hiringcafe-prontopro-junior-20260913-003",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0428",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-13",
+        "job_id": "job-0428",
+        "source": "HiringCafe",
+        "source_job_id": "hiringcafe:gekwlvku0jhknwfm",
+        "source_url": "https://hiringcafe.com/job/junior-frontend-engineer-prontopro-milan-lombardy-gekwlvku0jhknwfm"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

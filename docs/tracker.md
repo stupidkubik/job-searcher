@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **427**
+Dataset updated: **2026-09-13** · Jobs: **428**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (369)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (370)](#archive)
 
 ## Action now
 
@@ -83,10 +83,11 @@ Dataset updated: **2026-09-13** · Jobs: **427**
 
 <details>
 
-<summary>Archive (369)</summary>
+<summary>Archive (370)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [ProntoPro — Junior Frontend Engineer](<https://prontopro.applytojob.com/apply/gICvgmDKVH/Junior-Frontend-Engineer>) · job-0428 | geo restriction | Open | 2026-09-13 |
 | Skipped: stack mismatch | [Clarity AI — Junior Software Engineer - Consumer Team](<https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101>) · job-0427 | stack mismatch | Open | 2026-09-13 |
 | Skipped: other | [MojoRank — Junior Front End Developer](<https://job-boards.greenhouse.io/mojorank/jobs/6713707003>) · job-0426 | other | Open | 2026-09-13 |
 | Skipped: geo restriction | [Slate (Supporting Cast) — Software Engineer](<https://jobs.lever.co/slate/557fe4ab-d292-4069-8c63-36752f3da91d>) · job-0425 | geo restriction | Open | 2026-09-08 |
