@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **426**
+Dataset updated: **2026-09-13** · Jobs: **427**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (368)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (10)](#to-verify) · [Archive (369)](#archive)
 
 ## Action now
 
@@ -83,10 +83,11 @@ Dataset updated: **2026-09-13** · Jobs: **426**
 
 <details>
 
-<summary>Archive (368)</summary>
+<summary>Archive (369)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Clarity AI — Junior Software Engineer - Consumer Team](<https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101>) · job-0427 | stack mismatch | Open | 2026-09-13 |
 | Skipped: other | [MojoRank — Junior Front End Developer](<https://job-boards.greenhouse.io/mojorank/jobs/6713707003>) · job-0426 | other | Open | 2026-09-13 |
 | Skipped: geo restriction | [Slate (Supporting Cast) — Software Engineer](<https://jobs.lever.co/slate/557fe4ab-d292-4069-8c63-36752f3da91d>) · job-0425 | geo restriction | Open | 2026-09-08 |
 | Skipped: role not frontend | [Undisclosed (TalentMove 266369) — Product Engineer](<https://talent-move.ru/jobs/product-engineer-remote-020926-266369/>) · job-0424 | role not frontend | Not checked | 2026-09-08 |

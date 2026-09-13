@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-13T19:33:36Z",
+  "job_id": "job-0427",
+  "operation_id": "greenhouse-clarityai-junior-20260913-002",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0427",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-13",
+        "job_id": "job-0427",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:clarityai:4847799101",
+        "source_url": "https://job-boards.eu.greenhouse.io/clarityai/jobs/4847799101"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
