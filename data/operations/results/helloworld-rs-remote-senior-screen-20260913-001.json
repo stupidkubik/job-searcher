@@ -1,0 +1,24 @@
+{
+  "command": "add",
+  "error": {
+    "allowed": [
+      "Country-specific",
+      "EMEA",
+      "Europe",
+      "Global",
+      "Hybrid",
+      "On-site",
+      "Serbia",
+      "Unclear"
+    ],
+    "code": "bad_enum_value",
+    "field": "args.remote_policy",
+    "layer": "operations",
+    "message": "args.remote_policy is not a known value"
+  },
+  "executed_at": "2026-09-13T20:09:04Z",
+  "operation_id": "helloworld-rs-remote-senior-screen-20260913-001",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}
