@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "hiringcafe-viseven-junior-20260913-004",
+  "command": "add",
+  "args": {
+    "company": "Viseven",
+    "role": "Junior Front-end Developer",
+    "source": "HiringCafe",
+    "source_job_id": "hiringcafe:5lefg1aisnxrhno6",
+    "source_url": "https://hiringcafe.com/job/junior-front-end-developer-viseven-casablanca-casablanca-settat-5lefg1aisnxrhno6",
+    "original_url": "https://jobs.lever.co/viseven/8ce9699e-7799-4d3f-9349-b27119cef04e",
+    "application_status": "not_started",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "level": "Junior",
+    "location": "Casablanca or Rabat, Morocco (remote)",
+    "remote_policy": "Country-specific",
+    "stack": "HTML5; CSS3; JavaScript; Vue.js; Node.js; npm; Webpack; Gulp; REST APIs; Git; Adobe tools",
+    "match_score": 5,
+    "decision_reason": "geo_restriction",
+    "found_at": "2026-09-13",
+    "notes": "The live Lever listing and application form limit remote hiring to Casablanca or Rabat in Viseven MEA; the HiringCafe card's Europe/Ukraine labels are not supported by the employer source."
+  }
+}
