@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "helloworld-rs-remote-senior-screen-20260913-002",
+  "command": "add",
+  "args": {
+    "company": "Arista Networks",
+    "role": "Senior C++ Engineer - SONiC",
+    "source": "HelloWorld.rs",
+    "source_job_id": "739863",
+    "source_url": "https://www.helloworld.rs/posao/Senior-cplusplus-Engineer-SONiC/Arista-Networks/739863",
+    "found_at": "2026-09-13",
+    "level": "Senior",
+    "location": "Remote",
+    "remote_policy": "Unclear",
+    "stack": "C++; C; Python; Linux; Unix; BGP; OSPF; networking",
+    "decision_reason": "seniority_too_high",
+    "notes": "Live source card says Remote but gives no geographic scope; title is Senior and description requires 2+ years plus networking systems expertise, so excluded from this junior pass."
+  }
+}
