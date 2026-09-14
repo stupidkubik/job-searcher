@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "operation_id": "wttj-20260914-matches-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "synako-0004f6ad",
+      "args": {
+        "company": "Synako",
+        "role": "Développeur.se Full Stack – Product Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Unknown",
+        "location": "France",
+        "remote_policy": "Unclear",
+        "stack": "React; Node.js; PostgreSQL; GraphQL; Git; Cloud; Fastify",
+        "match_score": 7,
+        "found_at": "2026-09-14",
+        "notes": "WTTJ says 100% remote but lists France; native application form is live but does not state work-authorization eligibility; no external employer careers route was available."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "360learning-software-engineer",
+      "args": {
+        "company": "360Learning",
+        "role": "Software Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/360learning/jobs/software-engineer_paris_360LE_Kgg252N",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Unknown",
+        "location": "France",
+        "remote_policy": "Country-specific",
+        "stack": "Node.js; Vue.js; TypeScript; JavaScript; MongoDB",
+        "found_at": "2026-09-14",
+        "decision_reason": "geo_restriction",
+        "notes": "The listing says full remote is possible anywhere in France and asks for significant full-stack experience; it is not eligible from Serbia."
+      }
+    }
+  ]
+}
