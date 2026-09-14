@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-14T12:44:42Z",
+  "jobs": [],
+  "operation_id": "wttj-20260914-matches-001",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": "applications/job-0440-synako-developpeur-se-full-stack-pr.md",
+        "application_status": "reviewing",
+        "client_ref": "synako-0004f6ad",
+        "command": "add",
+        "job_id": "job-0440",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-14",
+            "job_id": "job-0440",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "360learning-software-engineer",
+        "command": "add",
+        "job_id": "job-0441",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-14",
+            "job_id": "job-0441",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/360learning/jobs/software-engineer_paris_360LE_Kgg252N"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

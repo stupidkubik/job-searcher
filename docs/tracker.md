@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-13** · Jobs: **439**
+Dataset updated: **2026-09-14** · Jobs: **441**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (12)](#to-verify) · [Archive (379)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (13)](#to-verify) · [Archive (380)](#archive)
 
 ## Action now
 
@@ -69,6 +69,7 @@ Dataset updated: **2026-09-13** · Jobs: **439**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Undisclosed digital studio (TalentMove 264516) — Frontend Engineer](<https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/>) · job-0423 | First party + Apply + Listing | 7.3 | verify first-party | Never |
+| Reviewing | [Synako — Développeur.se Full Stack – Product Engineer](<https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d>) · job-0440 | First party + Apply + Listing | 7 | verify first-party | 2026-09-14 |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
 | Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
@@ -85,10 +86,11 @@ Dataset updated: **2026-09-13** · Jobs: **439**
 
 <details>
 
-<summary>Archive (379)</summary>
+<summary>Archive (380)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [360Learning — Software Engineer](<https://www.welcometothejungle.com/en/companies/360learning/jobs/software-engineer_paris_360LE_Kgg252N>) · job-0441 | geo restriction | Not checked | 2026-09-14 |
 | Skipped: seniority too high | [PayPay — Cloud Platform Engineer (DB Specialist)](<https://relocate.me/japan/tokyo/paypay/cloud-platform-engineer-db-specialist-9564>) · job-0437 | seniority too high | Not checked | 2026-09-13 |
 | Skipped: other | [The Global Move — 1700+ Curated Visa Sponsorship and Remote Tech Jobs (Paid Option)](<https://relocate.me/remote/remote/the-global-move/1700-curated-visa-sponsorship-and-remote-tech-jobs-paid-option-10080>) · job-0436 | other | Not checked | 2026-09-13 |
 | Skipped: seniority too high | [Arista Networks — Senior C++ Engineer - SONiC](<https://www.helloworld.rs/posao/Senior-cplusplus-Engineer-SONiC/Arista-Networks/739863>) · job-0435 | seniority too high | Not checked | 2026-09-13 |
