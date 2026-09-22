@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-22** · Jobs: **450**
+Dataset updated: **2026-09-22** · Jobs: **454**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (388)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (392)](#archive)
 
 ## Action now
 
@@ -87,10 +87,14 @@ Dataset updated: **2026-09-22** · Jobs: **450**
 
 <details>
 
-<summary>Archive (388)</summary>
+<summary>Archive (392)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [CircleCI — Software Engineer](<https://weworkremotely.com/remote-jobs/circleci-software-engineer>) · job-0454 | seniority too high | Open | 2026-09-22 |
+| Skipped: seniority too high | [Sticker Mule — Software engineer](<https://jobs.ashbyhq.com/stickermule/6db27241-e2d4-4f35-a2c4-b58d84621843?utm_source=4>) · job-0453 | seniority too high | Open | 2026-09-22 |
+| Skipped: seniority too high | [Proxify AB — Senior Fullstack Developer (React.js / Node.js)](<https://talent.proxify.io/apply?utm_source=weworkremotely&utm_medium=job_posting&utm_campaign=senior_fullstack>) · job-0452 | seniority too high | Open | 2026-09-22 |
+| Skipped: seniority too high | [Adventure Travel 365 — Senior Full-Stack Developer - Marketplace Web & Mobile Platform](<https://weworkremotely.com/remote-jobs/adventure-travel-365-senior-full-stack-developer-marketplace-web-mobile-platform>) · job-0451 | seniority too high | Open | 2026-09-22 |
 | Skipped: work authorization | [Regbase — Design Engineer](<https://www.ycombinator.com/companies/regbase/jobs/pfHb3LG-design-engineer>) · job-0450 | work authorization | Not checked | 2026-09-22 |
 | Skipped: geo restriction | [Asendia AI — Product Engineer](<https://www.ycombinator.com/companies/asendia-ai/jobs/sZsNfP4-product-engineer>) · job-0448 | geo restriction | Not checked | 2026-09-22 |
 | Skipped: geo restriction | [RapidSOS — Software Engineer II, AI](<https://job-boards.greenhouse.io/rapidsos/jobs/5238049007>) · job-0447 | geo restriction | Open | 2026-09-22 |
