@@ -1,0 +1,101 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-22T11:39:52Z",
+  "jobs": [],
+  "operation_id": "wttj-20260922-weekly-pass-001",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:bump-charge:fullstack-engineer",
+        "command": "add",
+        "job_id": "job-0455",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0455",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/bump-charge/jobs/fullstack-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:lemon-learning:uk-business-developer",
+        "command": "add",
+        "job_id": "job-0456",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0456",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/lemon-learning/jobs/uk-business-developer-opening-uk_londres"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:girasole:commercial-bess-west",
+        "command": "add",
+        "job_id": "job-0457",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0457",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f_boulogne-billancourt"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:girasole:commercial-bess-southeast",
+        "command": "add",
+        "job_id": "job-0458",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0458",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

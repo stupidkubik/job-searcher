@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-22** · Jobs: **454**
+Dataset updated: **2026-09-22** · Jobs: **458**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (392)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (396)](#archive)
 
 ## Action now
 
@@ -87,10 +87,14 @@ Dataset updated: **2026-09-22** · Jobs: **454**
 
 <details>
 
-<summary>Archive (392)</summary>
+<summary>Archive (396)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Girasole Energies — Business devoloper BESS H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f>) · job-0458 | role not frontend | Not checked | 2026-09-22 |
+| Skipped: role not frontend | [Girasole Energies — Business developer H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f_boulogne-billancourt>) · job-0457 | role not frontend | Not checked | 2026-09-22 |
+| Skipped: role not frontend | [Lemon Learning — Business developer UK and US](<https://www.welcometothejungle.com/en/companies/lemon-learning/jobs/uk-business-developer-opening-uk_londres>) · job-0456 | role not frontend | Not checked | 2026-09-22 |
+| Skipped: seniority too high | [Bump — Fullstack Engineer](<https://www.welcometothejungle.com/en/companies/bump-charge/jobs/fullstack-engineer>) · job-0455 | seniority too high | Not checked | 2026-09-22 |
 | Skipped: seniority too high | [CircleCI — Software Engineer](<https://weworkremotely.com/remote-jobs/circleci-software-engineer>) · job-0454 | seniority too high | Open | 2026-09-22 |
 | Skipped: seniority too high | [Sticker Mule — Software engineer](<https://jobs.ashbyhq.com/stickermule/6db27241-e2d4-4f35-a2c4-b58d84621843?utm_source=4>) · job-0453 | seniority too high | Open | 2026-09-22 |
 | Skipped: seniority too high | [Proxify AB — Senior Fullstack Developer (React.js / Node.js)](<https://talent.proxify.io/apply?utm_source=weworkremotely&utm_medium=job_posting&utm_campaign=senior_fullstack>) · job-0452 | seniority too high | Open | 2026-09-22 |
