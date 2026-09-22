@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "operation_id": "wttj-20260922-weekly-pass-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wttj:bump-charge:fullstack-engineer",
+      "args": {
+        "company": "Bump",
+        "role": "Fullstack Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/bump-charge/jobs/fullstack-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "seniority_too_high",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Middle",
+        "location": "Paris, Lyon, Bordeaux / fully remote label",
+        "remote_policy": "Unclear",
+        "stack": "React; Next.js; TypeScript; Figma; .NET Core; PostgreSQL; GraphQL; REST; GCP; CI/CD",
+        "salary": "€55K-€65K/year",
+        "posted_at": "2026-09-21",
+        "found_at": "2026-09-22",
+        "match_score": 5.5,
+        "notes": "WTTJ exact card and native application form were live on 2026-09-22. Role requires more than 3 years of development experience, recognized React mastery, and substantial backend ownership in .NET Core; fully-remote label lists French cities but does not confirm Serbia eligibility. No separate employer careers/ATS requisition was exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:lemon-learning:uk-business-developer",
+      "args": {
+        "company": "Lemon Learning",
+        "role": "Business developer UK and US",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/lemon-learning/jobs/uk-business-developer-opening-uk_londres",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "role_not_frontend",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Middle",
+        "location": "Paris, London / remote in UK or US",
+        "remote_policy": "Country-specific",
+        "salary": "€40K-€100K/year",
+        "posted_at": "2026-09-21",
+        "found_at": "2026-09-22",
+        "notes": "WTTJ exact card was live on 2026-09-22. This is a sales role focused on cold outreach, demos, negotiation and contracts; it requires native English and positions remote work in the UK or US. No separate employer careers/ATS requisition was exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:girasole:commercial-bess-west",
+      "args": {
+        "company": "Girasole Energies",
+        "role": "Business developer H/F",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f_boulogne-billancourt",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "role_not_frontend",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Graduate",
+        "location": "Brittany / Western France field territory",
+        "remote_policy": "Country-specific",
+        "posted_at": "2026-09-21",
+        "found_at": "2026-09-22",
+        "notes": "WTTJ exact card was live on 2026-09-22. Graduate commercial role for prospecting and securing battery-storage sites, with frequent travel throughout Western France and home office in Brittany. No separate employer careers/ATS requisition was exposed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:girasole:commercial-bess-southeast",
+      "args": {
+        "company": "Girasole Energies",
+        "role": "Business devoloper BESS H/F",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "role_not_frontend",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "level": "Graduate",
+        "location": "Marseille, Paris / Southeastern France field territory",
+        "remote_policy": "Country-specific",
+        "posted_at": "2026-09-21",
+        "found_at": "2026-09-22",
+        "notes": "WTTJ exact card was live on 2026-09-22. Graduate commercial role for prospecting and securing battery-storage sites, with frequent travel throughout Southeastern France. No separate employer careers/ATS requisition was exposed."
+      }
+    }
+  ]
+}
