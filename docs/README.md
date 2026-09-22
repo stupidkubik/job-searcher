@@ -62,6 +62,10 @@ write path меняются, этот файл и корневой [`README.md`]
   обзор открытых job-tracker и job-search workspace на GitHub, сравнительный
   анализ паттернов и shortlist тем для последующего проектирования; исследование,
   а не implementation plan.
+- [`deep-research-report.md`](deep-research-report.md) — углублённая проверка
+  GitHub-проектов, их кода, CI и issues; конкретные P0–P2 улучшения и предлагаемая
+  последовательность развития следующей версии трекера; исследование, а не
+  утверждённый implementation plan.
 
 ## Матрица обновлений
 
