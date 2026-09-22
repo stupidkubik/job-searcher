@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-14** · Jobs: **441**
+Dataset updated: **2026-09-22** · Jobs: **447**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (13)](#to-verify) · [Archive (380)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (13)](#to-verify) · [Archive (386)](#archive)
 
 ## Action now
 
@@ -86,10 +86,16 @@ Dataset updated: **2026-09-14** · Jobs: **441**
 
 <details>
 
-<summary>Archive (380)</summary>
+<summary>Archive (386)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [RapidSOS — Software Engineer II, AI](<https://job-boards.greenhouse.io/rapidsos/jobs/5238049007>) · job-0447 | geo restriction | Open | 2026-09-22 |
+| Skipped: seniority too high | [Utility Profit — Full Stack Software Engineer — AI & Automation](<https://job-boards.greenhouse.io/utilityprofit/jobs/4412541009>) · job-0446 | seniority too high | Open | 2026-09-22 |
+| Skipped: geo restriction | [Samsara — Software Engineer I, External Platform EMEA (Poland, Remote)](<https://www.samsara.com/company/careers/roles/8210695?gh_jid=8210695>) · job-0445 | geo restriction | Open | 2026-09-22 |
+| Skipped: geo restriction | [Beamlink — Front-end Designer](<https://job-boards.greenhouse.io/beamlink/jobs/4412254009>) · job-0444 | geo restriction | Open | 2026-09-22 |
+| Skipped: work authorization | [Amperesand — Software Intern, Factory & Ops](<https://job-boards.greenhouse.io/amperesand/jobs/4409254009>) · job-0443 | work authorization | Open | 2026-09-22 |
+| Skipped: geo restriction | [Assured Guaranty — Product Software Developer – Front-End - Summer 2027](<https://job-boards.greenhouse.io/assuredguaranty/jobs/8827460002>) · job-0442 | geo restriction | Open | 2026-09-22 |
 | Skipped: geo restriction | [360Learning — Software Engineer](<https://www.welcometothejungle.com/en/companies/360learning/jobs/software-engineer_paris_360LE_Kgg252N>) · job-0441 | geo restriction | Not checked | 2026-09-14 |
 | Skipped: seniority too high | [PayPay — Cloud Platform Engineer (DB Specialist)](<https://relocate.me/japan/tokyo/paypay/cloud-platform-engineer-db-specialist-9564>) · job-0437 | seniority too high | Not checked | 2026-09-13 |
 | Skipped: other | [The Global Move — 1700+ Curated Visa Sponsorship and Remote Tech Jobs (Paid Option)](<https://relocate.me/remote/remote/the-global-move/1700-curated-visa-sponsorship-and-remote-tech-jobs-paid-option-10080>) · job-0436 | other | Not checked | 2026-09-13 |

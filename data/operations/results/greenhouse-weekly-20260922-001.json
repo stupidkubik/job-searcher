@@ -1,0 +1,143 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-22T11:09:11Z",
+  "jobs": [],
+  "operation_id": "greenhouse-weekly-20260922-001",
+  "result": {
+    "count": 6,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:assuredguaranty:8827460002",
+        "command": "add",
+        "job_id": "job-0442",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0442",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:assuredguaranty:8827460002",
+            "source_url": "https://job-boards.greenhouse.io/assuredguaranty/jobs/8827460002"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:amperesand:4409254009",
+        "command": "add",
+        "job_id": "job-0443",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0443",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:amperesand:4409254009",
+            "source_url": "https://job-boards.greenhouse.io/amperesand/jobs/4409254009"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:beamlink:4412254009",
+        "command": "add",
+        "job_id": "job-0444",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0444",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:beamlink:4412254009",
+            "source_url": "https://job-boards.greenhouse.io/beamlink/jobs/4412254009"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:samsara:8210695",
+        "command": "add",
+        "job_id": "job-0445",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0445",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:samsara:8210695",
+            "source_url": "https://job-boards.greenhouse.io/samsara/jobs/8210695"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:utilityprofit:4412541009",
+        "command": "add",
+        "job_id": "job-0446",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0446",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:utilityprofit:4412541009",
+            "source_url": "https://job-boards.greenhouse.io/utilityprofit/jobs/4412541009"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "greenhouse:rapidsos:5238049007",
+        "command": "add",
+        "job_id": "job-0447",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0447",
+            "source": "Company Careers",
+            "source_job_id": "greenhouse:rapidsos:5238049007",
+            "source_url": "https://job-boards.greenhouse.io/rapidsos/jobs/5238049007"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 6,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
