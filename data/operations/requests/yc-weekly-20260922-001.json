@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "operation_id": "yc-weekly-20260922-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "yc:sZsNfP4",
+      "args": {
+        "company": "Asendia AI",
+        "role": "Product Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "sZsNfP4",
+        "source_url": "https://www.ycombinator.com/companies/asendia-ai/jobs/sZsNfP4-product-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "geo_restriction",
+        "level": "Middle",
+        "location": "San Francisco, CA, US / Remote (DE; New York, NY, US; Toronto, Canada)",
+        "remote_policy": "Country-specific",
+        "stack": "Python; Next.js; LLMs; AI Agents; FastAPI; WebSockets",
+        "salary": "$150K-$225K + 0.15%-0.45% equity",
+        "found_at": "2026-09-22",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Fresh YC card was live and showed 3+ years, visa sponsorship and native YC Apply; remote locations are limited to Germany, New York and Toronto, and the employer website exposes no public careers listing."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:Iw9ggf8",
+      "args": {
+        "company": "Aside",
+        "role": "MTS - Founding Designer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Iw9ggf8",
+        "source_url": "https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "level": "Junior/Middle",
+        "location": "San Francisco, CA, US / Remote",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; Figma; Product Design; Design Systems; AI Interfaces",
+        "salary": "$150K-$230K + 0.50%-1.50% equity",
+        "found_at": "2026-09-22",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "match_score": 6.5,
+        "notes": "Fresh YC card was live with 1+ years, remote, visa sponsorship and strong TypeScript/Figma/AI-interface overlap; role is founding product design rather than frontend engineering, Serbia eligibility is unstated, and Aside careers links back to YC without a separate public requisition."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:pfHb3LG",
+      "args": {
+        "company": "Regbase",
+        "role": "Design Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "pfHb3LG",
+        "source_url": "https://www.ycombinator.com/companies/regbase/jobs/pfHb3LG-design-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "decision_reason": "work_authorization",
+        "level": "Middle",
+        "location": "New York, NY, US",
+        "remote_policy": "On-site",
+        "stack": "React; Next.js; TypeScript; Figma; Design Systems; AI Interfaces",
+        "salary": "$175K-$250K + 0.20%-0.50% equity",
+        "found_at": "2026-09-22",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "notes": "Fresh YC card was live and highly stack-relevant, but explicitly requires 3+ years, US citizen/visa only, and being in or relocating to New York; Regbase website has no public careers listing."
+      }
+    }
+  ]
+}
