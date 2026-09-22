@@ -1,0 +1,80 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-22T11:15:23Z",
+  "jobs": [],
+  "operation_id": "yc-weekly-20260922-001",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:sZsNfP4",
+        "command": "add",
+        "job_id": "job-0448",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0448",
+            "source": "YC Work at a Startup",
+            "source_job_id": "sZsNfP4",
+            "source_url": "https://www.ycombinator.com/companies/asendia-ai/jobs/sZsNfP4-product-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0449-aside-mts-founding-designer.md",
+        "application_status": "reviewing",
+        "client_ref": "yc:Iw9ggf8",
+        "command": "add",
+        "job_id": "job-0449",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0449",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Iw9ggf8",
+            "source_url": "https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:pfHb3LG",
+        "command": "add",
+        "job_id": "job-0450",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-22",
+            "job_id": "job-0450",
+            "source": "YC Work at a Startup",
+            "source_job_id": "pfHb3LG",
+            "source_url": "https://www.ycombinator.com/companies/regbase/jobs/pfHb3LG-design-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-22** · Jobs: **447**
+Dataset updated: **2026-09-22** · Jobs: **450**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (13)](#to-verify) · [Archive (386)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (388)](#archive)
 
 ## Action now
 
@@ -72,6 +72,7 @@ Dataset updated: **2026-09-22** · Jobs: **447**
 | Reviewing | [Synako — Développeur.se Full Stack – Product Engineer](<https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d>) · job-0440 | First party + Apply + Listing | 7 | verify first-party | 2026-09-14 |
 | Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
 | Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
+| Reviewing | [Aside — MTS - Founding Designer](<https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer>) · job-0449 | First party + Apply + Listing | 6.5 | verify first-party | 2026-09-22 |
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
@@ -86,10 +87,12 @@ Dataset updated: **2026-09-22** · Jobs: **447**
 
 <details>
 
-<summary>Archive (386)</summary>
+<summary>Archive (388)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: work authorization | [Regbase — Design Engineer](<https://www.ycombinator.com/companies/regbase/jobs/pfHb3LG-design-engineer>) · job-0450 | work authorization | Not checked | 2026-09-22 |
+| Skipped: geo restriction | [Asendia AI — Product Engineer](<https://www.ycombinator.com/companies/asendia-ai/jobs/sZsNfP4-product-engineer>) · job-0448 | geo restriction | Not checked | 2026-09-22 |
 | Skipped: geo restriction | [RapidSOS — Software Engineer II, AI](<https://job-boards.greenhouse.io/rapidsos/jobs/5238049007>) · job-0447 | geo restriction | Open | 2026-09-22 |
 | Skipped: seniority too high | [Utility Profit — Full Stack Software Engineer — AI & Automation](<https://job-boards.greenhouse.io/utilityprofit/jobs/4412541009>) · job-0446 | seniority too high | Open | 2026-09-22 |
 | Skipped: geo restriction | [Samsara — Software Engineer I, External Platform EMEA (Poland, Remote)](<https://www.samsara.com/company/careers/roles/8210695?gh_jid=8210695>) · job-0445 | geo restriction | Open | 2026-09-22 |
