@@ -66,6 +66,10 @@ write path меняются, этот файл и корневой [`README.md`]
   GitHub-проектов, их кода, CI и issues; конкретные P0–P2 улучшения и предлагаемая
   последовательность развития следующей версии трекера; исследование, а не
   утверждённый implementation plan.
+- [`tracker-v3/README.md`](tracker-v3/README.md) — planning workspace следующей
+  версии: последовательный план, baseline, журнал работ и решений, blockers,
+  risk register и verification matrix; proposal на ветке `codex/tracker-v3`,
+  пока не действующий архитектурный контракт.
 
 ## Матрица обновлений
 
