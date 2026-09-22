@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "operation_id": "wwr-weekly-20260922-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wwr:adventure-travel-365-senior-full-stack-developer-marketplace-web-mobile-platform",
+      "args": {
+        "company": "Adventure Travel 365",
+        "role": "Senior Full-Stack Developer - Marketplace Web & Mobile Platform",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/adventure-travel-365-senior-full-stack-developer-marketplace-web-mobile-platform",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Worldwide",
+        "remote_policy": "Global",
+        "stack": "Full-stack web; mobile; APIs; databases; payments; cloud; AI tooling",
+        "found_at": "2026-09-22",
+        "posted_at": "2026-09-21",
+        "match_score": 2,
+        "notes": "Worldwide, but the role owns architecture and delivery of a complex two-sided marketplace end to end; WWR hides the employer Apply route behind registration.",
+        "first_party_verified": "no",
+        "apply_verified": "no"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:proxify-ab-senior-fullstack-developer-react-js-node-js-4",
+      "args": {
+        "company": "Proxify AB",
+        "role": "Senior Fullstack Developer (React.js / Node.js)",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/proxify-ab-senior-fullstack-developer-react-js-node-js-4",
+        "original_url": "https://talent.proxify.io/apply?utm_source=weworkremotely&utm_medium=job_posting&utm_campaign=senior_fullstack",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Worldwide; CET +/- 3 hours preferred",
+        "remote_policy": "Global",
+        "stack": "React.js; Node.js; microservices; SQL; MongoDB",
+        "found_at": "2026-09-22",
+        "posted_at": "2026-09-15",
+        "match_score": 3,
+        "notes": "Strong stack and favorable timezone, but the employer requires 5+ years of full-stack experience.",
+        "first_party_verified": "yes",
+        "apply_verified": "yes"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:sticker-mule-software-engineer-3",
+      "args": {
+        "company": "Sticker Mule",
+        "role": "Software engineer",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/sticker-mule-software-engineer-3",
+        "original_url": "https://jobs.ashbyhq.com/stickermule/6db27241-e2d4-4f35-a2c4-b58d84621843?utm_source=4",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Remote; 40+ countries",
+        "remote_policy": "Unclear",
+        "stack": "Go; TypeScript; React; Expo; GraphQL; Postgres; GCP",
+        "salary": "$150,000-$250,000 USD; $20,000 signing bonus",
+        "found_at": "2026-09-22",
+        "posted_at": "2026-09-11",
+        "match_score": 4,
+        "notes": "Excellent frontend stack, but the employer seeks an exceptional end-to-end full-stack engineer; the compensation and ownership signal a substantially senior profile, and Serbia eligibility is not explicit.",
+        "first_party_verified": "yes",
+        "apply_verified": "yes"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:circleci-software-engineer",
+      "args": {
+        "company": "CircleCI",
+        "role": "Software Engineer",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/circleci-software-engineer",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "seniority_too_high",
+        "level": "Middle",
+        "location": "Remote; Canada compensation listed",
+        "remote_policy": "Unclear",
+        "stack": "Go; React; TypeScript; distributed systems; Honeycomb; Datadog; Rollbar",
+        "salary": "CAD 127,000-159,000",
+        "found_at": "2026-09-22",
+        "posted_at": "2026-09-19",
+        "match_score": 4,
+        "notes": "Requires 3+ years of production full-stack experience plus backend ownership in Go and system design; WWR hides the employer Apply route behind registration and Serbia eligibility is unconfirmed.",
+        "first_party_verified": "no",
+        "apply_verified": "no"
+      }
+    }
+  ]
+}
