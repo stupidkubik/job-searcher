@@ -58,6 +58,10 @@ write path меняются, этот файл и корневой [`README.md`]
 - [`telegram-source-integration-analysis.md`](telegram-source-integration-analysis.md) —
   варианты получения вакансий из Telegram, ограничения API и рекомендуемая
   архитектура; предложение, а не реализованный source contract.
+- [`github-job-tracker-inspiration-analysis-2026-09-22.md`](github-job-tracker-inspiration-analysis-2026-09-22.md) —
+  обзор открытых job-tracker и job-search workspace на GitHub, сравнительный
+  анализ паттернов и shortlist тем для последующего проектирования; исследование,
+  а не implementation plan.
 
 ## Матрица обновлений
 
