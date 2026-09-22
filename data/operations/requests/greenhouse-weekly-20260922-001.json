@@ -1,0 +1,148 @@
+{
+  "version": 1,
+  "operation_id": "greenhouse-weekly-20260922-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "greenhouse:assuredguaranty:8827460002",
+      "args": {
+        "company": "Assured Guaranty",
+        "role": "Product Software Developer – Front-End - Summer 2027",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:assuredguaranty:8827460002",
+        "source_url": "https://job-boards.greenhouse.io/assuredguaranty/jobs/8827460002",
+        "original_url": "https://job-boards.greenhouse.io/assuredguaranty/jobs/8827460002",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "geo_restriction",
+        "level": "Intern",
+        "location": "New York, NY, United States",
+        "remote_policy": "On-site",
+        "stack": "JavaScript; React; Angular; HTML; CSS",
+        "salary": "$30-$32/hour",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Exact Greenhouse post and Apply form are live; Summer 2027 internship is in New York and refers to on-site intern meals plus tri-state housing support, incompatible with working from Serbia."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "greenhouse:amperesand:4409254009",
+      "args": {
+        "company": "Amperesand",
+        "role": "Software Intern, Factory & Ops",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:amperesand:4409254009",
+        "source_url": "https://job-boards.greenhouse.io/amperesand/jobs/4409254009",
+        "original_url": "https://job-boards.greenhouse.io/amperesand/jobs/4409254009",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "work_authorization",
+        "level": "Intern",
+        "location": "Reno, Nevada, United States",
+        "remote_policy": "On-site",
+        "stack": "Go; TypeScript; React; REST APIs; AI/LLM; CI/CD; Testing; AWS",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Exact Greenhouse post and Apply form are live; requires current student status, US work authorization and five on-site days per week in Reno with no remote option."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "greenhouse:beamlink:4412254009",
+      "args": {
+        "company": "Beamlink",
+        "role": "Front-end Designer",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:beamlink:4412254009",
+        "source_url": "https://job-boards.greenhouse.io/beamlink/jobs/4412254009",
+        "original_url": "https://job-boards.greenhouse.io/beamlink/jobs/4412254009",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "geo_restriction",
+        "level": "Unknown",
+        "location": "Los Angeles, CA, United States",
+        "remote_policy": "On-site",
+        "stack": "Vue.js; React; Figma; Graphic Design; Responsive UI",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Exact Greenhouse post and Apply form are live; full-time W-2 role explicitly requires in-person work in Los Angeles, despite limited work-from-home days."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "greenhouse:samsara:8210695",
+      "args": {
+        "company": "Samsara",
+        "role": "Software Engineer I, External Platform EMEA (Poland, Remote)",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:samsara:8210695",
+        "source_url": "https://job-boards.greenhouse.io/samsara/jobs/8210695",
+        "original_url": "https://www.samsara.com/company/careers/roles/8210695?gh_jid=8210695",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "geo_restriction",
+        "level": "Junior/Middle",
+        "location": "Remote - Poland",
+        "remote_policy": "Country-specific",
+        "stack": "Go; GraphQL; TypeScript; React; MySQL",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Current employer page is live with Apply Now; title and location explicitly restrict remote work to Poland and offers require legal right to work in the specified location."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "greenhouse:utilityprofit:4412541009",
+      "args": {
+        "company": "Utility Profit",
+        "role": "Full Stack Software Engineer — AI & Automation",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:utilityprofit:4412541009",
+        "source_url": "https://job-boards.greenhouse.io/utilityprofit/jobs/4412541009",
+        "original_url": "https://job-boards.greenhouse.io/utilityprofit/jobs/4412541009",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "TypeScript; Node.js; React; SQL; PostgreSQL; AI Agents; Playwright; AWS; Docker; CI/CD",
+        "salary": "Competitive salary paid in USD",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Worldwide contractor post and Apply form are live, but the role explicitly seeks mid-to-senior judgment, independence and substantial production full-stack experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "greenhouse:rapidsos:5238049007",
+      "args": {
+        "company": "RapidSOS",
+        "role": "Software Engineer II, AI",
+        "source": "Company Careers",
+        "source_job_id": "greenhouse:rapidsos:5238049007",
+        "source_url": "https://job-boards.greenhouse.io/rapidsos/jobs/5238049007",
+        "original_url": "https://job-boards.greenhouse.io/rapidsos/jobs/5238049007",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "decision_reason": "geo_restriction",
+        "level": "Middle",
+        "location": "EU (Remote)",
+        "remote_policy": "Europe",
+        "stack": "Python; TypeScript; React; AI/LLM; Distributed Systems; APIs; Observability",
+        "found_at": "2026-09-22",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "notes": "Exact post and Apply form are live, but the role is explicitly EU remote while the candidate resides and is authorized in Serbia; it also asks for 2-3+ years backend/full-stack and strong Python/LLM experience."
+      }
+    }
+  ]
+}
