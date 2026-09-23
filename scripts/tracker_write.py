@@ -118,6 +118,7 @@ class AddPlan:
     source_reference: dict | None
     source_reference_created: bool
     expected_revisions: dict
+    app_revision: str | None
 
 
 def today():
@@ -340,14 +341,19 @@ def application_card_path(row):
     return PATHS.apps_dir / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
 
 
-def render_application_card(row, update_existing=False):
+def render_application_card(row, update_existing=False, *, with_revision=False):
+    def result(path, body, revision):
+        return (path, body, revision) if with_revision else (path, body)
+
     app_path = application_card_path(row)
     if app_path.exists():
+        original_bytes = app_path.read_bytes()
+        revision = digest(original_bytes)
         if not update_existing:
-            return app_path, None
-        original_body = app_path.read_text(encoding="utf-8")
+            return result(app_path, None, revision)
+        original_body = original_bytes.decode("utf-8")
         body = sync_application_card_front_matter(original_body, row, app_path)
-        return app_path, body if body != original_body else None
+        return result(app_path, body if body != original_body else None, revision)
     if not PATHS.template_path.exists():
         die(f"не найден шаблон {PATHS.template_path}")
     body = (
@@ -356,7 +362,7 @@ def render_application_card(row, update_existing=False):
         .replace("{{role}}", row["role"])
     )
     body = sync_application_card_front_matter(body, row, PATHS.template_path)
-    return app_path, body
+    return result(app_path, body, None)
 
 
 def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> AddPlan:
@@ -387,9 +393,9 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
             agent_hint="include source_url or source_job_id in args",
             cli_hint_ru=f"source={row['source']} требует source_url или source_job_id",
         )
-    app_path, app_body = (None, None)
+    app_path, app_body, app_revision = (None, None, None)
     if should_create_application_card(row, no_file):
-        app_path, app_body = render_application_card(row)
+        app_path, app_body, app_revision = render_application_card(row, with_revision=True)
     return AddPlan(
         rows=new_rows,
         source_rows=new_source_rows,
@@ -400,11 +406,12 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
         source_reference=source_reference,
         source_reference_created=source_reference_created,
         expected_revisions=expected_revisions,
+        app_revision=app_revision,
     )
 
 
 def persist_add(plan: AddPlan) -> Path | None:
-    application_writes = ((plan.app_path, plan.app_body),) if plan.app_body is not None else ()
+    application_writes = ((plan.app_path, plan.app_body, plan.app_revision),) if plan.app_body is not None else ()
     apply_dataset_transaction(
         plan.rows, plan.source_rows, application_writes, expected_revisions=plan.expected_revisions
     )
@@ -532,6 +539,14 @@ def apply_dataset_transaction(
                 code="stale_operation",
                 cli_hint_ru="данные изменились после подготовки операции; повторите её на свежем снимке",
             )
+        for path, _body, expected_revision in application_writes:
+            current_revision = digest(path.read_bytes()) if path.exists() else None
+            if current_revision != expected_revision:
+                raise ValidationError(
+                    f"application card changed after this operation was prepared: {path}",
+                    code="stale_operation",
+                    cli_hint_ru=f"карточка {path.name} изменилась после подготовки операции; повторите её",
+                )
         staged, backups, replaced = [], {}, []
         failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
         try:
@@ -543,7 +558,7 @@ def apply_dataset_transaction(
                 (PATHS.csv_path, stage_csv(PATHS.csv_path, FIELDS, rows)),
                 (PATHS.job_sources_path, stage_csv(PATHS.job_sources_path, JOB_SOURCE_FIELDS, source_rows)),
             ]
-            staged.extend((path, stage_text(path, body)) for path, body in application_writes)
+            staged.extend((path, stage_text(path, body)) for path, body, _revision in application_writes)
             for target, _temporary in staged:
                 backups[target] = backup_file(target)
             for index, (target, temporary) in enumerate(staged):
@@ -899,10 +914,14 @@ def status_job(job_id: str, **values) -> dict:
     row = find(rows, job_id)
     outcome = apply_status_change(row, **values)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    application_path, application_body = (None, None)
+    application_path, application_body, application_revision = (None, None, None)
     if row["application_status"] in {"reviewing", "apply"} or row["applied_at"]:
-        application_path, application_body = render_application_card(row, update_existing=True)
-    application_writes = ((application_path, application_body),) if application_body is not None else ()
+        application_path, application_body, application_revision = render_application_card(
+            row, update_existing=True, with_revision=True
+        )
+    application_writes = (
+        ((application_path, application_body, application_revision),) if application_body is not None else ()
+    )
     apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,
@@ -1105,10 +1124,12 @@ def prepare_verified_application_write(row, passed):
     A new card is still only created once verification actually passes."""
     card_exists = application_card_path(row).exists()
     if not card_exists and not (passed and row["application_status"] in {"reviewing", "apply"}):
-        return None, None, False
-    application_path, application_body = render_application_card(row, update_existing=True)
+        return None, None, False, None
+    application_path, application_body, application_revision = render_application_card(
+        row, update_existing=True, with_revision=True
+    )
     application_card_created = application_body is not None and not card_exists
-    return application_path, application_body, application_card_created
+    return application_path, application_body, application_card_created, application_revision
 
 
 def verify_job(
@@ -1150,11 +1171,13 @@ def verify_job(
         next_action_date=next_action_date,
     )
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    application_path, application_body, application_card_created = prepare_verified_application_write(
+    application_path, application_body, application_card_created, application_revision = prepare_verified_application_write(
         row,
         change["passed"],
     )
-    application_writes = ((application_path, application_body),) if application_body is not None else ()
+    application_writes = (
+        ((application_path, application_body, application_revision),) if application_body is not None else ()
+    )
     apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,

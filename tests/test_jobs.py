@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import itertools
 import json
 import os
@@ -422,6 +423,38 @@ class JobsCliTests(unittest.TestCase):
                 jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
             self.assertEqual(stale.exception.code, "stale_operation")
         self.assertEqual([row["company"] for row in self.rows()], ["OriginalCo", "ConcurrentCo"])
+
+    def test_dataset_transaction_preserves_concurrently_edited_card(self):
+        self.assertEqual(self.add("CardRaceCo", "Frontend Developer").returncode, 0)
+        card = next((self.root / "applications").glob("job-*.md"))
+        original = card.read_bytes()
+        expected_card = hashlib.sha256(original).hexdigest()
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            human_edit = original + b"\nHuman note\n"
+            card.write_bytes(human_edit)
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(
+                    rows,
+                    sources,
+                    ((card, original.decode("utf-8") + "\nAgent note\n", expected_card),),
+                    expected_revisions=revisions,
+                )
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual(card.read_bytes(), human_edit)
+
+    def test_dataset_transaction_does_not_overwrite_new_card(self):
+        self.assertEqual(self.add("NewCardRaceCo", "Frontend Developer", "--no-file").returncode, 0)
+        card = self.root / "applications" / "job-0001-newcardraceco-frontend-developer.md"
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            card.write_text("Human-created card\n", encoding="utf-8")
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(
+                    rows, sources, ((card, "Agent-created card\n", None),), expected_revisions=revisions
+                )
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual(card.read_text(encoding="utf-8"), "Human-created card\n")
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)

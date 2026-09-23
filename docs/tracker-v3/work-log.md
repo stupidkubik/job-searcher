@@ -27,6 +27,7 @@
 | L-0006 | 2026-09-23 | `codex/tracker-v3` / isolated transaction prototype change | Проверен WP1.3a crash-recovery на synthetic file set; исправлены статусы B-003/B-004 | D-013, `tracker_transaction.py`, `transaction-prototype.md`, fault/kill/concurrency tests; production write path не изменён | 232 tests green; strict validation 458/474; tracker/index/contract fresh; `git diff --check` | verified |
 | L-0007 | 2026-09-24 | `codex/tracker-v3` / shared-lock integration change | Начат WP1.3b: legacy dataset transaction разделяет lock с v3 publisher и восстанавливает pending journal | `tracker_write.py`, transaction tests, fixture scripts; event writes не включены | 234 tests green; strict validation 458/474; `git diff --check` | verified |
 | L-0008 | 2026-09-24 | `codex/tracker-v3` / CSV revision guard change | Все основные dataset writes проверяют исходные ревизии jobs/source CSV под общим lock; connector stale race получает conflict | `tracker_write.py`, `tracker_ingest.py`, `agent_operations.py`, maintenance repair и тесты stale snapshot/conflict | 236 tests green; strict validation 458/474; `git diff --check` | verified |
+| L-0009 | 2026-09-24 | `codex/tracker-v3` / card revision guard change | Обычные и batch writes проверяют исходную ревизию изменяемой application card; появившаяся или изменённая позже карточка не перезаписывается | `tracker_write.py`, `agent_operations.py`, card race tests | 239 tests green; strict validation 458/474; `git diff --check` | verified |
 
 ## Entry template
 

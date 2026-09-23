@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
 import math
 import re
@@ -918,7 +919,7 @@ def write_result(result):
 
 
 @contextmanager
-def temporary_tracker_workspace():
+def temporary_tracker_workspace(*, include_card_revisions=False):
     """Repoint jobs.PATHS at a scratch copy of the tracker for one operation.
 
     docs/agent-write-path-plan-2026-09-07.md, Э10: jobs.py derives every path
@@ -932,17 +933,22 @@ def temporary_tracker_workspace():
         temp_data = temp_root / "data"
         temp_apps = temp_root / "applications"
         temp_data.mkdir(parents=True)
-        shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
-        shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
-        shutil.copytree(original_root / "applications", temp_apps)
+        with jobs.dataset_write_lock():
+            shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
+            shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
+            shutil.copytree(original_root / "applications", temp_apps)
+        card_revisions = {
+            path.relative_to(temp_root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in temp_apps.glob("job-*.md")
+        }
         try:
             jobs.PATHS.root = temp_root
-            yield temp_root
+            yield (temp_root, card_revisions) if include_card_revisions else temp_root
         finally:
             jobs.PATHS.root = original_root
 
 
-def changed_application_writes(temp_root):
+def changed_application_writes(temp_root, card_revisions):
     """Find application cards the temporary workspace created or changed,
     so they can be copied back into the real applications/ directory."""
     writes = []
@@ -950,8 +956,9 @@ def changed_application_writes(temp_root):
         relative = temp_path.relative_to(temp_root)
         target = ROOT / relative
         body = temp_path.read_text(encoding="utf-8")
-        if not target.exists() or target.read_text(encoding="utf-8") != body:
-            writes.append((target, body))
+        prior_revision = card_revisions.get(relative.as_posix())
+        if hashlib.sha256(body.encode("utf-8")).hexdigest() != prior_revision:
+            writes.append((target, body, prior_revision))
     return writes
 
 
@@ -1086,7 +1093,7 @@ def execute_batch(operation, atomic, stale_conflicts):
     child_results = []
     applied = 0
     base_rows, base_sources, expected_revisions = jobs.load_for_write()
-    with temporary_tracker_workspace() as temp_root:
+    with temporary_tracker_workspace(include_card_revisions=True) as (temp_root, card_revisions):
         if jobs.load() != base_rows or jobs.load_job_sources() != base_sources:
             raise jobs.ValidationError(
                 "dataset changed while preparing the batch workspace",
@@ -1160,7 +1167,7 @@ def execute_batch(operation, atomic, stale_conflicts):
                 code="invariant_violation",
                 layer="jobs",
             )
-        app_writes = changed_application_writes(temp_root)
+        app_writes = changed_application_writes(temp_root, card_revisions)
     if applied:
         jobs.apply_dataset_transaction(
             temp_rows, temp_sources, app_writes, expected_revisions=expected_revisions

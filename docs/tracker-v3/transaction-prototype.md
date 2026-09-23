@@ -62,8 +62,10 @@ production `jobs.csv`.
    2026-09-24 `add`/`set`/`status`/`screen`/`verify`/`ingest` и connector batch
    берут согласованный base snapshot и сравнивают SHA-256 обоих CSV под lock
    перед заменой. Устаревшая подготовка отвергается; connector возвращает
-   `conflict` с retry-фрагментом. Application card ещё не защищена отдельной
-   ревизией.
+   `conflict` с retry-фрагментом. С 2026-09-24 изменяемые application cards
+   также сверяются по SHA-256 (или отсутствию файла) перед заменой, включая
+   batch workspace. Прямые ручные правки карточки вне общего lock во время
+   самой публикации всё ещё требуют отдельной политики.
 2. Все читатели согласованного набора (snapshot/event/result и нужные generated
    views) должны сначала выполнять recovery и читать под этим lock либо через
    доказанный versioned snapshot. Сейчас только prototype `read_consistent()`

@@ -52,7 +52,7 @@
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified; WP1.3b shared lock + CSV revision guard | readers/result/card/projections, затем B-003 |
+| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified; WP1.3b shared lock + CSV/card revision guard | readers/result/projections, затем B-003 |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
