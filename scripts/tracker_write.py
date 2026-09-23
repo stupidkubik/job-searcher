@@ -18,6 +18,11 @@ try:  # Direct CLI execution places scripts/ on sys.path.
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
     from scripts.tracker_time import business_date
 
+try:
+    from tracker_transaction import locked, recover_locked
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import locked, recover_locked
+
 try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_paths import PATHS
     from tracker_schema import (
@@ -443,19 +448,10 @@ def add_job(
 
 @contextmanager
 def dataset_write_lock():
-    """Serialize the multi-file ingest replacement on platforms with flock."""
-    lock_path = PATHS.csv_path.parent / ".ingest.lock"
-    with lock_path.open("a+", encoding="utf-8") as lock_file:
-        try:
-            import fcntl
-        except ImportError:
-            yield
-            return
-        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
-        try:
-            yield
-        finally:
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+    """Share the v3 publisher lock and recover its interrupted transactions."""
+    with locked(PATHS.root) as root:
+        recover_locked(root)
+        yield
 
 
 def stage_csv(target, fields, rows):

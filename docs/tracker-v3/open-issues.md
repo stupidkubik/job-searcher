@@ -74,6 +74,9 @@
   and generated views still use different boundaries; integration tests and
   rollback rehearsal remain before resolution. См.
   [`transaction-prototype.md`](transaction-prototype.md).
+- Progress 2026-09-24: `apply_dataset_transaction` теперь использует общий
+  lock и восстанавливает pending journal. Остаются stale-revision защита
+  подготовки до lock, остальные writers/readers, connector result и projections.
 
 ### B-004 — minimum event taxonomy and projection rules
 

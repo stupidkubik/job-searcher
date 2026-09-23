@@ -1,8 +1,9 @@
 # V3 multi-file transaction prototype
 
-Статус: isolated WP1.3a prototype, 2026-09-23. Ни `jobs.py`, ни connector
-runner пока не импортируют `scripts/tracker_transaction.py`; production write
-path и canonical files этим work package не меняются. B-003 остаётся открыт.
+Статус: WP1.3a prototype проверен 2026-09-23; с 2026-09-24 текущий
+`tracker_write.py` использует его lock и recovery. `jobs.py` и connector runner
+пока не публикуют event ledger через этот протокол; canonical files этим
+work package не меняются. B-003 остаётся открыт.
 
 ## Что обнаружено в существующем пути
 
@@ -54,8 +55,12 @@ production `jobs.csv`.
 ## Что требуется до включения в write path
 
 1. Объединить `.ingest.lock` и prototype lock в один lock для всех writers.
-   Старые команды должны сохранять совместимость и не терять обновления,
-   вычисленные до взятия lock.
+   С 2026-09-24 `apply_dataset_transaction` использует prototype lock и
+   восстанавливает pending journal перед заменой файлов; тесты проверяют
+   взаимное исключение двух путей и recovery. Остальные writers, в том числе
+   прямой `save_job_sources`, ещё требуют аудита. Старые команды пока могут
+   потерять обновления, вычисленные до взятия lock: stale-revision check
+   остаётся обязательным до event cutover.
 2. Все читатели согласованного набора (snapshot/event/result и нужные generated
    views) должны сначала выполнять recovery и читать под этим lock либо через
    доказанный versioned snapshot. Сейчас только prototype `read_consistent()`

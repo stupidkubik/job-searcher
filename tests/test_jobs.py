@@ -36,6 +36,7 @@ class JobsCliTests(unittest.TestCase):
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
+            "tracker_transaction.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]

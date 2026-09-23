@@ -242,8 +242,9 @@ Tests:
 Нельзя иметь отдельные independent commands, один из которых пишет event, а
 другой позже «догоняет» CSV.
 
-Статус 2026-09-23: WP1.3a isolated crash-recovery prototype verified по D-013;
-WP1.3b integration не начата. Прототип не импортируется production write path.
+Статус 2026-09-24: WP1.3a isolated crash-recovery prototype verified по D-013;
+WP1.3b начата с общего lock и recovery для `apply_dataset_transaction`.
+Event dual-write ещё не включён.
 Перед интеграцией устранить разные lock domains у `jobs.py` и нового publisher,
 включить immutable connector result/projections в одну publication boundary и
 перевести связанных readers на recovery + общий lock. Подробные условия — в

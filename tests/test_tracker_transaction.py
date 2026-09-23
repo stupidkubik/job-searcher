@@ -4,11 +4,13 @@ import stat
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
 from scripts import tracker_transaction as txn
+from scripts import tracker_write
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -160,6 +162,43 @@ class TrackerTransactionTests(unittest.TestCase):
             self.assertEqual(observed["data/jobs.csv"], OLD_JOBS)
             self.assertIsNone(observed["data/application_events/job-0001.jsonl"])
             self.assertIsNone(observed["data/operations/results/op-1.json"])
+
+    def test_legacy_writer_uses_shared_lock_and_recovers_pending_journal(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            setup_root(root)
+            result = self.child(root, "after_replace", 1)
+            self.assertEqual(result.returncode, 75, result.stderr)
+            with patch.object(tracker_write.PATHS, "root", root):
+                with tracker_write.dataset_write_lock():
+                    self.assert_original(root)
+                    self.assertFalse((root / txn.JOURNAL_NAME).exists())
+            self.assertTrue((root / txn.LOCK_NAME).exists())
+            self.assertFalse((root / "data/.ingest.lock").exists())
+
+    def test_legacy_writer_blocks_v3_publisher_lock(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            setup_root(root)
+            script = (
+                "import pathlib, sys\n"
+                "from scripts import tracker_transaction as txn\n"
+                "root = pathlib.Path(sys.argv[1])\n"
+                "(root / 'ready').write_text('ready')\n"
+                "with txn.locked(root):\n"
+                "    (root / 'acquired').write_text('acquired')\n"
+            )
+            with patch.object(tracker_write.PATHS, "root", root):
+                with tracker_write.dataset_write_lock():
+                    child = subprocess.Popen([sys.executable, "-c", script, str(root)], cwd=ROOT)
+                    deadline = time.monotonic() + 2
+                    while not (root / "ready").exists() and time.monotonic() < deadline:
+                        time.sleep(0.01)
+                    self.assertTrue((root / "ready").exists())
+                    self.assertFalse((root / "acquired").exists())
+                    self.assertIsNone(child.poll())
+                self.assertEqual(child.wait(timeout=2), 0)
+                self.assertTrue((root / "acquired").exists())
 
     def test_concurrent_publishers_do_not_overwrite_a_stale_revision(self):
         with tempfile.TemporaryDirectory() as tmp:

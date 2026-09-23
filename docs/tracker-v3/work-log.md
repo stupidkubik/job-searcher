@@ -25,6 +25,7 @@
 | L-0004 | 2026-09-23 | `codex/tracker-v3` / annotation review change | Разобраны пользовательские пометки и уточнены gates; приняты D-010/D-011 | `annotation-review-2026-09-23.md`, decisions, open issues, plan, risks, verification matrix | 11 documentation tests green; `git diff --check`; targeted inventory 458 jobs | complete |
 | L-0005 | 2026-09-23 | `codex/tracker-v3` / read-only event alpha change | Пройден Gate 0; реализованы WP1.1–WP1.2 без production writes | D-012, `event-contract-v1.md`, synthetic layout benchmark, `scripts/event_ledger.py`, `tests/test_event_ledger.py` | 221 tests green; strict validation 458/474; tracker/index/contract fresh; `git diff --check` | verified |
 | L-0006 | 2026-09-23 | `codex/tracker-v3` / isolated transaction prototype change | Проверен WP1.3a crash-recovery на synthetic file set; исправлены статусы B-003/B-004 | D-013, `tracker_transaction.py`, `transaction-prototype.md`, fault/kill/concurrency tests; production write path не изменён | 232 tests green; strict validation 458/474; tracker/index/contract fresh; `git diff --check` | verified |
+| L-0007 | 2026-09-24 | `codex/tracker-v3` / shared-lock integration change | Начат WP1.3b: legacy dataset transaction разделяет lock с v3 publisher и восстанавливает pending journal | `tracker_write.py`, transaction tests, fixture scripts; event writes не включены | 234 tests green; strict validation 458/474; `git diff --check` | verified |
 
 ## Entry template
 
