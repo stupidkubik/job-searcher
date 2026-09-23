@@ -22,6 +22,7 @@
 | L-0001 | 2026-09-22 | `main` / `6a9d0cc` | Выполнен широкий GitHub landscape review | `docs/github-job-tracker-inspiration-analysis-2026-09-22.md` | full tests green before push | complete |
 | L-0002 | 2026-09-22 | `codex/tracker-v3` / `cb58753` | Импортирован deep research report и создана integration branch | `docs/deep-research-report.md`, docs index | documentation tests 11/11 | complete |
 | L-0003 | 2026-09-22 | `codex/tracker-v3` / current planning change | Создан planning workspace и baseline до изменения кода | `docs/tracker-v3/*` | strict validation, projections and contract fresh; 213 tests green | complete |
+| L-0004 | 2026-09-23 | `codex/tracker-v3` / annotation review change | Разобраны пользовательские пометки и уточнены gates; приняты D-010/D-011 | `annotation-review-2026-09-23.md`, decisions, open issues, plan, risks, verification matrix | 11 documentation tests green; `git diff --check`; targeted inventory 458 jobs | complete |
 
 ## Entry template
 

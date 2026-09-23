@@ -41,7 +41,8 @@
   - store history only in application Markdown.
 - Reason: events unlock inbox, interview rounds and correct analytics without a DB
   migration, while snapshot compatibility limits scope.
-- Open dependencies: B-001–B-005.
+- Open dependencies: B-001/B-002/B-004 для event contract;
+  B-003 для dual-write и B-005 для migration/Gate 1.
 - Acceptance evidence: event prototype, fault tests, migration dry-run.
 
 ## D-004 — make application packets immutable and content-addressed
@@ -62,14 +63,18 @@
 
 - Status: proposed
 - Date: 2026-09-22
-- Decision: LLM may extract requirements/propose links; deterministic code owns
-  scoring, caps and unknown handling. Preference remains separate.
+- Decision: агент извлекает требования, связывает evidence и выставляет
+  итоговый `match_score` 1–10 с обоснованием. Код проверяет schema,
+  evidence links, диапазон и явное отражение eligibility blockers/unknown;
+  preference остаётся отдельной. Правило владения итоговым баллом принято
+  отдельно в D-010.
 - Reason: one score hides hard blockers and model uncertainty.
 - Consequences:
   - stable profile evidence IDs required;
-  - historical analysis version/weights retained;
-  - `match_score` compatibility projection must be documented.
-- Open dependencies: Q-008–Q-009.
+  - historical analysis version and agent rationale retained;
+  - formula-based score не вводится без нового решения;
+  - `match_score` compatibility must be documented.
+- Open dependencies: Q-008; Phase 3 golden corpus.
 
 ## D-006 — separate source observation from listing truth
 
@@ -112,6 +117,30 @@
   checkpoints. Production migration occurs only from a fresh main baseline.
 - Reason: main receives frequent canonical job operation commits; rewriting branch
   history would obscure integration and risk lost data changes.
+
+## D-010 — agent owns the final match score
+
+- Status: accepted
+- Date: 2026-09-23
+- Decision: агент выставляет итоговый `match_score` 1–10. Versioned match
+  artifact сохраняет балл, rationale, eligibility, evidence и confidence;
+  validator проверяет согласованность и диапазон, но не рассчитывает другой
+  балл по скрытым весам.
+- Reason: это явное правило пользователя; численная оценка остаётся суждением
+  агента и должна быть проверяема по сохранённым основаниям.
+- Consequences: существующие баллы остаются legacy snapshot без выдуманного
+  provenance; новый расчет формулой возможен только через отдельное решение.
+
+## D-011 — defer contact graph until real contacts exist
+
+- Status: accepted
+- Date: 2026-09-23
+- Decision: не добавлять contact entity/schema в v3 core. Использовать
+  существующие поля и application cards; вернуться к модели при повторяющихся
+  контактах или необходимости связывать один contact с несколькими jobs.
+- Evidence: текущие 458 jobs содержат 0 `contact_name` и 0 `contact_url`.
+- Consequences: Phase 7 не начинается по одному лишь плану; новый inventory и
+  отдельное решение требуются при появлении данных.
 
 ## Decision template
 

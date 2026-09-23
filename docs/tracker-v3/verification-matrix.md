@@ -28,6 +28,7 @@ git status --short
 | EVT-003 | Event IDs are unique and retries idempotent | duplicate/retry tests | operation result review | 1 |
 | EVT-004 | Original event is never overwritten | filesystem/diff test | correction timeline review | 1 |
 | EVT-005 | Correction chain is deterministic and acyclic | loop/supersession tests | rendered example | 1 |
+| EVT-005a | Correction may recompute an erroneous historical maximum downward without allowing ordinary stage regression | correction/snapshot tests | before/after timeline review | 1 |
 | EVT-006 | Human-only events require explicit confirmation | negative CLI/connector tests | approval flow review | 1 |
 | EVT-007 | Event + snapshot update is atomic | fault-injection transaction tests | rollback rehearsal | 1 |
 | EVT-008 | Snapshot agrees with effective event history | projection mismatch test | sampled migrated jobs | 1 |
@@ -56,11 +57,11 @@ git status --short
 | MAT-001 | Atomic requirements and evidence links are versioned | schema/ref tests | sample analysis | 3 |
 | MAT-002 | Eligibility is separate from preference and evidence | invariant tests | golden corpus review | 3 |
 | MAT-003 | Unknown never silently becomes pass | negative fixtures | false-positive review | 3 |
-| MAT-004 | Same artifact produces same arithmetic score | deterministic test | repeated run report | 3 |
-| MAT-005 | Weights/caps version retained | rescore/history tests | version diff review | 3 |
+| MAT-004 | Same saved artifact preserves the agent score and rationale | serialization/reload test | repeated view review | 3 |
+| MAT-005 | Analysis version and rationale are retained | history/version tests | version diff review | 3 |
 | MAT-006 | Missing/deleted profile evidence is detected | referential tests | remediation UX review | 3 |
 | MAT-007 | Human override requires reason and preserves original | override tests | audit view review | 3 |
-| MAT-008 | `match_score` compatibility is documented and deterministic | projection tests | old/new comparison | 3 |
+| MAT-008 | `match_score` is the validated agent score; legacy values remain distinct | compatibility tests | old/new comparison | 3 |
 
 ## Source health requirements
 

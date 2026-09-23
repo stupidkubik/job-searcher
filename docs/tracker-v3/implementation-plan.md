@@ -13,7 +13,8 @@ V3 добавляет versioned/event memory вокруг существующе
 1. Для каждого отклика можно восстановить подтверждённую историю событий.
 2. Можно доказать, какие JD, профиль, CV, cover letter и ответы составляли
    конкретный application packet.
-3. Match объясняется eligibility, evidence и confidence, а не только числом.
+3. Выставленный агентом match объясняется eligibility, evidence и confidence,
+   а не только числом.
 4. Состояние источника не смешивается с состоянием объявления.
 5. Письмо может предложить lifecycle event, но не записать его без проверки.
 6. Funnel и time-to-stage строятся из событий с известной семантикой.
@@ -157,18 +158,22 @@ browser assistance зависит от packet contract; ни один из ни�
 - минимальный event taxonomy;
 - historical backfill precision;
 - packet location/hash contract;
-- compatibility strategy для `match_score`.
+- compatibility strategy для `match_score` (D-010: итог выставляет агент).
 
 ### Gate 0
 
-Phase 1 получает статус `ready`, если:
+Первый срез WP1.1–WP1.2 получает статус `ready`, если:
 
-- B-001–B-005 resolved;
-- D-003–D-005 accepted или заменены;
+- B-001, B-002 и B-004 resolved;
+- event contract зафиксирован в D-003 или новом decision; полное принятие
+  dual-write части D-003 остаётся условием Gate 1;
 - synthetic scenarios утверждены;
 - current branch синхронизирована с `main`;
 - baseline validation green;
 - implementation slice ограничен event contract + fixtures + validator.
+
+B-003 закрывается до WP1.3 и production dual-write, B-005 — до WP1.5 и Gate 1.
+D-004 принимается до Phase 2, D-005 — до Phase 3; они не блокируют event parser.
 
 ## 7. Phase 1 — append-only application event ledger
 
@@ -382,19 +387,22 @@ Backfill создаёт только то, что доказано structured sn
 - confidence;
 - eligibility blockers;
 - preference/priority;
-- weights/caps/version;
+- version и явное обоснование итогового балла;
 - human override with reason.
 
-### WP3.3. Deterministic scoring
+### WP3.3. Validated agent scoring
 
-LLM может извлекать requirements и предлагать links. Код отвечает за:
+Агент извлекает requirements, предлагает evidence links и выставляет итоговый
+`match_score` с rationale. Код отвечает за:
 
-- arithmetic;
-- hard blocker caps;
-- unknown handling;
-- score range;
-- reproducibility;
-- compatibility projection в `match_score`.
+- schema и диапазон 1–10;
+- видимость hard blockers и unknown рядом с баллом;
+- разрешение evidence links;
+- сохранение версии анализа и rationale;
+- проверяемую совместимость с текущим `match_score`.
+
+Формула, веса или автоматические caps не пересчитывают оценку агента без нового
+решения. Golden corpus проверяет обоснованность и согласованность оценок.
 
 ### WP3.4. Golden corpus
 
@@ -409,7 +417,7 @@ LLM может извлекать requirements и предлагать links. К
 
 ### Gate 3
 
-- одинаковый artifact даёт одинаковый score;
+- один и тот же сохранённый artifact показывает один и тот же балл и rationale;
 - unknown не становится pass;
 - hard blockers видимы отдельно;
 - evidence links разрешаются;

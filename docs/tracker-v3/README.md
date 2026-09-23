@@ -43,19 +43,20 @@
 | [`decisions.md`](decisions.md) | ADR-lite журнал принятых и предложенных решений | решение не удаляется; изменение оформляется новой записью или supersedes |
 | [`risk-register.md`](risk-register.md) | риски, триггеры и меры защиты | на каждом phase gate |
 | [`verification-matrix.md`](verification-matrix.md) | требование → тест → evidence → gate | вместе с контрактом и тестами каждой фазы |
+| [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md) | разбор пользовательских пометок и evidence gaps | historical review; дальнейшие решения в `decisions.md` |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
-| Phase 0 — planning and baseline | active | принять ключевые решения D-003–D-008 |
-| Phase 1 — application event ledger | blocked by design decisions | Gate 1: events + snapshot согласованы |
+| Phase 0 — planning and baseline | active | закрыть B-001, B-002, B-004 и зафиксировать event contract |
+| Phase 1 — application event ledger | blocked by event contract decisions | Gate 1: events + snapshot согласованы |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
 | Phase 5 — inbox reconciliation | deferred until events stabilize | Gate 5: только proposed events |
 | Phase 6 — event analytics | deferred until real event history exists | Gate 6: метрики воспроизводимы |
-| Phase 7 — contacts/outreach | needs demonstrated data density | отдельное решение |
+| Phase 7 — contacts/outreach | deferred by D-011: сейчас нет contact data | новая инвентаризация и решение |
 | Phase 8 — browser assistance/UI/DB | explicitly deferred | только после доказанной потребности |
 
 ## Governance
@@ -106,6 +107,8 @@
 
 ## Первый следующий шаг
 
-Не начинать код Phase 1, пока не разрешены B-001–B-005 и не приняты D-003–D-005.
-Первый implementation slice должен содержать только event contract, fixtures и
-validator; dual-write и migration идут следующими отдельными work packages.
+До первого кода WP1.1–WP1.2 закрыть B-001, B-002, B-004 и зафиксировать event
+contract. B-003 нужен до dual-write, B-005 — до backfill; packet/match решения не
+блокируют event parser. Первый implementation slice содержит только event
+contract, fixtures и validator. Разбор пометок и evidence gaps — в
+[`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

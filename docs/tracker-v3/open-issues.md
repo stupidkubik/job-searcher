@@ -13,7 +13,10 @@
 
 ## Current blocking summary
 
-Phase 0 documentation complete. Начало event implementation блокируют B-001–B-005.
+Для первого среза WP1.1–WP1.2 остаются B-001, B-002 и B-004; B-003 нужен до
+dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочтительные
+направления и оставшиеся доказательства разобраны в
+[`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
 блокируют event/packet foundation.
 
@@ -31,12 +34,13 @@ Phase 0 documentation complete. Начало event implementation блокиру
   - per-event JSON: естественная immutability, но много файлов и дороже projection.
 - Evidence needed: prototype на synthetic 1k/10k events, Git diff readability,
   transaction behavior, lookup/bootstrap cost.
+- Agreed direction: per-job JSONL; выбор остаётся предварительным до prototype.
 - Exit criteria: принято D-003 с exact paths, ordering и retention.
 
 ### B-002 — event identity, ordering and corrections
 
 - Severity: blocker
-- Status: open
+- Status: decision_ready
 - Blocks: WP1.1–WP1.2
 - Questions:
   - UUID/ULID/content-derived ID или operation-provided stable ID?
@@ -44,13 +48,14 @@ Phase 0 documentation complete. Начало event implementation блокиру
   - correction — `supersedes`, compensating event или оба механизма?
   - может ли correction менять только payload или также event type/time?
 - Recommendation to validate: stable operation/event ID + `recorded_at` + explicit
-  `supersedes`; original event never changes.
+  `supersedes`; original event never changes. Направление согласовано; tests на
+  correction chains и idempotency ещё нужны.
 - Exit criteria: correction chains deterministic, loops impossible, retry idempotent.
 
 ### B-003 — dual-write transaction boundary
 
 - Severity: blocker
-- Status: open
+- Status: investigating
 - Blocks: WP1.3
 - Question: как атомарно заменить event artifact, jobs CSV, application card и
   generated projections внутри существующего dataset transaction?
@@ -61,29 +66,34 @@ Phase 0 documentation complete. Начало event implementation блокиру
   - failed projection must not leave canonical pair inconsistent.
 - Evidence needed: fault-injection tests at every replacement boundary.
 - Exit criteria: one service function owns event + snapshot mutation and rollback.
+- Agreed direction: одна внешняя операция для агента/connector; внутренний
+  transaction journal или другой доказанный crash-recovery protocol. См. анализ.
 
 ### B-004 — minimum event taxonomy and projection rules
 
 - Severity: blocker
-- Status: open
+- Status: investigating
 - Blocks: WP1.1
 - Question: какие events входят в v3 core, какие только informational, какие
   изменяют `application_status`, `stage_reached`, `applied_at`, `response_at`?
 - Risk: слишком широкий enum заморозит неудачную domain model; слишком узкий
   снова потеряет interview rounds.
 - Exit criteria: synthetic scenarios имеют однозначную projection table.
+- Agreed direction: минимальный набор и предварительная projection table в
+  анализе; до закрытия проверить все десять synthetic scenarios и correction.
 
 ### B-005 — historical backfill precision
 
 - Severity: blocker
-- Status: open
+- Status: decision_ready
 - Blocks: WP1.5 and Gate 1
 - Questions:
   - date-only `applied_at` становится midnight timestamp или date precision?
   - как обозначить inferred stage without known transition time?
   - создавать ли событие для every rejected row или только known dates?
 - Recommendation: first-class `precision=date|instant|unknown` and
-  `source=migration`; never invent midnight as real occurrence time.
+  `source=migration`; never invent midnight as real occurrence time. Направление
+  согласовано; backfill table и dry-run ещё нужны.
 - Exit criteria: backfill table covers every current lifecycle combination.
 
 ## Packet and evidence issues
@@ -91,13 +101,15 @@ Phase 0 documentation complete. Начало event implementation блокиру
 ### Q-006 — packet path and version identity
 
 - Severity: high
-- Status: open
+- Status: decision_ready
 - Blocks: WP2.1
 - Question: `applications/job-NNNN.packet.json`, versioned directory или packet
   ID files?
 - Need: multiple preparations per job without overwriting history.
 - Candidate: `applications/job-NNNN/packets/<packet-id>.json`, but this changes
   current flat application-card convention and requires migration/docs review.
+- Agreed direction: versioned manifests; flat cards сохраняются до отдельной
+  безопасной миграции со ссылочным audit и rollback rehearsal.
 - Exit criteria: exact path, identity, schema version and lookup rule accepted.
 
 ### Q-007 — hash scope and canonical byte representation
@@ -120,18 +132,21 @@ Phase 0 documentation complete. Начало event implementation блокиру
 - Question: как адресовать факты `config/profile.md`, чтобы обычное редактирование
   Markdown не ломало все historical links?
 - Options: explicit IDs in Markdown, sidecar registry, structured profile source.
+- Preferred prototype: explicit IDs beside profile facts; проверить rename,
+  tombstone и referential validation на fixtures.
 - Risk: sidecar/profile divergence versus noisy IDs in human document.
 - Exit criteria: rename/edit/delete semantics and validator proven on fixtures.
 
 ### Q-009 — compatibility of `match_score`
 
 - Severity: medium
-- Status: open
+- Status: resolved
 - Blocks: WP3.2–WP3.3
-- Question: остаётся ли `match_score` вручную заданным snapshot, становится ли
-  projection или получает version marker?
+- Decision: итоговый `match_score` 1–10 выставляет агент и сохраняет вместе с
+  версией анализа и обоснованием; код проверяет контракт, но не вычисляет балл.
 - Constraint: existing analytics and 1–10 values must remain interpretable.
-- Exit criteria: compatibility and migration table documented.
+- Resolution: D-010, 2026-09-23; legacy значения сохраняются без выдуманного
+  evidence. Schema/validator для нового artifact проверяются в Phase 3.
 
 ## Branch, migration and operations issues
 
@@ -144,6 +159,8 @@ Phase 0 documentation complete. Начало event implementation блокиру
   перед созданием research branch remote получил 44 commits.
 - Plan: no force-push; periodic merge checkpoints; production migration only
   from fresh main; avoid editing canonical CSV during feature development.
+- Direction confirmed; перед cutover проверить ancestry и отсутствие потерянных
+  operation commits.
 - Exit criteria: cutover checklist demonstrates zero lost operation commits.
 
 ### Q-011 — connector contract evolution
@@ -153,17 +170,21 @@ Phase 0 documentation complete. Начало event implementation блокиру
 - Blocks: WP1.4
 - Question: новый `event` command, extension of `status`, или versioned operation
   child? Нужно сохранить v1 compatibility и error taxonomy.
+- Direction confirmed: единый trusted runner и одна операция; форму команды
+  выбрать после event contract.
 - Exit criteria: generated field × command contract, stale precondition and retry
   behavior defined before runner code.
 
 ### Q-012 — bootstrap projections for new artifacts
 
 - Severity: medium
-- Status: open
+- Status: investigating
 - Blocks: Gate 1/2/3
 - Question: какие compact indexes нужны агенту, чтобы не читать полный event,
   packet и match corpus?
 - Exit criteria: measured bootstrap delta and targeted read path.
+- Agreed direction: targeted read по job и никаких новых обязательных индексов
+  до измеренной потребности; измерить на каждом gate.
 
 ## Later-phase issues
 
@@ -173,21 +194,28 @@ Phase 0 documentation complete. Начало event implementation блокиру
 - Status: deferred
 - Topics: Gmail OAuth versus IMAP app password, local session storage, allowlist,
   redaction, retention, deletion, message links, provider error leakage.
+- Direction confirmed: credential/session и raw mail остаются вне Git и CI
+  artifacts; repo хранит только код и synthetic/redacted fixtures. Секреты CI
+  не вводить без отдельного решения о необходимости CI-доступа.
 
 ### Q-014 — inbox proposal retention
 
 - Severity: medium
 - Status: deferred
 - Question: хранить rejected proposals, evidence excerpts или только hashes and
-  reason? Нужно сохранить auditability без лишнего PII.
+  reason? Нужно сохранить auditability без лишнего PII. Направление согласовано,
+  retention policy остаётся вопросом Phase 5.
 
 ### Q-015 — contact graph threshold
 
 - Severity: medium
-- Status: deferred
+- Status: resolved
 - Question: какая фактическая плотность повторяющихся contacts/referrals оправдает
   отдельную schema?
 - Exit criteria: inventory real data before Phase 7.
+- Resolution: D-011, 2026-09-23; 0 заполненных `contact_name` и `contact_url`
+  в 458 jobs. Отдельную contact schema сейчас не вводить; пересмотреть при
+  реальных повторяющихся контактах или multi-job outreach workflow.
 
 ### Q-016 — browser assistance authority
 
@@ -195,10 +223,13 @@ Phase 0 documentation complete. Начало event implementation блокиру
 - Status: deferred
 - Constraint: human presses final Submit. Нужны packet, threat model, permission
   review и maintenance budget до extension prototype.
+- Direction confirmed: эти материалы готовятся перед Phase 8 по отдельному
+  запросу.
 
 ## Resolved issues
 
-Пока нет. При разрешении запись остаётся на месте и получает:
+Q-009 и Q-015 разрешены design-решениями; записи выше остаются на месте.
+При разрешении запись получает:
 
 - `Status: resolved`;
 - ссылку на decision ID;
