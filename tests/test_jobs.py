@@ -456,6 +456,34 @@ class JobsCliTests(unittest.TestCase):
             self.assertEqual(stale.exception.code, "stale_operation")
         self.assertEqual(card.read_text(encoding="utf-8"), "Human-created card\n")
 
+    def test_cli_recovers_killed_csv_and_card_publication(self):
+        self.assertEqual(self.add("CrashCo", "Frontend Developer").returncode, 0)
+        card = next((self.root / "applications").glob("job-*.md"))
+        before = {
+            "jobs": (self.root / "data/jobs.csv").read_bytes(),
+            "sources": (self.root / "data/job_sources.csv").read_bytes(),
+            "card": card.read_bytes(),
+        }
+        args = (
+            "verify", "job-0001", "--listing-status", "closed",
+            "--first-party-verified", "yes", "--apply-verified", "no",
+            "--original-url", "https://careers.example.test/jobs/crash",
+            "--decision-reason", "closed_before_application",
+        )
+        for replacement_count in (0, 1, 2, 3):
+            with self.subTest(replacement_count=replacement_count):
+                environment = {**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": str(replacement_count)}
+                killed = self.invoke(*args, env=environment)
+                self.assertEqual(killed.returncode, 75, killed.stderr)
+                validated = self.invoke("validate", "--strict")
+                self.assertEqual(validated.returncode, 0, validated.stderr)
+                self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before["jobs"])
+                self.assertEqual((self.root / "data/job_sources.csv").read_bytes(), before["sources"])
+                self.assertEqual(card.read_bytes(), before["card"])
+                self.assertFalse((self.root / ".v3-transaction").exists())
+        self.assertEqual(self.invoke(*args).returncode, 0)
+        self.assertEqual(self.rows()[0]["listing_status"], "closed")
+
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)
 

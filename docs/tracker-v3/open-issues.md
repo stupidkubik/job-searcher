@@ -79,6 +79,10 @@
   публикацией. Application cards тоже проверяются по исходной ревизии.
   Остаются readers, connector result,
   generated projections и интеграционные process-crash tests.
+- Progress 2026-09-24: текущие CSV/card writes переведены на journal publisher;
+  CLI read commands выполняют recovery и читают под общим lock. Интеграционный
+  process-kill test проверяет восстановление после каждой замены. Остаются
+  connector result, generated projections, event artifact и другие readers.
 
 ### B-004 — minimum event taxonomy and projection rules
 

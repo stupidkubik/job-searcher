@@ -11,6 +11,7 @@ import tempfile
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime
+from io import StringIO
 from pathlib import Path
 
 try:  # Direct CLI execution places scripts/ on sys.path.
@@ -19,9 +20,9 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
     from scripts.tracker_time import business_date
 
 try:
-    from tracker_transaction import digest, locked, recover_locked
+    from tracker_transaction import StaleRevision, digest, locked, publish, recover_locked
 except ModuleNotFoundError:
-    from scripts.tracker_transaction import digest, locked, recover_locked
+    from scripts.tracker_transaction import StaleRevision, digest, locked, publish, recover_locked
 
 try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_paths import PATHS
@@ -522,6 +523,14 @@ def backup_file(target):
     return backup_path
 
 
+def csv_bytes(fields, rows):
+    stream = StringIO(newline="")
+    writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows({key: row.get(key) or "" for key in fields} for row in rows)
+    return stream.getvalue().encode("utf-8")
+
+
 def apply_dataset_transaction(
     rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict
 ) -> None:
@@ -532,61 +541,48 @@ def apply_dataset_transaction(
             "dataset transaction rejected by validation",
             cli_hint_ru="ingest transaction отклонена:\n  " + "\n  ".join(validation_errors),
         )
-    with dataset_write_lock():
-        if current_dataset_revisions() != expected_revisions:
-            raise ValidationError(
-                "dataset changed after this operation was prepared; retry from a fresh snapshot",
-                code="stale_operation",
-                cli_hint_ru="данные изменились после подготовки операции; повторите её на свежем снимке",
-            )
-        for path, _body, expected_revision in application_writes:
-            current_revision = digest(path.read_bytes()) if path.exists() else None
-            if current_revision != expected_revision:
-                raise ValidationError(
-                    f"application card changed after this operation was prepared: {path}",
-                    code="stale_operation",
-                    cli_hint_ru=f"карточка {path.name} изменилась после подготовки операции; повторите её",
-                )
-        staged, backups, replaced = [], {}, []
-        failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
-        try:
-            failure_after = int(failure_after) if failure_after else None
-        except ValueError:
-            failure_after = None
-        try:
-            staged = [
-                (PATHS.csv_path, stage_csv(PATHS.csv_path, FIELDS, rows)),
-                (PATHS.job_sources_path, stage_csv(PATHS.job_sources_path, JOB_SOURCE_FIELDS, source_rows)),
-            ]
-            staged.extend((path, stage_text(path, body)) for path, body, _revision in application_writes)
-            for target, _temporary in staged:
-                backups[target] = backup_file(target)
-            for index, (target, temporary) in enumerate(staged):
-                if failure_after is not None and index >= failure_after:
-                    raise OSError("injected ingest replacement failure")
-                os.replace(temporary, target)
-                replaced.append(target)
-            post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
-            if post_errors:
-                raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
-        except BaseException:
-            for target in reversed(replaced):
-                backup = backups[target]
-                try:
-                    if backup:
-                        os.replace(backup, target)
-                        backups[target] = None
-                    else:
-                        target.unlink(missing_ok=True)
-                except OSError:
-                    pass
-            raise
-        finally:
-            for _target, temporary in staged:
-                temporary.unlink(missing_ok=True)
-            for backup in backups.values():
-                if backup:
-                    backup.unlink(missing_ok=True)
+    writes = {
+        "data/jobs.csv": csv_bytes(FIELDS, rows),
+        "data/job_sources.csv": csv_bytes(JOB_SOURCE_FIELDS, source_rows),
+    }
+    expected = {
+        "data/jobs.csv": expected_revisions["jobs"],
+        "data/job_sources.csv": expected_revisions["sources"],
+    }
+    for path, body, revision in application_writes:
+        relative = path.relative_to(PATHS.root).as_posix()
+        writes[relative] = body.encode("utf-8")
+        expected[relative] = revision
+
+    def validate_published(_root):
+        post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
+        if post_errors:
+            raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
+
+    failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
+    kill_after = os.environ.get("JOBS_INGEST_KILL_AFTER_REPLACE")
+    failure_after = int(failure_after) if failure_after and failure_after.isdecimal() else None
+    kill_after = int(kill_after) if kill_after and kill_after.isdecimal() else None
+
+    def fault(stage, index):
+        count = index + 1 if index is not None else 0
+        if failure_after is not None and count == failure_after and (
+            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        ):
+            raise OSError("injected ingest replacement failure")
+        if kill_after is not None and count == kill_after and (
+            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        ):
+            os._exit(75)
+
+    try:
+        publish(PATHS.root, writes, expected, validate=validate_published, fault=fault)
+    except StaleRevision as error:
+        raise ValidationError(
+            f"dataset or card changed after this operation was prepared: {error}",
+            code="stale_operation",
+            cli_hint_ru="данные или карточка изменились после подготовки операции; повторите её на свежем снимке",
+        ) from error
 
 
 def parse_field_assignments(pairs):

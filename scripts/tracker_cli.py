@@ -18,6 +18,11 @@ try:  # Direct CLI execution places scripts/ on sys.path.
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_cli.
     from scripts.tracker_time import business_date
 
+try:
+    from tracker_transaction import locked, recover_locked
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import locked, recover_locked
+
 try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_paths import PATHS
     from tracker_schema import (
@@ -813,6 +818,15 @@ def main():
     report.set_defaults(func=cmd_report)
     args = parser.parse_args()
     try:
+        read_commands = {
+            "validate", "dupes", "stale", "todo", "stats", "report",
+            "render-tracker", "render-index",
+        }
+        with locked(PATHS.root) as root:
+            recover_locked(root)
+            if args.command in read_commands:
+                args.func(args)
+                return
         args.func(args)
     except ValidationError as error:
         die(str(error))

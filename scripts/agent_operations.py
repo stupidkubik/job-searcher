@@ -1348,6 +1348,8 @@ def execute(path):
     every OperationError/ValidationError/SystemExit into a rejected result
     (docs/agent-write-path-plan-2026-09-07.md, Э1) instead of letting the
     process die with no result file."""
+    with jobs.dataset_write_lock():
+        pass  # Recover any interrupted canonical publication before inspecting state.
     operation_id = derive_operation_id(path)
     if operation_id is not None and result_path(operation_id).exists():
         raise contract_error(

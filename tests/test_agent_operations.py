@@ -94,7 +94,7 @@ class ApplyOperationScriptTests(unittest.TestCase):
         # Mirror the real checkout: __pycache__ is ignored, and results/ is a
         # tracked directory, so the changed-path allowlist sees a new result as
         # its own path rather than as one collapsed untracked directory.
-        (self.root / ".gitignore").write_text("__pycache__/\n", encoding="utf-8")
+        (self.root / ".gitignore").write_text("__pycache__/\n.v3-transaction.lock\n", encoding="utf-8")
         (self.root / "data" / "operations" / "results" / ".gitkeep").write_text("", encoding="utf-8")
 
         self.git("init", "--bare", str(self.origin), cwd=base)

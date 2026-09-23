@@ -1,9 +1,9 @@
 # V3 multi-file transaction prototype
 
 Статус: WP1.3a prototype проверен 2026-09-23; с 2026-09-24 текущий
-`tracker_write.py` использует его lock и recovery. `jobs.py` и connector runner
-пока не публикуют event ledger через этот протокол; canonical files этим
-work package не меняются. B-003 остаётся открыт.
+`tracker_write.py` публикует CSV и изменяемые application cards через этот
+журнал. Event ledger, connector result и generated views ещё не входят в
+publication set. B-003 остаётся открыт.
 
 ## Что обнаружено в существующем пути
 
@@ -84,5 +84,19 @@ production `jobs.csv`.
 
 Журнал содержит старые байты, в том числе персональные данные. Его пути
 игнорируются Git; после crash он должен быть локальным и доступным только
-владельцу checkout. Перед production use нужны проверка прав доступа и
-ограничение времени хранения abandoned finished directories.
+владельцу checkout. Права 0700/0600 проверяются тестом; для event cutover ещё
+нужна политика срока хранения abandoned finished directories.
+
+## Интеграция 2026-09-24
+
+`apply_dataset_transaction` формирует полные байты jobs/source CSV и карточки,
+передаёт исходные SHA-256 в `publish()` и проверяет итоговый dataset до durable
+commit marker. CLI восстанавливает pending journal перед командой; read-only
+команды держат общий lock на время чтения. Connector runner тоже восстанавливает
+журнал перед обработкой request.
+
+Интеграционный CLI-тест обрывает `verify` до первой замены и после каждой из
+трёх замен (card + два CSV), затем запускает `validate --strict` и проверяет
+полное восстановление исходных байтов. Это защищает текущую canonical пару и
+карточку. Connector result, index/tracker projections и event artifact пока
+публикуются отдельно или ещё не пишутся; поэтому Gate 1 не пройден.
