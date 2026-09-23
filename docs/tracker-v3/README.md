@@ -44,13 +44,14 @@
 | [`risk-register.md`](risk-register.md) | риски, триггеры и меры защиты | на каждом phase gate |
 | [`verification-matrix.md`](verification-matrix.md) | требование → тест → evidence → gate | вместе с контрактом и тестами каждой фазы |
 | [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md) | разбор пользовательских пометок и evidence gaps | historical review; дальнейшие решения в `decisions.md` |
+| [`event-contract-v1.md`](event-contract-v1.md) | exact read-only event schema, projection и layout evidence | versioned contract; production write gated by B-003 |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
-| Phase 0 — planning and baseline | active | закрыть B-001, B-002, B-004 и зафиксировать event contract |
-| Phase 1 — application event ledger | blocked by event contract decisions | Gate 1: events + snapshot согласованы |
+| Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
+| Phase 1 — application event ledger | WP1.1–WP1.2 verified on fixtures | перед WP1.3 закрыть B-003 |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -105,10 +106,10 @@
 - вывод `listing_status=closed` из отсутствия объявления в очередном sweep;
 - копирование AGPL-кода из исследованных проектов.
 
-## Первый следующий шаг
+## Следующий шаг
 
-До первого кода WP1.1–WP1.2 закрыть B-001, B-002, B-004 и зафиксировать event
-contract. B-003 нужен до dual-write, B-005 — до backfill; packet/match решения не
-блокируют event parser. Первый implementation slice содержит только event
-contract, fixtures и validator. Разбор пометок и evidence gaps — в
-[`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
+Первый срез ограничен read-only контрактом, parser, validator и projection;
+production events не создавались. Перед WP1.3 нужно закрыть B-003: доказать
+crash-safe transaction/recovery для event + snapshot + projections и retry
+connector. B-005 остаётся gate для historical backfill. Разбор исходных
+пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

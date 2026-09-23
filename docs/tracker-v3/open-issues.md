@@ -13,8 +13,8 @@
 
 ## Current blocking summary
 
-Для первого среза WP1.1–WP1.2 остаются B-001, B-002 и B-004; B-003 нужен до
-dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочтительные
+Первый read-only срез WP1.1–WP1.2 прошёл Gate 0 по D-012. B-003 остаётся
+блокером dual-write (WP1.3), B-005 — backfill (WP1.5) и Gate 1. Принятые
 направления и оставшиеся доказательства разобраны в
 [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
@@ -25,7 +25,7 @@ dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочт�
 ### B-001 — physical event storage
 
 - Severity: blocker
-- Status: open
+- Status: resolved
 - Blocks: WP1.1
 - Question: один canonical JSONL, per-job files или per-event immutable files?
 - Options:
@@ -34,28 +34,29 @@ dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочт�
   - per-event JSON: естественная immutability, но много файлов и дороже projection.
 - Evidence needed: prototype на synthetic 1k/10k events, Git diff readability,
   transaction behavior, lookup/bootstrap cost.
-- Agreed direction: per-job JSONL; выбор остаётся предварительным до prototype.
-- Exit criteria: принято D-003 с exact paths, ordering и retention.
+- Resolution: D-012, 2026-09-23; per-job JSONL выбран после synthetic 1k/10k
+  benchmark (`scripts/maintenance/bench_event_layouts.py`). Exact path,
+  append order и retention заданы в `event-contract-v1.md`.
 
 ### B-002 — event identity, ordering and corrections
 
 - Severity: blocker
-- Status: decision_ready
+- Status: resolved
 - Blocks: WP1.1–WP1.2
 - Questions:
   - UUID/ULID/content-derived ID или operation-provided stable ID?
   - что упорядочивает одинаковые `occurred_at`?
   - correction — `supersedes`, compensating event или оба механизма?
   - может ли correction менять только payload или также event type/time?
-- Recommendation to validate: stable operation/event ID + `recorded_at` + explicit
-  `supersedes`; original event never changes. Направление согласовано; tests на
-  correction chains и idempotency ещё нужны.
-- Exit criteria: correction chains deterministic, loops impossible, retry idempotent.
+- Resolution: D-012, 2026-09-23; caller-provided ID, UTC `recorded_at` и
+  `supersedes` зафиксированы. Pure validator отвергает duplicate IDs, forks,
+  forward references и неверный порядок. Равенство/конфликт повторного ID
+  задано контрактом; writer retry проверяется в WP1.3 как часть B-003.
 
 ### B-003 — dual-write transaction boundary
 
 - Severity: blocker
-- Status: investigating
+- Status: resolved
 - Blocks: WP1.3
 - Question: как атомарно заменить event artifact, jobs CSV, application card и
   generated projections внутри существующего dataset transaction?
@@ -79,8 +80,9 @@ dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочт�
 - Risk: слишком широкий enum заморозит неудачную domain model; слишком узкий
   снова потеряет interview rounds.
 - Exit criteria: synthetic scenarios имеют однозначную projection table.
-- Agreed direction: минимальный набор и предварительная projection table в
-  анализе; до закрытия проверить все десять synthetic scenarios и correction.
+- Resolution: D-012, 2026-09-23; closed enum и projection table в
+  `event-contract-v1.md`, десять synthetic scenarios и correction проверены в
+  `tests/test_event_ledger.py`. Расширение enum требует versioned contract.
 
 ### B-005 — historical backfill precision
 
@@ -228,7 +230,8 @@ dual-write (WP1.3), B-005 — до backfill (WP1.5) и Gate 1. Предпочт�
 
 ## Resolved issues
 
-Q-009 и Q-015 разрешены design-решениями; записи выше остаются на месте.
+B-001, B-002, B-004, Q-009 и Q-015 разрешены design-решениями; записи выше
+остаются на месте.
 При разрешении запись получает:
 
 - `Status: resolved`;

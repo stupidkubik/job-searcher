@@ -142,6 +142,25 @@
 - Consequences: Phase 7 не начинается по одному лишь плану; новый inventory и
   отдельное решение требуются при появлении данных.
 
+## D-012 — accept the read-only event contract v1
+
+- Status: accepted for WP1.1–WP1.2; production writes remain gated by B-003.
+- Date: 2026-09-23
+- Decision: use one append-only JSONL per canonical job at
+  `data/application_events/job-NNNN.jsonl`; use caller-provided `event_id`,
+  UTC `recorded_at` plus ID ordering, date/instant/unknown business precision,
+  full replacement corrections via `supersedes`, and the minimal event taxonomy
+  in [`event-contract-v1.md`](event-contract-v1.md). Correction projection uses
+  the original event's logical slot. Read-only validation and projection are
+  the first implementation slice.
+- Alternatives: one global JSONL or one JSON per event; content-derived event
+  IDs; mutating an old event when correcting it.
+- Evidence: synthetic 1k/10k layout benchmark, ten lifecycle scenarios,
+  correction/ordering/confirmation tests in `tests/test_event_ledger.py`.
+- Consequences: B-001/B-002/B-004 design questions are resolved. D-003 is
+  still proposed until the write transaction, connector and migration gates
+  have evidence. No production event files are created by this decision.
+
 ## Decision template
 
 ```text

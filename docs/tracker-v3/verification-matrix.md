@@ -30,7 +30,7 @@ git status --short
 | EVT-005 | Correction chain is deterministic and acyclic | loop/supersession tests | rendered example | 1 |
 | EVT-005a | Correction may recompute an erroneous historical maximum downward without allowing ordinary stage regression | correction/snapshot tests | before/after timeline review | 1 |
 | EVT-006 | Human-only events require explicit confirmation | negative CLI/connector tests | approval flow review | 1 |
-| EVT-007 | Event + snapshot update is atomic | fault-injection transaction tests | rollback rehearsal | 1 |
+| EVT-007 | Event + snapshot update is atomic, including process crash and retry | fault/kill injection and recovery tests at each replace boundary | rollback rehearsal and connector result review | 1 |
 | EVT-008 | Snapshot agrees with effective event history | projection mismatch test | sampled migrated jobs | 1 |
 | EVT-009 | `occurred_at` and business date preserve timezone/precision | timezone/date-only fixtures | migration table review | 1 |
 | EVT-010 | Listing closure does not rewrite application history | regression test | timeline review | 1 |
@@ -119,6 +119,13 @@ git status --short
 8. Same job discovered under multiple URLs; events attach to canonical job.
 9. Legacy applied row with date-only precision.
 10. Inbox hypothetical text that must not become an interview event.
+
+WP1.1–WP1.2 evidence (2026-09-23): `tests/test_event_ledger.py` contains all ten
+synthetic scenarios plus malformed fields, IDs, correction chains, timezone,
+confirmation, cross-file identity and mismatch checks. The read-only CLI
+returns nonzero on mismatch. `scripts/maintenance/bench_event_layouts.py`
+measures 1k/10k synthetic event layouts. EVT-007, writer retry and migration
+evidence remain pending for WP1.3/WP1.5; these tests do not authorize writes.
 
 ## Phase evidence package
 

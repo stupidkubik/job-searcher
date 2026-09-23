@@ -1,7 +1,7 @@
 # Tracker v3 — последовательный implementation plan
 
 Дата: 2026-09-22
-Статус: proposed plan; Phase 0 active.
+Статус: Phase 0 Gate 0 passed; WP1.1–WP1.2 implemented on fixtures.
 
 ## 1. Цель
 
@@ -131,7 +131,8 @@ browser assistance зависит от packet contract; ни один из ни�
 
 ### WP0.2. Baseline and fixture inventory
 
-Статус: baseline captured; fixture inventory remains.
+Статус: complete. Baseline сохранён; десять synthetic lifecycle scenarios
+реализованы в `tests/test_event_ledger.py` с ожидаемыми snapshot projections.
 
 Задачи:
 
@@ -150,15 +151,14 @@ browser assistance зависит от packet contract; ни один из ни�
 
 ### WP0.3. Design decisions
 
-До Gate 0 необходимо принять:
+Решения принимаются перед соответствующим work package:
 
-- физический формат event ledger;
-- event identity и correction semantics;
-- dual-write transaction boundary;
-- минимальный event taxonomy;
-- historical backfill precision;
-- packet location/hash contract;
-- compatibility strategy для `match_score` (D-010: итог выставляет агент).
+- до WP1.1: формат event ledger, identity/correction и минимальная taxonomy
+  (принято D-012);
+- до WP1.3: dual-write transaction boundary (B-003);
+- до WP1.5: historical backfill precision (B-005);
+- до WP2.1: packet location/hash contract;
+- до WP3.2: compatibility strategy для `match_score` (D-010: итог выставляет агент).
 
 ### Gate 0
 
@@ -174,6 +174,11 @@ browser assistance зависит от packet contract; ни один из ни�
 
 B-003 закрывается до WP1.3 и production dual-write, B-005 — до WP1.5 и Gate 1.
 D-004 принимается до Phase 2, D-005 — до Phase 3; они не блокируют event parser.
+
+Gate 0 пройден 2026-09-23: D-012 и `event-contract-v1.md` закрыли B-001,
+B-002 и B-004; десять сценариев проверены кодом; baseline validation green;
+после `git fetch origin` ветка не отстаёт от `origin/main`. Проверка Gate 0 не
+разрешает production event writes.
 
 ## 7. Phase 1 — append-only application event ledger
 
@@ -193,17 +198,12 @@ D-004 принимается до Phase 2, D-005 — до Phase 3; они не �
 - допустимые transitions и их связь со snapshot;
 - canonical ordering при одинаковом времени события.
 
-Минимальные event families:
-
-- application submitted/confirmed;
-- acknowledgement/response received;
-- assessment invited/completed;
-- recruiter/technical/final interview invited, scheduled, completed, cancelled;
-- offer received/updated/declined/accepted;
-- rejection received;
-- candidate withdrawal;
-- follow-up sent;
-- correction/supersession metadata.
+Минимальный closed enum, payload и projection закреплены в
+[`event-contract-v1.md`](event-contract-v1.md). В частности, v1 различает
+acknowledgement и содержательный response, assessment, интервью с round ID,
+offer/rejection/withdrawal/ghosted/follow-up и correction/void. Будущие
+`interview_invited`, offer update/accept/decline и другие события требуют
+versioned contract change; они не добавляются по одному только brainstorm.
 
 Не все event types обязаны менять `application_status` или `stage_reached`.
 

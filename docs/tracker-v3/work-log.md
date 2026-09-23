@@ -23,6 +23,7 @@
 | L-0002 | 2026-09-22 | `codex/tracker-v3` / `cb58753` | Импортирован deep research report и создана integration branch | `docs/deep-research-report.md`, docs index | documentation tests 11/11 | complete |
 | L-0003 | 2026-09-22 | `codex/tracker-v3` / current planning change | Создан planning workspace и baseline до изменения кода | `docs/tracker-v3/*` | strict validation, projections and contract fresh; 213 tests green | complete |
 | L-0004 | 2026-09-23 | `codex/tracker-v3` / annotation review change | Разобраны пользовательские пометки и уточнены gates; приняты D-010/D-011 | `annotation-review-2026-09-23.md`, decisions, open issues, plan, risks, verification matrix | 11 documentation tests green; `git diff --check`; targeted inventory 458 jobs | complete |
+| L-0005 | 2026-09-23 | `codex/tracker-v3` / read-only event alpha change | Пройден Gate 0; реализованы WP1.1–WP1.2 без production writes | D-012, `event-contract-v1.md`, synthetic layout benchmark, `scripts/event_ledger.py`, `tests/test_event_ledger.py` | 221 tests green; strict validation 458/474; tracker/index/contract fresh; `git diff --check` | verified |
 
 ## Entry template
 
