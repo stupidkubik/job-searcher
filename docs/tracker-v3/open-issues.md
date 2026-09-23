@@ -75,8 +75,9 @@
   rollback rehearsal remain before resolution. См.
   [`transaction-prototype.md`](transaction-prototype.md).
 - Progress 2026-09-24: `apply_dataset_transaction` теперь использует общий
-  lock и восстанавливает pending journal. Остаются stale-revision защита
-  подготовки до lock, остальные writers/readers, connector result и projections.
+  lock, восстанавливает pending journal и сверяет SHA-256 исходных CSV перед
+  публикацией. Остаются application card revision, readers, connector result,
+  generated projections и интеграционные process-crash tests.
 
 ### B-004 — minimum event taxonomy and projection rules
 

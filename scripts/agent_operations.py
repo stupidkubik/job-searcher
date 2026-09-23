@@ -1085,7 +1085,13 @@ def execute_batch(operation, atomic, stale_conflicts):
     """
     child_results = []
     applied = 0
+    base_rows, base_sources, expected_revisions = jobs.load_for_write()
     with temporary_tracker_workspace() as temp_root:
+        if jobs.load() != base_rows or jobs.load_job_sources() != base_sources:
+            raise jobs.ValidationError(
+                "dataset changed while preparing the batch workspace",
+                code="stale_operation",
+            )
         for index, child in enumerate(operation["operations"]):
             if child["command"] == "add":
                 try:
@@ -1156,7 +1162,9 @@ def execute_batch(operation, atomic, stale_conflicts):
             )
         app_writes = changed_application_writes(temp_root)
     if applied:
-        jobs.apply_dataset_transaction(temp_rows, temp_sources, app_writes)
+        jobs.apply_dataset_transaction(
+            temp_rows, temp_sources, app_writes, expected_revisions=expected_revisions
+        )
     return child_results, warnings, applied
 
 
@@ -1342,6 +1350,7 @@ def execute(path):
             hint="retry with a new operation_id; results are immutable",
         )
     command = peek_command(path)
+    operation = None
     try:
         operation = load_operation(path)
         command = operation["command"]
@@ -1349,6 +1358,23 @@ def execute(path):
     except (OperationError, jobs.ValidationError) as error:
         if operation_id is None:
             raise
+        if operation is not None and isinstance(error, jobs.ValidationError) and error.code == "stale_operation":
+            retry_keys = (
+                ("command", "args") if operation["command"] == "add"
+                else ("command", "atomic", "operations") if operation["command"] == "batch"
+                else ("command", "job_id", "expected", "args")
+            )
+            result = operation_result(
+                operation,
+                status="conflict",
+                risk="medium",
+                details={
+                    "reason": "stale_operation",
+                    "message": "dataset changed while the operation was being prepared; retry on current data",
+                    "retry": {key: operation[key] for key in retry_keys},
+                },
+            )
+            return result, write_result(result)
         result = rejected_result(operation_id, command, error)
         return result, write_result(result)
     except SystemExit as error:

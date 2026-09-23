@@ -10,6 +10,7 @@ import unittest
 from datetime import timedelta
 from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
 from scripts import jobs
 from scripts.tracker_time import business_date
@@ -411,6 +412,16 @@ class JobsCliTests(unittest.TestCase):
         retried = self.invoke("set", "job-0001", "next_action=follow-up")
         self.assertEqual(retried.returncode, 0, retried.stderr)
         self.assertEqual(self.rows()[0]["next_action"], "follow-up")
+
+    def test_dataset_transaction_rejects_stale_prepared_snapshot(self):
+        self.assertEqual(self.add("OriginalCo", "Frontend Developer", "--no-file").returncode, 0)
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            self.assertEqual(self.add("ConcurrentCo", "Frontend Developer", "--no-file").returncode, 0)
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual([row["company"] for row in self.rows()], ["OriginalCo", "ConcurrentCo"])
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)

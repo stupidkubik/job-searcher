@@ -8,6 +8,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+from scripts import agent_operations as ops
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -1135,6 +1138,31 @@ class ErrorTaxonomyTests(unittest.TestCase):
         if before is not None:
             self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         return on_disk
+
+    def test_dataset_race_returns_a_retryable_conflict(self):
+        operation_id = "tax-dataset-race"
+        request = self.write_request(
+            operation_id,
+            {
+                "version": 1,
+                "operation_id": operation_id,
+                "command": "add",
+                "args": {"company": "RaceCo", "role": "Frontend Developer", "source": "Manual"},
+            },
+        )
+        stale = ops.jobs.ValidationError("stale dataset", code="stale_operation")
+        with (
+            patch.object(ops, "ROOT", self.root),
+            patch.object(ops, "REQUESTS_DIR", self.root / "data/operations/requests"),
+            patch.object(ops, "RESULTS_DIR", self.root / "data/operations/results"),
+            patch.object(ops.jobs.PATHS, "root", self.root),
+            patch.object(ops, "apply_add", side_effect=stale),
+        ):
+            result, result_path = ops.execute(request)
+        self.assertEqual(result["status"], "conflict", result)
+        self.assertEqual(result["result"]["reason"], "stale_operation")
+        self.assertEqual(result["result"]["retry"]["args"]["company"], "RaceCo")
+        self.assertEqual(json.loads(result_path.read_text(encoding="utf-8")), result)
 
     def test_every_wave_one_code_produces_a_matching_rejected_result(self):
         row = self.seed_job()

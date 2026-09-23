@@ -19,9 +19,9 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
     from scripts.tracker_time import business_date
 
 try:
-    from tracker_transaction import locked, recover_locked
+    from tracker_transaction import digest, locked, recover_locked
 except ModuleNotFoundError:
-    from scripts.tracker_transaction import locked, recover_locked
+    from scripts.tracker_transaction import digest, locked, recover_locked
 
 try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_paths import PATHS
@@ -62,7 +62,6 @@ try:  # Direct CLI execution places scripts/ on sys.path.
         load,
         load_job_sources,
         norm_url,
-        save_job_sources,
         validate_dataset,
     )
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
@@ -104,7 +103,6 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
         load,
         load_job_sources,
         norm_url,
-        save_job_sources,
         validate_dataset,
     )
 
@@ -119,6 +117,7 @@ class AddPlan:
     app_body: str | None
     source_reference: dict | None
     source_reference_created: bool
+    expected_revisions: dict
 
 
 def today():
@@ -361,8 +360,7 @@ def render_application_card(row, update_existing=False):
 
 
 def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> AddPlan:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     company = clean_value(values.get("company")).strip()
     role = clean_value(values.get("role")).strip()
     original_url = clean_value(values.get("original_url"))
@@ -401,25 +399,27 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
         app_body=app_body,
         source_reference=source_reference,
         source_reference_created=source_reference_created,
+        expected_revisions=expected_revisions,
     )
 
 
 def persist_add(plan: AddPlan) -> Path | None:
     application_writes = ((plan.app_path, plan.app_body),) if plan.app_body is not None else ()
-    apply_dataset_transaction(plan.rows, plan.source_rows, application_writes)
+    apply_dataset_transaction(
+        plan.rows, plan.source_rows, application_writes, expected_revisions=plan.expected_revisions
+    )
     return plan.app_path if plan.app_body is not None else None
 
 
 def add_duplicate_source_reference(values, duplicate_of, force=False):
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     canonical_job = find(rows, duplicate_of)
     reference = build_source_reference(canonical_job["id"], values, today())
     reference, created = prepare_source_reference(source_rows, reference, force=force)
     new_source_rows = [*source_rows, reference] if created else source_rows
     warnings = ensure_dataset_valid(rows, new_source_rows, emit_warnings=False)
     if created:
-        save_job_sources(new_source_rows)
+        apply_dataset_transaction(rows, new_source_rows, expected_revisions=expected_revisions)
     return {
         "job": canonical_job,
         "warnings": warnings,
@@ -452,6 +452,21 @@ def dataset_write_lock():
     with locked(PATHS.root) as root:
         recover_locked(root)
         yield
+
+
+def current_dataset_revisions():
+    """Hash the two canonical inputs while the caller holds the dataset lock."""
+    return {
+        "jobs": digest(PATHS.csv_path.read_bytes()),
+        "sources": digest(PATHS.job_sources_path.read_bytes()),
+    }
+
+
+def load_for_write():
+    """Load one consistent base snapshot and its optimistic revisions."""
+    with dataset_write_lock():
+        revisions = current_dataset_revisions()
+        return load(), load_job_sources(), revisions
 
 
 def stage_csv(target, fields, rows):
@@ -500,7 +515,9 @@ def backup_file(target):
     return backup_path
 
 
-def apply_dataset_transaction(rows: list, source_rows: list, application_writes: tuple = ()) -> None:
+def apply_dataset_transaction(
+    rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict
+) -> None:
     """Replace an already validated dataset or restore every replaced file."""
     validation_errors, _warnings = validate_dataset(rows, source_rows)
     if validation_errors:
@@ -509,6 +526,12 @@ def apply_dataset_transaction(rows: list, source_rows: list, application_writes:
             cli_hint_ru="ingest transaction отклонена:\n  " + "\n  ".join(validation_errors),
         )
     with dataset_write_lock():
+        if current_dataset_revisions() != expected_revisions:
+            raise ValidationError(
+                "dataset changed after this operation was prepared; retry from a fresh snapshot",
+                code="stale_operation",
+                cli_hint_ru="данные изменились после подготовки операции; повторите её на свежем снимке",
+            )
         staged, backups, replaced = [], {}, []
         failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
         try:
@@ -648,12 +671,11 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
 
 
 def set_job(job_id: str, assignments: list, stage: str | None = None) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     apply_job_changes(row, assignments, stage=stage)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows)
+    apply_dataset_transaction(rows, source_rows, expected_revisions=expected_revisions)
     return {"job": row, "warnings": warnings}
 
 
@@ -873,8 +895,7 @@ def apply_status_change(
 
 
 def status_job(job_id: str, **values) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     outcome = apply_status_change(row, **values)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
@@ -882,7 +903,7 @@ def status_job(job_id: str, **values) -> dict:
     if row["application_status"] in {"reviewing", "apply"} or row["applied_at"]:
         application_path, application_body = render_application_card(row, update_existing=True)
     application_writes = ((application_path, application_body),) if application_body is not None else ()
-    apply_dataset_transaction(rows, source_rows, application_writes)
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,
         "warnings": warnings,
@@ -925,12 +946,11 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
 
 
 def screen_job(job_id: str, *, decision_reason: str, notes: str | None = None) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     outcome = apply_screen_decision(row, decision_reason=decision_reason, notes=notes)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows)
+    apply_dataset_transaction(rows, source_rows, expected_revisions=expected_revisions)
     return {"job": row, "warnings": warnings, "outcome": outcome}
 
 
@@ -1110,8 +1130,7 @@ def verify_job(
     next_action_date: str | None = None,
 ) -> dict:
     """Apply a completed first-party verification as one atomic dataset update."""
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     change = apply_verify_changes(
         row,
@@ -1136,7 +1155,7 @@ def verify_job(
         change["passed"],
     )
     application_writes = ((application_path, application_body),) if application_body is not None else ()
-    apply_dataset_transaction(rows, source_rows, application_writes)
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,
         "warnings": warnings,

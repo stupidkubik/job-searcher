@@ -58,9 +58,12 @@ production `jobs.csv`.
    С 2026-09-24 `apply_dataset_transaction` использует prototype lock и
    восстанавливает pending journal перед заменой файлов; тесты проверяют
    взаимное исключение двух путей и recovery. Остальные writers, в том числе
-   прямой `save_job_sources`, ещё требуют аудита. Старые команды пока могут
-   потерять обновления, вычисленные до взятия lock: stale-revision check
-   остаётся обязательным до event cutover.
+   прямые maintenance `save`/`save_job_sources`, ещё требуют аудита. С
+   2026-09-24 `add`/`set`/`status`/`screen`/`verify`/`ingest` и connector batch
+   берут согласованный base snapshot и сравнивают SHA-256 обоих CSV под lock
+   перед заменой. Устаревшая подготовка отвергается; connector возвращает
+   `conflict` с retry-фрагментом. Application card ещё не защищена отдельной
+   ревизией.
 2. Все читатели согласованного набора (snapshot/event/result и нужные generated
    views) должны сначала выполнять recovery и читать под этим lock либо через
    доказанный versioned snapshot. Сейчас только prototype `read_consistent()`
