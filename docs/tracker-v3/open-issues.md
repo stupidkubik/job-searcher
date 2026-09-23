@@ -56,7 +56,7 @@
 ### B-003 — dual-write transaction boundary
 
 - Severity: blocker
-- Status: resolved
+- Status: investigating
 - Blocks: WP1.3
 - Question: как атомарно заменить event artifact, jobs CSV, application card и
   generated projections внутри существующего dataset transaction?
@@ -68,12 +68,17 @@
 - Evidence needed: fault-injection tests at every replacement boundary.
 - Exit criteria: one service function owns event + snapshot mutation and rollback.
 - Agreed direction: одна внешняя операция для агента/connector; внутренний
-  transaction journal или другой доказанный crash-recovery protocol. См. анализ.
+  transaction journal или другой доказанный crash-recovery protocol.
+- Progress 2026-09-23: D-013, isolated journal prototype and process-kill tests
+  pass on synthetic files. Existing `jobs.py` readers/writers, connector result
+  and generated views still use different boundaries; integration tests and
+  rollback rehearsal remain before resolution. См.
+  [`transaction-prototype.md`](transaction-prototype.md).
 
 ### B-004 — minimum event taxonomy and projection rules
 
 - Severity: blocker
-- Status: investigating
+- Status: resolved
 - Blocks: WP1.1
 - Question: какие events входят в v3 core, какие только informational, какие
   изменяют `application_status`, `stage_reached`, `applied_at`, `response_at`?

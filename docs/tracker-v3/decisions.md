@@ -161,6 +161,22 @@
   still proposed until the write transaction, connector and migration gates
   have evidence. No production event files are created by this decision.
 
+## D-013 — prototype recoverable file-set publication before integration
+
+- Status: accepted for isolated WP1.3a prototype; not yet a production write
+  protocol.
+- Date: 2026-09-23
+- Decision: test a single-lock fileset publisher with expected old hashes,
+  durable backups/manifest, fsynced replacements, commit marker and repeatable
+  recovery before changing `jobs.py` or connector operations. Include the
+  immutable operation result in the demonstrated file set.
+- Evidence: [`transaction-prototype.md`](transaction-prototype.md),
+  `scripts/tracker_transaction.py` and process-kill/fault/concurrency tests in
+  `tests/test_tracker_transaction.py`.
+- Consequences: B-003 remains investigating until readers, existing writers,
+  connector results and generated projections share the integrated boundary
+  and pass the same crash/retry tests.
+
 ## Decision template
 
 ```text

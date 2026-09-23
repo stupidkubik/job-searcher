@@ -45,13 +45,14 @@
 | [`verification-matrix.md`](verification-matrix.md) | требование → тест → evidence → gate | вместе с контрактом и тестами каждой фазы |
 | [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md) | разбор пользовательских пометок и evidence gaps | historical review; дальнейшие решения в `decisions.md` |
 | [`event-contract-v1.md`](event-contract-v1.md) | exact read-only event schema, projection и layout evidence | versioned contract; production write gated by B-003 |
+| [`transaction-prototype.md`](transaction-prototype.md) | результаты изолированных crash/recovery tests и integration gaps | WP1.3a prototype; production path не подключён |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.2 verified on fixtures | перед WP1.3 закрыть B-003 |
+| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified | WP1.3b integration, затем закрыть B-003 |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -108,8 +109,9 @@
 
 ## Следующий шаг
 
-Первый срез ограничен read-only контрактом, parser, validator и projection;
-production events не создавались. Перед WP1.3 нужно закрыть B-003: доказать
-crash-safe transaction/recovery для event + snapshot + projections и retry
-connector. B-005 остаётся gate для historical backfill. Разбор исходных
+Read-only контракт и isolated transaction prototype прошли тесты; production
+events не создавались. Следующий срез WP1.3b должен подключить общий
+crash-safe transaction/recovery к event + snapshot + result/projections,
+читателям и connector retry; только после интегрированных тестов B-003 можно
+закрыть. B-005 остаётся gate для historical backfill. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

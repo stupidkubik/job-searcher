@@ -127,6 +127,12 @@ returns nonzero on mismatch. `scripts/maintenance/bench_event_layouts.py`
 measures 1k/10k synthetic event layouts. EVT-007, writer retry and migration
 evidence remain pending for WP1.3/WP1.5; these tests do not authorize writes.
 
+WP1.3a evidence (2026-09-23): `tests/test_tracker_transaction.py` kills a child
+process after preparation, each replacement and commit marker; checks recovery,
+normal faults, stale hashes, corrupt backup, cleanup failure, owner-only journal
+and two-process race. EVT-007 remains pending for integrated `jobs.py`/connector
+readers, immutable result, generated views and current-data rollback rehearsal.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:
