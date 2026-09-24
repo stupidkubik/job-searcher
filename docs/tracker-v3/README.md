@@ -1,6 +1,6 @@
 # Tracker v3 planning workspace
 
-Статус: active design workspace on branch `codex/tracker-v3`.
+Статус: Phase 1 merged to `main`; remaining phases are planned or deferred.
 
 > Эти документы описывают подготовку и рекомендуемую последовательность работ.
 > Они не заменяют `AGENTS.md`, `data/schema.md`, operation contract или текущую
@@ -9,8 +9,8 @@
 ## Цель workspace
 
 Подготовить следующую версию трекера без преждевременного переписывания
-работающей системы. V3 должна добавить память о событиях после отклика,
-воспроизводимые application packets и доказательный анализ соответствия,
+работающей системы. V3 добавляет память о событиях после отклика и готовит
+доказательный анализ соответствия. Полные application packets отложены D-019,
 сохранив сильные стороны текущего проекта:
 
 - Git-аудируемый canonical state;
@@ -49,17 +49,18 @@
 | [`reader-audit.md`](reader-audit.md) | аудит согласованного чтения и legacy writers после event integration | при изменении reader/write path |
 | [`rehearsal-2026-09-24.md`](rehearsal-2026-09-24.md) | WP1.3 fault/recovery rehearsal на копии текущих данных | новый отчёт перед cutover |
 | [`gate-1-checkpoint-2026-09-24.md`](gate-1-checkpoint-2026-09-24.md) | Gate 1 audit, D-016 safety fence и B-006 cutover blocker | обновить после решения B-006 и fresh-main rehearsal |
-| [`cutover-2026-09-24.md`](cutover-2026-09-24.md) | D-017 migration, rollback evidence и branch-local Gate 1 checkpoint | post-merge validation on `main` |
+| [`cutover-2026-09-24.md`](cutover-2026-09-24.md) | D-017 migration, rollback evidence и historical branch-local Gate 1 checkpoint | при новом cutover |
+| [`matching-pilot-2026-09-24.md`](matching-pilot-2026-09-24.md) | D-020: восемь существующих решений и проверка лёгкого формата объяснения | после нескольких новых полных разборов |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | D-017 historical migration applied on integration branch; 45 jobs / 53 events | Gate 1 post-merge verification on `main` |
-| Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
-| Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
-| Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
+| Phase 1 — application event ledger | Gate 1 passed: PR #21 merged; 45 jobs / 53 events; validation and views green | поддерживать event contract |
+| Phase 2 — application packet manifest | deferred by D-019 for this single-user tracker | вернуться при конкретной потере сведений о материалах |
+| Phase 3 — evidence-backed matching | D-020 retrospective pilot complete; prospective short-summary trial next | full Gate 3 only if demonstrated need |
+| Phase 4 — source health/freshness | first Himalayas run-outcome slice implemented | Gate 4: other sources, observation and alert scope pending |
 | Phase 5 — inbox reconciliation | deferred until events stabilize | Gate 5: только proposed events |
 | Phase 6 — event analytics | deferred until real event history exists | Gate 6: метрики воспроизводимы |
 | Phase 7 — contacts/outreach | deferred by D-011: сейчас нет contact data | новая инвентаризация и решение |
@@ -113,14 +114,10 @@
 
 ## Следующий шаг
 
-CLI и connector `event` реализованы с dry-run/contract validation и закрытой
-по умолчанию записью; production events не создавались. Transaction boundary,
-reader audit, current-data rehearsal, connector result и CI allowlist проверены.
-WP1.5 historical backfill precision, default dry-run and temporary-copy
-rehearsal are documented in [historical-backfill.md](historical-backfill.md).
-WP1.6 adds a read-only per-job `jobs.py timeline` view with correction state,
-evidence and the snapshot's next commitment. D-017 selects explicit `event`
-for post-application changes and a separate confirmed `set` for `cv_version`.
-Gate 1 проверен локально на integration branch; deployed cutover ждёт merge и
-post-merge validation на `main`. Разбор исходных
-пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
+PR #21 объединил event ledger и историческую миграцию с `main`. Проверки PR,
+strict validation и freshness generated views прошли на том же дереве файлов.
+Post-application изменения идут через `event`; подтверждённый `cv_version` —
+через ограниченный `set`. D-019 откладывает full packet workflow и Q-006/Q-007:
+при появлении реальной проблемы с идентификацией отправленного CV сначала
+рассмотреть минимальную фиксацию файла и SHA-256. Следующая активная работа
+может идти по Phase 3 без Gate 2.

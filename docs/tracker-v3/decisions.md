@@ -47,7 +47,7 @@
 
 ## D-004 — make application packets immutable and content-addressed
 
-- Status: proposed
+- Status: superseded by D-019; never adopted as a required workflow
 - Date: 2026-09-22
 - Decision: every prepared/submitted packet records schema version, profile/JD
   revision, artifact paths and SHA-256 hashes. Historical packet manifests are
@@ -58,6 +58,9 @@
   - raw byte hash is identity; path is locator;
   - stale file is detected, not silently accepted.
 - Open dependencies: Q-006–Q-007.
+
+The original proposal is retained for historical context. D-019 removes it
+from the active v3 scope.
 
 ## D-005 — decompose match into evidence, confidence and eligibility
 
@@ -100,13 +103,14 @@
 
 - Status: accepted for v3 core
 - Date: 2026-09-22
-- Decision: no database/UI/browser platform work until event and packet contracts
-  are stable and measured pain justifies the maintenance surface.
+- Decision: no database/UI/browser platform work until the relevant contracts
+  are stable and measured pain justifies the maintenance surface. D-019 later
+  removed packet work as a prerequisite for unrelated tracker phases.
 - Reason: current high-value changes fit versioned files and existing CLI.
 - Revisit trigger:
   - measured performance ceiling;
   - interaction impossible through CLI/generated view;
-  - stable packet/event APIs;
+  - stable event API; a materials contract if browser assistance needs one;
   - explicit threat model and maintenance budget.
 
 ## D-009 — use the public v3 branch as an integration branch without force-push
@@ -255,7 +259,8 @@
 
 ## D-018 — accept the branch-local application event cutover
 
-- Status: accepted on the integration branch; deployment to `main` pending.
+- Status: accepted on the integration branch; deployed through PR #21 on
+  2026-09-24, with passing PR checks and post-merge tree validation.
 - Date: 2026-09-24
 - Supersedes: D-003's proposed dual-write boundary with the D-017 explicit
   `event` API and documented legacy `status` exception.
@@ -269,6 +274,59 @@
   277 tests and fresh generated views.
 - Consequences: branch-local Gate 1 evidence is complete. Main deployment
   still needs review/merge and validation of the merged state.
+
+## D-019 — defer full application packets for the single-user tracker
+
+- Status: accepted by the user on 2026-09-24
+- Date: 2026-09-24
+- Supersedes: D-004
+- Decision: do not require packet manifests, packet IDs, JD/profile snapshots,
+  or per-artifact hashes in the current application workflow. Defer Phase 2 and
+  Q-006/Q-007. Existing `cv_version`, application cards, Git history, and
+  human-confirmed `application_submitted` events remain the working record.
+- Reason: this is a single-user tracker, not a web platform. The full packet
+  workflow would add routine steps without a demonstrated loss of information
+  in the current workflow.
+- Revisit trigger: a concrete case where multiple CVs or other submitted
+  materials cannot be identified reliably, or where a changed/missing file
+  prevents a needed audit. Start with the smallest explicit record of the
+  submitted file path and SHA-256 if that case arises; choose a write contract
+  then. A full packet requires a separate decision and privacy review.
+- Consequences: no new packet requirement for future submissions, no event
+  schema change for `packet_id`, and no packet dependency for Phase 3 or 4.
+  Historical applications need no packet backfill.
+
+## D-020 — pilot lightweight match explanations before Phase 3 schema work
+
+- Status: accepted by the user on 2026-09-24
+- Date: 2026-09-24
+- Decision: use a bounded retrospective sample and a short score/reason,
+  gap-or-unknown, and decision summary in future full reviews before adding
+  profile evidence IDs or versioned match artifacts. Do not rescore or backfill
+  historical jobs to manufacture missing rationale.
+- Evidence: [eight-record matching pilot](matching-pilot-2026-09-24.md) found
+  substantive analysis in four cards, readable rationale somewhere in seven
+  records, and one stored score without recoverable rationale in reviewed fields.
+- Consequences: Q-008 and D-005 remain open for the full Phase 3 proposal;
+  neither blocks the lightweight trial. No new canonical field, index, or
+  operation is introduced by this decision.
+
+## D-021 — start source health with a read-only Himalayas run outcome
+
+- Status: accepted for the first Phase 4 slice on 2026-09-24
+- Date: 2026-09-24
+- Decision: classify each Himalayas adapter run as `success`, `zero_results`,
+  `partial`, `auth_required`, `blocked`, `rate_limited`, `parse_error` or
+  `request_failed`. Preserve an immutable read-only artifact for failed
+  `--artifact` runs and mark incomplete runs explicitly. Only a complete run
+  may write an inbox raw batch.
+- Reason: a failed adapter run must not appear to be an empty vacancy feed.
+  The existing workflow already uploads a short-lived read-only artifact, so
+  this adds no step to the user's application workflow.
+- Consequences: D-006's separation of source observation and canonical listing
+  truth is exercised for one adapter. No `listing_status`, job row or source
+  reference changes from a run outcome. Broader `last_seen` storage, source
+  projection and quiet-board alerts remain decisions for later Phase 4 work.
 
 ## Decision template
 
