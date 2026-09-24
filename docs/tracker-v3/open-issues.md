@@ -198,7 +198,8 @@ Q-006 and Q-007 do not block work on matching or source health.
 
 - Severity: high
 - Status: open
-- Blocks: WP3.1
+- Blocks: full WP3.1 and versioned match artifacts; not D-020's lightweight
+  summary trial
 - Question: как адресовать факты `config/profile.md`, чтобы обычное редактирование
   Markdown не ломало все historical links?
 - Options: explicit IDs in Markdown, sidecar registry, structured profile source.
@@ -206,6 +207,9 @@ Q-006 and Q-007 do not block work on matching or source health.
   tombstone и referential validation на fixtures.
 - Risk: sidecar/profile divergence versus noisy IDs in human document.
 - Exit criteria: rename/edit/delete semantics and validator proven on fixtures.
+- D-020 first tests whether the existing card and notes meet the single-user
+  need; see `matching-pilot-2026-09-24.md`. Do not assign IDs to profile facts
+  solely for this pilot.
 
 ### Q-009 — compatibility of `match_score`
 

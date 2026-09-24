@@ -399,6 +399,12 @@ reconstructed from a hash.
 
 ## 9. Phase 3 — evidence-backed matching
 
+Status: D-020 lightweight pilot completed on eight historical records; use its
+three-part summary prospectively before starting WP3.1–WP3.4. Q-008 and D-005
+remain decisions for the full schema path, not blockers for the pilot. See
+[matching-pilot-2026-09-24.md](matching-pilot-2026-09-24.md). No historical
+scores or job statuses were changed.
+
 Цель: разложить match на проверяемые компоненты, сохранив совместимость с
 текущим `match_score`.
 

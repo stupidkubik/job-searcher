@@ -50,6 +50,7 @@
 | [`rehearsal-2026-09-24.md`](rehearsal-2026-09-24.md) | WP1.3 fault/recovery rehearsal на копии текущих данных | новый отчёт перед cutover |
 | [`gate-1-checkpoint-2026-09-24.md`](gate-1-checkpoint-2026-09-24.md) | Gate 1 audit, D-016 safety fence и B-006 cutover blocker | обновить после решения B-006 и fresh-main rehearsal |
 | [`cutover-2026-09-24.md`](cutover-2026-09-24.md) | D-017 migration, rollback evidence и historical branch-local Gate 1 checkpoint | при новом cutover |
+| [`matching-pilot-2026-09-24.md`](matching-pilot-2026-09-24.md) | D-020: восемь существующих решений и проверка лёгкого формата объяснения | после нескольких новых полных разборов |
 
 ## Статус программы
 
@@ -58,7 +59,7 @@
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
 | Phase 1 — application event ledger | Gate 1 passed: PR #21 merged; 45 jobs / 53 events; validation and views green | поддерживать event contract |
 | Phase 2 — application packet manifest | deferred by D-019 for this single-user tracker | вернуться при конкретной потере сведений о материалах |
-| Phase 3 — evidence-backed matching | planned; independent of Phase 2 | Gate 3: golden corpus подтверждает модель |
+| Phase 3 — evidence-backed matching | D-020 retrospective pilot complete; prospective short-summary trial next | full Gate 3 only if demonstrated need |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
 | Phase 5 — inbox reconciliation | deferred until events stabilize | Gate 5: только proposed events |
 | Phase 6 — event analytics | deferred until real event history exists | Gate 6: метрики воспроизводимы |

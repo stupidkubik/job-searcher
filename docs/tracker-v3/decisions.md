@@ -296,6 +296,21 @@ from the active v3 scope.
   schema change for `packet_id`, and no packet dependency for Phase 3 or 4.
   Historical applications need no packet backfill.
 
+## D-020 — pilot lightweight match explanations before Phase 3 schema work
+
+- Status: accepted by the user on 2026-09-24
+- Date: 2026-09-24
+- Decision: use a bounded retrospective sample and a short score/reason,
+  gap-or-unknown, and decision summary in future full reviews before adding
+  profile evidence IDs or versioned match artifacts. Do not rescore or backfill
+  historical jobs to manufacture missing rationale.
+- Evidence: [eight-record matching pilot](matching-pilot-2026-09-24.md) found
+  substantive analysis in four cards, readable rationale somewhere in seven
+  records, and one stored score without recoverable rationale in reviewed fields.
+- Consequences: Q-008 and D-005 remain open for the full Phase 3 proposal;
+  neither blocks the lightweight trial. No new canonical field, index, or
+  operation is introduced by this decision.
+
 ## Decision template
 
 ```text
