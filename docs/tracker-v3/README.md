@@ -116,6 +116,7 @@ CLI и connector `event` реализованы с dry-run/contract validation �
 reader audit, current-data rehearsal, connector result и CI allowlist проверены.
 WP1.5 historical backfill precision, default dry-run and temporary-copy
 rehearsal are documented in [historical-backfill.md](historical-backfill.md).
-Следующий срез — WP1.6 timeline projection; Gate 1 пока открыт.
+WP1.6 adds a read-only per-job `jobs.py timeline` view with correction state,
+evidence and the snapshot's next commitment. Gate 1 пока открыт.
 B-005 остаётся его gate. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

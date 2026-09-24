@@ -304,6 +304,9 @@ Backfill создаёт только то, что доказано structured sn
 
 ### WP1.6. Timeline projection
 
+Status: read-only targeted CLI implemented; see `jobs.py timeline job-NNNN`
+and [jobs-cli.md](../jobs-cli.md). Production history remains unmigrated.
+
 Добавить read-only human view:
 
 - события по job;
@@ -313,6 +316,14 @@ Backfill создаёт только то, что доказано structured sn
 - без нового interactive UI.
 
 ### Gate 1
+
+Status after WP1.6 (2026-09-24): open. The timeline and historical dry-run
+requirements have evidence, but D-003 is still proposed and the production
+event write gate remains disabled. The existing `status` command still writes
+only the snapshot; the separate `event` path atomically writes event and
+snapshot on fixtures. Before declaring Gate 1, decide and verify the cutover
+boundary for lifecycle writes, rerun migration/recovery on fresh `main`, and
+review all criteria below. This WP1.6 pass does not change production data.
 
 - event contract documented;
 - event validator and projection deterministic;

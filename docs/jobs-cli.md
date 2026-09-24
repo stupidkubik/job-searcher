@@ -306,6 +306,23 @@ python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --forma
 окружение задаёт `TRACKER_V3_EVENT_WRITES=1`; до этого запуск без `--dry-run`
 возвращает `write_disabled` и не меняет файлы.
 
+## V3 timeline (read-only)
+
+`timeline` показывает историю только одной заявки, сверяя эффективные события
+с текущими четырьмя lifecycle-полями snapshot. Вывод включает исходные и
+исправленные события, `evidence_ref`, точность даты, источник и следующий шаг
+из `next_action` / `next_action_date`.
+
+```bash
+python3 scripts/jobs.py timeline job-0001 --format json
+```
+
+Если event file ещё нет, `history_state=legacy_snapshot_only` для старого
+отклика означает именно отсутствие мигрированной истории, а не отсутствие
+фактических событий. `superseded` показывает заменённую запись, `void_marker`
+— завершающее исправление, отменяющее ошибочный факт. При расхождении ledger
+и snapshot команда возвращает `snapshot_mismatch` без изменения данных.
+
 ## Разовый repair старого Himalayas batch
 
 Для 24 screening-записей `job-0099…job-0126`, кроме `job-0102`, `job-0110`,

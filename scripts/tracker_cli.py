@@ -169,6 +169,59 @@ def print_json(payload):
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
 
 
+def cmd_timeline(args):
+    """Show one validated application history and its current commitment."""
+    try:
+        from tracker_timeline import read_timeline
+        from event_ledger import EventValidationError
+    except ModuleNotFoundError:
+        from scripts.tracker_timeline import read_timeline
+        from scripts.event_ledger import EventValidationError
+    try:
+        timeline = read_timeline(PATHS.root, args.job_id)
+    except (EventValidationError, TransactionError, OSError, UnicodeError, KeyError) as error:
+        code = error.code if isinstance(error, EventValidationError) else (
+            "recovery_error" if isinstance(error, TransactionError) else "read_error"
+        )
+        payload = {"ok": False, "command": "timeline", "error": {"code": code, "message": str(error)}}
+        if args.format == "json":
+            print_json(payload)
+        else:
+            print(f"error: {error}", file=sys.stderr)
+        raise SystemExit(1)
+    if args.format == "json":
+        print_json({"ok": True, "command": "timeline", **timeline})
+        return
+    print(f"{timeline['job_id']}  {timeline['company']} — {timeline['role']}")
+    snapshot = timeline["snapshot"]
+    print(f"Snapshot: {snapshot['application_status']}; stage={snapshot['stage_reached']}; "
+          f"applied={snapshot['applied_at'] or '—'}; response={snapshot['response_at'] or '—'}")
+    if timeline["history_state"] == "legacy_snapshot_only":
+        print("History: legacy snapshot only; event history has not been migrated")
+    elif timeline["history_state"] == "no_application_events":
+        print("History: no application events recorded")
+    else:
+        print("History (recorded order):")
+        for item in timeline["events"]:
+            occurred = item["occurred_at"] or "unknown"
+            precision = "date only" if item["precision"] == "date" else item["precision"]
+            print(f"  {occurred} ({precision})  {item['event_type']}  [{item['state']}] "
+                  f"id={item['event_id']}")
+            print(f"    recorded={item['recorded_at']}  source={item['source']}  "
+                  f"actor={item['actor']}  confirmed_by_user={str(item['confirmed_by_user']).lower()}")
+            if item["supersedes"]:
+                print(f"    corrects={item['supersedes']}")
+            if item["superseded_by"]:
+                print(f"    superseded_by={item['superseded_by']}")
+            if item["evidence_ref"]:
+                print(f"    evidence={item['evidence_ref']}")
+            if item["payload"]:
+                print(f"    details={json.dumps(item['payload'], ensure_ascii=False, sort_keys=True)}")
+    commitment = timeline["next_commitment"]
+    print(f"Next commitment: {commitment['action'] or 'none'}"
+          + (f" (due {commitment['date']})" if commitment["date"] else ""))
+
+
 def cmd_event(args):
     """Validate/preview a complete v1 event; writes require cutover enablement."""
     try:
@@ -737,6 +790,10 @@ def main():
     event.add_argument("--dry-run", action="store_true")
     event.add_argument("--format", choices=("text", "json"), default="text")
     event.set_defaults(func=cmd_event)
+    timeline = subparsers.add_parser("timeline", help="показать read-only историю отклика по job ID")
+    timeline.add_argument("job_id", metavar="job-NNNN")
+    timeline.add_argument("--format", choices=("text", "json"), default="text")
+    timeline.set_defaults(func=cmd_timeline)
     add = subparsers.add_parser("add", help="добавить вакансию")
     add.add_argument("--company")
     add.add_argument("--role")

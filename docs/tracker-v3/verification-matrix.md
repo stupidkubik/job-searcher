@@ -36,6 +36,7 @@ git status --short
 | EVT-010 | Listing closure does not rewrite application history | regression test | timeline review | 1 |
 | EVT-011 | Adapter/inbox cannot write event directly | boundary/changed-path tests | workflow permissions review | 1/5 |
 | EVT-012 | Backfill is dry-run safe and idempotent | `test_maintenance_backfill_application_events.py`; temp-copy rehearsal | 458 rows, 45 jobs/53 events, retry 0 pending; CSV unchanged; forced rollback | 1, verified on 2026-09-24 |
+| EVT-013 | One-job timeline shows evidence, precision, correction state and next commitment without changing data | `test_tracker_timeline.py` | legacy and corrected examples reviewed through CLI | 1, verified on 2026-09-24 |
 
 ## Application packet requirements
 
@@ -166,6 +167,13 @@ A temporary-copy apply preserved CSV bytes and exact event projection; a
 second pass found 0 pending jobs. The forced-validation-failure test restored
 the empty ledger. B-005 is resolved. Gate 1 still needs WP1.6 timeline and a
 fresh pre-cutover rehearsal and verification pass.
+
+WP1.6 evidence (2026-09-24): `jobs.py timeline` reads only a requested job's
+event file and current snapshot under the shared lock. Tests cover legacy
+history labels, supersession, void markers, evidence, date precision, next
+commitment and mismatch errors. The live checkout's `job-0001` reports
+`legacy_snapshot_only`, as expected before production migration. Gate 1
+remains open pending its full cutover audit.
 
 ## Phase evidence package
 
