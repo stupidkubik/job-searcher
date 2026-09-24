@@ -1,7 +1,7 @@
 # Tracker v3 — последовательный implementation plan
 
 Дата: 2026-09-22
-Статус: Phase 0 Gate 0 passed; WP1.1–WP1.2 implemented on fixtures.
+Статус: Phase 1 merged as PR #21; full Phase 2 deferred by D-019.
 
 ## 1. Цель
 
@@ -11,8 +11,8 @@ V3 добавляет versioned/event memory вокруг существующе
 Целевой пользовательский результат:
 
 1. Для каждого отклика можно восстановить подтверждённую историю событий.
-2. Можно доказать, какие JD, профиль, CV, cover letter и ответы составляли
-   конкретный application packet.
+2. Сохраняется понятная человеку запись о том, какие материалы отправлены;
+   точные byte-level packets отложены до подтверждённой потребности (D-019).
 3. Выставленный агентом match объясняется eligibility, evidence и confidence,
    а не только числом.
 4. Состояние источника не смешивается с состоянием объявления.
@@ -56,21 +56,17 @@ flowchart TD
 
     PROFILE["Verified profile facts"] --> MATCH["Versioned match analysis"]
     VERIFY --> MATCH
-    MATCH --> PACKET["Application packet manifest"]
-    PROFILE --> PACKET
-
     MAIL["Read-only mailbox"] --> PROPOSALS["Proposed events"]
     PROPOSALS --> REVIEW["Human review"]
     REVIEW --> WRITE
 
     EVENTS --> ANALYTICS["Event-based projections"]
     SNAP --> ANALYTICS
-    PACKET --> EVENTS
 ```
 
 Порядок важен: inbox и analytics зависят от стабильного event contract;
-browser assistance зависит от packet contract; ни один из них не должен
-проектировать core schema задним числом.
+browser assistance при отдельном запуске потребует собственного контракта
+материалов. Matching и source health не зависят от отложенных packets.
 
 ## 5. Delivery model
 
@@ -105,10 +101,10 @@ browser assistance зависит от packet contract; ни один из ни�
 |---|---|---|
 | v3-alpha.1 | event contract, validator, fixtures; без production write | да |
 | v3-alpha.2 | atomic dual-write и timeline projection | да, с feature flag/compatibility path |
-| v3-beta.1 | packet manifests | да |
-| v3-beta.2 | evidence-backed match artifacts | да |
+| v3-beta.1 | evidence-backed match artifacts | да |
+| deferred | packet manifests, только при подтверждённой потребности | да |
 | v3-rc.1 | source health + migration rehearsal + docs | да |
-| v3 stable | verified event/packet cutover и backward compatibility | да |
+| v3 stable | verified event cutover и backward compatibility | да |
 | post-v3 | inbox, analytics, contacts, browser assistance | независимо |
 
 ## 6. Phase 0 — governance, baseline и design freeze
@@ -157,7 +153,8 @@ browser assistance зависит от packet contract; ни один из ни�
   (принято D-012);
 - до WP1.3: dual-write transaction boundary (B-003);
 - до WP1.5: historical backfill precision (B-005);
-- до WP2.1: packet location/hash contract;
+- перед возможным возвратом к WP2.1: новое решение о packet location/hash
+  contract и хранении исходных файлов (D-019);
 - до WP3.2: compatibility strategy для `match_score` (D-010: итог выставляет агент).
 
 ### Gate 0
@@ -173,7 +170,8 @@ browser assistance зависит от packet contract; ни один из ни�
 - implementation slice ограничен event contract + fixtures + validator.
 
 B-003 закрывается до WP1.3 и production dual-write, B-005 — до WP1.5 и Gate 1.
-D-004 принимается до Phase 2, D-005 — до Phase 3; они не блокируют event parser.
+D-004 superseded by D-019; Phase 2 отложена. D-005 принимается до Phase 3;
+она не зависит от packet contract.
 
 Gate 0 пройден 2026-09-23: D-012 и `event-contract-v1.md` закрыли B-001,
 B-002 и B-004; десять сценариев проверены кодом; baseline validation green;
@@ -317,8 +315,8 @@ and [jobs-cli.md](../jobs-cli.md). Production history remains unmigrated.
 
 ### Gate 1
 
-Status after D-017 (2026-09-24): branch-local Gate 1 evidence complete;
-deployment to `main` and post-merge verification pending. The audited
+Status after PR #21 (2026-09-24): Gate 1 merged to `main`; PR checks passed,
+strict validation and generated-view checks passed on the identical tree. The audited
 [cutover report](cutover-2026-09-24.md) records the migration. Post-application lifecycle uses `event`; legacy `status`
 rejects those transitions after cutover. Confirmed `cv_version` uses `set`.
 Historical events and the cutover marker published atomically. This explicitly
@@ -337,6 +335,14 @@ would remain valid.
 - no source/inbox adapter can write events directly.
 
 ## 8. Phase 2 — versioned application packet manifest
+
+Status: deferred by D-019. The work packages and Gate 2 below are retained as
+historical design notes, not active requirements. This single-user tracker does
+not require packet creation for new submissions. Phase 3 and Phase 4 can start
+without Gate 2. Reopen only for a demonstrated materials-tracking problem;
+first consider recording the submitted file path and SHA-256 without a full
+packet. Any hash-only solution must state that missing bytes cannot be
+reconstructed from a hash.
 
 Цель: сделать материалы конкретного отклика воспроизводимыми на byte level.
 
@@ -379,8 +385,8 @@ would remain valid.
 - старые `cv_version`/`cover_letter` остаются валидными legacy snapshot fields;
 - отсутствие packet у старого applied job — known legacy state, не validation
   error всей базы;
-- новые submissions после cutover требуют packet либо explicit documented
-  exception.
+- новые submissions в текущем workflow не требуют packet (D-019); это
+  требование можно ввести только новым решением после возобновления фазы.
 
 ### Gate 2
 
@@ -536,7 +542,7 @@ would remain valid.
 - time in stage;
 - interview/assessment rounds;
 - follow-up debt;
-- conversion by source/CV/packet revision;
+- conversion by source/CV revision; by packet revision only if D-019 is revisited;
 - controllable weekly actions vs outcomes.
 
 Правила:
@@ -575,7 +581,7 @@ artifacts, а не добавлять `contact_2`, `last_contacted`, `linkedin_m
 Browser extension, SPA и database migration требуют отдельного research/design
 gate. Минимальные prerequisites:
 
-- stable packet contract;
+- contract материалов только если реализуется browser-assisted отправка;
 - stable event contract;
 - measured CLI/Markdown UX pain;
 - threat model;
@@ -603,21 +609,21 @@ gate. Минимальные prerequisites:
 Core v3 готов, если:
 
 1. Существующие 458+ jobs и source references проходят migration без потерь.
-2. Human-confirmed status operation атомарно создаёт event и обновляет snapshot.
+2. Human-confirmed `event` operation атомарно создаёт event и обновляет snapshot.
 3. Retry не создаёт duplicate event.
 4. Correction сохраняет старое событие и однозначно меняет projection.
 5. Старые записи без точной истории остаются явно legacy/low precision.
-6. Application packet проверяет точные bytes материалов.
-7. Applied event ссылается на использованный packet или explicit exception.
-8. Match artifact разделяет eligibility/evidence/confidence/preference.
-9. Current CLI и connector v1 остаются совместимы либо имеют документированную
+6. Отправка остаётся действием человека; отсутствие packet не мешает событию
+   `application_submitted` (D-019).
+7. Match artifact разделяет eligibility/evidence/confidence/preference.
+8. Current CLI и connector v1 остаются совместимы либо имеют документированную
    migration path.
-10. Discovery/source workflows остаются read-only.
-11. Full tests, strict validation и all freshness checks green.
-12. Current architecture, schema, CLI docs, AGENTS и roadmap обновлены в cutover
+9. Discovery/source workflows остаются read-only.
+10. Full tests, strict validation и all freshness checks green.
+11. Current architecture, schema, CLI docs, AGENTS и roadmap обновлены в cutover
     commit.
-13. Rollback rehearsal выполнен на свежей копии данных.
-14. Bootstrap context не требует чтения полного event/packet/match corpus.
+12. Rollback rehearsal выполнен на свежей копии данных.
+13. Bootstrap context не требует чтения полного event/match corpus.
 
 ## 17. Рекомендуемый первый implementation slice
 

@@ -13,13 +13,11 @@
 
 ## Current blocking summary
 
-Gate 0 пройден; B-003 и B-005 разрешены после transaction и backfill
-rehearsals. B-006 разрешён D-017: post-application callers переходят на
-`event`, а исторические данные мигрированы в integration branch. D-018
-фиксирует branch-local Gate 1 evidence; deployment на `main` и post-merge
-validation остаются.
+Gate 1 deployed through merged PR #21. B-003, B-005 and B-006 are resolved;
+post-application callers use `event`. D-019 defers full application packets:
+Q-006 and Q-007 do not block work on matching or source health.
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
-блокируют event/packet foundation.
+блокируют текущие tracker phases.
 
 ## Event ledger blockers
 
@@ -168,9 +166,9 @@ validation остаются.
 
 ### Q-006 — packet path and version identity
 
-- Severity: high
-- Status: decision_ready
-- Blocks: WP2.1
+- Severity: deferred; non-blocking now
+- Status: deferred by D-019
+- Blocks: a future full-packet implementation only
 - Question: `applications/job-NNNN.packet.json`, versioned directory или packet
   ID files?
 - Need: multiple preparations per job without overwriting history.
@@ -179,18 +177,22 @@ validation остаются.
 - Agreed direction: versioned manifests; flat cards сохраняются до отдельной
   безопасной миграции со ссылочным audit и rollback rehearsal.
 - Exit criteria: exact path, identity, schema version and lookup rule accepted.
+- Revisit only after a concrete need for multiple packet versions; do not
+  create a packet directory or migrate flat application cards now.
 
 ### Q-007 — hash scope and canonical byte representation
 
-- Severity: high
-- Status: open
-- Blocks: WP2.1–WP2.2
+- Severity: deferred; non-blocking now
+- Status: deferred by D-019
+- Blocks: a future file-hash or full-packet implementation only
 - Questions:
   - hash source DOCX/PDF only or also rendered derivative?
   - normalize line endings for text artifacts or hash raw bytes?
   - how represent `none` and missing?
 - Recommendation: hash raw bytes; derived files each get own hash; no silent
   normalization.
+- A hash detects a changed file but cannot reconstruct missing bytes. Decide
+  artifact retention and privacy alongside any future hash contract.
 
 ### Q-008 — stable profile evidence namespace
 
@@ -294,8 +296,9 @@ validation остаются.
 
 - Severity: blocker for Phase 8; non-blocking now
 - Status: deferred
-- Constraint: human presses final Submit. Нужны packet, threat model, permission
-  review и maintenance budget до extension prototype.
+- Constraint: human presses final Submit. Для extension prototype нужны
+  подходящий контракт материалов, threat model, permission review и
+  maintenance budget; D-019 не требует packet для других фаз.
 - Direction confirmed: эти материалы готовятся перед Phase 8 по отдельному
   запросу.
 

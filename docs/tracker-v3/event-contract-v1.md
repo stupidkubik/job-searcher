@@ -1,8 +1,7 @@
 # Application event contract v1
 
-Статус: контракт проверен на fixtures и 53 date-only migration events в
-integration branch. Marker cutover включает CLI и connector writes; merge в
-`main` ещё ожидается.
+Статус: контракт проверен на fixtures и 53 date-only migration events.
+Marker cutover включает CLI и connector writes; PR #21 слит в `main`.
 
 ## Storage and identity
 

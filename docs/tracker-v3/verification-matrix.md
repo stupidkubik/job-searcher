@@ -37,9 +37,14 @@ git status --short
 | EVT-011 | Adapter/inbox cannot write event directly | boundary/changed-path tests | workflow permissions review | 1/5 |
 | EVT-012 | Backfill is dry-run safe and idempotent | `test_maintenance_backfill_application_events.py`; temp-copy rehearsal | 458 rows, 45 jobs/53 events, retry 0 pending; CSV unchanged; forced rollback | 1, verified on 2026-09-24 |
 | EVT-013 | One-job timeline shows evidence, precision, correction state and next commitment without changing data | `test_tracker_timeline.py` | legacy and corrected examples reviewed through CLI | 1, verified on 2026-09-24 |
-| EVT-014 | Legacy status cannot create a snapshot-only lifecycle fact after event cutover | `test_tracker_event_write.py`; connector rejection test in `test_agent_operations.py` | D-016 safety fence; B-006 compatibility remains open | 1, safety verified on 2026-09-24 |
+| EVT-014 | Legacy status cannot create a snapshot-only lifecycle fact after event cutover | `test_tracker_event_write.py`; connector rejection test in `test_agent_operations.py` | D-016 safety fence; B-006 resolved by D-017 | 1, verified on 2026-09-24 |
 
 ## Application packet requirements
+
+Deferred by D-019. PKT-001–PKT-008 describe the former Gate 2 proposal and
+are not release gates for current v3 work. Re-scope them only after a concrete
+single-user materials-tracking need is documented. Phase 3 does not depend on
+these checks.
 
 | ID | Requirement | Automated evidence | Manual/review evidence | Gate |
 |---|---|---|---|---|
