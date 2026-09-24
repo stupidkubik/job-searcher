@@ -188,6 +188,11 @@ baseline after an injected replacement failure, then applied 53 events for 45
 jobs with an idempotent second pass. Canonical migration remains a separate
 commit.
 
+D-018 cutover evidence: [canonical migration report](cutover-2026-09-24.md)
+records 45 event files / 53 date-only events, the atomic write marker, 0
+snapshot mismatches, unchanged CSV and generated views, and 277 green tests on
+the migrated integration branch. Post-merge verification on `main` remains.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

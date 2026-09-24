@@ -317,10 +317,11 @@ and [jobs-cli.md](../jobs-cli.md). Production history remains unmigrated.
 
 ### Gate 1
 
-Status after D-017 (2026-09-24): open until the production migration commit and
-final verification. Post-application lifecycle uses `event`; legacy `status`
+Status after D-017 (2026-09-24): branch-local Gate 1 evidence complete;
+deployment to `main` and post-merge verification pending. The audited
+[cutover report](cutover-2026-09-24.md) records the migration. Post-application lifecycle uses `event`; legacy `status`
 rejects those transitions after cutover. Confirmed `cv_version` uses `set`.
-Historical events and the cutover marker publish atomically. This explicitly
+Historical events and the cutover marker published atomically. This explicitly
 replaces the original assumption that every post-application v2 `status` call
 would remain valid.
 

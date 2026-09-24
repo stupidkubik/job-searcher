@@ -67,3 +67,5 @@ does not change production data.
 Before a production cutover, rerun the dry-run on fresh `main`, inspect every
 blocked ID and category count, then repeat the temporary-copy apply and
 rollback rehearsal. No production historical events were written in WP1.5.
+The later D-017 migration was applied on `codex/tracker-v3`; see the
+[cutover report](cutover-2026-09-24.md).

@@ -129,12 +129,14 @@ Allowed single commands:
 - `set`: `next_action`, `next_action_date`, `listing_status=closed` after a
   human application, and submitted `cv_version` after a human application.
   `cv_version` requires literal `confirmed_by_user=true` in the same request.
-- `status`: records an explicitly user-confirmed lifecycle event. It requires
+- `status`: retains pre-application transitions only after D-017 cutover.
+  Post-application lifecycle uses `event`; such `status` requests receive a
+  rejected result without changing canonical data. It requires
   `application_status` and the literal boolean `confirmed_by_user=true`;
   optional fields are `stage`, `applied_at`, `response_at`, `decision_reason`,
   `next_action`, `next_action_date`, `cv_version`, and `notes`. It supports all
-  canonical application statuses and remains subject to tracker date, stage,
-  and transition invariants.
+  canonical application statuses at contract-validation time, then applies the
+  cutover fence and tracker date, stage and transition invariants.
 - `event`: a v3 append-only event for one existing job. It requires
   `event_type`, `occurred_at`, `precision`, exact type-specific `payload`, and
   literal `confirmed_by_user=true`; optional `evidence_ref` and `supersedes`.

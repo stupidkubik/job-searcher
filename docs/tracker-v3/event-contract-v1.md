@@ -1,11 +1,12 @@
 # Application event contract v1
 
-Статус: контракт WP1.1–WP1.4 проверен на fixtures. CLI и connector commands
-реализованы, но production writes закрыты feature gate до отдельного cutover.
+Статус: контракт проверен на fixtures и 53 date-only migration events в
+integration branch. Marker cutover включает CLI и connector writes; merge в
+`main` ещё ожидается.
 
 ## Storage and identity
 
-- Canonical target path after a later cutover:
+- Canonical target path:
   `data/application_events/job-NNNN.jsonl`. One complete JSON object per line,
   UTF-8, newline `\n`, no blank lines. Filename `job_id` and row `job_id` must
   agree. Existing lines are never edited or reordered; correction appends a row.
@@ -138,7 +139,7 @@ The mismatch report compares only `application_status`, `stage_reached`,
 `applied_at` and `response_at` for jobs with an event file. Legacy jobs without
 events are not treated as mismatches before migration.
 
-## Alpha boundaries
+## Cutover boundaries
 
 The parser, writer, CLI and connector route are tested on fixtures. Public
 writes require the versioned `config/event-ledger-cutover.json` marker, which is

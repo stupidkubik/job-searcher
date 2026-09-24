@@ -1,6 +1,6 @@
 # Current project architecture
 
-Статус: current — 2026-08-20
+Статус: current on `codex/tracker-v3` — 2026-09-24; deployment to `main` pending.
 
 Этот документ описывает работающую архитектуру репозитория. Обязательные
 поведенческие правила находятся в [`AGENTS.md`](../AGENTS.md), точная схема — в
@@ -11,11 +11,13 @@
 
 | Данные | Роль |
 |---|---|
-| `data/jobs.csv` | единственный canonical список вакансий и lifecycle заявки |
+| `data/jobs.csv` | canonical список вакансий и текущий lifecycle snapshot |
+| `data/application_events/job-*.jsonl` | canonical append-only история подтверждённых событий заявки |
 | `data/job_sources.csv` | many-to-one provenance внешних источников; не существует без canonical job |
 | `applications/job-*.md` | длинный контекст вакансии и материалы; не заменяет CSV facts |
 | `config/profile.md` | подтверждённый профиль кандидата, ограничения и доказательства |
 | `config/sources.toml` | машинная политика включённых discovery adapters |
+| `config/event-ledger-cutover.json` | versioned gate для post-application `event` writes |
 
 `docs/tracker.md`, reports, operation results, raw batches и workflow artifacts
 не являются вторыми источниками истины.
@@ -36,6 +38,7 @@ flowchart LR
     G --> J
     G --> B["audited commit on main"]
     J --> C["jobs.csv + job_sources.csv + application cards"]
+    J --> E["application event ledger"]
     C --> T["generated tracker / reports"]
 ```
 
@@ -56,6 +59,7 @@ data/inbox/                 local immutable JSONL batches (Git-ignored)
 data/operations/            connector requests and immutable results
 data/jobs.csv               canonical jobs
 data/job_sources.csv        canonical provenance references
+data/application_events/    per-job append-only application histories
 data/index/                 generated compact bootstrap projections (render-index)
 applications/               long-form job context
 scripts/jobs.py             thin CLI entry point; re-exports scripts/tracker_*.py
@@ -63,6 +67,8 @@ scripts/tracker_paths.py    filesystem locations (Paths/PATHS)
 scripts/tracker_schema.py   canonical CSV schema, enums, write-path exceptions
 scripts/tracker_validate.py dataset I/O, integrity checks, duplicate detection
 scripts/tracker_write.py    add/set/status/screen/verify and the atomic transaction
+scripts/tracker_event_write.py atomic event + snapshot publisher
+scripts/tracker_timeline.py read-only one-job event timeline
 scripts/tracker_ingest.py   raw-batch ingest
 scripts/tracker_render.py   tracker Markdown, bootstrap indexes, todo/stats
 scripts/tracker_cli.py      argparse plumbing and every `cmd_*` handler
@@ -84,6 +90,13 @@ create operation branches or review PRs: `validate.yml` rejects any pull
 request touching `data/operations/requests/**` before merge, and the operation
 workflow separately refuses to run against a merge commit, so this delivery
 path fails visibly either way.
+
+After D-017, post-application lifecycle changes use `jobs.py event` or a
+single confirmed connector `event` request. The event file, projected CSV
+snapshot, application card and generated views publish through one recoverable
+journal. Legacy `status` is restricted to pre-application transitions;
+submitted `cv_version` uses a separate confirmed `set` request. Historical
+dates were migrated as date-only events without inferred interview rounds.
 
 The final push to `main` can lose a race with a second operation that pushes
 first; `scripts/ci/apply_operation.sh` never rebases over canonical data to

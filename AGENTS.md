@@ -1,7 +1,9 @@
 # Правила работы с этим репозиторием
 
-Это личный трекер поиска работы. Единственный структурированный источник истины —
-`data/jobs.csv`. Схема и допустимые значения: `data/schema.md`. Профиль кандидата:
+Это личный трекер поиска работы. `data/jobs.csv` — canonical snapshot вакансий;
+`data/application_events/job-NNNN.jsonl` — canonical история событий заявки
+после отклика. Схема CSV и допустимые значения: `data/schema.md`, контракт
+событий: `docs/tracker-v3/event-contract-v1.md`. Профиль кандидата:
 `config/profile.md`.
 
 ## Перед любым поиском вакансий
@@ -52,7 +54,7 @@
 
 ## Контракт полей
 
-До сборки любого `add`/`verify`/`set`/`screen`/`status`/`batch` request
+До сборки любого `add`/`verify`/`set`/`screen`/`status`/`event`/`batch` request
 прочитать [`data/operations/contract.md`](data/operations/contract.md) —
 сгенерированную таблицу «команда × поле» с допустимыми значениями и
 инвариантами между полями. Это единственный источник истины по тому, какая
@@ -74,18 +76,21 @@ runner отклонит целиком запросом `rejected` — не пы
   закрыто, независимо от статуса на агрегаторе.
 - **`Remote` сам по себе не значит global remote.** Проверять текст вакансии на
   ограничения по стране и work authorization. Не уверен → `remote_policy=Unclear`.
-- **`application_status=applied` ставится только после фактической отправки
-  заявки человеком.** Агент не отправляет отклики и не ставит `applied`
-  самостоятельно.
+- **`application_status=applied` появляется только после фактической отправки
+  заявки человеком.** Агент не отправляет отклики и не записывает
+  `application_submitted` без явного подтверждения человека.
 - **Никогда не выдумывать факты о кандидате.** Метрики, должности, стек, срок
   опыта — только из `config/profile.md`. Нет доказательства → не писать.
 
 ## Как писать в CSV
 
-- Только через `scripts/jobs.py` (`add` / `set` / `status` / `screen` /
-  `verify` / `ingest` / `render-tracker` / `render-index`). Ручная правка
+- Только через `scripts/jobs.py` (`add` / `set` / `status` / `event` / `screen` /
+  `verify` / `ingest` / `render-tracker` / `render-index`). Post-application
+  lifecycle записывать через `event`; `status` для него после cutover
+  отклоняется. Ручная правка
   canonical CSV — исключение. Разовые исторические миграции (`migrate-v2`,
-  `repair-himalayas-screening`, `backfill-sources`) не входят в `jobs.py`: это
+  `repair-himalayas-screening`, `backfill-sources`, `backfill_application_events`)
+  не входят в `jobs.py`: это
   отдельные скрипты в `scripts/maintenance/`, вне write-path агента.
 - GitHub connector создаёт только immutable request в
   `data/operations/requests/`; trusted GitHub Actions runner применяет request
@@ -154,8 +159,13 @@ python3 scripts/jobs.py verify job-NNNN --listing-status open \
 # Последующие изменения существующей записи задаются как field=value.
 python3 scripts/jobs.py set job-NNNN next_action="follow-up" --format json
 
-# Подтверждённое человеком lifecycle-событие.
-python3 scripts/jobs.py status job-NNNN --application-status rejected --format json
+# Подтверждённое человеком lifecycle-событие: полный v1 JSON по
+# docs/tracker-v3/event-contract-v1.md, сначала --dry-run.
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --format json
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --format json
+
+# Версию реально отправленного CV записывать отдельно от lifecycle-события.
+python3 scripts/jobs.py set job-NNNN cv_version="frontend-2026-09" --format json
 
 # Screening blocker без утверждений о first-party verification.
 python3 scripts/jobs.py screen job-NNNN \
@@ -189,7 +199,8 @@ GitHub connector не исполняет эти shell-команды. Для н�
 ожидаемую семантику, а запись выполняется только созданием одного нового
 immutable request по контракту `data/operations/README.md` непосредственно в
 `main`. Разрешены `screen`,
-`add`, `verify`, `status`, ограниченный `set` и `batch`. `batch.atomic=true`
+`add`, `verify`, `status` только для pre-application, single `event`,
+ограниченный `set` и `batch`. `batch.atomic=true`
 допускает не более 10 операций и откатывает всё при первом же конфликте;
 `batch.atomic=false` допускает до 100 и применяет всех детей, кроме реально
 конфликтующих (`unresolved_duplicate` / `source_reference_conflict` /
@@ -199,9 +210,9 @@ immutable request по контракту `data/operations/README.md` непос
 несут готовый к отправке `retry`-фрагмент под новым `operation_id`.
 `add` разрешён и как batch child со стабильным `client_ref`, а `job_id`
 назначается runner-ом внутри общей транзакции; `ingest` не поддерживается.
-`status` для `applied`, `interviewing`, `offer`,
-`rejected`, `ghosted` и `withdrawn` допустим только после явного подтверждения
-человеком (`confirmed_by_user=true`); агент не выводит эти события сам. Не
+Post-application lifecycle требует single `event` с явным подтверждением
+человека (`confirmed_by_user=true`); агент не выводит эти события сам.
+`set.cv_version` требует такого же подтверждения и уже отправленной заявки. Не
 считать операцию завершённой, пока runner не создал соответствующий result и
 canonical diff в `main`. Дождаться matching result и завершения workflow перед
 отчётом об операции.
@@ -234,9 +245,10 @@ canonical diff в `main`. Дождаться matching result и завершен
 5. Принять решение `apply` или вычисляемое `Skipped` / `Closed` через
    структурированные поля.
 6. Подготовить материалы: CV только из `cv/current/`, cover letter и ответы формы.
-7. Человек отправляет заявку; только после этого выполнить
-   `status <id> --application-status applied --cv-version ...` или создать
-   connector request `status` с `confirmed_by_user=true`.
+7. Человек отправляет заявку; только после его подтверждения записать
+   `application_submitted` через `event` (CLI или single connector request с
+   `confirmed_by_user=true`). Версию отправленного CV затем записать через
+   `set cv_version=...`; connector `set` требует `confirmed_by_user=true`.
 
 ## Файлы
 

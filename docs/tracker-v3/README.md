@@ -49,13 +49,14 @@
 | [`reader-audit.md`](reader-audit.md) | аудит согласованного чтения и legacy writers после event integration | при изменении reader/write path |
 | [`rehearsal-2026-09-24.md`](rehearsal-2026-09-24.md) | WP1.3 fault/recovery rehearsal на копии текущих данных | новый отчёт перед cutover |
 | [`gate-1-checkpoint-2026-09-24.md`](gate-1-checkpoint-2026-09-24.md) | Gate 1 audit, D-016 safety fence и B-006 cutover blocker | обновить после решения B-006 и fresh-main rehearsal |
+| [`cutover-2026-09-24.md`](cutover-2026-09-24.md) | D-017 migration, rollback evidence и branch-local Gate 1 checkpoint | post-merge validation on `main` |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.6 verified; D-017 cutover policy accepted | Gate 1 production migration and final verification |
+| Phase 1 — application event ledger | D-017 historical migration applied on integration branch; 45 jobs / 53 events | Gate 1 post-merge verification on `main` |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -120,5 +121,6 @@ rehearsal are documented in [historical-backfill.md](historical-backfill.md).
 WP1.6 adds a read-only per-job `jobs.py timeline` view with correction state,
 evidence and the snapshot's next commitment. D-017 selects explicit `event`
 for post-application changes and a separate confirmed `set` for `cv_version`.
-Gate 1 пока открыт до canonical migration и итоговой проверки. Разбор исходных
+Gate 1 проверен локально на integration branch; deployed cutover ждёт merge и
+post-merge validation на `main`. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

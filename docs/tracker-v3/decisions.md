@@ -253,6 +253,23 @@
   This is the explicit compatibility exception to the original Gate 1 wording.
   No generic status-to-event conversion is attempted.
 
+## D-018 — accept the branch-local application event cutover
+
+- Status: accepted on the integration branch; deployment to `main` pending.
+- Date: 2026-09-24
+- Supersedes: D-003's proposed dual-write boundary with the D-017 explicit
+  `event` API and documented legacy `status` exception.
+- Decision: keep `jobs.csv` as the current snapshot and
+  `data/application_events/job-NNNN.jsonl` as canonical application history.
+  The 45 historical applications and versioned write marker are published in
+  one recoverable transaction. New human-confirmed lifecycle writes use
+  `event`, which publishes event and snapshot atomically.
+- Evidence: [cutover report](cutover-2026-09-24.md), 53 migrated events, zero
+  projection mismatches, exact-baseline rollback rehearsal, idempotent retry,
+  277 tests and fresh generated views.
+- Consequences: branch-local Gate 1 evidence is complete. Main deployment
+  still needs review/merge and validation of the merged state.
+
 ## Decision template
 
 ```text

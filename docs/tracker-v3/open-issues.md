@@ -14,9 +14,10 @@
 ## Current blocking summary
 
 Gate 0 пройден; B-003 и B-005 разрешены после transaction и backfill
-rehearsals. B-006 получил явное решение D-017: post-application callers
-переходят на `event`, а исторические данные мигрируют. Gate 1 остаётся открыт
-до отдельного production migration/cutover commit и итоговой проверки.
+rehearsals. B-006 разрешён D-017: post-application callers переходят на
+`event`, а исторические данные мигрированы в integration branch. D-018
+фиксирует branch-local Gate 1 evidence; deployment на `main` и post-merge
+validation остаются.
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
 блокируют event/packet foundation.
 
@@ -160,8 +161,8 @@ rehearsals. B-006 получил явное решение D-017: post-applicati
   that updates only the snapshot after cutover.
 - Resolution: D-017 chooses explicit `event` for post-application changes and
   a restricted confirmed `set` for submitted `cv_version`. The compatibility
-  exception is intentional. Final Gate 1 evidence still needs the canonical
-  migration commit and post-cutover verification.
+  exception is intentional. D-018 records the canonical migration and
+  post-cutover verification on the integration branch.
 
 ## Packet and evidence issues
 
