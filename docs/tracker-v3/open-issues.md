@@ -91,6 +91,12 @@
   публикует canonical diff и immutable result одним journal. Process-kill до
   result и после его замены восстанавливает исходное состояние; retry проходит.
   Остаются event artifact, другие readers и полная интеграционная матрица.
+- Progress 2026-09-24: внутренний append подключил event artifact к тому же
+  journal, включая snapshot/card/views. Проверены одинаковый retry, cross-job
+  event ID collision, legacy snapshot mismatch и process-kill recovery. Для
+  существующих event jobs обычная dataset запись откатывается при расхождении
+  projection. Остаются аудит readers, полная fault/race матрица и rehearsal;
+  публичный event contract относится к WP1.4.
 
 ### B-004 — minimum event taxonomy and projection rules
 

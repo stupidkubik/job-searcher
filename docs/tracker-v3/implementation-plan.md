@@ -245,12 +245,13 @@ Tests:
 Статус 2026-09-24: WP1.3a isolated crash-recovery prototype verified по D-013;
 WP1.3b начата с общего lock, recovery и optimistic revision двух CSV и
 изменяемых application cards для `apply_dataset_transaction`.
-Текущие CSV/card/generated-view writes уже проходят через журналируемый publisher; CLI
+Текущие CSV/card/generated-view writes проходят через журналируемый publisher; CLI
 восстанавливает pending journal перед чтением и записью. Connector выполняет
 операцию на временной копии и публикует canonical diff вместе с immutable result
-в одном journal; process-kill и retry проверены. Event dual-write ещё не включён.
-Перед интеграцией event artifact нужно проверить оставшиеся readers и полный
-набор fault/race сценариев. Подробные условия — в
+в одном journal. Внутренний event append теперь атомарно обновляет per-job JSONL,
+snapshot, карточку и generated views; проверены retry, collision и process-kill.
+Публичные event writes ещё не включены. Остаются аудит readers, полный
+fault/race matrix и rehearsal на актуальной временной копии. Подробные условия — в
 [`transaction-prototype.md`](transaction-prototype.md).
 
 Required fault tests:

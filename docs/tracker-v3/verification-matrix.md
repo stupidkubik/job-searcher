@@ -133,6 +133,13 @@ normal faults, stale hashes, corrupt backup, cleanup failure, owner-only journal
 and two-process race. EVT-007 remains pending for integrated `jobs.py`/connector
 readers, immutable result, generated views and current-data rollback rehearsal.
 
+WP1.3b event integration evidence (2026-09-24):
+`tests/test_tracker_event_write.py` checks one journal publication of event,
+snapshot, card and views; identical retry, conflicting/cross-job event ID,
+legacy snapshot divergence and process-kill recovery. EVT-007 remains pending
+for the full integrated fault/race matrix, reader audit and current-data
+rollback rehearsal. The internal append is not a public command.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

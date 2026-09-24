@@ -561,7 +561,8 @@ def projected_artifacts(rows, source_rows, application_writes):
 
 
 def apply_dataset_transaction(
-    rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict
+    rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict,
+    event_write: tuple | None = None,
 ) -> None:
     """Replace an already validated dataset or restore every replaced file."""
     validation_errors, _warnings = validate_dataset(rows, source_rows)
@@ -582,6 +583,13 @@ def apply_dataset_transaction(
         relative = path.relative_to(PATHS.root).as_posix()
         writes[relative] = body.encode("utf-8")
         expected[relative] = revision
+    if event_write is not None:
+        path, body, revision = event_write
+        relative = path.relative_to(PATHS.root).as_posix()
+        if relative != f"data/application_events/{path.stem}.jsonl":
+            raise ValueError("event target must be a per-job JSONL artifact")
+        writes[relative] = body
+        expected[relative] = revision
     for path, data in projected_artifacts(rows, source_rows, application_writes).items():
         relative = path.relative_to(PATHS.root).as_posix()
         writes[relative] = data
@@ -589,11 +597,22 @@ def apply_dataset_transaction(
 
     PATHS.index_dir.mkdir(parents=True, exist_ok=True)
     PATHS.tracker_path.parent.mkdir(parents=True, exist_ok=True)
+    if event_write is not None:
+        event_write[0].parent.mkdir(parents=True, exist_ok=True)
 
     def validate_published(_root):
         post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
         if post_errors:
             raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
+        ledger_dir = PATHS.root / "data" / "application_events"
+        if ledger_dir.is_dir():
+            try:
+                from event_ledger import mismatch_report
+            except ModuleNotFoundError:
+                from scripts.event_ledger import mismatch_report
+            report = mismatch_report(ledger_dir, {row["id"]: row for row in load()})
+            if any(item["mismatches"] for item in report.values()):
+                raise OSError("post-commit event projection disagrees with jobs.csv")
 
     failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
     kill_after = os.environ.get("JOBS_INGEST_KILL_AFTER_REPLACE")

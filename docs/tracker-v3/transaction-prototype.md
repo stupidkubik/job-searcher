@@ -2,8 +2,9 @@
 
 Статус: WP1.3a prototype проверен 2026-09-23; с 2026-09-24 текущий
 `tracker_write.py` публикует CSV, изменяемые application cards и generated
-views через этот журнал. Event ledger и connector result ещё не входят в
-publication set. B-003 остаётся открыт.
+views через этот журнал. Connector result также публикуется в одном journal;
+внутренний event append включил per-job JSONL в publication set. B-003 остаётся
+открыт до полной интеграционной матрицы и rehearsal.
 
 ## Что обнаружено в существующем пути
 
@@ -104,5 +105,7 @@ freshness после успешного retry. Ошибка генерации �
 Connector теперь готовит операцию на временной копии и публикует её diff вместе
 с immutable result в одном journal. Интеграционный тест прерывает публикацию
 до result и после его замены: recovery убирает и canonical diff, и result;
-повтор request затем проходит. Event artifact ещё не входит в journal; Gate 1
-не пройден.
+повтор request затем проходит. Внутренний event append теперь публикует JSONL,
+snapshot, card и generated views атомарно. Тесты проверяют retry, cross-job ID,
+projection mismatch и process-kill recovery. Публичная event операция и
+production backfill ещё не включены; Gate 1 не пройден.

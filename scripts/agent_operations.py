@@ -960,6 +960,8 @@ def temporary_tracker_workspace(*, include_card_revisions=False, include_snapsho
         with jobs.dataset_write_lock():
             shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
             shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
+            if (original_root / "data/application_events").exists():
+                shutil.copytree(original_root / "data/application_events", temp_data / "application_events")
             shutil.copytree(original_root / "applications", temp_apps)
             if (original_root / "data/index").exists():
                 shutil.copytree(original_root / "data/index", temp_data / "index")
@@ -1436,6 +1438,15 @@ def publish_staged_operation(root, writes, expected):
         errors, _warnings = jobs.validate_dataset(jobs.load(), jobs.load_job_sources())
         if errors:
             raise OperationError("published operation failed dataset validation: " + "; ".join(errors))
+        ledger_dir = root / "data/application_events"
+        if ledger_dir.is_dir():
+            try:
+                from event_ledger import mismatch_report
+            except ModuleNotFoundError:
+                from scripts.event_ledger import mismatch_report
+            report = mismatch_report(ledger_dir, {row["id"]: row for row in jobs.load()})
+            if any(item["mismatches"] for item in report.values()):
+                raise OperationError("published operation disagrees with event history")
 
     for name in writes:
         (root / name).parent.mkdir(parents=True, exist_ok=True)

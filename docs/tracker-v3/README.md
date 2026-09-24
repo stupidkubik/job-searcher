@@ -52,7 +52,7 @@
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified; WP1.3b CSV/card/views/connector result journal + recovery | event integration, затем B-003 |
+| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified; WP1.3b internal event append with CSV/card/views journal + recovery | complete B-003 evidence, then WP1.4 |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -109,9 +109,9 @@
 
 ## Следующий шаг
 
-Read-only контракт и isolated transaction prototype прошли тесты; production
-events не создавались. Следующий срез WP1.3b должен подключить общий
-crash-safe transaction/recovery к event + snapshot + result/projections,
-читателям и connector retry; только после интегрированных тестов B-003 можно
-закрыть. B-005 остаётся gate для historical backfill. Разбор исходных
+Внутренний event append теперь проходит через общий crash-safe publisher;
+production events не создавались. Следующий срез WP1.3b должен завершить аудит
+читателей, проверку гонок и полного fault matrix, а затем dry-run/rollback
+rehearsal на свежей временной копии dataset. Public CLI/connector contract
+остаётся WP1.4; B-005 остаётся gate для historical backfill. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
