@@ -13,10 +13,10 @@
 
 ## Current blocking summary
 
-Первый read-only срез WP1.1–WP1.2 прошёл Gate 0 по D-012. B-003 остаётся
-блокером dual-write (WP1.3), B-005 — backfill (WP1.5) и Gate 1. Принятые
-направления и оставшиеся доказательства разобраны в
-[`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
+Gate 0 пройден; B-003 и B-005 разрешены после transaction и backfill
+rehearsals. Gate 1 пока блокирует B-006: cutover должен определить, как
+legacy `status` callers сохраняют совместимость без snapshot-only lifecycle
+записей. Production event writes остаются выключенными.
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
 блокируют event/packet foundation.
 
@@ -141,6 +141,23 @@
   default dry-run and temporary-copy rehearsal found 45 eligible jobs and no
   blockers in the 2026-09-24 snapshot. B-005 is resolved for this snapshot;
   future unrepresentable combinations fail closed rather than invent events.
+
+### B-006 — lifecycle cutover and legacy `status` compatibility
+
+- Severity: blocker
+- Status: investigating
+- Blocks: Gate 1 production cutover
+- Known boundary: D-016 rejects snapshot-only post-application `status` when
+  event writes are enabled, and rejects any `status` for a job with history.
+  This prevents divergence but does not preserve v2 lifecycle callers.
+- Remaining decision: whether to introduce an explicit compatibility adapter
+  for exactly representable status transitions, or require callers to send
+  `event` requests with a documented migration period. `interviewing` needs
+  a real `round_id` and `round_kind`; `cv_version` and other metadata need a
+  separate supported write path. Neither may be invented from v2 status args.
+- Exit criteria: accepted API/connector policy, tests for old and new callers,
+  fresh-main migration and rollback rehearsal, and no lifecycle write path
+  that updates only the snapshot after cutover.
 
 ## Packet and evidence issues
 

@@ -345,6 +345,25 @@ class AgentOperationsTests(unittest.TestCase):
         path.write_text(json.dumps(operation), encoding="utf-8")
         return path.relative_to(self.root)
 
+    def test_enabled_event_gate_rejects_legacy_status_with_closed_error_code(self):
+        row = self.seed_job()
+        before = (self.root / "data/jobs.csv").read_bytes()
+        request = self.write_operation({
+            "version": 1, "operation_id": "op-status-gated-001", "command": "status",
+            "job_id": row["id"],
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {"application_status": "applied", "applied_at": "2026-09-24",
+                     "confirmed_by_user": True},
+        })
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            result = self.invoke_operation("apply", str(request), "--format", "json")
+        payload = json.loads(result.stdout)
+        self.assertEqual((result.returncode, payload["status"]), (1, "rejected"))
+        self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
+        self.assertIn("event command", payload["result"]["error"]["message"])
+        self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before)
+        self.assertFalse((self.root / "data/application_events").exists())
+
     def test_workflow_uses_an_expression_safe_dispatch_step_id(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("id: dispatch_request", workflow)

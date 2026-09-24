@@ -108,6 +108,30 @@ class TrackerEventWriteTests(unittest.TestCase):
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before)
         self.assertEqual(len(event_ledger.parse_file(self.event_path)), 1)
 
+    def test_status_fails_before_write_when_event_history_exists(self):
+        tracker_event_write.append_application_event(event("application_submitted", 1))
+        before_csv = (self.root / "data/jobs.csv").read_bytes()
+        before_event = self.event_path.read_bytes()
+        with self.assertRaises(tracker_write.ValidationError) as caught:
+            tracker_write.status_job("job-0001", application_status="rejected", response_at="2026-09-24")
+        self.assertEqual(caught.exception.code, "invariant_violation")
+        self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before_csv)
+        self.assertEqual(self.event_path.read_bytes(), before_event)
+
+    def test_event_gate_blocks_legacy_lifecycle_status_without_history(self):
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            with self.assertRaises(tracker_write.ValidationError) as caught:
+                tracker_write.status_job("job-0001", application_status="applied", applied_at="2026-09-24")
+            self.assertEqual(caught.exception.code, "invariant_violation")
+        self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
+        self.assertFalse(self.event_path.exists())
+
+    def test_event_gate_keeps_pre_application_status_available(self):
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            changed = tracker_write.status_job("job-0001", application_status="apply", next_action="prepare CV")
+        self.assertEqual(changed["job"]["application_status"], "apply")
+        self.assertFalse(self.event_path.exists())
+
     def test_failure_after_event_replacement_restores_snapshot_and_event(self):
         with patch.dict(os.environ, {"JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}):
             with self.assertRaisesRegex(OSError, "injected ingest replacement failure"):

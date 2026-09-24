@@ -214,6 +214,26 @@
 - Consequences: B-005 is resolved for current data. Production event writes
   stay gated until cutover; future unrepresentable rows fail closed.
 
+## D-016 — fence legacy lifecycle writes before event cutover
+
+- Status: accepted as a cutover safety invariant; Gate 1 remains open.
+- Date: 2026-09-24
+- Decision: while `TRACKER_V3_EVENT_WRITES` is off, `status` retains its v2
+  behavior for jobs without an event file. Once a job has an event file,
+  `status` rejects before writing. When the event write gate is on,
+  post-application `status` rejects even for jobs without an event file;
+  pre-application `status` remains available. Human-confirmed lifecycle facts
+  must enter through the atomic `event` path.
+- Reason: accepting a snapshot-only `status` after event history begins would
+  create a gap or disagree with the ledger. The v2 `status` arguments cannot
+  faithfully express every v1 event, including interview round identity.
+- Evidence: `event_required` tests cover a job with history, a new application
+  under the write gate and a pre-application transition; transaction mismatch
+  tests remain as the race backstop.
+- Consequences: B-006 tracks the remaining compatibility decision for legacy
+  post-application callers and metadata such as `cv_version`. The write gate
+  stays off until that path is resolved and rehearsed.
+
 ## Decision template
 
 ```text

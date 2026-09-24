@@ -320,10 +320,12 @@ and [jobs-cli.md](../jobs-cli.md). Production history remains unmigrated.
 Status after WP1.6 (2026-09-24): open. The timeline and historical dry-run
 requirements have evidence, but D-003 is still proposed and the production
 event write gate remains disabled. The existing `status` command still writes
-only the snapshot; the separate `event` path atomically writes event and
-snapshot on fixtures. Before declaring Gate 1, decide and verify the cutover
-boundary for lifecycle writes, rerun migration/recovery on fresh `main`, and
-review all criteria below. This WP1.6 pass does not change production data.
+only the snapshot while the gate is off and no history exists; D-016 now
+rejects legacy `status` after event history or the write gate is present. The
+separate `event` path atomically writes event and snapshot on fixtures. B-006
+still requires a compatibility policy for old lifecycle callers and metadata.
+Before declaring Gate 1, resolve that policy, rerun migration/recovery on fresh
+`main`, and review all criteria below. No production events have been written.
 
 - event contract documented;
 - event validator and projection deterministic;

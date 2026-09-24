@@ -37,6 +37,7 @@ git status --short
 | EVT-011 | Adapter/inbox cannot write event directly | boundary/changed-path tests | workflow permissions review | 1/5 |
 | EVT-012 | Backfill is dry-run safe and idempotent | `test_maintenance_backfill_application_events.py`; temp-copy rehearsal | 458 rows, 45 jobs/53 events, retry 0 pending; CSV unchanged; forced rollback | 1, verified on 2026-09-24 |
 | EVT-013 | One-job timeline shows evidence, precision, correction state and next commitment without changing data | `test_tracker_timeline.py` | legacy and corrected examples reviewed through CLI | 1, verified on 2026-09-24 |
+| EVT-014 | Legacy status cannot create a snapshot-only lifecycle fact after event cutover | `test_tracker_event_write.py`; connector rejection test in `test_agent_operations.py` | D-016 safety fence; B-006 compatibility remains open | 1, safety verified on 2026-09-24 |
 
 ## Application packet requirements
 
@@ -174,6 +175,11 @@ history labels, supersession, void markers, evidence, date precision, next
 commitment and mismatch errors. The live checkout's `job-0001` reports
 `legacy_snapshot_only`, as expected before production migration. Gate 1
 remains open pending its full cutover audit.
+
+The 2026-09-24 [Gate 1 checkpoint](gate-1-checkpoint-2026-09-24.md) records
+the D-016 status-write fence, 272 passing tests, current-data migration
+dry-run and B-006 as the remaining cutover blocker. It does not authorize
+production event writes.
 
 ## Phase evidence package
 

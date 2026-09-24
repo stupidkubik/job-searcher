@@ -965,6 +965,19 @@ def apply_status_change(
 def status_job(job_id: str, **values) -> dict:
     rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
+    event_path = PATHS.root / "data/application_events" / f"{job_id}.jsonl"
+    target = values.get("application_status")
+    if event_path.exists() or (
+        os.environ.get("TRACKER_V3_EVENT_WRITES") == "1"
+        and (row["application_status"] in NEEDS_APPLIED_AT or target in NEEDS_APPLIED_AT)
+    ):
+        raise ValidationError(
+            "status: application event history requires the event command",
+            code="invariant_violation",
+            field="application_status",
+            cli_hint_ru="status: для post-application lifecycle используйте event; "
+            "команда status не записывает событие",
+        )
     outcome = apply_status_change(row, **values)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
     application_path, application_body, application_revision = (None, None, None)

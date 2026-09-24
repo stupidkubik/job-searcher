@@ -305,6 +305,13 @@ python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --forma
 Запись по умолчанию выключена. После отдельного production cutover trusted
 окружение задаёт `TRACKER_V3_EVENT_WRITES=1`; до этого запуск без `--dry-run`
 возвращает `write_disabled` и не меняет файлы.
+Когда event history уже существует для вакансии, legacy `status` отклоняется
+до записи. При включённом event write gate post-application `status`
+отклоняется и для вакансии без истории: для lifecycle нужно использовать
+атомарную команду `event`. До cutover gate выключен и обычный `status` для
+вакансий без event file работает по прежнему контракту. Connector result
+использует существующий `invariant_violation` из закрытой таксономии ошибок
+и поясняет необходимость команды `event` в сообщении.
 
 ## V3 timeline (read-only)
 
