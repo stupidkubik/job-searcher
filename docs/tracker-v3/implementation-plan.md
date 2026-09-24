@@ -250,8 +250,9 @@ WP1.3b начата с общего lock, recovery и optimistic revision дву
 операцию на временной копии и публикует canonical diff вместе с immutable result
 в одном journal. Внутренний event append теперь атомарно обновляет per-job JSONL,
 snapshot, карточку и generated views; проверены retry, collision и process-kill.
-Публичные event writes ещё не включены. Остаются аудит readers, полный
-fault/race matrix и rehearsal на актуальной временной копии. Подробные условия — в
+Публичные event writes ещё не включены. Reader audit и интеграционный
+event/snapshot fault matrix выполнены; остаются rehearsal на актуальной
+временной копии и public connector event/result boundary. Подробные условия — в
 [`transaction-prototype.md`](transaction-prototype.md).
 
 Required fault tests:

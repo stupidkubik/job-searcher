@@ -621,6 +621,8 @@ def apply_dataset_transaction(
 
     def fault(stage, index):
         count = index + 1 if index is not None else 0
+        if stage == "after_commit" and os.environ.get("JOBS_INGEST_KILL_AFTER_COMMIT") == "1":
+            os._exit(75)
         if failure_after is not None and count == failure_after and (
             (count == 0 and stage == "after_prepare") or stage == "after_replace"
         ):

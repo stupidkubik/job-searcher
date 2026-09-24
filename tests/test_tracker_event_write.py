@@ -10,7 +10,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import event_ledger, tracker_event_write, tracker_transaction, tracker_write
+from scripts import event_ledger, tracker_event_write, tracker_transaction, tracker_validate, tracker_write
 from scripts.tracker_schema import FIELDS, JOB_SOURCE_FIELDS
 
 
@@ -130,7 +130,76 @@ class TrackerEventWriteTests(unittest.TestCase):
             capture_output=True, text=True,
         )
         self.assertEqual(result.returncode, 75, result.stderr)
-        self.assertEqual(tracker_transaction.recover(self.root), "rolled_back")
+        self.assertEqual(event_ledger.read_report(
+            self.event_path.parent, self.root / "data/jobs.csv"
+        ), {})
+        self.assertEqual(tracker_transaction.recover(self.root), "clean")
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
         self.assertFalse(self.event_path.exists())
         self.assertEqual(tracker_event_write.append_application_event(event("application_submitted", 1))["outcome"], "recorded")
+
+    def test_process_kill_at_every_integrated_replace_boundary(self):
+        payload = json.dumps(event("application_submitted", 1))
+        script = (
+            "import json, sys\n"
+            "from pathlib import Path\n"
+            "from scripts import tracker_event_write, tracker_write\n"
+            "tracker_write.PATHS.root = Path(sys.argv[1])\n"
+            "tracker_event_write.append_application_event(json.loads(sys.argv[2]))\n"
+        )
+        for count in range(9):  # prepare, then event + CSV pair + four views + card
+            with self.subTest(count=count):
+                result = subprocess.run(
+                    [sys.executable, "-c", script, str(self.root), payload], cwd=PROJECT,
+                    env={**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": str(count)},
+                    capture_output=True, text=True,
+                )
+                self.assertEqual(result.returncode, 75, result.stderr)
+                self.assertEqual(tracker_transaction.recover(self.root), "rolled_back")
+                self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
+                self.assertFalse(self.event_path.exists())
+                self.assertFalse((self.root / "docs/tracker.md").exists())
+                self.assertFalse(list((self.root / "applications").glob("job-*.md")))
+
+    def test_process_kill_after_commit_keeps_event_and_snapshot(self):
+        submitted = event("application_submitted", 1)
+        script = (
+            "import json, sys\n"
+            "from pathlib import Path\n"
+            "from scripts import tracker_event_write, tracker_write\n"
+            "tracker_write.PATHS.root = Path(sys.argv[1])\n"
+            "tracker_event_write.append_application_event(json.loads(sys.argv[2]))\n"
+        )
+        result = subprocess.run(
+            [sys.executable, "-c", script, str(self.root), json.dumps(submitted)], cwd=PROJECT,
+            env={**os.environ, "JOBS_INGEST_KILL_AFTER_COMMIT": "1"},
+            capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 75, result.stderr)
+        self.assertEqual(tracker_transaction.recover(self.root), "kept_commit")
+        self.assertEqual(event_ledger.parse_file(self.event_path), [submitted])
+        self.assertEqual(tracker_event_write.append_application_event(submitted)["outcome"], "already_recorded")
+
+    def test_stale_snapshot_prevents_event_append(self):
+        original_apply = tracker_event_write.apply_dataset_transaction
+
+        def change_snapshot_first(*args, **kwargs):
+            rows, sources, revisions = tracker_write.load_for_write()
+            rows[0]["notes"] = "concurrent edit"
+            original_apply(rows, sources, expected_revisions=revisions)
+            return original_apply(*args, **kwargs)
+
+        with patch.object(tracker_event_write, "apply_dataset_transaction", side_effect=change_snapshot_first):
+            with self.assertRaises(tracker_write.ValidationError) as caught:
+                tracker_event_write.append_application_event(event("application_submitted", 1))
+        self.assertEqual(caught.exception.code, "stale_operation")
+        self.assertFalse(self.event_path.exists())
+        self.assertEqual(tracker_write.load()[0]["notes"], "concurrent edit")
+
+    def test_direct_maintenance_saves_fail_after_ledger_creation(self):
+        self.event_path.parent.mkdir()
+        with self.assertRaisesRegex(RuntimeError, "disabled after event-ledger cutover"):
+            tracker_validate.save([])
+        with self.assertRaisesRegex(RuntimeError, "disabled after event-ledger cutover"):
+            tracker_validate.save_job_sources([])
+        self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)

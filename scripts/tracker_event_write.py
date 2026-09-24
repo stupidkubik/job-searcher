@@ -7,7 +7,7 @@ import json
 
 try:
     from event_ledger import (
-        EventValidationError, compare_snapshot, parse_file, project_events,
+        EventValidationError, compare_snapshot, mismatch_report, parse_file, project_events,
         validate_event,
     )
     from tracker_transaction import digest
@@ -18,7 +18,7 @@ try:
     )
 except ModuleNotFoundError:
     from scripts.event_ledger import (
-        EventValidationError, compare_snapshot, parse_file, project_events,
+        EventValidationError, compare_snapshot, mismatch_report, parse_file, project_events,
         validate_event,
     )
     from scripts.tracker_transaction import digest
@@ -50,6 +50,12 @@ def append_application_event(event):
         matching = next((item for item in previous if item["event_id"] == event["event_id"]), None)
         if matching is not None:
             if matching == event:
+                mismatch = compare_snapshot(project_events(previous, job_id=job_id), row)
+                if mismatch:
+                    raise EventValidationError("snapshot_mismatch", f"existing event history disagrees with snapshot: {mismatch}")
+                report = mismatch_report(event_path.parent, {item["id"]: item for item in rows})
+                if any(item["mismatches"] for item in report.values()):
+                    raise EventValidationError("snapshot_mismatch", "event history disagrees with jobs.csv")
                 return {"job": row, "event": matching, "outcome": "already_recorded"}
             raise EventValidationError("duplicate_event", "event_id already has different content")
         if previous:

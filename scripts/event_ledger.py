@@ -12,6 +12,10 @@ try:
     from tracker_schema import STAGES
 except ModuleNotFoundError:
     from scripts.tracker_schema import STAGES
+try:
+    from tracker_transaction import TransactionError, locked, recover_locked
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import TransactionError, locked, recover_locked
 
 
 BUSINESS_ZONE = ZoneInfo("Europe/Belgrade")
@@ -357,21 +361,46 @@ def mismatch_report(ledger_dir, snapshots):
     return report
 
 
+def read_report(ledger_dir, jobs_csv):
+    """Read a canonical ledger and snapshot after recovery under their lock.
+
+    Arbitrary fixture paths retain the read-only diagnostic behavior. The
+    canonical data/application_events + data/jobs.csv pair shares a root lock.
+    """
+    ledger_dir, jobs_csv = Path(ledger_dir), Path(jobs_csv)
+    root = jobs_csv.parent.parent
+    canonical_pair = (
+        jobs_csv.resolve() == (root / "data/jobs.csv").resolve()
+        and ledger_dir.resolve() == (root / "data/application_events").resolve()
+    )
+
+    def inspect():
+        with jobs_csv.open(newline="", encoding="utf-8") as stream:
+            snapshots = {row["id"]: row for row in csv.DictReader(stream)}
+        return mismatch_report(ledger_dir, snapshots)
+
+    if canonical_pair:
+        with locked(root):
+            recover_locked(root)
+            return inspect()
+    return inspect()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ledger", type=Path, help="event ledger directory to inspect")
     parser.add_argument("--jobs-csv", type=Path, required=True, help="snapshot CSV for foreign keys and comparison")
     args = parser.parse_args()
     try:
-        with args.jobs_csv.open(newline="", encoding="utf-8") as stream:
-            snapshots = {row["id"]: row for row in csv.DictReader(stream)}
-        report = mismatch_report(args.ledger, snapshots)
+        report = read_report(args.ledger, args.jobs_csv)
         ok = not any(item["mismatches"] for item in report.values())
         print(json.dumps({"ok": ok, "jobs": report}, sort_keys=True))
         if not ok:
             raise SystemExit(1)
-    except (EventValidationError, OSError, KeyError) as error:
-        code = error.code if isinstance(error, EventValidationError) else "read_error"
+    except (EventValidationError, TransactionError, OSError, KeyError) as error:
+        code = error.code if isinstance(error, EventValidationError) else (
+            "recovery_error" if isinstance(error, TransactionError) else "read_error"
+        )
         print(json.dumps({"ok": False, "error": {"code": code, "message": str(error)}}))
         raise SystemExit(1) from None
 

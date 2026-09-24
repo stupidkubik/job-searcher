@@ -140,6 +140,12 @@ legacy snapshot divergence and process-kill recovery. EVT-007 remains pending
 for the full integrated fault/race matrix, reader audit and current-data
 rollback rehearsal. The internal append is not a public command.
 
+Reader/fault audit evidence (2026-09-24): `reader-audit.md` maps supported
+readers and historical writers. Integrated tests kill after prepare, each of
+eight replacements and durable commit, and reject a stale base snapshot.
+Canonical event diagnostics recover pending journals before reading. Current
+dataset rehearsal and public connector event/result integration remain open.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

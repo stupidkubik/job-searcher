@@ -46,6 +46,7 @@
 | [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md) | разбор пользовательских пометок и evidence gaps | historical review; дальнейшие решения в `decisions.md` |
 | [`event-contract-v1.md`](event-contract-v1.md) | exact read-only event schema, projection и layout evidence | versioned contract; production write gated by B-003 |
 | [`transaction-prototype.md`](transaction-prototype.md) | результаты изолированных crash/recovery tests и integration gaps | WP1.3a prototype; production path не подключён |
+| [`reader-audit.md`](reader-audit.md) | аудит согласованного чтения и legacy writers после event integration | при изменении reader/write path |
 
 ## Статус программы
 
@@ -109,9 +110,10 @@
 
 ## Следующий шаг
 
-Внутренний event append теперь проходит через общий crash-safe publisher;
-production events не создавались. Следующий срез WP1.3b должен завершить аудит
-читателей, проверку гонок и полного fault matrix, а затем dry-run/rollback
-rehearsal на свежей временной копии dataset. Public CLI/connector contract
+Внутренний event append проходит через общий crash-safe publisher;
+production events не создавались. Reader/legacy-writer audit и интеграционный
+fault matrix для event + snapshot выполнены. Следующий срез — dry-run/rollback
+rehearsal на свежей временной копии dataset и проверка remaining connector
+event/result boundary. Public CLI/connector contract
 остаётся WP1.4; B-005 остаётся gate для historical backfill. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

@@ -97,6 +97,12 @@
   существующих event jobs обычная dataset запись откатывается при расхождении
   projection. Остаются аудит readers, полная fault/race матрица и rehearsal;
   публичный event contract относится к WP1.4.
+- Progress 2026-09-24: поддерживаемые Python readers и legacy writers
+  инвентаризированы в `reader-audit.md`; canonical event CLI и ops-health
+  читают под lock после recovery, direct maintenance saves блокируются при
+  наличии ledger. Интеграционный kill matrix покрывает prepare, восемь
+  replace boundaries и durable commit; stale snapshot отвергается. Остаются
+  rehearsal на свежей временной копии и public connector event/result boundary.
 
 ### B-004 — minimum event taxonomy and projection rules
 
