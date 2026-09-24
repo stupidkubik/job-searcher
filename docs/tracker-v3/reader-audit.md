@@ -10,7 +10,7 @@ verification used synthetic event data; production has no event files.
 | Normal `jobs.py` writes | `load_for_write` reads under lock; publisher checks revisions | covered by stale and crash tests |
 | Internal event append/retry | reads CSV + JSONL under lock; publisher checks both revisions and global ledger | integrated tests cover retry, stale snapshot and every replace boundary |
 | `event_ledger.py` diagnostic CLI | canonical `data/application_events` + `data/jobs.csv` pair now recovers and reads under root lock | killed-writer recovery test |
-| Connector staging | copies snapshot, cards, indexes, tracker and event files under lock | staged writes validate event projection |
+| Connector staging | copies snapshot, cards, indexes, tracker and event files under lock; snapshot includes per-job JSONL | staged writes validate event projection |
 | Connector final publisher | validates snapshot and event projection before durable marker | existing result recovery tests; event command remains WP1.4 |
 | `ops_health.py` | builds report under dataset lock | command smoke check |
 | Historical maintenance `save` helpers | fail closed once `data/application_events` exists | guard test |
@@ -26,9 +26,9 @@ Residual boundaries:
 2. Historical maintenance scripts are outside the live write path. Their
    direct saves now reject a checkout with a ledger, but their dry-run reads do
    not offer a cross-artifact snapshot. They remain offline migration tools.
-3. Public event CLI/connector routing, changed-path allowlist and result
-   atomicity with an event child are WP1.4 work. This audit does not close
-   B-003 or Gate 1 by itself.
+3. Public event CLI/connector routing and changed-path allowlist are WP1.4
+   work. A synthetic event/result publication has now proved the shared journal
+   boundary, but Gate 1 still requires the public command and backfill.
 
 Verification: `tests/test_tracker_event_write.py` checks process kill after
 prepare, after all eight replacements and after durable commit; rollback and

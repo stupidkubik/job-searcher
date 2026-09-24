@@ -1,5 +1,6 @@
 """Integrated event/snapshot publication on a synthetic tracker checkout."""
 
+import base64
 import json
 import os
 import shutil
@@ -10,7 +11,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import event_ledger, tracker_event_write, tracker_transaction, tracker_validate, tracker_write
+from scripts import agent_operations, event_ledger, tracker_event_write, tracker_transaction, tracker_validate, tracker_write
 from scripts.tracker_schema import FIELDS, JOB_SOURCE_FIELDS
 
 
@@ -203,3 +204,61 @@ class TrackerEventWriteTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, "disabled after event-ledger cutover"):
             tracker_validate.save_job_sources([])
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
+
+    def stage_connector_event(self):
+        result_name = "data/operations/results/op-synthetic-event.json"
+        with agent_operations.temporary_tracker_workspace(include_snapshot=True) as (temp_root, baseline):
+            tracker_event_write.append_application_event(event("application_submitted", 1))
+            result_path = temp_root / result_name
+            result_path.parent.mkdir(parents=True)
+            result_path.write_text(
+                '{"version":1,"operation_id":"op-synthetic-event","status":"completed"}\n',
+                encoding="utf-8",
+            )
+            writes, expected = agent_operations.staged_changes(
+                temp_root, baseline, result_name, include_canonical=True,
+            )
+        self.assertIn("data/application_events/job-0001.jsonl", writes)
+        self.assertIn(result_name, writes)
+        return writes, expected, result_name
+
+    def test_connector_stages_event_and_result_in_one_publication(self):
+        writes, expected, result_name = self.stage_connector_event()
+        self.assertFalse(self.event_path.exists())
+        agent_operations.publish_staged_operation(self.root, writes, expected)
+        self.assertEqual(event_ledger.parse_file(self.event_path), [event("application_submitted", 1)])
+        self.assertTrue((self.root / result_name).exists())
+        self.assertEqual(tracker_write.load()[0]["application_status"], "applied")
+
+    def test_connector_crash_rolls_back_event_snapshot_and_result(self):
+        writes, expected, result_name = self.stage_connector_event()
+        payload = json.dumps({
+            "writes": {name: base64.b64encode(body).decode("ascii") for name, body in writes.items()},
+            "expected": expected,
+        })
+        script = (
+            "import base64, json, sys\n"
+            "from pathlib import Path\n"
+            "from scripts import agent_operations as ops, tracker_write\n"
+            "root = Path(sys.argv[1])\n"
+            "tracker_write.PATHS.root = root\n"
+            "payload = json.load(sys.stdin)\n"
+            "writes = {name: base64.b64decode(body) for name, body in payload['writes'].items()}\n"
+            "ops.publish_staged_operation(root, writes, payload['expected'])\n"
+        )
+        names = sorted(writes)
+        for name in ("data/application_events/job-0001.jsonl", result_name):
+            with self.subTest(name=name):
+                result = subprocess.run(
+                    [sys.executable, "-c", script, str(self.root)], cwd=PROJECT,
+                    input=payload, capture_output=True, text=True,
+                    env={**os.environ, "JOBS_CONNECTOR_KILL_AFTER_REPLACE": str(names.index(name) + 1)},
+                )
+                self.assertEqual(result.returncode, 75, result.stderr)
+                self.assertEqual(tracker_transaction.recover(self.root), "rolled_back")
+                self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
+                self.assertFalse(self.event_path.exists())
+                self.assertFalse((self.root / result_name).exists())
+        agent_operations.publish_staged_operation(self.root, writes, expected)
+        self.assertTrue(self.event_path.exists())
+        self.assertTrue((self.root / result_name).exists())

@@ -939,6 +939,7 @@ def workspace_snapshot(root):
     """Capture the original bytes of every file a connector can change."""
     names = set(TRACKER_PUBLISH_PATHS)
     names.update(path.relative_to(root).as_posix() for path in (root / "applications").glob("job-*.md"))
+    names.update(path.relative_to(root).as_posix() for path in (root / "data/application_events").glob("*.jsonl"))
     return {name: (root / name).read_bytes() for name in names if (root / name).exists()}
 
 

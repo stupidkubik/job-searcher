@@ -3,8 +3,9 @@
 Статус: WP1.3a prototype проверен 2026-09-23; с 2026-09-24 текущий
 `tracker_write.py` публикует CSV, изменяемые application cards и generated
 views через этот журнал. Connector result также публикуется в одном journal;
-внутренний event append включил per-job JSONL в publication set. B-003 остаётся
-открыт до полной интеграционной матрицы и rehearsal.
+внутренний event append включил per-job JSONL в publication set. После
+интеграционной матрицы и rehearsal на копии текущих данных B-003 закрыт;
+публичный event contract относится к WP1.4.
 
 ## Что обнаружено в существующем пути
 
@@ -109,3 +110,13 @@ Connector теперь готовит операцию на временной �
 snapshot, card и generated views атомарно. Тесты проверяют retry, cross-job ID,
 projection mismatch и process-kill recovery. Публичная event операция и
 production backfill ещё не включены; Gate 1 не пройден.
+
+## Rehearsal и connector boundary, 2026-09-24
+
+`rehearsal-2026-09-24.md` фиксирует точное восстановление временной копии
+458 jobs / 474 source references после process kill, успешный retry и
+freshness generated views. `workspace_snapshot` connector теперь включает
+event JSONL. Синтетическая staged operation опубликовала event, snapshot,
+card, views и immutable result одним journal; обрыв после замены event или
+result откатил весь набор. Это закрывает B-003 на уровне transaction boundary.
+CI allowlist и публичная команда event остаются WP1.4; Gate 1 не пройден.

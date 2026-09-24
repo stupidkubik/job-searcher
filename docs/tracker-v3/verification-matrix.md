@@ -146,6 +146,14 @@ eight replacements and durable commit, and reject a stale base snapshot.
 Canonical event diagnostics recover pending journals before reading. Current
 dataset rehearsal and public connector event/result integration remain open.
 
+WP1.3 rehearsal and connector boundary evidence (2026-09-24):
+`rehearsal-2026-09-24.md` records a fresh-copy run on 458 jobs and 474 source
+references. Exact baseline hashes were restored after a killed event write;
+retry was idempotent and generated views matched future-state bytes. Connector
+staging tests now include event JSONL with immutable result and recover after
+kills at either replacement. B-003 is resolved for the transaction boundary;
+public command/CI allowlist and historical migration remain Gate 1 work.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

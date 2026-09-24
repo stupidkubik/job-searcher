@@ -47,13 +47,14 @@
 | [`event-contract-v1.md`](event-contract-v1.md) | exact read-only event schema, projection и layout evidence | versioned contract; production write gated by B-003 |
 | [`transaction-prototype.md`](transaction-prototype.md) | результаты изолированных crash/recovery tests и integration gaps | WP1.3a prototype; production path не подключён |
 | [`reader-audit.md`](reader-audit.md) | аудит согласованного чтения и legacy writers после event integration | при изменении reader/write path |
+| [`rehearsal-2026-09-24.md`](rehearsal-2026-09-24.md) | WP1.3 fault/recovery rehearsal на копии текущих данных | новый отчёт перед cutover |
 
 ## Статус программы
 
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3a prototype verified; WP1.3b internal event append with CSV/card/views journal + recovery | complete B-003 evidence, then WP1.4 |
+| Phase 1 — application event ledger | WP1.1–WP1.2 verified; WP1.3 transaction boundary verified on current-data copy | WP1.4 public command contract |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -111,9 +112,9 @@
 ## Следующий шаг
 
 Внутренний event append проходит через общий crash-safe publisher;
-production events не создавались. Reader/legacy-writer audit и интеграционный
-fault matrix для event + snapshot выполнены. Следующий срез — dry-run/rollback
-rehearsal на свежей временной копии dataset и проверка remaining connector
-event/result boundary. Public CLI/connector contract
-остаётся WP1.4; B-005 остаётся gate для historical backfill. Разбор исходных
+production events не создавались. Reader/legacy-writer audit, fault matrix и
+rehearsal на копии текущего dataset выполнены. Connector staging включает
+event JSONL; event + immutable result проверены в одном journal. Следующий
+срез — WP1.4 public CLI/connector command contract и CI allowlist. B-005
+остаётся gate для historical backfill. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).

@@ -56,7 +56,7 @@
 ### B-003 — dual-write transaction boundary
 
 - Severity: blocker
-- Status: investigating
+- Status: resolved
 - Blocks: WP1.3
 - Question: как атомарно заменить event artifact, jobs CSV, application card и
   generated projections внутри существующего dataset transaction?
@@ -103,6 +103,12 @@
   наличии ledger. Интеграционный kill matrix покрывает prepare, восемь
   replace boundaries и durable commit; stale snapshot отвергается. Остаются
   rehearsal на свежей временной копии и public connector event/result boundary.
+- Resolution: 2026-09-24; D-013 journal integrated into the internal event
+  append and connector staging. Full integrated kill matrix, stale/retry tests,
+  reader audit and current-data rehearsal passed. Synthetic connector staging
+  published event, snapshot, views and immutable result in one journal; kills
+  after event/result replacements rolled back the complete set. Public command
+  shape, CI allowlist and historical backfill remain WP1.4/WP1.5.
 
 ### B-004 — minimum event taxonomy and projection rules
 
@@ -264,7 +270,7 @@
 
 ## Resolved issues
 
-B-001, B-002, B-004, Q-009 и Q-015 разрешены design-решениями; записи выше
+B-001, B-002, B-003, B-004, Q-009 и Q-015 разрешены; записи выше
 остаются на месте.
 При разрешении запись получает:
 
