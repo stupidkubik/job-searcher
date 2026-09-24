@@ -1,8 +1,8 @@
 # V3 multi-file transaction prototype
 
 Статус: WP1.3a prototype проверен 2026-09-23; с 2026-09-24 текущий
-`tracker_write.py` публикует CSV и изменяемые application cards через этот
-журнал. Event ledger, connector result и generated views ещё не входят в
+`tracker_write.py` публикует CSV, изменяемые application cards и generated
+views через этот журнал. Event ledger и connector result ещё не входят в
 publication set. B-003 остаётся открыт.
 
 ## Что обнаружено в существующем пути
@@ -97,6 +97,9 @@ commit marker. CLI восстанавливает pending journal перед к�
 
 Интеграционный CLI-тест обрывает `verify` до первой замены и после каждой из
 трёх замен (card + два CSV), затем запускает `validate --strict` и проверяет
-полное восстановление исходных байтов. Это защищает текущую canonical пару и
-карточку. Connector result, index/tracker projections и event artifact пока
-публикуются отдельно или ещё не пишутся; поэтому Gate 1 не пройден.
+полное восстановление исходных байтов. С 2026-09-24 `projected_artifacts()`
+строит tracker и три индекса из будущего snapshot и планируемых карточек до
+публикации; теперь все семь файлов входят в один journal. Тест обрывает CLI
+до публикации и после каждой из семи замен, сверяет исходные байты и проверяет
+freshness после успешного retry. Ошибка генерации проекции не меняет файлы.
+Connector result и event artifact ещё не входят в journal; Gate 1 не пройден.

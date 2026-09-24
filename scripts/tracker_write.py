@@ -65,6 +65,14 @@ try:  # Direct CLI execution places scripts/ on sys.path.
         norm_url,
         validate_dataset,
     )
+    from tracker_render import (
+        render_active_index,
+        render_keys_index,
+        render_known_index,
+        render_tracker_markdown,
+        tracker_application_cards,
+        tracker_payload,
+    )
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
     from scripts.tracker_paths import PATHS
     from scripts.tracker_schema import (
@@ -105,6 +113,14 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
         load_job_sources,
         norm_url,
         validate_dataset,
+    )
+    from scripts.tracker_render import (
+        render_active_index,
+        render_keys_index,
+        render_known_index,
+        render_tracker_markdown,
+        tracker_application_cards,
+        tracker_payload,
     )
 
 
@@ -531,6 +547,19 @@ def csv_bytes(fields, rows):
     return stream.getvalue().encode("utf-8")
 
 
+def projected_artifacts(rows, source_rows, application_writes):
+    """Build every generated view from the proposed canonical state."""
+    card_paths = [path for path, _body, _revision in application_writes]
+    cards = tracker_application_cards(rows, planned_paths=card_paths)
+    markdown = render_tracker_markdown(tracker_payload(rows, source_rows, cards))
+    return {
+        PATHS.tracker_path: markdown.encode("utf-8"),
+        PATHS.known_index_path: render_known_index(rows),
+        PATHS.keys_index_path: render_keys_index(source_rows),
+        PATHS.active_index_path: render_active_index(rows),
+    }
+
+
 def apply_dataset_transaction(
     rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict
 ) -> None:
@@ -553,6 +582,13 @@ def apply_dataset_transaction(
         relative = path.relative_to(PATHS.root).as_posix()
         writes[relative] = body.encode("utf-8")
         expected[relative] = revision
+    for path, data in projected_artifacts(rows, source_rows, application_writes).items():
+        relative = path.relative_to(PATHS.root).as_posix()
+        writes[relative] = data
+        expected[relative] = digest(path.read_bytes()) if path.exists() else None
+
+    PATHS.index_dir.mkdir(parents=True, exist_ok=True)
+    PATHS.tracker_path.parent.mkdir(parents=True, exist_ok=True)
 
     def validate_published(_root):
         post_errors, _post_warnings = validate_dataset(load(), load_job_sources())

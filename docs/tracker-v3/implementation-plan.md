@@ -245,7 +245,7 @@ Tests:
 Статус 2026-09-24: WP1.3a isolated crash-recovery prototype verified по D-013;
 WP1.3b начата с общего lock, recovery и optimistic revision двух CSV и
 изменяемых application cards для `apply_dataset_transaction`.
-Текущие CSV/card writes уже проходят через журналируемый publisher; CLI
+Текущие CSV/card/generated-view writes уже проходят через журналируемый publisher; CLI
 восстанавливает pending journal перед чтением и записью.
 Event dual-write ещё не включён.
 Перед интеграцией устранить разные lock domains у `jobs.py` и нового publisher,

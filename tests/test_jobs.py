@@ -13,7 +13,7 @@ from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import jobs
+from scripts import jobs, tracker_write
 from scripts.tracker_time import business_date
 
 
@@ -456,13 +456,17 @@ class JobsCliTests(unittest.TestCase):
             self.assertEqual(stale.exception.code, "stale_operation")
         self.assertEqual(card.read_text(encoding="utf-8"), "Human-created card\n")
 
-    def test_cli_recovers_killed_csv_and_card_publication(self):
+    def test_cli_recovers_killed_canonical_and_projection_publication(self):
         self.assertEqual(self.add("CrashCo", "Frontend Developer").returncode, 0)
         card = next((self.root / "applications").glob("job-*.md"))
         before = {
             "jobs": (self.root / "data/jobs.csv").read_bytes(),
             "sources": (self.root / "data/job_sources.csv").read_bytes(),
             "card": card.read_bytes(),
+            "tracker": (self.root / "docs/tracker.md").read_bytes(),
+            "known": (self.root / "data/index/known.tsv").read_bytes(),
+            "keys": (self.root / "data/index/keys.tsv").read_bytes(),
+            "active": (self.root / "data/index/active.csv").read_bytes(),
         }
         args = (
             "verify", "job-0001", "--listing-status", "closed",
@@ -470,7 +474,7 @@ class JobsCliTests(unittest.TestCase):
             "--original-url", "https://careers.example.test/jobs/crash",
             "--decision-reason", "closed_before_application",
         )
-        for replacement_count in (0, 1, 2, 3):
+        for replacement_count in range(8):
             with self.subTest(replacement_count=replacement_count):
                 environment = {**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": str(replacement_count)}
                 killed = self.invoke(*args, env=environment)
@@ -480,9 +484,32 @@ class JobsCliTests(unittest.TestCase):
                 self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before["jobs"])
                 self.assertEqual((self.root / "data/job_sources.csv").read_bytes(), before["sources"])
                 self.assertEqual(card.read_bytes(), before["card"])
+                self.assertEqual((self.root / "docs/tracker.md").read_bytes(), before["tracker"])
+                self.assertEqual((self.root / "data/index/known.tsv").read_bytes(), before["known"])
+                self.assertEqual((self.root / "data/index/keys.tsv").read_bytes(), before["keys"])
+                self.assertEqual((self.root / "data/index/active.csv").read_bytes(), before["active"])
                 self.assertFalse((self.root / ".v3-transaction").exists())
         self.assertEqual(self.invoke(*args).returncode, 0)
         self.assertEqual(self.rows()[0]["listing_status"], "closed")
+        self.assertEqual(self.invoke("render-tracker", "--check").returncode, 0)
+        self.assertEqual(self.invoke("render-index", "--check").returncode, 0)
+
+    def test_projection_generation_failure_leaves_dataset_unchanged(self):
+        self.assertEqual(self.add("ProjectionFailCo", "Frontend Developer", "--no-file").returncode, 0)
+        paths = [
+            self.root / "data/jobs.csv", self.root / "data/job_sources.csv",
+            self.root / "docs/tracker.md", self.root / "data/index/known.tsv",
+            self.root / "data/index/keys.tsv", self.root / "data/index/active.csv",
+        ]
+        before = {path: path.read_bytes() for path in paths}
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            rows[0]["next_action"] = "follow-up"
+            with patch.object(tracker_write, "render_active_index", side_effect=ValueError("projection failed")):
+                with self.assertRaisesRegex(ValueError, "projection failed"):
+                    jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
+        self.assertEqual({path: path.read_bytes() for path in paths}, before)
+        self.assertFalse((self.root / ".v3-transaction").exists())
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)

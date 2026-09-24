@@ -83,6 +83,10 @@
   CLI read commands выполняют recovery и читают под общим lock. Интеграционный
   process-kill test проверяет восстановление после каждой замены. Остаются
   connector result, generated projections, event artifact и другие readers.
+- Progress 2026-09-24: tracker Markdown и три индекса формируются до публикации
+  из будущего snapshot и входят в тот же journal. Process-kill test покрывает
+  все семь замен; generation failure не меняет canonical файлы. Остаются
+  connector result, event artifact и другие readers.
 
 ### B-004 — minimum event taxonomy and projection rules
 
