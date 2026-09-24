@@ -19,9 +19,9 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
     from scripts.tracker_time import business_date
 
 try:
-    from tracker_transaction import locked, recover_locked
+    from tracker_transaction import TransactionError, locked, recover_locked
 except ModuleNotFoundError:
-    from scripts.tracker_transaction import locked, recover_locked
+    from scripts.tracker_transaction import TransactionError, locked, recover_locked
 
 try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_paths import PATHS
@@ -167,6 +167,49 @@ def job_id_range_argument(value):
 
 def print_json(payload):
     print(json.dumps(payload, ensure_ascii=False, sort_keys=True))
+
+
+def cmd_event(args):
+    """Validate/preview a complete v1 event; writes require cutover enablement."""
+    try:
+        from event_ledger import EventValidationError, unique_object, validate_event
+        from tracker_event_write import append_application_event, event_writes_enabled
+    except ModuleNotFoundError:
+        from scripts.event_ledger import EventValidationError, unique_object, validate_event
+        from scripts.tracker_event_write import append_application_event, event_writes_enabled
+    try:
+        raw = sys.stdin.read() if args.stdin else args.json_path.read_text(encoding="utf-8")
+        event = json.loads(raw, object_pairs_hook=unique_object)
+        if not isinstance(event, dict) or event.get("source") != "manual" or event.get("actor") != "user" or event.get("confirmed_by_user") is not True:
+            raise EventValidationError("bad_confirmation", "CLI event requires source=manual, actor=user and confirmed_by_user=true")
+        validate_event(event)
+        if not args.dry_run and not event_writes_enabled():
+            raise EventValidationError("write_disabled", "event writes require TRACKER_V3_EVENT_WRITES=1 after cutover")
+        result = append_application_event(event, dry_run=args.dry_run)
+        payload = {
+            "ok": True, "command": "event", "dry_run": args.dry_run,
+            "outcome": result["outcome"], "event_id": result["event"]["event_id"],
+            "job_id": result["job"]["id"],
+            "projection": {field: result["job"][field] for field in (
+                "application_status", "stage_reached", "applied_at", "response_at"
+            )},
+        }
+    except (EventValidationError, ValidationError, TransactionError, OSError, UnicodeError, json.JSONDecodeError) as error:
+        code = error.code if isinstance(error, EventValidationError) else (
+            error.code if isinstance(error, ValidationError) else
+            "recovery_error" if isinstance(error, TransactionError) else
+            "invalid_json" if isinstance(error, json.JSONDecodeError) else "read_error"
+        )
+        payload = {"ok": False, "command": "event", "error": {"code": code, "message": str(error)}}
+        if args.format == "json":
+            print_json(payload)
+        else:
+            print(f"error: {payload['error']['message']}", file=sys.stderr)
+        raise SystemExit(1)
+    if args.format == "json":
+        print_json(payload)
+    else:
+        print(f"{payload['job_id']}  event={payload['event_id']}  {payload['outcome']}")
 
 
 def cmd_ingest(args):
@@ -687,6 +730,13 @@ def cmd_report(args):
 def main():
     parser = JobsArgumentParser(prog="jobs.py", description="CLI для data/jobs.csv")
     subparsers = parser.add_subparsers(dest="command", required=True, parser_class=JobsArgumentParser)
+    event = subparsers.add_parser("event", help="проверить или записать подтверждённое v3 событие")
+    event_input = event.add_mutually_exclusive_group(required=True)
+    event_input.add_argument("--json", dest="json_path", type=Path, metavar="PATH")
+    event_input.add_argument("--stdin", action="store_true")
+    event.add_argument("--dry-run", action="store_true")
+    event.add_argument("--format", choices=("text", "json"), default="text")
+    event.set_defaults(func=cmd_event)
     add = subparsers.add_parser("add", help="добавить вакансию")
     add.add_argument("--company")
     add.add_argument("--role")
@@ -829,4 +879,9 @@ def main():
                 return
         args.func(args)
     except ValidationError as error:
+        die(str(error))
+    except TransactionError as error:
+        if args.command == "event" and args.format == "json":
+            print_json({"ok": False, "command": "event", "error": {"code": "recovery_error", "message": str(error)}})
+            raise SystemExit(1)
         die(str(error))

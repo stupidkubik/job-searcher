@@ -1,7 +1,7 @@
-# Application event contract v1 (read-only alpha)
+# Application event contract v1
 
-Статус: контракт WP1.1 для synthetic fixtures и pure validator. Он пока не
-разрешает запись событий в production и не меняет `data/jobs.csv`.
+Статус: контракт WP1.1–WP1.4 проверен на fixtures. CLI и connector commands
+реализованы, но production writes закрыты feature gate до отдельного cutover.
 
 ## Storage and identity
 
@@ -11,8 +11,8 @@
   agree. Existing lines are never edited or reordered; correction appends a row.
   Canonical rows are retained for the lifetime of the tracker; there is no
   event deletion or compaction in v1.
-- `event_id` is a globally unique idempotency key. The caller supplies it;
-  connector derives it from its immutable `operation_id` and child `client_ref`.
+- `event_id` is a globally unique idempotency key. The manual CLI caller supplies
+  it; the connector derives it from its immutable single `operation_id`.
   Retrying with the same ID and identical content returns the original result;
   same ID with different content is a conflict. A content hash cannot replace
   the ID because two real follow-ups can have equal payloads.
@@ -140,6 +140,7 @@ events are not treated as mismatches before migration.
 
 ## Alpha boundaries
 
-This slice has no production ledger, write command, connector extension,
-backfill or automatic migration. B-003/B-005 remain gates for those packages.
-The parser and fixtures are synthetic and read-only.
+The parser, writer, CLI and connector route are tested on fixtures. Public
+writes require `TRACKER_V3_EVENT_WRITES=1` after a separate production cutover;
+the default is disabled. Historical backfill and automatic migration are still
+pending under B-005. An `event` connector operation cannot be a batch child.

@@ -97,6 +97,20 @@ At least one field is required.
 | `response_at` | date (YYYY-MM-DD) | — | no |  |
 | `stage` | enum | `None`, `Applied`, `Recruiter screen`, `Tech interview`, `Test task`, `Final interview`, `Offer` | no | stage_reached only increases; a lower stage is rejected |
 
+## `event` (single operation only; gated until v3 cutover)
+
+The trusted runner supplies `event_id` from `operation_id`, `recorded_at`, `source=connector`, `actor=user` and `job_id`. An event is never a batch child. Production writes require the separate v3 cutover flag.
+
+| Field | Type | Allowed values | Required | Note |
+| --- | --- | --- | --- | --- |
+| `confirmed_by_user` | boolean | — | yes | must be the literal boolean true; set only after the human reports or requests the event |
+| `event_type` | enum | `acknowledgement_received`, `application_submitted`, `assessment_completed`, `assessment_invited`, `candidate_withdrew`, `event_voided`, `follow_up_sent`, `interview_cancelled`, `interview_completed`, `interview_scheduled`, `no_response_closed`, `offer_received`, `rejection_received`, `response_received` | yes | closed v1 taxonomy; see docs/tracker-v3/event-contract-v1.md |
+| `evidence_ref` | single-line reference or null | — | no |  |
+| `occurred_at` | date, aware instant or null (per precision) | — | yes |  |
+| `payload` | object (exact keys depend on event_type) | — | yes | exact type-specific object; arbitrary keys are rejected |
+| `precision` | enum | `date`, `instant`, `unknown` | yes |  |
+| `supersedes` | earlier event_id or null | — | no |  |
+
 ## Batch child: `add` (with `client_ref`)
 
 Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expected`.

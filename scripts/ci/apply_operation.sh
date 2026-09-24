@@ -76,7 +76,7 @@ import sys
 
 operation_id, status = sys.argv[1], sys.argv[2]
 expected_result = f"data/operations/results/{operation_id}.json"
-raw = subprocess.check_output(["git", "status", "--porcelain=v1", "-z"])
+raw = subprocess.check_output(["git", "status", "--porcelain=v1", "-z", "--untracked-files=all"])
 paths = [entry[3:].decode("utf-8") for entry in raw.split(b"\0") if entry]
 if status == "rejected":
     if paths != [expected_result]:
@@ -88,7 +88,7 @@ else:
         expected_result,
     }
     for path in paths:
-        if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path):
+        if path in allowed or re.fullmatch(r"applications/job-\d{4,}-[^/]+\.md", path) or re.fullmatch(r"data/application_events/job-\d{4,}\.jsonl", path):
             continue
         sys.exit(f"operation changed forbidden path: {path}")
     if expected_result not in paths:
@@ -97,6 +97,9 @@ PY
   echo "::endgroup::"
 
   git add data/jobs.csv data/job_sources.csv docs/tracker.md data/index data/operations/results applications
+  if [[ -d data/application_events ]]; then
+    git add data/application_events
+  fi
   if [[ "$STATUS" == "rejected" ]]; then
     git commit -m "jobs: reject agent operation ${OPERATION_ID}"
   else

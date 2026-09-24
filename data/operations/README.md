@@ -134,6 +134,15 @@ Allowed single commands:
   `next_action`, `next_action_date`, `cv_version`, and `notes`. It supports all
   canonical application statuses and remains subject to tracker date, stage,
   and transition invariants.
+- `event`: a v3 append-only event for one existing job. It requires
+  `event_type`, `occurred_at`, `precision`, exact type-specific `payload`, and
+  literal `confirmed_by_user=true`; optional `evidence_ref` and `supersedes`.
+  The trusted runner fills `event_id` from `operation_id`, `recorded_at` from
+  its UTC clock, `source=connector`, `actor=user` and `job_id`. It is a single
+  operation only, never a batch child. Writes are disabled until the separate
+  v3 production cutover enables `TRACKER_V3_EVENT_WRITES=1`; a gated request
+  receives a `rejected` result without canonical changes. The generated
+  [`contract.md`](contract.md) lists exact fields and enum values.
 
 The agent must never infer a human event. `confirmed_by_user=true` is valid only
 when the user explicitly reported or requested that lifecycle change. Every
@@ -285,7 +294,7 @@ refreshed to the row's current values for a `stale_operation` conflict. Each
 fragment validates on its own as a batch child or a single operation; it does
 not carry `version`/`operation_id` since a retry always needs a fresh one.
 
-`screen` and `set` are low-risk. `add`, `status`, and `verify` with enrichment
+`screen` and `set` are low-risk. `add`, `status`, `event`, and `verify` with enrichment
 or a transition to `reviewing`/`apply` are medium-risk. A batch inherits the
 highest risk of its children, so a screening-only batch remains low-risk.
 
@@ -308,7 +317,8 @@ to `main`.
 The runner permits only these changed paths: `data/jobs.csv`,
 `data/job_sources.csv`, `docs/tracker.md`, `data/index/known.tsv`,
 `data/index/keys.tsv`, `data/index/active.csv`, the expected immutable result,
-and new `applications/job-*.md` cards. It rejects any operation that changes
+new `applications/job-*.md` cards, and `data/application_events/job-*.jsonl`.
+It rejects any operation that changes
 policy, workflow, or executable files. A `rejected` result is the one
 exception: its allowlist is exactly its own result file, since a rejected
 operation must not touch canonical data — there is nothing to re-render, so the

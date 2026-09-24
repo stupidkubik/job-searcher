@@ -288,6 +288,24 @@ python3 scripts/jobs.py status job-0001 \
 Возврат записи с заполненным `applied_at` в `not_started`, `reviewing` или
 `apply` запрещён. Для pre-application отсева по-прежнему используется `screen`.
 
+## V3 event (до cutover закрыт для записи)
+
+`event` принимает один полный JSON object по
+[`event-contract-v1.md`](tracker-v3/event-contract-v1.md) из `--json PATH` или
+`--stdin`. `--dry-run` проверяет схему, переход и будущую snapshot projection
+без записи. CLI принимает только `source=manual`, `actor=user` и
+`confirmed_by_user=true`; миграционные события идут отдельным backfill path.
+
+```bash
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --format json
+```
+
+Одинаковый `event_id` с тем же содержимым возвращает `already_recorded`;
+другое содержимое отклоняется. Ошибки в JSON-режиме содержат `error.code`.
+Запись по умолчанию выключена. После отдельного production cutover trusted
+окружение задаёт `TRACKER_V3_EVENT_WRITES=1`; до этого запуск без `--dry-run`
+возвращает `write_disabled` и не меняет файлы.
+
 ## Разовый repair старого Himalayas batch
 
 Для 24 screening-записей `job-0099…job-0126`, кроме `job-0102`, `job-0110`,

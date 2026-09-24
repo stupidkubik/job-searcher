@@ -208,7 +208,7 @@
 ### Q-011 — connector contract evolution
 
 - Severity: high
-- Status: open
+- Status: resolved
 - Blocks: WP1.4
 - Question: новый `event` command, extension of `status`, или versioned operation
   child? Нужно сохранить v1 compatibility и error taxonomy.
@@ -216,6 +216,11 @@
   выбрать после event contract.
 - Exit criteria: generated field × command contract, stale precondition and retry
   behavior defined before runner code.
+- Resolution: D-014, 2026-09-24. A single gated `event` operation uses the
+  existing `expected` lock and immutable result, while the runner derives
+  event ID and recorded time. Batch children are disallowed. The generated
+  field table, negative confirmation tests, stale/retry behavior and CI
+  allowlist are checked on fixtures. Production enablement awaits cutover.
 
 ### Q-012 — bootstrap projections for new artifacts
 
@@ -270,7 +275,7 @@
 
 ## Resolved issues
 
-B-001, B-002, B-003, B-004, Q-009 и Q-015 разрешены; записи выше
+B-001, B-002, B-003, B-004, Q-009, Q-011 и Q-015 разрешены; записи выше
 остаются на месте.
 При разрешении запись получает:
 

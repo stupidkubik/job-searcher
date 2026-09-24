@@ -267,8 +267,9 @@ Required fault tests:
 
 ### WP1.4. CLI and connector contracts
 
-Рассмотреть отдельную команду `event` или расширение `status`; не принимать
-решение по названию до contract review.
+Решение D-014: отдельная команда `event`, single connector operation и
+manual CLI. Реализовано на fixtures с production write gate; `status` остаётся
+совместимым legacy путём до cutover.
 
 CLI должен поддерживать:
 

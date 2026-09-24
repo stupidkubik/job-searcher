@@ -38,6 +38,8 @@ class AgentBatchOperationsTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
@@ -345,6 +347,8 @@ class BatchAtomicityTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):

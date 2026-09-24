@@ -81,6 +81,8 @@ class ApplyOperationScriptTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         shutil.copy2(APPLY_SCRIPT, self.root / "scripts" / "ci" / "apply_operation.sh")
@@ -170,6 +172,40 @@ class ApplyOperationScriptTests(unittest.TestCase):
             self.git("log", "-1", "--format=%s", "main", cwd=self.origin),
         )
 
+    def test_runner_allowlist_commits_event_artifact_with_result(self):
+        (self.root / "tests").mkdir()
+        (self.root / "tests/__init__.py").write_text("", encoding="utf-8")
+        (self.root / "tests/test_fixture.py").write_text(
+            "import unittest\nclass Fixture(unittest.TestCase):\n    def test_ready(self): self.assertTrue(True)\n",
+            encoding="utf-8",
+        )
+        created = subprocess.run(
+            [sys.executable, "scripts/jobs.py", "add", "--company", "Fixture Co", "--role",
+             "Frontend Developer", "--source", "Manual", "--no-file"],
+            cwd=self.root, capture_output=True, text=True,
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        with (self.root / "data/jobs.csv").open(newline="", encoding="utf-8") as stream:
+            row = next(csv.DictReader(stream))
+        relative = "data/operations/requests/op-script-event-001.json"
+        (self.root / relative).write_text(json.dumps({
+            "version": 1, "operation_id": "op-script-event-001", "command": "event",
+            "job_id": row["id"],
+            "expected": {"last_update": row["last_update"], "application_status": "not_started"},
+            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
+                     "precision": "date", "payload": {}, "confirmed_by_user": True},
+        }), encoding="utf-8")
+        self.git("add", "--all")
+        self.git("commit", "--message", "seed event request")
+
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            done = self.run_script(relative)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        changed = self.git("show", "--name-only", "--format=", "HEAD")
+        self.assertIn("data/application_events/job-0001.jsonl", changed)
+        self.assertIn("data/operations/results/op-script-event-001.json", changed)
+        self.assertEqual(json.loads((self.root / "data/operations/results/op-script-event-001.json").read_text())["status"], "completed")
+
 
 class AgentOperationsTests(unittest.TestCase):
     def setUp(self):
@@ -195,6 +231,8 @@ class AgentOperationsTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
@@ -242,6 +280,65 @@ class AgentOperationsTests(unittest.TestCase):
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         return self.rows()[0]
+
+    def test_event_request_is_gated_and_publishes_with_immutable_result_when_enabled(self):
+        row = self.seed_job()
+        def request(operation_id):
+            return {
+                "version": 1, "operation_id": operation_id, "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted", "occurred_at": "2026-09-24",
+                    "precision": "date", "payload": {}, "confirmed_by_user": True,
+                },
+            }
+        disabled_path = self.write_operation(request("op-event-disabled-001"))
+        validated = self.invoke_operation("validate", str(disabled_path), "--format", "json")
+        self.assertEqual(validated.returncode, 0, validated.stderr)
+        blocked = self.invoke_operation("apply", str(disabled_path), "--format", "json")
+        self.assertEqual(json.loads(blocked.stdout)["status"], "rejected")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        stale = request("op-event-stale-001")
+        stale["expected"]["last_update"] = "1999-01-01"
+        stale_path = self.write_operation(stale)
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            conflict = self.invoke_operation("apply", str(stale_path), "--format", "json")
+        self.assertEqual(json.loads(conflict.stdout)["status"], "conflict")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        enabled_path = self.write_operation(request("op-event-enabled-001"))
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            applied = self.invoke_operation("apply", str(enabled_path), "--format", "json")
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        result = json.loads(applied.stdout)
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(result["result"]["result"]["event_id"], "op-event-enabled-001")
+        self.assertEqual(self.rows()[0]["application_status"], "applied")
+        ledger = self.root / "data/application_events/job-0001.jsonl"
+        event = json.loads(ledger.read_text(encoding="utf-8"))
+        self.assertEqual((event["source"], event["actor"]), ("connector", "user"))
+        self.assertEqual(event["event_id"], "op-event-enabled-001")
+        self.assertTrue((self.root / "data/operations/results/op-event-enabled-001.json").exists())
+
+    def test_event_request_rejects_unconfirmed_and_batch_shapes(self):
+        row = self.seed_job()
+        base = {
+            "version": 1, "operation_id": "op-event-invalid-001", "command": "event",
+            "job_id": row["id"], "expected": {"last_update": row["last_update"]},
+            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
+                     "precision": "date", "payload": {}, "confirmed_by_user": False},
+        }
+        with self.assertRaises(ops.OperationError) as caught:
+            ops.validate_operation(base)
+        self.assertEqual(caught.exception.code, "bad_type")
+        base["args"]["confirmed_by_user"] = True
+        child = {key: base[key] for key in ("command", "job_id", "expected", "args")}
+        with self.assertRaises(ops.OperationError) as caught:
+            ops.validate_operation({"version": 1, "operation_id": "op-event-batch-001",
+                                    "command": "batch", "atomic": True, "operations": [child]})
+        self.assertEqual(caught.exception.code, "unsupported_command")
 
     def write_operation(self, operation):
         path = self.root / "data" / "operations" / "requests" / f"{operation['operation_id']}.json"
@@ -1119,6 +1216,8 @@ class ErrorTaxonomyTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):

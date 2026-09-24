@@ -71,6 +71,18 @@ STATUS_ALLOWED_ARGS = STATUS_REQUIRED_ARGS | {
     "cv_version",
     "notes",
 }
+EVENT_REQUIRED_ARGS = {"event_type", "occurred_at", "precision", "payload", "confirmed_by_user"}
+EVENT_ALLOWED_ARGS = EVENT_REQUIRED_ARGS | {"evidence_ref", "supersedes"}
+
+
+def event_modules():
+    """Keep legacy connector fixtures independent of the gated v3 modules."""
+    try:
+        import event_ledger
+        import tracker_event_write
+    except ModuleNotFoundError:
+        from scripts import event_ledger, tracker_event_write
+    return event_ledger, tracker_event_write
 VERIFY_ENRICHMENT_ARGS = {"level", "remote_policy", "stack", "salary", "match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status", "next_action", "next_action_date"}
 ADD_CONTROL_ARGS = {"duplicate_of", "force"}
@@ -407,6 +419,42 @@ def validate_status_args(args, prefix="args"):
     return out
 
 
+def validate_event_args(args, prefix="args"):
+    """Validate business fields; runner owns identity, timestamp and actor."""
+    if not isinstance(args, dict):
+        raise contract_error(f"{prefix} must be an object", code="bad_type", field=prefix)
+    require_field_set(args, EVENT_ALLOWED_ARGS, EVENT_REQUIRED_ARGS, prefix)
+    if args["confirmed_by_user"] is not True:
+        raise contract_error(
+            f"{prefix}.confirmed_by_user must be true", code="bad_type",
+            field=f"{prefix}.confirmed_by_user",
+            hint="record only an event explicitly confirmed by the human",
+        )
+    candidate = {
+        "schema_version": 1,
+        "event_id": "contract-check",
+        "job_id": "job-0001",
+        "event_type": args["event_type"],
+        "occurred_at": args["occurred_at"],
+        "precision": args["precision"],
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "source": "connector",
+        "actor": "user",
+        "confirmed_by_user": True,
+        "evidence_ref": args.get("evidence_ref"),
+        "payload": args["payload"],
+        "supersedes": args.get("supersedes"),
+    }
+    event_ledger, _event_write = event_modules()
+    try:
+        event_ledger.validate_event(candidate)
+    except event_ledger.EventValidationError as error:
+        raise contract_error(
+            f"{prefix}: {error}", code="bad_format", field=prefix,
+        ) from error
+    return {key: args[key] for key in args}
+
+
 def validate_add_args(args, prefix="args"):
     """Validate an `add` command's args: allowed/required fields, enum
     values, URL and date formats, and the match_score range."""
@@ -643,12 +691,12 @@ def validate_child(value, index=None):
             "args": validate_add_args(value["args"], f"{prefix}.args"),
         }
     require_field_set(value, JOB_CHILD_FIELDS, JOB_CHILD_FIELDS, prefix)
-    if command not in {"screen", "verify", "set", "status"}:
+    if command not in {"screen", "verify", "set", "status", "event"} or (command == "event" and index is not None):
         raise contract_error(
-            f"{prefix}.command must be screen, verify, set or status",
+            f"{prefix}.command must be screen, verify, set, status or a single event",
             code="unsupported_command",
             field=f"{prefix}.command",
-            allowed=["screen", "verify", "set", "status"],
+            allowed=["screen", "verify", "set", "status", "event"],
         )
     job_id = clean_text(value["job_id"], f"{prefix}.job_id")
     if not JOB_ID_RE.fullmatch(job_id):
@@ -665,6 +713,8 @@ def validate_child(value, index=None):
         args = validate_screen_args(value["args"], f"{prefix}.args")
     elif command == "status":
         args = validate_status_args(value["args"], f"{prefix}.args")
+    elif command == "event":
+        args = validate_event_args(value["args"], f"{prefix}.args")
     else:
         args = validate_set_args(value["args"], f"{prefix}.args")
     return {"command": command, "job_id": job_id, "expected": expected, "args": args}
@@ -744,12 +794,12 @@ def validate_operation(value):
             "operations": operations,
         }
     require_field_set(value, SINGLE_TOP_LEVEL_FIELDS, SINGLE_TOP_LEVEL_FIELDS, "operation")
-    if command not in {"screen", "verify", "set", "status"}:
+    if command not in {"screen", "verify", "set", "status", "event"}:
         raise contract_error(
-            "command must be add, screen, verify, set, status, or batch",
+            "command must be add, screen, verify, set, status, event, or batch",
             code="unsupported_command",
             field="command",
-            allowed=["add", "screen", "verify", "set", "status", "batch"],
+            allowed=["add", "screen", "verify", "set", "status", "event", "batch"],
         )
     child = validate_child(
         {"command": command, "job_id": value["job_id"], "expected": value["expected"], "args": value["args"]}
@@ -804,7 +854,7 @@ def classify_child_risk(operation, row):
     its command and, for verify, whether it just passed a first-party check."""
     if operation["command"] == "add":
         return "medium"
-    if operation["command"] == "status":
+    if operation["command"] in {"status", "event"}:
         return "medium"
     if operation["command"] in {"screen", "set"}:
         return "low"
@@ -842,6 +892,38 @@ def classify_risk(operation, rows_by_id=None):
 def apply_operation(operation, row):
     """Dispatch a validated, precondition-checked job-targeting command to
     the matching jobs.py write function and normalize its result shape."""
+    if operation["command"] == "event":
+        event_ledger, tracker_event_write = event_modules()
+        if not tracker_event_write.event_writes_enabled():
+            raise contract_error(
+                "event writes are disabled until v3 cutover",
+                code="invariant_violation", field="command",
+                hint="run fixture tests or wait for the separate production cutover",
+            )
+        args = operation["args"]
+        complete_event = {
+            "schema_version": 1,
+            "event_id": operation["operation_id"],
+            "job_id": operation["job_id"],
+            "event_type": args["event_type"],
+            "occurred_at": args["occurred_at"],
+            "precision": args["precision"],
+            "recorded_at": utc_now(),
+            "source": "connector",
+            "actor": "user",
+            "confirmed_by_user": True,
+            "evidence_ref": args.get("evidence_ref"),
+            "payload": args["payload"],
+            "supersedes": args.get("supersedes"),
+        }
+        try:
+            result = tracker_event_write.append_application_event(complete_event)
+        except event_ledger.EventValidationError as error:
+            raise contract_error(str(error), code="invariant_violation", layer="events") from error
+        return {
+            "job": result["job"], "warnings": [], "outcome": result["outcome"],
+            "application_path": None, "event_id": complete_event["event_id"],
+        }
     if operation["command"] == "verify":
         result = jobs.verify_job(operation["job_id"], **operation["args"])
         return {
@@ -1334,6 +1416,7 @@ def _execute_operation(operation):
         risk=risk,
         details={
             "outcome": applied["outcome"],
+            **({"event_id": applied["event_id"]} if "event_id" in applied else {}),
             "application_status": updated["application_status"],
             "listing_status": updated["listing_status"],
             "stage_reached": updated["stage_reached"],
@@ -1441,11 +1524,11 @@ def publish_staged_operation(root, writes, expected):
             raise OperationError("published operation failed dataset validation: " + "; ".join(errors))
         ledger_dir = root / "data/application_events"
         if ledger_dir.is_dir():
+            ledger, _event_write = event_modules()
             try:
-                from event_ledger import mismatch_report
-            except ModuleNotFoundError:
-                from scripts.event_ledger import mismatch_report
-            report = mismatch_report(ledger_dir, {row["id"]: row for row in jobs.load()})
+                report = ledger.mismatch_report(ledger_dir, {row["id"]: row for row in jobs.load()})
+            except ledger.EventValidationError as error:
+                raise contract_error(str(error), code="invariant_violation", layer="events") from error
             if any(item["mismatches"] for item in report.values()):
                 raise OperationError("published operation disagrees with event history")
 
@@ -1565,6 +1648,11 @@ FIELD_TYPE_OVERRIDES = {
     "next_action_date": "date (YYYY-MM-DD)",
     "original_url": "URL",
     "source_url": "URL",
+    "occurred_at": "date, aware instant or null (per precision)",
+    "precision": "enum",
+    "payload": "object (exact keys depend on event_type)",
+    "evidence_ref": "single-line reference or null",
+    "supersedes": "earlier event_id or null",
 }
 FIELD_NOTES = {
     "force": "explicitly resolves a fuzzy duplicate candidate or a shared discovery URL",
@@ -1577,6 +1665,8 @@ FIELD_NOTES = {
     "expected": "optimistic lock; must include last_update and the fields the decision depends on",
     "job_id": "must match job-NNNN and already exist",
     "remote_policy": 'a bare "Remote" with no country list is not a valid value; use Unclear',
+    "event_type": "closed v1 taxonomy; see docs/tracker-v3/event-contract-v1.md",
+    "payload": "exact type-specific object; arbitrary keys are rejected",
 }
 ADD_FIELD_ENUMS = {
     "source": jobs.SOURCES,
@@ -1616,6 +1706,7 @@ ALL_ARG_ALLOWLISTS = (
     SCREEN_ALLOWED_ARGS,
     SET_ALLOWED_ARGS,
     STATUS_ALLOWED_ARGS,
+    EVENT_ALLOWED_ARGS,
 )
 
 
@@ -1677,6 +1768,14 @@ def render_contract_markdown():
         ),
         "## `status`\n",
         contract_table(STATUS_ALLOWED_ARGS, STATUS_REQUIRED_ARGS, STATUS_FIELD_ENUMS),
+        "## `event` (single operation only; gated until v3 cutover)\n",
+        "The trusted runner supplies `event_id` from `operation_id`, `recorded_at`, "
+        "`source=connector`, `actor=user` and `job_id`. An event is never a batch child. "
+        "Production writes require the separate v3 cutover flag.\n",
+        contract_table(EVENT_ALLOWED_ARGS, EVENT_REQUIRED_ARGS, {
+            "event_type": sorted(event_modules()[0].EVENT_TYPES),
+            "precision": ["date", "instant", "unknown"],
+        }),
         "## Batch child: `add` (with `client_ref`)\n",
         "Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expected`.\n",
         contract_table(

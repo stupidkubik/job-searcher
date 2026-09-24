@@ -39,6 +39,8 @@ class JobsCliTests(unittest.TestCase):
             "tracker_cli.py",
             "tracker_time.py",
             "tracker_transaction.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
@@ -71,6 +73,33 @@ class JobsCliTests(unittest.TestCase):
         result = self.invoke("validate")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("проверено записей: 0; source references: 0; ошибок: 0", result.stdout)
+
+    def test_event_cli_previews_and_requires_cutover_flag_for_write(self):
+        created = self.add("Event Fixture", "Frontend Developer", "--application-status", "reviewing")
+        self.assertEqual(created.returncode, 0, created.stderr)
+        event = {
+            "schema_version": 1, "event_id": "cli-event-001", "job_id": "job-0001",
+            "event_type": "application_submitted", "occurred_at": "2026-09-24",
+            "precision": "date", "recorded_at": "2026-09-24T12:00:00Z",
+            "source": "manual", "actor": "user", "confirmed_by_user": True,
+            "evidence_ref": None, "payload": {}, "supersedes": None,
+        }
+        preview = self.invoke("event", "--stdin", "--dry-run", "--format", "json", input_text=json.dumps(event))
+        self.assertEqual(preview.returncode, 0, preview.stderr)
+        self.assertEqual(json.loads(preview.stdout)["outcome"], "would_record")
+        self.assertEqual(self.rows()[0]["application_status"], "reviewing")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        blocked = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event))
+        self.assertEqual(blocked.returncode, 1)
+        self.assertEqual(json.loads(blocked.stdout)["error"]["code"], "write_disabled")
+        environment = {**os.environ, "TRACKER_V3_EVENT_WRITES": "1"}
+        applied = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment)
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        self.assertEqual(json.loads(applied.stdout)["outcome"], "recorded")
+        self.assertEqual(self.rows()[0]["application_status"], "applied")
+        retry = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment)
+        self.assertEqual(json.loads(retry.stdout)["outcome"], "already_recorded")
 
     def test_new_job_board_sources_are_accepted(self):
         for index, source in enumerate(

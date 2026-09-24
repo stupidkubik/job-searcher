@@ -154,6 +154,13 @@ staging tests now include event JSONL with immutable result and recover after
 kills at either replacement. B-003 is resolved for the transaction boundary;
 public command/CI allowlist and historical migration remain Gate 1 work.
 
+WP1.4 evidence (2026-09-24): the CLI previews a complete human-confirmed
+event without writes and refuses an ungated apply. Connector validation rejects
+unconfirmed and batch event requests; fixture apply derives ID/time, publishes
+event + immutable result, and passes the runner changed-path allowlist. The
+generated field contract is fresh. Gate 1 still needs WP1.5 backfill, WP1.6
+timeline, and an explicit production cutover.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

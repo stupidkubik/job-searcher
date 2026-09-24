@@ -177,6 +177,26 @@
   connector results and generated projections share the integrated boundary
   and pass the same crash/retry tests.
 
+## D-014 — use a gated single `event` command for v3 lifecycle history
+
+- Status: accepted for WP1.4; production cutover remains separate.
+- Date: 2026-09-24
+- Decision: add a dedicated `event` command beside legacy `status`. The manual
+  CLI accepts a full v1 event JSON and supports `--dry-run`; connector v1 accepts
+  only business fields in one existing-job operation with an `expected` lock.
+  The trusted runner derives `event_id` from `operation_id`, records its own
+  UTC timestamp and sets `source=connector`, `actor=user`. Both routes require
+  explicit human confirmation. Connector event is not a batch child. Public
+  writes require `TRACKER_V3_EVENT_WRITES=1` after a separate cutover.
+- Alternatives: overload `status`, allow event batch children immediately, or
+  enable event writes before historical migration is ready.
+- Evidence: generated `data/operations/contract.md`, CLI dry-run/write-gate
+  tests, connector validation/staging/immutable-result tests, and an end-to-end
+  CI runner allowlist test for event JSONL.
+- Consequences: Q-011 is resolved. Existing v1 commands remain valid and
+  production events remain absent until cutover. WP1.5 backfill and WP1.6
+  timeline are still required for Gate 1.
+
 ## Decision template
 
 ```text
