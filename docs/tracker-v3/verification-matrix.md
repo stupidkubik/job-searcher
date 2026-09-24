@@ -80,6 +80,13 @@ these checks.
 | SRC-004 | Discovery workflow remains read-only | workflow/path test | permissions review | 4 |
 | SRC-005 | Repeated run does not create duplicate observation identity | idempotency test | run history review | 4 |
 
+Phase 4 first slice (2026-09-24): `tests/test_import_himalayas.py` covers
+Himalayas `success`, `zero_results`, `partial`, 401/403/429, 5xx and malformed
+response classification. An incomplete `--artifact` is retained with
+`summary=null`; raw batch writing remains limited to complete runs. SRC-001
+and SRC-003 are verified for this adapter only. Cross-source projection,
+`last_seen_in_source` and quiet-board alerts remain outside this slice.
+
 ## Inbox requirements
 
 | ID | Requirement | Automated evidence | Manual/review evidence | Gate |

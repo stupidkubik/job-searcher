@@ -174,6 +174,34 @@ class HimalayasAdapterUnitTests(unittest.TestCase):
         self.assertEqual(calls[0][1], import_himalayas.REQUEST_TIMEOUT_SECONDS)
         self.assertEqual(delays, [1])
 
+    def test_fetch_failure_has_a_machine_readable_outcome(self):
+        for status, expected in (
+            (401, "auth_required"),
+            (403, "blocked"),
+            (429, "rate_limited"),
+            (503, "request_failed"),
+        ):
+            with self.subTest(status=status):
+
+                def fail(request, timeout):
+                    raise HTTPError(request.full_url, status, "unavailable", {}, None)
+
+                with self.assertRaises(import_himalayas.HimalayasRunError) as caught:
+                    import_himalayas.fetch_json(
+                        "https://himalayas.example.test/jobs/api/search",
+                        urlopen_func=fail,
+                        sleep_func=lambda _delay: None,
+                    )
+                self.assertEqual(caught.exception.outcome, expected)
+
+    def test_malformed_response_is_parse_error(self):
+        with self.assertRaises(import_himalayas.HimalayasRunError) as caught:
+            import_himalayas.fetch_json(
+                "https://himalayas.example.test/jobs/api/search",
+                urlopen_func=lambda _request, timeout: FakeResponse({"wrong": []}),
+            )
+        self.assertEqual(caught.exception.outcome, "parse_error")
+
 
 class HimalayasAdapterCliTests(unittest.TestCase):
     def setUp(self):
@@ -221,13 +249,18 @@ class HimalayasAdapterCliTests(unittest.TestCase):
     def tearDown(self):
         self.temporary.cleanup()
 
-    def invoke(self, *arguments):
+    def invoke(self, *arguments, collected=None, failure=None):
         output = io.StringIO()
         with (
             patch.object(import_himalayas, "ROOT", self.root),
             patch.object(import_himalayas, "INBOX_DIR", self.root / "data" / "inbox"),
             patch.object(import_himalayas, "load_himalayas_settings", return_value=self.settings),
-            patch.object(import_himalayas, "collect_records", return_value=(self.records, self.summary, [])),
+            patch.object(
+                import_himalayas,
+                "collect_records",
+                return_value=collected if collected is not None else (self.records, self.summary, []),
+                side_effect=failure,
+            ),
             patch.object(sys, "argv", ["import_himalayas.py", *arguments]),
             redirect_stdout(output),
         ):
@@ -292,6 +325,54 @@ class HimalayasAdapterCliTests(unittest.TestCase):
         self.assertEqual(saved["run_finished_at"], "2026-08-13T22:18:00Z")
         self.assertEqual(saved["found_at"], "2026-08-14")
         self.assertEqual(saved["records"], self.records)
+        self.assertEqual(saved["outcome"], "success")
+        self.assertTrue(saved["complete"])
+        self.assertEqual(saved["queries"], ["Frontend Developer"])
+
+    def test_zero_results_and_failed_run_are_distinct_artifacts(self):
+        zero_artifact = self.root / "artifacts" / "zero.json"
+        zero_summary = {**self.summary, "records": 0, "fetched": 0}
+        result = self.invoke("--artifact", str(zero_artifact), collected=([], zero_summary, []))
+        self.assertEqual(result["outcome"], "zero_results")
+        self.assertTrue(result["ok"])
+        self.assertEqual(json.loads(zero_artifact.read_text())["outcome"], "zero_results")
+
+        failed_artifact = self.root / "artifacts" / "blocked.json"
+        with self.assertRaises(SystemExit) as caught:
+            self.invoke(
+                "--artifact",
+                str(failed_artifact),
+                failure=import_himalayas.HimalayasRunError("HTTP 403", "blocked"),
+            )
+        self.assertEqual(caught.exception.code, 1)
+        saved = json.loads(failed_artifact.read_text())
+        self.assertEqual(saved["outcome"], "blocked")
+        self.assertFalse(saved["complete"])
+        self.assertIsNone(saved["summary"])
+        self.assertEqual(saved["records"], [])
+
+    def test_partial_run_is_not_a_successful_empty_batch(self):
+        artifact = self.root / "artifacts" / "partial.json"
+        partial_summary = {**self.summary, "records": 0}
+        with self.assertRaises(SystemExit) as caught:
+            self.invoke(
+                "--artifact",
+                str(artifact),
+                collected=([], partial_summary, ["malformed job"]),
+            )
+        self.assertEqual(caught.exception.code, 1)
+        saved = json.loads(artifact.read_text())
+        self.assertEqual(saved["outcome"], "partial")
+        self.assertFalse(saved["complete"])
+
+        raw_batch = self.root / "data" / "inbox" / "partial.jsonl"
+        with self.assertRaises(SystemExit):
+            self.invoke(
+                "--output",
+                str(raw_batch),
+                collected=([], partial_summary, ["malformed job"]),
+            )
+        self.assertFalse(raw_batch.exists())
 
     def test_source_discovery_workflow_is_read_only_and_uploads_artifact(self):
         workflow = (PROJECT / ".github" / "workflows" / "source-discovery.yml").read_text(encoding="utf-8")

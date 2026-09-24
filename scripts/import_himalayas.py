@@ -169,6 +169,12 @@ class HimalayasImportError(ValueError):
     pass
 
 
+class HimalayasRunError(HimalayasImportError):
+    def __init__(self, message, outcome):
+        super().__init__(message)
+        self.outcome = outcome
+
+
 def die(message):
     print(f"error: {message}", file=sys.stderr)
     raise SystemExit(1)
@@ -366,29 +372,39 @@ def fetch_json(url, *, urlopen_func=urlopen, sleep_func=time.sleep):
     """Fetch one API response with bounded retry for temporary HTTP/network errors."""
     request = Request(url, headers={"Accept": "application/json", "User-Agent": "job-tracker-v2/1.0"})
     last_error = None
+    last_outcome = "request_failed"
     for attempt in range(len(RETRY_DELAYS_SECONDS) + 1):
         try:
             with urlopen_func(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
                 raw = response.read()
         except HTTPError as error:
             last_error = f"HTTP {error.code}: {error.reason}"
+            last_outcome = {
+                401: "auth_required",
+                403: "blocked",
+                429: "rate_limited",
+            }.get(error.code, "request_failed")
             retryable = error.code == 429 or 500 <= error.code < 600
             error.close()
         except (URLError, TimeoutError, OSError) as error:
             last_error = f"network error: {error}"
+            last_outcome = "request_failed"
             retryable = True
         else:
             try:
                 payload = json.loads(raw.decode("utf-8"))
             except (UnicodeDecodeError, json.JSONDecodeError) as error:
-                raise HimalayasImportError(f"некорректный JSON от Himalayas: {error}") from error
+                raise HimalayasRunError(f"некорректный JSON от Himalayas: {error}", "parse_error") from error
             if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list):
-                raise HimalayasImportError("ответ Himalayas должен быть object с jobs array")
+                raise HimalayasRunError("ответ Himalayas должен быть object с jobs array", "parse_error")
             return payload
         if not retryable or attempt == len(RETRY_DELAYS_SECONDS):
             break
         sleep_func(RETRY_DELAYS_SECONDS[attempt])
-    raise HimalayasImportError(f"не удалось запросить Himalayas после {attempt + 1} попыток: {last_error}")
+    raise HimalayasRunError(
+        f"не удалось запросить Himalayas после {attempt + 1} попыток: {last_error}",
+        last_outcome,
+    )
 
 
 def collect_records(settings, run, *, today_value=None, fetch=fetch_json):
@@ -504,26 +520,40 @@ def main():
     try:
         settings = load_himalayas_settings()
         run = select_run(settings, broad=args.broad)
-        found_at = business_date(started_at)
+    except HimalayasImportError as error:
+        die(str(error))
+    found_at = business_date(started_at)
+    try:
         records, summary, errors = collect_records(settings, run, today_value=found_at)
-        finished_at = utc_instant()
-        output = None
-        artifact_payload = {
-            "version": 1,
-            "source": SOURCE_NAME,
-            "selection": run["selection"],
-            "run_started_at": utc_timestamp(started_at),
-            "run_finished_at": utc_timestamp(finished_at),
-            "business_timezone": BUSINESS_TIMEZONE_NAME,
-            "found_at": found_at.isoformat(),
-            "cadence_hours": run["cadence_hours"],
-            "max_age_days": run["max_age_days"],
-            "geo_policy": settings["geo"],
-            "summary": summary,
-            "records": records,
-            "errors": errors,
-        }
-        if args.output is not None and not errors:
+    except HimalayasImportError as error:
+        records, summary, errors = [], None, [str(error)]
+        outcome = getattr(error, "outcome", "parse_error")
+    else:
+        outcome = "partial" if errors else "zero_results" if not records else "success"
+    finished_at = utc_instant()
+    output = None
+    artifact_payload = {
+        "version": 2,
+        "adapter_version": "himalayas-v2",
+        "source": SOURCE_NAME,
+        "selection": run["selection"],
+        "outcome": outcome,
+        "complete": outcome in {"success", "zero_results"},
+        "run_started_at": utc_timestamp(started_at),
+        "run_finished_at": utc_timestamp(finished_at),
+        "duration_seconds": max(0, (finished_at - started_at).total_seconds()),
+        "business_timezone": BUSINESS_TIMEZONE_NAME,
+        "found_at": found_at.isoformat(),
+        "cadence_hours": run["cadence_hours"],
+        "max_age_days": run["max_age_days"],
+        "geo_policy": settings["geo"],
+        "queries": run["queries"],
+        "summary": summary,
+        "records": records,
+        "errors": errors,
+    }
+    try:
+        if args.output is not None and artifact_payload["complete"]:
             output_path = validate_output_path(args.output)
             write_jsonl(output_path, records)
             output = output_path.relative_to(ROOT.resolve()).as_posix()
@@ -532,7 +562,7 @@ def main():
     except HimalayasImportError as error:
         die(str(error))
     result = {
-        "ok": not errors,
+        "ok": artifact_payload["complete"],
         "command": "import_himalayas",
         "mode": "dry_run"
         if args.dry_run
@@ -540,19 +570,23 @@ def main():
         if args.artifact is not None
         else "write_raw_batch",
         "selection": run["selection"],
+        "outcome": outcome,
+        "complete": artifact_payload["complete"],
         "run_started_at": artifact_payload["run_started_at"],
         "run_finished_at": artifact_payload["run_finished_at"],
+        "duration_seconds": artifact_payload["duration_seconds"],
         "business_timezone": BUSINESS_TIMEZONE_NAME,
         "found_at": artifact_payload["found_at"],
         "cadence_hours": run["cadence_hours"],
         "max_age_days": run["max_age_days"],
         "geo_policy": settings["geo"],
+        "queries": run["queries"],
         "summary": summary,
         "output": output,
         "errors": errors,
     }
     print(json.dumps(result, ensure_ascii=False, sort_keys=True))
-    if errors:
+    if not artifact_payload["complete"]:
         raise SystemExit(1)
 
 

@@ -311,6 +311,23 @@ from the active v3 scope.
   neither blocks the lightweight trial. No new canonical field, index, or
   operation is introduced by this decision.
 
+## D-021 — start source health with a read-only Himalayas run outcome
+
+- Status: accepted for the first Phase 4 slice on 2026-09-24
+- Date: 2026-09-24
+- Decision: classify each Himalayas adapter run as `success`, `zero_results`,
+  `partial`, `auth_required`, `blocked`, `rate_limited`, `parse_error` or
+  `request_failed`. Preserve an immutable read-only artifact for failed
+  `--artifact` runs and mark incomplete runs explicitly. Only a complete run
+  may write an inbox raw batch.
+- Reason: a failed adapter run must not appear to be an empty vacancy feed.
+  The existing workflow already uploads a short-lived read-only artifact, so
+  this adds no step to the user's application workflow.
+- Consequences: D-006's separation of source observation and canonical listing
+  truth is exercised for one adapter. No `listing_status`, job row or source
+  reference changes from a run outcome. Broader `last_seen` storage, source
+  projection and quiet-board alerts remain decisions for later Phase 4 work.
+
 ## Decision template
 
 ```text

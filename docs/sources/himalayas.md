@@ -46,6 +46,16 @@ Adapter [`scripts/import_himalayas.py`](../../scripts/import_himalayas.py):
 Adapter пишет только новый immutable JSONL в `data/inbox/` или read-only
 artifact; canonical решение, geo screening и ingest он не выполняет.
 
+`--artifact` сохраняет outcome даже при неуспешном запросе. `success` означает
+завершённый проход с записями, `zero_results` — завершённый проход без
+подходящих записей, `partial` — ошибки отдельных карточек. HTTP 401/403/429
+получают `auth_required`/`blocked`/`rate_limited`; ошибки транспорта и 5xx —
+`request_failed`, неверный ответ или pagination — `parse_error`. Неуспешный
+проход выходит с кодом 1, а artifact помечает `complete=false`; `summary=null`
+при ошибке до завершения сбора, поэтому ноль в нём не маскирует сбой.
+Artifact также содержит выбранные запросы, версию адаптера, UTC-время и
+длительность. Он остаётся discovery evidence и не меняет статус вакансий.
+
 ## Exact identity и original source
 
 | Значение | Правило |

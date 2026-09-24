@@ -469,6 +469,12 @@ scores or job statuses were changed.
 
 ## 10. Phase 4 — source health and observation freshness
 
+Status: first read-only Himalayas slice implemented. Its v2 run artifact
+distinguishes complete zero results from partial/failed runs and records query
+set, timing and adapter version. No canonical listing or application field is
+changed. Per-job `last_seen_in_source`, cross-source health projection and
+quiet-board alerts remain proposed; Gate 4 is not complete.
+
 Цель: видеть качество discovery без ложного изменения listing truth.
 
 ### Work packages

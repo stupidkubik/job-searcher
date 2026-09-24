@@ -60,7 +60,7 @@
 | Phase 1 — application event ledger | Gate 1 passed: PR #21 merged; 45 jobs / 53 events; validation and views green | поддерживать event contract |
 | Phase 2 — application packet manifest | deferred by D-019 for this single-user tracker | вернуться при конкретной потере сведений о материалах |
 | Phase 3 — evidence-backed matching | D-020 retrospective pilot complete; prospective short-summary trial next | full Gate 3 only if demonstrated need |
-| Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
+| Phase 4 — source health/freshness | first Himalayas run-outcome slice implemented | Gate 4: other sources, observation and alert scope pending |
 | Phase 5 — inbox reconciliation | deferred until events stabilize | Gate 5: только proposed events |
 | Phase 6 — event analytics | deferred until real event history exists | Gate 6: метрики воспроизводимы |
 | Phase 7 — contacts/outreach | deferred by D-011: сейчас нет contact data | новая инвентаризация и решение |
