@@ -282,6 +282,9 @@ CLI должен поддерживать:
 
 ### WP1.5. Historical backfill
 
+Status: implemented and verified on a temporary copy; production apply remains
+gated until cutover. Decision table and observed counts: [historical-backfill.md](historical-backfill.md).
+
 Backfill создаёт только то, что доказано structured snapshot:
 
 - известный `applied_at` → событие с date precision;

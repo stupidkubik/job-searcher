@@ -35,7 +35,7 @@ git status --short
 | EVT-009 | `occurred_at` and business date preserve timezone/precision | timezone/date-only fixtures | migration table review | 1 |
 | EVT-010 | Listing closure does not rewrite application history | regression test | timeline review | 1 |
 | EVT-011 | Adapter/inbox cannot write event directly | boundary/changed-path tests | workflow permissions review | 1/5 |
-| EVT-012 | Backfill is dry-run safe and idempotent | migration tests | before/after count report | 1 |
+| EVT-012 | Backfill is dry-run safe and idempotent | `test_maintenance_backfill_application_events.py`; temp-copy rehearsal | 458 rows, 45 jobs/53 events, retry 0 pending; CSV unchanged; forced rollback | 1, verified on 2026-09-24 |
 
 ## Application packet requirements
 
@@ -158,8 +158,14 @@ WP1.4 evidence (2026-09-24): the CLI previews a complete human-confirmed
 event without writes and refuses an ungated apply. Connector validation rejects
 unconfirmed and batch event requests; fixture apply derives ID/time, publishes
 event + immutable result, and passes the runner changed-path allowlist. The
-generated field contract is fresh. Gate 1 still needs WP1.5 backfill, WP1.6
-timeline, and an explicit production cutover.
+generated field contract is fresh. At that point, WP1.5 and WP1.6 remained.
+
+WP1.5 evidence (2026-09-24): the default migration command produced a
+read-only 458-row plan with 45 eligible jobs, 53 dated events and no blockers.
+A temporary-copy apply preserved CSV bytes and exact event projection; a
+second pass found 0 pending jobs. The forced-validation-failure test restored
+the empty ledger. B-005 is resolved. Gate 1 still needs WP1.6 timeline and a
+fresh pre-cutover rehearsal and verification pass.
 
 ## Phase evidence package
 

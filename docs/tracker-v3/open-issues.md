@@ -127,7 +127,7 @@
 ### B-005 — historical backfill precision
 
 - Severity: blocker
-- Status: decision_ready
+- Status: resolved
 - Blocks: WP1.5 and Gate 1
 - Questions:
   - date-only `applied_at` становится midnight timestamp или date precision?
@@ -137,6 +137,10 @@
   `source=migration`; never invent midnight as real occurrence time. Направление
   согласовано; backfill table и dry-run ещё нужны.
 - Exit criteria: backfill table covers every current lifecycle combination.
+- Resolution: `historical-backfill.md` now defines the decision table; the
+  default dry-run and temporary-copy rehearsal found 45 eligible jobs and no
+  blockers in the 2026-09-24 snapshot. B-005 is resolved for this snapshot;
+  future unrepresentable combinations fail closed rather than invent events.
 
 ## Packet and evidence issues
 

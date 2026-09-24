@@ -197,6 +197,23 @@
   production events remain absent until cutover. WP1.5 backfill and WP1.6
   timeline are still required for Gate 1.
 
+## D-015 — migrate only dated, exactly representable lifecycle facts
+
+- Status: accepted for WP1.5; production cutover remains separate.
+- Date: 2026-09-24
+- Decision: historical event migration reads only four structured lifecycle
+  fields. Known dates retain `precision=date`; all rows use `source=migration`
+  and no user confirmation. A row with an unproven stage or undated transition
+  blocks application rather than receiving an inferred event. See the full
+  [decision table](historical-backfill.md).
+- Alternatives: synthetic midnight instants, parsing notes, treating
+  `response_at` as an interview or offer date, and using `last_update` for a
+  terminal event. Each would assert more than the snapshot proves.
+- Evidence: 458-row dry-run, 45-job temporary-copy apply and idempotent retry,
+  exact projection checks, forced rollback test, and 263 passing tests.
+- Consequences: B-005 is resolved for current data. Production event writes
+  stay gated until cutover; future unrepresentable rows fail closed.
+
 ## Decision template
 
 ```text

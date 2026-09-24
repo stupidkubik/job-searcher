@@ -114,6 +114,8 @@
 CLI и connector `event` реализованы с dry-run/contract validation и закрытой
 по умолчанию записью; production events не создавались. Transaction boundary,
 reader audit, current-data rehearsal, connector result и CI allowlist проверены.
-Следующий срез — WP1.5 historical backfill precision и dry-run migration.
+WP1.5 historical backfill precision, default dry-run and temporary-copy
+rehearsal are documented in [historical-backfill.md](historical-backfill.md).
+Следующий срез — WP1.6 timeline projection; Gate 1 пока открыт.
 B-005 остаётся его gate. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
