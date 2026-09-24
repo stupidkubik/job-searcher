@@ -3,11 +3,13 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 import shutil
 import sys
 import tempfile
 from contextlib import contextmanager
+from contextvars import ContextVar
 from datetime import datetime
 from pathlib import Path
 
@@ -19,9 +21,14 @@ try:
     from tracker_time import utc_timestamp
 except ModuleNotFoundError:
     from scripts.tracker_time import utc_timestamp
+try:
+    from tracker_transaction import StaleRevision, digest, publish
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import StaleRevision, digest, publish
 ROOT = Path(__file__).resolve().parent.parent
 REQUESTS_DIR = ROOT / "data" / "operations" / "requests"
 RESULTS_DIR = ROOT / "data" / "operations" / "results"
+STAGED_RESULTS_DIR = ContextVar("staged_results_dir", default=None)
 OPERATION_VERSION = 1
 MAX_REQUEST_BYTES = 64 * 1024
 MAX_BATCH_OPERATIONS = 100
@@ -207,7 +214,7 @@ def resolve_request_path(value):
 
 def result_path(operation_id):
     """Path a result for this operation_id would live at, existing or not."""
-    return RESULTS_DIR / f"{operation_id}.json"
+    return (STAGED_RESULTS_DIR.get() or RESULTS_DIR) / f"{operation_id}.json"
 
 
 def validate_expected(expected, prefix="expected"):
@@ -918,8 +925,25 @@ def write_result(result):
     return path
 
 
+def result_bytes(result):
+    return (json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
+TRACKER_PUBLISH_PATHS = (
+    "data/jobs.csv", "data/job_sources.csv", "docs/tracker.md",
+    "data/index/known.tsv", "data/index/keys.tsv", "data/index/active.csv",
+)
+
+
+def workspace_snapshot(root):
+    """Capture the original bytes of every file a connector can change."""
+    names = set(TRACKER_PUBLISH_PATHS)
+    names.update(path.relative_to(root).as_posix() for path in (root / "applications").glob("job-*.md"))
+    return {name: (root / name).read_bytes() for name in names if (root / name).exists()}
+
+
 @contextmanager
-def temporary_tracker_workspace(*, include_card_revisions=False):
+def temporary_tracker_workspace(*, include_card_revisions=False, include_snapshot=False):
     """Repoint jobs.PATHS at a scratch copy of the tracker for one operation.
 
     docs/agent-write-path-plan-2026-09-07.md, Э10: jobs.py derives every path
@@ -937,24 +961,35 @@ def temporary_tracker_workspace(*, include_card_revisions=False):
             shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
             shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
             shutil.copytree(original_root / "applications", temp_apps)
+            if (original_root / "data/index").exists():
+                shutil.copytree(original_root / "data/index", temp_data / "index")
+            if (original_root / "docs/tracker.md").exists():
+                (temp_root / "docs").mkdir()
+                shutil.copy2(original_root / "docs/tracker.md", temp_root / "docs/tracker.md")
+        baseline = workspace_snapshot(temp_root) if include_snapshot else None
         card_revisions = {
             path.relative_to(temp_root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
             for path in temp_apps.glob("job-*.md")
         }
         try:
             jobs.PATHS.root = temp_root
-            yield (temp_root, card_revisions) if include_card_revisions else temp_root
+            if include_snapshot:
+                yield temp_root, baseline
+            elif include_card_revisions:
+                yield temp_root, card_revisions
+            else:
+                yield temp_root
         finally:
             jobs.PATHS.root = original_root
 
 
-def changed_application_writes(temp_root, card_revisions):
+def changed_application_writes(temp_root, card_revisions, *, target_root=None):
     """Find application cards the temporary workspace created or changed,
     so they can be copied back into the real applications/ directory."""
     writes = []
     for temp_path in sorted((temp_root / "applications").glob("job-*.md")):
         relative = temp_path.relative_to(temp_root)
-        target = ROOT / relative
+        target = (target_root or ROOT) / relative
         body = temp_path.read_text(encoding="utf-8")
         prior_revision = card_revisions.get(relative.as_posix())
         if hashlib.sha256(body.encode("utf-8")).hexdigest() != prior_revision:
@@ -1092,6 +1127,7 @@ def execute_batch(operation, atomic, stale_conflicts):
     """
     child_results = []
     applied = 0
+    target_root = jobs.PATHS.root
     base_rows, base_sources, expected_revisions = jobs.load_for_write()
     with temporary_tracker_workspace(include_card_revisions=True) as (temp_root, card_revisions):
         if jobs.load() != base_rows or jobs.load_job_sources() != base_sources:
@@ -1167,7 +1203,7 @@ def execute_batch(operation, atomic, stale_conflicts):
                 code="invariant_violation",
                 layer="jobs",
             )
-        app_writes = changed_application_writes(temp_root, card_revisions)
+        app_writes = changed_application_writes(temp_root, card_revisions, target_root=target_root)
     if applied:
         jobs.apply_dataset_transaction(
             temp_rows, temp_sources, app_writes, expected_revisions=expected_revisions
@@ -1343,6 +1379,100 @@ def rejected_result(operation_id, command, error):
     }
 
 
+def stale_dataset_result(operation):
+    retry_keys = (
+        ("command", "args") if operation["command"] == "add"
+        else ("command", "atomic", "operations") if operation["command"] == "batch"
+        else ("command", "job_id", "expected", "args")
+    )
+    return operation_result(
+        operation,
+        status="conflict",
+        risk="medium",
+        details={
+            "reason": "stale_operation",
+            "message": "dataset changed while the operation was being prepared; retry on current data",
+            "retry": {key: operation[key] for key in retry_keys},
+        },
+    )
+
+
+def staged_changes(temp_root, baseline, result_name, *, include_canonical):
+    """Return complete bytes and prior hashes for the one journal publication."""
+    current = workspace_snapshot(temp_root) if include_canonical else {}
+    writes, expected = {}, {}
+    if include_canonical:
+        for name in sorted(set(baseline) | set(current)):
+            old, new = baseline.get(name), current.get(name)
+            if old == new:
+                continue
+            if new is None:
+                raise OperationError(f"staged operation deleted a canonical file: {name}")
+            writes[name] = new
+            expected[name] = digest(old)
+    staged_result = temp_root / "data/operations/results" / Path(result_name).name
+    if not staged_result.exists():
+        raise OperationError("staged operation did not create its immutable result")
+    writes[result_name] = staged_result.read_bytes()
+    expected[result_name] = None
+    return writes, expected
+
+
+def publish_staged_operation(root, writes, expected):
+    """Publish canonical changes and their result in one recoverable journal."""
+    kill_after = os.environ.get("JOBS_CONNECTOR_KILL_AFTER_REPLACE")
+    kill_after = int(kill_after) if kill_after and kill_after.isdecimal() else None
+
+    def fault(stage, index):
+        count = index + 1 if index is not None else 0
+        if kill_after is not None and count == kill_after and (
+            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        ):
+            os._exit(75)
+
+    def validate_published(_root):
+        if not any(not name.startswith("data/operations/results/") for name in writes):
+            return
+        errors, _warnings = jobs.validate_dataset(jobs.load(), jobs.load_job_sources())
+        if errors:
+            raise OperationError("published operation failed dataset validation: " + "; ".join(errors))
+
+    for name in writes:
+        (root / name).parent.mkdir(parents=True, exist_ok=True)
+    publish(root, writes, expected, validate=validate_published, fault=fault)
+
+
+def stage_operation(operation, result_name):
+    """Run the existing operation logic on a private copy, then collect its diff."""
+    with temporary_tracker_workspace(include_snapshot=True) as (temp_root, baseline):
+        token = STAGED_RESULTS_DIR.set(temp_root / "data/operations/results")
+        try:
+            try:
+                result, _path = _execute_operation(operation)
+            except (OperationError, jobs.ValidationError) as error:
+                result = (
+                    stale_dataset_result(operation)
+                    if isinstance(error, jobs.ValidationError) and error.code == "stale_operation"
+                    else rejected_result(operation["operation_id"], operation["command"], error)
+                )
+                write_result(result)
+            except SystemExit as error:
+                wrapped = OperationError(
+                    f"unexpected process exit while applying the operation: {error}",
+                    code="invariant_violation",
+                    layer="jobs",
+                )
+                result = rejected_result(operation["operation_id"], operation["command"], wrapped)
+                write_result(result)
+        finally:
+            STAGED_RESULTS_DIR.reset(token)
+        writes, expected = staged_changes(
+            temp_root, baseline, result_name,
+            include_canonical=result["status"] in {"completed", "partial"},
+        )
+    return result, writes, expected
+
+
 def execute(path):
     """Top-level entry point: load, validate and apply one request, catching
     every OperationError/ValidationError/SystemExit into a rejected result
@@ -1359,31 +1489,37 @@ def execute(path):
             hint="retry with a new operation_id; results are immutable",
         )
     command = peek_command(path)
-    operation = None
     try:
         operation = load_operation(path)
-        command = operation["command"]
-        return _execute_operation(operation)
+        target_root = jobs.PATHS.root
+        result_name = result_path(operation_id).relative_to(target_root).as_posix()
+        result, writes, expected = stage_operation(operation, result_name)
+        try:
+            publish_staged_operation(target_root, writes, expected)
+        except StaleRevision as error:
+            if result_path(operation_id).exists():
+                raise contract_error(
+                    f"operation_id already has a result: {result_path(operation_id).relative_to(ROOT)}",
+                    code="result_exists",
+                    field="operation_id",
+                ) from error
+            result = stale_dataset_result(operation)
+            try:
+                publish_staged_operation(
+                    target_root, {result_name: result_bytes(result)}, {result_name: None}
+                )
+            except StaleRevision as concurrent_result:
+                raise contract_error(
+                    f"operation_id already has a result: {result_path(operation_id).relative_to(ROOT)}",
+                    code="result_exists",
+                    field="operation_id",
+                ) from concurrent_result
+        return result, result_path(operation_id)
     except (OperationError, jobs.ValidationError) as error:
         if operation_id is None:
             raise
-        if operation is not None and isinstance(error, jobs.ValidationError) and error.code == "stale_operation":
-            retry_keys = (
-                ("command", "args") if operation["command"] == "add"
-                else ("command", "atomic", "operations") if operation["command"] == "batch"
-                else ("command", "job_id", "expected", "args")
-            )
-            result = operation_result(
-                operation,
-                status="conflict",
-                risk="medium",
-                details={
-                    "reason": "stale_operation",
-                    "message": "dataset changed while the operation was being prepared; retry on current data",
-                    "retry": {key: operation[key] for key in retry_keys},
-                },
-            )
-            return result, write_result(result)
+        if isinstance(error, OperationError) and error.code == "result_exists":
+            raise
         result = rejected_result(operation_id, command, error)
         return result, write_result(result)
     except SystemExit as error:

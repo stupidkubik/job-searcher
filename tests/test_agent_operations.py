@@ -383,6 +383,52 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
         self.assertTrue((self.root / payload["result_path"]).exists())
 
+    def test_interrupted_connector_publication_rolls_back_result_and_job(self):
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-interrupted-001",
+                "command": "add",
+                "args": {
+                    "company": "InterruptedCo",
+                    "role": "Frontend Engineer",
+                    "source": "Manual",
+                    "application_status": "reviewing",
+                },
+            }
+        )
+        originals = {
+            name: (self.root / name).read_bytes()
+            for name in ("data/jobs.csv", "data/job_sources.csv")
+        }
+        result_file = self.root / "data/operations/results/op-add-interrupted-001.json"
+        for replacement_count in (2, 7):
+            with self.subTest(replacement_count=replacement_count):
+                interrupted = subprocess.run(
+                    [sys.executable, "scripts/agent_operations.py", "apply", str(request), "--format", "json"],
+                    cwd=self.root,
+                    text=True,
+                    capture_output=True,
+                    env={**os.environ, "JOBS_CONNECTOR_KILL_AFTER_REPLACE": str(replacement_count)},
+                )
+                self.assertEqual(interrupted.returncode, 75, interrupted.stderr)
+                self.assertTrue((self.root / ".v3-transaction").exists())
+                if replacement_count == 7:
+                    self.assertTrue(result_file.exists())
+
+                recovered = self.invoke_jobs("validate", "--strict", "--format", "json")
+                self.assertEqual(recovered.returncode, 0, recovered.stderr)
+                for name, content in originals.items():
+                    self.assertEqual((self.root / name).read_bytes(), content)
+                self.assertFalse(result_file.exists())
+                self.assertFalse(list((self.root / "applications").glob("job-0001-*.md")))
+                self.assertFalse((self.root / ".v3-transaction").exists())
+
+        retried = self.invoke_operation("apply", str(request), "--format", "json")
+        self.assertEqual(retried.returncode, 0, retried.stderr)
+        self.assertTrue(result_file.exists())
+        self.assertEqual(len(self.rows()), 1)
+
     def test_add_with_screening_blocker_does_not_create_application_card(self):
         request = self.write_operation(
             {

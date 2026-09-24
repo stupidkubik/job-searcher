@@ -68,12 +68,11 @@ production `jobs.csv`.
    самой публикации всё ещё требуют отдельной политики.
 2. Все читатели согласованного набора (snapshot/event/result и нужные generated
    views) должны сначала выполнять recovery и читать под этим lock либо через
-   доказанный versioned snapshot. Сейчас только prototype `read_consistent()`
-   соблюдает это правило.
+   доказанный versioned snapshot. CLI read commands уже выполняют recovery и
+   читают под общим lock; остальные readers требуют аудита.
 3. Сформировать и валидировать future snapshot, event, card, result и
-   необходимые projections **до** публикации. Connector result должен входить
-   в тот же `writes` set или иметь проверяемое восстановление; нынешний
-   `write_result()` выполняется позже. Runner allowlist и `git add` должны
+   необходимые projections **до** публикации. Connector result уже входит
+   в тот же `writes` set с canonical diff. Runner allowlist и `git add` должны
    явно включить event path, но никогда journal/lock.
 4. Проверить process crash/fault boundary уже на интегрированной операции,
    включая generation failure, stale connector retry и race с job operation.
@@ -102,4 +101,8 @@ commit marker. CLI восстанавливает pending journal перед к�
 публикации; теперь все семь файлов входят в один journal. Тест обрывает CLI
 до публикации и после каждой из семи замен, сверяет исходные байты и проверяет
 freshness после успешного retry. Ошибка генерации проекции не меняет файлы.
-Connector result и event artifact ещё не входят в journal; Gate 1 не пройден.
+Connector теперь готовит операцию на временной копии и публикует её diff вместе
+с immutable result в одном journal. Интеграционный тест прерывает публикацию
+до result и после его замены: recovery убирает и canonical diff, и result;
+повтор request затем проходит. Event artifact ещё не входит в journal; Gate 1
+не пройден.

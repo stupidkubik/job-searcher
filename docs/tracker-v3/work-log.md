@@ -30,6 +30,7 @@
 | L-0009 | 2026-09-24 | `codex/tracker-v3` / card revision guard change | Обычные и batch writes проверяют исходную ревизию изменяемой application card; появившаяся или изменённая позже карточка не перезаписывается | `tracker_write.py`, `agent_operations.py`, card race tests | 239 tests green; strict validation 458/474; `git diff --check` | verified |
 | L-0010 | 2026-09-24 | `codex/tracker-v3` / journal publisher integration change | Dataset writes публикуют CSV/card через recoverable journal; CLI read commands держат lock, connector делает recovery перед request | `tracker_write.py`, `tracker_cli.py`, `agent_operations.py`, process-kill CLI test | 240 tests green; strict validation 458/474; projections fresh; `git diff --check` | verified |
 | L-0011 | 2026-09-24 | `codex/tracker-v3` / atomic projections change | Tracker Markdown и три индекса формируются из будущего snapshot и публикуются с CSV/card в одном journal | `tracker_write.py`, `tracker_render.py`, seven-replacement crash test и generation-failure test | 241 tests green; strict validation 458/474; projections fresh; `git diff --check` | verified |
+| L-0012 | 2026-09-24 | `codex/tracker-v3` / atomic connector result change | Connector выполняет request на временной копии и публикует canonical diff с immutable result в одном journal | `agent_operations.py`, crash/recovery/retry test; event artifact ещё не включён | 242 tests green; strict validation 458/474; projections/contract fresh; `git diff --check` | verified |
 
 ## Entry template
 

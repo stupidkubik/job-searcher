@@ -87,6 +87,10 @@
   из будущего snapshot и входят в тот же journal. Process-kill test покрывает
   все семь замен; generation failure не меняет canonical файлы. Остаются
   connector result, event artifact и другие readers.
+- Progress 2026-09-24: connector выполняет request на временной копии и
+  публикует canonical diff и immutable result одним journal. Process-kill до
+  result и после его замены восстанавливает исходное состояние; retry проходит.
+  Остаются event artifact, другие readers и полная интеграционная матрица.
 
 ### B-004 — minimum event taxonomy and projection rules
 

@@ -1,8 +1,7 @@
-"""Isolated v3 prototype for crash-recoverable multi-file replacement.
+"""Crash-recoverable multi-file replacement for tracker dataset writes.
 
-Nothing imports this module from the production tracker write path yet. Callers
-must supply complete bytes and expected old hashes for every target. A pending
-journal rolls back on recovery; a committed journal keeps the new files.
+Callers supply complete bytes and expected old hashes for every target. A
+pending journal rolls back on recovery; a committed journal keeps the new files.
 """
 
 import fcntl

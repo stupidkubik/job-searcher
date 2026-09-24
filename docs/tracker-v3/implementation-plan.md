@@ -246,11 +246,11 @@ Tests:
 WP1.3b начата с общего lock, recovery и optimistic revision двух CSV и
 изменяемых application cards для `apply_dataset_transaction`.
 Текущие CSV/card/generated-view writes уже проходят через журналируемый publisher; CLI
-восстанавливает pending journal перед чтением и записью.
-Event dual-write ещё не включён.
-Перед интеграцией устранить разные lock domains у `jobs.py` и нового publisher,
-включить immutable connector result/projections в одну publication boundary и
-перевести связанных readers на recovery + общий lock. Подробные условия — в
+восстанавливает pending journal перед чтением и записью. Connector выполняет
+операцию на временной копии и публикует canonical diff вместе с immutable result
+в одном journal; process-kill и retry проверены. Event dual-write ещё не включён.
+Перед интеграцией event artifact нужно проверить оставшиеся readers и полный
+набор fault/race сценариев. Подробные условия — в
 [`transaction-prototype.md`](transaction-prototype.md).
 
 Required fault tests:
