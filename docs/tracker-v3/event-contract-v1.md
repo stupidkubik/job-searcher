@@ -141,6 +141,7 @@ events are not treated as mismatches before migration.
 ## Alpha boundaries
 
 The parser, writer, CLI and connector route are tested on fixtures. Public
-writes require `TRACKER_V3_EVENT_WRITES=1` after a separate production cutover;
-the default is disabled. Historical backfill and automatic migration are still
-pending under B-005. An `event` connector operation cannot be a batch child.
+writes require the versioned `config/event-ledger-cutover.json` marker, which is
+published atomically with the historical migration under D-017. The
+`TRACKER_V3_EVENT_WRITES=1` override is for fixtures and one-time maintenance.
+An `event` connector operation cannot be a batch child.

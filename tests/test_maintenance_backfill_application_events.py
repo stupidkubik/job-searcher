@@ -9,7 +9,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import event_ledger, tracker_transaction
+from scripts import event_ledger, tracker_paths, tracker_transaction
 from scripts.maintenance import backfill_application_events as migration
 
 
@@ -96,6 +96,33 @@ class BackfillApplicationEventsTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "injected validation failure"):
                 migration.apply(self.root, summary, pending, revision)
         self.assertFalse((self.root / "data/application_events").exists())
+
+    def test_cutover_marker_and_events_commit_together_and_retry_is_noop(self):
+        summary, pending, revision = migration.plan(self.root, "2026-09-24T12:00:00Z")
+        self.assertFalse(tracker_paths.event_writes_enabled(self.root))
+        self.assertEqual(migration.apply(self.root, summary, pending, revision, cutover=True), "applied")
+        marker = self.root / migration.CUTOVER_MARKER
+        self.assertEqual(marker.read_bytes(), migration.CUTOVER_BYTES)
+        self.assertTrue(tracker_paths.event_writes_enabled(self.root))
+        second, pending, revision = migration.plan(self.root, "2026-09-25T12:00:00Z")
+        self.assertEqual(migration.apply(self.root, second, pending, revision, cutover=True), "already_complete")
+
+    def test_failed_cutover_restores_marker_and_events(self):
+        summary, pending, revision = migration.plan(self.root, "2026-09-24T12:00:00Z")
+        real_publish = tracker_transaction.publish
+
+        def fail_validation(root, writes, expected, *, validate):
+            def reject(replacement_root):
+                validate(replacement_root)
+                raise ValueError("injected cutover failure")
+            return real_publish(root, writes, expected, validate=reject)
+
+        with patch.object(migration, "publish", side_effect=fail_validation):
+            with self.assertRaisesRegex(ValueError, "injected cutover failure"):
+                migration.apply(self.root, summary, pending, revision, cutover=True)
+        self.assertFalse((self.root / migration.CUTOVER_MARKER).exists())
+        self.assertFalse((self.root / "data/application_events").exists())
+        self.assertFalse(tracker_paths.event_writes_enabled(self.root))
 
     def test_lifecycle_table_does_not_invent_missing_transitions(self):
         cases = [

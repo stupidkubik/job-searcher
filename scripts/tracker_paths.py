@@ -4,6 +4,8 @@ docs/agent-write-path-plan-2026-09-07.md, Э10.
 """
 
 from dataclasses import dataclass
+import json
+import os
 from pathlib import Path
 
 
@@ -61,3 +63,17 @@ class Paths:
 
 
 PATHS = Paths(root=Path(__file__).resolve().parent.parent)
+
+EVENT_CUTOVER_MARKER = "config/event-ledger-cutover.json"
+
+
+def event_writes_enabled(root=None):
+    """Enable v3 events by an explicit test override or a committed cutover marker."""
+    if os.environ.get("TRACKER_V3_EVENT_WRITES") == "1":
+        return True
+    marker = Path(root or PATHS.root) / EVENT_CUTOVER_MARKER
+    try:
+        value = json.loads(marker.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return False
+    return isinstance(value, dict) and value.get("version") == 1 and value.get("enabled") is True

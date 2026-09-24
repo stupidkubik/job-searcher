@@ -2,6 +2,7 @@
 id: job-0000
 company:
 role:
+cv_version:
 original_url:
 verified_at:
 listing_status:

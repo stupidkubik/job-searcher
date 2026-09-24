@@ -14,9 +14,9 @@
 ## Current blocking summary
 
 Gate 0 пройден; B-003 и B-005 разрешены после transaction и backfill
-rehearsals. Gate 1 пока блокирует B-006: cutover должен определить, как
-legacy `status` callers сохраняют совместимость без snapshot-only lifecycle
-записей. Production event writes остаются выключенными.
+rehearsals. B-006 получил явное решение D-017: post-application callers
+переходят на `event`, а исторические данные мигрируют. Gate 1 остаётся открыт
+до отдельного production migration/cutover commit и итоговой проверки.
 Внешних credential/network blockers сейчас нет. Inbox и browser вопросы не
 блокируют event/packet foundation.
 
@@ -145,7 +145,7 @@ legacy `status` callers сохраняют совместимость без sna
 ### B-006 — lifecycle cutover and legacy `status` compatibility
 
 - Severity: blocker
-- Status: investigating
+- Status: resolved
 - Blocks: Gate 1 production cutover
 - Known boundary: D-016 rejects snapshot-only post-application `status` when
   event writes are enabled, and rejects any `status` for a job with history.
@@ -158,6 +158,10 @@ legacy `status` callers сохраняют совместимость без sna
 - Exit criteria: accepted API/connector policy, tests for old and new callers,
   fresh-main migration and rollback rehearsal, and no lifecycle write path
   that updates only the snapshot after cutover.
+- Resolution: D-017 chooses explicit `event` for post-application changes and
+  a restricted confirmed `set` for submitted `cv_version`. The compatibility
+  exception is intentional. Final Gate 1 evidence still needs the canonical
+  migration commit and post-cutover verification.
 
 ## Packet and evidence issues
 

@@ -44,6 +44,10 @@ def copy_current_dataset(destination):
         shutil.copy2(source / "docs/tracker.md", destination / "docs/tracker.md")
         if (source / "data/application_events").exists():
             shutil.copytree(source / "data/application_events", destination / "data/application_events")
+        marker = source / "config/event-ledger-cutover.json"
+        if marker.exists():
+            (destination / "config").mkdir()
+            shutil.copy2(marker, destination / "config/event-ledger-cutover.json")
 
 
 def snapshot_files(root):

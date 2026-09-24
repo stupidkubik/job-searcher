@@ -132,6 +132,18 @@ class TrackerEventWriteTests(unittest.TestCase):
         self.assertEqual(changed["job"]["application_status"], "apply")
         self.assertFalse(self.event_path.exists())
 
+    def test_cv_version_set_updates_card_without_changing_event_history(self):
+        tracker_event_write.append_application_event(event("application_submitted", 1))
+        before_event = self.event_path.read_bytes()
+        changed = tracker_write.set_job("job-0001", [("cv_version", "frontend-2026-09")])
+        self.assertEqual(changed["job"]["cv_version"], "frontend-2026-09")
+        self.assertEqual(self.event_path.read_bytes(), before_event)
+        card = next((self.root / "applications").glob("job-0001-*.md"))
+        self.assertIn("cv_version: frontend-2026-09", card.read_text(encoding="utf-8"))
+        self.assertFalse(event_ledger.mismatch_report(
+            self.event_path.parent, {"job-0001": changed["job"]}
+        )["job-0001"]["mismatches"])
+
     def test_failure_after_event_replacement_restores_snapshot_and_event(self):
         with patch.dict(os.environ, {"JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}):
             with self.assertRaisesRegex(OSError, "injected ingest replacement failure"):

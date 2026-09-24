@@ -234,6 +234,25 @@
   post-application callers and metadata such as `cv_version`. The write gate
   stays off until that path is resolved and rehearsed.
 
+## D-017 — use explicit events after cutover and migrate historical snapshots
+
+- Status: accepted by the user on 2026-09-24; production migration is a
+  separate audited commit.
+- Date: 2026-09-24
+- Decision: after cutover, post-application lifecycle changes use the `event`
+  command. Legacy `status` remains available for pre-application work and is
+  rejected for post-application states. Historical snapshot dates are migrated
+  by D-015, with no inferred interview rounds or precise times. A confirmed
+  `cv_version` is written through the restricted connector `set` command; its
+  card front matter is updated in the same dataset transaction.
+- Cutover boundary: the historical event files and versioned
+  `config/event-ledger-cutover.json` marker are published in one recoverable
+  transaction. Public event writes become available through that marker;
+  `TRACKER_V3_EVENT_WRITES=1` remains a fixture/maintenance override.
+- Consequences: v2 post-application `status` callers must switch to `event`.
+  This is the explicit compatibility exception to the original Gate 1 wording.
+  No generic status-to-event conversion is attempted.
+
 ## Decision template
 
 ```text

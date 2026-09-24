@@ -25,7 +25,7 @@ except ModuleNotFoundError:
     from scripts.tracker_transaction import StaleRevision, digest, locked, publish, recover_locked
 
 try:  # Direct CLI execution places scripts/ on sys.path.
-    from tracker_paths import PATHS
+    from tracker_paths import PATHS, event_writes_enabled
     from tracker_schema import (
         ADD_APPLICATION_STATUSES,
         APPLICATION_STATUSES,
@@ -74,7 +74,7 @@ try:  # Direct CLI execution places scripts/ on sys.path.
         tracker_payload,
     )
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
-    from scripts.tracker_paths import PATHS
+    from scripts.tracker_paths import PATHS, event_writes_enabled
     from scripts.tracker_schema import (
         ADD_APPLICATION_STATUSES,
         APPLICATION_STATUSES,
@@ -316,6 +316,7 @@ APPLICATION_CARD_FRONT_MATTER_FIELDS = (
     "id",
     "company",
     "role",
+    "cv_version",
     "original_url",
     "verified_at",
     "listing_status",
@@ -743,7 +744,14 @@ def set_job(job_id: str, assignments: list, stage: str | None = None) -> dict:
     row = find(rows, job_id)
     apply_job_changes(row, assignments, stage=stage)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows, expected_revisions=expected_revisions)
+    application_writes = ()
+    if any(field == "cv_version" for field, _value in assignments) and row["applied_at"]:
+        path, body, revision = render_application_card(row, update_existing=True, with_revision=True)
+        if body is not None:
+            application_writes = ((path, body, revision),)
+    apply_dataset_transaction(
+        rows, source_rows, application_writes, expected_revisions=expected_revisions
+    )
     return {"job": row, "warnings": warnings}
 
 
@@ -968,7 +976,7 @@ def status_job(job_id: str, **values) -> dict:
     event_path = PATHS.root / "data/application_events" / f"{job_id}.jsonl"
     target = values.get("application_status")
     if event_path.exists() or (
-        os.environ.get("TRACKER_V3_EVENT_WRITES") == "1"
+        event_writes_enabled(PATHS.root)
         and (row["application_status"] in NEEDS_APPLIED_AT or target in NEEDS_APPLIED_AT)
     ):
         raise ValidationError(

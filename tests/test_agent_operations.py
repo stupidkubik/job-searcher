@@ -364,6 +364,60 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before)
         self.assertFalse((self.root / "data/application_events").exists())
 
+    def test_confirmed_cv_version_set_follows_event_and_updates_card(self):
+        row = self.seed_job()
+        submitted = self.write_operation({
+            "version": 1, "operation_id": "op-cv-event-001", "command": "event",
+            "job_id": row["id"],
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
+                     "precision": "date", "payload": {}, "confirmed_by_user": True},
+        })
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            created = self.invoke_operation("apply", str(submitted), "--format", "json")
+        self.assertEqual(json.loads(created.stdout)["status"], "completed", created.stderr)
+        event_path = self.root / "data/application_events" / f"{row['id']}.jsonl"
+        before_event = event_path.read_bytes()
+        applied = self.rows()[0]
+        missing_confirmation = self.write_operation({
+            "version": 1, "operation_id": "op-cv-set-invalid-001", "command": "set",
+            "job_id": row["id"],
+            "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+            "args": {"cv_version": "frontend-2026-09"},
+        })
+        rejected = self.invoke_operation("apply", str(missing_confirmation), "--format", "json")
+        self.assertEqual(json.loads(rejected.stdout)["status"], "rejected")
+        confirmed = self.write_operation({
+            "version": 1, "operation_id": "op-cv-set-valid-001", "command": "set",
+            "job_id": row["id"],
+            "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+            "args": {"cv_version": "frontend-2026-09", "confirmed_by_user": True},
+        })
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            result = self.invoke_operation("apply", str(confirmed), "--format", "json")
+        self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
+        self.assertEqual(self.rows()[0]["cv_version"], "frontend-2026-09")
+        self.assertEqual(event_path.read_bytes(), before_event)
+        card = next((self.root / "applications").glob(f"{row['id']}-*.md"))
+        self.assertIn("cv_version: frontend-2026-09", card.read_text(encoding="utf-8"))
+
+    def test_committed_cutover_marker_reaches_connector_staging(self):
+        row = self.seed_job()
+        (self.root / "config").mkdir()
+        (self.root / "config/event-ledger-cutover.json").write_text(
+            '{"enabled":true,"migration":"migration-v1","version":1}\n', encoding="utf-8"
+        )
+        request = self.write_operation({
+            "version": 1, "operation_id": "op-marker-event-001", "command": "event",
+            "job_id": row["id"],
+            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
+                     "precision": "date", "payload": {}, "confirmed_by_user": True},
+        })
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+        self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
+        self.assertTrue((self.root / "data/application_events" / f"{row['id']}.jsonl").exists())
+
     def test_workflow_uses_an_expression_safe_dispatch_step_id(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("id: dispatch_request", workflow)

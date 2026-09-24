@@ -30,6 +30,9 @@ else:
 
 PRE_APPLICATION = {"not_started", "reviewing", "apply"}
 MIGRATION_TYPES = ("application_submitted", "response_received", "rejection_received")
+CUTOVER_MARKER = "config/event-ledger-cutover.json"
+CUTOVER_BYTES = b'{"enabled":true,"migration":"migration-v1","version":1}\n'
+POST_APPLICATION = {"applied", "interviewing", "offer", "rejected", "ghosted", "withdrawn"}
 
 
 def event_for(row, kind, occurred_at, recorded_at):
@@ -134,15 +137,24 @@ def plan(root, recorded_at):
     }, pending, digest(csv_body)
 
 
-def apply(root, summary, pending, csv_revision):
+def apply(root, summary, pending, csv_revision, *, cutover=False):
     root = Path(root)
     if summary["blocked"]:
         raise ValueError("blocked lifecycle rows require explicit resolution before apply")
-    if not pending:
+    marker = root / CUTOVER_MARKER
+    if marker.exists() and marker.read_bytes() != CUTOVER_BYTES:
+        raise ValueError("cutover marker has unexpected content")
+    if marker.exists() and pending:
+        raise ValueError("cutover marker exists but historical jobs still need migration")
+    if not pending and (not cutover or marker.exists()):
         return "already_complete"
     ledger = root / "data/application_events"
     created_dir = not ledger.exists()
-    ledger.mkdir(exist_ok=True)
+    if pending or cutover:
+        ledger.mkdir(exist_ok=True)
+    created_config = cutover and not marker.parent.exists()
+    if cutover:
+        marker.parent.mkdir(exist_ok=True)
     writes = {}
     expected = {}
     for job_id, events in pending.items():
@@ -152,6 +164,9 @@ def apply(root, summary, pending, csv_revision):
             for event in events
         )
         expected[relative] = None
+    if cutover:
+        writes[CUTOVER_MARKER] = CUTOVER_BYTES
+        expected[CUTOVER_MARKER] = digest(marker.read_bytes()) if marker.exists() else None
 
     def validate(replacement_root):
         if digest((replacement_root / "data/jobs.csv").read_bytes()) != csv_revision:
@@ -160,31 +175,40 @@ def apply(root, summary, pending, csv_revision):
         report = mismatch_report(replacement_root / "data/application_events", {row["id"]: row for row in fresh_rows})
         if any(item["mismatches"] for item in report.values()):
             raise ValueError("migration projection differs from snapshot")
+        if cutover and any(row["id"] not in report for row in fresh_rows if row["application_status"] in POST_APPLICATION):
+            raise ValueError("cutover requires event history for every post-application job")
 
     try:
         publish(root, writes, expected, validate=validate)
     except BaseException:
         if created_dir and ledger.is_dir() and not any(ledger.iterdir()):
             ledger.rmdir()
+        if created_config and marker.parent.is_dir() and not any(marker.parent.iterdir()):
+            marker.parent.rmdir()
         raise
     return "applied"
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--root", type=Path, default=ROOT, help="tracker checkout; required explicitly with --apply")
+    parser.add_argument("--root", type=Path, help="tracker checkout; required explicitly with --apply")
     parser.add_argument("--apply", action="store_true", help="publish planned event files atomically")
+    parser.add_argument("--cutover", action="store_true", help="atomically enable event writes after full migration")
     parser.add_argument("--format", choices=("json", "text"), default="json")
     args = parser.parse_args(argv)
-    if args.apply and "--root" not in (argv if argv is not None else sys.argv[1:]):
+    if args.apply and args.root is None:
         parser.error("--apply requires an explicit --root")
-    if args.apply and args.root.resolve() == ROOT.resolve() and os.environ.get("TRACKER_V3_EVENT_WRITES") != "1":
+    if args.cutover and not args.apply:
+        parser.error("--cutover requires --apply")
+    root = args.root or ROOT
+    if args.apply and root.resolve() == ROOT.resolve() and os.environ.get("TRACKER_V3_EVENT_WRITES") != "1":
         parser.error("production migration requires TRACKER_V3_EVENT_WRITES=1 after cutover")
     recorded_at = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     try:
-        summary, pending, csv_revision = plan(args.root, recorded_at)
+        summary, pending, csv_revision = plan(root, recorded_at)
         summary["dry_run"] = not args.apply
-        summary["outcome"] = apply(args.root, summary, pending, csv_revision) if args.apply else "planned"
+        summary["cutover"] = args.cutover
+        summary["outcome"] = apply(root, summary, pending, csv_revision, cutover=args.cutover) if args.apply else "planned"
         if args.format == "json":
             print(json.dumps(summary, ensure_ascii=False, sort_keys=True))
         else:

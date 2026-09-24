@@ -181,6 +181,13 @@ the D-016 status-write fence, 272 passing tests, current-data migration
 dry-run and B-006 as the remaining cutover blocker. It does not authorize
 production event writes.
 
+D-017 implementation evidence: 277 tests pass, including an atomic marker +
+event rollback, connector marker propagation, confirmed `cv_version` update
+and card sync. `rehearse_application_cutover.py` recovered an exact temporary
+baseline after an injected replacement failure, then applied 53 events for 45
+jobs with an idempotent second pass. Canonical migration remains a separate
+commit.
+
 ## Phase evidence package
 
 Каждый phase gate должен оставить:

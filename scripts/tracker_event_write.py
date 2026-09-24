@@ -4,7 +4,6 @@ This is a WP1.3 integration seam, not a public CLI or connector command.
 """
 
 import json
-import os
 
 try:
     from event_ledger import (
@@ -12,6 +11,7 @@ try:
         validate_event,
     )
     from tracker_transaction import digest
+    from tracker_paths import event_writes_enabled as cutover_enabled
     from tracker_write import (
         PATHS, ValidationError, apply_dataset_transaction, dataset_write_lock,
         load, load_job_sources, render_application_card, today,
@@ -24,6 +24,7 @@ except ModuleNotFoundError:
         validate_event,
     )
     from scripts.tracker_transaction import digest
+    from scripts.tracker_paths import event_writes_enabled as cutover_enabled
     from scripts.tracker_write import (
         PATHS, ValidationError, apply_dataset_transaction, dataset_write_lock,
         load, load_job_sources, render_application_card, today,
@@ -33,8 +34,8 @@ except ModuleNotFoundError:
 
 
 def event_writes_enabled():
-    """Keep public writes disabled until the separate production cutover."""
-    return os.environ.get("TRACKER_V3_EVENT_WRITES") == "1"
+    """Public write gate: fixture override or committed production cutover."""
+    return cutover_enabled(PATHS.root)
 
 
 def append_application_event(event, *, dry_run=False):

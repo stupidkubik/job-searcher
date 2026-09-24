@@ -302,9 +302,11 @@ python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --forma
 
 Одинаковый `event_id` с тем же содержимым возвращает `already_recorded`;
 другое содержимое отклоняется. Ошибки в JSON-режиме содержат `error.code`.
-Запись по умолчанию выключена. После отдельного production cutover trusted
-окружение задаёт `TRACKER_V3_EVENT_WRITES=1`; до этого запуск без `--dry-run`
-возвращает `write_disabled` и не меняет файлы.
+Запись по умолчанию выключена. Production cutover атомарно создаёт
+`config/event-ledger-cutover.json` вместе с историческими событиями;
+`TRACKER_V3_EVENT_WRITES=1` используется только для fixtures и разовой
+maintenance-команды. До cutover запуск без `--dry-run` возвращает
+`write_disabled` и не меняет файлы.
 Когда event history уже существует для вакансии, legacy `status` отклоняется
 до записи. При включённом event write gate post-application `status`
 отклоняется и для вакансии без истории: для lifecycle нужно использовать
@@ -312,6 +314,10 @@ python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --forma
 вакансий без event file работает по прежнему контракту. Connector result
 использует существующий `invariant_violation` из закрытой таксономии ошибок
 и поясняет необходимость команды `event` в сообщении.
+После подтверждённой отправки CV version можно записать отдельным `set`:
+connector принимает `cv_version` только вместе с `confirmed_by_user=true` и
+только после отклика; карточка обновляется в той же транзакции. Локальный CLI
+использует `set job-NNNN cv_version=...`.
 
 ## V3 timeline (read-only)
 

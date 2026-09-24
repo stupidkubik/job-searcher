@@ -126,8 +126,9 @@ Allowed single commands:
   `application_status=apply` with a non-empty `next_action` (and optional
   `next_action_date`) when evidence shows that a person has already begun,
   but not submitted, the application process.
-- `set`: only `next_action`, `next_action_date`, and
-  `listing_status=closed` after a human application already exists.
+- `set`: `next_action`, `next_action_date`, `listing_status=closed` after a
+  human application, and submitted `cv_version` after a human application.
+  `cv_version` requires literal `confirmed_by_user=true` in the same request.
 - `status`: records an explicitly user-confirmed lifecycle event. It requires
   `application_status` and the literal boolean `confirmed_by_user=true`;
   optional fields are `stage`, `applied_at`, `response_at`, `decision_reason`,
@@ -140,7 +141,8 @@ Allowed single commands:
   The trusted runner fills `event_id` from `operation_id`, `recorded_at` from
   its UTC clock, `source=connector`, `actor=user` and `job_id`. It is a single
   operation only, never a batch child. Writes are disabled until the separate
-  v3 production cutover enables `TRACKER_V3_EVENT_WRITES=1`; a gated request
+  v3 production cutover atomically commits `config/event-ledger-cutover.json`
+  with historical events; a gated request
   receives a `rejected` result without canonical changes. The generated
   [`contract.md`](contract.md) lists exact fields and enum values.
 

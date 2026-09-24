@@ -57,7 +57,7 @@ VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {
     "next_action",
     "next_action_date",
 }
-SET_ALLOWED_ARGS = {"next_action", "next_action_date", "listing_status"}
+SET_ALLOWED_ARGS = {"next_action", "next_action_date", "listing_status", "cv_version", "confirmed_by_user"}
 SCREEN_REQUIRED_ARGS = {"decision_reason"}
 SCREEN_ALLOWED_ARGS = SCREEN_REQUIRED_ARGS | {"notes"}
 STATUS_REQUIRED_ARGS = {"application_status", "confirmed_by_user"}
@@ -316,7 +316,20 @@ def validate_set_args(args, prefix="args"):
     unknown = sorted(set(args) - SET_ALLOWED_ARGS)
     if unknown:
         raise OperationError("unknown set args: " + ", ".join(unknown))
-    out = {k: clean_text(v, f"{prefix}.{k}") for k, v in args.items()}
+    if "cv_version" in args:
+        if args.get("confirmed_by_user") is not True:
+            raise contract_error(
+                "cv_version requires confirmed_by_user=true",
+                code="invariant_violation", field=f"{prefix}.confirmed_by_user",
+            )
+    elif "confirmed_by_user" in args:
+        raise contract_error(
+            "confirmed_by_user is allowed only with cv_version for set",
+            code="invariant_violation", field=f"{prefix}.confirmed_by_user",
+        )
+    out = {k: clean_text(v, f"{prefix}.{k}") for k, v in args.items() if k != "confirmed_by_user"}
+    if "cv_version" in args:
+        out["confirmed_by_user"] = True
     if "next_action" in out and not out["next_action"].strip():
         raise OperationError(f"{prefix}.next_action must not be empty")
     if "next_action_date" in out:
@@ -326,6 +339,8 @@ def validate_set_args(args, prefix="args"):
             raise OperationError(f"{prefix}.next_action_date must be YYYY-MM-DD") from error
     if "listing_status" in out and out["listing_status"] != "closed":
         raise OperationError("agent set may only record listing_status=closed")
+    if "cv_version" in out and not out["cv_version"].strip():
+        raise OperationError(f"{prefix}.cv_version must not be empty")
     return out
 
 
@@ -856,6 +871,8 @@ def classify_child_risk(operation, row):
         return "medium"
     if operation["command"] in {"status", "event"}:
         return "medium"
+    if operation["command"] == "set" and "cv_version" in operation["args"]:
+        return "medium"
     if operation["command"] in {"screen", "set"}:
         return "low"
     args = operation["args"]
@@ -956,7 +973,14 @@ def apply_operation(operation, row):
             code="invariant_violation",
             field="args.listing_status",
         )
-    result = jobs.set_job(operation["job_id"], list(operation["args"].items()))
+    if "cv_version" in operation["args"] and row["application_status"] not in jobs.NEEDS_APPLIED_AT:
+        raise contract_error(
+            "cv_version records a submitted CV only after an application exists",
+            code="invariant_violation",
+            field="args.cv_version",
+        )
+    set_args = {key: value for key, value in operation["args"].items() if key != "confirmed_by_user"}
+    result = jobs.set_job(operation["job_id"], list(set_args.items()))
     return {
         "job": result["job"],
         "warnings": result["warnings"],
@@ -1045,6 +1069,10 @@ def temporary_tracker_workspace(*, include_card_revisions=False, include_snapsho
             shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
             if (original_root / "data/application_events").exists():
                 shutil.copytree(original_root / "data/application_events", temp_data / "application_events")
+            cutover_marker = original_root / "config/event-ledger-cutover.json"
+            if cutover_marker.exists():
+                (temp_root / "config").mkdir()
+                shutil.copy2(cutover_marker, temp_root / "config/event-ledger-cutover.json")
             shutil.copytree(original_root / "applications", temp_apps)
             if (original_root / "data/index").exists():
                 shutil.copytree(original_root / "data/index", temp_data / "index")
@@ -1764,7 +1792,11 @@ def render_contract_markdown():
             SET_ALLOWED_ARGS,
             set(),
             SET_FIELD_ENUMS,
-            notes_overrides={"listing_status": "allowed only after a human application already exists"},
+            notes_overrides={
+                "listing_status": "allowed only after a human application already exists",
+                "cv_version": "submitted CV version; only after application, requires confirmed_by_user=true",
+                "confirmed_by_user": "literal true, required only with cv_version",
+            },
         ),
         "## `status`\n",
         contract_table(STATUS_ALLOWED_ARGS, STATUS_REQUIRED_ARGS, STATUS_FIELD_ENUMS),

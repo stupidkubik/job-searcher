@@ -78,6 +78,8 @@ At least one field is required.
 
 | Field | Type | Allowed values | Required | Note |
 | --- | --- | --- | --- | --- |
+| `confirmed_by_user` | boolean | — | no | literal true, required only with cv_version |
+| `cv_version` | text | — | no | submitted CV version; only after application, requires confirmed_by_user=true |
 | `listing_status` | enum | `closed` | no | allowed only after a human application already exists |
 | `next_action` | text | — | no |  |
 | `next_action_date` | date (YYYY-MM-DD) | — | no |  |

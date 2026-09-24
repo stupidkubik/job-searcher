@@ -39,7 +39,9 @@ ledger directory or file. Existing event files are validated against the
 snapshot before planning; an existing valid timeline is left untouched.
 
 `--apply` requires an explicit `--root`. Against this checkout, it additionally
-requires `TRACKER_V3_EVENT_WRITES=1` after cutover. It refuses the whole plan
+requires a one-command `TRACKER_V3_EVENT_WRITES=1` maintenance override.
+`--apply --cutover` publishes all pending event files and the versioned
+`config/event-ledger-cutover.json` write gate in the same transaction. It refuses the whole plan
 when any lifecycle row is blocked. It publishes complete per-job JSONL files
 through the recoverable transaction with missing-file preconditions, checks the
 original CSV hash inside the transaction, and validates every projection before
@@ -53,6 +55,14 @@ copied and canonical CSV bytes retained SHA-256
 `8475a8a52c307ddb6e00e93485fe8dc3d0644a566845dcfb2c850a1f7cac4fd2`.
 The unit test also forces a validation failure after replacements and checks
 that the ledger files and new directory are removed by rollback.
+
+D-017 cutover rehearsal uses
+`python3 scripts/maintenance/rehearse_application_cutover.py`. On a fresh copy
+of the 458-row tracker it injected a failure after the first replacement,
+recovered the exact copied baseline, then atomically published 53 events and
+the write-gate marker. Existing CSV, source references, cards and generated
+views kept their original bytes; retry found 0 pending jobs. This rehearsal
+does not change production data.
 
 Before a production cutover, rerun the dry-run on fresh `main`, inspect every
 blocked ID and category count, then repeat the temporary-copy apply and

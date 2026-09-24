@@ -55,7 +55,7 @@
 | Фаза | Статус | Следующий gate |
 |---|---|---|
 | Phase 0 — planning and baseline | Gate 0 passed | D-012, baseline и synthetic scenarios |
-| Phase 1 — application event ledger | WP1.1–WP1.6 verified on fixtures and temporary copies; production writes gated | Gate 1 cutover policy (B-006) |
+| Phase 1 — application event ledger | WP1.1–WP1.6 verified; D-017 cutover policy accepted | Gate 1 production migration and final verification |
 | Phase 2 — application packet manifest | planned | Gate 2: packet воспроизводим и проверяем |
 | Phase 3 — evidence-backed matching | planned | Gate 3: golden corpus подтверждает модель |
 | Phase 4 — source health/freshness | planned | Gate 4: observation не меняет listing truth |
@@ -118,7 +118,7 @@ reader audit, current-data rehearsal, connector result и CI allowlist пров�
 WP1.5 historical backfill precision, default dry-run and temporary-copy
 rehearsal are documented in [historical-backfill.md](historical-backfill.md).
 WP1.6 adds a read-only per-job `jobs.py timeline` view with correction state,
-evidence and the snapshot's next commitment. D-016 fences legacy lifecycle
-writes when event history or the write gate is present. Gate 1 пока открыт по
-B-006. Разбор исходных
+evidence and the snapshot's next commitment. D-017 selects explicit `event`
+for post-application changes and a separate confirmed `set` for `cv_version`.
+Gate 1 пока открыт до canonical migration и итоговой проверки. Разбор исходных
 пометок — в [`annotation-review-2026-09-23.md`](annotation-review-2026-09-23.md).
