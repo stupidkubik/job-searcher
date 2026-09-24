@@ -30,8 +30,13 @@ class BackfillApplicationEventsTests(unittest.TestCase):
 
     @staticmethod
     def row(job_id, status, stage, applied="", response=""):
-        return {"id": job_id, "application_status": status, "stage_reached": stage,
-                "applied_at": applied, "response_at": response}
+        return {
+            "id": job_id,
+            "application_status": status,
+            "stage_reached": stage,
+            "applied_at": applied,
+            "response_at": response,
+        }
 
     def save(self):
         with (self.root / "data/jobs.csv").open("w", newline="", encoding="utf-8") as stream:
@@ -44,9 +49,14 @@ class BackfillApplicationEventsTests(unittest.TestCase):
         summary, pending, revision = migration.plan(self.root, "2026-09-24T12:00:00Z")
         self.assertEqual(summary["pending_events"], 3)
         self.assertEqual(summary["untouched_jobs"], 1)
-        self.assertEqual(summary["event_counts"], {
-            "application_submitted": 2, "response_received": 0, "rejection_received": 1,
-        })
+        self.assertEqual(
+            summary["event_counts"],
+            {
+                "application_submitted": 2,
+                "response_received": 0,
+                "rejection_received": 1,
+            },
+        )
         self.assertEqual(list(self.root.rglob("*")), [self.root / "data", self.root / "data/jobs.csv"])
         self.assertEqual(migration.apply(self.root, summary, pending, revision), "applied")
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before)
@@ -61,15 +71,21 @@ class BackfillApplicationEventsTests(unittest.TestCase):
 
     def test_cli_defaults_to_dry_run_without_creating_files(self):
         script = Path(migration.__file__)
-        before = {path.relative_to(self.root): path.read_bytes() for path in self.root.rglob("*") if path.is_file()}
+        before = {
+            path.relative_to(self.root): path.read_bytes() for path in self.root.rglob("*") if path.is_file()
+        }
         result = subprocess.run(
             [sys.executable, str(script), "--root", str(self.root), "--format", "json"],
-            capture_output=True, text=True, check=True,
+            capture_output=True,
+            text=True,
+            check=True,
         )
         report = json.loads(result.stdout)
         self.assertTrue(report["dry_run"])
         self.assertEqual(report["pending_events"], 3)
-        after = {path.relative_to(self.root): path.read_bytes() for path in self.root.rglob("*") if path.is_file()}
+        after = {
+            path.relative_to(self.root): path.read_bytes() for path in self.root.rglob("*") if path.is_file()
+        }
         self.assertEqual(after, before)
         self.assertFalse((self.root / "data/application_events").exists())
 
@@ -90,6 +106,7 @@ class BackfillApplicationEventsTests(unittest.TestCase):
             def reject(replacement_root):
                 validate(replacement_root)
                 raise ValueError("injected validation failure")
+
             return real_publish(root, writes, expected, validate=reject)
 
         with patch.object(migration, "publish", side_effect=fail_validation):
@@ -105,7 +122,9 @@ class BackfillApplicationEventsTests(unittest.TestCase):
         self.assertEqual(marker.read_bytes(), migration.CUTOVER_BYTES)
         self.assertTrue(tracker_paths.event_writes_enabled(self.root))
         second, pending, revision = migration.plan(self.root, "2026-09-25T12:00:00Z")
-        self.assertEqual(migration.apply(self.root, second, pending, revision, cutover=True), "already_complete")
+        self.assertEqual(
+            migration.apply(self.root, second, pending, revision, cutover=True), "already_complete"
+        )
 
     def test_failed_cutover_restores_marker_and_events(self):
         summary, pending, revision = migration.plan(self.root, "2026-09-24T12:00:00Z")
@@ -115,6 +134,7 @@ class BackfillApplicationEventsTests(unittest.TestCase):
             def reject(replacement_root):
                 validate(replacement_root)
                 raise ValueError("injected cutover failure")
+
             return real_publish(root, writes, expected, validate=reject)
 
         with patch.object(migration, "publish", side_effect=fail_validation):

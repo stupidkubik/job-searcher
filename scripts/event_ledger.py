@@ -20,9 +20,19 @@ except ModuleNotFoundError:
 
 BUSINESS_ZONE = ZoneInfo("Europe/Belgrade")
 EVENT_FIELDS = {
-    "schema_version", "event_id", "job_id", "event_type", "occurred_at",
-    "precision", "recorded_at", "source", "actor", "confirmed_by_user",
-    "evidence_ref", "payload", "supersedes",
+    "schema_version",
+    "event_id",
+    "job_id",
+    "event_type",
+    "occurred_at",
+    "precision",
+    "recorded_at",
+    "source",
+    "actor",
+    "confirmed_by_user",
+    "evidence_ref",
+    "payload",
+    "supersedes",
 }
 ID_PATTERN = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$")
 JOB_PATTERN = re.compile(r"^job-[0-9]{4,}$")
@@ -30,17 +40,30 @@ DATE_PATTERN = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
 UTC_PATTERN = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]+)?Z$")
 OFFSET_PATTERN = re.compile(r"(?:Z|[+-][0-9]{2}:[0-9]{2})$")
 EVENT_TYPES = {
-    "application_submitted", "acknowledgement_received", "response_received",
-    "assessment_invited", "assessment_completed", "interview_scheduled",
-    "interview_completed", "interview_cancelled", "offer_received",
-    "rejection_received", "candidate_withdrew", "no_response_closed",
-    "follow_up_sent", "event_voided",
+    "application_submitted",
+    "acknowledgement_received",
+    "response_received",
+    "assessment_invited",
+    "assessment_completed",
+    "interview_scheduled",
+    "interview_completed",
+    "interview_cancelled",
+    "offer_received",
+    "rejection_received",
+    "candidate_withdrew",
+    "no_response_closed",
+    "follow_up_sent",
+    "event_voided",
 }
 ASSESSMENT_TYPES = {"assessment_invited", "assessment_completed"}
 INTERVIEW_TYPES = {"interview_scheduled", "interview_completed", "interview_cancelled"}
 SUBSTANTIVE_TYPES = {
-    "response_received", "assessment_invited", "assessment_completed",
-    "interview_scheduled", "interview_completed", "offer_received",
+    "response_received",
+    "assessment_invited",
+    "assessment_completed",
+    "interview_scheduled",
+    "interview_completed",
+    "offer_received",
     "rejection_received",
 }
 DATED_TYPES = EVENT_TYPES - {"acknowledgement_received", "follow_up_sent", "event_voided"}
@@ -133,7 +156,10 @@ def validate_payload(event):
         require_id(payload["assessment_id"], "assessment_id")
     if kind in INTERVIEW_TYPES:
         require_id(payload["round_id"], "round_id")
-        if not isinstance(payload["round_kind"], str) or payload["round_kind"] not in {*ROUND_STAGES, "other"}:
+        if not isinstance(payload["round_kind"], str) or payload["round_kind"] not in {
+            *ROUND_STAGES,
+            "other",
+        }:
             fail("bad_payload", "round_kind is not recognized")
         if payload["round_kind"] == "other" and (
             not isinstance(payload["stage_hint"], str) or payload["stage_hint"] not in OTHER_STAGES
@@ -174,8 +200,11 @@ def validate_event(event, *, job_ids=None):
         fail("bad_confirmation", "non-migration events require confirmed_by_user=true")
     reference = event["evidence_ref"]
     if reference is not None and (
-        not isinstance(reference, str) or not reference.strip() or len(reference) > 500
-        or "\n" in reference or "\r" in reference
+        not isinstance(reference, str)
+        or not reference.strip()
+        or len(reference) > 500
+        or "\n" in reference
+        or "\r" in reference
     ):
         fail("bad_evidence", "evidence_ref must be a single-line reference or null")
     if event["supersedes"] is not None:
@@ -303,11 +332,20 @@ def project_events(events, *, job_id=None, job_ids=None):
         else:
             next_stage = None
         if status in TERMINAL_STATUSES and kind in (
-            ASSESSMENT_TYPES | {"interview_scheduled", "interview_completed", "offer_received", "rejection_received", "candidate_withdrew", "no_response_closed"}
+            ASSESSMENT_TYPES
+            | {
+                "interview_scheduled",
+                "interview_completed",
+                "offer_received",
+                "rejection_received",
+                "candidate_withdrew",
+                "no_response_closed",
+            }
         ):
             fail("bad_transition", f"{kind} follows terminal status {status}")
         if status == "offer" and kind in (
-            ASSESSMENT_TYPES | {"interview_scheduled", "interview_completed", "offer_received", "no_response_closed"}
+            ASSESSMENT_TYPES
+            | {"interview_scheduled", "interview_completed", "offer_received", "no_response_closed"}
         ):
             fail("bad_transition", f"{kind} follows an offer")
         if next_stage is not None and STAGES.index(next_stage) > STAGES.index(stage):
@@ -389,7 +427,9 @@ def read_report(ledger_dir, jobs_csv):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("ledger", type=Path, help="event ledger directory to inspect")
-    parser.add_argument("--jobs-csv", type=Path, required=True, help="snapshot CSV for foreign keys and comparison")
+    parser.add_argument(
+        "--jobs-csv", type=Path, required=True, help="snapshot CSV for foreign keys and comparison"
+    )
     args = parser.parse_args()
     try:
         report = read_report(args.ledger, args.jobs_csv)
@@ -398,8 +438,10 @@ def main():
         if not ok:
             raise SystemExit(1)
     except (EventValidationError, TransactionError, OSError, KeyError) as error:
-        code = error.code if isinstance(error, EventValidationError) else (
-            "recovery_error" if isinstance(error, TransactionError) else "read_error"
+        code = (
+            error.code
+            if isinstance(error, EventValidationError)
+            else ("recovery_error" if isinstance(error, TransactionError) else "read_error")
         )
         print(json.dumps({"ok": False, "error": {"code": code, "message": str(error)}}))
         raise SystemExit(1) from None

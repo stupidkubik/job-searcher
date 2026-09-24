@@ -17,12 +17,19 @@ JOB_ID = "job-9001"
 
 def event(kind, number, *, occurred="2026-09-01", supersedes=None, evidence=None):
     return {
-        "schema_version": 1, "event_id": f"timeline-{number}", "job_id": JOB_ID,
-        "event_type": kind, "occurred_at": occurred,
+        "schema_version": 1,
+        "event_id": f"timeline-{number}",
+        "job_id": JOB_ID,
+        "event_type": kind,
+        "occurred_at": occurred,
         "precision": "unknown" if occurred is None else "date",
         "recorded_at": f"2026-09-24T12:00:{number:02d}Z",
-        "source": "manual", "actor": "user", "confirmed_by_user": True,
-        "evidence_ref": evidence, "payload": {}, "supersedes": supersedes,
+        "source": "manual",
+        "actor": "user",
+        "confirmed_by_user": True,
+        "evidence_ref": evidence,
+        "payload": {},
+        "supersedes": supersedes,
     }
 
 
@@ -32,10 +39,15 @@ class TrackerTimelineTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         (self.root / "data").mkdir()
         self.row = {
-            "id": JOB_ID, "company": "Synthetic Co", "role": "Frontend Developer",
-            "application_status": "applied", "stage_reached": "Applied",
-            "applied_at": "2026-09-01", "response_at": "",
-            "next_action": "follow-up", "next_action_date": "2026-10-01",
+            "id": JOB_ID,
+            "company": "Synthetic Co",
+            "role": "Frontend Developer",
+            "application_status": "applied",
+            "stage_reached": "Applied",
+            "applied_at": "2026-09-01",
+            "response_at": "",
+            "next_action": "follow-up",
+            "next_action_date": "2026-10-01",
         }
         self.save_row()
 
@@ -71,9 +83,14 @@ class TrackerTimelineTests(unittest.TestCase):
         path = self.save_events([submitted, wrong, void])
         before = path.read_bytes()
         report = tracker_timeline.read_timeline(self.root, JOB_ID)
-        self.assertEqual([item["state"] for item in report["events"]], [
-            "effective", "superseded", "void_marker",
-        ])
+        self.assertEqual(
+            [item["state"] for item in report["events"]],
+            [
+                "effective",
+                "superseded",
+                "void_marker",
+            ],
+        )
         self.assertEqual(report["events"][1]["evidence_ref"], "mail:message-1")
         self.assertEqual(report["events"][1]["superseded_by"], void["event_id"])
         self.assertEqual(report["events"][2]["supersedes"], wrong["event_id"])
@@ -95,8 +112,9 @@ class TrackerTimelineTests(unittest.TestCase):
         submitted = event("application_submitted", 1)
         wrong = event("response_received", 2, occurred="2026-09-03")
         corrected = event("rejection_received", 3, occurred="2026-09-04", supersedes=wrong["event_id"])
-        self.row.update(application_status="rejected", response_at="2026-09-04",
-                        next_action="", next_action_date="")
+        self.row.update(
+            application_status="rejected", response_at="2026-09-04", next_action="", next_action_date=""
+        )
         self.save_row()
         self.save_events([submitted, wrong, corrected])
         original_root = tracker_cli.PATHS.root

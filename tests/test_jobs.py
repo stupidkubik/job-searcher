@@ -78,13 +78,23 @@ class JobsCliTests(unittest.TestCase):
         created = self.add("Event Fixture", "Frontend Developer", "--application-status", "reviewing")
         self.assertEqual(created.returncode, 0, created.stderr)
         event = {
-            "schema_version": 1, "event_id": "cli-event-001", "job_id": "job-0001",
-            "event_type": "application_submitted", "occurred_at": "2026-09-24",
-            "precision": "date", "recorded_at": "2026-09-24T12:00:00Z",
-            "source": "manual", "actor": "user", "confirmed_by_user": True,
-            "evidence_ref": None, "payload": {}, "supersedes": None,
+            "schema_version": 1,
+            "event_id": "cli-event-001",
+            "job_id": "job-0001",
+            "event_type": "application_submitted",
+            "occurred_at": "2026-09-24",
+            "precision": "date",
+            "recorded_at": "2026-09-24T12:00:00Z",
+            "source": "manual",
+            "actor": "user",
+            "confirmed_by_user": True,
+            "evidence_ref": None,
+            "payload": {},
+            "supersedes": None,
         }
-        preview = self.invoke("event", "--stdin", "--dry-run", "--format", "json", input_text=json.dumps(event))
+        preview = self.invoke(
+            "event", "--stdin", "--dry-run", "--format", "json", input_text=json.dumps(event)
+        )
         self.assertEqual(preview.returncode, 0, preview.stderr)
         self.assertEqual(json.loads(preview.stdout)["outcome"], "would_record")
         self.assertEqual(self.rows()[0]["application_status"], "reviewing")
@@ -94,11 +104,15 @@ class JobsCliTests(unittest.TestCase):
         self.assertEqual(blocked.returncode, 1)
         self.assertEqual(json.loads(blocked.stdout)["error"]["code"], "write_disabled")
         environment = {**os.environ, "TRACKER_V3_EVENT_WRITES": "1"}
-        applied = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment)
+        applied = self.invoke(
+            "event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment
+        )
         self.assertEqual(applied.returncode, 0, applied.stderr)
         self.assertEqual(json.loads(applied.stdout)["outcome"], "recorded")
         self.assertEqual(self.rows()[0]["application_status"], "applied")
-        retry = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment)
+        retry = self.invoke(
+            "event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment
+        )
         self.assertEqual(json.loads(retry.stdout)["outcome"], "already_recorded")
 
     def test_new_job_board_sources_are_accepted(self):
@@ -498,10 +512,18 @@ class JobsCliTests(unittest.TestCase):
             "active": (self.root / "data/index/active.csv").read_bytes(),
         }
         args = (
-            "verify", "job-0001", "--listing-status", "closed",
-            "--first-party-verified", "yes", "--apply-verified", "no",
-            "--original-url", "https://careers.example.test/jobs/crash",
-            "--decision-reason", "closed_before_application",
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "closed",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "no",
+            "--original-url",
+            "https://careers.example.test/jobs/crash",
+            "--decision-reason",
+            "closed_before_application",
         )
         for replacement_count in range(8):
             with self.subTest(replacement_count=replacement_count):
@@ -526,15 +548,20 @@ class JobsCliTests(unittest.TestCase):
     def test_projection_generation_failure_leaves_dataset_unchanged(self):
         self.assertEqual(self.add("ProjectionFailCo", "Frontend Developer", "--no-file").returncode, 0)
         paths = [
-            self.root / "data/jobs.csv", self.root / "data/job_sources.csv",
-            self.root / "docs/tracker.md", self.root / "data/index/known.tsv",
-            self.root / "data/index/keys.tsv", self.root / "data/index/active.csv",
+            self.root / "data/jobs.csv",
+            self.root / "data/job_sources.csv",
+            self.root / "docs/tracker.md",
+            self.root / "data/index/known.tsv",
+            self.root / "data/index/keys.tsv",
+            self.root / "data/index/active.csv",
         ]
         before = {path: path.read_bytes() for path in paths}
         with patch.object(jobs.PATHS, "root", self.root):
             rows, sources, revisions = jobs.load_for_write()
             rows[0]["next_action"] = "follow-up"
-            with patch.object(tracker_write, "render_active_index", side_effect=ValueError("projection failed")):
+            with patch.object(
+                tracker_write, "render_active_index", side_effect=ValueError("projection failed")
+            ):
                 with self.assertRaisesRegex(ValueError, "projection failed"):
                     jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
         self.assertEqual({path: path.read_bytes() for path in paths}, before)

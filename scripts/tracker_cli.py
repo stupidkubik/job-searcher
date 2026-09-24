@@ -180,8 +180,10 @@ def cmd_timeline(args):
     try:
         timeline = read_timeline(PATHS.root, args.job_id)
     except (EventValidationError, TransactionError, OSError, UnicodeError, KeyError) as error:
-        code = error.code if isinstance(error, EventValidationError) else (
-            "recovery_error" if isinstance(error, TransactionError) else "read_error"
+        code = (
+            error.code
+            if isinstance(error, EventValidationError)
+            else ("recovery_error" if isinstance(error, TransactionError) else "read_error")
         )
         payload = {"ok": False, "command": "timeline", "error": {"code": code, "message": str(error)}}
         if args.format == "json":
@@ -194,8 +196,10 @@ def cmd_timeline(args):
         return
     print(f"{timeline['job_id']}  {timeline['company']} — {timeline['role']}")
     snapshot = timeline["snapshot"]
-    print(f"Snapshot: {snapshot['application_status']}; stage={snapshot['stage_reached']}; "
-          f"applied={snapshot['applied_at'] or '—'}; response={snapshot['response_at'] or '—'}")
+    print(
+        f"Snapshot: {snapshot['application_status']}; stage={snapshot['stage_reached']}; "
+        f"applied={snapshot['applied_at'] or '—'}; response={snapshot['response_at'] or '—'}"
+    )
     if timeline["history_state"] == "legacy_snapshot_only":
         print("History: legacy snapshot only; event history has not been migrated")
     elif timeline["history_state"] == "no_application_events":
@@ -205,10 +209,13 @@ def cmd_timeline(args):
         for item in timeline["events"]:
             occurred = item["occurred_at"] or "unknown"
             precision = "date only" if item["precision"] == "date" else item["precision"]
-            print(f"  {occurred} ({precision})  {item['event_type']}  [{item['state']}] "
-                  f"id={item['event_id']}")
-            print(f"    recorded={item['recorded_at']}  source={item['source']}  "
-                  f"actor={item['actor']}  confirmed_by_user={str(item['confirmed_by_user']).lower()}")
+            print(
+                f"  {occurred} ({precision})  {item['event_type']}  [{item['state']}] id={item['event_id']}"
+            )
+            print(
+                f"    recorded={item['recorded_at']}  source={item['source']}  "
+                f"actor={item['actor']}  confirmed_by_user={str(item['confirmed_by_user']).lower()}"
+            )
             if item["supersedes"]:
                 print(f"    corrects={item['supersedes']}")
             if item["superseded_by"]:
@@ -218,8 +225,10 @@ def cmd_timeline(args):
             if item["payload"]:
                 print(f"    details={json.dumps(item['payload'], ensure_ascii=False, sort_keys=True)}")
     commitment = timeline["next_commitment"]
-    print(f"Next commitment: {commitment['action'] or 'none'}"
-          + (f" (due {commitment['date']})" if commitment["date"] else ""))
+    print(
+        f"Next commitment: {commitment['action'] or 'none'}"
+        + (f" (due {commitment['date']})" if commitment["date"] else "")
+    )
 
 
 def cmd_event(args):
@@ -233,25 +242,53 @@ def cmd_event(args):
     try:
         raw = sys.stdin.read() if args.stdin else args.json_path.read_text(encoding="utf-8")
         event = json.loads(raw, object_pairs_hook=unique_object)
-        if not isinstance(event, dict) or event.get("source") != "manual" or event.get("actor") != "user" or event.get("confirmed_by_user") is not True:
-            raise EventValidationError("bad_confirmation", "CLI event requires source=manual, actor=user and confirmed_by_user=true")
+        if (
+            not isinstance(event, dict)
+            or event.get("source") != "manual"
+            or event.get("actor") != "user"
+            or event.get("confirmed_by_user") is not True
+        ):
+            raise EventValidationError(
+                "bad_confirmation", "CLI event requires source=manual, actor=user and confirmed_by_user=true"
+            )
         validate_event(event)
         if not args.dry_run and not event_writes_enabled():
-            raise EventValidationError("write_disabled", "event writes require TRACKER_V3_EVENT_WRITES=1 after cutover")
+            raise EventValidationError(
+                "write_disabled", "event writes require TRACKER_V3_EVENT_WRITES=1 after cutover"
+            )
         result = append_application_event(event, dry_run=args.dry_run)
         payload = {
-            "ok": True, "command": "event", "dry_run": args.dry_run,
-            "outcome": result["outcome"], "event_id": result["event"]["event_id"],
+            "ok": True,
+            "command": "event",
+            "dry_run": args.dry_run,
+            "outcome": result["outcome"],
+            "event_id": result["event"]["event_id"],
             "job_id": result["job"]["id"],
-            "projection": {field: result["job"][field] for field in (
-                "application_status", "stage_reached", "applied_at", "response_at"
-            )},
+            "projection": {
+                field: result["job"][field]
+                for field in ("application_status", "stage_reached", "applied_at", "response_at")
+            },
         }
-    except (EventValidationError, ValidationError, TransactionError, OSError, UnicodeError, json.JSONDecodeError) as error:
-        code = error.code if isinstance(error, EventValidationError) else (
-            error.code if isinstance(error, ValidationError) else
-            "recovery_error" if isinstance(error, TransactionError) else
-            "invalid_json" if isinstance(error, json.JSONDecodeError) else "read_error"
+    except (
+        EventValidationError,
+        ValidationError,
+        TransactionError,
+        OSError,
+        UnicodeError,
+        json.JSONDecodeError,
+    ) as error:
+        code = (
+            error.code
+            if isinstance(error, EventValidationError)
+            else (
+                error.code
+                if isinstance(error, ValidationError)
+                else "recovery_error"
+                if isinstance(error, TransactionError)
+                else "invalid_json"
+                if isinstance(error, json.JSONDecodeError)
+                else "read_error"
+            )
         )
         payload = {"ok": False, "command": "event", "error": {"code": code, "message": str(error)}}
         if args.format == "json":
@@ -926,8 +963,14 @@ def main():
     args = parser.parse_args()
     try:
         read_commands = {
-            "validate", "dupes", "stale", "todo", "stats", "report",
-            "render-tracker", "render-index",
+            "validate",
+            "dupes",
+            "stale",
+            "todo",
+            "stats",
+            "report",
+            "render-tracker",
+            "render-index",
         }
         with locked(PATHS.root) as root:
             recover_locked(root)
@@ -939,6 +982,8 @@ def main():
         die(str(error))
     except TransactionError as error:
         if args.command == "event" and args.format == "json":
-            print_json({"ok": False, "command": "event", "error": {"code": "recovery_error", "message": str(error)}})
+            print_json(
+                {"ok": False, "command": "event", "error": {"code": "recovery_error", "message": str(error)}}
+            )
             raise SystemExit(1)
         die(str(error))

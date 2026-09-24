@@ -26,7 +26,8 @@ def copied_files(root):
     return {
         path.relative_to(root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
         for directory in ("data", "applications", "docs", "config")
-        for path in (root / directory).rglob("*") if path.is_file()
+        for path in (root / directory).rglob("*")
+        if path.is_file()
         if path.name != ".v3-transaction.lock"
     }
 
@@ -64,6 +65,7 @@ def rehearse():
             def fault(stage, index):
                 if stage == "after_replace" and index == 0:
                     raise RuntimeError("injected cutover interruption")
+
             return original_publish(target_root, writes, expected, validate=validate, fault=fault)
 
         migration.publish = fail_after_first_replace
@@ -87,12 +89,18 @@ def rehearse():
         if any(after.get(name) != digest for name, digest in baseline.items()):
             raise RuntimeError("migration changed an existing canonical or generated file")
         second, remaining, second_revision = migration.plan(root, recorded_at)
-        if remaining or migration.apply(root, second, remaining, second_revision, cutover=True) != "already_complete":
+        if (
+            remaining
+            or migration.apply(root, second, remaining, second_revision, cutover=True) != "already_complete"
+        ):
             raise RuntimeError("migration is not idempotent")
         return {
-            "rows": summary["rows"], "pending_jobs": summary["pending_jobs"],
-            "pending_events": summary["pending_events"], "blocked": summary["blocked"],
-            "rollback": "exact_baseline", "apply": outcome,
+            "rows": summary["rows"],
+            "pending_jobs": summary["pending_jobs"],
+            "pending_events": summary["pending_events"],
+            "blocked": summary["blocked"],
+            "rollback": "exact_baseline",
+            "apply": outcome,
             "retry_pending_jobs": second["pending_jobs"],
             "existing_files_unchanged": True,
         }

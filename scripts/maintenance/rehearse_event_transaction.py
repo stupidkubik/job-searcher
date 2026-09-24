@@ -87,19 +87,23 @@ def rehearse():
         try:
             original_jobs = len(write.load())
             original_sources = len(write.load_job_sources())
-            fixture = write.add_job({
-                "company": "Synthetic Rehearsal Co",
-                "role": "Frontend Developer",
-                "source": "Manual",
-                "application_status": "reviewing",
-            })
+            fixture = write.add_job(
+                {
+                    "company": "Synthetic Rehearsal Co",
+                    "role": "Frontend Developer",
+                    "source": "Manual",
+                    "application_status": "reviewing",
+                }
+            )
             job_id = fixture["job"]["id"]
             before = snapshot_files(root)
             event = event_for(job_id)
             child = subprocess.run(
                 [sys.executable, "-c", CHILD, str(ROOT / "scripts"), str(root), json.dumps(event)],
-                cwd=ROOT, env={**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": "1"},
-                capture_output=True, text=True,
+                cwd=ROOT,
+                env={**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": "1"},
+                capture_output=True,
+                text=True,
             )
             if child.returncode != 75:
                 raise RuntimeError(f"fault child exited {child.returncode}: {child.stderr}")
@@ -110,6 +114,7 @@ def rehearse():
                 raise RuntimeError("rolled-back event file remains")
 
             from tracker_event_write import append_application_event
+
             recorded = append_application_event(event)
             retry = append_application_event(event)
             rows, sources = write.load(), write.load_job_sources()

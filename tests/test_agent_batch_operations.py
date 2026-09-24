@@ -78,8 +78,14 @@ class AgentBatchOperationsTests(unittest.TestCase):
 
     def test_batch_card_write_uses_workspace_base_revision(self):
         created = self.invoke(
-            "scripts/jobs.py", "add", "--company", "BatchCardCo", "--role", "Frontend Developer",
-            "--source", "Manual",
+            "scripts/jobs.py",
+            "add",
+            "--company",
+            "BatchCardCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         card = next((self.root / "applications").glob("job-*.md"))

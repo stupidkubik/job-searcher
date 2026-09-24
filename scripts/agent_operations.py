@@ -83,6 +83,8 @@ def event_modules():
     except ModuleNotFoundError:
         from scripts import event_ledger, tracker_event_write
     return event_ledger, tracker_event_write
+
+
 VERIFY_ENRICHMENT_ARGS = {"level", "remote_policy", "stack", "salary", "match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status", "next_action", "next_action_date"}
 ADD_CONTROL_ARGS = {"duplicate_of", "force"}
@@ -320,12 +322,14 @@ def validate_set_args(args, prefix="args"):
         if args.get("confirmed_by_user") is not True:
             raise contract_error(
                 "cv_version requires confirmed_by_user=true",
-                code="invariant_violation", field=f"{prefix}.confirmed_by_user",
+                code="invariant_violation",
+                field=f"{prefix}.confirmed_by_user",
             )
     elif "confirmed_by_user" in args:
         raise contract_error(
             "confirmed_by_user is allowed only with cv_version for set",
-            code="invariant_violation", field=f"{prefix}.confirmed_by_user",
+            code="invariant_violation",
+            field=f"{prefix}.confirmed_by_user",
         )
     out = {k: clean_text(v, f"{prefix}.{k}") for k, v in args.items() if k != "confirmed_by_user"}
     if "cv_version" in args:
@@ -441,7 +445,8 @@ def validate_event_args(args, prefix="args"):
     require_field_set(args, EVENT_ALLOWED_ARGS, EVENT_REQUIRED_ARGS, prefix)
     if args["confirmed_by_user"] is not True:
         raise contract_error(
-            f"{prefix}.confirmed_by_user must be true", code="bad_type",
+            f"{prefix}.confirmed_by_user must be true",
+            code="bad_type",
             field=f"{prefix}.confirmed_by_user",
             hint="record only an event explicitly confirmed by the human",
         )
@@ -465,7 +470,9 @@ def validate_event_args(args, prefix="args"):
         event_ledger.validate_event(candidate)
     except event_ledger.EventValidationError as error:
         raise contract_error(
-            f"{prefix}: {error}", code="bad_format", field=prefix,
+            f"{prefix}: {error}",
+            code="bad_format",
+            field=prefix,
         ) from error
     return {key: args[key] for key in args}
 
@@ -706,7 +713,9 @@ def validate_child(value, index=None):
             "args": validate_add_args(value["args"], f"{prefix}.args"),
         }
     require_field_set(value, JOB_CHILD_FIELDS, JOB_CHILD_FIELDS, prefix)
-    if command not in {"screen", "verify", "set", "status", "event"} or (command == "event" and index is not None):
+    if command not in {"screen", "verify", "set", "status", "event"} or (
+        command == "event" and index is not None
+    ):
         raise contract_error(
             f"{prefix}.command must be screen, verify, set, status or a single event",
             code="unsupported_command",
@@ -914,7 +923,8 @@ def apply_operation(operation, row):
         if not tracker_event_write.event_writes_enabled():
             raise contract_error(
                 "event writes are disabled until v3 cutover",
-                code="invariant_violation", field="command",
+                code="invariant_violation",
+                field="command",
                 hint="run fixture tests or wait for the separate production cutover",
             )
         args = operation["args"]
@@ -938,8 +948,11 @@ def apply_operation(operation, row):
         except event_ledger.EventValidationError as error:
             raise contract_error(str(error), code="invariant_violation", layer="events") from error
         return {
-            "job": result["job"], "warnings": [], "outcome": result["outcome"],
-            "application_path": None, "event_id": complete_event["event_id"],
+            "job": result["job"],
+            "warnings": [],
+            "outcome": result["outcome"],
+            "application_path": None,
+            "event_id": complete_event["event_id"],
         }
     if operation["command"] == "verify":
         result = jobs.verify_job(operation["job_id"], **operation["args"])
@@ -1036,8 +1049,12 @@ def result_bytes(result):
 
 
 TRACKER_PUBLISH_PATHS = (
-    "data/jobs.csv", "data/job_sources.csv", "docs/tracker.md",
-    "data/index/known.tsv", "data/index/keys.tsv", "data/index/active.csv",
+    "data/jobs.csv",
+    "data/job_sources.csv",
+    "docs/tracker.md",
+    "data/index/known.tsv",
+    "data/index/keys.tsv",
+    "data/index/active.csv",
 )
 
 
@@ -1045,7 +1062,9 @@ def workspace_snapshot(root):
     """Capture the original bytes of every file a connector can change."""
     names = set(TRACKER_PUBLISH_PATHS)
     names.update(path.relative_to(root).as_posix() for path in (root / "applications").glob("job-*.md"))
-    names.update(path.relative_to(root).as_posix() for path in (root / "data/application_events").glob("*.jsonl"))
+    names.update(
+        path.relative_to(root).as_posix() for path in (root / "data/application_events").glob("*.jsonl")
+    )
     return {name: (root / name).read_bytes() for name in names if (root / name).exists()}
 
 
@@ -1495,8 +1514,10 @@ def rejected_result(operation_id, command, error):
 
 def stale_dataset_result(operation):
     retry_keys = (
-        ("command", "args") if operation["command"] == "add"
-        else ("command", "atomic", "operations") if operation["command"] == "batch"
+        ("command", "args")
+        if operation["command"] == "add"
+        else ("command", "atomic", "operations")
+        if operation["command"] == "batch"
         else ("command", "job_id", "expected", "args")
     )
     return operation_result(
@@ -1539,8 +1560,10 @@ def publish_staged_operation(root, writes, expected):
 
     def fault(stage, index):
         count = index + 1 if index is not None else 0
-        if kill_after is not None and count == kill_after and (
-            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        if (
+            kill_after is not None
+            and count == kill_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
         ):
             os._exit(75)
 
@@ -1590,7 +1613,9 @@ def stage_operation(operation, result_name):
         finally:
             STAGED_RESULTS_DIR.reset(token)
         writes, expected = staged_changes(
-            temp_root, baseline, result_name,
+            temp_root,
+            baseline,
+            result_name,
             include_canonical=result["status"] in {"completed", "partial"},
         )
     return result, writes, expected
@@ -1804,10 +1829,14 @@ def render_contract_markdown():
         "The trusted runner supplies `event_id` from `operation_id`, `recorded_at`, "
         "`source=connector`, `actor=user` and `job_id`. An event is never a batch child. "
         "Production writes require the separate v3 cutover flag.\n",
-        contract_table(EVENT_ALLOWED_ARGS, EVENT_REQUIRED_ARGS, {
-            "event_type": sorted(event_modules()[0].EVENT_TYPES),
-            "precision": ["date", "instant", "unknown"],
-        }),
+        contract_table(
+            EVENT_ALLOWED_ARGS,
+            EVENT_REQUIRED_ARGS,
+            {
+                "event_type": sorted(event_modules()[0].EVENT_TYPES),
+                "precision": ["date", "instant", "unknown"],
+            },
+        ),
         "## Batch child: `add` (with `client_ref`)\n",
         "Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expected`.\n",
         contract_table(

@@ -7,27 +7,47 @@ import json
 
 try:
     from event_ledger import (
-        EventValidationError, compare_snapshot, mismatch_report, parse_file, project_events,
+        EventValidationError,
+        compare_snapshot,
+        mismatch_report,
+        parse_file,
+        project_events,
         validate_event,
     )
     from tracker_transaction import digest
     from tracker_paths import event_writes_enabled as cutover_enabled
     from tracker_write import (
-        PATHS, ValidationError, apply_dataset_transaction, dataset_write_lock,
-        load, load_job_sources, render_application_card, today,
+        PATHS,
+        ValidationError,
+        apply_dataset_transaction,
+        dataset_write_lock,
+        load,
+        load_job_sources,
+        render_application_card,
+        today,
         current_dataset_revisions,
     )
     from tracker_validate import validate_dataset
 except ModuleNotFoundError:
     from scripts.event_ledger import (
-        EventValidationError, compare_snapshot, mismatch_report, parse_file, project_events,
+        EventValidationError,
+        compare_snapshot,
+        mismatch_report,
+        parse_file,
+        project_events,
         validate_event,
     )
     from scripts.tracker_transaction import digest
     from scripts.tracker_paths import event_writes_enabled as cutover_enabled
     from scripts.tracker_write import (
-        PATHS, ValidationError, apply_dataset_transaction, dataset_write_lock,
-        load, load_job_sources, render_application_card, today,
+        PATHS,
+        ValidationError,
+        apply_dataset_transaction,
+        dataset_write_lock,
+        load,
+        load_job_sources,
+        render_application_card,
+        today,
         current_dataset_revisions,
     )
     from scripts.tracker_validate import validate_dataset
@@ -59,27 +79,40 @@ def append_application_event(event, *, dry_run=False):
             if any(item["mismatches"] for item in report.values()):
                 raise EventValidationError("snapshot_mismatch", "event history disagrees with jobs.csv")
         previous_bytes = event_path.read_bytes() if event_path.exists() else None
-        previous = parse_file(event_path, job_ids={item["id"] for item in rows}) if previous_bytes is not None else []
+        previous = (
+            parse_file(event_path, job_ids={item["id"] for item in rows})
+            if previous_bytes is not None
+            else []
+        )
         matching = next((item for item in previous if item["event_id"] == event["event_id"]), None)
         if matching is not None:
             if matching == event:
                 mismatch = compare_snapshot(project_events(previous, job_id=job_id), row)
                 if mismatch:
-                    raise EventValidationError("snapshot_mismatch", f"existing event history disagrees with snapshot: {mismatch}")
+                    raise EventValidationError(
+                        "snapshot_mismatch", f"existing event history disagrees with snapshot: {mismatch}"
+                    )
                 return {"job": row, "event": matching, "outcome": "already_recorded"}
             raise EventValidationError("duplicate_event", "event_id already has different content")
         if previous:
             mismatch = compare_snapshot(project_events(previous, job_id=job_id), row)
             if mismatch:
-                raise EventValidationError("snapshot_mismatch", f"existing event history disagrees with snapshot: {mismatch}")
+                raise EventValidationError(
+                    "snapshot_mismatch", f"existing event history disagrees with snapshot: {mismatch}"
+                )
         elif row["application_status"] not in {"not_started", "reviewing", "apply"} or row["applied_at"]:
-            raise EventValidationError("legacy_requires_backfill", "existing application needs migration before event append")
+            raise EventValidationError(
+                "legacy_requires_backfill", "existing application needs migration before event append"
+            )
 
     projected = project_events([*previous, event], job_id=job_id, job_ids={item["id"] for item in rows})
     row.update(projected)
     row["decision_reason"] = (
-        "no_response_timeout" if row["application_status"] == "ghosted"
-        else "withdrawn_by_me" if row["application_status"] == "withdrawn" else ""
+        "no_response_timeout"
+        if row["application_status"] == "ghosted"
+        else "withdrawn_by_me"
+        if row["application_status"] == "withdrawn"
+        else ""
     )
     if row["application_status"] in {"applied", "rejected", "ghosted", "withdrawn"}:
         row["next_action"] = ""
@@ -95,11 +128,15 @@ def append_application_event(event, *, dry_run=False):
         raise ValidationError("event projection violates dataset invariants: " + "; ".join(errors))
     if dry_run:
         return {"job": row, "event": event, "outcome": "would_record"}
-    event_body = (previous_bytes or b"") + json.dumps(
-        event, ensure_ascii=False, sort_keys=True, separators=(",", ":")
-    ).encode("utf-8") + b"\n"
+    event_body = (
+        (previous_bytes or b"")
+        + json.dumps(event, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        + b"\n"
+    )
     apply_dataset_transaction(
-        rows, source_rows, application_writes,
+        rows,
+        source_rows,
+        application_writes,
         expected_revisions=revisions,
         event_write=(event_path, event_body, digest(previous_bytes)),
     )

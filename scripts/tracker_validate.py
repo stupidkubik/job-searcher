@@ -100,7 +100,9 @@ def load_job_sources(allow_missing=False):
 def save(rows: list) -> None:
     """Атомарно заменяет CSV, чтобы ошибка не оставила обрезанный файл."""
     if (PATHS.root / "data/application_events").is_dir():
-        raise RuntimeError("direct CSV save is disabled after event-ledger cutover; use the dataset transaction")
+        raise RuntimeError(
+            "direct CSV save is disabled after event-ledger cutover; use the dataset transaction"
+        )
     descriptor, temporary_name = tempfile.mkstemp(prefix="jobs-", suffix=".csv", dir=PATHS.csv_path.parent)
     try:
         with os.fdopen(descriptor, "w", newline="", encoding="utf-8") as file:
@@ -115,7 +117,9 @@ def save(rows: list) -> None:
 
 def save_job_sources(rows: list) -> None:
     if (PATHS.root / "data/application_events").is_dir():
-        raise RuntimeError("direct source save is disabled after event-ledger cutover; use the dataset transaction")
+        raise RuntimeError(
+            "direct source save is disabled after event-ledger cutover; use the dataset transaction"
+        )
     descriptor, temporary_name = tempfile.mkstemp(
         prefix="job-sources-", suffix=".csv", dir=PATHS.job_sources_path.parent
     )

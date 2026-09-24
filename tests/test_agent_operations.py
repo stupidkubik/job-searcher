@@ -180,21 +180,45 @@ class ApplyOperationScriptTests(unittest.TestCase):
             encoding="utf-8",
         )
         created = subprocess.run(
-            [sys.executable, "scripts/jobs.py", "add", "--company", "Fixture Co", "--role",
-             "Frontend Developer", "--source", "Manual", "--no-file"],
-            cwd=self.root, capture_output=True, text=True,
+            [
+                sys.executable,
+                "scripts/jobs.py",
+                "add",
+                "--company",
+                "Fixture Co",
+                "--role",
+                "Frontend Developer",
+                "--source",
+                "Manual",
+                "--no-file",
+            ],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(created.returncode, 0, created.stderr)
         with (self.root / "data/jobs.csv").open(newline="", encoding="utf-8") as stream:
             row = next(csv.DictReader(stream))
         relative = "data/operations/requests/op-script-event-001.json"
-        (self.root / relative).write_text(json.dumps({
-            "version": 1, "operation_id": "op-script-event-001", "command": "event",
-            "job_id": row["id"],
-            "expected": {"last_update": row["last_update"], "application_status": "not_started"},
-            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
-                     "precision": "date", "payload": {}, "confirmed_by_user": True},
-        }), encoding="utf-8")
+        (self.root / relative).write_text(
+            json.dumps(
+                {
+                    "version": 1,
+                    "operation_id": "op-script-event-001",
+                    "command": "event",
+                    "job_id": row["id"],
+                    "expected": {"last_update": row["last_update"], "application_status": "not_started"},
+                    "args": {
+                        "event_type": "application_submitted",
+                        "occurred_at": "2026-09-24",
+                        "precision": "date",
+                        "payload": {},
+                        "confirmed_by_user": True,
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
         self.git("add", "--all")
         self.git("commit", "--message", "seed event request")
 
@@ -204,7 +228,12 @@ class ApplyOperationScriptTests(unittest.TestCase):
         changed = self.git("show", "--name-only", "--format=", "HEAD")
         self.assertIn("data/application_events/job-0001.jsonl", changed)
         self.assertIn("data/operations/results/op-script-event-001.json", changed)
-        self.assertEqual(json.loads((self.root / "data/operations/results/op-script-event-001.json").read_text())["status"], "completed")
+        self.assertEqual(
+            json.loads((self.root / "data/operations/results/op-script-event-001.json").read_text())[
+                "status"
+            ],
+            "completed",
+        )
 
 
 class AgentOperationsTests(unittest.TestCase):
@@ -283,16 +312,23 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_event_request_is_gated_and_publishes_with_immutable_result_when_enabled(self):
         row = self.seed_job()
+
         def request(operation_id):
             return {
-                "version": 1, "operation_id": operation_id, "command": "event",
+                "version": 1,
+                "operation_id": operation_id,
+                "command": "event",
                 "job_id": row["id"],
                 "expected": {"application_status": "not_started", "last_update": row["last_update"]},
                 "args": {
-                    "event_type": "application_submitted", "occurred_at": "2026-09-24",
-                    "precision": "date", "payload": {}, "confirmed_by_user": True,
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
                 },
             }
+
         disabled_path = self.write_operation(request("op-event-disabled-001"))
         validated = self.invoke_operation("validate", str(disabled_path), "--format", "json")
         self.assertEqual(validated.returncode, 0, validated.stderr)
@@ -325,10 +361,18 @@ class AgentOperationsTests(unittest.TestCase):
     def test_event_request_rejects_unconfirmed_and_batch_shapes(self):
         row = self.seed_job()
         base = {
-            "version": 1, "operation_id": "op-event-invalid-001", "command": "event",
-            "job_id": row["id"], "expected": {"last_update": row["last_update"]},
-            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
-                     "precision": "date", "payload": {}, "confirmed_by_user": False},
+            "version": 1,
+            "operation_id": "op-event-invalid-001",
+            "command": "event",
+            "job_id": row["id"],
+            "expected": {"last_update": row["last_update"]},
+            "args": {
+                "event_type": "application_submitted",
+                "occurred_at": "2026-09-24",
+                "precision": "date",
+                "payload": {},
+                "confirmed_by_user": False,
+            },
         }
         with self.assertRaises(ops.OperationError) as caught:
             ops.validate_operation(base)
@@ -336,8 +380,15 @@ class AgentOperationsTests(unittest.TestCase):
         base["args"]["confirmed_by_user"] = True
         child = {key: base[key] for key in ("command", "job_id", "expected", "args")}
         with self.assertRaises(ops.OperationError) as caught:
-            ops.validate_operation({"version": 1, "operation_id": "op-event-batch-001",
-                                    "command": "batch", "atomic": True, "operations": [child]})
+            ops.validate_operation(
+                {
+                    "version": 1,
+                    "operation_id": "op-event-batch-001",
+                    "command": "batch",
+                    "atomic": True,
+                    "operations": [child],
+                }
+            )
         self.assertEqual(caught.exception.code, "unsupported_command")
 
     def write_operation(self, operation):
@@ -348,13 +399,20 @@ class AgentOperationsTests(unittest.TestCase):
     def test_enabled_event_gate_rejects_legacy_status_with_closed_error_code(self):
         row = self.seed_job()
         before = (self.root / "data/jobs.csv").read_bytes()
-        request = self.write_operation({
-            "version": 1, "operation_id": "op-status-gated-001", "command": "status",
-            "job_id": row["id"],
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {"application_status": "applied", "applied_at": "2026-09-24",
-                     "confirmed_by_user": True},
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-status-gated-001",
+                "command": "status",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "application_status": "applied",
+                    "applied_at": "2026-09-24",
+                    "confirmed_by_user": True,
+                },
+            }
+        )
         with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
             result = self.invoke_operation("apply", str(request), "--format", "json")
         payload = json.loads(result.stdout)
@@ -366,33 +424,50 @@ class AgentOperationsTests(unittest.TestCase):
 
     def test_confirmed_cv_version_set_follows_event_and_updates_card(self):
         row = self.seed_job()
-        submitted = self.write_operation({
-            "version": 1, "operation_id": "op-cv-event-001", "command": "event",
-            "job_id": row["id"],
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
-                     "precision": "date", "payload": {}, "confirmed_by_user": True},
-        })
+        submitted = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-event-001",
+                "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
+                },
+            }
+        )
         with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
             created = self.invoke_operation("apply", str(submitted), "--format", "json")
         self.assertEqual(json.loads(created.stdout)["status"], "completed", created.stderr)
         event_path = self.root / "data/application_events" / f"{row['id']}.jsonl"
         before_event = event_path.read_bytes()
         applied = self.rows()[0]
-        missing_confirmation = self.write_operation({
-            "version": 1, "operation_id": "op-cv-set-invalid-001", "command": "set",
-            "job_id": row["id"],
-            "expected": {"application_status": "applied", "last_update": applied["last_update"]},
-            "args": {"cv_version": "frontend-2026-09"},
-        })
+        missing_confirmation = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-set-invalid-001",
+                "command": "set",
+                "job_id": row["id"],
+                "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+                "args": {"cv_version": "frontend-2026-09"},
+            }
+        )
         rejected = self.invoke_operation("apply", str(missing_confirmation), "--format", "json")
         self.assertEqual(json.loads(rejected.stdout)["status"], "rejected")
-        confirmed = self.write_operation({
-            "version": 1, "operation_id": "op-cv-set-valid-001", "command": "set",
-            "job_id": row["id"],
-            "expected": {"application_status": "applied", "last_update": applied["last_update"]},
-            "args": {"cv_version": "frontend-2026-09", "confirmed_by_user": True},
-        })
+        confirmed = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-set-valid-001",
+                "command": "set",
+                "job_id": row["id"],
+                "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+                "args": {"cv_version": "frontend-2026-09", "confirmed_by_user": True},
+            }
+        )
         with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
             result = self.invoke_operation("apply", str(confirmed), "--format", "json")
         self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
@@ -407,13 +482,22 @@ class AgentOperationsTests(unittest.TestCase):
         (self.root / "config/event-ledger-cutover.json").write_text(
             '{"enabled":true,"migration":"migration-v1","version":1}\n', encoding="utf-8"
         )
-        request = self.write_operation({
-            "version": 1, "operation_id": "op-marker-event-001", "command": "event",
-            "job_id": row["id"],
-            "expected": {"application_status": "not_started", "last_update": row["last_update"]},
-            "args": {"event_type": "application_submitted", "occurred_at": "2026-09-24",
-                     "precision": "date", "payload": {}, "confirmed_by_user": True},
-        })
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-marker-event-001",
+                "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
+                },
+            }
+        )
         result = self.invoke_operation("apply", str(request), "--format", "json")
         self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
         self.assertTrue((self.root / "data/application_events" / f"{row['id']}.jsonl").exists())
@@ -568,14 +652,20 @@ class AgentOperationsTests(unittest.TestCase):
             }
         )
         originals = {
-            name: (self.root / name).read_bytes()
-            for name in ("data/jobs.csv", "data/job_sources.csv")
+            name: (self.root / name).read_bytes() for name in ("data/jobs.csv", "data/job_sources.csv")
         }
         result_file = self.root / "data/operations/results/op-add-interrupted-001.json"
         for replacement_count in (2, 7):
             with self.subTest(replacement_count=replacement_count):
                 interrupted = subprocess.run(
-                    [sys.executable, "scripts/agent_operations.py", "apply", str(request), "--format", "json"],
+                    [
+                        sys.executable,
+                        "scripts/agent_operations.py",
+                        "apply",
+                        str(request),
+                        "--format",
+                        "json",
+                    ],
                     cwd=self.root,
                     text=True,
                     capture_output=True,

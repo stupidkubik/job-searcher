@@ -93,7 +93,10 @@ class TrackerTransactionTests(unittest.TestCase):
     def child(self, root, stage, index):
         return subprocess.run(
             [sys.executable, "-c", CHILD, str(root), stage, str(index)],
-            cwd=ROOT, capture_output=True, text=True, check=False,
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
         )
 
     def test_normal_publish_and_stale_retry(self):
@@ -111,8 +114,10 @@ class TrackerTransactionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             setup_root(root)
+
             def reject(_root):
                 raise ValueError("projection mismatch")
+
             with self.assertRaisesRegex(ValueError, "projection mismatch"):
                 txn.publish(root, WRITES, expected_old(), validate=reject)
             self.assert_original(root)
@@ -123,9 +128,11 @@ class TrackerTransactionTests(unittest.TestCase):
             with self.subTest(stage=stage, index=index), tempfile.TemporaryDirectory() as tmp:
                 root = Path(tmp)
                 setup_root(root)
+
                 def fault(at, position):
                     if (at, position) == (stage, index):
                         raise OSError("injected failure")
+
                 with self.assertRaisesRegex(OSError, "injected failure"):
                     txn.publish(root, WRITES, expected_old(), fault=fault)
                 self.assert_original(root)
@@ -207,7 +214,10 @@ class TrackerTransactionTests(unittest.TestCase):
             processes = [
                 subprocess.Popen(
                     [sys.executable, "-c", RACE_CHILD, str(root), token],
-                    cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+                    cwd=ROOT,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
                 )
                 for token in ("A", "B")
             ]

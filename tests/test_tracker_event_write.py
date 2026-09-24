@@ -11,7 +11,14 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from scripts import agent_operations, event_ledger, tracker_event_write, tracker_transaction, tracker_validate, tracker_write
+from scripts import (
+    agent_operations,
+    event_ledger,
+    tracker_event_write,
+    tracker_transaction,
+    tracker_validate,
+    tracker_write,
+)
 from scripts.tracker_schema import FIELDS, JOB_SOURCE_FIELDS
 
 
@@ -43,10 +50,15 @@ class TrackerEventWriteTests(unittest.TestCase):
         for directory in ("data", "applications", "docs"):
             (self.root / directory).mkdir()
         shutil.copy2(PROJECT / "applications/_TEMPLATE.md", self.root / "applications/_TEMPLATE.md")
-        row = tracker_write.build_add_row([], {
-            "company": "Synthetic Co", "role": "Frontend Developer", "source": "Manual",
-            "application_status": "reviewing",
-        })
+        row = tracker_write.build_add_row(
+            [],
+            {
+                "company": "Synthetic Co",
+                "role": "Frontend Developer",
+                "source": "Manual",
+                "application_status": "reviewing",
+            },
+        )
         (self.root / "data/jobs.csv").write_bytes(tracker_write.csv_bytes(FIELDS, [row]))
         (self.root / "data/job_sources.csv").write_bytes(tracker_write.csv_bytes(JOB_SOURCE_FIELDS, []))
         self.old_jobs = (self.root / "data/jobs.csv").read_bytes()
@@ -68,11 +80,15 @@ class TrackerEventWriteTests(unittest.TestCase):
         self.assertEqual(result["job"]["application_status"], "applied")
         self.assertEqual(result["job"]["applied_at"], "2026-09-24")
         self.assertEqual(event_ledger.parse_file(self.event_path), [submitted])
-        self.assertFalse(event_ledger.mismatch_report(
-            self.event_path.parent, {"job-0001": result["job"]}
-        )["job-0001"]["mismatches"])
+        self.assertFalse(
+            event_ledger.mismatch_report(self.event_path.parent, {"job-0001": result["job"]})["job-0001"][
+                "mismatches"
+            ]
+        )
         old_bytes = self.event_path.read_bytes()
-        self.assertEqual(tracker_event_write.append_application_event(submitted)["outcome"], "already_recorded")
+        self.assertEqual(
+            tracker_event_write.append_application_event(submitted)["outcome"], "already_recorded"
+        )
         self.assertEqual(self.event_path.read_bytes(), old_bytes)
         self.assertTrue((self.root / "docs/tracker.md").exists())
 
@@ -87,10 +103,15 @@ class TrackerEventWriteTests(unittest.TestCase):
     def test_cross_job_event_id_collision_rolls_back(self):
         tracker_event_write.append_application_event(event("application_submitted", 1))
         rows, sources, revisions = tracker_write.load_for_write()
-        second = tracker_write.build_add_row(rows, {
-            "company": "Another Synthetic Co", "role": "Engineer", "source": "Manual",
-            "application_status": "reviewing",
-        })
+        second = tracker_write.build_add_row(
+            rows,
+            {
+                "company": "Another Synthetic Co",
+                "role": "Engineer",
+                "source": "Manual",
+                "application_status": "reviewing",
+            },
+        )
         tracker_write.apply_dataset_transaction([*rows, second], sources, expected_revisions=revisions)
         before = (self.root / "data/jobs.csv").read_bytes()
         with self.assertRaisesRegex(event_ledger.EventValidationError, "cross-file event_id collision"):
@@ -128,7 +149,9 @@ class TrackerEventWriteTests(unittest.TestCase):
 
     def test_event_gate_keeps_pre_application_status_available(self):
         with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
-            changed = tracker_write.status_job("job-0001", application_status="apply", next_action="prepare CV")
+            changed = tracker_write.status_job(
+                "job-0001", application_status="apply", next_action="prepare CV"
+            )
         self.assertEqual(changed["job"]["application_status"], "apply")
         self.assertFalse(self.event_path.exists())
 
@@ -140,9 +163,11 @@ class TrackerEventWriteTests(unittest.TestCase):
         self.assertEqual(self.event_path.read_bytes(), before_event)
         card = next((self.root / "applications").glob("job-0001-*.md"))
         self.assertIn("cv_version: frontend-2026-09", card.read_text(encoding="utf-8"))
-        self.assertFalse(event_ledger.mismatch_report(
-            self.event_path.parent, {"job-0001": changed["job"]}
-        )["job-0001"]["mismatches"])
+        self.assertFalse(
+            event_ledger.mismatch_report(self.event_path.parent, {"job-0001": changed["job"]})["job-0001"][
+                "mismatches"
+            ]
+        )
 
     def test_failure_after_event_replacement_restores_snapshot_and_event(self):
         with patch.dict(os.environ, {"JOBS_INGEST_FAIL_AFTER_REPLACE": "1"}):
@@ -162,18 +187,21 @@ class TrackerEventWriteTests(unittest.TestCase):
             "tracker_event_write.append_application_event(json.loads(sys.argv[2]))\n"
         )
         result = subprocess.run(
-            [sys.executable, "-c", script, str(self.root), payload], cwd=PROJECT,
+            [sys.executable, "-c", script, str(self.root), payload],
+            cwd=PROJECT,
             env={**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": "1"},
-            capture_output=True, text=True,
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 75, result.stderr)
-        self.assertEqual(event_ledger.read_report(
-            self.event_path.parent, self.root / "data/jobs.csv"
-        ), {})
+        self.assertEqual(event_ledger.read_report(self.event_path.parent, self.root / "data/jobs.csv"), {})
         self.assertEqual(tracker_transaction.recover(self.root), "clean")
         self.assertEqual((self.root / "data/jobs.csv").read_bytes(), self.old_jobs)
         self.assertFalse(self.event_path.exists())
-        self.assertEqual(tracker_event_write.append_application_event(event("application_submitted", 1))["outcome"], "recorded")
+        self.assertEqual(
+            tracker_event_write.append_application_event(event("application_submitted", 1))["outcome"],
+            "recorded",
+        )
 
     def test_process_kill_at_every_integrated_replace_boundary(self):
         payload = json.dumps(event("application_submitted", 1))
@@ -187,9 +215,11 @@ class TrackerEventWriteTests(unittest.TestCase):
         for count in range(9):  # prepare, then event + CSV pair + four views + card
             with self.subTest(count=count):
                 result = subprocess.run(
-                    [sys.executable, "-c", script, str(self.root), payload], cwd=PROJECT,
+                    [sys.executable, "-c", script, str(self.root), payload],
+                    cwd=PROJECT,
                     env={**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": str(count)},
-                    capture_output=True, text=True,
+                    capture_output=True,
+                    text=True,
                 )
                 self.assertEqual(result.returncode, 75, result.stderr)
                 self.assertEqual(tracker_transaction.recover(self.root), "rolled_back")
@@ -208,14 +238,18 @@ class TrackerEventWriteTests(unittest.TestCase):
             "tracker_event_write.append_application_event(json.loads(sys.argv[2]))\n"
         )
         result = subprocess.run(
-            [sys.executable, "-c", script, str(self.root), json.dumps(submitted)], cwd=PROJECT,
+            [sys.executable, "-c", script, str(self.root), json.dumps(submitted)],
+            cwd=PROJECT,
             env={**os.environ, "JOBS_INGEST_KILL_AFTER_COMMIT": "1"},
-            capture_output=True, text=True,
+            capture_output=True,
+            text=True,
         )
         self.assertEqual(result.returncode, 75, result.stderr)
         self.assertEqual(tracker_transaction.recover(self.root), "kept_commit")
         self.assertEqual(event_ledger.parse_file(self.event_path), [submitted])
-        self.assertEqual(tracker_event_write.append_application_event(submitted)["outcome"], "already_recorded")
+        self.assertEqual(
+            tracker_event_write.append_application_event(submitted)["outcome"], "already_recorded"
+        )
 
     def test_stale_snapshot_prevents_event_append(self):
         original_apply = tracker_event_write.apply_dataset_transaction
@@ -226,7 +260,9 @@ class TrackerEventWriteTests(unittest.TestCase):
             original_apply(rows, sources, expected_revisions=revisions)
             return original_apply(*args, **kwargs)
 
-        with patch.object(tracker_event_write, "apply_dataset_transaction", side_effect=change_snapshot_first):
+        with patch.object(
+            tracker_event_write, "apply_dataset_transaction", side_effect=change_snapshot_first
+        ):
             with self.assertRaises(tracker_write.ValidationError) as caught:
                 tracker_event_write.append_application_event(event("application_submitted", 1))
         self.assertEqual(caught.exception.code, "stale_operation")
@@ -252,7 +288,10 @@ class TrackerEventWriteTests(unittest.TestCase):
                 encoding="utf-8",
             )
             writes, expected = agent_operations.staged_changes(
-                temp_root, baseline, result_name, include_canonical=True,
+                temp_root,
+                baseline,
+                result_name,
+                include_canonical=True,
             )
         self.assertIn("data/application_events/job-0001.jsonl", writes)
         self.assertIn(result_name, writes)
@@ -268,10 +307,12 @@ class TrackerEventWriteTests(unittest.TestCase):
 
     def test_connector_crash_rolls_back_event_snapshot_and_result(self):
         writes, expected, result_name = self.stage_connector_event()
-        payload = json.dumps({
-            "writes": {name: base64.b64encode(body).decode("ascii") for name, body in writes.items()},
-            "expected": expected,
-        })
+        payload = json.dumps(
+            {
+                "writes": {name: base64.b64encode(body).decode("ascii") for name, body in writes.items()},
+                "expected": expected,
+            }
+        )
         script = (
             "import base64, json, sys\n"
             "from pathlib import Path\n"
@@ -286,8 +327,11 @@ class TrackerEventWriteTests(unittest.TestCase):
         for name in ("data/application_events/job-0001.jsonl", result_name):
             with self.subTest(name=name):
                 result = subprocess.run(
-                    [sys.executable, "-c", script, str(self.root)], cwd=PROJECT,
-                    input=payload, capture_output=True, text=True,
+                    [sys.executable, "-c", script, str(self.root)],
+                    cwd=PROJECT,
+                    input=payload,
+                    capture_output=True,
+                    text=True,
                     env={**os.environ, "JOBS_CONNECTOR_KILL_AFTER_REPLACE": str(names.index(name) + 1)},
                 )
                 self.assertEqual(result.returncode, 75, result.stderr)

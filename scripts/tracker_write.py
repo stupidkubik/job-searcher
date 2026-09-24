@@ -429,7 +429,9 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
 
 
 def persist_add(plan: AddPlan) -> Path | None:
-    application_writes = ((plan.app_path, plan.app_body, plan.app_revision),) if plan.app_body is not None else ()
+    application_writes = (
+        ((plan.app_path, plan.app_body, plan.app_revision),) if plan.app_body is not None else ()
+    )
     apply_dataset_transaction(
         plan.rows, plan.source_rows, application_writes, expected_revisions=plan.expected_revisions
     )
@@ -562,7 +564,11 @@ def projected_artifacts(rows, source_rows, application_writes):
 
 
 def apply_dataset_transaction(
-    rows: list, source_rows: list, application_writes: tuple = (), *, expected_revisions: dict,
+    rows: list,
+    source_rows: list,
+    application_writes: tuple = (),
+    *,
+    expected_revisions: dict,
     event_write: tuple | None = None,
 ) -> None:
     """Replace an already validated dataset or restore every replaced file."""
@@ -624,12 +630,16 @@ def apply_dataset_transaction(
         count = index + 1 if index is not None else 0
         if stage == "after_commit" and os.environ.get("JOBS_INGEST_KILL_AFTER_COMMIT") == "1":
             os._exit(75)
-        if failure_after is not None and count == failure_after and (
-            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        if (
+            failure_after is not None
+            and count == failure_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
         ):
             raise OSError("injected ingest replacement failure")
-        if kill_after is not None and count == kill_after and (
-            (count == 0 and stage == "after_prepare") or stage == "after_replace"
+        if (
+            kill_after is not None
+            and count == kill_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
         ):
             os._exit(75)
 
@@ -749,9 +759,7 @@ def set_job(job_id: str, assignments: list, stage: str | None = None) -> dict:
         path, body, revision = render_application_card(row, update_existing=True, with_revision=True)
         if body is not None:
             application_writes = ((path, body, revision),)
-    apply_dataset_transaction(
-        rows, source_rows, application_writes, expected_revisions=expected_revisions
-    )
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {"job": row, "warnings": warnings}
 
 
@@ -1245,9 +1253,11 @@ def verify_job(
         next_action_date=next_action_date,
     )
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    application_path, application_body, application_card_created, application_revision = prepare_verified_application_write(
-        row,
-        change["passed"],
+    application_path, application_body, application_card_created, application_revision = (
+        prepare_verified_application_write(
+            row,
+            change["passed"],
+        )
     )
     application_writes = (
         ((application_path, application_body, application_revision),) if application_body is not None else ()
