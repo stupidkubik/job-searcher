@@ -288,6 +288,54 @@ python3 scripts/jobs.py status job-0001 \
 Возврат записи с заполненным `applied_at` в `not_started`, `reviewing` или
 `apply` запрещён. Для pre-application отсева по-прежнему используется `screen`.
 
+## V3 event (до cutover закрыт для записи)
+
+`event` принимает один полный JSON object по
+[`event-contract-v1.md`](tracker-v3/event-contract-v1.md) из `--json PATH` или
+`--stdin`. `--dry-run` проверяет схему, переход и будущую snapshot projection
+без записи. CLI принимает только `source=manual`, `actor=user` и
+`confirmed_by_user=true`; миграционные события идут отдельным backfill path.
+
+```bash
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --format json
+```
+
+Одинаковый `event_id` с тем же содержимым возвращает `already_recorded`;
+другое содержимое отклоняется. Ошибки в JSON-режиме содержат `error.code`.
+Запись по умолчанию выключена. Production cutover атомарно создаёт
+`config/event-ledger-cutover.json` вместе с историческими событиями;
+`TRACKER_V3_EVENT_WRITES=1` используется только для fixtures и разовой
+maintenance-команды. До cutover запуск без `--dry-run` возвращает
+`write_disabled` и не меняет файлы.
+Когда event history уже существует для вакансии, legacy `status` отклоняется
+до записи. При включённом event write gate post-application `status`
+отклоняется и для вакансии без истории: для lifecycle нужно использовать
+атомарную команду `event`. До cutover gate выключен и обычный `status` для
+вакансий без event file работает по прежнему контракту. Connector result
+использует существующий `invariant_violation` из закрытой таксономии ошибок
+и поясняет необходимость команды `event` в сообщении.
+После подтверждённой отправки CV version можно записать отдельным `set`:
+connector принимает `cv_version` только вместе с `confirmed_by_user=true` и
+только после отклика; карточка обновляется в той же транзакции. Локальный CLI
+использует `set job-NNNN cv_version=...`.
+
+## V3 timeline (read-only)
+
+`timeline` показывает историю только одной заявки, сверяя эффективные события
+с текущими четырьмя lifecycle-полями snapshot. Вывод включает исходные и
+исправленные события, `evidence_ref`, точность даты, источник и следующий шаг
+из `next_action` / `next_action_date`.
+
+```bash
+python3 scripts/jobs.py timeline job-0001 --format json
+```
+
+Если event file ещё нет, `history_state=legacy_snapshot_only` для старого
+отклика означает именно отсутствие мигрированной истории, а не отсутствие
+фактических событий. `superseded` показывает заменённую запись, `void_marker`
+— завершающее исправление, отменяющее ошибочный факт. При расхождении ledger
+и snapshot команда возвращает `snapshot_mismatch` без изменения данных.
+
 ## Разовый repair старого Himalayas batch
 
 Для 24 screening-записей `job-0099…job-0126`, кроме `job-0102`, `job-0110`,

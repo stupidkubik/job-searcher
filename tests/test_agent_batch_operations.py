@@ -6,6 +6,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+from scripts import agent_operations as ops
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -29,11 +32,14 @@ class AgentBatchOperationsTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
@@ -69,6 +75,33 @@ class AgentBatchOperationsTests(unittest.TestCase):
     def rows(self):
         with (self.root / "data" / "jobs.csv").open(newline="", encoding="utf-8") as file:
             return list(csv.DictReader(file))
+
+    def test_batch_card_write_uses_workspace_base_revision(self):
+        created = self.invoke(
+            "scripts/jobs.py",
+            "add",
+            "--company",
+            "BatchCardCo",
+            "--role",
+            "Frontend Developer",
+            "--source",
+            "Manual",
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        card = next((self.root / "applications").glob("job-*.md"))
+        original = card.read_text(encoding="utf-8")
+        with patch.object(ops, "ROOT", self.root), patch.object(ops.jobs.PATHS, "root", self.root):
+            rows, sources, revisions = ops.jobs.load_for_write()
+            with ops.temporary_tracker_workspace(include_card_revisions=True) as (temp_root, card_revisions):
+                temp_card = temp_root / "applications" / card.name
+                temp_card.write_text(original + "\nAgent note\n", encoding="utf-8")
+                card.write_text(original + "\nHuman note\n", encoding="utf-8")
+                writes = ops.changed_application_writes(temp_root, card_revisions)
+            self.assertEqual(len(writes), 1)
+            with self.assertRaises(ops.jobs.ValidationError) as stale:
+                ops.jobs.apply_dataset_transaction(rows, sources, writes, expected_revisions=revisions)
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertIn("Human note", card.read_text(encoding="utf-8"))
 
     def write_batch(self, operation_id, operations):
         request = {
@@ -314,11 +347,14 @@ class BatchAtomicityTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):

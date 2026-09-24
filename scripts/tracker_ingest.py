@@ -20,8 +20,6 @@ try:  # Direct CLI execution places scripts/ on sys.path.
     from tracker_validate import (
         COMPANY_NOISE,
         ROLE_NOISE,
-        load,
-        load_job_sources,
         norm_url,
         similarity,
         validate_dataset,
@@ -31,6 +29,7 @@ try:  # Direct CLI execution places scripts/ on sys.path.
         apply_dataset_transaction,
         build_add_row,
         build_source_reference,
+        load_for_write,
         prepare_source_reference,
     )
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_ingest.
@@ -45,8 +44,6 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
     from scripts.tracker_validate import (
         COMPANY_NOISE,
         ROLE_NOISE,
-        load,
-        load_job_sources,
         norm_url,
         similarity,
         validate_dataset,
@@ -56,6 +53,7 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
         apply_dataset_transaction,
         build_add_row,
         build_source_reference,
+        load_for_write,
         prepare_source_reference,
     )
 
@@ -75,6 +73,7 @@ class IngestPlan:
     fuzzy: bool
     jobs_created: int
     source_references_created: int
+    expected_revisions: dict
 
 
 def ingest_job_values(rows, fields, decision_reason="", next_action=""):
@@ -213,8 +212,9 @@ def plan_ingest(path, resolution_path=None):
 
     batch = load_batch(path)
     resolutions, resolution_errors = load_ingest_resolutions(resolution_path, batch["batch_id"])
-    rows = [dict(row) for row in load()]
-    source_rows = [dict(row) for row in load_job_sources()]
+    rows, source_rows, expected_revisions = load_for_write()
+    rows = [dict(row) for row in rows]
+    source_rows = [dict(row) for row in source_rows]
     original_job_count = len(rows)
     original_reference_count = len(source_rows)
     outcomes = []
@@ -430,13 +430,14 @@ def plan_ingest(path, resolution_path=None):
         fuzzy=fuzzy,
         jobs_created=len(rows) - original_job_count,
         source_references_created=source_references_created or len(source_rows) - original_reference_count,
+        expected_revisions=expected_revisions,
     )
 
 
 def apply_ingest_plan(plan):
     if not plan.jobs_created and not plan.source_references_created:
         return {"jobs_created": 0, "source_references_created": 0, "application_cards_created": 0}
-    apply_dataset_transaction(plan.rows, plan.source_rows)
+    apply_dataset_transaction(plan.rows, plan.source_rows, expected_revisions=plan.expected_revisions)
     return {
         "jobs_created": plan.jobs_created,
         "source_references_created": plan.source_references_created,

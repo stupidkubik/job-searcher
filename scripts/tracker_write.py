@@ -11,6 +11,7 @@ import tempfile
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime
+from io import StringIO
 from pathlib import Path
 
 try:  # Direct CLI execution places scripts/ on sys.path.
@@ -18,8 +19,13 @@ try:  # Direct CLI execution places scripts/ on sys.path.
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
     from scripts.tracker_time import business_date
 
+try:
+    from tracker_transaction import StaleRevision, digest, locked, publish, recover_locked
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import StaleRevision, digest, locked, publish, recover_locked
+
 try:  # Direct CLI execution places scripts/ on sys.path.
-    from tracker_paths import PATHS
+    from tracker_paths import PATHS, event_writes_enabled
     from tracker_schema import (
         ADD_APPLICATION_STATUSES,
         APPLICATION_STATUSES,
@@ -57,11 +63,18 @@ try:  # Direct CLI execution places scripts/ on sys.path.
         load,
         load_job_sources,
         norm_url,
-        save_job_sources,
         validate_dataset,
     )
+    from tracker_render import (
+        render_active_index,
+        render_keys_index,
+        render_known_index,
+        render_tracker_markdown,
+        tracker_application_cards,
+        tracker_payload,
+    )
 except ModuleNotFoundError:  # Unit tests may import this module as scripts.tracker_write.
-    from scripts.tracker_paths import PATHS
+    from scripts.tracker_paths import PATHS, event_writes_enabled
     from scripts.tracker_schema import (
         ADD_APPLICATION_STATUSES,
         APPLICATION_STATUSES,
@@ -99,8 +112,15 @@ except ModuleNotFoundError:  # Unit tests may import this module as scripts.trac
         load,
         load_job_sources,
         norm_url,
-        save_job_sources,
         validate_dataset,
+    )
+    from scripts.tracker_render import (
+        render_active_index,
+        render_keys_index,
+        render_known_index,
+        render_tracker_markdown,
+        tracker_application_cards,
+        tracker_payload,
     )
 
 
@@ -114,6 +134,8 @@ class AddPlan:
     app_body: str | None
     source_reference: dict | None
     source_reference_created: bool
+    expected_revisions: dict
+    app_revision: str | None
 
 
 def today():
@@ -294,6 +316,7 @@ APPLICATION_CARD_FRONT_MATTER_FIELDS = (
     "id",
     "company",
     "role",
+    "cv_version",
     "original_url",
     "verified_at",
     "listing_status",
@@ -336,14 +359,19 @@ def application_card_path(row):
     return PATHS.apps_dir / f"{row['id']}-{slug(row['company'])}-{slug(row['role'])}.md"
 
 
-def render_application_card(row, update_existing=False):
+def render_application_card(row, update_existing=False, *, with_revision=False):
+    def result(path, body, revision):
+        return (path, body, revision) if with_revision else (path, body)
+
     app_path = application_card_path(row)
     if app_path.exists():
+        original_bytes = app_path.read_bytes()
+        revision = digest(original_bytes)
         if not update_existing:
-            return app_path, None
-        original_body = app_path.read_text(encoding="utf-8")
+            return result(app_path, None, revision)
+        original_body = original_bytes.decode("utf-8")
         body = sync_application_card_front_matter(original_body, row, app_path)
-        return app_path, body if body != original_body else None
+        return result(app_path, body if body != original_body else None, revision)
     if not PATHS.template_path.exists():
         die(f"не найден шаблон {PATHS.template_path}")
     body = (
@@ -352,12 +380,11 @@ def render_application_card(row, update_existing=False):
         .replace("{{role}}", row["role"])
     )
     body = sync_application_card_front_matter(body, row, PATHS.template_path)
-    return app_path, body
+    return result(app_path, body, None)
 
 
 def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> AddPlan:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     company = clean_value(values.get("company")).strip()
     role = clean_value(values.get("role")).strip()
     original_url = clean_value(values.get("original_url"))
@@ -384,9 +411,9 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
             agent_hint="include source_url or source_job_id in args",
             cli_hint_ru=f"source={row['source']} требует source_url или source_job_id",
         )
-    app_path, app_body = (None, None)
+    app_path, app_body, app_revision = (None, None, None)
     if should_create_application_card(row, no_file):
-        app_path, app_body = render_application_card(row)
+        app_path, app_body, app_revision = render_application_card(row, with_revision=True)
     return AddPlan(
         rows=new_rows,
         source_rows=new_source_rows,
@@ -396,25 +423,30 @@ def prepare_add(values: dict, force: bool = False, no_file: bool = False) -> Add
         app_body=app_body,
         source_reference=source_reference,
         source_reference_created=source_reference_created,
+        expected_revisions=expected_revisions,
+        app_revision=app_revision,
     )
 
 
 def persist_add(plan: AddPlan) -> Path | None:
-    application_writes = ((plan.app_path, plan.app_body),) if plan.app_body is not None else ()
-    apply_dataset_transaction(plan.rows, plan.source_rows, application_writes)
+    application_writes = (
+        ((plan.app_path, plan.app_body, plan.app_revision),) if plan.app_body is not None else ()
+    )
+    apply_dataset_transaction(
+        plan.rows, plan.source_rows, application_writes, expected_revisions=plan.expected_revisions
+    )
     return plan.app_path if plan.app_body is not None else None
 
 
 def add_duplicate_source_reference(values, duplicate_of, force=False):
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     canonical_job = find(rows, duplicate_of)
     reference = build_source_reference(canonical_job["id"], values, today())
     reference, created = prepare_source_reference(source_rows, reference, force=force)
     new_source_rows = [*source_rows, reference] if created else source_rows
     warnings = ensure_dataset_valid(rows, new_source_rows, emit_warnings=False)
     if created:
-        save_job_sources(new_source_rows)
+        apply_dataset_transaction(rows, new_source_rows, expected_revisions=expected_revisions)
     return {
         "job": canonical_job,
         "warnings": warnings,
@@ -443,19 +475,25 @@ def add_job(
 
 @contextmanager
 def dataset_write_lock():
-    """Serialize the multi-file ingest replacement on platforms with flock."""
-    lock_path = PATHS.csv_path.parent / ".ingest.lock"
-    with lock_path.open("a+", encoding="utf-8") as lock_file:
-        try:
-            import fcntl
-        except ImportError:
-            yield
-            return
-        fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
-        try:
-            yield
-        finally:
-            fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+    """Share the v3 publisher lock and recover its interrupted transactions."""
+    with locked(PATHS.root) as root:
+        recover_locked(root)
+        yield
+
+
+def current_dataset_revisions():
+    """Hash the two canonical inputs while the caller holds the dataset lock."""
+    return {
+        "jobs": digest(PATHS.csv_path.read_bytes()),
+        "sources": digest(PATHS.job_sources_path.read_bytes()),
+    }
+
+
+def load_for_write():
+    """Load one consistent base snapshot and its optimistic revisions."""
+    with dataset_write_lock():
+        revisions = current_dataset_revisions()
+        return load(), load_job_sources(), revisions
 
 
 def stage_csv(target, fields, rows):
@@ -504,7 +542,35 @@ def backup_file(target):
     return backup_path
 
 
-def apply_dataset_transaction(rows: list, source_rows: list, application_writes: tuple = ()) -> None:
+def csv_bytes(fields, rows):
+    stream = StringIO(newline="")
+    writer = csv.DictWriter(stream, fieldnames=fields, lineterminator="\n")
+    writer.writeheader()
+    writer.writerows({key: row.get(key) or "" for key in fields} for row in rows)
+    return stream.getvalue().encode("utf-8")
+
+
+def projected_artifacts(rows, source_rows, application_writes):
+    """Build every generated view from the proposed canonical state."""
+    card_paths = [path for path, _body, _revision in application_writes]
+    cards = tracker_application_cards(rows, planned_paths=card_paths)
+    markdown = render_tracker_markdown(tracker_payload(rows, source_rows, cards))
+    return {
+        PATHS.tracker_path: markdown.encode("utf-8"),
+        PATHS.known_index_path: render_known_index(rows),
+        PATHS.keys_index_path: render_keys_index(source_rows),
+        PATHS.active_index_path: render_active_index(rows),
+    }
+
+
+def apply_dataset_transaction(
+    rows: list,
+    source_rows: list,
+    application_writes: tuple = (),
+    *,
+    expected_revisions: dict,
+    event_write: tuple | None = None,
+) -> None:
     """Replace an already validated dataset or restore every replaced file."""
     validation_errors, _warnings = validate_dataset(rows, source_rows)
     if validation_errors:
@@ -512,47 +578,79 @@ def apply_dataset_transaction(rows: list, source_rows: list, application_writes:
             "dataset transaction rejected by validation",
             cli_hint_ru="ingest transaction отклонена:\n  " + "\n  ".join(validation_errors),
         )
-    with dataset_write_lock():
-        staged, backups, replaced = [], {}, []
-        failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
-        try:
-            failure_after = int(failure_after) if failure_after else None
-        except ValueError:
-            failure_after = None
-        try:
-            staged = [
-                (PATHS.csv_path, stage_csv(PATHS.csv_path, FIELDS, rows)),
-                (PATHS.job_sources_path, stage_csv(PATHS.job_sources_path, JOB_SOURCE_FIELDS, source_rows)),
-            ]
-            staged.extend((path, stage_text(path, body)) for path, body in application_writes)
-            for target, _temporary in staged:
-                backups[target] = backup_file(target)
-            for index, (target, temporary) in enumerate(staged):
-                if failure_after is not None and index >= failure_after:
-                    raise OSError("injected ingest replacement failure")
-                os.replace(temporary, target)
-                replaced.append(target)
-            post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
-            if post_errors:
-                raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
-        except BaseException:
-            for target in reversed(replaced):
-                backup = backups[target]
-                try:
-                    if backup:
-                        os.replace(backup, target)
-                        backups[target] = None
-                    else:
-                        target.unlink(missing_ok=True)
-                except OSError:
-                    pass
-            raise
-        finally:
-            for _target, temporary in staged:
-                temporary.unlink(missing_ok=True)
-            for backup in backups.values():
-                if backup:
-                    backup.unlink(missing_ok=True)
+    writes = {
+        "data/jobs.csv": csv_bytes(FIELDS, rows),
+        "data/job_sources.csv": csv_bytes(JOB_SOURCE_FIELDS, source_rows),
+    }
+    expected = {
+        "data/jobs.csv": expected_revisions["jobs"],
+        "data/job_sources.csv": expected_revisions["sources"],
+    }
+    for path, body, revision in application_writes:
+        relative = path.relative_to(PATHS.root).as_posix()
+        writes[relative] = body.encode("utf-8")
+        expected[relative] = revision
+    if event_write is not None:
+        path, body, revision = event_write
+        relative = path.relative_to(PATHS.root).as_posix()
+        if relative != f"data/application_events/{path.stem}.jsonl":
+            raise ValueError("event target must be a per-job JSONL artifact")
+        writes[relative] = body
+        expected[relative] = revision
+    for path, data in projected_artifacts(rows, source_rows, application_writes).items():
+        relative = path.relative_to(PATHS.root).as_posix()
+        writes[relative] = data
+        expected[relative] = digest(path.read_bytes()) if path.exists() else None
+
+    PATHS.index_dir.mkdir(parents=True, exist_ok=True)
+    PATHS.tracker_path.parent.mkdir(parents=True, exist_ok=True)
+    if event_write is not None:
+        event_write[0].parent.mkdir(parents=True, exist_ok=True)
+
+    def validate_published(_root):
+        post_errors, _post_warnings = validate_dataset(load(), load_job_sources())
+        if post_errors:
+            raise OSError("post-commit dataset validation failed: " + "; ".join(post_errors))
+        ledger_dir = PATHS.root / "data" / "application_events"
+        if ledger_dir.is_dir():
+            try:
+                from event_ledger import mismatch_report
+            except ModuleNotFoundError:
+                from scripts.event_ledger import mismatch_report
+            report = mismatch_report(ledger_dir, {row["id"]: row for row in load()})
+            if any(item["mismatches"] for item in report.values()):
+                raise OSError("post-commit event projection disagrees with jobs.csv")
+
+    failure_after = os.environ.get("JOBS_INGEST_FAIL_AFTER_REPLACE")
+    kill_after = os.environ.get("JOBS_INGEST_KILL_AFTER_REPLACE")
+    failure_after = int(failure_after) if failure_after and failure_after.isdecimal() else None
+    kill_after = int(kill_after) if kill_after and kill_after.isdecimal() else None
+
+    def fault(stage, index):
+        count = index + 1 if index is not None else 0
+        if stage == "after_commit" and os.environ.get("JOBS_INGEST_KILL_AFTER_COMMIT") == "1":
+            os._exit(75)
+        if (
+            failure_after is not None
+            and count == failure_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
+        ):
+            raise OSError("injected ingest replacement failure")
+        if (
+            kill_after is not None
+            and count == kill_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
+        ):
+            os._exit(75)
+
+    try:
+        publish(PATHS.root, writes, expected, validate=validate_published, fault=fault)
+    except StaleRevision as error:
+        raise ValidationError(
+            f"dataset or card changed after this operation was prepared: {error}",
+            code="stale_operation",
+            cli_hint_ru="данные или карточка изменились после подготовки операции; повторите её на свежем снимке",
+        ) from error
 
 
 def parse_field_assignments(pairs):
@@ -652,12 +750,16 @@ def apply_job_changes(row, assignments, stage=None, *, enforce_protected=True):
 
 
 def set_job(job_id: str, assignments: list, stage: str | None = None) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     apply_job_changes(row, assignments, stage=stage)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows)
+    application_writes = ()
+    if any(field == "cv_version" for field, _value in assignments) and row["applied_at"]:
+        path, body, revision = render_application_card(row, update_existing=True, with_revision=True)
+        if body is not None:
+            application_writes = ((path, body, revision),)
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {"job": row, "warnings": warnings}
 
 
@@ -877,16 +979,32 @@ def apply_status_change(
 
 
 def status_job(job_id: str, **values) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
+    event_path = PATHS.root / "data/application_events" / f"{job_id}.jsonl"
+    target = values.get("application_status")
+    if event_path.exists() or (
+        event_writes_enabled(PATHS.root)
+        and (row["application_status"] in NEEDS_APPLIED_AT or target in NEEDS_APPLIED_AT)
+    ):
+        raise ValidationError(
+            "status: application event history requires the event command",
+            code="invariant_violation",
+            field="application_status",
+            cli_hint_ru="status: для post-application lifecycle используйте event; "
+            "команда status не записывает событие",
+        )
     outcome = apply_status_change(row, **values)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    application_path, application_body = (None, None)
+    application_path, application_body, application_revision = (None, None, None)
     if row["application_status"] in {"reviewing", "apply"} or row["applied_at"]:
-        application_path, application_body = render_application_card(row, update_existing=True)
-    application_writes = ((application_path, application_body),) if application_body is not None else ()
-    apply_dataset_transaction(rows, source_rows, application_writes)
+        application_path, application_body, application_revision = render_application_card(
+            row, update_existing=True, with_revision=True
+        )
+    application_writes = (
+        ((application_path, application_body, application_revision),) if application_body is not None else ()
+    )
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,
         "warnings": warnings,
@@ -929,12 +1047,11 @@ def apply_screen_decision(row, *, decision_reason, notes=None):
 
 
 def screen_job(job_id: str, *, decision_reason: str, notes: str | None = None) -> dict:
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     outcome = apply_screen_decision(row, decision_reason=decision_reason, notes=notes)
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    apply_dataset_transaction(rows, source_rows)
+    apply_dataset_transaction(rows, source_rows, expected_revisions=expected_revisions)
     return {"job": row, "warnings": warnings, "outcome": outcome}
 
 
@@ -1089,10 +1206,12 @@ def prepare_verified_application_write(row, passed):
     A new card is still only created once verification actually passes."""
     card_exists = application_card_path(row).exists()
     if not card_exists and not (passed and row["application_status"] in {"reviewing", "apply"}):
-        return None, None, False
-    application_path, application_body = render_application_card(row, update_existing=True)
+        return None, None, False, None
+    application_path, application_body, application_revision = render_application_card(
+        row, update_existing=True, with_revision=True
+    )
     application_card_created = application_body is not None and not card_exists
-    return application_path, application_body, application_card_created
+    return application_path, application_body, application_card_created, application_revision
 
 
 def verify_job(
@@ -1114,8 +1233,7 @@ def verify_job(
     next_action_date: str | None = None,
 ) -> dict:
     """Apply a completed first-party verification as one atomic dataset update."""
-    rows = load()
-    source_rows = load_job_sources()
+    rows, source_rows, expected_revisions = load_for_write()
     row = find(rows, job_id)
     change = apply_verify_changes(
         row,
@@ -1135,12 +1253,16 @@ def verify_job(
         next_action_date=next_action_date,
     )
     warnings = ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    application_path, application_body, application_card_created = prepare_verified_application_write(
-        row,
-        change["passed"],
+    application_path, application_body, application_card_created, application_revision = (
+        prepare_verified_application_write(
+            row,
+            change["passed"],
+        )
     )
-    application_writes = ((application_path, application_body),) if application_body is not None else ()
-    apply_dataset_transaction(rows, source_rows, application_writes)
+    application_writes = (
+        ((application_path, application_body, application_revision),) if application_body is not None else ()
+    )
+    apply_dataset_transaction(rows, source_rows, application_writes, expected_revisions=expected_revisions)
     return {
         "job": row,
         "warnings": warnings,

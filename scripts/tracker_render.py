@@ -173,13 +173,16 @@ def tracker_needs(row):
     return needs
 
 
-def tracker_application_cards(rows):
+def tracker_application_cards(rows, planned_paths=()):
     """Resolve the one supported Markdown card for every canonical job, if present."""
     cards = {}
+    planned = {Path(path) for path in planned_paths}
     for row in rows:
         job_id = row["id"]
         matches = sorted(
-            set(PATHS.apps_dir.glob(f"{job_id}-*.md")) | set(PATHS.apps_dir.glob(f"{job_id}.md"))
+            set(PATHS.apps_dir.glob(f"{job_id}-*.md"))
+            | set(PATHS.apps_dir.glob(f"{job_id}.md"))
+            | {path for path in planned if path.name == f"{job_id}.md" or path.name.startswith(f"{job_id}-")}
         )
         if len(matches) > 1:
             names = ", ".join(path.name for path in matches)

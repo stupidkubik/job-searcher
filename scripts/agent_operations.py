@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 import argparse
+import hashlib
 import json
 import math
+import os
 import re
 import shutil
 import sys
 import tempfile
 from contextlib import contextmanager
+from contextvars import ContextVar
 from datetime import datetime
 from pathlib import Path
 
@@ -18,9 +21,14 @@ try:
     from tracker_time import utc_timestamp
 except ModuleNotFoundError:
     from scripts.tracker_time import utc_timestamp
+try:
+    from tracker_transaction import StaleRevision, digest, publish
+except ModuleNotFoundError:
+    from scripts.tracker_transaction import StaleRevision, digest, publish
 ROOT = Path(__file__).resolve().parent.parent
 REQUESTS_DIR = ROOT / "data" / "operations" / "requests"
 RESULTS_DIR = ROOT / "data" / "operations" / "results"
+STAGED_RESULTS_DIR = ContextVar("staged_results_dir", default=None)
 OPERATION_VERSION = 1
 MAX_REQUEST_BYTES = 64 * 1024
 MAX_BATCH_OPERATIONS = 100
@@ -49,7 +57,7 @@ VERIFY_ALLOWED_ARGS = VERIFY_REQUIRED_ARGS | {
     "next_action",
     "next_action_date",
 }
-SET_ALLOWED_ARGS = {"next_action", "next_action_date", "listing_status"}
+SET_ALLOWED_ARGS = {"next_action", "next_action_date", "listing_status", "cv_version", "confirmed_by_user"}
 SCREEN_REQUIRED_ARGS = {"decision_reason"}
 SCREEN_ALLOWED_ARGS = SCREEN_REQUIRED_ARGS | {"notes"}
 STATUS_REQUIRED_ARGS = {"application_status", "confirmed_by_user"}
@@ -63,6 +71,20 @@ STATUS_ALLOWED_ARGS = STATUS_REQUIRED_ARGS | {
     "cv_version",
     "notes",
 }
+EVENT_REQUIRED_ARGS = {"event_type", "occurred_at", "precision", "payload", "confirmed_by_user"}
+EVENT_ALLOWED_ARGS = EVENT_REQUIRED_ARGS | {"evidence_ref", "supersedes"}
+
+
+def event_modules():
+    """Keep legacy connector fixtures independent of the gated v3 modules."""
+    try:
+        import event_ledger
+        import tracker_event_write
+    except ModuleNotFoundError:
+        from scripts import event_ledger, tracker_event_write
+    return event_ledger, tracker_event_write
+
+
 VERIFY_ENRICHMENT_ARGS = {"level", "remote_policy", "stack", "salary", "match_score"}
 VERIFY_WORKFLOW_ARGS = {"application_status", "next_action", "next_action_date"}
 ADD_CONTROL_ARGS = {"duplicate_of", "force"}
@@ -206,7 +228,7 @@ def resolve_request_path(value):
 
 def result_path(operation_id):
     """Path a result for this operation_id would live at, existing or not."""
-    return RESULTS_DIR / f"{operation_id}.json"
+    return (STAGED_RESULTS_DIR.get() or RESULTS_DIR) / f"{operation_id}.json"
 
 
 def validate_expected(expected, prefix="expected"):
@@ -296,7 +318,22 @@ def validate_set_args(args, prefix="args"):
     unknown = sorted(set(args) - SET_ALLOWED_ARGS)
     if unknown:
         raise OperationError("unknown set args: " + ", ".join(unknown))
-    out = {k: clean_text(v, f"{prefix}.{k}") for k, v in args.items()}
+    if "cv_version" in args:
+        if args.get("confirmed_by_user") is not True:
+            raise contract_error(
+                "cv_version requires confirmed_by_user=true",
+                code="invariant_violation",
+                field=f"{prefix}.confirmed_by_user",
+            )
+    elif "confirmed_by_user" in args:
+        raise contract_error(
+            "confirmed_by_user is allowed only with cv_version for set",
+            code="invariant_violation",
+            field=f"{prefix}.confirmed_by_user",
+        )
+    out = {k: clean_text(v, f"{prefix}.{k}") for k, v in args.items() if k != "confirmed_by_user"}
+    if "cv_version" in args:
+        out["confirmed_by_user"] = True
     if "next_action" in out and not out["next_action"].strip():
         raise OperationError(f"{prefix}.next_action must not be empty")
     if "next_action_date" in out:
@@ -306,6 +343,8 @@ def validate_set_args(args, prefix="args"):
             raise OperationError(f"{prefix}.next_action_date must be YYYY-MM-DD") from error
     if "listing_status" in out and out["listing_status"] != "closed":
         raise OperationError("agent set may only record listing_status=closed")
+    if "cv_version" in out and not out["cv_version"].strip():
+        raise OperationError(f"{prefix}.cv_version must not be empty")
     return out
 
 
@@ -397,6 +436,45 @@ def validate_status_args(args, prefix="args"):
                     hint="use YYYY-MM-DD",
                 ) from error
     return out
+
+
+def validate_event_args(args, prefix="args"):
+    """Validate business fields; runner owns identity, timestamp and actor."""
+    if not isinstance(args, dict):
+        raise contract_error(f"{prefix} must be an object", code="bad_type", field=prefix)
+    require_field_set(args, EVENT_ALLOWED_ARGS, EVENT_REQUIRED_ARGS, prefix)
+    if args["confirmed_by_user"] is not True:
+        raise contract_error(
+            f"{prefix}.confirmed_by_user must be true",
+            code="bad_type",
+            field=f"{prefix}.confirmed_by_user",
+            hint="record only an event explicitly confirmed by the human",
+        )
+    candidate = {
+        "schema_version": 1,
+        "event_id": "contract-check",
+        "job_id": "job-0001",
+        "event_type": args["event_type"],
+        "occurred_at": args["occurred_at"],
+        "precision": args["precision"],
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "source": "connector",
+        "actor": "user",
+        "confirmed_by_user": True,
+        "evidence_ref": args.get("evidence_ref"),
+        "payload": args["payload"],
+        "supersedes": args.get("supersedes"),
+    }
+    event_ledger, _event_write = event_modules()
+    try:
+        event_ledger.validate_event(candidate)
+    except event_ledger.EventValidationError as error:
+        raise contract_error(
+            f"{prefix}: {error}",
+            code="bad_format",
+            field=prefix,
+        ) from error
+    return {key: args[key] for key in args}
 
 
 def validate_add_args(args, prefix="args"):
@@ -635,12 +713,14 @@ def validate_child(value, index=None):
             "args": validate_add_args(value["args"], f"{prefix}.args"),
         }
     require_field_set(value, JOB_CHILD_FIELDS, JOB_CHILD_FIELDS, prefix)
-    if command not in {"screen", "verify", "set", "status"}:
+    if command not in {"screen", "verify", "set", "status", "event"} or (
+        command == "event" and index is not None
+    ):
         raise contract_error(
-            f"{prefix}.command must be screen, verify, set or status",
+            f"{prefix}.command must be screen, verify, set, status or a single event",
             code="unsupported_command",
             field=f"{prefix}.command",
-            allowed=["screen", "verify", "set", "status"],
+            allowed=["screen", "verify", "set", "status", "event"],
         )
     job_id = clean_text(value["job_id"], f"{prefix}.job_id")
     if not JOB_ID_RE.fullmatch(job_id):
@@ -657,6 +737,8 @@ def validate_child(value, index=None):
         args = validate_screen_args(value["args"], f"{prefix}.args")
     elif command == "status":
         args = validate_status_args(value["args"], f"{prefix}.args")
+    elif command == "event":
+        args = validate_event_args(value["args"], f"{prefix}.args")
     else:
         args = validate_set_args(value["args"], f"{prefix}.args")
     return {"command": command, "job_id": job_id, "expected": expected, "args": args}
@@ -736,12 +818,12 @@ def validate_operation(value):
             "operations": operations,
         }
     require_field_set(value, SINGLE_TOP_LEVEL_FIELDS, SINGLE_TOP_LEVEL_FIELDS, "operation")
-    if command not in {"screen", "verify", "set", "status"}:
+    if command not in {"screen", "verify", "set", "status", "event"}:
         raise contract_error(
-            "command must be add, screen, verify, set, status, or batch",
+            "command must be add, screen, verify, set, status, event, or batch",
             code="unsupported_command",
             field="command",
-            allowed=["add", "screen", "verify", "set", "status", "batch"],
+            allowed=["add", "screen", "verify", "set", "status", "event", "batch"],
         )
     child = validate_child(
         {"command": command, "job_id": value["job_id"], "expected": value["expected"], "args": value["args"]}
@@ -796,7 +878,9 @@ def classify_child_risk(operation, row):
     its command and, for verify, whether it just passed a first-party check."""
     if operation["command"] == "add":
         return "medium"
-    if operation["command"] == "status":
+    if operation["command"] in {"status", "event"}:
+        return "medium"
+    if operation["command"] == "set" and "cv_version" in operation["args"]:
         return "medium"
     if operation["command"] in {"screen", "set"}:
         return "low"
@@ -834,6 +918,42 @@ def classify_risk(operation, rows_by_id=None):
 def apply_operation(operation, row):
     """Dispatch a validated, precondition-checked job-targeting command to
     the matching jobs.py write function and normalize its result shape."""
+    if operation["command"] == "event":
+        event_ledger, tracker_event_write = event_modules()
+        if not tracker_event_write.event_writes_enabled():
+            raise contract_error(
+                "event writes are disabled until v3 cutover",
+                code="invariant_violation",
+                field="command",
+                hint="run fixture tests or wait for the separate production cutover",
+            )
+        args = operation["args"]
+        complete_event = {
+            "schema_version": 1,
+            "event_id": operation["operation_id"],
+            "job_id": operation["job_id"],
+            "event_type": args["event_type"],
+            "occurred_at": args["occurred_at"],
+            "precision": args["precision"],
+            "recorded_at": utc_now(),
+            "source": "connector",
+            "actor": "user",
+            "confirmed_by_user": True,
+            "evidence_ref": args.get("evidence_ref"),
+            "payload": args["payload"],
+            "supersedes": args.get("supersedes"),
+        }
+        try:
+            result = tracker_event_write.append_application_event(complete_event)
+        except event_ledger.EventValidationError as error:
+            raise contract_error(str(error), code="invariant_violation", layer="events") from error
+        return {
+            "job": result["job"],
+            "warnings": [],
+            "outcome": result["outcome"],
+            "application_path": None,
+            "event_id": complete_event["event_id"],
+        }
     if operation["command"] == "verify":
         result = jobs.verify_job(operation["job_id"], **operation["args"])
         return {
@@ -866,7 +986,14 @@ def apply_operation(operation, row):
             code="invariant_violation",
             field="args.listing_status",
         )
-    result = jobs.set_job(operation["job_id"], list(operation["args"].items()))
+    if "cv_version" in operation["args"] and row["application_status"] not in jobs.NEEDS_APPLIED_AT:
+        raise contract_error(
+            "cv_version records a submitted CV only after an application exists",
+            code="invariant_violation",
+            field="args.cv_version",
+        )
+    set_args = {key: value for key, value in operation["args"].items() if key != "confirmed_by_user"}
+    result = jobs.set_job(operation["job_id"], list(set_args.items()))
     return {
         "job": result["job"],
         "warnings": result["warnings"],
@@ -917,8 +1044,32 @@ def write_result(result):
     return path
 
 
+def result_bytes(result):
+    return (json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
+
+
+TRACKER_PUBLISH_PATHS = (
+    "data/jobs.csv",
+    "data/job_sources.csv",
+    "docs/tracker.md",
+    "data/index/known.tsv",
+    "data/index/keys.tsv",
+    "data/index/active.csv",
+)
+
+
+def workspace_snapshot(root):
+    """Capture the original bytes of every file a connector can change."""
+    names = set(TRACKER_PUBLISH_PATHS)
+    names.update(path.relative_to(root).as_posix() for path in (root / "applications").glob("job-*.md"))
+    names.update(
+        path.relative_to(root).as_posix() for path in (root / "data/application_events").glob("*.jsonl")
+    )
+    return {name: (root / name).read_bytes() for name in names if (root / name).exists()}
+
+
 @contextmanager
-def temporary_tracker_workspace():
+def temporary_tracker_workspace(*, include_card_revisions=False, include_snapshot=False):
     """Repoint jobs.PATHS at a scratch copy of the tracker for one operation.
 
     docs/agent-write-path-plan-2026-09-07.md, Э10: jobs.py derives every path
@@ -932,26 +1083,49 @@ def temporary_tracker_workspace():
         temp_data = temp_root / "data"
         temp_apps = temp_root / "applications"
         temp_data.mkdir(parents=True)
-        shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
-        shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
-        shutil.copytree(original_root / "applications", temp_apps)
+        with jobs.dataset_write_lock():
+            shutil.copy2(original_root / "data" / "jobs.csv", temp_data / "jobs.csv")
+            shutil.copy2(original_root / "data" / "job_sources.csv", temp_data / "job_sources.csv")
+            if (original_root / "data/application_events").exists():
+                shutil.copytree(original_root / "data/application_events", temp_data / "application_events")
+            cutover_marker = original_root / "config/event-ledger-cutover.json"
+            if cutover_marker.exists():
+                (temp_root / "config").mkdir()
+                shutil.copy2(cutover_marker, temp_root / "config/event-ledger-cutover.json")
+            shutil.copytree(original_root / "applications", temp_apps)
+            if (original_root / "data/index").exists():
+                shutil.copytree(original_root / "data/index", temp_data / "index")
+            if (original_root / "docs/tracker.md").exists():
+                (temp_root / "docs").mkdir()
+                shutil.copy2(original_root / "docs/tracker.md", temp_root / "docs/tracker.md")
+        baseline = workspace_snapshot(temp_root) if include_snapshot else None
+        card_revisions = {
+            path.relative_to(temp_root).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+            for path in temp_apps.glob("job-*.md")
+        }
         try:
             jobs.PATHS.root = temp_root
-            yield temp_root
+            if include_snapshot:
+                yield temp_root, baseline
+            elif include_card_revisions:
+                yield temp_root, card_revisions
+            else:
+                yield temp_root
         finally:
             jobs.PATHS.root = original_root
 
 
-def changed_application_writes(temp_root):
+def changed_application_writes(temp_root, card_revisions, *, target_root=None):
     """Find application cards the temporary workspace created or changed,
     so they can be copied back into the real applications/ directory."""
     writes = []
     for temp_path in sorted((temp_root / "applications").glob("job-*.md")):
         relative = temp_path.relative_to(temp_root)
-        target = ROOT / relative
+        target = (target_root or ROOT) / relative
         body = temp_path.read_text(encoding="utf-8")
-        if not target.exists() or target.read_text(encoding="utf-8") != body:
-            writes.append((target, body))
+        prior_revision = card_revisions.get(relative.as_posix())
+        if hashlib.sha256(body.encode("utf-8")).hexdigest() != prior_revision:
+            writes.append((target, body, prior_revision))
     return writes
 
 
@@ -1085,7 +1259,14 @@ def execute_batch(operation, atomic, stale_conflicts):
     """
     child_results = []
     applied = 0
-    with temporary_tracker_workspace() as temp_root:
+    target_root = jobs.PATHS.root
+    base_rows, base_sources, expected_revisions = jobs.load_for_write()
+    with temporary_tracker_workspace(include_card_revisions=True) as (temp_root, card_revisions):
+        if jobs.load() != base_rows or jobs.load_job_sources() != base_sources:
+            raise jobs.ValidationError(
+                "dataset changed while preparing the batch workspace",
+                code="stale_operation",
+            )
         for index, child in enumerate(operation["operations"]):
             if child["command"] == "add":
                 try:
@@ -1154,9 +1335,11 @@ def execute_batch(operation, atomic, stale_conflicts):
                 code="invariant_violation",
                 layer="jobs",
             )
-        app_writes = changed_application_writes(temp_root)
+        app_writes = changed_application_writes(temp_root, card_revisions, target_root=target_root)
     if applied:
-        jobs.apply_dataset_transaction(temp_rows, temp_sources, app_writes)
+        jobs.apply_dataset_transaction(
+            temp_rows, temp_sources, app_writes, expected_revisions=expected_revisions
+        )
     return child_results, warnings, applied
 
 
@@ -1280,6 +1463,7 @@ def _execute_operation(operation):
         risk=risk,
         details={
             "outcome": applied["outcome"],
+            **({"event_id": applied["event_id"]} if "event_id" in applied else {}),
             "application_status": updated["application_status"],
             "listing_status": updated["listing_status"],
             "stage_reached": updated["stage_reached"],
@@ -1328,11 +1512,122 @@ def rejected_result(operation_id, command, error):
     }
 
 
+def stale_dataset_result(operation):
+    retry_keys = (
+        ("command", "args")
+        if operation["command"] == "add"
+        else ("command", "atomic", "operations")
+        if operation["command"] == "batch"
+        else ("command", "job_id", "expected", "args")
+    )
+    return operation_result(
+        operation,
+        status="conflict",
+        risk="medium",
+        details={
+            "reason": "stale_operation",
+            "message": "dataset changed while the operation was being prepared; retry on current data",
+            "retry": {key: operation[key] for key in retry_keys},
+        },
+    )
+
+
+def staged_changes(temp_root, baseline, result_name, *, include_canonical):
+    """Return complete bytes and prior hashes for the one journal publication."""
+    current = workspace_snapshot(temp_root) if include_canonical else {}
+    writes, expected = {}, {}
+    if include_canonical:
+        for name in sorted(set(baseline) | set(current)):
+            old, new = baseline.get(name), current.get(name)
+            if old == new:
+                continue
+            if new is None:
+                raise OperationError(f"staged operation deleted a canonical file: {name}")
+            writes[name] = new
+            expected[name] = digest(old)
+    staged_result = temp_root / "data/operations/results" / Path(result_name).name
+    if not staged_result.exists():
+        raise OperationError("staged operation did not create its immutable result")
+    writes[result_name] = staged_result.read_bytes()
+    expected[result_name] = None
+    return writes, expected
+
+
+def publish_staged_operation(root, writes, expected):
+    """Publish canonical changes and their result in one recoverable journal."""
+    kill_after = os.environ.get("JOBS_CONNECTOR_KILL_AFTER_REPLACE")
+    kill_after = int(kill_after) if kill_after and kill_after.isdecimal() else None
+
+    def fault(stage, index):
+        count = index + 1 if index is not None else 0
+        if (
+            kill_after is not None
+            and count == kill_after
+            and ((count == 0 and stage == "after_prepare") or stage == "after_replace")
+        ):
+            os._exit(75)
+
+    def validate_published(_root):
+        if not any(not name.startswith("data/operations/results/") for name in writes):
+            return
+        errors, _warnings = jobs.validate_dataset(jobs.load(), jobs.load_job_sources())
+        if errors:
+            raise OperationError("published operation failed dataset validation: " + "; ".join(errors))
+        ledger_dir = root / "data/application_events"
+        if ledger_dir.is_dir():
+            ledger, _event_write = event_modules()
+            try:
+                report = ledger.mismatch_report(ledger_dir, {row["id"]: row for row in jobs.load()})
+            except ledger.EventValidationError as error:
+                raise contract_error(str(error), code="invariant_violation", layer="events") from error
+            if any(item["mismatches"] for item in report.values()):
+                raise OperationError("published operation disagrees with event history")
+
+    for name in writes:
+        (root / name).parent.mkdir(parents=True, exist_ok=True)
+    publish(root, writes, expected, validate=validate_published, fault=fault)
+
+
+def stage_operation(operation, result_name):
+    """Run the existing operation logic on a private copy, then collect its diff."""
+    with temporary_tracker_workspace(include_snapshot=True) as (temp_root, baseline):
+        token = STAGED_RESULTS_DIR.set(temp_root / "data/operations/results")
+        try:
+            try:
+                result, _path = _execute_operation(operation)
+            except (OperationError, jobs.ValidationError) as error:
+                result = (
+                    stale_dataset_result(operation)
+                    if isinstance(error, jobs.ValidationError) and error.code == "stale_operation"
+                    else rejected_result(operation["operation_id"], operation["command"], error)
+                )
+                write_result(result)
+            except SystemExit as error:
+                wrapped = OperationError(
+                    f"unexpected process exit while applying the operation: {error}",
+                    code="invariant_violation",
+                    layer="jobs",
+                )
+                result = rejected_result(operation["operation_id"], operation["command"], wrapped)
+                write_result(result)
+        finally:
+            STAGED_RESULTS_DIR.reset(token)
+        writes, expected = staged_changes(
+            temp_root,
+            baseline,
+            result_name,
+            include_canonical=result["status"] in {"completed", "partial"},
+        )
+    return result, writes, expected
+
+
 def execute(path):
     """Top-level entry point: load, validate and apply one request, catching
     every OperationError/ValidationError/SystemExit into a rejected result
     (docs/agent-write-path-plan-2026-09-07.md, Э1) instead of letting the
     process die with no result file."""
+    with jobs.dataset_write_lock():
+        pass  # Recover any interrupted canonical publication before inspecting state.
     operation_id = derive_operation_id(path)
     if operation_id is not None and result_path(operation_id).exists():
         raise contract_error(
@@ -1344,10 +1639,34 @@ def execute(path):
     command = peek_command(path)
     try:
         operation = load_operation(path)
-        command = operation["command"]
-        return _execute_operation(operation)
+        target_root = jobs.PATHS.root
+        result_name = result_path(operation_id).relative_to(target_root).as_posix()
+        result, writes, expected = stage_operation(operation, result_name)
+        try:
+            publish_staged_operation(target_root, writes, expected)
+        except StaleRevision as error:
+            if result_path(operation_id).exists():
+                raise contract_error(
+                    f"operation_id already has a result: {result_path(operation_id).relative_to(ROOT)}",
+                    code="result_exists",
+                    field="operation_id",
+                ) from error
+            result = stale_dataset_result(operation)
+            try:
+                publish_staged_operation(
+                    target_root, {result_name: result_bytes(result)}, {result_name: None}
+                )
+            except StaleRevision as concurrent_result:
+                raise contract_error(
+                    f"operation_id already has a result: {result_path(operation_id).relative_to(ROOT)}",
+                    code="result_exists",
+                    field="operation_id",
+                ) from concurrent_result
+        return result, result_path(operation_id)
     except (OperationError, jobs.ValidationError) as error:
         if operation_id is None:
+            raise
+        if isinstance(error, OperationError) and error.code == "result_exists":
             raise
         result = rejected_result(operation_id, command, error)
         return result, write_result(result)
@@ -1382,6 +1701,11 @@ FIELD_TYPE_OVERRIDES = {
     "next_action_date": "date (YYYY-MM-DD)",
     "original_url": "URL",
     "source_url": "URL",
+    "occurred_at": "date, aware instant or null (per precision)",
+    "precision": "enum",
+    "payload": "object (exact keys depend on event_type)",
+    "evidence_ref": "single-line reference or null",
+    "supersedes": "earlier event_id or null",
 }
 FIELD_NOTES = {
     "force": "explicitly resolves a fuzzy duplicate candidate or a shared discovery URL",
@@ -1394,6 +1718,8 @@ FIELD_NOTES = {
     "expected": "optimistic lock; must include last_update and the fields the decision depends on",
     "job_id": "must match job-NNNN and already exist",
     "remote_policy": 'a bare "Remote" with no country list is not a valid value; use Unclear',
+    "event_type": "closed v1 taxonomy; see docs/tracker-v3/event-contract-v1.md",
+    "payload": "exact type-specific object; arbitrary keys are rejected",
 }
 ADD_FIELD_ENUMS = {
     "source": jobs.SOURCES,
@@ -1433,6 +1759,7 @@ ALL_ARG_ALLOWLISTS = (
     SCREEN_ALLOWED_ARGS,
     SET_ALLOWED_ARGS,
     STATUS_ALLOWED_ARGS,
+    EVENT_ALLOWED_ARGS,
 )
 
 
@@ -1490,10 +1817,26 @@ def render_contract_markdown():
             SET_ALLOWED_ARGS,
             set(),
             SET_FIELD_ENUMS,
-            notes_overrides={"listing_status": "allowed only after a human application already exists"},
+            notes_overrides={
+                "listing_status": "allowed only after a human application already exists",
+                "cv_version": "submitted CV version; only after application, requires confirmed_by_user=true",
+                "confirmed_by_user": "literal true, required only with cv_version",
+            },
         ),
         "## `status`\n",
         contract_table(STATUS_ALLOWED_ARGS, STATUS_REQUIRED_ARGS, STATUS_FIELD_ENUMS),
+        "## `event` (single operation only; gated until v3 cutover)\n",
+        "The trusted runner supplies `event_id` from `operation_id`, `recorded_at`, "
+        "`source=connector`, `actor=user` and `job_id`. An event is never a batch child. "
+        "Production writes require the separate v3 cutover flag.\n",
+        contract_table(
+            EVENT_ALLOWED_ARGS,
+            EVENT_REQUIRED_ARGS,
+            {
+                "event_type": sorted(event_modules()[0].EVENT_TYPES),
+                "precision": ["date", "instant", "unknown"],
+            },
+        ),
         "## Batch child: `add` (with `client_ref`)\n",
         "Same `args` as `add` above, addressed by `client_ref` instead of `job_id`/`expected`.\n",
         contract_table(

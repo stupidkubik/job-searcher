@@ -59,6 +59,11 @@ def boot_set_bytes():
 
 
 def build_report():
+    with jobs.dataset_write_lock():
+        return _build_report_consistent()
+
+
+def _build_report_consistent():
     rows = load_rows()
     requests = operation_ids(REQUESTS_DIR)
     results = operation_ids(RESULTS_DIR)

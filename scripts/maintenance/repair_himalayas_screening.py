@@ -62,8 +62,7 @@ def himalayas_screening_repair_state(row):
 
 def repair_himalayas_screening(*, check=False):
     """Repair the exact legacy Himalayas screening batch without reclassifying it."""
-    rows = jobs.load()
-    source_rows = jobs.load_job_sources()
+    rows, source_rows, expected_revisions = jobs.load_for_write()
     by_id = {row["id"]: row for row in rows}
     required_ids = set(HIMALAYAS_SCREENING_REPAIR_IDS) | HIMALAYAS_SCREENING_REPAIR_EXCLUSIONS
     missing = sorted(required_ids - by_id.keys())
@@ -134,7 +133,7 @@ def repair_himalayas_screening(*, check=False):
         jobs.die("repair-himalayas-screening: one of the exclusions was changed")
 
     warnings = jobs.ensure_dataset_valid(rows, source_rows, emit_warnings=False)
-    jobs.apply_dataset_transaction(rows, source_rows)
+    jobs.apply_dataset_transaction(rows, source_rows, expected_revisions=expected_revisions)
     payload.update({"status": "applied", "changed": len(targets), "warnings": warnings})
     return payload
 

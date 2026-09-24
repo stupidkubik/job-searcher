@@ -117,6 +117,7 @@ class IngestCliTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",

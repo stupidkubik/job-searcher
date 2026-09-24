@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import itertools
 import json
 import os
@@ -10,8 +11,9 @@ import unittest
 from datetime import timedelta
 from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
-from scripts import jobs
+from scripts import jobs, tracker_write
 from scripts.tracker_time import business_date
 
 
@@ -36,6 +38,9 @@ class JobsCliTests(unittest.TestCase):
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
+            "tracker_transaction.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         header = (PROJECT / "data" / "jobs.csv").read_text(encoding="utf-8").splitlines()[0]
@@ -68,6 +73,47 @@ class JobsCliTests(unittest.TestCase):
         result = self.invoke("validate")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("проверено записей: 0; source references: 0; ошибок: 0", result.stdout)
+
+    def test_event_cli_previews_and_requires_cutover_flag_for_write(self):
+        created = self.add("Event Fixture", "Frontend Developer", "--application-status", "reviewing")
+        self.assertEqual(created.returncode, 0, created.stderr)
+        event = {
+            "schema_version": 1,
+            "event_id": "cli-event-001",
+            "job_id": "job-0001",
+            "event_type": "application_submitted",
+            "occurred_at": "2026-09-24",
+            "precision": "date",
+            "recorded_at": "2026-09-24T12:00:00Z",
+            "source": "manual",
+            "actor": "user",
+            "confirmed_by_user": True,
+            "evidence_ref": None,
+            "payload": {},
+            "supersedes": None,
+        }
+        preview = self.invoke(
+            "event", "--stdin", "--dry-run", "--format", "json", input_text=json.dumps(event)
+        )
+        self.assertEqual(preview.returncode, 0, preview.stderr)
+        self.assertEqual(json.loads(preview.stdout)["outcome"], "would_record")
+        self.assertEqual(self.rows()[0]["application_status"], "reviewing")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        blocked = self.invoke("event", "--stdin", "--format", "json", input_text=json.dumps(event))
+        self.assertEqual(blocked.returncode, 1)
+        self.assertEqual(json.loads(blocked.stdout)["error"]["code"], "write_disabled")
+        environment = {**os.environ, "TRACKER_V3_EVENT_WRITES": "1"}
+        applied = self.invoke(
+            "event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment
+        )
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        self.assertEqual(json.loads(applied.stdout)["outcome"], "recorded")
+        self.assertEqual(self.rows()[0]["application_status"], "applied")
+        retry = self.invoke(
+            "event", "--stdin", "--format", "json", input_text=json.dumps(event), env=environment
+        )
+        self.assertEqual(json.loads(retry.stdout)["outcome"], "already_recorded")
 
     def test_new_job_board_sources_are_accepted(self):
         for index, source in enumerate(
@@ -410,6 +456,116 @@ class JobsCliTests(unittest.TestCase):
         retried = self.invoke("set", "job-0001", "next_action=follow-up")
         self.assertEqual(retried.returncode, 0, retried.stderr)
         self.assertEqual(self.rows()[0]["next_action"], "follow-up")
+
+    def test_dataset_transaction_rejects_stale_prepared_snapshot(self):
+        self.assertEqual(self.add("OriginalCo", "Frontend Developer", "--no-file").returncode, 0)
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            self.assertEqual(self.add("ConcurrentCo", "Frontend Developer", "--no-file").returncode, 0)
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual([row["company"] for row in self.rows()], ["OriginalCo", "ConcurrentCo"])
+
+    def test_dataset_transaction_preserves_concurrently_edited_card(self):
+        self.assertEqual(self.add("CardRaceCo", "Frontend Developer").returncode, 0)
+        card = next((self.root / "applications").glob("job-*.md"))
+        original = card.read_bytes()
+        expected_card = hashlib.sha256(original).hexdigest()
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            human_edit = original + b"\nHuman note\n"
+            card.write_bytes(human_edit)
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(
+                    rows,
+                    sources,
+                    ((card, original.decode("utf-8") + "\nAgent note\n", expected_card),),
+                    expected_revisions=revisions,
+                )
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual(card.read_bytes(), human_edit)
+
+    def test_dataset_transaction_does_not_overwrite_new_card(self):
+        self.assertEqual(self.add("NewCardRaceCo", "Frontend Developer", "--no-file").returncode, 0)
+        card = self.root / "applications" / "job-0001-newcardraceco-frontend-developer.md"
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            card.write_text("Human-created card\n", encoding="utf-8")
+            with self.assertRaises(jobs.ValidationError) as stale:
+                jobs.apply_dataset_transaction(
+                    rows, sources, ((card, "Agent-created card\n", None),), expected_revisions=revisions
+                )
+            self.assertEqual(stale.exception.code, "stale_operation")
+        self.assertEqual(card.read_text(encoding="utf-8"), "Human-created card\n")
+
+    def test_cli_recovers_killed_canonical_and_projection_publication(self):
+        self.assertEqual(self.add("CrashCo", "Frontend Developer").returncode, 0)
+        card = next((self.root / "applications").glob("job-*.md"))
+        before = {
+            "jobs": (self.root / "data/jobs.csv").read_bytes(),
+            "sources": (self.root / "data/job_sources.csv").read_bytes(),
+            "card": card.read_bytes(),
+            "tracker": (self.root / "docs/tracker.md").read_bytes(),
+            "known": (self.root / "data/index/known.tsv").read_bytes(),
+            "keys": (self.root / "data/index/keys.tsv").read_bytes(),
+            "active": (self.root / "data/index/active.csv").read_bytes(),
+        }
+        args = (
+            "verify",
+            "job-0001",
+            "--listing-status",
+            "closed",
+            "--first-party-verified",
+            "yes",
+            "--apply-verified",
+            "no",
+            "--original-url",
+            "https://careers.example.test/jobs/crash",
+            "--decision-reason",
+            "closed_before_application",
+        )
+        for replacement_count in range(8):
+            with self.subTest(replacement_count=replacement_count):
+                environment = {**os.environ, "JOBS_INGEST_KILL_AFTER_REPLACE": str(replacement_count)}
+                killed = self.invoke(*args, env=environment)
+                self.assertEqual(killed.returncode, 75, killed.stderr)
+                validated = self.invoke("validate", "--strict")
+                self.assertEqual(validated.returncode, 0, validated.stderr)
+                self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before["jobs"])
+                self.assertEqual((self.root / "data/job_sources.csv").read_bytes(), before["sources"])
+                self.assertEqual(card.read_bytes(), before["card"])
+                self.assertEqual((self.root / "docs/tracker.md").read_bytes(), before["tracker"])
+                self.assertEqual((self.root / "data/index/known.tsv").read_bytes(), before["known"])
+                self.assertEqual((self.root / "data/index/keys.tsv").read_bytes(), before["keys"])
+                self.assertEqual((self.root / "data/index/active.csv").read_bytes(), before["active"])
+                self.assertFalse((self.root / ".v3-transaction").exists())
+        self.assertEqual(self.invoke(*args).returncode, 0)
+        self.assertEqual(self.rows()[0]["listing_status"], "closed")
+        self.assertEqual(self.invoke("render-tracker", "--check").returncode, 0)
+        self.assertEqual(self.invoke("render-index", "--check").returncode, 0)
+
+    def test_projection_generation_failure_leaves_dataset_unchanged(self):
+        self.assertEqual(self.add("ProjectionFailCo", "Frontend Developer", "--no-file").returncode, 0)
+        paths = [
+            self.root / "data/jobs.csv",
+            self.root / "data/job_sources.csv",
+            self.root / "docs/tracker.md",
+            self.root / "data/index/known.tsv",
+            self.root / "data/index/keys.tsv",
+            self.root / "data/index/active.csv",
+        ]
+        before = {path: path.read_bytes() for path in paths}
+        with patch.object(jobs.PATHS, "root", self.root):
+            rows, sources, revisions = jobs.load_for_write()
+            rows[0]["next_action"] = "follow-up"
+            with patch.object(
+                tracker_write, "render_active_index", side_effect=ValueError("projection failed")
+            ):
+                with self.assertRaisesRegex(ValueError, "projection failed"):
+                    jobs.apply_dataset_transaction(rows, sources, expected_revisions=revisions)
+        self.assertEqual({path: path.read_bytes() for path in paths}, before)
+        self.assertFalse((self.root / ".v3-transaction").exists())
 
     def test_status_records_user_confirmed_application_interview_and_rejection(self):
         self.assertEqual(self.add("LifecycleCo", "Frontend Developer", "--no-file").returncode, 0)

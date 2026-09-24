@@ -8,6 +8,9 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+from scripts import agent_operations as ops
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -72,11 +75,14 @@ class ApplyOperationScriptTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         shutil.copy2(APPLY_SCRIPT, self.root / "scripts" / "ci" / "apply_operation.sh")
@@ -90,7 +96,7 @@ class ApplyOperationScriptTests(unittest.TestCase):
         # Mirror the real checkout: __pycache__ is ignored, and results/ is a
         # tracked directory, so the changed-path allowlist sees a new result as
         # its own path rather than as one collapsed untracked directory.
-        (self.root / ".gitignore").write_text("__pycache__/\n", encoding="utf-8")
+        (self.root / ".gitignore").write_text("__pycache__/\n.v3-transaction.lock\n", encoding="utf-8")
         (self.root / "data" / "operations" / "results" / ".gitkeep").write_text("", encoding="utf-8")
 
         self.git("init", "--bare", str(self.origin), cwd=base)
@@ -166,6 +172,69 @@ class ApplyOperationScriptTests(unittest.TestCase):
             self.git("log", "-1", "--format=%s", "main", cwd=self.origin),
         )
 
+    def test_runner_allowlist_commits_event_artifact_with_result(self):
+        (self.root / "tests").mkdir()
+        (self.root / "tests/__init__.py").write_text("", encoding="utf-8")
+        (self.root / "tests/test_fixture.py").write_text(
+            "import unittest\nclass Fixture(unittest.TestCase):\n    def test_ready(self): self.assertTrue(True)\n",
+            encoding="utf-8",
+        )
+        created = subprocess.run(
+            [
+                sys.executable,
+                "scripts/jobs.py",
+                "add",
+                "--company",
+                "Fixture Co",
+                "--role",
+                "Frontend Developer",
+                "--source",
+                "Manual",
+                "--no-file",
+            ],
+            cwd=self.root,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(created.returncode, 0, created.stderr)
+        with (self.root / "data/jobs.csv").open(newline="", encoding="utf-8") as stream:
+            row = next(csv.DictReader(stream))
+        relative = "data/operations/requests/op-script-event-001.json"
+        (self.root / relative).write_text(
+            json.dumps(
+                {
+                    "version": 1,
+                    "operation_id": "op-script-event-001",
+                    "command": "event",
+                    "job_id": row["id"],
+                    "expected": {"last_update": row["last_update"], "application_status": "not_started"},
+                    "args": {
+                        "event_type": "application_submitted",
+                        "occurred_at": "2026-09-24",
+                        "precision": "date",
+                        "payload": {},
+                        "confirmed_by_user": True,
+                    },
+                }
+            ),
+            encoding="utf-8",
+        )
+        self.git("add", "--all")
+        self.git("commit", "--message", "seed event request")
+
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            done = self.run_script(relative)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        changed = self.git("show", "--name-only", "--format=", "HEAD")
+        self.assertIn("data/application_events/job-0001.jsonl", changed)
+        self.assertIn("data/operations/results/op-script-event-001.json", changed)
+        self.assertEqual(
+            json.loads((self.root / "data/operations/results/op-script-event-001.json").read_text())[
+                "status"
+            ],
+            "completed",
+        )
+
 
 class AgentOperationsTests(unittest.TestCase):
     def setUp(self):
@@ -185,11 +254,14 @@ class AgentOperationsTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
@@ -238,10 +310,197 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual(created.returncode, 0, created.stderr)
         return self.rows()[0]
 
+    def test_event_request_is_gated_and_publishes_with_immutable_result_when_enabled(self):
+        row = self.seed_job()
+
+        def request(operation_id):
+            return {
+                "version": 1,
+                "operation_id": operation_id,
+                "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
+                },
+            }
+
+        disabled_path = self.write_operation(request("op-event-disabled-001"))
+        validated = self.invoke_operation("validate", str(disabled_path), "--format", "json")
+        self.assertEqual(validated.returncode, 0, validated.stderr)
+        blocked = self.invoke_operation("apply", str(disabled_path), "--format", "json")
+        self.assertEqual(json.loads(blocked.stdout)["status"], "rejected")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        stale = request("op-event-stale-001")
+        stale["expected"]["last_update"] = "1999-01-01"
+        stale_path = self.write_operation(stale)
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            conflict = self.invoke_operation("apply", str(stale_path), "--format", "json")
+        self.assertEqual(json.loads(conflict.stdout)["status"], "conflict")
+        self.assertFalse((self.root / "data/application_events").exists())
+
+        enabled_path = self.write_operation(request("op-event-enabled-001"))
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            applied = self.invoke_operation("apply", str(enabled_path), "--format", "json")
+        self.assertEqual(applied.returncode, 0, applied.stderr)
+        result = json.loads(applied.stdout)
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(result["result"]["result"]["event_id"], "op-event-enabled-001")
+        self.assertEqual(self.rows()[0]["application_status"], "applied")
+        ledger = self.root / "data/application_events/job-0001.jsonl"
+        event = json.loads(ledger.read_text(encoding="utf-8"))
+        self.assertEqual((event["source"], event["actor"]), ("connector", "user"))
+        self.assertEqual(event["event_id"], "op-event-enabled-001")
+        self.assertTrue((self.root / "data/operations/results/op-event-enabled-001.json").exists())
+
+    def test_event_request_rejects_unconfirmed_and_batch_shapes(self):
+        row = self.seed_job()
+        base = {
+            "version": 1,
+            "operation_id": "op-event-invalid-001",
+            "command": "event",
+            "job_id": row["id"],
+            "expected": {"last_update": row["last_update"]},
+            "args": {
+                "event_type": "application_submitted",
+                "occurred_at": "2026-09-24",
+                "precision": "date",
+                "payload": {},
+                "confirmed_by_user": False,
+            },
+        }
+        with self.assertRaises(ops.OperationError) as caught:
+            ops.validate_operation(base)
+        self.assertEqual(caught.exception.code, "bad_type")
+        base["args"]["confirmed_by_user"] = True
+        child = {key: base[key] for key in ("command", "job_id", "expected", "args")}
+        with self.assertRaises(ops.OperationError) as caught:
+            ops.validate_operation(
+                {
+                    "version": 1,
+                    "operation_id": "op-event-batch-001",
+                    "command": "batch",
+                    "atomic": True,
+                    "operations": [child],
+                }
+            )
+        self.assertEqual(caught.exception.code, "unsupported_command")
+
     def write_operation(self, operation):
         path = self.root / "data" / "operations" / "requests" / f"{operation['operation_id']}.json"
         path.write_text(json.dumps(operation), encoding="utf-8")
         return path.relative_to(self.root)
+
+    def test_enabled_event_gate_rejects_legacy_status_with_closed_error_code(self):
+        row = self.seed_job()
+        before = (self.root / "data/jobs.csv").read_bytes()
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-status-gated-001",
+                "command": "status",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "application_status": "applied",
+                    "applied_at": "2026-09-24",
+                    "confirmed_by_user": True,
+                },
+            }
+        )
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            result = self.invoke_operation("apply", str(request), "--format", "json")
+        payload = json.loads(result.stdout)
+        self.assertEqual((result.returncode, payload["status"]), (1, "rejected"))
+        self.assertEqual(payload["result"]["error"]["code"], "invariant_violation")
+        self.assertIn("event command", payload["result"]["error"]["message"])
+        self.assertEqual((self.root / "data/jobs.csv").read_bytes(), before)
+        self.assertFalse((self.root / "data/application_events").exists())
+
+    def test_confirmed_cv_version_set_follows_event_and_updates_card(self):
+        row = self.seed_job()
+        submitted = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-event-001",
+                "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
+                },
+            }
+        )
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            created = self.invoke_operation("apply", str(submitted), "--format", "json")
+        self.assertEqual(json.loads(created.stdout)["status"], "completed", created.stderr)
+        event_path = self.root / "data/application_events" / f"{row['id']}.jsonl"
+        before_event = event_path.read_bytes()
+        applied = self.rows()[0]
+        missing_confirmation = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-set-invalid-001",
+                "command": "set",
+                "job_id": row["id"],
+                "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+                "args": {"cv_version": "frontend-2026-09"},
+            }
+        )
+        rejected = self.invoke_operation("apply", str(missing_confirmation), "--format", "json")
+        self.assertEqual(json.loads(rejected.stdout)["status"], "rejected")
+        confirmed = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-cv-set-valid-001",
+                "command": "set",
+                "job_id": row["id"],
+                "expected": {"application_status": "applied", "last_update": applied["last_update"]},
+                "args": {"cv_version": "frontend-2026-09", "confirmed_by_user": True},
+            }
+        )
+        with patch.dict(os.environ, {"TRACKER_V3_EVENT_WRITES": "1"}):
+            result = self.invoke_operation("apply", str(confirmed), "--format", "json")
+        self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
+        self.assertEqual(self.rows()[0]["cv_version"], "frontend-2026-09")
+        self.assertEqual(event_path.read_bytes(), before_event)
+        card = next((self.root / "applications").glob(f"{row['id']}-*.md"))
+        self.assertIn("cv_version: frontend-2026-09", card.read_text(encoding="utf-8"))
+
+    def test_committed_cutover_marker_reaches_connector_staging(self):
+        row = self.seed_job()
+        (self.root / "config").mkdir()
+        (self.root / "config/event-ledger-cutover.json").write_text(
+            '{"enabled":true,"migration":"migration-v1","version":1}\n', encoding="utf-8"
+        )
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-marker-event-001",
+                "command": "event",
+                "job_id": row["id"],
+                "expected": {"application_status": "not_started", "last_update": row["last_update"]},
+                "args": {
+                    "event_type": "application_submitted",
+                    "occurred_at": "2026-09-24",
+                    "precision": "date",
+                    "payload": {},
+                    "confirmed_by_user": True,
+                },
+            }
+        )
+        result = self.invoke_operation("apply", str(request), "--format", "json")
+        self.assertEqual(json.loads(result.stdout)["status"], "completed", result.stderr)
+        self.assertTrue((self.root / "data/application_events" / f"{row['id']}.jsonl").exists())
 
     def test_workflow_uses_an_expression_safe_dispatch_step_id(self):
         workflow = WORKFLOW.read_text(encoding="utf-8")
@@ -377,6 +636,58 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertEqual(self.source_rows()[0]["job_id"], "job-0001")
         self.assertTrue(list((self.root / "applications").glob("job-0001-*.md")))
         self.assertTrue((self.root / payload["result_path"]).exists())
+
+    def test_interrupted_connector_publication_rolls_back_result_and_job(self):
+        request = self.write_operation(
+            {
+                "version": 1,
+                "operation_id": "op-add-interrupted-001",
+                "command": "add",
+                "args": {
+                    "company": "InterruptedCo",
+                    "role": "Frontend Engineer",
+                    "source": "Manual",
+                    "application_status": "reviewing",
+                },
+            }
+        )
+        originals = {
+            name: (self.root / name).read_bytes() for name in ("data/jobs.csv", "data/job_sources.csv")
+        }
+        result_file = self.root / "data/operations/results/op-add-interrupted-001.json"
+        for replacement_count in (2, 7):
+            with self.subTest(replacement_count=replacement_count):
+                interrupted = subprocess.run(
+                    [
+                        sys.executable,
+                        "scripts/agent_operations.py",
+                        "apply",
+                        str(request),
+                        "--format",
+                        "json",
+                    ],
+                    cwd=self.root,
+                    text=True,
+                    capture_output=True,
+                    env={**os.environ, "JOBS_CONNECTOR_KILL_AFTER_REPLACE": str(replacement_count)},
+                )
+                self.assertEqual(interrupted.returncode, 75, interrupted.stderr)
+                self.assertTrue((self.root / ".v3-transaction").exists())
+                if replacement_count == 7:
+                    self.assertTrue(result_file.exists())
+
+                recovered = self.invoke_jobs("validate", "--strict", "--format", "json")
+                self.assertEqual(recovered.returncode, 0, recovered.stderr)
+                for name, content in originals.items():
+                    self.assertEqual((self.root / name).read_bytes(), content)
+                self.assertFalse(result_file.exists())
+                self.assertFalse(list((self.root / "applications").glob("job-0001-*.md")))
+                self.assertFalse((self.root / ".v3-transaction").exists())
+
+        retried = self.invoke_operation("apply", str(request), "--format", "json")
+        self.assertEqual(retried.returncode, 0, retried.stderr)
+        self.assertTrue(result_file.exists())
+        self.assertEqual(len(self.rows()), 1)
 
     def test_add_with_screening_blocker_does_not_create_application_card(self):
         request = self.write_operation(
@@ -1062,11 +1373,14 @@ class ErrorTaxonomyTests(unittest.TestCase):
             "tracker_schema.py",
             "tracker_validate.py",
             "tracker_write.py",
+            "tracker_transaction.py",
             "tracker_ingest.py",
             "tracker_render.py",
             "tracker_cli.py",
             "tracker_time.py",
             "agent_operations.py",
+            "event_ledger.py",
+            "tracker_event_write.py",
         ):
             shutil.copy2(PROJECT / "scripts" / name, self.root / "scripts" / name)
         for name in ("jobs.csv", "job_sources.csv"):
@@ -1132,6 +1446,31 @@ class ErrorTaxonomyTests(unittest.TestCase):
         if before is not None:
             self.assertEqual((self.root / "data" / "jobs.csv").read_bytes(), before)
         return on_disk
+
+    def test_dataset_race_returns_a_retryable_conflict(self):
+        operation_id = "tax-dataset-race"
+        request = self.write_request(
+            operation_id,
+            {
+                "version": 1,
+                "operation_id": operation_id,
+                "command": "add",
+                "args": {"company": "RaceCo", "role": "Frontend Developer", "source": "Manual"},
+            },
+        )
+        stale = ops.jobs.ValidationError("stale dataset", code="stale_operation")
+        with (
+            patch.object(ops, "ROOT", self.root),
+            patch.object(ops, "REQUESTS_DIR", self.root / "data/operations/requests"),
+            patch.object(ops, "RESULTS_DIR", self.root / "data/operations/results"),
+            patch.object(ops.jobs.PATHS, "root", self.root),
+            patch.object(ops, "apply_add", side_effect=stale),
+        ):
+            result, result_path = ops.execute(request)
+        self.assertEqual(result["status"], "conflict", result)
+        self.assertEqual(result["result"]["reason"], "stale_operation")
+        self.assertEqual(result["result"]["retry"]["args"]["company"], "RaceCo")
+        self.assertEqual(json.loads(result_path.read_text(encoding="utf-8")), result)
 
     def test_every_wave_one_code_produces_a_matching_rejected_result(self):
         row = self.seed_job()

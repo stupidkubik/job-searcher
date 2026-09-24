@@ -21,3 +21,6 @@ scratch/
 tmp/
 data/.ingest.lock
 data/telegram/
+/.v3-transaction/
+/.v3-finished-*/
+/.v3-transaction.lock

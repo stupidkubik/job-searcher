@@ -172,6 +172,13 @@ reference допустимы только `Manual` и `Referral`. `--duplicate-o
 - `stage_reached` не понижается и остаётся независимой исторической метрикой.
 - `application_status=applied` ставится только после фактической отправки человеком.
 
+После D-017 post-application lifecycle обновляется через `jobs.py event`:
+event ledger в `data/application_events/job-NNNN.jsonl` и эти четыре snapshot
+поля публикуются атомарно. Исторические `applied_at`/`response_at` мигрированы
+только с точностью календарной даты и `source=migration`; остальные поля CSV
+по-прежнему canonical. Legacy `status` допустим лишь до отклика. Контракт
+события — в [`docs/tracker-v3/event-contract-v1.md`](../docs/tracker-v3/event-contract-v1.md).
+
 ## Примеры CLI
 
 ```bash
@@ -187,9 +194,11 @@ python3 scripts/jobs.py add \
 python3 scripts/jobs.py set job-0001 \
   listing_status=closed decision_reason=closed_before_application
 
-# Человек фактически отправил заявку
-python3 scripts/jobs.py status job-0001 \
-  --application-status applied --cv-version frontend-2026-08
+# Человек фактически отправил заявку: после подтверждения подготовить полный
+# event JSON по event-contract-v1.md; сначала проверить dry-run.
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --dry-run --format json
+python3 scripts/jobs.py event --json /tmp/confirmed-event.json --format json
+python3 scripts/jobs.py set job-0001 cv_version=frontend-2026-08
 
 # Подтверждённый duplicate: новая job-строка не создаётся
 python3 scripts/jobs.py add \
