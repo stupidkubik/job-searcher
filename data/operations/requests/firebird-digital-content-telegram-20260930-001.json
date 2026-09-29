@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "firebird-digital-content-telegram-20260930-001",
+  "command": "add",
+  "args": {
+    "company": "Firebird Tours",
+    "role": "Digital Marketing Content Specialist",
+    "source": "Telegram",
+    "source_job_id": "7326",
+    "source_url": "https://t.me/it_jobs_serbia/7326",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Middle",
+    "location": "Remote; Serbia appears eligible in external structured listing",
+    "remote_policy": "Country-specific",
+    "stack": "CMS; SEO; Jira; Salesforce; Canva; ChatGPT; Claude; AI content tools",
+    "notes": "Telegram exact post dated 2026-09-17 requires English C1, 1.5-2 years Digital Content Marketing, CMS familiarity, AI visual tools, Jira and CRM. Candidate has strong documented high-volume CMS/web-production overlap and AI tooling, but tracker profile records English B2. Firebird official careers page is live and points to TravelBetter careers, but the exact role is not visible in the current first-party careers listing; Browser verification could not be completed."
+  }
+}
