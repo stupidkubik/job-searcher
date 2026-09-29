@@ -15,9 +15,9 @@ write path меняются, этот файл и корневой [`README.md`]
 | локальный CLI и примеры | [`jobs-cli.md`](jobs-cli.md) |
 | connector request/result contract | [`data/operations/README.md`](../data/operations/README.md) |
 | generated field × command allowlist | [`data/operations/contract.md`](../data/operations/contract.md) |
-| ChatGPT Browser/GitHub boundary, launch prompt и connector runner | [`agent-operations.md`](agent-operations.md) |
+| ChatGPT Parallel Search/Browser/GitHub boundary, launch prompt и connector runner | [`agent-operations.md`](agent-operations.md) |
 | immutable raw inbox и ingest | [`data/inbox/README.md`](../data/inbox/README.md) |
-| source/ATS playbooks | [`sources/README.md`](sources/README.md) |
+| Parallel Search/Browser routing, screening lifecycle и source/ATS playbooks | [`sources/README.md`](sources/README.md) |
 | локальный Telegram discovery adapter | [`sources/telegram.md`](sources/telegram.md) |
 | реализованное и будущие изменения | [`roadmap.md`](roadmap.md) |
 | generated browser view | [`tracker.md`](tracker.md) |
@@ -80,7 +80,7 @@ write path меняются, этот файл и корневой [`README.md`]
 | allowlist команды в `agent_operations.py` | перегенерировать `data/operations/contract.md` (`render-contract`), tests |
 | adapter, source policy или raw contract | `config/sources.toml`, соответствующий `docs/sources/*.md`, `data/inbox/README.md`, tests |
 | workflow или trust boundary | `.github/workflows/`, `docs/current-architecture.md`, соответствующий contract doc, tests |
-| ChatGPT Browser/GitHub capability boundary или launch prompt | `AGENTS.md`, `docs/agent-operations.md`, `docs/sources/README.md`, `docs/current-architecture.md` |
+| ChatGPT Parallel Search/Browser/GitHub capability boundary или launch prompt | `AGENTS.md`, `docs/agent-operations.md`, `docs/sources/README.md`, `docs/current-architecture.md`, `README.md` |
 | каталог или основной entry point | `README.md`, `docs/current-architecture.md`, этот индекс |
 | временная семантика | `data/schema.md`, raw/artifact contracts и boundary tests |
 | поле CSV меняется настолько, что затрагивает bootstrap-индексы | перегенерировать `data/index/*` (`render-index`), `data/schema.md` |

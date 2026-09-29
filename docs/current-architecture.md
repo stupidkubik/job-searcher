@@ -26,7 +26,7 @@
 
 ```mermaid
 flowchart LR
-    D["Discovery source / ATS / Telegram"] --> A["Adapter or browser inspection"]
+    D["Discovery source / ATS / Telegram"] --> A["Parallel Search, adapter or Browser"]
     A --> R["Raw inbox or read-only artifact"]
     A --> L["Protected local Telegram leads"]
     L --> R
@@ -43,8 +43,9 @@ flowchart LR
 ```
 
 Discovery никогда не подтверждает актуальность вакансии автоматически.
-Aggregator/API record становится canonical только через dedupe, проверку
-первоисточника и разрешённый write path.
+Aggregator/API record становится canonical через dedupe и разрешённый write
+path. Первичный blocker можно записать без verification; для полного анализа
+и решения `apply` требуется проверка первоисточника и Apply route.
 
 ## Слои и каталоги
 
@@ -115,10 +116,18 @@ unchanged.
 
 ## Discovery surfaces
 
+- Parallel Search is the default tool for public discovery and initial
+  screening: `web_search` finds candidates, `web_fetch` reads exact descriptions.
+  Explicit blockers may be recorded with URL/requirement evidence and unknown
+  verification; incomplete, stale or conflicting text requires Browser
+  clarification. It is a tool, not a new tracker source or registered adapter.
 - Browser/manual discovery follows `docs/sources/*.md` and records every
   inspected exact vacancy. In ChatGPT web this requires the separately installed
   Browser plugin in the same new chat; the GitHub connector does not satisfy
   browser preflight.
+  Browser handles complex source flows and current employer/ATS and Apply-route
+  verification for promising vacancies; explicitly permitted source APIs may
+  provide the evidence required by their playbooks.
 - Himalayas has a fetch-only adapter for narrow/broad query matrices.
 - Telegram has an opt-in local MTProto adapter. It reads only numeric peer IDs
   from the local allowlist, stores session/cursor/raw leads outside Git and
@@ -129,10 +138,14 @@ unchanged.
 - `.github/workflows/source-discovery.yml` produces a temporary read-only
   artifact for connector/runner use and never changes canonical files.
 
-Web search and its snippets or `Crawled:` metadata are discovery-only evidence.
-They cannot establish current route coverage, first-party listing status or a
-working Apply path. When Browser is unavailable, the browser pass stops as
-incomplete unless the source playbook explicitly permits an adapter/API route.
+Parallel extracts support description-based screening, but search snippets,
+cached/indexed content and `Crawled:` metadata cannot establish current route
+coverage, first-party listing status or a working Apply path.
+`allow_live_fetch=true` permits live fetching without guaranteeing it.
+When Browser is unavailable, the browser pass stops as incomplete unless the
+source playbook explicitly permits an adapter/API route; independent permitted
+Parallel discovery/screening may continue. Source access restrictions remain
+binding for both tools. The normative routing policy is in `docs/sources/README.md`.
 
 Telegram credentials, interactive login material, session, allowlist, cursor
 and full message text stay in the protected local data directory outside the

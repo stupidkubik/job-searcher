@@ -48,26 +48,83 @@ careers/ATS surface работодателя и её Apply route. Именно �
   актуальность, global eligibility или работоспособность Apply;
 - агент не отправляет заявку и не выводит lifecycle-событие `applied`.
 
+## Выбор инструмента: Parallel Search → Browser
+
+Для публичного discovery и первичного скрининга по умолчанию использовать
+Parallel Search. Browser подключать для сложных случаев и проверки текущей
+employer/ATS listing и Apply route перед полным анализом и решением `apply`.
+Разрешённый source adapter/API остаётся допустимым маршрутом по своему playbook.
+
+| Задача | Инструмент и границы |
+|---|---|
+| Найти exact вакансии и возможные employer/ATS URL | Parallel `web_search`: конкретная цель и 2–3 связанных запроса из query families |
+| Прочитать требования для первичного скрининга | Parallel `web_fetch` exact URL: `allow_live_fetch=true`; `full_content=true`, когда нужны полное описание и все ограничения |
+| Разрешить неполный текст, конфликт, неясные geo/work authorization | Browser: exact card, описание и при необходимости форма |
+| Пройти авторизованную выдачу, интерактивные фильтры, пагинацию или редиректы | Browser по source playbook |
+| Подтвердить текущую exact employer listing и работающий Apply route | Browser либо явно разрешённый API с доказательствами, требуемыми playbook |
+
+`web_search` выдержки пригодны для выбора кандидатов на чтение, но не для
+окончательного отсева по title, сниппету или отсутствию информации. Для
+screening decision получить полное описание exact вакансии, установить её
+identity и сохранить URL плюс конкретное требование в `notes`. Явный hard
+blocker из этого текста позволяет закончить скрининг без Browser и без
+утверждений о first-party verification. Неясность, неполное описание,
+противоречие между источниками или признаки stale-текста требуют Browser;
+если проверка недоступна, сохранить `reviewing` и точную причину.
+
+`allow_live_fetch=true` разрешает свежую загрузку, а не гарантирует её.
+Успешный `web_fetch`, дата публикации и `Crawled:` metadata не доказывают
+актуальность; cached/indexed results не подтверждают canonical open/closed
+status, `first_party_verified=yes` или `apply_verified=yes`. Непроверенные
+поля оставить unknown; в `notes` различать extracted screening evidence и
+фактически выполненную Browser/API verification.
+
+Parallel Search не является новым tracker `source`: provenance сохраняет
+реальную площадку и её exact URL/ID. Он не подтверждает полную выдачу,
+пагинацию, отсутствие новых вакансий или выполнение source-specific stop rule.
+Отсутствие результатов не означает, что вакансий нет. Для заявленной route
+coverage использовать Browser/adapter по playbook, а непроверенные routes
+обозначать incomplete. Каждая exact vacancy, прочитанная и оценённая через
+Parallel, также получает immutable outcome или duplicate reference.
+
+Ограничения доступа из source playbook действуют и для Parallel: нельзя
+заменять запрещённый fetch/crawler вызовом `web_fetch`, обходить login/paywall
+или отправлять приватные данные источника в сервис. При недоступности Parallel
+явно сообщить причину и использовать Browser либо разрешённый adapter/API;
+если недоступен Browser, продолжать только независимые разрешённые discovery
+и screening steps, оставляя требующую Browser проверку незавершённой.
+
+Справка по инструментам и кешированию:
+[Search MCP](https://docs.parallel.ai/integrations/mcp/search-mcp),
+[Extract fetch policy](https://docs.parallel.ai/extract/advanced-extract-settings).
+
 ## Универсальный lifecycle
 
 ### 1. Preflight
 
 До первого запроса:
 
-1. прочитать `data/jobs.csv` целиком и проверить текущие статусы;
-2. прочитать `data/job_sources.csv` и `config/profile.md`;
-3. прочитать playbook выбранного источника;
-4. при наличии adapter сверить `config/sources.toml` и его contract.
-5. для browser-assisted маршрута явно вызвать установленный Browser plugin и
-   открыть requested source URL как интерактивную rendered page.
+1. прочитать `config/profile-digest.md`, `data/index/known.tsv`,
+   `data/index/keys.tsv` и `data/index/active.csv` в порядке из `AGENTS.md`;
+2. прочитать playbook выбранного источника; при наличии adapter сверить
+   `config/sources.toml` и его contract;
+3. выбрать разрешённый маршрут по разделу выше и проверить доступность
+   Parallel Search, если он используется;
+4. перед browser pass явно вызвать установленный Browser plugin и открыть
+   нужный source/ATS URL как интерактивную rendered page.
 
-GitHub connector не удовлетворяет пункту 5: он обслуживает repository read/write
+Полные CSV и профиль читать только когда индексов/дайджеста недостаточно для
+конкретного решения; объяснить эту необходимость в отчёте об операции.
+
+GitHub connector не удовлетворяет Browser preflight: он обслуживает repository read/write
 path, а не навигацию по source/ATS. Web search, snippets и `Crawled:` metadata
 могут дать lead, но не доказывают current source state. Если Browser отсутствует,
 страница blocked, требует недоступную авторизацию, показывает CAPTCHA или не
 загружается, остановить browser pass с точным incomplete reason. Не заявлять
-route coverage и не подменять Browser индексированным поиском; использовать
-adapter/API можно только когда это прямо разрешено source playbook.
+route coverage и не подменять Browser verification индексированным поиском;
+использовать adapter/API можно только когда это прямо разрешено source playbook.
+Независимый Parallel discovery/скрининг продолжать можно в границах раздела
+выбора инструмента; Browser preflight не является условием такого прохода.
 
 `applied` и `rejected` не обрабатывать повторно. `listing_status=closed` без
 отклика пропустить. Для `not_started`, `reviewing` и `apply` продолжить с
@@ -88,19 +145,36 @@ board на соседние роли, не анализируя уже изве�
 Сразу после открытия карточки получить стабильный source job ID, exact source
 URL и, если уже виден, requisition ID. Затем проверять в порядке:
 
-1. `source + source_job_id` в `data/job_sources.csv`;
+1. `source + source_job_id` в `data/index/keys.tsv`;
 2. нормализованный exact source URL;
 3. exact first-party URL или requisition ID;
-4. нормализованные `company + role + location` и fuzzy candidates.
+4. нормализованные `company + role` в `data/index/known.tsv`, затем location
+   и fuzzy candidates при необходимости уточнения.
 
 Совпадение не даёт права молча объединять строки. Подтверждённый дубль
 добавляется через `--duplicate-of` или эквивалентный immutable request. Разные
 source IDs, ведущие к одной requisition, — references одной canonical job;
 разные requisitions с похожим title не объединяются автоматически.
 
-### 4. First-party verification
+### 4. Первичный скрининг через Parallel Search
 
-Для каждой новой exact vacancy:
+После dedupe получить полное описание exact вакансии и применить hard blockers
+из профиля. Подтверждённый текстом blocker позволяет сразу записать outcome
+без полного анализа и без Browser verification, сохранив URL и конкретное
+требование в `notes`. Для новой такой записи использовать
+`application_status=not_started` и подходящий `decision_reason`; для
+существующей — `screen`. Непроверенные status/verification оставить unknown,
+а уже подтверждённые значения существующей записи не сбрасывать.
+
+При неопределённости выполнить Browser-проверку. Если она недоступна, записать
+`reviewing` с точным unresolved reason, а не предполагаемый blocker. Сообщение
+о закрытии в извлечённом/кешированном тексте также требует first-party
+verification до canonical `closed`.
+
+### 5. First-party verification
+
+Для прошедшей первичный скрининг или требующей уточнения exact vacancy через
+Browser либо явно разрешённый source API по его playbook:
 
 1. определить реального работодателя, а не poster или intermediary;
 2. разрешить цепочку редиректов до exact employer careers/ATS listing;
@@ -115,9 +189,10 @@ source IDs, ведущие к одной requisition, — references одной 
 Generic homepage, search results, company profile, другой агрегатор или
 доступная только после оплаты/contact reveal ссылка не являются first-party
 verification. При неполных или конфликтующих доказательствах оставить
-verification/status unknown и сформулировать точный `next_action`.
+неподтверждённые verification/status unknown и записать unresolved reason в
+`notes`; `next_action` вычисляет runner, его не передавать в request.
 
-### 5. Screening и полный анализ
+### 6. Screening и полный анализ
 
 После first-party проверки применить hard blockers из профиля. Подтверждённая
 несовместимая география, обязательная work authorization, закрытая requisition
@@ -144,7 +219,7 @@ exact vacancy (разные source ID) с разными формулировк�
 Каждое такое решение обязано называть конкретное требование в `notes`
 (например точное число лет опыта), а не полагаться на title.
 
-### 6. Зафиксировать outcome
+### 7. Зафиксировать outcome
 
 Каждая exact vacancy, которую открыли, получает один из исходов:
 
@@ -153,7 +228,7 @@ exact vacancy (разные source ID) с разными формулировк�
 | exact first-party job закрыта или удалена | `listing_status=closed`, `decision_reason=closed_before_application` |
 | подтверждён hard blocker | структурированный `screen`/`decision_reason`, без полного анализа |
 | evidence недостаточно или требуется ручная проверка | `reviewing` + конкретный `next_action` |
-| screening пройден | полный анализ и решение `apply` либо вычисляемый `Skipped` |
+| screening пройден и first-party/Apply проверены | полный анализ и решение `apply` либо вычисляемый `Skipped` |
 | это существующая canonical job | добавить source reference, новую строку не создавать |
 
 Source-side archive сохраняется как evidence в notes/provenance. Он становится
@@ -161,7 +236,7 @@ canonical `closed` только после first-party проверки либо
 исчезновения exact employer requisition; живой first-party listing имеет
 приоритет над stale/archived карточкой агрегатора.
 
-### 7. Immutable write path и validation
+### 8. Immutable write path и validation
 
 Локальная запись выполняется только через `scripts/jobs.py`. Raw batches
 immutable и сначала проходят validate + ingest dry-run. GitHub connector
@@ -173,7 +248,7 @@ immutable и сначала проходят validate + ingest dry-run. GitHub c
 report, обновить tracker view и проверить generated result — точные команды
 заданы в [`AGENTS.md`](../../AGENTS.md).
 
-### 8. Общий stop rule
+### 9. Общий stop rule
 
 Поиск по одному источнику завершён, когда:
 

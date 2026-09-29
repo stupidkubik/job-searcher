@@ -15,6 +15,11 @@ Related documents:
 
 ## Automation boundary
 
+Parallel `web_search` may surface indexed Hirify URLs as discovery leads.
+Reading Hirify cards still follows the allowed modes below: `web_fetch` is not
+permission to fetch this source programmatically. An independently found public
+employer/ATS description may be screened under the common lifecycle.
+
 Allowed modes:
 
 1. a human, or a ChatGPT agent explicitly using the installed Browser plugin,

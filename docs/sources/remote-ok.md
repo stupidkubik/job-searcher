@@ -22,6 +22,9 @@ Search активируется Enter и отражается в URL как `?se
 В Browser проверка `https://remoteok.com/api` завершилась
 `ERR_BLOCKED_BY_CLIENT`; registry поэтому не обещает API/fetch adapter. До новой
 отдельной валидации connector использует только rendered UI.
+Parallel `web_search` может дать indexed leads, но не подтверждает прохождение
+этих UI routes. Чтение самой площадки следует этому playbook; независимое
+employer/ATS описание можно скринировать по общему lifecycle.
 
 ## Routes: narrow → broad
 

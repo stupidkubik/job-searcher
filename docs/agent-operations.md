@@ -15,35 +15,45 @@ allowlist'ов, что enforces runner. Правила поведения аге
 
 ## ChatGPT web capability boundary
 
-Для ChatGPT web нужны два независимых плагина в одном новом чате:
+Для рекомендуемого поиска в ChatGPT web используются три независимых плагина
+в одном чате:
 
-- Browser открывает discovery source, exact vacancy, employer careers/ATS и
-  видимый Apply route;
+- Parallel Search ищет публичные вакансии и извлекает описания для первичного
+  скрининга; `web_search` и `web_fetch` не подтверждают актуальность и Apply;
+- Browser открывает сложные source/ATS страницы, интерактивную выдачу,
+  редиректы и видимый Apply route; для прошедших скрининг вакансий проверяет
+  текущую employer listing и форму по source playbook;
 - GitHub connector читает этот репозиторий и создаёт immutable operation request
   непосредственно в `main`.
 
 GitHub connector сам по себе не предоставляет arbitrary-site Browser access.
 Вкладка, в которой пользователь открыл ChatGPT web, также не становится
 управляемым агентом браузером без отдельного Browser plugin/tool.
-Web search также не заменяет Browser: snippets, cached/indexed results и
+Parallel Search также не заменяет Browser verification: snippets, cached/indexed results и
 `Crawled:` metadata — только discovery evidence, а не доказательство текущей
 rendered page или действующего Apply route. После установки или включения
-плагинов запускать новый чат, явно вызывать Browser для source navigation и
-останавливать browser pass, если Browser tool или requested page недоступны.
+плагинов запускать новый чат. Browser preflight выполнять перед browser pass;
+если Browser tool или requested page недоступны, остановить именно browser pass.
+Независимый Parallel discovery/скрининг можно продолжить по
+[`общему lifecycle`](sources/README.md), не заявляя выполненную verification.
+Недоступный Parallel заменить Browser либо разрешённым source adapter/API,
+явно сообщив причину. Ограничения доступа отдельных источников сохраняются.
 
 ### Recommended ChatGPT launch prompt
 
-В composer следует явно выбрать `@GitHub` и `@Browser`, а затем использовать
+В composer следует явно выбрать GitHub, Parallel Search и Browser, затем использовать
 такой стартовый текст вместе с requested source URL:
 
 ```text
-Use @GitHub to open https://github.com/stupidkubik/job-searcher and follow AGENTS.md. Use @Browser—not web search—for every source page, employer careers/ATS listing, and Apply-route check.
+Use @GitHub to open https://github.com/stupidkubik/job-searcher and follow AGENTS.md. Use Parallel Search for public discovery and initial screening, and @Browser for complex cases and current employer/ATS and Apply-route verification. Respect each source playbook's access restrictions; a permitted source adapter/API remains an option.
 
 Bootstrap by reading exactly these, through GitHub, in this order: config/profile-digest.md (candidate digest), data/index/known.tsv and data/index/keys.tsv (deduplication indexes), data/index/active.csv (open work), then docs/sources/README.md and the one playbook it names for the requested source. Do not read data/jobs.csv, data/job_sources.csv, or config/profile.md in full unless an index is genuinely insufficient for a specific decision; say why when you do. Never read docs/tracker.md at all—it is a generated view for the human, and nothing in it is absent from the indexes.
 
-Then perform a Browser preflight: open the requested source URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop and report the exact limitation. Do not silently substitute web search, cached/indexed results, Crawled metadata, or GitHub tools.
+Check that Parallel Search is available. Use web_search with a focused objective and related queries to find exact vacancy URLs, deduplicate against the indexes before assessment, and use web_fetch with allow_live_fetch=true and full_content=true when the complete description is needed. Read the exact description before recording a screening blocker; a title, snippet or missing detail is insufficient. Preserve the actual source and exact source URL/ID, not Parallel Search as a new source. Every inspected exact vacancy must be recorded, including unsuitable and duplicate records. Extracted content alone must not set listing_status to open/closed or either verification field to yes.
 
-Search the requested source using its playbook. Deduplicate against the indexes before analysis, verify every promising job on the employer's current careers/ATS page, check the actual Apply route and geographic eligibility, and record every inspected exact vacancy—even closed, unsuitable, or duplicate.
+Use @Browser when text is incomplete or conflicting, geographic eligibility or authorization is unclear, or a route needs login, interactive filters, pagination or redirects. Before a browser pass, open the relevant source/ATS URL in @Browser and report whether it loaded as an interactive rendered page. If Browser is unavailable, blocked, or cannot load the page, stop that pass and report the exact limitation; independent permitted Parallel discovery/screening may continue. If Parallel is unavailable or rate-limited, report it and use Browser or a permitted adapter/API. Search results do not prove complete route coverage or satisfy a source's stop rule.
+
+An explicit blocker in the complete exact description may be recorded without Browser verification, with the URL and concrete requirement in notes and unverified status/verification left unknown; preserve existing verified facts. Ambiguity or stale evidence requires Browser clarification, or reviewing with the unresolved reason in notes if unavailable. Before full analysis or an apply decision, verify each promising job on the employer's current careers/ATS surface and check the actual Apply route and eligibility using Browser or an explicitly permitted source API under its playbook. Never infer closure from cached text or a fetch error. The runner computes next_action from structured fields; describe unresolved details in notes.
 
 Use @GitHub for every repository operation, and write only through immutable connector requests. Learn the request envelope from data/operations/README.md and the per-command fields from data/operations/contract.md: pass only fields the table allows for that command—an unlisted field or an off-enum value gets the whole request rejected, and no command anywhere accepts next_action or verified_at. Any command that updates an existing job also needs a non-empty expected lock carrying last_update plus the fields your decision depends on. Commit exactly one new file, data/operations/requests/<operation_id>.json, directly to main; never open a pull request and never touch another file in that commit. Keep an atomic batch at 10 children or fewer, a non-atomic batch at 100 or fewer. Never edit data/jobs.csv, data/job_sources.csv, data/index/*, or docs/tracker.md yourself—the runner regenerates the last two in the same audited commit. Never submit applications and never set a job to applied.
 

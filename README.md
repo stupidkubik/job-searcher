@@ -20,17 +20,21 @@
 
 ## ChatGPT web: поиск и запись
 
-Для browser-assisted поиска в ChatGPT web отдельно установите Browser и GitHub
-plugins, затем начните новый чат. Browser используется для source/ATS/Apply
-navigation, а GitHub connector — только для чтения репозитория и immutable
-operation requests в `main`. Web search не заменяет Browser при проверке
-актуальности. Готовый стартовый текст и fail-closed preflight находятся в
+Для поиска в ChatGPT web подключите Parallel Search, Browser и GitHub, затем
+начните новый чат. Parallel Search используется для публичного discovery и
+первичного скрининга по описанию; Browser — для сложных случаев и проверки
+текущей employer/ATS listing и Apply route. GitHub connector читает репозиторий
+и создаёт immutable operation requests в `main`. Извлечённый текст не
+подтверждает актуальность или работоспособность Apply. Порядок и fallback
+заданы в [`source lifecycle`](docs/sources/README.md), стартовый текст и
+Browser preflight — в
 [`docs/agent-operations.md`](docs/agent-operations.md#recommended-chatgpt-launch-prompt).
 
 ## Быстрый старт
 
-Перед поиском прочитайте [профиль кандидата](config/profile.md) и весь
-[`data/jobs.csv`](data/jobs.csv). Затем добавляйте вакансии только через CLI:
+Перед поиском прочитайте [`config/profile-digest.md`](config/profile-digest.md),
+[`data/index/`](data/index/) и source playbook в порядке из
+[`AGENTS.md`](AGENTS.md). Затем добавляйте вакансии только через CLI:
 
 ```bash
 # Найденная вакансия, которую нужно изучить
@@ -90,7 +94,8 @@ python3 scripts/jobs.py add \
 
 ## Как устроен поток данных
 
-1. Discovery выполняется через browser/source playbook или fetch-only adapter.
+1. Discovery и первичный скрининг выполняются через Parallel Search,
+   Browser/source playbook или разрешённый fetch-only adapter.
 2. Raw batch или read-only artifact сохраняет результат запуска, но не является
    canonical данными.
 3. Dedupe и first-party verification определяют canonical outcome.

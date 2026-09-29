@@ -18,7 +18,9 @@
 5. Прочитать `docs/sources/README.md` — точка входа в playbook'и
    источников; если для запрошенного источника есть отдельный playbook,
    прочитать и его.
-6. Для browser-assisted поиска выполнить Browser preflight ниже.
+6. Выбрать инструмент по правилам ниже: Parallel Search для discovery и
+   первичного скрининга; Browser для сложных случаев и проверки Apply.
+   Browser preflight выполнять перед browser pass, а не перед Parallel Search.
 7. Только потом искать новое.
 
 Полные `data/jobs.csv`, `data/job_sources.csv` и `config/profile.md` читать
@@ -32,6 +34,38 @@
 `listing_status=closed` без отклика пропустить; `not_started` / `reviewing` /
 `apply` продолжать с предыдущего шага.
 
+### Parallel Search и Browser
+
+- **Parallel Search — основной инструмент discovery и первичного скрининга
+  публичных вакансий.** `web_search` получает ссылки и выдержки по цели и
+  поисковым запросам; `web_fetch` читает exact URL, когда выдержек недостаточно.
+  Перед оценкой новой вакансии проверить identity и дубли по индексам.
+- Для решения об отсеве читать полное описание exact вакансии через
+  `web_fetch` с `allow_live_fetch=true` и при необходимости `full_content=true`.
+  Явный blocker из текста можно записать без Browser с URL и конкретным
+  требованием в `notes`, оставив актуальность и verification unknown.
+  Сниппет, title или отсутствие упоминания не доказывают blocker.
+- **Browser нужен для сложных случаев:** неполный/конфликтующий текст,
+  неясные geo/work authorization, авторизация, интерактивные фильтры,
+  пагинация, редиректы и Apply form. Для прошедшей скрининг вакансии перед
+  полным анализом проверить текущую exact employer/ATS listing и Apply route
+  через Browser либо явно разрешённый source API по его playbook.
+- `allow_live_fetch=true` разрешает свежую загрузку, но не гарантирует её.
+  Успешный `web_fetch`, snippets, cached/indexed results и `Crawled:` metadata
+  сами по себе не подтверждают `listing_status=open/closed`,
+  `first_party_verified=yes` или `apply_verified=yes`.
+- Parallel Search — инструмент, а не новое значение `source`: сохранять
+  реальную площадку, exact source URL/ID и employer URL после проверки.
+  Он не обходит ограничения источника и не доказывает полную route coverage.
+- Если Parallel Search недоступен или ограничен, явно назвать причину и
+  продолжить через Browser либо разрешённый adapter/API. Если Browser
+  недоступен, разрешённый Parallel discovery/скрининг можно продолжить, но
+  требующую Browser проверку оставить незавершённой с точной причиной.
+  Source-specific ограничения имеют приоритет при выборе допустимого доступа.
+
+Полный порядок и границы доказательств — в
+[`docs/sources/README.md`](docs/sources/README.md).
+
 ### ChatGPT web: Browser preflight
 
 - GitHub plugin/connector и Browser — разные capabilities. GitHub connector
@@ -40,17 +74,17 @@
   ChatGPT открыт пользователем в обычной вкладке браузера, также не даёт агенту
   управление этой вкладкой.
 - Для browser-assisted маршрута явно использовать установленный `Browser`
-  plugin в том же ChatGPT-чате и до поиска открыть requested source URL именно
+  plugin в том же ChatGPT-чате и перед browser pass открыть нужный source/ATS URL
   через Browser. Успешный preflight означает, что URL загрузился как
   интерактивная rendered page; отдельно фиксировать blocked, auth required,
   CAPTCHA и load error.
-- Web search, search snippets, `Crawled:` metadata и cached/indexed results
-  разрешены только как discovery evidence. Они не подтверждают текущую выдачу,
-  exact vacancy, first-party status или работоспособность Apply route.
+- Parallel Search не удовлетворяет Browser preflight: извлечённый текст не
+  подтверждает текущую rendered выдачу или работоспособность Apply route.
 - Если Browser tool отсутствует или requested page не открывается, остановить
   browser pass, назвать точное ограничение и не подменять его web search.
-  Продолжить можно только через явно разрешённый source adapter/API либо после
-  нового Browser-enabled запуска.
+  Browser-проверку продолжить можно через явно разрешённый source adapter/API
+  либо после нового Browser-enabled запуска. Независимый Parallel
+  discovery/скрининг разрешён в границах выше.
 
 ## Контракт полей
 
@@ -230,22 +264,29 @@ canonical diff в `main`. Дождаться matching result и завершен
 
 ## Порядок обработки одной вакансии
 
-1. Проверить дубли: сначала `data/job_sources.csv` по `source + source_job_id`,
+1. Проверить дубли по индексам: сначала `source + source_job_id`,
    затем `original_url`, source URL и company + role.
-2. Открыть первоисточник, проверить доступность вакансии и работу кнопки Apply;
-   записать `listing_status`, `first_party_verified`, `apply_verified` и дату
-   проверки через CLI.
-3. Если есть hard blocker (гео, work authorization, seniority), сразу выполнить
+2. Выполнить первичный скрининг через Parallel Search: прочитать exact
+   описание и сопоставить требования с профилем. При недостатке или конфликте
+   доказательств перейти в Browser, а не делать вывод по сниппету.
+3. Если есть явный hard blocker (гео, work authorization, seniority), выполнить
    `add --application-status not_started --decision-reason <причина> --no-file` и
-   не проводить полный анализ. Для закрытого объявления использовать
+   не проводить полный анализ; сохранить evidence и оставить непроверенные
+   `listing_status`, `first_party_verified`, `apply_verified` как unknown;
+   уже подтверждённые значения существующей записи не сбрасывать.
+   Для подтверждённо закрытого в первоисточнике объявления использовать
    `--listing-status closed --decision-reason closed_before_application` вместо
    обычной причины отсева.
-4. Если фильтр пройден, провести полный анализ, присвоить `match_score` от 1 до 10,
+4. Если фильтр пройден, проверить текущую exact employer/ATS listing и Apply
+   route через Browser либо разрешённый source API. Записать проверку через
+   CLI только по полученным доказательствам. Неполную проверку сохранить как
+   `reviewing` с причиной в `notes`, не принимать решение `apply`.
+5. После проверки провести полный анализ, присвоить `match_score` от 1 до 10,
    поставить `application_status=reviewing` и заполнить `applications/<id>.md`.
-5. Принять решение `apply` или вычисляемое `Skipped` / `Closed` через
+6. Принять решение `apply` или вычисляемое `Skipped` / `Closed` через
    структурированные поля.
-6. Подготовить материалы: CV только из `cv/current/`, cover letter и ответы формы.
-7. Человек отправляет заявку; только после его подтверждения записать
+7. Подготовить материалы: CV только из `cv/current/`, cover letter и ответы формы.
+8. Человек отправляет заявку; только после его подтверждения записать
    `application_submitted` через `event` (CLI или single connector request с
    `confirmed_by_user=true`). Версию отправленного CV затем записать через
    `set cv_version=...`; connector `set` требует `confirmed_by_user=true`.
