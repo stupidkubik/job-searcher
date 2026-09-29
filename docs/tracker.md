@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-30** · Jobs: **460**
+Dataset updated: **2026-09-30** · Jobs: **461**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (398)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (399)](#archive)
 
 ## Action now
 
@@ -87,10 +87,11 @@ Dataset updated: **2026-09-30** · Jobs: **460**
 
 <details>
 
-<summary>Archive (398)</summary>
+<summary>Archive (399)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [MEDvidi — Join MEDvidi Design Talent Pool](<https://medvidi.com/careers/co/poland-b2b/A6.D6F/join-medvidi-design-talent-pool/all>) · job-0461 | role not frontend | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — Senior Frontend Developer](<https://medvidi.com/careers/co/serbia/DC.17A-83.600/senior-frontend-developer/all>) · job-0460 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — AI Product Analyst - Voice AI Agents](<https://medvidi.com/careers/co/serbia/B3.D63-83.600/ai-product-analyst-voice-ai-agents/all>) · job-0459 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: role not frontend | [Girasole Energies — Business devoloper BESS H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f>) · job-0458 | role not frontend | Not checked | 2026-09-22 |
