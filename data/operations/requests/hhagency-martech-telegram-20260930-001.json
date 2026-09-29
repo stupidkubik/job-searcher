@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "hhagency-martech-telegram-20260930-001",
+  "command": "add",
+  "args": {
+    "company": "HH Agency Ltd",
+    "role": "Marketing Operations Developer (MarTech)",
+    "source": "Telegram",
+    "source_job_id": "7358",
+    "source_url": "https://t.me/it_jobs_serbia/7358",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Junior/Middle",
+    "location": "Serbia & Vienna (Remote — CET); Limassol, Cyprus",
+    "remote_policy": "Country-specific",
+    "stack": "PHP; JavaScript; HTML; CSS; APIs; Webhooks; S2S postbacks; Keitaro; Voluum; DNS; SSL; CRM integrations",
+    "notes": "User supplied exact Telegram vacancy text. Candidate has strong overlap in web production, HTML/CSS/JS, APIs/webhooks and forms; gaps are PHP, Keitaro/Voluum and direct S2S affiliate tracking. Parallel Search could not establish a first-party company/careers presence for hhagency-ltd.com, live fetch to the domain failed, and Browser is currently unavailable; employer identity and email Apply route remain unverified."
+  }
+}
