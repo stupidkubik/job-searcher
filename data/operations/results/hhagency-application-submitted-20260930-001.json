@@ -1,0 +1,18 @@
+{
+  "command": "event",
+  "executed_at": "2026-09-29T22:46:36Z",
+  "job_id": "job-0462",
+  "operation_id": "hhagency-application-submitted-20260930-001",
+  "result": {
+    "application_path": null,
+    "application_status": "applied",
+    "event_id": "hhagency-application-submitted-20260930-001",
+    "listing_status": "unknown",
+    "outcome": "recorded",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
