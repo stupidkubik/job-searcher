@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "operation_id": "medvidi-design-talent-pool-20260930-001",
+  "command": "add",
+  "args": {
+    "company": "MEDvidi",
+    "role": "Join MEDvidi Design Talent Pool",
+    "source": "Company Careers",
+    "source_url": "https://medvidi.com/careers/co/poland-b2b/A6.D6F/join-medvidi-design-talent-pool/all",
+    "source_job_id": "A6.D6F",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Unknown",
+    "location": "Poland - B2B / Europe and nearby regions",
+    "remote_policy": "Europe",
+    "decision_reason": "role_not_frontend",
+    "notes": "Parallel live fetch screening: this is a future-opportunity talent pool specifically for Product Designers, not a current frontend opening; remote B2B is described for professionals across Europe and nearby regions."
+  }
+}
