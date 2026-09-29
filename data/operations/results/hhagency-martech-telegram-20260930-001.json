@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-29T22:33:34Z",
+  "job_id": "job-0462",
+  "operation_id": "hhagency-martech-telegram-20260930-001",
+  "result": {
+    "application_path": "applications/job-0462-hh-agency-ltd-marketing-operations-develop.md",
+    "application_status": "reviewing",
+    "job_id": "job-0462",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-30",
+        "job_id": "job-0462",
+        "source": "Telegram",
+        "source_job_id": "7358",
+        "source_url": "https://t.me/it_jobs_serbia/7358"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
