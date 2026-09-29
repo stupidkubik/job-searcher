@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-30** · Jobs: **462**
+Dataset updated: **2026-09-30** · Jobs: **463**
 
-[Action now (3)](#action-now) · [Applications (46)](#applications) · [To verify (14)](#to-verify) · [Archive (399)](#archive)
+[Action now (3)](#action-now) · [Applications (46)](#applications) · [To verify (15)](#to-verify) · [Archive (399)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-09-30** · Jobs: **462**
 | Reviewing | [SahayPay Technologies — Frontend Engineer (React)](<https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/>) · job-0419 | First party + Apply + Listing | 4.8 | verify first-party | Never |
 | Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
 | Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
+| Reviewing | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | verify first-party | Never |
 

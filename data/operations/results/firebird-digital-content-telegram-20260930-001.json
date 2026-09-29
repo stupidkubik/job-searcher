@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-09-29T22:51:56Z",
+  "job_id": "job-0463",
+  "operation_id": "firebird-digital-content-telegram-20260930-001",
+  "result": {
+    "application_path": "applications/job-0463-firebird-tours-digital-marketing-content-sp.md",
+    "application_status": "reviewing",
+    "job_id": "job-0463",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-09-30",
+        "job_id": "job-0463",
+        "source": "Telegram",
+        "source_job_id": "7326",
+        "source_url": "https://t.me/it_jobs_serbia/7326"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
