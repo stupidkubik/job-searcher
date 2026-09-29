@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "gmail-epic-web-intern-submitted-20260930-01",
+  "command": "event",
+  "job_id": "job-0409",
+  "expected": {
+    "application_status": "reviewing",
+    "last_update": "2026-09-08"
+  },
+  "args": {
+    "event_type": "application_submitted",
+    "occurred_at": "2026-09-08",
+    "precision": "date",
+    "payload": {},
+    "confirmed_by_user": true,
+    "evidence_ref": "gmail:1a0828d9aef6038f"
+  }
+}
