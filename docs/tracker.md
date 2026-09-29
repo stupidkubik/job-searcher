@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-22** · Jobs: **458**
+Dataset updated: **2026-09-30** · Jobs: **460**
 
-[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (396)](#archive)
+[Action now (3)](#action-now) · [Applications (45)](#applications) · [To verify (14)](#to-verify) · [Archive (398)](#archive)
 
 ## Action now
 
@@ -87,10 +87,12 @@ Dataset updated: **2026-09-22** · Jobs: **458**
 
 <details>
 
-<summary>Archive (396)</summary>
+<summary>Archive (398)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [MEDvidi — Senior Frontend Developer](<https://medvidi.com/careers/co/serbia/DC.17A-83.600/senior-frontend-developer/all>) · job-0460 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [MEDvidi — AI Product Analyst - Voice AI Agents](<https://medvidi.com/careers/co/serbia/B3.D63-83.600/ai-product-analyst-voice-ai-agents/all>) · job-0459 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: role not frontend | [Girasole Energies — Business devoloper BESS H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f>) · job-0458 | role not frontend | Not checked | 2026-09-22 |
 | Skipped: role not frontend | [Girasole Energies — Business developer H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f_boulogne-billancourt>) · job-0457 | role not frontend | Not checked | 2026-09-22 |
 | Skipped: role not frontend | [Lemon Learning — Business developer UK and US](<https://www.welcometothejungle.com/en/companies/lemon-learning/jobs/uk-business-developer-opening-uk_londres>) · job-0456 | role not frontend | Not checked | 2026-09-22 |
