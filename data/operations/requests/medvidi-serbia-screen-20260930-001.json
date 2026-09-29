@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "operation_id": "medvidi-serbia-screen-20260930-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "medvidi:serbia:B3.D63-83.600",
+      "args": {
+        "company": "MEDvidi",
+        "role": "AI Product Analyst - Voice AI Agents",
+        "source": "Company Careers",
+        "source_url": "https://medvidi.com/careers/co/serbia/B3.D63-83.600/ai-product-analyst-voice-ai-agents/all",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Serbia",
+        "remote_policy": "Serbia",
+        "decision_reason": "seniority_too_high",
+        "stack": "SQL; Python; LLM evaluation; AI agents; Analytics",
+        "notes": "Parallel live fetch screening: role requires 3+ years in product/data/operational analytics plus strong SQL and Python; this exceeds the candidate's documented Junior/Junior+ frontend background."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "medvidi:serbia:DC.17A-83.600",
+      "args": {
+        "company": "MEDvidi",
+        "role": "Senior Frontend Developer",
+        "source": "Company Careers",
+        "source_url": "https://medvidi.com/careers/co/serbia/DC.17A-83.600/senior-frontend-developer/all",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Senior",
+        "location": "Serbia",
+        "remote_policy": "Serbia",
+        "decision_reason": "seniority_too_high",
+        "stack": "Angular; RxJS; TypeScript; Vitest; SQL; AI coding agents; NX; CI/CD",
+        "notes": "Parallel live fetch screening: role requires 3+ years commercial Angular, advanced RxJS, and proven Angular architecture expertise at scale; this exceeds the candidate's documented Junior/Junior+ React/Next.js profile."
+      }
+    }
+  ]
+}
