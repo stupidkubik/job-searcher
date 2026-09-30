@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "gmail-kolum-rejection-20260930-02",
+  "command": "event",
+  "job_id": "job-0278",
+  "expected": {
+    "application_status": "applied",
+    "last_update": "2026-09-08"
+  },
+  "args": {
+    "event_type": "rejection_received",
+    "occurred_at": "2026-09-24",
+    "precision": "date",
+    "payload": {},
+    "confirmed_by_user": true,
+    "evidence_ref": "gmail:1a0d2ced3ec8af4b"
+  }
+}
