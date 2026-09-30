@@ -1,0 +1,18 @@
+{
+  "command": "event",
+  "executed_at": "2026-09-30T11:34:30Z",
+  "job_id": "job-0278",
+  "operation_id": "gmail-kolum-rejection-20260930-02",
+  "result": {
+    "application_path": null,
+    "application_status": "rejected",
+    "event_id": "gmail-kolum-rejection-20260930-02",
+    "listing_status": "open",
+    "outcome": "recorded",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

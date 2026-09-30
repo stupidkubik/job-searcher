@@ -7,6 +7,7 @@ verified_at: 2026-08-20
 listing_status: open
 first_party_verified: yes
 apply_verified: yes
+cv_version: 
 ---
 
 # kolum — Product Engineer
