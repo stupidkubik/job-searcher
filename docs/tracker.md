@@ -11,7 +11,7 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
+| Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 
 ## Applications
 
@@ -70,12 +70,12 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
-| Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
+| Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | Resolve exact XFORIA employer requisition, Serbia eligibility, and the $50 compensation period; TalentMove fit is plausible but current XFORIA careers does not expose this role. | 2026-09-08 |
+| Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | Browser-verify closure: current jobs.micro1.ai employer page reports this exact Frontend Engineer Specialist posting closed; reconsider only if reopened. | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
-| Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | verify first-party | Never |
-| Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | Browser-verify closure: current jobs.micro1.ai employer page reports this exact Design & Frontend Specialist posting closed; reconsider only if reopened. | Never |
+| Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | High-priority verification: resolve official Junior UI Engineer listing, Apply route, Serbia eligibility, and compensation; source text is a strong Junior frontend fit. | Never |
+| Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | Verify real employer identity, first-party Apply route, and Serbia eligibility; source is a strong 0-2 year frontend fit but MENA geography remains ambiguous. | Never |
 
 ## Archive
 

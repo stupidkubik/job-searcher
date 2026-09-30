@@ -1,0 +1,84 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-30T16:09:12Z",
+  "jobs": [
+    "job-0361",
+    "job-0405",
+    "job-0406",
+    "job-0418",
+    "job-0438",
+    "job-0439"
+  ],
+  "operation_id": "review-cleanup-next-actions-20260930-01",
+  "result": {
+    "count": 6,
+    "operations": [
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0361",
+        "listing_status": "open",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0405",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0406",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0418",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0438",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "set",
+        "job_id": "job-0439",
+        "listing_status": "unknown",
+        "outcome": "updated",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 6,
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
