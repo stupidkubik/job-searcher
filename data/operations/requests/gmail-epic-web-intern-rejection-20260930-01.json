@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "gmail-epic-web-intern-rejection-20260930-01",
+  "command": "event",
+  "job_id": "job-0409",
+  "expected": {
+    "application_status": "applied",
+    "last_update": "2026-09-30"
+  },
+  "args": {
+    "event_type": "rejection_received",
+    "occurred_at": "2026-09-17",
+    "precision": "date",
+    "payload": {},
+    "confirmed_by_user": true,
+    "evidence_ref": "gmail:1a0b0b388bedc651"
+  }
+}
