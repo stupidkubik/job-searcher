@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "operation_id": "nebius-pass-20260930-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "nebius:4965819101",
+      "args": {
+        "company": "Nebius",
+        "role": "Frontend Engineer - UI Infrastructure and Developer Tools (Early Talent)",
+        "source": "Company Careers",
+        "source_job_id": "4965819101",
+        "source_url": "https://careers.nebius.com/?gh_jid=4965819101",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Graduate",
+        "location": "Amsterdam, Netherlands",
+        "remote_policy": "On-site",
+        "stack": "TypeScript; React; HTML; CSS; Git; Automated Testing; Frontend Tooling",
+        "found_at": "2026-09-30",
+        "decision_reason": "work_authorization",
+        "notes": "Strong stack fit: early-career React/TypeScript frontend, UI infrastructure, developer tools and testing. Exact role text requires applicants to be permitted to work in Amsterdam/Netherlands; profile has Serbian work permit only. Parallel screening completed; Browser first-party/Apply verification unavailable because Browser Connector is disconnected."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "nebius:4965522101",
+      "args": {
+        "company": "Nebius",
+        "role": "Application Integration Developer",
+        "source": "Company Careers",
+        "source_job_id": "4965522101",
+        "source_url": "https://careers.nebius.com/?gh_jid=4965522101",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote - Europe",
+        "remote_policy": "Europe",
+        "stack": "Python; Microsoft Azure; REST APIs; Webhooks; Microsoft Graph API; Terraform; CI/CD; OAuth 2.0; PostgreSQL",
+        "found_at": "2026-09-30",
+        "decision_reason": "role_not_frontend",
+        "notes": "Backend/integration-heavy role requiring 3+ years of integration or backend development plus production Microsoft Azure, Python, Terraform and relational databases. This is outside the frontend-focused target profile. Parallel screening completed; Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "nebius:4981489101",
+      "args": {
+        "company": "Nebius",
+        "role": "AI Science Writer, Nebius Academy (Contract)",
+        "source": "Company Careers",
+        "source_job_id": "4981489101",
+        "source_url": "https://careers.nebius.com/?gh_jid=4981489101",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Amsterdam / Remote - Europe; role text says based in the EU",
+        "remote_policy": "Europe",
+        "stack": "AI/ML Research; Technical Writing; Research Papers; Data Visualization; LLMs; Editorial",
+        "found_at": "2026-09-30",
+        "decision_reason": "geo_restriction",
+        "notes": "Role explicitly seeks an AI Science Writer based in the EU; Serbia is not an EU member. It also expects AI/ML research or closely related technical experience and a relevant technical degree, neither documented in the tracker profile. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "nebius:4918253101",
+      "args": {
+        "company": "Nebius / Tavily",
+        "role": "Technical Support Engineer, Tavily",
+        "source": "Company Careers",
+        "source_job_id": "4918253101",
+        "source_url": "https://careers.nebius.com/?gh_jid=4918253101",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote - Europe / Remote - United States / Tel Aviv",
+        "remote_policy": "Europe",
+        "stack": "Technical Support; APIs; Python; Web Applications; Cloud; LLM Toolchains; RAG; Prompt Engineering; Agent Architectures; Monitoring",
+        "found_at": "2026-09-30",
+        "decision_reason": "stack_mismatch",
+        "notes": "Adjacent but not a close fit: requires 2+ years of technical B2B support plus strong backend/API/Python and LLM toolchain troubleshooting. Current Tavily Greenhouse search result appears to expose a matching role under requisition 4877911101, but identity/Apply-route cannot be confirmed without Browser."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "nebius:4988854101",
+      "args": {
+        "company": "Nebius",
+        "role": "Automation Engineer (Customer Service)",
+        "source": "Company Careers",
+        "source_job_id": "4988854101",
+        "source_url": "https://careers.nebius.com/?gh_jid=4988854101",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Remote - Europe",
+        "remote_policy": "Europe",
+        "found_at": "2026-09-30",
+        "notes": "Current Nebius careers board exposes this exact new Remote-Europe role. It may overlap with the candidate's workflow automation/API experience, but Parallel Search could not retrieve the exact description and Browser is disconnected, so requirements and Serbia eligibility remain unresolved."
+      }
+    }
+  ]
+}
