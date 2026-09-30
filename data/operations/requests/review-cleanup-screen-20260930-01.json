@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "operation_id": "review-cleanup-screen-20260930-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0254",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "stack_mismatch",
+        "notes": "Current Hirify text requires proven Shopify store setup, deep Shopify backend knowledge, and Google Merchant Center compliance; these are not in the candidate profile."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0262",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-17"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "Current description requires 6+ years software engineering plus production LLM agentic workflows and backend/cloud/AWS experience; role is explicitly Senior."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0282",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-20"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "LinkedIn description lists at least 3 years of hands-on experience developing modern React applications as a must-have; target profile is Junior/Junior+ with limited direct commercial React product experience."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0401",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-07"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "Current Jaabz text requires 3+ years building production frontend applications; this exceeds the target Junior/Junior+ commercial product-frontend profile."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0419",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Matching public listing identifies this exact SahayPay role as on-site permanent in Addis Ababa, Ethiopia, with a September 10 deadline; incompatible with Serbia-based work."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0423",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "decision_reason": "seniority_too_high",
+        "notes": "The distinctive TalentMove text resolves to Make Frontend Engineer; current Make description requires 5+ years frontend experience, 2+ years React, and building a large-scale system from scratch."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0440",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-14"
+      },
+      "args": {
+        "decision_reason": "stack_mismatch",
+        "notes": "Current role is genuinely full-stack: React plus Node.js, PostgreSQL, GraphQL/data integrations, tests and cloud deployment are core responsibilities; backend ownership is outside the target frontend-first profile."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0449",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-22"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "YC classifies the role as Design / Product design and describes Aside's first founding designer owning interaction, typography, product surfaces and the design system rather than frontend engineering."
+      }
+    }
+  ]
+}
