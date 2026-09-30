@@ -4,14 +4,13 @@
 
 Dataset updated: **2026-09-30** · Jobs: **463**
 
-[Action now (3)](#action-now) · [Applications (47)](#applications) · [To verify (14)](#to-verify) · [Archive (399)](#archive)
+[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (14)](#to-verify) · [Archive (399)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Reviewing | [Epic Games — Web Engineer Intern](<https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004>) · job-0409 | 8.6 | — | Open | [Open](../applications/job-0409-epic-games-web-engineer-intern.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | — | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 
 ## Applications
@@ -24,6 +23,7 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
+| Applied | [Epic Games — Web Engineer Intern](<https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004>) · job-0409 | Applied | 2026-09-08 | — | [Open](../applications/job-0409-epic-games-web-engineer-intern.md) |
 | Applied | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 | Applied | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | Applied | 2026-09-30 | — | [Open](../applications/job-0463-firebird-tours-digital-marketing-content-sp.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |

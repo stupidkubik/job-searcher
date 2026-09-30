@@ -7,6 +7,7 @@ verified_at: 2026-09-08
 listing_status: open
 first_party_verified: yes
 apply_verified: yes
+cv_version: 
 ---
 
 # Epic Games — Web Engineer Intern
