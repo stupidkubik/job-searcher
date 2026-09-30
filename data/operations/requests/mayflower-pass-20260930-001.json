@@ -1,0 +1,193 @@
+{
+  "version": 1,
+  "operation_id": "mayflower-pass-20260930-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "mayflower:senior-frontend-developer",
+      "args": {
+        "company": "Mayflower",
+        "role": "Senior Frontend Developer",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/senior-frontend-developer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Senior",
+        "location": "Cyprus; temporary remote with future relocation to Limassol",
+        "remote_policy": "Country-specific",
+        "stack": "JavaScript; React; TypeScript; HTML5; CSS; Redux; Node.js; Sass; WebSockets; Micro Frontends; Unit Testing; Webpack; Rollup",
+        "found_at": "2026-09-30",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Recruitee text requires 7+ years of experience; role is Cyprus-based with temporary remote only before future relocation to Limassol. Parallel live fetch exposed the Apply form, but Browser verification remains unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:qa-payment-integrations",
+      "args": {
+        "company": "Mayflower",
+        "role": "QA Full-stack Engineer (Payment integrations)",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/qa-full-stack-engineer-payment-integrations",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Cyprus / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "Kotlin; Java; JavaScript; Playwright; API Testing; Manual Testing; SQL; Postman; GitLab; Kibana; Grafana; Allure TestOps",
+        "found_at": "2026-09-30",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact role requires 3+ years as a QA Engineer plus automation, SQL, Postman, Kibana/Grafana and test-management experience. Playwright and web/API overlap are useful but the core QA experience requirement is not documented in the candidate profile. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:seo-specialist",
+      "args": {
+        "company": "Mayflower",
+        "role": "SEO Specialist",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/seo-specialist",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "stack": "Technical SEO; Content SEO; International SEO; Google Search Console; Google Analytics; Ahrefs; Semrush; Screaming Frog; HTML; Figma; Schema Markup; CMS",
+        "found_at": "2026-09-30",
+        "decision_reason": "stack_mismatch",
+        "notes": "Interesting adjacent web/content role with HTML, Figma, landing pages, CMS and multilingual overlap, but exact text requires 3+ years hands-on SEO plus GSC/GA4/Ahrefs-Semrush/Screaming Frog expertise. Profile does not document that specialist SEO experience. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:brand-copywriter",
+      "args": {
+        "company": "Mayflower",
+        "role": "Brand Copywriter",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/brand-copywriter",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; relocation option to Limassol, Cyprus",
+        "remote_policy": "Unclear",
+        "stack": "Brand Copywriting; CRM; Social; Product Marketing; PR; Community Content; AI Tools",
+        "found_at": "2026-09-30",
+        "decision_reason": "other",
+        "notes": "Exact role requires 5+ years in copywriting/brand/content and native-level English; tracker profile records English B2. The form explicitly asks whether the applicant is a native English speaker. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:brand-designer",
+      "args": {
+        "company": "Mayflower",
+        "role": "Brand Designer",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/brand-designer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote (EU time zone)",
+        "remote_policy": "Unclear",
+        "stack": "Figma; Brand Design; Visual Design; Motion Design; After Effects; Typography; Layout; Campaign Design",
+        "found_at": "2026-09-30",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact role requires 3+ years in brand/marketing/visual design, a motion-design portfolio and After Effects. Figma/UI overlap is not enough for the role's core design and motion requirements. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:technical-support-specialist",
+      "args": {
+        "company": "Mayflower",
+        "role": "Technical Support Specialist",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/technical-support-specialist",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote / Limassol, Cyprus",
+        "remote_policy": "Unclear",
+        "stack": "Technical Support; Payments; REST APIs; JSON; Postman; SQL; Webhooks; Kibana; Grafana; Payment Routing; 3DS",
+        "found_at": "2026-09-30",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact role requires 3+ years in technical support/fintech/payments/PSP or merchant support plus SQL and payment-flow knowledge. APIs/webhooks overlap is useful, but the core payments-support experience is not documented. Browser verification unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:talent-pool",
+      "args": {
+        "company": "Mayflower",
+        "role": "Talent Pool",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/talent-pool",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Cyprus; application form accepts international country selection",
+        "remote_policy": "Country-specific",
+        "stack": "Frontend; React; TypeScript; Web Development; UI; CMS",
+        "found_at": "2026-09-30",
+        "notes": "Potential route for a Junior/Junior+ frontend/web application because no suitable current frontend vacancy exists. Form asks for CV, country, salary expectation, English level and a short intro/portfolio, but does not specify desired role, seniority or remote eligibility. Mayflower advertises relocation support generally; Browser verification is still unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:mayflower-design-system-designer",
+      "args": {
+        "company": "Mayflower",
+        "role": "Design System Designer",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/mayflower-design-system-designer",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; WWR says Anywhere in the World",
+        "remote_policy": "Global",
+        "stack": "Figma; Storybook; Design Systems; Design Tokens; CSS; SCSS; JavaScript; Tokens Studio; Style Dictionary; CI/CD",
+        "found_at": "2026-09-30",
+        "notes": "Strong conceptual overlap with reusable UI, Figma handoff and component systems, but the role asks for 3+ years in design systems/design engineering plus Storybook and token tooling. WWR still lists it, while the current Mayflower ATS board does not show the title; first-party current status is unresolved without Browser."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "mayflower:customer-support-specialist",
+      "args": {
+        "company": "Mayflower",
+        "role": "Customer Support Specialist",
+        "source": "Company Careers",
+        "source_url": "https://mayflower.recruitee.com/o/customer-support-specialist",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "found_at": "2026-09-30",
+        "notes": "Current Mayflower Recruitee board lists Customer Support Specialist as Remote, but the exact /o/customer-support-specialist page returned 'job does not exist or was removed' through Parallel. Conflicting source evidence requires Browser verification before screening."
+      }
+    }
+  ]
+}
