@@ -1,0 +1,122 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-30T18:49:34Z",
+  "jobs": [],
+  "operation_id": "nebius-pass-20260930-001",
+  "result": {
+    "count": 5,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4965819101",
+        "command": "add",
+        "job_id": "job-0464",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0464",
+            "source": "Company Careers",
+            "source_job_id": "4965819101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4965819101"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4965522101",
+        "command": "add",
+        "job_id": "job-0465",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0465",
+            "source": "Company Careers",
+            "source_job_id": "4965522101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4965522101"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4981489101",
+        "command": "add",
+        "job_id": "job-0466",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0466",
+            "source": "Company Careers",
+            "source_job_id": "4981489101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4981489101"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "nebius:4918253101",
+        "command": "add",
+        "job_id": "job-0467",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0467",
+            "source": "Company Careers",
+            "source_job_id": "4918253101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4918253101"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0468-nebius-automation-engineer-customer.md",
+        "application_status": "reviewing",
+        "client_ref": "nebius:4988854101",
+        "command": "add",
+        "job_id": "job-0468",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0468",
+            "source": "Company Careers",
+            "source_job_id": "4988854101",
+            "source_url": "https://careers.nebius.com/?gh_jid=4988854101"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 5,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

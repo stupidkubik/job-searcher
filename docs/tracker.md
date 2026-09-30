@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-30** · Jobs: **463**
+Dataset updated: **2026-09-30** · Jobs: **468**
 
-[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (407)](#archive)
+[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (7)](#to-verify) · [Archive (411)](#archive)
 
 ## Action now
 
@@ -74,6 +74,7 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | Browser-verify closure: current jobs.micro1.ai employer page reports this exact Frontend Engineer Specialist posting closed; reconsider only if reopened. | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | Browser-verify closure: current jobs.micro1.ai employer page reports this exact Design & Frontend Specialist posting closed; reconsider only if reopened. | Never |
+| Reviewing | [Nebius — Automation Engineer (Customer Service)](<https://careers.nebius.com/?gh_jid=4988854101>) · job-0468 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | High-priority verification: resolve official Junior UI Engineer listing, Apply route, Serbia eligibility, and compensation; source text is a strong Junior frontend fit. | Never |
 | Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | Verify real employer identity, first-party Apply route, and Serbia eligibility; source is a strong 0-2 year frontend fit but MENA geography remains ambiguous. | Never |
 
@@ -81,10 +82,14 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 
 <details>
 
-<summary>Archive (407)</summary>
+<summary>Archive (411)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Nebius / Tavily — Technical Support Engineer, Tavily](<https://careers.nebius.com/?gh_jid=4918253101>) · job-0467 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: geo restriction | [Nebius — AI Science Writer, Nebius Academy (Contract)](<https://careers.nebius.com/?gh_jid=4981489101>) · job-0466 | geo restriction | Not checked | 2026-09-30 |
+| Skipped: role not frontend | [Nebius — Application Integration Developer](<https://careers.nebius.com/?gh_jid=4965522101>) · job-0465 | role not frontend | Not checked | 2026-09-30 |
+| Skipped: work authorization | [Nebius — Frontend Engineer - UI Infrastructure and Developer Tools (Early Talent)](<https://careers.nebius.com/?gh_jid=4965819101>) · job-0464 | work authorization | Not checked | 2026-09-30 |
 | Skipped: role not frontend | [MEDvidi — Join MEDvidi Design Talent Pool](<https://medvidi.com/careers/co/poland-b2b/A6.D6F/join-medvidi-design-talent-pool/all>) · job-0461 | role not frontend | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — Senior Frontend Developer](<https://medvidi.com/careers/co/serbia/DC.17A-83.600/senior-frontend-developer/all>) · job-0460 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — AI Product Analyst - Voice AI Agents](<https://medvidi.com/careers/co/serbia/B3.D63-83.600/ai-product-analyst-voice-ai-agents/all>) · job-0459 | seniority too high | Not checked | 2026-09-30 |
