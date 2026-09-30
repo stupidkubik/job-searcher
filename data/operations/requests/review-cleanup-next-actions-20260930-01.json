@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "operation_id": "review-cleanup-next-actions-20260930-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "set",
+      "job_id": "job-0361",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-08-23"
+      },
+      "args": {
+        "next_action": "Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0405",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-07"
+      },
+      "args": {
+        "next_action": "Browser-verify closure: current jobs.micro1.ai employer page reports this exact Design & Frontend Specialist posting closed; reconsider only if reopened."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0406",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-07"
+      },
+      "args": {
+        "next_action": "Browser-verify closure: current jobs.micro1.ai employer page reports this exact Frontend Engineer Specialist posting closed; reconsider only if reopened."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0418",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-08"
+      },
+      "args": {
+        "next_action": "Resolve exact XFORIA employer requisition, Serbia eligibility, and the $50 compensation period; TalentMove fit is plausible but current XFORIA careers does not expose this role."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0438",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-13"
+      },
+      "args": {
+        "next_action": "High-priority verification: resolve official Junior UI Engineer listing, Apply route, Serbia eligibility, and compensation; source text is a strong Junior frontend fit."
+      }
+    },
+    {
+      "command": "set",
+      "job_id": "job-0439",
+      "expected": {
+        "application_status": "reviewing",
+        "last_update": "2026-09-13"
+      },
+      "args": {
+        "next_action": "Verify real employer identity, first-party Apply route, and Serbia eligibility; source is a strong 0-2 year frontend fit but MENA geography remains ambiguous."
+      }
+    }
+  ]
+}
