@@ -252,7 +252,7 @@ job-0250	Codekeeper	Frontend Developer (React)	applied	open
 job-0251	Sticker Mule	Fullstack Software Engineer (AI)	rejected	unknown	
 job-0252	Sia	Senior Frontend Engineer (React)	not_started	unknown	geo_restriction
 job-0253	Unknown	Frontend разработчик (Angular)	not_started	unknown	other
-job-0254	BJ-Ecom	Shopify Website Builder (Ecommerce)	reviewing	unknown	
+job-0254	BJ-Ecom	Shopify Website Builder (Ecommerce)	not_started	unknown	stack_mismatch
 job-0255	VyaparReady	Remote Website Developer	not_started	unknown	role_not_frontend
 job-0256	Unknown	Lead Frontend Developer (iGaming)	not_started	unknown	seniority_too_high
 job-0257	Unknown	Senior Frontend Engineer (AI)	rejected	unknown	
@@ -260,7 +260,7 @@ job-0258	GBagency	Lead Graphics Engineer (Web3D)	not_started	unknown	role_not_fr
 job-0259	Unknown	Senior Frontend Engineer (Blockchain)	applied	unknown	
 job-0260	Unknown	Frontend / Mobile Developer (React / TypeScript / Flutter)	not_started	unknown	other
 job-0261	Karma8	Frontend-разработчик (Vanilla JavaScript)	applied	unknown	
-job-0262	Starlims	Senior AI Engineer (Agentic Systems)	reviewing	unknown	
+job-0262	Starlims	Senior AI Engineer (Agentic Systems)	not_started	unknown	seniority_too_high
 job-0263	1inch Network	Tech Lead, dApp (Web3)	not_started	unknown	geo_restriction
 job-0264	Koinly	Frontend Staff Engineer	not_started	unknown	geo_restriction
 job-0265	Thrill Labs	Senior Front End Engineer	not_started	open	geo_restriction
@@ -280,7 +280,7 @@ job-0278	kolum	Product Engineer	rejected	open
 job-0279	Computer Futures	Frontend-Entwickler (w/m/d) 60.000€	not_started	unknown	geo_restriction
 job-0280	BJAK	Full Stack Engineer	not_started	unknown	geo_restriction
 job-0281	BJAK	Full Stack Engineer	not_started	unknown	geo_restriction
-job-0282	ITech Consult AG	React Frontend Developer (m/w/d)	reviewing	unknown	
+job-0282	ITech Consult AG	React Frontend Developer (m/w/d)	not_started	unknown	seniority_too_high
 job-0283	Expana	Junior Software Engineer	not_started	unknown	work_authorization
 job-0284	Harnham	Junior Software Engineer	not_started	unknown	geo_restriction
 job-0285	Metrikflow	Full Stack Engineer	applied	open	
@@ -399,7 +399,7 @@ job-0397	PPLIED	Frontend Developer	not_started	unknown	geo_restriction
 job-0398	The Pokémon Company International	Frontend Software Development Engineer	not_started	unknown	seniority_too_high
 job-0399	dreifach.ai	(Senior) AI/TypeScript Entwickler:in, remote (m/w/d) in KI-Startup	not_started	open	other
 job-0400	Clera	Product Engineer	not_started	unknown	geo_restriction
-job-0401	TechJobsData	Frontend Engineer	reviewing	unknown	
+job-0401	TechJobsData	Frontend Engineer	not_started	unknown	seniority_too_high
 job-0402	Talanto	Frontend Developer (React, Next.js, NestJS)	not_started	unknown	seniority_too_high
 job-0403	Major Scale	Design Engineer / Front End Engineer / Product Engineer	not_started	unknown	geo_restriction
 job-0404	ListLab	Remote Frontend Developer	not_started	closed	closed_before_application
@@ -417,11 +417,11 @@ job-0415	AICerts.ai	Frontend Developer	applied	open
 job-0416	Undisclosed (TalentMove 269674)	Junior Frontend Developer (React / TypeScript)	not_started	unknown	other
 job-0417	Talent Magnet / CareerGo	Frontend Developer (React / TypeScript)	not_started	open	seniority_too_high
 job-0418	XFORIA Inc	React.JS Developer	reviewing	unknown	
-job-0419	SahayPay Technologies	Frontend Engineer (React)	reviewing	unknown	
+job-0419	SahayPay Technologies	Frontend Engineer (React)	not_started	unknown	geo_restriction
 job-0420	MartSpec	Frontend Developer Intern (React / TypeScript)	not_started	open	salary_too_low
 job-0421	Undisclosed (TalentMove 260684)	Frontend Developer Intern (React)	not_started	unknown	other
 job-0422	Atorline	Junior Frontend Developer	applied	open	
-job-0423	Undisclosed digital studio (TalentMove 264516)	Frontend Engineer	reviewing	unknown	
+job-0423	Undisclosed digital studio (TalentMove 264516)	Frontend Engineer	not_started	unknown	seniority_too_high
 job-0424	Undisclosed (TalentMove 266369)	Product Engineer	not_started	unknown	role_not_frontend
 job-0425	Slate (Supporting Cast)	Software Engineer	not_started	open	geo_restriction
 job-0426	MojoRank	Junior Front End Developer	not_started	open	other
@@ -438,7 +438,7 @@ job-0436	The Global Move	1700+ Curated Visa Sponsorship and Remote Tech Jobs (Pa
 job-0437	PayPay	Cloud Platform Engineer (DB Specialist)	not_started	unknown	seniority_too_high
 job-0438	Arabian Private Holdings	Junior UI Engineer	reviewing	unknown	
 job-0439	PULSE (MENA)	Junior Front End Developer	reviewing	unknown	
-job-0440	Synako	Développeur.se Full Stack – Product Engineer	reviewing	unknown	
+job-0440	Synako	Développeur.se Full Stack – Product Engineer	not_started	unknown	stack_mismatch
 job-0441	360Learning	Software Engineer	not_started	unknown	geo_restriction
 job-0442	Assured Guaranty	Product Software Developer – Front-End - Summer 2027	not_started	open	geo_restriction
 job-0443	Amperesand	Software Intern, Factory & Ops	not_started	open	work_authorization
@@ -447,7 +447,7 @@ job-0445	Samsara	Software Engineer I, External Platform EMEA (Poland, Remote)	no
 job-0446	Utility Profit	Full Stack Software Engineer — AI & Automation	not_started	open	seniority_too_high
 job-0447	RapidSOS	Software Engineer II, AI	not_started	open	geo_restriction
 job-0448	Asendia AI	Product Engineer	not_started	unknown	geo_restriction
-job-0449	Aside	MTS - Founding Designer	reviewing	unknown	
+job-0449	Aside	MTS - Founding Designer	not_started	unknown	role_not_frontend
 job-0450	Regbase	Design Engineer	not_started	unknown	work_authorization
 job-0451	Adventure Travel 365	Senior Full-Stack Developer - Marketplace Web & Mobile Platform	not_started	open	seniority_too_high
 job-0452	Proxify AB	Senior Fullstack Developer (React.js / Node.js)	not_started	open	seniority_too_high

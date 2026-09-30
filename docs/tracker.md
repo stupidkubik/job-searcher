@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-09-30** · Jobs: **463**
 
-[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (14)](#to-verify) · [Archive (399)](#archive)
+[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (407)](#archive)
 
 ## Action now
 
@@ -70,18 +70,10 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Undisclosed digital studio (TalentMove 264516) — Frontend Engineer](<https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/>) · job-0423 | First party + Apply + Listing | 7.3 | verify first-party | Never |
-| Reviewing | [Synako — Développeur.se Full Stack – Product Engineer](<https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d>) · job-0440 | First party + Apply + Listing | 7 | verify first-party | 2026-09-14 |
-| Reviewing | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | First party + Apply + Listing | 7 | verify first-party | 2026-09-07 |
 | Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
-| Reviewing | [Aside — MTS - Founding Designer](<https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer>) · job-0449 | First party + Apply + Listing | 6.5 | verify first-party | 2026-09-22 |
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
-| Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | verify first-party | Never |
-| Reviewing | [SahayPay Technologies — Frontend Engineer (React)](<https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/>) · job-0419 | First party + Apply + Listing | 4.8 | verify first-party | Never |
-| Reviewing | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | First party + Apply + Listing | 4 | revisit later as Shopify AI-agent automation opportunity | Never |
-| Reviewing | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | First party + Apply + Listing | 3 | very low-probability stretch; only pursue as a deliberate Junior/Junior+ agentic AI pivot | Never |
 | Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | verify first-party | Never |
 
@@ -89,13 +81,21 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 
 <details>
 
-<summary>Archive (399)</summary>
+<summary>Archive (407)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
 | Skipped: role not frontend | [MEDvidi — Join MEDvidi Design Talent Pool](<https://medvidi.com/careers/co/poland-b2b/A6.D6F/join-medvidi-design-talent-pool/all>) · job-0461 | role not frontend | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — Senior Frontend Developer](<https://medvidi.com/careers/co/serbia/DC.17A-83.600/senior-frontend-developer/all>) · job-0460 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: seniority too high | [MEDvidi — AI Product Analyst - Voice AI Agents](<https://medvidi.com/careers/co/serbia/B3.D63-83.600/ai-product-analyst-voice-ai-agents/all>) · job-0459 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: role not frontend | [Aside — MTS - Founding Designer](<https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer>) · job-0449 | role not frontend | Not checked | 2026-09-30 |
+| Skipped: stack mismatch | [Synako — Développeur.se Full Stack – Product Engineer](<https://www.welcometothejungle.com/en/companies/synako/jobs/0004f6ad-eb8a-41a0-98b5-d4af2c64c25d>) · job-0440 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [Undisclosed digital studio (TalentMove 264516) — Frontend Engineer](<https://talent-move.ru/jobs/frontend-engineer-remote-202608-264516/>) · job-0423 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: geo restriction | [SahayPay Technologies — Frontend Engineer (React)](<https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/>) · job-0419 | geo restriction | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [TechJobsData — Frontend Engineer](<https://jaabz.com/jobs/269068-frontend-engineer>) · job-0401 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [Starlims — Senior AI Engineer (Agentic Systems)](<https://hirify.me/jobs/853160-senior-ai-agent-engineer>) · job-0262 | seniority too high | Not checked | 2026-09-30 |
+| Skipped: stack mismatch | [BJ-Ecom — Shopify Website Builder (Ecommerce)](<https://hirify.me/jobs/779274-shopify-website-builder-ecommerce>) · job-0254 | stack mismatch | Not checked | 2026-09-30 |
 | Skipped: role not frontend | [Girasole Energies — Business devoloper BESS H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f>) · job-0458 | role not frontend | Not checked | 2026-09-22 |
 | Skipped: role not frontend | [Girasole Energies — Business developer H/F](<https://www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h-f_boulogne-billancourt>) · job-0457 | role not frontend | Not checked | 2026-09-22 |
 | Skipped: role not frontend | [Lemon Learning — Business developer UK and US](<https://www.welcometothejungle.com/en/companies/lemon-learning/jobs/uk-business-developer-opening-uk_londres>) · job-0456 | role not frontend | Not checked | 2026-09-22 |
