@@ -1,0 +1,17 @@
+{
+  "command": "set",
+  "executed_at": "2026-09-30T11:42:34Z",
+  "job_id": "job-0362",
+  "operation_id": "saldo-test-completed-20260930-01",
+  "result": {
+    "application_path": null,
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "outcome": "updated",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}

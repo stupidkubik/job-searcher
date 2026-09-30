@@ -76,7 +76,7 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Reviewing | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | First party + Apply + Listing | 6.8 | verify first-party | 2026-09-08 |
 | Reviewing | [Aside — MTS - Founding Designer](<https://www.ycombinator.com/companies/aside/jobs/Iw9ggf8-mts-founding-designer>) · job-0449 | First party + Apply + Listing | 6.5 | verify first-party | 2026-09-22 |
 | Reviewing | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | First party + Apply + Listing | 6.5 | verify first-party | Never |
-| Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | verify first-party | 2026-08-23 |
+| Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [ITech Consult AG — React Frontend Developer (m/w/d)](<https://www.linkedin.com/jobs/view/4454778287/>) · job-0282 | First party + Apply + Listing | 6.5 | verify first-party | Never |
 | Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | verify first-party | Never |
 | Reviewing | [SahayPay Technologies — Frontend Engineer (React)](<https://talent-move.ru/jobs/frontend-engineer-react-sahaypay-technologies-100926-267504/>) · job-0419 | First party + Apply + Listing | 4.8 | verify first-party | Never |
