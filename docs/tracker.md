@@ -23,7 +23,6 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
-| Applied | [Epic Games — Web Engineer Intern](<https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004>) · job-0409 | Applied | 2026-09-08 | — | [Open](../applications/job-0409-epic-games-web-engineer-intern.md) |
 | Applied | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 | Applied | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | Applied | 2026-09-30 | — | [Open](../applications/job-0463-firebird-tours-digital-marketing-content-sp.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
@@ -57,6 +56,7 @@ Dataset updated: **2026-09-30** · Jobs: **463**
 | Rejected | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Rejected | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
 | Rejected | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | Applied | 2026-09-08 | — | [Open](../applications/job-0278-kolum-product-engineer.md) |
+| Rejected | [Epic Games — Web Engineer Intern](<https://www.epicgames.com/site/careers/jobs/6174265004?gh_jid=6174265004>) · job-0409 | Applied | 2026-09-08 | — | [Open](../applications/job-0409-epic-games-web-engineer-intern.md) |
 | Rejected | [Nortal — AI - Driven FrontEnd Developer](<https://nortal.career.page/talent-community/jobs/5958?lang=en-us>) · job-0056 | Applied | 2026-08-10 | — | [Open](../applications/job-0056-nortal-ai-driven-frontend-developer.md) |
 | Rejected | [Ojin — Product Engineer](<https://ojin.ai/careers/4716174101>) · job-0145 | Applied | 2026-08-17 | — | [Open](../applications/job-0145-ojin-product-engineer.md) |
 | Rejected | [nove8 — Front-End Developer](<https://nove8.peopleforce.io/careers/v/231571-front-end-developer>) · job-0218 | Applied | 2026-08-18 | — | [Open](../applications/job-0218-nove8-front-end-developer.md) |

@@ -1,0 +1,18 @@
+{
+  "command": "event",
+  "executed_at": "2026-09-30T11:40:19Z",
+  "job_id": "job-0409",
+  "operation_id": "gmail-epic-web-intern-rejection-20260930-01",
+  "result": {
+    "application_path": null,
+    "application_status": "rejected",
+    "event_id": "gmail-epic-web-intern-rejection-20260930-01",
+    "listing_status": "open",
+    "outcome": "recorded",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
