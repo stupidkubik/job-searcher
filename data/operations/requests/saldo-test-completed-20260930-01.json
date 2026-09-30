@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "operation_id": "saldo-test-completed-20260930-01",
+  "command": "set",
+  "job_id": "job-0362",
+  "expected": {
+    "application_status": "reviewing",
+    "last_update": "2026-08-23"
+  },
+  "args": {
+    "next_action": "Test task assigned 2026-09-24 and completed; awaiting recruiter feedback."
+  }
+}
