@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-09-30** · Jobs: **468**
+Dataset updated: **2026-09-30** · Jobs: **477**
 
-[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (7)](#to-verify) · [Archive (411)](#archive)
+[Action now (2)](#action-now) · [Applications (48)](#applications) · [To verify (10)](#to-verify) · [Archive (417)](#archive)
 
 ## Action now
 
@@ -75,6 +75,9 @@ Dataset updated: **2026-09-30** · Jobs: **468**
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | First party + Apply + Listing | 6 | Browser-verify closure: current jobs.micro1.ai employer page reports this exact Design & Frontend Specialist posting closed; reconsider only if reopened. | Never |
 | Reviewing | [Nebius — Automation Engineer (Customer Service)](<https://careers.nebius.com/?gh_jid=4988854101>) · job-0468 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Mayflower — Design System Designer](<https://weworkremotely.com/remote-jobs/mayflower-design-system-designer>) · job-0476 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Mayflower — Customer Support Specialist](<https://mayflower.recruitee.com/o/customer-support-specialist>) · job-0477 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | High-priority verification: resolve official Junior UI Engineer listing, Apply route, Serbia eligibility, and compensation; source text is a strong Junior frontend fit. | Never |
 | Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | Verify real employer identity, first-party Apply route, and Serbia eligibility; source is a strong 0-2 year frontend fit but MENA geography remains ambiguous. | Never |
 
@@ -82,10 +85,16 @@ Dataset updated: **2026-09-30** · Jobs: **468**
 
 <details>
 
-<summary>Archive (411)</summary>
+<summary>Archive (417)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Mayflower — Technical Support Specialist](<https://mayflower.recruitee.com/o/technical-support-specialist>) · job-0474 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: stack mismatch | [Mayflower — Brand Designer](<https://mayflower.recruitee.com/o/brand-designer>) · job-0473 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: other | [Mayflower — Brand Copywriter](<https://mayflower.recruitee.com/o/brand-copywriter>) · job-0472 | other | Not checked | 2026-09-30 |
+| Skipped: stack mismatch | [Mayflower — SEO Specialist](<https://mayflower.recruitee.com/o/seo-specialist>) · job-0471 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: stack mismatch | [Mayflower — QA Full-stack Engineer (Payment integrations)](<https://mayflower.recruitee.com/o/qa-full-stack-engineer-payment-integrations>) · job-0470 | stack mismatch | Not checked | 2026-09-30 |
+| Skipped: seniority too high | [Mayflower — Senior Frontend Developer](<https://mayflower.recruitee.com/o/senior-frontend-developer>) · job-0469 | seniority too high | Not checked | 2026-09-30 |
 | Skipped: stack mismatch | [Nebius / Tavily — Technical Support Engineer, Tavily](<https://careers.nebius.com/?gh_jid=4918253101>) · job-0467 | stack mismatch | Not checked | 2026-09-30 |
 | Skipped: geo restriction | [Nebius — AI Science Writer, Nebius Academy (Contract)](<https://careers.nebius.com/?gh_jid=4981489101>) · job-0466 | geo restriction | Not checked | 2026-09-30 |
 | Skipped: role not frontend | [Nebius — Application Integration Developer](<https://careers.nebius.com/?gh_jid=4965522101>) · job-0465 | role not frontend | Not checked | 2026-09-30 |

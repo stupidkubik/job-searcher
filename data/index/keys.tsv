@@ -39,6 +39,14 @@ job-0465	4965522101
 job-0466	4981489101
 job-0467	4918253101
 job-0468	4988854101
+job-0469	https://mayflower.recruitee.com/o/senior-frontend-developer
+job-0470	https://mayflower.recruitee.com/o/qa-full-stack-engineer-payment-integrations
+job-0471	https://mayflower.recruitee.com/o/seo-specialist
+job-0472	https://mayflower.recruitee.com/o/brand-copywriter
+job-0473	https://mayflower.recruitee.com/o/brand-designer
+job-0474	https://mayflower.recruitee.com/o/technical-support-specialist
+job-0475	https://mayflower.recruitee.com/o/talent-pool
+job-0477	https://mayflower.recruitee.com/o/customer-support-specialist
 # Hacker News — Who is Hiring?	prefix=https://news.ycombinator.com/
 job-0144	item?id=48747976
 job-0145	item?id=48753172
@@ -432,6 +440,7 @@ job-0451	adventure-travel-365-senior-full-stack-developer-marketplace-web-mobile
 job-0452	proxify-ab-senior-fullstack-developer-react-js-node-js-4
 job-0453	sticker-mule-software-engineer-3
 job-0454	circleci-software-engineer
+job-0476	mayflower-design-system-designer
 # Welcome to the Jungle	prefix=https://
 job-0015	app.welcometothejungle.com/jobs/M9_8nKrY
 job-0016	app.welcometothejungle.com/jobs/DfDP1lsv

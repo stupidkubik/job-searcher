@@ -1,0 +1,206 @@
+{
+  "command": "batch",
+  "executed_at": "2026-09-30T20:15:14Z",
+  "jobs": [],
+  "operation_id": "mayflower-pass-20260930-001",
+  "result": {
+    "count": 9,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:senior-frontend-developer",
+        "command": "add",
+        "job_id": "job-0469",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0469",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/senior-frontend-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:qa-payment-integrations",
+        "command": "add",
+        "job_id": "job-0470",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0470",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/qa-full-stack-engineer-payment-integrations"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:seo-specialist",
+        "command": "add",
+        "job_id": "job-0471",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0471",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/seo-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:brand-copywriter",
+        "command": "add",
+        "job_id": "job-0472",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0472",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/brand-copywriter"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:brand-designer",
+        "command": "add",
+        "job_id": "job-0473",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0473",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/brand-designer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "mayflower:technical-support-specialist",
+        "command": "add",
+        "job_id": "job-0474",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0474",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/technical-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0475-mayflower-talent-pool.md",
+        "application_status": "reviewing",
+        "client_ref": "mayflower:talent-pool",
+        "command": "add",
+        "job_id": "job-0475",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0475",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/talent-pool"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0476-mayflower-design-system-designer.md",
+        "application_status": "reviewing",
+        "client_ref": "wwr:mayflower-design-system-designer",
+        "command": "add",
+        "job_id": "job-0476",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0476",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/mayflower-design-system-designer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0477-mayflower-customer-support-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "mayflower:customer-support-specialist",
+        "command": "add",
+        "job_id": "job-0477",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-09-30",
+            "job_id": "job-0477",
+            "source": "Company Careers",
+            "source_job_id": "",
+            "source_url": "https://mayflower.recruitee.com/o/customer-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 9,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
