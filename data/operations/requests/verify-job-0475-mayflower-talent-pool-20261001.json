@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "operation_id": "verify-job-0475-mayflower-talent-pool-20261001",
+  "command": "verify",
+  "job_id": "job-0475",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "last_update": "2026-09-30"
+  },
+  "args": {
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "yes",
+    "original_url": "https://mayflower.recruitee.com/o/talent-pool",
+    "notes": "Browser-verified 2026-10-01 via TinyFish: Mayflower Talent Pool is live and the Recruit.ee application form is usable. Page location is Cyprus; the Talent Pool page itself does not state remote, visa, work-authorization or relocation eligibility. Required form fields include CV, Telegram, WhatsApp, country, net monthly salary expectation in EUR, English level, and a short self-introduction/portfolio. Mayflower's company careers site advertises Cyprus relocation support generally, but that is not explicit eligibility for this Talent Pool submission."
+  }
+}
