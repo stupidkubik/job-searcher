@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20261002-source-pass-03",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "himalayas:medvidi:join-medvidi-engineering-talent-pool",
+      "args": {
+        "company": "MEDvidi",
+        "role": "Join MEDvidi Engineering Talent Pool",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+        "source_url": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Serbia; remote-first B2B; CET-aligned",
+        "remote_policy": "Serbia",
+        "stack": "Angular; TypeScript; Node.js; NestJS; AWS; PostgreSQL; Redis; Kubernetes; LangChain; LangGraph; Gemini; Cursor; Claude Code",
+        "found_at": "2026-10-02",
+        "notes": "Engineering talent pool explicitly includes Frontend Engineering and is Serbia-eligible; source describes remote-first long-term B2B and heavy AI adoption. Exact frontend seniority and employer Apply route need first-party verification; Browser unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:full-circle:full-stack-developer-ai-first-4774572740",
+      "args": {
+        "company": "Full Circle",
+        "role": "Full Stack Developer (AI-First)",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740",
+        "source_url": "https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Serbia; remote",
+        "remote_policy": "Serbia",
+        "stack": "React; Next.js; TypeScript; Node.js; Python; APIs; Databases; Cloud Infrastructure; Claude Code; AI Automation",
+        "found_at": "2026-10-02",
+        "decision_reason": "role_not_frontend",
+        "notes": "Serbia-eligible exact source, but role requires strong full-stack/backend ownership across Node.js, Python, databases, APIs, cloud infrastructure and system design; backend-heavy scope is outside the target frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:storyblok:documentation-engineer-ii-europe",
+      "args": {
+        "company": "Storyblok",
+        "role": "Documentation Engineer II - Europe",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe",
+        "source_url": "https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Europe; Serbia included",
+        "remote_policy": "Europe",
+        "stack": "Headless CMS; API Documentation; Technical Writing; Web Development; Sample Applications; Prototyping; AI Tools",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Strong thematic fit with CMS/content work, but exact description requires 5+ years of web development plus proven technical writing/documentation experience; above the Junior/Junior+ target level."
+      }
+    }
+  ]
+}
