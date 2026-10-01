@@ -1,0 +1,17 @@
+{
+  "command": "verify",
+  "executed_at": "2026-10-01T21:19:52Z",
+  "job_id": "job-0475",
+  "operation_id": "verify-job-0475-mayflower-talent-pool-20261001",
+  "result": {
+    "application_path": "applications/job-0475-mayflower-talent-pool.md",
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "outcome": "ready_for_review",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}

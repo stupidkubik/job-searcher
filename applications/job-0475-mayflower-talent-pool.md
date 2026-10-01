@@ -3,11 +3,11 @@ id: job-0475
 company: Mayflower
 role: Talent Pool
 cv_version: 
-original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+original_url: https://mayflower.recruitee.com/o/talent-pool
+verified_at: 2026-10-01
+listing_status: open
+first_party_verified: yes
+apply_verified: yes
 ---
 
 # Mayflower — Talent Pool
