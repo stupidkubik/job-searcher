@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "operation_id": "tracker-move-0475-close-0477-0438-0439-20261001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "status",
+      "job_id": "job-0475",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "last_update": "2026-10-01"
+      },
+      "args": {
+        "application_status": "apply",
+        "confirmed_by_user": true,
+        "next_action": "Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation.",
+        "notes": "User decided on 2026-10-01 to proceed with the Mayflower Talent Pool application."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0477",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User review on 2026-10-01: unsuitable; remove from active consideration."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0438",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User review on 2026-10-01: unsuitable; remove from active consideration."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0439",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User review on 2026-10-01: unsuitable; remove from active consideration."
+      }
+    }
+  ]
+}
