@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20261002-source-pass-01",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "himalayas:pixibo:junior-frontend-engineer-remote-6296108737",
+      "args": {
+        "company": "Pixibo",
+        "role": "Junior Frontend Engineer - Remote",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737",
+        "source_url": "https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "Remote; Himalayas claims all countries",
+        "remote_policy": "Unclear",
+        "stack": "TypeScript; React; Node.js; HTML; CSS; Redux; REST APIs; Git; OAuth; AWS",
+        "salary": "$48K-$70K/year (Himalayas metadata)",
+        "posted_at": "2026-09-22",
+        "found_at": "2026-10-02",
+        "notes": "Exact Himalayas page asks for around 1+ year and basic React/Redux/REST skills; source claims worldwide eligibility. Browser is unavailable, so employer/ATS listing and actual Apply route remain unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:appetiser-apps:junior-full-stack-developer",
+      "args": {
+        "company": "Appetiser Apps",
+        "role": "Junior Full-Stack Developer",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer",
+        "source_url": "https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "Remote; Himalayas claims worldwide",
+        "remote_policy": "Unclear",
+        "stack": "HTML5; CSS3; JavaScript; Vue.js; TypeScript; REST APIs; Git; SQL; PHP; Laravel; Unit Testing; AWS",
+        "salary": "AUD 420-600/month",
+        "posted_at": "2026-09-23",
+        "found_at": "2026-10-02",
+        "decision_reason": "salary_too_low",
+        "notes": "Full exact Himalayas description states monthly salary AUD 420-600, below the profile minimum compensation; no Browser verification needed for this screening blocker."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:zira:dev-zira-talent-academy-2026",
+      "args": {
+        "company": "ZIRA",
+        "role": "DEV ZIRA Talent Academy 2026",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026",
+        "source_url": "https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Intern",
+        "location": "Online training; Himalayas claims worldwide",
+        "remote_policy": "Unclear",
+        "stack": "CSS; Java; Angular; Maven; Spring; ActiveMQ; Agile",
+        "posted_at": "2026-09-25",
+        "found_at": "2026-10-02",
+        "notes": "Exact description says a 9-week academy for final-year IT students or recent university graduates and says applications close Oct 02 at midnight, while Himalayas metadata says Nov 24. Profile does not document this education eligibility; Browser verification is unavailable."
+      }
+    }
+  ]
+}
