@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "operation_id": "geekjob-20261002-source-pass-01",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "geekjob:6abbc9b03a1b58f7cf049f5d",
+      "args": {
+        "company": "Undisclosed via Recruiter Maria",
+        "role": "Frontend разработчик",
+        "source": "Geekjob",
+        "source_job_id": "6abbc9b03a1b58f7cf049f5d",
+        "source_url": "https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Russia; remote",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; React; TanStack Query; CSS Modules; Effector; FSD; Ant Design; Git; Webpack; Vite; Unit Testing; CI/CD; Docker; Kubernetes",
+        "salary": "200,000-220,000 RUB",
+        "posted_at": "2026-09-29",
+        "found_at": "2026-10-02",
+        "notes": "Exact Geekjob card asks for at least 2 years frontend experience and has strong React/TypeScript/testing overlap. Posted by a private recruiter and tagged Russia remote; Serbia/cross-border eligibility and first-party employer identity require verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "geekjob:6abe172489bb96827806d857",
+      "args": {
+        "company": "Daily Challenge",
+        "role": "Product Engineer в VC.DC",
+        "source": "Geekjob",
+        "source_job_id": "6abe172489bb96827806d857",
+        "source_url": "https://geekjob.ru/vacancy/6abe172489bb96827806d857",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Russia; remote",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; TypeScript; React; Vue; Next.js; CSS; APIs; Product Engineering",
+        "posted_at": "2026-10-01",
+        "found_at": "2026-10-02",
+        "decision_reason": "salary_too_low",
+        "notes": "Exact Geekjob card explicitly says stack and years are not strict and accepts Junior/Middle/Senior, but compensation is described as company options rather than cash salary, below the profile minimum compensation requirement."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "geekjob:6ab4bd33d564046c740b4b9c",
+      "args": {
+        "company": "Sherpa Robotics",
+        "role": "Full-Stack разработчик",
+        "source": "Geekjob",
+        "source_job_id": "6ab4bd33d564046c740b4b9c",
+        "source_url": "https://geekjob.ru/vacancy/6ab4bd33d564046c740b4b9c",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Astrakhan, Russia; remote",
+        "remote_policy": "Unclear",
+        "stack": "PHP; Symfony; Laravel; Angular; TypeScript; RxJS; REST APIs; PostgreSQL; MySQL; RabbitMQ; Docker; CI/CD",
+        "salary": "110,000 RUB",
+        "posted_at": "2026-09-24",
+        "found_at": "2026-10-02",
+        "decision_reason": "role_not_frontend",
+        "notes": "Exact role is meaningfully backend-heavy: PHP 8.3+, Symfony/Laravel, Doctrine, SQL and API ownership are core requirements, with Angular as only part of the full-stack scope."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "geekjob:6aa3b46efc8307fc9b0040e1",
+      "args": {
+        "company": "Keepgo",
+        "role": "Frontend Developer (JavaScript / Vue.js)",
+        "source": "Geekjob",
+        "source_job_id": "6aa3b46efc8307fc9b0040e1",
+        "source_url": "https://geekjob.ru/vacancy/6aa3b46efc8307fc9b0040e1",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; country eligibility unclear",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; Vue.js; TypeScript; HTML5; CSS3; REST APIs; Git; Docker; AI Agents",
+        "posted_at": "2026-09-11",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Fallback-window exact card requires 3+ years commercial JavaScript and 2+ years Vue.js; despite strong AI-agent interest, the explicit experience threshold is above the target Junior/Junior+ profile."
+      }
+    }
+  ]
+}
