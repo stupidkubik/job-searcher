@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20261002-source-pass-02",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "himalayas:make:frontend-engineer",
+      "args": {
+        "company": "Make",
+        "role": "Frontend Engineer",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/make/jobs/frontend-engineer",
+        "source_url": "https://himalayas.app/companies/make/jobs/frontend-engineer",
+        "found_at": "2026-10-02",
+        "duplicate_of": "job-0359"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:dualentry:frontend-software-engineer-mid-level-7781816248",
+      "args": {
+        "company": "DualEntry",
+        "role": "Frontend Software Engineer (Mid-Level)",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248",
+        "source_url": "https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; description says EU/LATAM with 4h+ US ET overlap",
+        "remote_policy": "Unclear",
+        "stack": "React; Next.js; JavaScript; TypeScript; Frontend Architecture; Accessibility; Performance",
+        "salary": "$65K-$120K/year + equity",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Himalayas description requires 5+ years of frontend development with React and high-growth ownership; above the target Junior/Junior+ profile. Employer/Apply verification not performed."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:ultahost:front-end-developer-next-js-react-js",
+      "args": {
+        "company": "Ultahost",
+        "role": "Front-End Developer (Next.js & React.js)",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js",
+        "source_url": "https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; Himalayas claims all countries",
+        "remote_policy": "Unclear",
+        "stack": "Next.js; React; JavaScript; HTML5; CSS3; Redux; REST APIs; Git; Jest; Cypress; SEO",
+        "salary": "Conflicting source data: description says competitive USD; Himalayas metadata shows $1K-$2K/year",
+        "posted_at": "2026-09-20",
+        "found_at": "2026-10-02",
+        "notes": "Exact source asks for 3+ years frontend with strong Next.js/React, Redux/REST and optional testing/SEO. Strong stack overlap but experience and salary data need employer/ATS verification; Browser unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:novakid-school:low-code-no-code-automation-developer",
+      "args": {
+        "company": "Novakid School",
+        "role": "Low-code / No-code Automation Developer",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer",
+        "source_url": "https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; Himalayas claims all countries",
+        "remote_policy": "Unclear",
+        "stack": "Workato; Bloomreach; Zapier; n8n; APIs; Webhooks; SQL; Python; JavaScript; AWS; Docker; Claude Code; Cursor; GitHub Copilot; ElevenLabs",
+        "posted_at": "2026-10-01",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact source requires 3+ years in software engineering/automation, proven low-code platform expertise, architecture ownership, and mentoring junior automation developers; scope is above target level."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "himalayas:binance:react-frontend-engineer-bigpay-fully-remote",
+      "args": {
+        "company": "Binance",
+        "role": "React Frontend Engineer, BigPay (Fully Remote)",
+        "source": "Himalayas",
+        "source_job_id": "https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote",
+        "source_url": "https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Australia; Hong Kong; Malaysia; Singapore; Taiwan",
+        "remote_policy": "Country-specific",
+        "stack": "React; TypeScript; JavaScript; React Query; Redux; Next.js; Vite; Webpack; Tailwind CSS; REST APIs; Jest; Playwright; Cypress; Accessibility",
+        "posted_at": "2026-07-28",
+        "found_at": "2026-10-02",
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Himalayas page limits candidates to Australia, Hong Kong, Malaysia, Singapore, or Taiwan and shows source-side apply-before Sep 26, 2026. Geo is incompatible with Serbia; canonical closure remains unverified."
+      }
+    }
+  ]
+}
