@@ -403,8 +403,8 @@ job-0401	TechJobsData	Frontend Engineer	not_started	unknown	seniority_too_high
 job-0402	Talanto	Frontend Developer (React, Next.js, NestJS)	not_started	unknown	seniority_too_high
 job-0403	Major Scale	Design Engineer / Front End Engineer / Product Engineer	not_started	unknown	geo_restriction
 job-0404	ListLab	Remote Frontend Developer	not_started	closed	closed_before_application
-job-0405	micro1	Design & Frontend Specialist	reviewing	unknown	
-job-0406	micro1	Frontend Engineer Specialist	reviewing	unknown	
+job-0405	micro1	Design & Frontend Specialist	not_started	unknown	other
+job-0406	micro1	Frontend Engineer Specialist	not_started	unknown	other
 job-0407	Tether Operations Limited	Frontend Software Engineer (100% Remote)	not_started	unknown	seniority_too_high
 job-0408	Sovos	Software Engineer II (Node.js & React)	not_started	unknown	other
 job-0409	Epic Games	Web Engineer Intern	rejected	open	
@@ -416,7 +416,7 @@ job-0414	Constructor	FullStack Engineer - Prospect UI Solutions	applied	open
 job-0415	AICerts.ai	Frontend Developer	applied	open	
 job-0416	Undisclosed (TalentMove 269674)	Junior Frontend Developer (React / TypeScript)	not_started	unknown	other
 job-0417	Talent Magnet / CareerGo	Frontend Developer (React / TypeScript)	not_started	open	seniority_too_high
-job-0418	XFORIA Inc	React.JS Developer	reviewing	unknown	
+job-0418	XFORIA Inc	React.JS Developer	not_started	unknown	other
 job-0419	SahayPay Technologies	Frontend Engineer (React)	not_started	unknown	geo_restriction
 job-0420	MartSpec	Frontend Developer Intern (React / TypeScript)	not_started	open	salary_too_low
 job-0421	Undisclosed (TalentMove 260684)	Frontend Developer Intern (React)	not_started	unknown	other
@@ -466,7 +466,7 @@ job-0464	Nebius	Frontend Engineer - UI Infrastructure and Developer Tools (Early
 job-0465	Nebius	Application Integration Developer	not_started	unknown	role_not_frontend
 job-0466	Nebius	AI Science Writer, Nebius Academy (Contract)	not_started	unknown	geo_restriction
 job-0467	Nebius / Tavily	Technical Support Engineer, Tavily	not_started	unknown	stack_mismatch
-job-0468	Nebius	Automation Engineer (Customer Service)	reviewing	unknown	
+job-0468	Nebius	Automation Engineer (Customer Service)	not_started	unknown	stack_mismatch
 job-0469	Mayflower	Senior Frontend Developer	not_started	unknown	seniority_too_high
 job-0470	Mayflower	QA Full-stack Engineer (Payment integrations)	not_started	unknown	stack_mismatch
 job-0471	Mayflower	SEO Specialist	not_started	unknown	stack_mismatch
@@ -474,5 +474,5 @@ job-0472	Mayflower	Brand Copywriter	not_started	unknown	other
 job-0473	Mayflower	Brand Designer	not_started	unknown	stack_mismatch
 job-0474	Mayflower	Technical Support Specialist	not_started	unknown	stack_mismatch
 job-0475	Mayflower	Talent Pool	reviewing	unknown	
-job-0476	Mayflower	Design System Designer	reviewing	unknown	
+job-0476	Mayflower	Design System Designer	not_started	unknown	other
 job-0477	Mayflower	Customer Support Specialist	reviewing	unknown	
