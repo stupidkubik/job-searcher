@@ -1,0 +1,94 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-01T22:22:43Z",
+  "jobs": [],
+  "operation_id": "relocateme-20261002-source-pass-01",
+  "result": {
+    "count": 1,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "relocateme:10299",
+        "command": "add",
+        "job_id": "job-0488",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0488",
+            "source": "Relocate.me",
+            "source_job_id": "10299",
+            "source_url": "https://relocate.me/netherlands/the-hague/zoostation/lead-frontend-developer-react-typescript-10299"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "client_ref": "relocateme:10298",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "not_started",
+              "company": "Picnic",
+              "id": "job-0311",
+              "listing_status": "unknown",
+              "reason": "looks similar: company 1.00, role 1.00",
+              "role": "Senior Software Engineer - Warehouse Systems"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "Picnic",
+                "duplicate_of": "job-0311",
+                "found_at": "2026-10-02",
+                "role": "Software Engineer - Warehouse Systems",
+                "source": "Relocate.me",
+                "source_job_id": "10298",
+                "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298"
+              },
+              "client_ref": "relocateme:10298",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "not_started",
+                "apply_verified": "unknown",
+                "company": "Picnic",
+                "decision_reason": "role_not_frontend",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-02",
+                "level": "Unknown",
+                "listing_status": "unknown",
+                "location": "Amsterdam, Netherlands; office-based",
+                "notes": "Exact Relocate.me card is a warehouse systems Java/backend role and explicitly says remote/hybrid-first candidates are not a fit. Relocation package is available, but role scope is outside the frontend target.",
+                "remote_policy": "On-site",
+                "role": "Software Engineer - Warehouse Systems",
+                "source": "Relocate.me",
+                "source_job_id": "10298",
+                "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298",
+                "stack": "Java; Spring Boot; Reactor; Maven; RabbitMQ; Kafka; PostgreSQL; Docker; AWS; Helm; Terraform; Kubernetes; Python"
+              },
+              "client_ref": "relocateme:10298",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}

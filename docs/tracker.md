@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **487**
+Dataset updated: **2026-10-02** · Jobs: **488**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (5)](#to-verify) · [Archive (431)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (5)](#to-verify) · [Archive (432)](#archive)
 
 ## Action now
 
@@ -81,10 +81,11 @@ Dataset updated: **2026-10-02** · Jobs: **487**
 
 <details>
 
-<summary>Archive (431)</summary>
+<summary>Archive (432)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [ZooStation — Lead Frontend Developer – React / TypeScript](<https://relocate.me/netherlands/the-hague/zoostation/lead-frontend-developer-react-typescript-10299>) · job-0488 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [Storyblok — Documentation Engineer II - Europe](<https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe>) · job-0486 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: role not frontend | [Full Circle — Full Stack Developer (AI-First)](<https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740>) · job-0485 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [Binance — React Frontend Engineer, BigPay (Fully Remote)](<https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote>) · job-0484 | geo restriction | Not checked | 2026-10-02 |
