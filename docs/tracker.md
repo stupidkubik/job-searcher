@@ -4,15 +4,15 @@
 
 Dataset updated: **2026-10-01** · Jobs: **477**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (4)](#to-verify) · [Archive (422)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (1)](#to-verify) · [Archive (425)](#archive)
 
 ## Action now
 
 | Status | Vacancy | Match | Next action | Listing | Card |
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
+| Ready to apply | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation. | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
-| Reviewing | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | — | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
 
 ## Applications
 
@@ -72,20 +72,20 @@ Dataset updated: **2026-10-01** · Jobs: **477**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
-| Reviewing | [Mayflower — Customer Support Specialist](<https://mayflower.recruitee.com/o/customer-support-specialist>) · job-0477 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | First party + Apply + Listing | — | High-priority verification: resolve official Junior UI Engineer listing, Apply route, Serbia eligibility, and compensation; source text is a strong Junior frontend fit. | Never |
-| Reviewing | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | First party + Apply + Listing | — | Verify real employer identity, first-party Apply route, and Serbia eligibility; source is a strong 0-2 year frontend fit but MENA geography remains ambiguous. | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (422)</summary>
+<summary>Archive (425)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Mayflower — Customer Support Specialist](<https://mayflower.recruitee.com/o/customer-support-specialist>) · job-0477 | other | Not checked | 2026-10-01 |
 | Skipped: other | [Mayflower — Design System Designer](<https://weworkremotely.com/remote-jobs/mayflower-design-system-designer>) · job-0476 | other | Not checked | 2026-10-01 |
 | Skipped: stack mismatch | [Nebius — Automation Engineer (Customer Service)](<https://careers.nebius.com/?gh_jid=4988854101>) · job-0468 | stack mismatch | Not checked | 2026-10-01 |
+| Skipped: other | [PULSE (MENA) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulse-mena-1135285>) · job-0439 | other | Not checked | 2026-10-01 |
+| Skipped: other | [Arabian Private Holdings — Junior UI Engineer](<https://remoteok.com/remote-jobs/remote-junior-ui-engineer-arabian-private-holdings-1134413>) · job-0438 | other | Not checked | 2026-10-01 |
 | Skipped: other | [XFORIA Inc — React.JS Developer](<https://talent-move.ru/jobs/react-js-developer-xforia-remote-040926-268258/>) · job-0418 | other | Not checked | 2026-10-01 |
 | Skipped: other | [micro1 — Frontend Engineer Specialist](<https://himalayas.app/companies/micro1/jobs/frontend-engineer-specialist>) · job-0406 | other | Not checked | 2026-10-01 |
 | Skipped: other | [micro1 — Design & Frontend Specialist](<https://himalayas.app/companies/micro1/jobs/design-frontend-specialist>) · job-0405 | other | Not checked | 2026-10-01 |

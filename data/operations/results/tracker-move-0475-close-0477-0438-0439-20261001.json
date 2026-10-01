@@ -1,0 +1,62 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-01T21:34:35Z",
+  "jobs": [
+    "job-0475",
+    "job-0477",
+    "job-0438",
+    "job-0439"
+  ],
+  "operation_id": "tracker-move-0475-close-0477-0438-0439-20261001",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_status": "apply",
+        "command": "status",
+        "job_id": "job-0475",
+        "listing_status": "open",
+        "outcome": "status_changed",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0477",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0438",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0439",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
