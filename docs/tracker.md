@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **484**
+Dataset updated: **2026-10-02** · Jobs: **486**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (4)](#to-verify) · [Archive (429)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (4)](#to-verify) · [Archive (431)](#archive)
 
 ## Action now
 
@@ -80,10 +80,12 @@ Dataset updated: **2026-10-02** · Jobs: **484**
 
 <details>
 
-<summary>Archive (429)</summary>
+<summary>Archive (431)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Storyblok — Documentation Engineer II - Europe](<https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe>) · job-0486 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: role not frontend | [Full Circle — Full Stack Developer (AI-First)](<https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740>) · job-0485 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [Binance — React Frontend Engineer, BigPay (Fully Remote)](<https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote>) · job-0484 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [Novakid School — Low-code / No-code Automation Developer](<https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer>) · job-0483 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [DualEntry — Frontend Software Engineer (Mid-Level)](<https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248>) · job-0481 | seniority too high | Not checked | 2026-10-02 |

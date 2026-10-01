@@ -1,0 +1,114 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-01T22:14:35Z",
+  "jobs": [],
+  "operation_id": "himalayas-20261002-source-pass-03",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "client_ref": "himalayas:medvidi:join-medvidi-engineering-talent-pool",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "not_started",
+              "company": "MEDvidi",
+              "id": "job-0461",
+              "listing_status": "unknown",
+              "reason": "looks similar: company 1.00, role 0.81",
+              "role": "Join MEDvidi Design Talent Pool"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "MEDvidi",
+                "duplicate_of": "job-0461",
+                "found_at": "2026-10-02",
+                "role": "Join MEDvidi Engineering Talent Pool",
+                "source": "Himalayas",
+                "source_job_id": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+                "source_url": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool"
+              },
+              "client_ref": "himalayas:medvidi:join-medvidi-engineering-talent-pool",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "reviewing",
+                "apply_verified": "unknown",
+                "company": "MEDvidi",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-02",
+                "level": "Middle",
+                "listing_status": "unknown",
+                "location": "Serbia; remote-first B2B; CET-aligned",
+                "notes": "Engineering talent pool explicitly includes Frontend Engineering and is Serbia-eligible; source describes remote-first long-term B2B and heavy AI adoption. Exact frontend seniority and employer Apply route need first-party verification; Browser unavailable.",
+                "remote_policy": "Serbia",
+                "role": "Join MEDvidi Engineering Talent Pool",
+                "source": "Himalayas",
+                "source_job_id": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+                "source_url": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+                "stack": "Angular; TypeScript; Node.js; NestJS; AWS; PostgreSQL; Redis; Kubernetes; LangChain; LangGraph; Gemini; Cursor; Claude Code"
+              },
+              "client_ref": "himalayas:medvidi:join-medvidi-engineering-talent-pool",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:full-circle:full-stack-developer-ai-first-4774572740",
+        "command": "add",
+        "job_id": "job-0485",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0485",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740",
+            "source_url": "https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:storyblok:documentation-engineer-ii-europe",
+        "command": "add",
+        "job_id": "job-0486",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0486",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe",
+            "source_url": "https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}
