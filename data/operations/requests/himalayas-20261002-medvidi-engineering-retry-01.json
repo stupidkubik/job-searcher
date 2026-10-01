@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "himalayas-20261002-medvidi-engineering-retry-01",
+  "command": "add",
+  "args": {
+    "application_status": "reviewing",
+    "apply_verified": "unknown",
+    "company": "MEDvidi",
+    "first_party_verified": "unknown",
+    "force": true,
+    "found_at": "2026-10-02",
+    "level": "Middle",
+    "listing_status": "unknown",
+    "location": "Serbia; remote-first B2B; CET-aligned",
+    "notes": "Engineering talent pool explicitly includes Frontend Engineering and is Serbia-eligible; source describes remote-first long-term B2B and heavy AI adoption. Exact frontend seniority and employer Apply route need first-party verification; Browser unavailable.",
+    "remote_policy": "Serbia",
+    "role": "Join MEDvidi Engineering Talent Pool",
+    "source": "Himalayas",
+    "source_job_id": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+    "source_url": "https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool",
+    "stack": "Angular; TypeScript; Node.js; NestJS; AWS; PostgreSQL; Redis; Kubernetes; LangChain; LangGraph; Gemini; Cursor; Claude Code"
+  }
+}
