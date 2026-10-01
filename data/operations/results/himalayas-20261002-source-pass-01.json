@@ -1,0 +1,80 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-01T22:05:52Z",
+  "jobs": [],
+  "operation_id": "himalayas-20261002-source-pass-01",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": "applications/job-0478-pixibo-junior-frontend-engineer-rem.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:pixibo:junior-frontend-engineer-remote-6296108737",
+        "command": "add",
+        "job_id": "job-0478",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0478",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737",
+            "source_url": "https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:appetiser-apps:junior-full-stack-developer",
+        "command": "add",
+        "job_id": "job-0479",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0479",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer",
+            "source_url": "https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0480-zira-dev-zira-talent-academy-2026.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:zira:dev-zira-talent-academy-2026",
+        "command": "add",
+        "job_id": "job-0480",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0480",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026",
+            "source_url": "https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
