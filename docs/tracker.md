@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **480**
+Dataset updated: **2026-10-02** · Jobs: **484**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (3)](#to-verify) · [Archive (426)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (4)](#to-verify) · [Archive (429)](#archive)
 
 ## Action now
 
@@ -74,15 +74,19 @@ Dataset updated: **2026-10-02** · Jobs: **480**
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (426)</summary>
+<summary>Archive (429)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Binance — React Frontend Engineer, BigPay (Fully Remote)](<https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote>) · job-0484 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Novakid School — Low-code / No-code Automation Developer](<https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer>) · job-0483 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [DualEntry — Frontend Software Engineer (Mid-Level)](<https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248>) · job-0481 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: salary too low | [Appetiser Apps — Junior Full-Stack Developer](<https://himalayas.app/companies/appetiser-apps/jobs/junior-full-stack-developer>) · job-0479 | salary too low | Not checked | 2026-10-02 |
 | Skipped: other | [Mayflower — Customer Support Specialist](<https://mayflower.recruitee.com/o/customer-support-specialist>) · job-0477 | other | Not checked | 2026-10-01 |
 | Skipped: other | [Mayflower — Design System Designer](<https://weworkremotely.com/remote-jobs/mayflower-design-system-designer>) · job-0476 | other | Not checked | 2026-10-01 |

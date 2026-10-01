@@ -1,0 +1,122 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-01T22:10:34Z",
+  "jobs": [],
+  "operation_id": "himalayas-20261002-source-pass-02",
+  "result": {
+    "count": 5,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:make:frontend-engineer",
+        "command": "add",
+        "job_id": "job-0359",
+        "listing_status": "closed",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0359",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/make/jobs/frontend-engineer",
+            "source_url": "https://himalayas.app/companies/make/jobs/frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:dualentry:frontend-software-engineer-mid-level-7781816248",
+        "command": "add",
+        "job_id": "job-0481",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0481",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248",
+            "source_url": "https://himalayas.app/companies/dualentry/jobs/frontend-software-engineer-mid-level-7781816248"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0482-ultahost-front-end-developer-next-js.md",
+        "application_status": "reviewing",
+        "client_ref": "himalayas:ultahost:front-end-developer-next-js-react-js",
+        "command": "add",
+        "job_id": "job-0482",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0482",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js",
+            "source_url": "https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:novakid-school:low-code-no-code-automation-developer",
+        "command": "add",
+        "job_id": "job-0483",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0483",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer",
+            "source_url": "https://himalayas.app/companies/novakid-school/jobs/low-code-no-code-automation-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "himalayas:binance:react-frontend-engineer-bigpay-fully-remote",
+        "command": "add",
+        "job_id": "job-0484",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0484",
+            "source": "Himalayas",
+            "source_job_id": "https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote",
+            "source_url": "https://himalayas.app/companies/binance/jobs/react-frontend-engineer-bigpay-fully-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 5,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
