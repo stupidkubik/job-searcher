@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "operation_id": "talentmove-20261002-itwork-278081",
+  "command": "add",
+  "args": {
+    "company": "IT-WORK",
+    "role": "Frontend Developer по JavaScript + React",
+    "source": "TalentMove",
+    "source_job_id": "278081",
+    "source_url": "https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Junior/Middle",
+    "location": "Fully remote; country eligibility unclear",
+    "remote_policy": "Unclear",
+    "stack": "JavaScript; TypeScript; React; Redux; HTML; Responsive UI; APIs; Code Review",
+    "posted_at": "2026-09-26",
+    "found_at": "2026-10-02",
+    "notes": "Exact TalentMove card lists 1-3 years, fully remote React/TypeScript/Redux work, responsive interfaces and API integration. Strong target-stack overlap; employer first-party route and Serbia eligibility remain unverified."
+  }
+}
