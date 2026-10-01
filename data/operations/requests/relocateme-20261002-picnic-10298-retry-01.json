@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "operation_id": "relocateme-20261002-picnic-10298-retry-01",
+  "command": "add",
+  "args": {
+    "application_status": "not_started",
+    "apply_verified": "unknown",
+    "company": "Picnic",
+    "decision_reason": "role_not_frontend",
+    "first_party_verified": "unknown",
+    "force": true,
+    "found_at": "2026-10-02",
+    "level": "Unknown",
+    "listing_status": "unknown",
+    "location": "Amsterdam, Netherlands; office-based",
+    "notes": "Exact Relocate.me card is a warehouse systems Java/backend role and explicitly says remote/hybrid-first candidates are not a fit. Relocation package is available, but role scope is outside the frontend target.",
+    "remote_policy": "On-site",
+    "role": "Software Engineer - Warehouse Systems",
+    "source": "Relocate.me",
+    "source_job_id": "10298",
+    "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298",
+    "stack": "Java; Spring Boot; Reactor; Maven; RabbitMQ; Kafka; PostgreSQL; Docker; AWS; Helm; Terraform; Kubernetes; Python"
+  }
+}
