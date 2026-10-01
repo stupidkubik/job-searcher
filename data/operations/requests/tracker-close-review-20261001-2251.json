@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "operation_id": "tracker-close-review-20261001-2251",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0418",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Employer careers page is live but contains no visible exact vacancy or application route; TalentMove states remote, part-time, and 1-3 years, but geography and current status remain unverified. User review on 2026-10-01: no longer relevant; close from active review."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0406",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Himalayas API discovery: worldwide contractor role for frontend reasoning and written communication, with React/TypeScript, component architecture, state management, a11y and rendering strategies. Strong stack overlap; stretch: 3+ years of professional frontend engineering and exceptional written English. Browser preflight was blocked by enforced security policy, so employer listing and Apply route are unverified. User review on 2026-10-01: no longer relevant; close from active review."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0405",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Himalayas API discovery: worldwide contractor role focused on frontend/design reasoning, accessibility, Figma and structured technical writing. Strong UI/design-system overlap; stretch: 3+ years of professional frontend/design experience and exceptional analytical written English. Browser preflight was blocked by enforced security policy, so employer listing and Apply route are unverified. User review on 2026-10-01: no longer relevant; close from active review."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0476",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Strong conceptual overlap with reusable UI, Figma handoff and component systems, but the role asks for 3+ years in design systems/design engineering plus Storybook and token tooling. WWR still lists it, while the current Mayflower ATS board does not show the title; first-party current status is unresolved without Browser. User review on 2026-10-01: no longer relevant; close from active review."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0468",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "stack_mismatch",
+        "notes": "Current Nebius careers board exposes this exact Remote-Europe role. User review on 2026-10-01 confirmed a hard blocker: the role requires strong Python skills; the candidate profile is frontend/JavaScript/TypeScript oriented, so this is a stack mismatch."
+      }
+    }
+  ]
+}
