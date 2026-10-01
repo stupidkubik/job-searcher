@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "operation_id": "relocateme-20261002-source-pass-01",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "relocateme:10299",
+      "args": {
+        "company": "ZooStation",
+        "role": "Lead Frontend Developer – React / TypeScript",
+        "source": "Relocate.me",
+        "source_job_id": "10299",
+        "source_url": "https://relocate.me/netherlands/the-hague/zoostation/lead-frontend-developer-react-typescript-10299",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Lead",
+        "location": "The Hague, Netherlands; hybrid with regular office presence",
+        "remote_policy": "Hybrid",
+        "stack": "React; TypeScript; JavaScript; HTML; CSS; REST APIs; State Management; Next.js; Figma; Testing; CI/CD; AI-assisted Development",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Relocate.me card requires >3 years React and lead ownership of frontend architecture, code review, standards and product/UX decisions; regular office presence in The Hague. Employer/ATS verification not completed because Browser is unavailable."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "relocateme:10298",
+      "args": {
+        "company": "Picnic",
+        "role": "Software Engineer - Warehouse Systems",
+        "source": "Relocate.me",
+        "source_job_id": "10298",
+        "source_url": "https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Unknown",
+        "location": "Amsterdam, Netherlands; office-based",
+        "remote_policy": "On-site",
+        "stack": "Java; Spring Boot; Reactor; Maven; RabbitMQ; Kafka; PostgreSQL; Docker; AWS; Helm; Terraform; Kubernetes; Python",
+        "found_at": "2026-10-02",
+        "decision_reason": "role_not_frontend",
+        "notes": "Exact Relocate.me card is a warehouse systems Java/backend role and explicitly says remote/hybrid-first candidates are not a fit. Relocation package is available, but role scope is outside the frontend target."
+      }
+    }
+  ]
+}
