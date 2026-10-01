@@ -1,0 +1,13 @@
+{
+  "command": "batch",
+  "error": {
+    "code": "contract_violation",
+    "layer": "operations",
+    "message": "screen decision_reason=other requires non-empty notes"
+  },
+  "executed_at": "2026-10-01T20:50:17Z",
+  "operation_id": "tracker-close-review-20261001-2248",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}
