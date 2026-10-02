@@ -1,0 +1,101 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-02T12:16:02Z",
+  "jobs": [],
+  "operation_id": "geekjob-20261002-source-pass-retry-02",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": "applications/job-0494-undisclosed-via-recruiter-ma-frontend-разработчик.md",
+        "application_status": "reviewing",
+        "client_ref": "geekjob:6abbc9b03a1b58f7cf049f5d",
+        "command": "add",
+        "job_id": "job-0494",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0494",
+            "source": "Geekjob",
+            "source_job_id": "6abbc9b03a1b58f7cf049f5d",
+            "source_url": "https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "geekjob:6abe172489bb96827806d857",
+        "command": "add",
+        "job_id": "job-0495",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0495",
+            "source": "Geekjob",
+            "source_job_id": "6abe172489bb96827806d857",
+            "source_url": "https://geekjob.ru/vacancy/6abe172489bb96827806d857"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "geekjob:6ab4bd33d564046c740b4b9c",
+        "command": "add",
+        "job_id": "job-0496",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0496",
+            "source": "Geekjob",
+            "source_job_id": "6ab4bd33d564046c740b4b9c",
+            "source_url": "https://geekjob.ru/vacancy/6ab4bd33d564046c740b4b9c"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "geekjob:6aa3b46efc8307fc9b0040e1",
+        "command": "add",
+        "job_id": "job-0497",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0497",
+            "source": "Geekjob",
+            "source_job_id": "6aa3b46efc8307fc9b0040e1",
+            "source_url": "https://geekjob.ru/vacancy/6aa3b46efc8307fc9b0040e1"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

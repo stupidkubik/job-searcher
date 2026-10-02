@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **493**
+Dataset updated: **2026-10-02** · Jobs: **497**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (436)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (7)](#to-verify) · [Archive (439)](#archive)
 
 ## Action now
 
@@ -77,15 +77,19 @@ Dataset updated: **2026-10-02** · Jobs: **493**
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed via Recruiter Maria — Frontend разработчик](<https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d>) · job-0494 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (436)</summary>
+<summary>Archive (439)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Keepgo — Frontend Developer (JavaScript / Vue.js)](<https://geekjob.ru/vacancy/6aa3b46efc8307fc9b0040e1>) · job-0497 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: role not frontend | [Sherpa Robotics — Full-Stack разработчик](<https://geekjob.ru/vacancy/6ab4bd33d564046c740b4b9c>) · job-0496 | role not frontend | Not checked | 2026-10-02 |
+| Skipped: salary too low | [Daily Challenge — Product Engineer в VC.DC](<https://geekjob.ru/vacancy/6abe172489bb96827806d857>) · job-0495 | salary too low | Not checked | 2026-10-02 |
 | Skipped: role not frontend | [Picnic — Software Engineer - Warehouse Systems](<https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298>) · job-0493 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137420>) · job-0492 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [PULSEMEDIA (APAC) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulsemedia-apac-1132225>) · job-0490 | geo restriction | Not checked | 2026-10-02 |
