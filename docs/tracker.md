@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **492**
+Dataset updated: **2026-10-02** · Jobs: **493**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (435)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (436)](#archive)
 
 ## Action now
 
@@ -82,10 +82,11 @@ Dataset updated: **2026-10-02** · Jobs: **492**
 
 <details>
 
-<summary>Archive (435)</summary>
+<summary>Archive (436)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Picnic — Software Engineer - Warehouse Systems](<https://relocate.me/netherlands/amsterdam/picnic/software-engineer-warehouse-systems-10298>) · job-0493 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137420>) · job-0492 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [PULSEMEDIA (APAC) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulsemedia-apac-1132225>) · job-0490 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: other | [Arabian Private Holdings — Junior React Developer](<https://remoteok.com/remote-jobs/remote-junior-react-developer-arabian-private-holdings-1135284>) · job-0489 | other | Not checked | 2026-10-02 |
