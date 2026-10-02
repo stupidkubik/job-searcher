@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "operation_id": "viewline-linkedin-research-20261002-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "linkedin:viewline-internal-tools",
+      "args": {
+        "company": "Viewline Ventures",
+        "role": "Internal Tools Engineer",
+        "source": "LinkedIn",
+        "source_url": "https://www.linkedin.com/feed/update/urn:li:activity:7511791573010042880/",
+        "original_url": "https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Eastern Europe (CET/EET); remote; 4h daily US overlap; independent contractor",
+        "remote_policy": "Europe",
+        "stack": "TypeScript; Python; SQL; Integrations; Data Modeling; Automation; AI Tooling; Notion; Discord; Google Workspace; Airtable",
+        "found_at": "2026-10-02",
+        "notes": "Direct recruiter outreach from HumanLab founder Tatiana Matusevich. Exact Workable listing is live. No explicit years threshold, but role requires prior ops-team dependence, autonomous ownership of an inherited internal platform, application development, integrations, data modelling/infrastructure, strong writing and money-adjacent discretion. Recruiter post additionally asks C1+ written English and strong Python or TypeScript plus SQL."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "company:viewline-business-systems-14934",
+      "args": {
+        "company": "Viewline Ventures",
+        "role": "Business Systems Lead",
+        "source": "Company Careers",
+        "source_job_id": "14934",
+        "source_url": "https://jobs.viewlineventures.com/jobs/business-systems-lead-14934-philadelphia-pa",
+        "original_url": "https://jobs.viewlineventures.com/jobs/business-systems-lead-14934-philadelphia-pa",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Middle",
+        "location": "Philadelphia, PA / Remote",
+        "remote_policy": "Country-specific",
+        "stack": "Airtable; Make; Zapier; GoHighLevel; Calendly; CRM; Workflow Automation",
+        "found_at": "2026-10-02",
+        "decision_reason": "geo_restriction",
+        "notes": "Current first-party neighboring role. Apply route opens successfully on dstribute.io, but the application requires a US ZIP code and a US state selection. It also requires proven custom CRM/workflow experience and advanced Airtable/Make/GoHighLevel proficiency."
+      }
+    }
+  ]
+}
