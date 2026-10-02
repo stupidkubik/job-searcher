@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **522**
+Dataset updated: **2026-10-02** · Jobs: **524**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (15)](#to-verify) · [Archive (456)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (16)](#to-verify) · [Archive (457)](#archive)
 
 ## Action now
 
@@ -86,15 +86,17 @@ Dataset updated: **2026-10-02** · Jobs: **522**
 | Reviewing | [netcare d.o.o. — Web Content Manager](<https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927>) · job-0517 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Digistore24/Eklektika — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601>) · job-0518 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Viewline Ventures — Internal Tools Engineer](<https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures>) · job-0523 | Apply | — | verify first-party | 2026-10-02 |
 
 ## Archive
 
 <details>
 
-<summary>Archive (456)</summary>
+<summary>Archive (457)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Viewline Ventures — Business Systems Lead](<https://jobs.viewlineventures.com/jobs/business-systems-lead-14934-philadelphia-pa>) · job-0524 | geo restriction | Open | 2026-10-02 |
 | Skipped: seniority too high | [Casino Alpha — Frontend Engineer](<https://wellfound.com/jobs/3476358-frontend-engineer>) · job-0522 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [FollowEngine — Founding Frontend Engineer (React / Next.js)](<https://wellfound.com/jobs/4379207-founding-frontend-engineer-react-next-js>) · job-0521 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: role not frontend | [Pollard Digital Solutions — Full-Stack Software Engineer](<https://www.helloworld.rs/posao/Full-Stack-Software-Engineer/Pollard-Digital-Solutions/756980>) · job-0519 | role not frontend | Not checked | 2026-10-02 |

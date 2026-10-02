@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-02T17:09:55Z",
+  "jobs": [],
+  "operation_id": "viewline-linkedin-research-20261002-01",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": "applications/job-0523-viewline-ventures-internal-tools-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "linkedin:viewline-internal-tools",
+        "command": "add",
+        "job_id": "job-0523",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0523",
+            "source": "LinkedIn",
+            "source_job_id": "",
+            "source_url": "https://www.linkedin.com/feed/update/urn:li:activity:7511791573010042880/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "company:viewline-business-systems-14934",
+        "command": "add",
+        "job_id": "job-0524",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0524",
+            "source": "Company Careers",
+            "source_job_id": "14934",
+            "source_url": "https://jobs.viewlineventures.com/jobs/business-systems-lead-14934-philadelphia-pa"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
