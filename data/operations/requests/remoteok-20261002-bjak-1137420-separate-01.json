@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "remoteok-20261002-bjak-1137420-separate-01",
+  "command": "add",
+  "args": {
+    "application_status": "not_started",
+    "apply_verified": "unknown",
+    "company": "Bjak",
+    "decision_reason": "geo_restriction",
+    "first_party_verified": "unknown",
+    "force": true,
+    "found_at": "2026-10-02",
+    "level": "Junior/Middle",
+    "listing_status": "unknown",
+    "location": "Singapore",
+    "notes": "Fresh Remote OK location variant is tagged Singapore. Description matches the Europe variant but first-party requisition identity is unverified, so variants are not merged without employer evidence.",
+    "posted_at": "2026-09-23",
+    "remote_policy": "Country-specific",
+    "role": "Frontend Engineer",
+    "source": "Remote OK",
+    "source_job_id": "1137420",
+    "source_url": "https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137420",
+    "stack": "TypeScript; React; Next.js; HTML; CSS; WebSockets; Streaming APIs; Node.js; REST; GraphQL; Accessibility; Frontend Architecture"
+  }
+}
