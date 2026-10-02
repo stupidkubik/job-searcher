@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **497**
+Dataset updated: **2026-10-02** · Jobs: **514**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (7)](#to-verify) · [Archive (439)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (10)](#to-verify) · [Archive (453)](#archive)
 
 ## Action now
 
@@ -78,15 +78,32 @@ Dataset updated: **2026-10-02** · Jobs: **497**
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed via Recruiter Maria — Frontend разработчик](<https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d>) · job-0494 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [PREAX — Стажер Frontend-разработчик по React](<https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/>) · job-0498 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (TalentMove 278294) — Frontend Developer по Next.js + React](<https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/>) · job-0505 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [X4Apps — Web Developer / Верстальщик](<https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/>) · job-0511 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (439)</summary>
+<summary>Archive (453)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Stripe — Frontend Engineer для Data Product Experiences](<https://talent-move.ru/jobs/frontend-engineer-data-product-experiences-stripe-usa-240926-277159/>) · job-0514 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Undisclosed (TalentMove 278862) — Frontend / Full-Stack Web Developer по React + Node.js](<https://talent-move.ru/jobs/frontend-full-stack-web-developer-react-nodejs-260926-278862/>) · job-0513 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: geo restriction | [TheMOTSCharity — Creative WordPress Developer для редизайна сайта](<https://talent-move.ru/jobs/creative-wordpress-developer-brentwood-220926-276617/>) · job-0512 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: stack mismatch | [Мой Кассир — Frontend-разработчик для Vue.js](<https://talent-move.ru/jobs/frontend-razrabotchik-vue-js-200k-udalenka-280926-279149/>) · job-0510 | stack mismatch | Not checked | 2026-10-02 |
+| Skipped: stack mismatch | [Undisclosed (TalentMove 277783) — Разработчик слот-игр по Pixi.js / TypeScript](<https://talent-move.ru/jobs/razrabotchik-slot-igr-pixi-js-type-script-remote-260926-277783/>) · job-0509 | stack mismatch | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Premium Exchanger — Middle+ Frontend Developer по AI-native](<https://talent-move.ru/jobs/middle-frontend-developer-ai-native-remote-300926-279717/>) · job-0508 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Undisclosed (TalentMove 279440) — Frontend Developer для Околоигровой проект](<https://talent-move.ru/jobs/frontend-developer-okoloi-grovoy-proekt-290926-279440/>) · job-0507 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Undisclosed (TalentMove 278897) — Frontend Developer для SaaS-платформы](<https://talent-move.ru/jobs/frontend-developer-saas-platform-260926-278897/>) · job-0506 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Akvelon — Frontend Engineer по React + TypeScript](<https://talent-move.ru/jobs/frontend-engineer-react-typescript-remote-260926-277859/>) · job-0504 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: geo restriction | [Лига Цифровой Экономики — Frontend Developer по React, Vue](<https://talent-move.ru/jobs/frontend-developer-react-vue-moscow-290926-279499/>) · job-0503 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: geo restriction | [Kense — Frontend Developer по React + TypeScript](<https://talent-move.ru/jobs/frontend-developer-kazakhstan-280926-279078/>) · job-0502 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Undisclosed (TalentMove 278755) — Frontend Developer для JavaScript, TypeScript](<https://talent-move.ru/jobs/frontend-developer-remote-260926-260926-278755/>) · job-0501 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: geo restriction | [MAX — Frontend-разработчик](<https://talent-move.ru/jobs/frontend-razrabotchik-max-sankt-peterburg-300926-280381/>) · job-0500 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [Undisclosed (TalentMove 279996) — Frontend Developer по React](<https://talent-move.ru/jobs/frontend-developer-react-remote-300926-279996/>) · job-0499 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [Keepgo — Frontend Developer (JavaScript / Vue.js)](<https://geekjob.ru/vacancy/6aa3b46efc8307fc9b0040e1>) · job-0497 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: role not frontend | [Sherpa Robotics — Full-Stack разработчик](<https://geekjob.ru/vacancy/6ab4bd33d564046c740b4b9c>) · job-0496 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: salary too low | [Daily Challenge — Product Engineer в VC.DC](<https://geekjob.ru/vacancy/6abe172489bb96827806d857>) · job-0495 | salary too low | Not checked | 2026-10-02 |

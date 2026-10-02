@@ -1,0 +1,374 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-02T12:17:57Z",
+  "jobs": [],
+  "operation_id": "talentmove-20261002-source-pass-retry-02",
+  "result": {
+    "count": 17,
+    "operations": [
+      {
+        "application_path": "applications/job-0498-preax-стажер-frontend-разработчик.md",
+        "application_status": "reviewing",
+        "client_ref": "talentmove:279196",
+        "command": "add",
+        "job_id": "job-0498",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0498",
+            "source": "TalentMove",
+            "source_job_id": "279196",
+            "source_url": "https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279996",
+        "command": "add",
+        "job_id": "job-0499",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0499",
+            "source": "TalentMove",
+            "source_job_id": "279996",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-react-remote-300926-279996/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:280381",
+        "command": "add",
+        "job_id": "job-0500",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0500",
+            "source": "TalentMove",
+            "source_job_id": "280381",
+            "source_url": "https://talent-move.ru/jobs/frontend-razrabotchik-max-sankt-peterburg-300926-280381/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:278755",
+        "command": "add",
+        "job_id": "job-0501",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0501",
+            "source": "TalentMove",
+            "source_job_id": "278755",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-remote-260926-260926-278755/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279078",
+        "command": "add",
+        "job_id": "job-0502",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0502",
+            "source": "TalentMove",
+            "source_job_id": "279078",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-kazakhstan-280926-279078/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279499",
+        "command": "add",
+        "job_id": "job-0503",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0503",
+            "source": "TalentMove",
+            "source_job_id": "279499",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-react-vue-moscow-290926-279499/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:277859",
+        "command": "add",
+        "job_id": "job-0504",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0504",
+            "source": "TalentMove",
+            "source_job_id": "277859",
+            "source_url": "https://talent-move.ru/jobs/frontend-engineer-react-typescript-remote-260926-277859/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0505-undisclosed-talentmove-27829-frontend-developer-по-next-j.md",
+        "application_status": "reviewing",
+        "client_ref": "talentmove:278294",
+        "command": "add",
+        "job_id": "job-0505",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0505",
+            "source": "TalentMove",
+            "source_job_id": "278294",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:278897",
+        "command": "add",
+        "job_id": "job-0506",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0506",
+            "source": "TalentMove",
+            "source_job_id": "278897",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-saas-platform-260926-278897/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279440",
+        "command": "add",
+        "job_id": "job-0507",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0507",
+            "source": "TalentMove",
+            "source_job_id": "279440",
+            "source_url": "https://talent-move.ru/jobs/frontend-developer-okoloi-grovoy-proekt-290926-279440/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279717",
+        "command": "add",
+        "job_id": "job-0508",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0508",
+            "source": "TalentMove",
+            "source_job_id": "279717",
+            "source_url": "https://talent-move.ru/jobs/middle-frontend-developer-ai-native-remote-300926-279717/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:277783",
+        "command": "add",
+        "job_id": "job-0509",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0509",
+            "source": "TalentMove",
+            "source_job_id": "277783",
+            "source_url": "https://talent-move.ru/jobs/razrabotchik-slot-igr-pixi-js-type-script-remote-260926-277783/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:279149",
+        "command": "add",
+        "job_id": "job-0510",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0510",
+            "source": "TalentMove",
+            "source_job_id": "279149",
+            "source_url": "https://talent-move.ru/jobs/frontend-razrabotchik-vue-js-200k-udalenka-280926-279149/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0511-x4apps-web-developer-верстальщик.md",
+        "application_status": "reviewing",
+        "client_ref": "talentmove:271489",
+        "command": "add",
+        "job_id": "job-0511",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0511",
+            "source": "TalentMove",
+            "source_job_id": "271489",
+            "source_url": "https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:276617",
+        "command": "add",
+        "job_id": "job-0512",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0512",
+            "source": "TalentMove",
+            "source_job_id": "276617",
+            "source_url": "https://talent-move.ru/jobs/creative-wordpress-developer-brentwood-220926-276617/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:278862",
+        "command": "add",
+        "job_id": "job-0513",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0513",
+            "source": "TalentMove",
+            "source_job_id": "278862",
+            "source_url": "https://talent-move.ru/jobs/frontend-full-stack-web-developer-react-nodejs-260926-278862/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "talentmove:277159",
+        "command": "add",
+        "job_id": "job-0514",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-02",
+            "job_id": "job-0514",
+            "source": "TalentMove",
+            "source_job_id": "277159",
+            "source_url": "https://talent-move.ru/jobs/frontend-engineer-data-product-experiences-stripe-usa-240926-277159/"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 17,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
