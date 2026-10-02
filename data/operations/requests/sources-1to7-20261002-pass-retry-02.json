@@ -1,0 +1,159 @@
+{
+  "version": 1,
+  "operation_id": "sources-1to7-20261002-pass-retry-02",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "helloworld:756364",
+      "args": {
+        "company": "s360",
+        "role": "Frontend Designer, Tech Solutions",
+        "source": "HelloWorld.rs",
+        "source_job_id": "756364",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-Designer-Tech-Solutions/s360/756364",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Belgrade, Serbia; hybrid after first month",
+        "remote_policy": "Hybrid",
+        "stack": "Next.js; Tailwind CSS; CSS; Figma; SaaS; Design Systems; UX; User Analytics; AI-assisted Development",
+        "found_at": "2026-10-02",
+        "notes": "Strong local fit: exact HelloWorld.rs card combines frontend implementation with UI/UX ownership, Next.js, Tailwind/custom CSS, Figma and AI-supported MVP/bug-fixing workflows. No explicit years threshold; employer/Apply route not first-party verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:755927",
+      "args": {
+        "company": "netcare d.o.o.",
+        "role": "Web Content Manager",
+        "source": "HelloWorld.rs",
+        "source_job_id": "755927",
+        "source_url": "https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Belgrade, Serbia; hybrid; 6-month limited contract",
+        "remote_policy": "Hybrid",
+        "stack": "CMS; Adobe Experience Manager; FirstSpirit; WordPress; SAP Hybris; Web Content; Ecommerce; QA; Jira; Confluence",
+        "found_at": "2026-10-02",
+        "notes": "Strong CMS/content-web adjacency: content publishing, QA, ecommerce/web projects and CMS experience are central; students with technical IT background are explicitly accepted. Six-month contract and employer Apply route still need verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:756601",
+      "args": {
+        "company": "Digistore24/Eklektika",
+        "role": "Front-End Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "756601",
+        "source_url": "https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Serbia; 100% home office per source",
+        "remote_policy": "Serbia",
+        "stack": "Astro; Sanity; Headless CMS; JavaScript; HTML; CSS; GROQ; Accessibility; Performance; SEO; Multilingual Content; Claude Code",
+        "found_at": "2026-10-02",
+        "notes": "Exceptional target-profile fit: marketing website, Astro static output, Sanity headless CMS, semantic HTML/CSS/vanilla JS, accessibility, performance, multilingual content and AI-assisted development. Requires English CV and cover letter PDFs plus a test assignment; employer/Apply route not yet first-party verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:756980",
+      "args": {
+        "company": "Pollard Digital Solutions",
+        "role": "Full-Stack Software Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "756980",
+        "source_url": "https://www.helloworld.rs/posao/Full-Stack-Software-Engineer/Pollard-Digital-Solutions/756980",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Belgrade, Serbia; hybrid",
+        "remote_policy": "Hybrid",
+        "stack": "JavaScript; TypeScript; HTML; CSS; Vue.js; React; Java; Spring Boot; PostgreSQL; REST APIs; Git; CI/CD",
+        "found_at": "2026-10-02",
+        "decision_reason": "role_not_frontend",
+        "notes": "Exact card requires meaningful backend ownership using Java/Spring Boot or similar, relational databases and full-stack delivery; backend scope is core rather than optional, so it falls outside the target frontend profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4079967",
+      "args": {
+        "company": "telmi",
+        "role": "Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)",
+        "source": "Wellfound",
+        "source_job_id": "4079967",
+        "source_url": "https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Remote Europe and other regions; 6h overlap with UK timezone",
+        "remote_policy": "Europe",
+        "stack": "Next.js; React; TypeScript; JavaScript; Supabase; PostgreSQL; Vercel; APIs; Product Analytics; Claude; Cursor; v0.dev",
+        "found_at": "2026-10-02",
+        "notes": "Relevant stretch: Wellfound card asks for 2-5 years and end-to-end frontend/backend ownership, but stack strongly matches Next.js/React/TypeScript and AI-assisted development. Europe remote is explicitly supported; employer/Apply route remains unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4379207",
+      "args": {
+        "company": "FollowEngine",
+        "role": "Founding Frontend Engineer (React / Next.js)",
+        "source": "Wellfound",
+        "source_job_id": "4379207",
+        "source_url": "https://wellfound.com/jobs/4379207-founding-frontend-engineer-react-next-js",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote worldwide",
+        "remote_policy": "Global",
+        "stack": "React; Next.js; TypeScript; Tailwind CSS; Vercel; PostgreSQL; REST APIs; AI APIs; SEO; Performance",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact Wellfound card requires 3+ years frontend experience, deep frontend architecture knowledge, independent ownership with minimal supervision and founding-level product responsibility; above current Junior/Junior+ target."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:3476358",
+      "args": {
+        "company": "Casino Alpha",
+        "role": "Frontend Engineer",
+        "source": "Wellfound",
+        "source_job_id": "3476358",
+        "source_url": "https://wellfound.com/jobs/3476358-frontend-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote worldwide; EET preferred",
+        "remote_policy": "Global",
+        "stack": "React; Astro; TypeScript; JavaScript; HTML; CSS; Tailwind CSS; APIs; Accessibility; Performance; SEO; CI/CD",
+        "salary": "EUR 40K-60K/year",
+        "found_at": "2026-10-02",
+        "decision_reason": "seniority_too_high",
+        "notes": "Technically excellent match and worldwide remote, but Wellfound explicitly lists 5 years of experience for the role, above the target level."
+      }
+    }
+  ]
+}
