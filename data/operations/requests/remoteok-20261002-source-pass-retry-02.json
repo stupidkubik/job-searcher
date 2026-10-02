@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "operation_id": "remoteok-20261002-source-pass-retry-02",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "remoteok:1135284",
+      "args": {
+        "company": "Arabian Private Holdings",
+        "role": "Junior React Developer",
+        "source": "Remote OK",
+        "source_job_id": "1135284",
+        "source_url": "https://remoteok.com/remote-jobs/remote-junior-react-developer-arabian-private-holdings-1135284",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "Sharjah, United Arab Emirates; source describes fully remote firm",
+        "remote_policy": "Unclear",
+        "stack": "React; JavaScript; CSS; Frontend; UI; Data Integrations",
+        "posted_at": "2026-07-20",
+        "found_at": "2026-10-02",
+        "decision_reason": "other",
+        "notes": "Remote OK exact card is outside the 30-day fallback window and currently marks the post closed after its apply link returned 404. No first-party employer verification was completed, so canonical listing status remains unknown."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "remoteok:1132225",
+      "args": {
+        "company": "PULSEMEDIA (APAC)",
+        "role": "Junior Front End Developer",
+        "source": "Remote OK",
+        "source_job_id": "1132225",
+        "source_url": "https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulsemedia-apac-1132225",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "Remote; exact description says candidates must be based in the MENA region",
+        "remote_policy": "Country-specific",
+        "stack": "HTML5; CSS3; JavaScript; React; Vue; WordPress; Git; Figma; Tailwind CSS; Bootstrap; Accessibility; SEO; Performance",
+        "found_at": "2026-10-02",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong junior/content-web stack fit, but exact Remote OK description explicitly limits candidates to the MENA region; Serbia is not within that stated region."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "remoteok:1137410",
+      "args": {
+        "company": "Bjak",
+        "role": "Frontend Engineer",
+        "source": "Remote OK",
+        "source_job_id": "1137410",
+        "source_url": "https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Ireland / Europe per Remote OK",
+        "remote_policy": "Europe",
+        "stack": "TypeScript; React; Next.js; HTML; CSS; WebSockets; Streaming APIs; Node.js; REST; GraphQL; Accessibility; Frontend Architecture",
+        "posted_at": "2026-09-20",
+        "found_at": "2026-10-02",
+        "notes": "Fresh Europe-tagged frontend role with strong React/TypeScript/Next.js overlap. Description asks for strong production experience, deep frontend architecture knowledge and independent end-to-end ownership, but gives no explicit years threshold. Needs employer/ATS and Serbia eligibility verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "remoteok:1137420",
+      "args": {
+        "company": "Bjak",
+        "role": "Frontend Engineer",
+        "source": "Remote OK",
+        "source_job_id": "1137420",
+        "source_url": "https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137420",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Singapore",
+        "remote_policy": "Country-specific",
+        "stack": "TypeScript; React; Next.js; HTML; CSS; WebSockets; Streaming APIs; Node.js; REST; GraphQL; Accessibility; Frontend Architecture",
+        "posted_at": "2026-09-23",
+        "found_at": "2026-10-02",
+        "decision_reason": "geo_restriction",
+        "notes": "Fresh Remote OK location variant is tagged Singapore. Description matches the Europe variant but first-party requisition identity is unverified, so variants are not merged without employer evidence."
+      }
+    }
+  ]
+}
