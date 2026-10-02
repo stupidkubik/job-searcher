@@ -17,29 +17,6 @@ PROJECT = Path(__file__).resolve().parents[1]
 WORKFLOW = PROJECT / ".github" / "workflows" / "agent-operations.yml"
 VALIDATE_WORKFLOW = PROJECT / ".github" / "workflows" / "validate.yml"
 APPLY_SCRIPT = PROJECT / "scripts" / "ci" / "apply_operation.sh"
-LIVE_REQUESTS_DIR = PROJECT / "data" / "operations" / "requests"
-LIVE_RESULTS_DIR = PROJECT / "data" / "operations" / "results"
-
-
-class RequestResultInvariantTests(unittest.TestCase):
-    """Every committed request must end up with a matching result
-    (docs/agent-write-path-plan-2026-09-07.md, Э1b). Before Э1, a rejected
-    apply left no result file at all; this guardian keeps that regression
-    from recurring silently."""
-
-    def test_every_request_has_a_matching_result(self):
-        request_ids = {path.stem for path in LIVE_REQUESTS_DIR.glob("*.json")}
-        result_ids = {path.stem for path in LIVE_RESULTS_DIR.glob("*.json")}
-        missing = sorted(request_ids - result_ids)
-        self.assertEqual(
-            missing,
-            [],
-            "these requests have no result file: " + ", ".join(missing) + ". "
-            "Run scripts/maintenance/backfill_missing_results.py for a historical "
-            "request. If you just committed one of these yourself, its workflow run "
-            "may simply not have finished yet — git pull and re-check before "
-            "assuming this is a real regression.",
-        )
 
 
 class ApplyOperationScriptTests(unittest.TestCase):
@@ -160,6 +137,12 @@ class ApplyOperationScriptTests(unittest.TestCase):
         self.assertEqual(result["status"], "rejected")
         self.assertEqual(result["error"]["code"], "unknown_args")
         self.assertEqual(result["error"]["field"], "args.next_action")
+        original_bytes = result_path.read_bytes()
+        previous = self.git("rev-parse", "HEAD")
+        again = self.run_script(relative)
+        self.assertEqual(again.returncode, 1)
+        self.assertEqual(result_path.read_bytes(), original_bytes)
+        self.assertEqual(self.git("rev-parse", "HEAD"), previous)
         self.assertIn(
             "jobs: reject agent operation op-script-rejection-001", self.git("log", "-1", "--format=%s")
         )
@@ -170,6 +153,203 @@ class ApplyOperationScriptTests(unittest.TestCase):
         self.assertIn(
             "jobs: reject agent operation op-script-rejection-001",
             self.git("log", "-1", "--format=%s", "main", cwd=self.origin),
+        )
+
+    def write_add_request(self, operation_id, company, root=None):
+        root = root or self.root
+        relative = f"data/operations/requests/{operation_id}.json"
+        (root / relative).write_text(
+            json.dumps(
+                {
+                    "version": 1,
+                    "operation_id": operation_id,
+                    "command": "add",
+                    "args": {"company": company, "role": "Frontend Engineer", "source": "Manual"},
+                }
+            ),
+            encoding="utf-8",
+        )
+        return relative
+
+    def seed_main(self):
+        (self.root / "tests").mkdir()
+        (self.root / "tests/test_fixture.py").write_text(
+            "import unittest\nclass Fixture(unittest.TestCase):\n"
+            "    def test_true(self): self.assertTrue(True)\n",
+            encoding="utf-8",
+        )
+        self.git("add", "--all")
+        self.git("commit", "-m", "seed")
+        self.git("branch", "-M", "main")
+        self.git("push", "origin", "main")
+
+    def test_real_push_race_reapplies_a_with_b_pending_then_b_applies_once(self):
+        import shlex
+
+        request_a = self.write_add_request("operation-race-a", "Company A")
+        self.seed_main()
+        other = Path(self.temporary.name) / "other"
+        self.git("clone", "--branch", "main", str(self.origin), str(other), cwd=other.parent)
+        self.git("config", "user.email", "test@example.invalid", cwd=other)
+        self.git("config", "user.name", "fixture", cwd=other)
+        request_b = self.write_add_request("operation-race-b", "Company B", root=other)
+        self.git("add", request_b, cwd=other)
+        self.git("commit", "-m", "request B", cwd=other)
+        hook = self.root / ".git/hooks/pre-push"
+        hook.write_text('#!/bin/sh\nrm -- "$0"\ngit -C ' + shlex.quote(str(other)) + " push origin main\n")
+        hook.chmod(0o755)
+        done = self.run_script(request_a)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertIn("attempt 2/3", done.stdout)
+        self.assertIn("push lost the race", done.stderr)
+        self.assertTrue((self.root / request_b).exists())
+        self.assertFalse((self.root / "data/operations/results/operation-race-b.json").exists())
+        done = self.run_script(request_b)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        with (self.root / "data/jobs.csv").open() as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual([row["company"] for row in rows], ["Company A", "Company B"])
+        previous = self.git("rev-parse", "HEAD")
+        rerun = self.run_script(request_a)
+        self.assertEqual(rerun.returncode, 0, rerun.stdout + rerun.stderr)
+        self.assertEqual(previous, self.git("rev-parse", "HEAD"))
+        for operation_id in ("operation-race-a", "operation-race-b"):
+            self.assertIn(
+                '"status": "completed"',
+                self.git("show", f"main:data/operations/results/{operation_id}.json", cwd=self.origin),
+            )
+
+    def test_fresh_main_retry_preserves_result_already_published_by_another_attempt(self):
+        import shlex
+
+        relative = self.write_add_request("operation-shared-id", "Company A")
+        self.seed_main()
+        other = Path(self.temporary.name) / "other"
+        self.git("clone", "--branch", "main", str(self.origin), str(other), cwd=other.parent)
+        hook = self.root / ".git/hooks/pre-push"
+        hook.write_text(
+            '#!/bin/sh\nrm -- "$0"\ncd '
+            + shlex.quote(str(other))
+            + "\nGITHUB_REF_NAME=main RUNNER_TEMP="
+            + shlex.quote(str(other.parent / "other-output"))
+            + " bash scripts/ci/apply_operation.sh "
+            + shlex.quote(relative)
+            + "\n"
+        )
+        (other.parent / "other-output").mkdir()
+        hook.chmod(0o755)
+        done = self.run_script(relative)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        self.assertIn("operation already has immutable completed result", done.stdout)
+        with (self.root / "data/jobs.csv").open() as stream:
+            self.assertEqual(len(list(csv.DictReader(stream))), 1)
+        self.assertEqual(
+            (self.root / "data/operations/results/operation-shared-id.json").read_text(),
+            self.git("show", "main:data/operations/results/operation-shared-id.json", cwd=self.origin),
+        )
+
+    def test_push_retry_rechecks_optimistic_lock_on_concurrently_changed_row(self):
+        import shlex
+
+        done = subprocess.run(
+            [
+                sys.executable,
+                "scripts/jobs.py",
+                "add",
+                "--company",
+                "Fixture Co",
+                "--role",
+                "Frontend Engineer",
+                "--source",
+                "Manual",
+                "--no-file",
+            ],
+            cwd=self.root,
+            text=True,
+            capture_output=True,
+        )
+        self.assertEqual(done.returncode, 0, done.stderr)
+        with (self.root / "data/jobs.csv").open() as stream:
+            row = next(csv.DictReader(stream))
+        request_a = "data/operations/requests/operation-lock-a.json"
+        payload = {
+            "version": 1,
+            "operation_id": "operation-lock-a",
+            "command": "set",
+            "job_id": row["id"],
+            "expected": {"last_update": row["last_update"], "application_status": "not_started"},
+            "args": {"next_action": "A must not overwrite concurrent status"},
+        }
+        (self.root / request_a).write_text(json.dumps(payload))
+        self.seed_main()
+        other = Path(self.temporary.name) / "other"
+        self.git("clone", "--branch", "main", str(self.origin), str(other), cwd=other.parent)
+        self.git("config", "user.email", "test@example.invalid", cwd=other)
+        self.git("config", "user.name", "fixture", cwd=other)
+        request_b = "data/operations/requests/operation-lock-b.json"
+        payload.update(
+            operation_id="operation-lock-b",
+            command="status",
+            args={"application_status": "reviewing", "confirmed_by_user": True},
+        )
+        (other / request_b).write_text(json.dumps(payload))
+        self.git("add", request_b, cwd=other)
+        self.git("commit", "-m", "request B", cwd=other)
+        hook = self.root / ".git/hooks/pre-push"
+        hook.write_text(
+            '#!/bin/sh\nrm -- "$0"\ncd '
+            + shlex.quote(str(other))
+            + "\ngit push origin main\nGITHUB_REF_NAME=main RUNNER_TEMP="
+            + shlex.quote(str(other.parent / "other-output"))
+            + " bash scripts/ci/apply_operation.sh "
+            + shlex.quote(request_b)
+            + "\n"
+        )
+        (other.parent / "other-output").mkdir()
+        hook.chmod(0o755)
+        done = self.run_script(request_a)
+        self.assertEqual(done.returncode, 0, done.stdout + done.stderr)
+        result = json.loads((self.root / "data/operations/results/operation-lock-a.json").read_text())
+        self.assertEqual(result["status"], "conflict")
+        with (self.root / "data/jobs.csv").open() as stream:
+            row = next(csv.DictReader(stream))
+        self.assertEqual(row["application_status"], "reviewing")
+        self.assertNotIn("A must not overwrite", row["next_action"])
+
+    def test_forbidden_file_mutation_blocks_result_publication(self):
+        relative = self.write_add_request("operation-forbidden-write", "Company A")
+        self.seed_main()
+        fixture = self.root / "tests/test_fixture.py"
+        fixture.write_text(
+            "import unittest\nfrom pathlib import Path\nclass Fixture(unittest.TestCase):\n"
+            "    def test_ready(self):\n"
+            "        Path('policy.txt').write_text('unexpected mutation')\n"
+            "        self.assertTrue(True)\n"
+        )
+        self.git("add", "tests/test_fixture.py")
+        self.git("commit", "-m", "forbidden test side effect")
+        self.git("push", "origin", "main")
+        previous = self.git("rev-parse", "HEAD")
+        done = self.run_script(relative)
+        self.assertNotEqual(done.returncode, 0)
+        self.assertIn("operation changed forbidden path: policy.txt", done.stderr)
+        self.assertEqual(previous, self.git("rev-parse", "main", cwd=self.origin))
+
+    def test_unit_failure_does_not_push_canonical_change_or_completed_result(self):
+        relative = self.write_add_request("operation-broken-unit", "Company A")
+        self.seed_main()
+        fixture = self.root / "tests/test_fixture.py"
+        fixture.write_text(fixture.read_text().replace("self.assertTrue(True)", "self.assertTrue(False)"))
+        self.git("add", "tests/test_fixture.py")
+        self.git("commit", "-m", "break unit fixture")
+        self.git("push", "origin", "main")
+        previous = self.git("rev-parse", "HEAD")
+        done = self.run_script(relative)
+        self.assertNotEqual(done.returncode, 0)
+        self.assertEqual(previous, self.git("rev-parse", "main", cwd=self.origin))
+        self.assertNotIn(
+            "operation-broken-unit.json",
+            self.git("ls-tree", "-r", "--name-only", "main", "data/operations/results", cwd=self.origin),
         )
 
     def test_runner_allowlist_commits_event_artifact_with_result(self):
@@ -597,7 +777,7 @@ class AgentOperationsTests(unittest.TestCase):
         self.assertIn("git reset --hard origin/main", script)
         self.assertNotIn("git rebase", script)
         self.assertNotIn("git merge", script)
-        self.assertIn('rm -f "$RESULT_PATH"', script)
+        self.assertNotIn('rm -f "$RESULT_PATH"', script)
 
     def test_medium_risk_add_creates_job_provenance_card_and_result(self):
         request = self.write_operation(

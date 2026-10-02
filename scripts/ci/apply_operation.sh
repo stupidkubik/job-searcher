@@ -27,6 +27,32 @@ git config user.name "job-tracker-agent[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
 for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
+  # A rerun or a lost push may discover that another attempt already published
+  # this ID. Never remove or recreate a result inherited from origin/main.
+  if [[ -f "$RESULT_PATH" ]]; then
+    EXISTING_STATUS="$(python3 - "$OPERATION_ID" "$RESULT_PATH" <<'PY_RESULT'
+import json
+import subprocess
+import sys
+
+operation_id, path = sys.argv[1:]
+subprocess.run(["git", "ls-files", "--error-unmatch", path], check=True, stdout=subprocess.DEVNULL)
+if subprocess.check_output(["git", "status", "--porcelain", "--", path]):
+    sys.exit("existing result must be unchanged and committed")
+with open(path, "rb") as stream:
+    contents = stream.read()
+if subprocess.check_output(["git", "show", f"origin/main:{path}"]) != contents:
+    sys.exit("existing result is not the published origin/main result")
+result = json.loads(contents)
+if result.get("operation_id") != operation_id or result.get("status") not in {"completed", "partial", "conflict", "rejected"}:
+    sys.exit("existing immutable result has invalid identity/status")
+print(result["status"])
+PY_RESULT
+    )"
+    echo "operation already has immutable ${EXISTING_STATUS} result: ${RESULT_PATH}"
+    [[ "$EXISTING_STATUS" != rejected ]]
+    exit $?
+  fi
   # No pre-flight `validate` here on purpose: `apply` performs the very same
   # load_operation() checks, but converts a contract rejection into a
   # machine-readable results/<id>.json (Э1). A pre-flight validate exits
@@ -39,7 +65,7 @@ for attempt in $(seq 1 "$MAX_ATTEMPTS"); do
   set -e
   echo "::endgroup::"
 
-  STATUS="$(python3 - "$OUTPUT_JSON" <<'PY'
+  STATUS="$(python3 - "$OUTPUT_JSON" "$OPERATION_ID" "$RESULT_PATH" <<'PY'
 import json
 import re
 import sys
@@ -52,6 +78,11 @@ if not isinstance(operation_id, str) or not re.fullmatch(r"[a-z0-9][a-z0-9._-]{2
     sys.exit("runner returned an invalid operation_id")
 if risk not in {"low", "medium", "none"} or status not in {"completed", "conflict", "partial", "rejected"}:
     sys.exit("runner returned an invalid risk or status")
+if operation_id != sys.argv[2]:
+    sys.exit("runner returned a different operation_id")
+result = json.load(open(sys.argv[3], encoding="utf-8"))
+if result.get("operation_id") != operation_id or result.get("status") != status:
+    sys.exit("runner output does not match its immutable result")
 print(status)
 PY
   )"
@@ -122,5 +153,4 @@ PY
   echo "push lost the race with a concurrent operation; reapplying on fresh main (attempt $((attempt + 1))/${MAX_ATTEMPTS})" >&2
   git fetch origin main
   git reset --hard origin/main
-  rm -f "$RESULT_PATH"
 done

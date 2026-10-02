@@ -1,0 +1,32 @@
+name: operation results audit
+
+on:
+  workflow_run:
+    workflows: [agent operations]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "17 7 * * *"
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  audit:
+    if: github.event.repository.fork == false
+    runs-on: ubuntu-latest
+    steps:
+      # Never execute workflow_run head code or download triggering artifacts.
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Audit latest main with operation-specific Actions evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/audit_operation_results.py

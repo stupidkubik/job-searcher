@@ -341,10 +341,59 @@ themselves, but does not rebase an already-checked-out run onto the new tip.
 `scripts/ci/apply_operation.sh` handles this without ever rebasing over
 canonical data: on a non-fast-forward push it fetches and hard-resets to the
 new `origin/main` (which already contains this run's own request commit),
-deletes its own not-yet-pushed result file, and reapplies the same request
+discards only its unpushed checkout changes, and reapplies the same request
 from scratch — up to three attempts. A reapply is also a correct re-check of
 the optimistic lock: if the row changed in the meantime, the retry produces an
 honest `conflict` result instead of silently overwriting it.
+
+### Pending operations and completeness audit
+
+`validate` checks lint, formatting, dataset, generated files, contract and unit
+fixtures even on request-only commits. A request commit is an intermediate
+snapshot: its result is not expected until `agent operations` publishes it.
+Unit tests therefore never require the live checkout to have every result.
+The runner still validates its own operation ID/result and changed-file
+allowlist, and runs the dataset/generated/unit checks before publishing
+non-rejected changes. Contract rejections still publish their structured result
+and intentionally fail the operation workflow; there is no preflight schema
+step that can prevent that publication.
+
+`operation results audit` is a separate, read-only workflow after each completed
+operation, daily, or on manual dispatch. It runs only trusted `main` code with
+`contents: read` and `actions: read`; it does not execute the triggering run's
+code or download artifacts. It fetches latest `main`, reads all pages of this
+workflow's Actions runs, then confirms that the API main SHA matches its Git
+snapshot. It rechecks an unstable snapshot, lost result, or missing registration evidence at
+most three times, with two three-second delays (network calls add time).
+API failures and unresolved evidence fail closed with explicit diagnostics.
+This check runs on the default branch and is not necessarily a check on the
+original request SHA. Bot result pushes using `GITHUB_TOKEN` generally do not
+trigger another push `validate`; the runner's checks and the `workflow_run`
+audit must not depend on such a push trigger.
+
+For each missing result, a push run is matched by the request's introduction
+commit SHA; a manual dispatch is matched by its exact `operation <request path>`
+run title. Queued, requested, pending, paused, waiting and in-progress runs excuse only
+their own operation, including an active rerun after a failed earlier attempt.
+A matching completed/failed/cancelled run without a result is lost and fails.
+No matching run is reported as unknown (orphan or registration lag), also red,
+not guessed to be lost. Active historical dispatches without the new run title
+cannot be matched safely and produce an explicit unknown error. The offline
+`python3 scripts/ci/audit_operation_results.py --settled` mode requires every
+request/result pair without contacting Actions; use it only after confirming
+no operations are queued or running. No audit performs automatic recovery.
+
+The apply job uses `queue: max`, which permits up to 100 pending runs rather
+than replacing the single pending run in GitHub's default queue. This does not
+guarantee commit order, remove optimistic-lock conflicts, or eliminate push
+races. Keep submitting exactly one new immutable request directly to `main`,
+and wait for its result and workflow completion before sending another.
+Manual cancellation, queue limits and missing triggers remain possible;
+inspect red audit diagnostics and use the documented maintenance recovery only
+after checking that the operation has not published canonical changes.
+A rerun or fresh-main retry preserves an already committed immutable result:
+completed/conflict/partial return success without reapplying; rejected remains
+intentionally red. Retry a rejected/conflicting operation under a new ID.
 
 ### Result status and the `rejected` shape
 
