@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **488**
+Dataset updated: **2026-10-02** · Jobs: **491**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (5)](#to-verify) · [Archive (432)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (434)](#archive)
 
 ## Action now
 
@@ -76,15 +76,18 @@ Dataset updated: **2026-10-02** · Jobs: **488**
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (432)</summary>
+<summary>Archive (434)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [PULSEMEDIA (APAC) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulsemedia-apac-1132225>) · job-0490 | geo restriction | Not checked | 2026-10-02 |
+| Skipped: other | [Arabian Private Holdings — Junior React Developer](<https://remoteok.com/remote-jobs/remote-junior-react-developer-arabian-private-holdings-1135284>) · job-0489 | other | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [ZooStation — Lead Frontend Developer – React / TypeScript](<https://relocate.me/netherlands/the-hague/zoostation/lead-frontend-developer-react-typescript-10299>) · job-0488 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [Storyblok — Documentation Engineer II - Europe](<https://himalayas.app/companies/storyblok/jobs/documentation-engineer-ii-europe>) · job-0486 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: role not frontend | [Full Circle — Full Stack Developer (AI-First)](<https://himalayas.app/companies/full-circle/jobs/full-stack-developer-ai-first-4774572740>) · job-0485 | role not frontend | Not checked | 2026-10-02 |
