@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-02T12:19:30Z",
+  "job_id": "job-0515",
+  "operation_id": "talentmove-20261002-itwork-278081-retry-02",
+  "result": {
+    "application_path": "applications/job-0515-it-work-frontend-developer-по-javasc.md",
+    "application_status": "reviewing",
+    "job_id": "job-0515",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-02",
+        "job_id": "job-0515",
+        "source": "TalentMove",
+        "source_job_id": "278081",
+        "source_url": "https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

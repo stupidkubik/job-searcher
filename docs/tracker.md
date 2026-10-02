@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **514**
+Dataset updated: **2026-10-02** · Jobs: **515**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (10)](#to-verify) · [Archive (453)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (11)](#to-verify) · [Archive (453)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-02** · Jobs: **514**
 | Reviewing | [PREAX — Стажер Frontend-разработчик по React](<https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/>) · job-0498 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (TalentMove 278294) — Frontend Developer по Next.js + React](<https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/>) · job-0505 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [X4Apps — Web Developer / Верстальщик](<https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/>) · job-0511 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [IT-WORK — Frontend Developer по JavaScript + React](<https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/>) · job-0515 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
