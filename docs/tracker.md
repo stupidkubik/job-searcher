@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **491**
+Dataset updated: **2026-10-02** · Jobs: **492**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (434)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (6)](#to-verify) · [Archive (435)](#archive)
 
 ## Action now
 
@@ -82,10 +82,11 @@ Dataset updated: **2026-10-02** · Jobs: **491**
 
 <details>
 
-<summary>Archive (434)</summary>
+<summary>Archive (435)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137420>) · job-0492 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [PULSEMEDIA (APAC) — Junior Front End Developer](<https://remoteok.com/remote-jobs/remote-junior-front-end-developer-pulsemedia-apac-1132225>) · job-0490 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: other | [Arabian Private Holdings — Junior React Developer](<https://remoteok.com/remote-jobs/remote-junior-react-developer-arabian-private-holdings-1135284>) · job-0489 | other | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [ZooStation — Lead Frontend Developer – React / TypeScript](<https://relocate.me/netherlands/the-hague/zoostation/lead-frontend-developer-react-typescript-10299>) · job-0488 | seniority too high | Not checked | 2026-10-02 |
