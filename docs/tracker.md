@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **515**
+Dataset updated: **2026-10-02** · Jobs: **522**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (11)](#to-verify) · [Archive (453)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (15)](#to-verify) · [Archive (456)](#archive)
 
 ## Action now
 
@@ -82,15 +82,22 @@ Dataset updated: **2026-10-02** · Jobs: **515**
 | Reviewing | [Undisclosed (TalentMove 278294) — Frontend Developer по Next.js + React](<https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/>) · job-0505 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [X4Apps — Web Developer / Верстальщик](<https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/>) · job-0511 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [IT-WORK — Frontend Developer по JavaScript + React](<https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/>) · job-0515 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [s360 — Frontend Designer, Tech Solutions](<https://www.helloworld.rs/posao/Frontend-Designer-Tech-Solutions/s360/756364>) · job-0516 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [netcare d.o.o. — Web Content Manager](<https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927>) · job-0517 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Digistore24/Eklektika — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601>) · job-0518 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (453)</summary>
+<summary>Archive (456)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Casino Alpha — Frontend Engineer](<https://wellfound.com/jobs/3476358-frontend-engineer>) · job-0522 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: seniority too high | [FollowEngine — Founding Frontend Engineer (React / Next.js)](<https://wellfound.com/jobs/4379207-founding-frontend-engineer-react-next-js>) · job-0521 | seniority too high | Not checked | 2026-10-02 |
+| Skipped: role not frontend | [Pollard Digital Solutions — Full-Stack Software Engineer](<https://www.helloworld.rs/posao/Full-Stack-Software-Engineer/Pollard-Digital-Solutions/756980>) · job-0519 | role not frontend | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [Stripe — Frontend Engineer для Data Product Experiences](<https://talent-move.ru/jobs/frontend-engineer-data-product-experiences-stripe-usa-240926-277159/>) · job-0514 | geo restriction | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [Undisclosed (TalentMove 278862) — Frontend / Full-Stack Web Developer по React + Node.js](<https://talent-move.ru/jobs/frontend-full-stack-web-developer-react-nodejs-260926-278862/>) · job-0513 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: geo restriction | [TheMOTSCharity — Creative WordPress Developer для редизайна сайта](<https://talent-move.ru/jobs/creative-wordpress-developer-brentwood-220926-276617/>) · job-0512 | geo restriction | Not checked | 2026-10-02 |
