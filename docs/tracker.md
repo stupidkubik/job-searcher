@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **588**
+Dataset updated: **2026-10-04** · Jobs: **601**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (34)](#to-verify) · [Archive (503)](#archive)
+[Action now (4)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (513)](#archive)
 
 ## Action now
 
@@ -13,6 +13,7 @@ Dataset updated: **2026-10-04** · Jobs: **588**
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Ready to apply | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation. | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
+| Reviewing | [B12 — Web Designer](<https://job-boards.greenhouse.io/b12/jobs/2259130>) · job-0594 | 8 | — | Open | [Open](../applications/job-0594-b12-web-designer.md) |
 
 ## Applications
 
@@ -77,6 +78,7 @@ Dataset updated: **2026-10-04** · Jobs: **588**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
+| Reviewing | [Cheil Adriatic d.o.o. — Technical Project Manager](<https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067>) · job-0600 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
@@ -90,6 +92,7 @@ Dataset updated: **2026-10-04** · Jobs: **588**
 | Reviewing | [Undisclosed (hirify-1129433) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1129433-product-support-specialist-saas>) · job-0586 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Codelogix — Next.js Developer](<https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992>) · job-0589 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
@@ -110,10 +113,20 @@ Dataset updated: **2026-10-04** · Jobs: **588**
 
 <details>
 
-<summary>Archive (503)</summary>
+<summary>Archive (513)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Crae Group Ltd — Customer Support Agent](<https://www.helloworld.rs/posao/Customer-Support-Agent/Crae-Group-Ltd/754091>) · job-0601 | other | Not checked | 2026-10-04 |
+| Skipped: role not frontend | [PWO SEE d.o.o. — IT Support Specialist](<https://www.helloworld.rs/posao/IT-Support-Specialist/PWO-SEE-d.o.o/758965>) · job-0599 | role not frontend | Not checked | 2026-10-04 |
+| Skipped: seniority too high | [Collectly, Inc. — Frontend Engineer](<https://www.helloworld.rs/posao/Frontend-Engineer/Collectly-Inc/727544>) · job-0598 | seniority too high | Not checked | 2026-10-04 |
+| Skipped: seniority too high | [CoinsPaid — Frontend Engineer](<https://www.helloworld.rs/posao/Frontend-Engineer/CoinsPaid/712369>) · job-0597 | seniority too high | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [20four7VA — PHP Developer (WordPress)](<https://www.helloworld.rs/posao/PHP-Developer-WordPress/20four7VA/694700>) · job-0596 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Zoftify — Travel Software Development — WordPress Developer](<https://www.helloworld.rs/posao/WordPress-Developer/Zoftify-Travel-Software-Development/706654>) · job-0595 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [++hellohello — WebFlow Engineer](<https://www.helloworld.rs/posao/WebFlow-Engineer/hellohello/700403>) · job-0593 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: role not frontend | [Clarivate — Associate Development Operations Engineer](<https://www.helloworld.rs/posao/Associate-Development-Operations-Engineer/Clarivate/758762>) · job-0592 | role not frontend | Not checked | 2026-10-04 |
+| Skipped: seniority too high | [IGT D&B d.o.o. — Frontend TypeScript Game Developer](<https://www.helloworld.rs/posao/Frontend-TypeScript-Game-Developer/IGT-DB-d.o.o/754588>) · job-0591 | seniority too high | Not checked | 2026-10-04 |
+| Skipped: seniority too high | [Growth Leads — Front End Engineer (Twig/Vue)](<https://www.helloworld.rs/posao/Front-End-Engineer-TwigVue/Growth-Leads/745109>) · job-0590 | seniority too high | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-1097910) — Technical Support Specialist (SaaS)](<https://hirify.me/jobs/1097910-technical-support-specialist-saas>) · job-0580 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-1077501) — Technical Support Specialist (AI)](<https://hirify.me/jobs/1077501-technical-support-specialist-ai>) · job-0579 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-1071952) — Technical Support Engineer (WordPress)](<https://hirify.me/jobs/1071952-wordpress-support-engineer>) · job-0577 | geo restriction | Not checked | 2026-10-04 |

@@ -1,0 +1,311 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T19:52:28Z",
+  "jobs": [],
+  "operation_id": "helloworld-20261004-adjacent-pass-01",
+  "result": {
+    "count": 14,
+    "operations": [
+      {
+        "application_path": "applications/job-0589-codelogix-next-js-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "helloworld:758992",
+        "command": "add",
+        "job_id": "job-0589",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0589",
+            "source": "HelloWorld.rs",
+            "source_job_id": "758992",
+            "source_url": "https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:745109",
+        "command": "add",
+        "job_id": "job-0590",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0590",
+            "source": "HelloWorld.rs",
+            "source_job_id": "745109",
+            "source_url": "https://www.helloworld.rs/posao/Front-End-Engineer-TwigVue/Growth-Leads/745109"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:754588",
+        "command": "add",
+        "job_id": "job-0591",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0591",
+            "source": "HelloWorld.rs",
+            "source_job_id": "754588",
+            "source_url": "https://www.helloworld.rs/posao/Frontend-TypeScript-Game-Developer/IGT-DB-d.o.o/754588"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:758762",
+        "command": "add",
+        "job_id": "job-0592",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0592",
+            "source": "HelloWorld.rs",
+            "source_job_id": "758762",
+            "source_url": "https://www.helloworld.rs/posao/Associate-Development-Operations-Engineer/Clarivate/758762"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:700403",
+        "command": "add",
+        "job_id": "job-0593",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0593",
+            "source": "HelloWorld.rs",
+            "source_job_id": "700403",
+            "source_url": "https://www.helloworld.rs/posao/WebFlow-Engineer/hellohello/700403"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0594-b12-web-designer.md",
+        "application_status": "reviewing",
+        "client_ref": "helloworld:710797",
+        "command": "add",
+        "job_id": "job-0594",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0594",
+            "source": "HelloWorld.rs",
+            "source_job_id": "710797",
+            "source_url": "https://www.helloworld.rs/posao/Web-Designer/B12/710797"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:706654",
+        "command": "add",
+        "job_id": "job-0595",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0595",
+            "source": "HelloWorld.rs",
+            "source_job_id": "706654",
+            "source_url": "https://www.helloworld.rs/posao/WordPress-Developer/Zoftify-Travel-Software-Development/706654"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:694700",
+        "command": "add",
+        "job_id": "job-0596",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0596",
+            "source": "HelloWorld.rs",
+            "source_job_id": "694700",
+            "source_url": "https://www.helloworld.rs/posao/PHP-Developer-WordPress/20four7VA/694700"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:712370",
+        "command": "add",
+        "job_id": "job-0268",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0268",
+            "source": "HelloWorld.rs",
+            "source_job_id": "712370",
+            "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer-Design-core-team/CoinsPaid/712370"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:712369",
+        "command": "add",
+        "job_id": "job-0597",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0597",
+            "source": "HelloWorld.rs",
+            "source_job_id": "712369",
+            "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer/CoinsPaid/712369"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:727544",
+        "command": "add",
+        "job_id": "job-0598",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0598",
+            "source": "HelloWorld.rs",
+            "source_job_id": "727544",
+            "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer/Collectly-Inc/727544"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:758965",
+        "command": "add",
+        "job_id": "job-0599",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0599",
+            "source": "HelloWorld.rs",
+            "source_job_id": "758965",
+            "source_url": "https://www.helloworld.rs/posao/IT-Support-Specialist/PWO-SEE-d.o.o/758965"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0600-cheil-adriatic-d-o-o-technical-project-manager.md",
+        "application_status": "reviewing",
+        "client_ref": "helloworld:757067",
+        "command": "add",
+        "job_id": "job-0600",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0600",
+            "source": "HelloWorld.rs",
+            "source_job_id": "757067",
+            "source_url": "https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:754091",
+        "command": "add",
+        "job_id": "job-0601",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0601",
+            "source": "HelloWorld.rs",
+            "source_job_id": "754091",
+            "source_url": "https://www.helloworld.rs/posao/Customer-Support-Agent/Crae-Group-Ltd/754091"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 14,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
