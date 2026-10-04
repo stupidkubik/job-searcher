@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-add-codelogix-758992-001",
+  "command": "add",
+  "args": {
+    "company": "Codelogix",
+    "role": "Next.js Developer",
+    "source": "HelloWorld.rs",
+    "source_job_id": "758992",
+    "source_url": "https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992",
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "level": "Middle",
+    "location": "Novi Sad, Serbia; hybrid",
+    "remote_policy": "Hybrid",
+    "stack": "React; Next.js; JavaScript; TypeScript; HTML; CSS; REST APIs; Git; GitFlow; Cypress; CI/CD; AWS; Azure; GCP; Accessibility; SEO",
+    "decision_reason": "seniority_too_high",
+    "notes": "Exact HelloWorld.rs card is Novi Sad hybrid and otherwise aligned, but Required Qualifications explicitly demand 3 years of professional experience with React and Next.js, above the candidate's documented commercial React/Next experience."
+  }
+}
