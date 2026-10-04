@@ -1,0 +1,367 @@
+{
+  "version": 1,
+  "operation_id": "hirify-content-production-20261004-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:400234",
+      "args": {
+        "company": "Recraft",
+        "role": "Design Copywriter",
+        "source": "Hirify",
+        "source_job_id": "400234",
+        "source_url": "https://hirify.me/jobs/400234-creative-copywriter-ai",
+        "original_url": "https://jobs.ashbyhq.com/recraft/cb167c40-2cf6-4ba5-bced-1eaa2c2b7645",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "decision_reason": "other",
+        "notes": "Current Recraft Ashby listing is open and remote; role strongly matches editorial/design/AI work but requires excellent written English at C2 or equivalent, above the profile's B2. Direct application-page load was blocked by Browser safety status, so Apply remains unverified.",
+        "stack": "Copywriting; Editorial; Figma; AI tools; SEO; UX writing"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:710255",
+      "args": {
+        "company": "Skylimit",
+        "role": "SEO Specialist (iGaming)",
+        "source": "Hirify",
+        "source_job_id": "710255",
+        "source_url": "https://hirify.me/jobs/710255-seo-specialist-igaming",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact Hirify description requires hands-on technical SEO, semantics/clustering, backlink analysis, GSC and European GEO deployment; this is a dedicated SEO role rather than Web/CMS production.",
+        "stack": "SEO; Ahrefs; Google Search Console; HTML; CSS"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1194196",
+      "args": {
+        "company": "Haptic",
+        "role": "Framer Developer (Freelance)",
+        "source": "Hirify",
+        "source_job_id": "1194196",
+        "source_url": "https://hirify.me/jobs/1194196-framer-developer-freelance",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Europe",
+        "decision_reason": "stack_mismatch",
+        "notes": "Freelance web-production role is explicitly Framer-focused and limited to UK or Europe; candidate profile has no verified Framer experience. Browser search surfaced a Haptic hiring post but no exact employer careers/ATS requisition.",
+        "stack": "Framer; Web design; Branding"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:849749",
+      "args": {
+        "company": "VyaparReady",
+        "role": "Remote Website Developer (SEO)",
+        "source": "Hirify",
+        "source_job_id": "849749",
+        "source_url": "https://hirify.me/jobs/849749-remote-website-developer",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "notes": "Hirify says Global remote and asks for 3+ years, website development, web design and basic SEO. The source/application website is gated by Hirify and Browser search did not resolve a trustworthy exact employer/ATS listing; needs manual source resolution.",
+        "stack": "Website development; Web design; SEO"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1149270",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Вебмастер (Tilda)",
+        "source": "Hirify",
+        "source_job_id": "1149270",
+        "source_url": "https://hirify.me/jobs/1149270-vebmaster-tilda",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact Hirify description requires confident Tilda and Zero Block work plus a portfolio of Tilda sites with animations, custom code and integrations; these are not verified candidate skills.",
+        "stack": "Tilda; Zero Block; Responsive design; Integrations"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:907698",
+      "args": {
+        "company": "Туту",
+        "role": "Креативный редактор",
+        "source": "Hirify",
+        "source_job_id": "907698",
+        "source_url": "https://hirify.me/jobs/907698-creative-editor-ai-content",
+        "original_url": "https://hr.tutu.ru/vacancies/kreativnyy-redaktor",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "match_score": 9.5,
+        "notes": "Current Tutu careers page confirms fully remote is available. Excellent match on longreads, special projects, Figma, AI tools, brand/editorial work and travel context. Apply points to hh.ru, where Browser shows the vacancy is unavailable without an account with access; Serbia eligibility and actual submission route remain unverified.",
+        "stack": "Editorial; Copywriting; Longreads; Figma; AI tools; Brand content; Digital special projects"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1189540",
+      "args": {
+        "company": "Darsybox",
+        "role": "Копирайтер / контент-редактор (продающие тексты)",
+        "source": "Hirify",
+        "source_job_id": "1189540",
+        "source_url": "https://hirify.me/jobs/1189540-kopiraiter-kontent-redaktor-prodaiushhie-teksty",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "decision_reason": "other",
+        "notes": "Editorial experience is relevant, but the exact role is primarily sales copywriting and case-study production rather than Web Content/CMS/Digital Production. Hirify source is a gated Telegram lead and no first-party employer vacancy was resolved.",
+        "stack": "Copywriting; Content editing; AI image tools"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1037957",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Content Operations Specialist (AI)",
+        "source": "Hirify",
+        "source_job_id": "1037957",
+        "source_url": "https://hirify.me/jobs/1037957-content-operations-specialist-ai",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "decision_reason": "other",
+        "notes": "Very strong profile fit: article refreshes, live-page edits, Jira, documentation, automation, B2+ English, GitHub/WordPress/Figma/Notion. However the exact Hirify card is archived; employer status was not resolved, so no canonical closed claim is made.",
+        "stack": "Content operations; AI tools; WordPress; Jira; Figma; GitHub; SEO; UTM"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:833408",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Remote Digital Producer Trainee / Digital Project Coordinator",
+        "source": "Hirify",
+        "source_job_id": "833408",
+        "source_url": "https://hirify.me/jobs/833408-digital-producer-project-coordinator",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "decision_reason": "other",
+        "notes": "Role welcomes applicants worldwide and is relevant to web/SEO/project coordination, but the exact Hirify card is archived. Schedule is 09:00-18:00 Pacific Time and employer status was not resolved.",
+        "stack": "Digital production; Project coordination; SEO; Web design; HTML; CSS"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1145541",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Content Management Specialist (CMS)",
+        "source": "Hirify",
+        "source_job_id": "1145541",
+        "source_url": "https://hirify.me/jobs/1145541-content-management-cms-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Excellent CMS/content-production scope with Sitecore, Amplience, localization, QA, HTML/CSS and Photoshop, but the role requires Warsaw hybrid attendance at least three days per week.",
+        "stack": "Sitecore; Amplience; LILT; CMS; Localization; QA; HTML; CSS; Photoshop"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:841587",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Webmaster / CMS Specialist",
+        "source": "Hirify",
+        "source_job_id": "841587",
+        "source_url": "https://hirify.me/jobs/841587-webmaster-cms-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong functional match on Drupal/WordPress, landing pages, integrations, GTM, HTML/CSS/basic JS and mobile QA, but remote is limited to Brazil, Colombia, Chile, Uruguay, Peru or Mexico. Hirify also marks the card archived.",
+        "stack": "Drupal; WordPress; HTML; CSS; JavaScript; Google Tag Manager; Tracking pixels"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1185355",
+      "args": {
+        "company": "i.com",
+        "role": "Веб-продюсер (AI)",
+        "source": "Hirify",
+        "source_job_id": "1185355",
+        "source_url": "https://hirify.me/jobs/1185355-web-producer-ai-gamification",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Interesting digital-production role: special projects, promo sites, miniapps, cross-functional coordination, web architecture and AI tools; requires 2+ years as web producer/project manager. Hirify explicitly limits remote work to Russia.",
+        "stack": "Web production; Project management; Frontend concepts; Backend concepts; APIs; AI tools; Gamification"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1195353",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Digital Production Manager (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "1195353",
+        "source_url": "https://hirify.me/jobs/1195353-digital-production-manager-wordpress",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Very relevant editorial production scope: WordPress story pages, photos, alt text, bug triage, feature testing, workflows, SEO/GEO and UX. Fully remote is restricted to the United States or Canada; role also asks for 5+ years digital production.",
+        "stack": "WordPress; Editorial production; QA; SEO; UX; Canva; Asana"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:923831",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Digital Web Producer (CMS & Content Operations)",
+        "source": "Hirify",
+        "source_job_id": "923831",
+        "source_url": "https://hirify.me/jobs/923831-digital-web-producer-cms",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "other",
+        "notes": "Role is almost a direct profile match on CMS operations, HTML/CSS, browser debugging, accessibility, SEO, Figma and Agile, but the exact Hirify card is archived and lists Orlando, Florida. Employer status was not resolved.",
+        "stack": "CMS; Adobe Experience Manager; HTML; CSS; JavaScript snippets; JSON; APIs; Accessibility; SEO; Figma; Agile"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1121538",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Web Content Specialist (SEO)",
+        "source": "Hirify",
+        "source_job_id": "1121538",
+        "source_url": "https://hirify.me/jobs/1121538-web-content-specialist-seo",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "work_authorization",
+        "notes": "Strong web-content/CMS/editorial fit, but the role supports a U.S. federal client and explicitly requires U.S. citizenship plus Public Trust eligibility; it also asks for 5-7 years of web content management.",
+        "stack": "Web content; CMS; SEO; Accessibility; Editing; Publishing"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1145278",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Webmaster / Web Content Administrator (Liferay)",
+        "source": "Hirify",
+        "source_job_id": "1145278",
+        "source_url": "https://hirify.me/jobs/1145278-web-content-administrator-liferay",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "CMS/content architecture role requires residence in the DC/MD/VA area with regular onsite collaboration in Reston, Virginia and 8+ years relevant experience.",
+        "stack": "Liferay; CMS; Content strategy; Taxonomy; Google Analytics; Scrum; JavaScript; HTML; CSS"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1132020",
+      "args": {
+        "company": "Unknown employer",
+        "role": "HubSpot CRM & CMS Specialist (Part-time Contract)",
+        "source": "Hirify",
+        "source_job_id": "1132020",
+        "source_url": "https://hirify.me/jobs/1132020-hubspot-crm-cms-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong adjacent MarTech/CMS scope with HubSpot CRM/CMS, content migration, forms, tracking, SEO and QA, but remote work is Canada-only and the Hirify card is archived.",
+        "stack": "HubSpot CRM; HubSpot CMS; Marketing automation; Content migration; Forms; Tracking; SEO; QA"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:826309",
+      "args": {
+        "company": "Unknown employer",
+        "role": "Digital Content Specialist",
+        "source": "Hirify",
+        "source_job_id": "826309",
+        "source_url": "https://hirify.me/jobs/826309-digital-content-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify URL was discovered during the Web Content pass, but opening it returned 'Too many requests' before employer, description, geo or status could be read. Per Hirify playbook the source pass stopped without retrying or probing the rate limit."
+      }
+    }
+  ]
+}
