@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-02** · Jobs: **524**
+Dataset updated: **2026-10-04** · Jobs: **541**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (16)](#to-verify) · [Archive (457)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (18)](#to-verify) · [Archive (472)](#archive)
 
 ## Action now
 
@@ -71,7 +71,9 @@ Dataset updated: **2026-10-02** · Jobs: **524**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
+| Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
@@ -92,10 +94,25 @@ Dataset updated: **2026-10-02** · Jobs: **524**
 
 <details>
 
-<summary>Archive (457)</summary>
+<summary>Archive (472)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Unknown employer — HubSpot CRM & CMS Specialist (Part-time Contract)](<https://hirify.me/jobs/1132020-hubspot-crm-cms-specialist>) · job-0540 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Unknown employer — Webmaster / Web Content Administrator (Liferay)](<https://hirify.me/jobs/1145278-web-content-administrator-liferay>) · job-0539 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: work authorization | [Unknown employer — Web Content Specialist (SEO)](<https://hirify.me/jobs/1121538-web-content-specialist-seo>) · job-0538 | work authorization | Not checked | 2026-10-04 |
+| Skipped: other | [Unknown employer — Digital Web Producer (CMS & Content Operations)](<https://hirify.me/jobs/923831-digital-web-producer-cms>) · job-0537 | other | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Unknown employer — Digital Production Manager (WordPress)](<https://hirify.me/jobs/1195353-digital-production-manager-wordpress>) · job-0536 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [i.com — Веб-продюсер (AI)](<https://hirify.me/jobs/1185355-web-producer-ai-gamification>) · job-0535 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Unknown employer — Webmaster / CMS Specialist](<https://hirify.me/jobs/841587-webmaster-cms-specialist>) · job-0534 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Unknown employer — Content Management Specialist (CMS)](<https://hirify.me/jobs/1145541-content-management-cms-specialist>) · job-0533 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: other | [Unknown employer — Remote Digital Producer Trainee / Digital Project Coordinator](<https://hirify.me/jobs/833408-digital-producer-project-coordinator>) · job-0532 | other | Not checked | 2026-10-04 |
+| Skipped: other | [Unknown employer — Content Operations Specialist (AI)](<https://hirify.me/jobs/1037957-content-operations-specialist-ai>) · job-0531 | other | Not checked | 2026-10-04 |
+| Skipped: other | [Darsybox — Копирайтер / контент-редактор (продающие тексты)](<https://hirify.me/jobs/1189540-kopiraiter-kontent-redaktor-prodaiushhie-teksty>) · job-0530 | other | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Unknown employer — Вебмастер (Tilda)](<https://hirify.me/jobs/1149270-vebmaster-tilda>) · job-0528 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Haptic — Framer Developer (Freelance)](<https://hirify.me/jobs/1194196-framer-developer-freelance>) · job-0527 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Skylimit — SEO Specialist (iGaming)](<https://hirify.me/jobs/710255-seo-specialist-igaming>) · job-0526 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: other | [Recraft — Design Copywriter](<https://jobs.ashbyhq.com/recraft/cb167c40-2cf6-4ba5-bced-1eaa2c2b7645>) · job-0525 | other | Open | 2026-10-04 |
 | Skipped: geo restriction | [Viewline Ventures — Business Systems Lead](<https://jobs.viewlineventures.com/jobs/business-systems-lead-14934-philadelphia-pa>) · job-0524 | geo restriction | Open | 2026-10-02 |
 | Skipped: seniority too high | [Casino Alpha — Frontend Engineer](<https://wellfound.com/jobs/3476358-frontend-engineer>) · job-0522 | seniority too high | Not checked | 2026-10-02 |
 | Skipped: seniority too high | [FollowEngine — Founding Frontend Engineer (React / Next.js)](<https://wellfound.com/jobs/4379207-founding-frontend-engineer-react-next-js>) · job-0521 | seniority too high | Not checked | 2026-10-02 |

@@ -1,0 +1,427 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T18:24:04Z",
+  "jobs": [],
+  "operation_id": "hirify-content-production-20261004-001",
+  "result": {
+    "count": 17,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:400234",
+        "command": "add",
+        "job_id": "job-0525",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0525",
+            "source": "Hirify",
+            "source_job_id": "400234",
+            "source_url": "https://hirify.me/jobs/400234-creative-copywriter-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:710255",
+        "command": "add",
+        "job_id": "job-0526",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0526",
+            "source": "Hirify",
+            "source_job_id": "710255",
+            "source_url": "https://hirify.me/jobs/710255-seo-specialist-igaming"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1194196",
+        "command": "add",
+        "job_id": "job-0527",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0527",
+            "source": "Hirify",
+            "source_job_id": "1194196",
+            "source_url": "https://hirify.me/jobs/1194196-framer-developer-freelance"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "client_ref": "hirify:849749",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "not_started",
+              "company": "VyaparReady",
+              "id": "job-0255",
+              "listing_status": "unknown",
+              "reason": "looks similar: company 1.00, role 0.78",
+              "role": "Remote Website Developer"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "VyaparReady",
+                "duplicate_of": "job-0255",
+                "found_at": "2026-10-04",
+                "role": "Remote Website Developer (SEO)",
+                "source": "Hirify",
+                "source_job_id": "849749",
+                "source_url": "https://hirify.me/jobs/849749-remote-website-developer"
+              },
+              "client_ref": "hirify:849749",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "reviewing",
+                "apply_verified": "unknown",
+                "company": "VyaparReady",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-04",
+                "listing_status": "unknown",
+                "notes": "Hirify says Global remote and asks for 3+ years, website development, web design and basic SEO. The source/application website is gated by Hirify and Browser search did not resolve a trustworthy exact employer/ATS listing; needs manual source resolution.",
+                "remote_policy": "Global",
+                "role": "Remote Website Developer (SEO)",
+                "source": "Hirify",
+                "source_job_id": "849749",
+                "source_url": "https://hirify.me/jobs/849749-remote-website-developer",
+                "stack": "Website development; Web design; SEO"
+              },
+              "client_ref": "hirify:849749",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1149270",
+        "command": "add",
+        "job_id": "job-0528",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0528",
+            "source": "Hirify",
+            "source_job_id": "1149270",
+            "source_url": "https://hirify.me/jobs/1149270-vebmaster-tilda"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0529-туту-креативныи-редактор.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:907698",
+        "command": "add",
+        "job_id": "job-0529",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0529",
+            "source": "Hirify",
+            "source_job_id": "907698",
+            "source_url": "https://hirify.me/jobs/907698-creative-editor-ai-content"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1189540",
+        "command": "add",
+        "job_id": "job-0530",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0530",
+            "source": "Hirify",
+            "source_job_id": "1189540",
+            "source_url": "https://hirify.me/jobs/1189540-kopiraiter-kontent-redaktor-prodaiushhie-teksty"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1037957",
+        "command": "add",
+        "job_id": "job-0531",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0531",
+            "source": "Hirify",
+            "source_job_id": "1037957",
+            "source_url": "https://hirify.me/jobs/1037957-content-operations-specialist-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:833408",
+        "command": "add",
+        "job_id": "job-0532",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0532",
+            "source": "Hirify",
+            "source_job_id": "833408",
+            "source_url": "https://hirify.me/jobs/833408-digital-producer-project-coordinator"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1145541",
+        "command": "add",
+        "job_id": "job-0533",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0533",
+            "source": "Hirify",
+            "source_job_id": "1145541",
+            "source_url": "https://hirify.me/jobs/1145541-content-management-cms-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:841587",
+        "command": "add",
+        "job_id": "job-0534",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0534",
+            "source": "Hirify",
+            "source_job_id": "841587",
+            "source_url": "https://hirify.me/jobs/841587-webmaster-cms-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1185355",
+        "command": "add",
+        "job_id": "job-0535",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0535",
+            "source": "Hirify",
+            "source_job_id": "1185355",
+            "source_url": "https://hirify.me/jobs/1185355-web-producer-ai-gamification"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1195353",
+        "command": "add",
+        "job_id": "job-0536",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0536",
+            "source": "Hirify",
+            "source_job_id": "1195353",
+            "source_url": "https://hirify.me/jobs/1195353-digital-production-manager-wordpress"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:923831",
+        "command": "add",
+        "job_id": "job-0537",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0537",
+            "source": "Hirify",
+            "source_job_id": "923831",
+            "source_url": "https://hirify.me/jobs/923831-digital-web-producer-cms"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1121538",
+        "command": "add",
+        "job_id": "job-0538",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0538",
+            "source": "Hirify",
+            "source_job_id": "1121538",
+            "source_url": "https://hirify.me/jobs/1121538-web-content-specialist-seo"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1145278",
+        "command": "add",
+        "job_id": "job-0539",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0539",
+            "source": "Hirify",
+            "source_job_id": "1145278",
+            "source_url": "https://hirify.me/jobs/1145278-web-content-administrator-liferay"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1132020",
+        "command": "add",
+        "job_id": "job-0540",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0540",
+            "source": "Hirify",
+            "source_job_id": "1132020",
+            "source_url": "https://hirify.me/jobs/1132020-hubspot-crm-cms-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0541-unknown-employer-digital-content-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:826309",
+        "command": "add",
+        "job_id": "job-0541",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0541",
+            "source": "Hirify",
+            "source_job_id": "826309",
+            "source_url": "https://hirify.me/jobs/826309-digital-content-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 18,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}
