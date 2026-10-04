@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **630**
+Dataset updated: **2026-10-05** · Jobs: **637**
 
-[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (541)](#archive)
+[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (38)](#to-verify) · [Archive (546)](#archive)
 
 ## Action now
 
@@ -76,9 +76,11 @@ Dataset updated: **2026-10-04** · Jobs: **630**
 | Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | First party + Apply + Listing | 9 | verify first-party | Never |
+| Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
+| Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Cheil Adriatic d.o.o. — Technical Project Manager](<https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067>) · job-0600 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
@@ -114,10 +116,15 @@ Dataset updated: **2026-10-04** · Jobs: **630**
 
 <details>
 
-<summary>Archive (541)</summary>
+<summary>Archive (546)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Gooseworks — Design Engineer](<https://www.ycombinator.com/companies/gooseworks/jobs/XZRrah7-design-engineer>) · job-0636 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [LightSprint — Product Marketing / GTM Engineer](<https://lightsprint.ai/careers/product-marketing>) · job-0635 | geo restriction | Open | 2026-10-05 |
+| Skipped: stack mismatch | [Educato — UGC Campaign Manager - Entry level marketing role](<https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable>) · job-0634 | stack mismatch | Not checked | 2026-10-05 |
+| Closed | [Clipboard — Client Support Specialist (Healthcare Facilities - B2B)](<https://grnh.se/95f68d9b4us>) · job-0633 | closed before application | Closed | 2026-10-05 |
+| Skipped: stack mismatch | [Porter — DevOps Support Engineer](<https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer>) · job-0632 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [REWORK Digital — Technical Support & Platform Operations Specialist](<https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist>) · job-0630 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Astra — Technical Account Manager (EU)](<https://wellfound.com/jobs/3839785-technical-account-manager-eu>) · job-0629 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Tango — Technical Support Engineer](<https://wellfound.com/jobs/4797218-technical-support-engineer>) · job-0628 | geo restriction | Not checked | 2026-10-04 |

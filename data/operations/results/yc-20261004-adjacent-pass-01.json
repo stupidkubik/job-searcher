@@ -1,0 +1,216 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T22:01:45Z",
+  "jobs": [],
+  "operation_id": "yc-20261004-adjacent-pass-01",
+  "result": {
+    "count": 7,
+    "operations": [
+      {
+        "application_path": "applications/job-0631-pocket-customer-support-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "yc:o9R0IZV",
+        "command": "add",
+        "job_id": "job-0631",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0631",
+            "source": "YC Work at a Startup",
+            "source_job_id": "o9R0IZV",
+            "source_url": "https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:Fc0Rzny",
+        "command": "add",
+        "job_id": "job-0632",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0632",
+            "source": "YC Work at a Startup",
+            "source_job_id": "Fc0Rzny",
+            "source_url": "https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:EYlMYBU",
+        "command": "add",
+        "job_id": "job-0633",
+        "listing_status": "closed",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0633",
+            "source": "YC Work at a Startup",
+            "source_job_id": "EYlMYBU",
+            "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/EYlMYBU-client-support-specialist-healthcare-facilities-b2b"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:wx7a1VE",
+        "command": "add",
+        "job_id": "job-0634",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0634",
+            "source": "YC Work at a Startup",
+            "source_job_id": "wx7a1VE",
+            "source_url": "https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:f42QPiX",
+        "command": "add",
+        "job_id": "job-0635",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0635",
+            "source": "YC Work at a Startup",
+            "source_job_id": "f42QPiX",
+            "source_url": "https://www.ycombinator.com/companies/lightsprint/jobs/f42QPiX-product-marketing-gtm-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:XZRrah7",
+        "command": "add",
+        "job_id": "job-0636",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0636",
+            "source": "YC Work at a Startup",
+            "source_job_id": "XZRrah7",
+            "source_url": "https://www.ycombinator.com/companies/gooseworks/jobs/XZRrah7-design-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0637-clipboard-technical-support-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "yc:NDw5A2m",
+        "command": "add",
+        "job_id": "job-0637",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0637",
+            "source": "YC Work at a Startup",
+            "source_job_id": "NDw5A2m",
+            "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/NDw5A2m-technical-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "client_ref": "yc:Jqqde6G",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "reviewing",
+              "company": "Clipboard",
+              "id": "job-0637",
+              "listing_status": "open",
+              "reason": "canonical original_url matches",
+              "role": "Technical Support Engineer"
+            },
+            {
+              "application_status": "not_started",
+              "company": "Clipboard",
+              "id": "job-0633",
+              "listing_status": "closed",
+              "reason": "looks similar: company 1.00, role 0.77",
+              "role": "Client Support Specialist (Healthcare Facilities - B2B)"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_separate": {
+              "args": {
+                "application_status": "reviewing",
+                "apply_verified": "unknown",
+                "company": "Clipboard",
+                "first_party_verified": "yes",
+                "force": true,
+                "found_at": "2026-10-04",
+                "level": "Junior",
+                "listing_status": "open",
+                "location": "Remote; current employer board includes Non-U.S. and Canada/UK/EU variants",
+                "match_score": "8.5",
+                "notes": "Strong lower-transition support option: all experience levels, no degree requirement, voice/email troubleshooting, Zendesk and platform support. Current employer board lists exact-title Non-U.S. and Canada/UK/EU variants. YC bottom metadata is stale/contradictory; first-party board is authoritative. Individual embedded Ashby Apply URL was not exposed by Browser.",
+                "original_url": "https://www.clipboard.com/careers#open-roles",
+                "remote_policy": "Global",
+                "role": "Client Support Specialist (Workplaces - B2B)",
+                "source": "YC Work at a Startup",
+                "source_job_id": "Jqqde6G",
+                "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b",
+                "stack": "B2B Client Support; Zendesk; Platform Troubleshooting; Documentation; Cross-functional Operations"
+              },
+              "client_ref": "yc:Jqqde6G",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 8,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}
