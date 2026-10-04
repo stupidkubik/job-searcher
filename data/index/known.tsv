@@ -518,16 +518,16 @@ job-0516	s360	Frontend Designer, Tech Solutions	reviewing	unknown
 job-0517	netcare d.o.o.	Web Content Manager	reviewing	unknown	
 job-0518	Digistore24/Eklektika	Front-End Developer	reviewing	unknown	
 job-0519	Pollard Digital Solutions	Full-Stack Software Engineer	not_started	unknown	role_not_frontend
-job-0520	telmi	Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)	reviewing	unknown	
+job-0520	telmi	Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)	not_started	closed	closed_before_application
 job-0521	FollowEngine	Founding Frontend Engineer (React / Next.js)	not_started	unknown	seniority_too_high
 job-0522	Casino Alpha	Frontend Engineer	not_started	unknown	seniority_too_high
-job-0523	Viewline Ventures	Internal Tools Engineer	reviewing	open	
+job-0523	Viewline Ventures	Internal Tools Engineer	not_started	open	geo_restriction
 job-0524	Viewline Ventures	Business Systems Lead	not_started	open	geo_restriction
 job-0525	Recraft	Design Copywriter	not_started	open	other
 job-0526	Skylimit	SEO Specialist (iGaming)	not_started	unknown	stack_mismatch
 job-0527	Haptic	Framer Developer (Freelance)	not_started	unknown	stack_mismatch
 job-0528	Unknown employer	Вебмастер (Tilda)	not_started	unknown	stack_mismatch
-job-0529	Туту	Креативный редактор	reviewing	open	
+job-0529	Туту	Креативный редактор	not_started	open	role_not_frontend
 job-0530	Darsybox	Копирайтер / контент-редактор (продающие тексты)	not_started	unknown	other
 job-0531	Unknown employer	Content Operations Specialist (AI)	not_started	unknown	other
 job-0532	Unknown employer	Remote Digital Producer Trainee / Digital Project Coordinator	not_started	unknown	other
@@ -545,7 +545,7 @@ job-0543	Undisclosed (hirify-1201970)	Website Support Specialist (WordPress)	not
 job-0544	Undisclosed (hirify-1111819)	Front-End Web Specialist (Storyblok)	not_started	unknown	geo_restriction
 job-0545	Undisclosed (hirify-1168716)	Associate E-Commerce Professional (Magento/Shopify)	not_started	unknown	work_authorization
 job-0546	Kontoor Brands	Digital Operations Coordinator	not_started	open	geo_restriction
-job-0547	NCR Voyix	Digital Experience Specialist	reviewing	open	
+job-0547	NCR Voyix	Digital Experience Specialist	not_started	open	geo_restriction
 job-0548	Undisclosed (hirify-1082385)	Website Onboarding Specialist (Website Design)	not_started	unknown	geo_restriction
 job-0549	Undisclosed (hirify-946322)	Travel Operations & WordPress Content Coordinator	not_started	unknown	geo_restriction
 job-0550	Universal Destinations & Experiences	Analyst, Adobe Target	not_started	unknown	geo_restriction
@@ -554,7 +554,7 @@ job-0552	Undisclosed (hirify-1123601)	Online Operations Co-Ordinator (E-commerce
 job-0553	Undisclosed (hirify-979984)	Web Project Coordinator (WordPress)	reviewing	unknown	
 job-0554	Undisclosed (hirify-748246)	Website Manager	reviewing	unknown	
 job-0555	Undisclosed (hirify-956703)	eCommerce Operations Specialist, EMEA	not_started	unknown	geo_restriction
-job-0556	Undisclosed (hirify-1142301)	Marketing Operations Developer (MarTech)	reviewing	unknown	
+job-0556	Undisclosed (hirify-1142301)	Marketing Operations Developer (MarTech)	not_started	unknown	already_applied
 job-0557	Undisclosed (hirify-1158608)	Marketing Operations Specialist (AI)	not_started	unknown	stack_mismatch
 job-0558	MAP / WPP Enterprise Solutions	Campaign Specialist	not_started	open	work_authorization
 job-0559	Undisclosed (hirify-1171154)	Marketing Operations Specialist (Marketing Automation)	not_started	unknown	geo_restriction
@@ -576,7 +576,7 @@ job-0574	Undisclosed (hirify-1174300)	Technical Support Specialist I (SQL/Web Ap
 job-0575	Undisclosed (hirify-1195192)	Technical Support Specialist - Tier 2 (Software)	not_started	unknown	geo_restriction
 job-0576	Undisclosed (hirify-1061312)	WordPress Live Support Specialist	not_started	unknown	other
 job-0577	Undisclosed (hirify-1071952)	Technical Support Engineer (WordPress)	not_started	unknown	geo_restriction
-job-0578	Undisclosed (hirify-1197008)	Technical Support Specialist (Travel Tech)	reviewing	unknown	
+job-0578	Undisclosed (hirify-1197008)	Technical Support Specialist (Travel Tech)	reviewing	open	
 job-0579	Undisclosed (hirify-1077501)	Technical Support Specialist (AI)	not_started	unknown	geo_restriction
 job-0580	Undisclosed (hirify-1097910)	Technical Support Specialist (SaaS)	not_started	unknown	geo_restriction
 job-0581	Undisclosed (hirify-1195826)	Technical Support Engineer (AI)	reviewing	unknown	

@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (42)](#to-verify) · [Archive (558)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (563)](#archive)
 
 ## Action now
 
@@ -12,6 +12,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Ready to apply | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation. | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
+| Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://apply.workable.com/emerging-travel-group/j/FFA0294100/>) · job-0578 | 8.5 | — | Open | [Open](../applications/job-0578-undisclosed-hirify-1197008-technical-support-specialist.md) |
 | Reviewing | [ArboStar — Technical Support Specialist](<https://arbostar.com/careers>) · job-0627 | 8.5 | — | Open | [Open](../applications/job-0627-arbostar-technical-support-specialist.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [B12 — Web Designer](<https://job-boards.greenhouse.io/b12/jobs/2259130>) · job-0594 | 8 | — | Open | [Open](../applications/job-0594-b12-web-designer.md) |
@@ -73,15 +74,11 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
-| Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
-| Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Animalz — (Developmental) Content Editor](<https://weworkremotely.com/remote-jobs/animalz-developmental-content-editor>) · job-0646 | First party + Apply + Listing | 9 | verify first-party | Never |
 | Reviewing | [DesignFiles — Content Marketing Coordinator](<https://weworkremotely.com/remote-jobs/designfiles-content-marketing-coordinator>) · job-0647 | First party + Apply + Listing | 9 | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | First party + Apply + Listing | 9 | verify first-party | Never |
 | Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
 | Reviewing | [accelerate agency — Brand Content Manager](<https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager>) · job-0650 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
-| Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [Clipboard — Client Support Specialist (Workplaces - B2B)](<https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b>) · job-0638 | First party + Apply | 8.5 | verify first-party | 2026-10-05 |
 | Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
@@ -113,14 +110,12 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [s360 — Frontend Designer, Tech Solutions](<https://www.helloworld.rs/posao/Frontend-Designer-Tech-Solutions/s360/756364>) · job-0516 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [netcare d.o.o. — Web Content Manager](<https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927>) · job-0517 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Digistore24/Eklektika — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601>) · job-0518 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Viewline Ventures — Internal Tools Engineer](<https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures>) · job-0523 | Apply | — | verify first-party | 2026-10-02 |
 
 ## Archive
 
 <details>
 
-<summary>Archive (558)</summary>
+<summary>Archive (563)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -141,6 +136,11 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: stack mismatch | [Educato — UGC Campaign Manager - Entry level marketing role](<https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable>) · job-0634 | stack mismatch | Not checked | 2026-10-05 |
 | Closed | [Clipboard — Client Support Specialist (Healthcare Facilities - B2B)](<https://grnh.se/95f68d9b4us>) · job-0633 | closed before application | Closed | 2026-10-05 |
 | Skipped: stack mismatch | [Porter — DevOps Support Engineer](<https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer>) · job-0632 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: already applied | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | already applied | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | geo restriction | Open | 2026-10-05 |
+| Skipped: role not frontend | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | role not frontend | Open | 2026-10-05 |
+| Skipped: geo restriction | [Viewline Ventures — Internal Tools Engineer](<https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures>) · job-0523 | geo restriction | Open | 2026-10-05 |
+| Closed | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | closed before application | Closed | 2026-10-05 |
 | Skipped: geo restriction | [REWORK Digital — Technical Support & Platform Operations Specialist](<https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist>) · job-0630 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Astra — Technical Account Manager (EU)](<https://wellfound.com/jobs/3839785-technical-account-manager-eu>) · job-0629 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Tango — Technical Support Engineer](<https://wellfound.com/jobs/4797218-technical-support-engineer>) · job-0628 | geo restriction | Not checked | 2026-10-04 |

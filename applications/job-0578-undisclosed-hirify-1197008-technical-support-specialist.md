@@ -3,11 +3,11 @@ id: job-0578
 company: Undisclosed (hirify-1197008)
 role: Technical Support Specialist (Travel Tech)
 cv_version: 
-original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+original_url: https://apply.workable.com/emerging-travel-group/j/FFA0294100/
+verified_at: 2026-10-05
+listing_status: open
+first_party_verified: yes
+apply_verified: yes
 ---
 
 # Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)

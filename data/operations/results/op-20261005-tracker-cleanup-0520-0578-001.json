@@ -1,0 +1,84 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T22:54:11Z",
+  "jobs": [
+    "job-0520",
+    "job-0523",
+    "job-0529",
+    "job-0547",
+    "job-0556",
+    "job-0578"
+  ],
+  "operation_id": "op-20261005-tracker-cleanup-0520-0578-001",
+  "result": {
+    "count": 6,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0520",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0523",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0529",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0547",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0556",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "reviewing",
+        "command": "verify",
+        "job_id": "job-0578",
+        "listing_status": "open",
+        "outcome": "ready_for_review",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 6,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
