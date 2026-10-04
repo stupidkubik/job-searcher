@@ -1,0 +1,13 @@
+{
+  "command": "add",
+  "error": {
+    "code": "invariant_violation",
+    "layer": "jobs",
+    "message": "dataset failed validation after this write"
+  },
+  "executed_at": "2026-10-04T22:04:31Z",
+  "operation_id": "yc-20261004-adjacent-pass-02",
+  "risk": "none",
+  "status": "rejected",
+  "version": 1
+}
