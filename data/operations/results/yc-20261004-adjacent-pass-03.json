@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-04T22:05:35Z",
+  "job_id": "job-0638",
+  "operation_id": "yc-20261004-adjacent-pass-03",
+  "result": {
+    "application_path": "applications/job-0638-clipboard-client-support-specialist-wo.md",
+    "application_status": "reviewing",
+    "job_id": "job-0638",
+    "listing_status": "open",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-04",
+        "job_id": "job-0638",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Jqqde6G",
+        "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

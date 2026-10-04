@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-05** · Jobs: **637**
+Dataset updated: **2026-10-05** · Jobs: **638**
 
-[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (38)](#to-verify) · [Archive (546)](#archive)
+[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (39)](#to-verify) · [Archive (546)](#archive)
 
 ## Action now
 
@@ -79,6 +79,7 @@ Dataset updated: **2026-10-05** · Jobs: **637**
 | Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
+| Reviewing | [Clipboard — Client Support Specialist (Workplaces - B2B)](<https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b>) · job-0638 | First party + Apply | 8.5 | verify first-party | 2026-10-05 |
 | Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Cheil Adriatic d.o.o. — Technical Project Manager](<https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067>) · job-0600 | First party + Apply + Listing | 7 | verify first-party | Never |
