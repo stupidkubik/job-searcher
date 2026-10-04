@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **541**
+Dataset updated: **2026-10-04** · Jobs: **555**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (18)](#to-verify) · [Archive (472)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (22)](#to-verify) · [Archive (482)](#archive)
 
 ## Action now
 
@@ -72,8 +72,12 @@ Dataset updated: **2026-10-04** · Jobs: **541**
 | Status | Vacancy | Need | Match | Next action | Last checked |
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
+| Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-979984) — Web Project Coordinator (WordPress)](<https://hirify.me/jobs/979984-web-project-coordinator-wordpress>) · job-0553 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-748246) — Website Manager](<https://hirify.me/jobs/748246-website-manager>) · job-0554 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
@@ -94,10 +98,20 @@ Dataset updated: **2026-10-04** · Jobs: **541**
 
 <details>
 
-<summary>Archive (472)</summary>
+<summary>Archive (482)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Undisclosed (hirify-956703) — eCommerce Operations Specialist, EMEA](<https://hirify.me/jobs/956703-ecommerce-operations-specialist>) · job-0555 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1133562) — CMS Website Specialist (HTML/CSS)](<https://hirify.me/jobs/1133562-cms-website-specialist-html-css>) · job-0551 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Universal Destinations & Experiences — Analyst, Adobe Target](<https://hirify.me/jobs/1200136-adobe-target-analyst>) · job-0550 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-946322) — Travel Operations & WordPress Content Coordinator](<https://hirify.me/jobs/946322-travel-wordpress-content-coordinator>) · job-0549 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1082385) — Website Onboarding Specialist (Website Design)](<https://hirify.me/jobs/1082385-website-onboarding-designer>) · job-0548 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Kontoor Brands — Digital Operations Coordinator](<https://kbi.wd5.myworkdayjobs.com/en-US/Kontoor/job/Greensboro-NC/Digital-Operations-Coordinator_R-20260918-0009>) · job-0546 | geo restriction | Open | 2026-10-04 |
+| Skipped: work authorization | [Undisclosed (hirify-1168716) — Associate E-Commerce Professional (Magento/Shopify)](<https://hirify.me/jobs/1168716-associate-ecommerce-magento-shopify>) · job-0545 | work authorization | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1111819) — Front-End Web Specialist (Storyblok)](<https://hirify.me/jobs/1111819-front-end-web-specialist-storyblok>) · job-0544 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1201970) — Website Support Specialist (WordPress)](<https://hirify.me/jobs/1201970-website-support-wordpress-specialist>) · job-0543 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Visa — Web Operations & Production Analyst (AEM)](<https://hirify.me/jobs/1049645-web-operations-aem-analyst>) · job-0542 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Unknown employer — HubSpot CRM & CMS Specialist (Part-time Contract)](<https://hirify.me/jobs/1132020-hubspot-crm-cms-specialist>) · job-0540 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Unknown employer — Webmaster / Web Content Administrator (Liferay)](<https://hirify.me/jobs/1145278-web-content-administrator-liferay>) · job-0539 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: work authorization | [Unknown employer — Web Content Specialist (SEO)](<https://hirify.me/jobs/1121538-web-content-specialist-seo>) · job-0538 | work authorization | Not checked | 2026-10-04 |

@@ -1,0 +1,311 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T18:38:24Z",
+  "jobs": [],
+  "operation_id": "hirify-web-operations-20261004-001",
+  "result": {
+    "count": 14,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1049645",
+        "command": "add",
+        "job_id": "job-0542",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0542",
+            "source": "Hirify",
+            "source_job_id": "1049645",
+            "source_url": "https://hirify.me/jobs/1049645-web-operations-aem-analyst"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1201970",
+        "command": "add",
+        "job_id": "job-0543",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0543",
+            "source": "Hirify",
+            "source_job_id": "1201970",
+            "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1111819",
+        "command": "add",
+        "job_id": "job-0544",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0544",
+            "source": "Hirify",
+            "source_job_id": "1111819",
+            "source_url": "https://hirify.me/jobs/1111819-front-end-web-specialist-storyblok"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1168716",
+        "command": "add",
+        "job_id": "job-0545",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0545",
+            "source": "Hirify",
+            "source_job_id": "1168716",
+            "source_url": "https://hirify.me/jobs/1168716-associate-ecommerce-magento-shopify"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1131014",
+        "command": "add",
+        "job_id": "job-0546",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0546",
+            "source": "Hirify",
+            "source_job_id": "1131014",
+            "source_url": "https://hirify.me/jobs/1131014-digital-operations-coordinator"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0547-ncr-voyix-digital-experience-specialis.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1143993",
+        "command": "add",
+        "job_id": "job-0547",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0547",
+            "source": "Hirify",
+            "source_job_id": "1143993",
+            "source_url": "https://hirify.me/jobs/1143993-digital-experience-javascript"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1082385",
+        "command": "add",
+        "job_id": "job-0548",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0548",
+            "source": "Hirify",
+            "source_job_id": "1082385",
+            "source_url": "https://hirify.me/jobs/1082385-website-onboarding-designer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:946322",
+        "command": "add",
+        "job_id": "job-0549",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0549",
+            "source": "Hirify",
+            "source_job_id": "946322",
+            "source_url": "https://hirify.me/jobs/946322-travel-wordpress-content-coordinator"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1200136",
+        "command": "add",
+        "job_id": "job-0550",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0550",
+            "source": "Hirify",
+            "source_job_id": "1200136",
+            "source_url": "https://hirify.me/jobs/1200136-adobe-target-analyst"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1133562",
+        "command": "add",
+        "job_id": "job-0551",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0551",
+            "source": "Hirify",
+            "source_job_id": "1133562",
+            "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0552-undisclosed-hirify-1123601-online-operations-co-ordinat.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1123601",
+        "command": "add",
+        "job_id": "job-0552",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0552",
+            "source": "Hirify",
+            "source_job_id": "1123601",
+            "source_url": "https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0553-undisclosed-hirify-979984-web-project-coordinator-word.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:979984",
+        "command": "add",
+        "job_id": "job-0553",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0553",
+            "source": "Hirify",
+            "source_job_id": "979984",
+            "source_url": "https://hirify.me/jobs/979984-web-project-coordinator-wordpress"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0554-undisclosed-hirify-748246-website-manager.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:748246",
+        "command": "add",
+        "job_id": "job-0554",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0554",
+            "source": "Hirify",
+            "source_job_id": "748246",
+            "source_url": "https://hirify.me/jobs/748246-website-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:956703",
+        "command": "add",
+        "job_id": "job-0555",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0555",
+            "source": "Hirify",
+            "source_job_id": "956703",
+            "source_url": "https://hirify.me/jobs/956703-ecommerce-operations-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 14,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
