@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **601**
+Dataset updated: **2026-10-04** · Jobs: **630**
 
-[Action now (4)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (513)](#archive)
+[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (541)](#archive)
 
 ## Action now
 
@@ -12,6 +12,7 @@ Dataset updated: **2026-10-04** · Jobs: **601**
 | --- | --- | --- | --- | --- | --- |
 | Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
 | Ready to apply | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation. | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
+| Reviewing | [ArboStar — Technical Support Specialist](<https://arbostar.com/careers>) · job-0627 | 8.5 | — | Open | [Open](../applications/job-0627-arbostar-technical-support-specialist.md) |
 | Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
 | Reviewing | [B12 — Web Designer](<https://job-boards.greenhouse.io/b12/jobs/2259130>) · job-0594 | 8 | — | Open | [Open](../applications/job-0594-b12-web-designer.md) |
 
@@ -113,10 +114,38 @@ Dataset updated: **2026-10-04** · Jobs: **601**
 
 <details>
 
-<summary>Archive (513)</summary>
+<summary>Archive (541)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [REWORK Digital — Technical Support & Platform Operations Specialist](<https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist>) · job-0630 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Astra — Technical Account Manager (EU)](<https://wellfound.com/jobs/3839785-technical-account-manager-eu>) · job-0629 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Tango — Technical Support Engineer](<https://wellfound.com/jobs/4797218-technical-support-engineer>) · job-0628 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Agave API — Technical Support Engineer (TSE)](<https://wellfound.com/jobs/4659065-technical-support-engineer-tse>) · job-0626 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [DoseSpot — Technical Account Specialist](<https://wellfound.com/jobs/4238944-technical-account-specialist>) · job-0625 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Algoworks — Technical Support Engineer](<https://wellfound.com/jobs/4185126-technical-support-engineer>) · job-0624 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Cyberhaven — Technical Support Engineer](<https://wellfound.com/jobs/3150038-technical-support-engineer>) · job-0623 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Hospitable.com — Technical Support Engineer (Americas/EMEA - Remote)](<https://wellfound.com/jobs/3264511-technical-support-engineer-americas-emea-remote>) · job-0622 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [LCA — Content Manager](<https://wellfound.com/jobs/4718645-content-manager>) · job-0621 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: other | [Fractional Services Solutions — Content Manager for SaaS Startup](<https://wellfound.com/jobs/4716505-content-manager-for-saas-startup>) · job-0620 | other | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [UpSunday — Brand and Web Designer (Remote, project based)](<https://wellfound.com/jobs/4772700-frontend-developer-next-js-remote-project-based-clone>) · job-0619 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: other | [BSC Webdesign — WordPress Web Designer & Developer (Remote Contractor)](<https://wellfound.com/jobs/4567583-wordpress-web-designer-developer-remote-contractor>) · job-0618 | other | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Niuro — GTM Operations Specialist](<https://wellfound.com/jobs/4791979-senior-ai-engineer-mobile-voice-and-salesforce-workflows-clone>) · job-0617 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Fencore — Sales and Marketing Operations Intern](<https://wellfound.com/jobs/4637068-software-development-intern-clone>) · job-0616 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: other | [Syd Life AI — Content & Operations Associate](<https://wellfound.com/jobs/4716183-content-operations-associate>) · job-0615 | other | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [TechSpace — Marketo Developer / Integration Engineer](<https://wellfound.com/jobs/4716160-marketo-developer-integration-engineer>) · job-0614 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [First Gen Financial — Marketing Operations Specialist](<https://wellfound.com/jobs/4704023-marketing-operations-specialist>) · job-0613 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [REcollab — FRONTEND ENGINEER](<https://wellfound.com/jobs/4781700-backend-database-engineer-clone>) · job-0612 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Excel Machine Technologies — Frontend Engineer](<https://wellfound.com/jobs/4779393-frontend-engineer>) · job-0611 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [hard.coded — Frontend Engineer](<https://wellfound.com/jobs/4634108-frontend-engineer>) · job-0610 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Balcony — Frontend Engineer](<https://wellfound.com/jobs/4579548-design-technologist-frontend-engineer>) · job-0609 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [WeKnow Group — Frontend Engineer](<https://wellfound.com/jobs/4014774-frontend-engineer>) · job-0608 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: salary too low | [X-Streamify — Frontend Engineer](<https://wellfound.com/jobs/4013962-frontend-engineer>) · job-0607 | salary too low | Not checked | 2026-10-04 |
+| Skipped: salary too low | [HelioAI — Frontend Engineer Intern](<https://wellfound.com/jobs/3691652-frontend-engineer-intern>) · job-0606 | salary too low | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Halliday — Front End Engineer](<https://wellfound.com/jobs/3532574-front-end-engineer>) · job-0605 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Made Card — Frontend Engineer](<https://wellfound.com/jobs/3499622-frontend-engineer>) · job-0604 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: other | [Modstack.dev — Frontend engineer](<https://wellfound.com/jobs/3129305-frontend-engineer>) · job-0603 | other | Not checked | 2026-10-04 |
+| Skipped: other | [EQLand Technology — Frontend Engineer](<https://wellfound.com/jobs/2416798-frontend-engineer>) · job-0602 | other | Not checked | 2026-10-04 |
 | Skipped: other | [Crae Group Ltd — Customer Support Agent](<https://www.helloworld.rs/posao/Customer-Support-Agent/Crae-Group-Ltd/754091>) · job-0601 | other | Not checked | 2026-10-04 |
 | Skipped: role not frontend | [PWO SEE d.o.o. — IT Support Specialist](<https://www.helloworld.rs/posao/IT-Support-Specialist/PWO-SEE-d.o.o/758965>) · job-0599 | role not frontend | Not checked | 2026-10-04 |
 | Skipped: seniority too high | [Collectly, Inc. — Frontend Engineer](<https://www.helloworld.rs/posao/Frontend-Engineer/Collectly-Inc/727544>) · job-0598 | seniority too high | Not checked | 2026-10-04 |

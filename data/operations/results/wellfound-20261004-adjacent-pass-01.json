@@ -1,0 +1,626 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T20:12:50Z",
+  "jobs": [],
+  "operation_id": "wellfound-20261004-adjacent-pass-01",
+  "result": {
+    "count": 29,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:2416798",
+        "command": "add",
+        "job_id": "job-0602",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0602",
+            "source": "Wellfound",
+            "source_job_id": "2416798",
+            "source_url": "https://wellfound.com/jobs/2416798-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3129305",
+        "command": "add",
+        "job_id": "job-0603",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0603",
+            "source": "Wellfound",
+            "source_job_id": "3129305",
+            "source_url": "https://wellfound.com/jobs/3129305-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3499622",
+        "command": "add",
+        "job_id": "job-0604",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0604",
+            "source": "Wellfound",
+            "source_job_id": "3499622",
+            "source_url": "https://wellfound.com/jobs/3499622-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3532574",
+        "command": "add",
+        "job_id": "job-0605",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0605",
+            "source": "Wellfound",
+            "source_job_id": "3532574",
+            "source_url": "https://wellfound.com/jobs/3532574-front-end-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3691652",
+        "command": "add",
+        "job_id": "job-0606",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0606",
+            "source": "Wellfound",
+            "source_job_id": "3691652",
+            "source_url": "https://wellfound.com/jobs/3691652-frontend-engineer-intern"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4013962",
+        "command": "add",
+        "job_id": "job-0607",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0607",
+            "source": "Wellfound",
+            "source_job_id": "4013962",
+            "source_url": "https://wellfound.com/jobs/4013962-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4014774",
+        "command": "add",
+        "job_id": "job-0608",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0608",
+            "source": "Wellfound",
+            "source_job_id": "4014774",
+            "source_url": "https://wellfound.com/jobs/4014774-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4579548",
+        "command": "add",
+        "job_id": "job-0609",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0609",
+            "source": "Wellfound",
+            "source_job_id": "4579548",
+            "source_url": "https://wellfound.com/jobs/4579548-design-technologist-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4634108",
+        "command": "add",
+        "job_id": "job-0610",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0610",
+            "source": "Wellfound",
+            "source_job_id": "4634108",
+            "source_url": "https://wellfound.com/jobs/4634108-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4779393",
+        "command": "add",
+        "job_id": "job-0611",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0611",
+            "source": "Wellfound",
+            "source_job_id": "4779393",
+            "source_url": "https://wellfound.com/jobs/4779393-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4781700",
+        "command": "add",
+        "job_id": "job-0612",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0612",
+            "source": "Wellfound",
+            "source_job_id": "4781700",
+            "source_url": "https://wellfound.com/jobs/4781700-backend-database-engineer-clone"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4704023",
+        "command": "add",
+        "job_id": "job-0613",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0613",
+            "source": "Wellfound",
+            "source_job_id": "4704023",
+            "source_url": "https://wellfound.com/jobs/4704023-marketing-operations-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4716160",
+        "command": "add",
+        "job_id": "job-0614",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0614",
+            "source": "Wellfound",
+            "source_job_id": "4716160",
+            "source_url": "https://wellfound.com/jobs/4716160-marketo-developer-integration-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4716183",
+        "command": "add",
+        "job_id": "job-0615",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0615",
+            "source": "Wellfound",
+            "source_job_id": "4716183",
+            "source_url": "https://wellfound.com/jobs/4716183-content-operations-associate"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4637068",
+        "command": "add",
+        "job_id": "job-0616",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0616",
+            "source": "Wellfound",
+            "source_job_id": "4637068",
+            "source_url": "https://wellfound.com/jobs/4637068-software-development-intern-clone"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4791979",
+        "command": "add",
+        "job_id": "job-0617",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0617",
+            "source": "Wellfound",
+            "source_job_id": "4791979",
+            "source_url": "https://wellfound.com/jobs/4791979-senior-ai-engineer-mobile-voice-and-salesforce-workflows-clone"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4567583",
+        "command": "add",
+        "job_id": "job-0618",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0618",
+            "source": "Wellfound",
+            "source_job_id": "4567583",
+            "source_url": "https://wellfound.com/jobs/4567583-wordpress-web-designer-developer-remote-contractor"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4772700",
+        "command": "add",
+        "job_id": "job-0619",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0619",
+            "source": "Wellfound",
+            "source_job_id": "4772700",
+            "source_url": "https://wellfound.com/jobs/4772700-frontend-developer-next-js-remote-project-based-clone"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4716505",
+        "command": "add",
+        "job_id": "job-0620",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0620",
+            "source": "Wellfound",
+            "source_job_id": "4716505",
+            "source_url": "https://wellfound.com/jobs/4716505-content-manager-for-saas-startup"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4718645",
+        "command": "add",
+        "job_id": "job-0621",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0621",
+            "source": "Wellfound",
+            "source_job_id": "4718645",
+            "source_url": "https://wellfound.com/jobs/4718645-content-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3264511",
+        "command": "add",
+        "job_id": "job-0622",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0622",
+            "source": "Wellfound",
+            "source_job_id": "3264511",
+            "source_url": "https://wellfound.com/jobs/3264511-technical-support-engineer-americas-emea-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3150038",
+        "command": "add",
+        "job_id": "job-0623",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0623",
+            "source": "Wellfound",
+            "source_job_id": "3150038",
+            "source_url": "https://wellfound.com/jobs/3150038-technical-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4185126",
+        "command": "add",
+        "job_id": "job-0624",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0624",
+            "source": "Wellfound",
+            "source_job_id": "4185126",
+            "source_url": "https://wellfound.com/jobs/4185126-technical-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4238944",
+        "command": "add",
+        "job_id": "job-0625",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0625",
+            "source": "Wellfound",
+            "source_job_id": "4238944",
+            "source_url": "https://wellfound.com/jobs/4238944-technical-account-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4659065",
+        "command": "add",
+        "job_id": "job-0626",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0626",
+            "source": "Wellfound",
+            "source_job_id": "4659065",
+            "source_url": "https://wellfound.com/jobs/4659065-technical-support-engineer-tse"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0627-arbostar-technical-support-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "wellfound:4751244",
+        "command": "add",
+        "job_id": "job-0627",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0627",
+            "source": "Wellfound",
+            "source_job_id": "4751244",
+            "source_url": "https://wellfound.com/jobs/4751244-technical-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4797218",
+        "command": "add",
+        "job_id": "job-0628",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0628",
+            "source": "Wellfound",
+            "source_job_id": "4797218",
+            "source_url": "https://wellfound.com/jobs/4797218-technical-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3839785",
+        "command": "add",
+        "job_id": "job-0629",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0629",
+            "source": "Wellfound",
+            "source_job_id": "3839785",
+            "source_url": "https://wellfound.com/jobs/3839785-technical-account-manager-eu"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4714833",
+        "command": "add",
+        "job_id": "job-0630",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0630",
+            "source": "Wellfound",
+            "source_job_id": "4714833",
+            "source_url": "https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 29,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
