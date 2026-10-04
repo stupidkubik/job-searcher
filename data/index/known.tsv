@@ -478,7 +478,7 @@ job-0476	Mayflower	Design System Designer	not_started	unknown	other
 job-0477	Mayflower	Customer Support Specialist	not_started	unknown	other
 job-0478	Pixibo	Junior Frontend Engineer - Remote	reviewing	unknown	
 job-0479	Appetiser Apps	Junior Full-Stack Developer	not_started	unknown	salary_too_low
-job-0480	ZIRA	DEV ZIRA Talent Academy 2026	reviewing	unknown	
+job-0480	ZIRA	DEV ZIRA Talent Academy 2026	not_started	closed	closed_before_application
 job-0481	DualEntry	Frontend Software Engineer (Mid-Level)	not_started	unknown	seniority_too_high
 job-0482	Ultahost	Front-End Developer (Next.js & React.js)	reviewing	unknown	
 job-0483	Novakid School	Low-code / No-code Automation Developer	not_started	unknown	seniority_too_high
@@ -579,14 +579,14 @@ job-0577	Undisclosed (hirify-1071952)	Technical Support Engineer (WordPress)	not
 job-0578	Undisclosed (hirify-1197008)	Technical Support Specialist (Travel Tech)	reviewing	open	
 job-0579	Undisclosed (hirify-1077501)	Technical Support Specialist (AI)	not_started	unknown	geo_restriction
 job-0580	Undisclosed (hirify-1097910)	Technical Support Specialist (SaaS)	not_started	unknown	geo_restriction
-job-0581	Undisclosed (hirify-1195826)	Technical Support Engineer (AI)	reviewing	unknown	
-job-0582	Undisclosed (hirify-1137410)	Technical Support Engineer (TypeScript)	reviewing	unknown	
-job-0583	Undisclosed (hirify-1182245)	Technical Support Engineer I (WordPress)	reviewing	unknown	
-job-0584	Undisclosed (hirify-1186630)	Product Support Specialist I (iGaming)	reviewing	unknown	
-job-0585	Undisclosed (hirify-1127645)	Product Support Specialist (SaaS)	reviewing	unknown	
-job-0586	Undisclosed (hirify-1129433)	Product Support Specialist (SaaS)	reviewing	unknown	
-job-0587	Undisclosed (hirify-1191166)	Product Support Specialist (SaaS)	reviewing	unknown	
-job-0588	Undisclosed (hirify-1181839)	Product Support Associate (AI/Fintech)	reviewing	unknown	
+job-0581	Undisclosed (hirify-1195826)	Technical Support Engineer (AI)	not_started	unknown	geo_restriction
+job-0582	Undisclosed (hirify-1137410)	Technical Support Engineer (TypeScript)	not_started	unknown	geo_restriction
+job-0583	Undisclosed (hirify-1182245)	Technical Support Engineer I (WordPress)	not_started	unknown	geo_restriction
+job-0584	Undisclosed (hirify-1186630)	Product Support Specialist I (iGaming)	not_started	unknown	geo_restriction
+job-0585	Undisclosed (hirify-1127645)	Product Support Specialist (SaaS)	not_started	unknown	geo_restriction
+job-0586	Undisclosed (hirify-1129433)	Product Support Specialist (SaaS)	not_started	unknown	geo_restriction
+job-0587	Undisclosed (hirify-1191166)	Product Support Specialist (SaaS)	not_started	unknown	geo_restriction
+job-0588	Undisclosed (hirify-1181839)	Product Support Associate (AI/Fintech)	not_started	unknown	geo_restriction
 job-0589	Codelogix	Next.js Developer	not_started	unknown	seniority_too_high
 job-0590	Growth Leads	Front End Engineer (Twig/Vue)	not_started	unknown	seniority_too_high
 job-0591	IGT D&B d.o.o.	Frontend TypeScript Game Developer	not_started	unknown	seniority_too_high

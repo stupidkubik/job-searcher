@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (26)](#to-verify) · [Archive (573)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (582)](#archive)
 
 ## Action now
 
@@ -88,16 +88,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-979984) — Web Project Coordinator (WordPress)](<https://hirify.me/jobs/979984-web-project-coordinator-wordpress>) · job-0553 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-748246) — Website Manager](<https://hirify.me/jobs/748246-website-manager>) · job-0554 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1195826) — Technical Support Engineer (AI)](<https://hirify.me/jobs/1195826-technical-support-engineer-ai>) · job-0581 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1137410) — Technical Support Engineer (TypeScript)](<https://hirify.me/jobs/1137410-technical-support-engineer-typescript>) · job-0582 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1182245) — Technical Support Engineer I (WordPress)](<https://hirify.me/jobs/1182245-technical-support-engineer-wordpress>) · job-0583 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1186630) — Product Support Specialist I (iGaming)](<https://hirify.me/jobs/1186630-product-support-specialist-igaming>) · job-0584 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1127645) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1127645-product-support-specialist-saas>) · job-0585 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1129433) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1129433-product-support-specialist-saas>) · job-0586 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
 
@@ -105,7 +96,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 
 <details>
 
-<summary>Archive (573)</summary>
+<summary>Archive (582)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -127,6 +118,14 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Closed | [Clipboard — Client Support Specialist (Healthcare Facilities - B2B)](<https://grnh.se/95f68d9b4us>) · job-0633 | closed before application | Closed | 2026-10-05 |
 | Skipped: stack mismatch | [Porter — DevOps Support Engineer](<https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer>) · job-0632 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: seniority too high | [Codelogix — Next.js Developer](<https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992>) · job-0589 | seniority too high | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1129433) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1129433-product-support-specialist-saas>) · job-0586 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1127645) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1127645-product-support-specialist-saas>) · job-0585 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1186630) — Product Support Specialist I (iGaming)](<https://hirify.me/jobs/1186630-product-support-specialist-igaming>) · job-0584 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1182245) — Technical Support Engineer I (WordPress)](<https://hirify.me/jobs/1182245-technical-support-engineer-wordpress>) · job-0583 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1137410) — Technical Support Engineer (TypeScript)](<https://hirify.me/jobs/1137410-technical-support-engineer-typescript>) · job-0582 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1195826) — Technical Support Engineer (AI)](<https://hirify.me/jobs/1195826-technical-support-engineer-ai>) · job-0581 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: already applied | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | already applied | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | geo restriction | Open | 2026-10-05 |
 | Skipped: role not frontend | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | role not frontend | Open | 2026-10-05 |
@@ -141,6 +140,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: other | [PREAX — Стажер Frontend-разработчик по React](<https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/>) · job-0498 | other | Not checked | 2026-10-05 |
 | Closed | [Undisclosed via Recruiter Maria — Frontend разработчик](<https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d>) · job-0494 | closed before application | Closed | 2026-10-05 |
 | Closed | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | closed before application | Closed | 2026-10-05 |
+| Closed | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | closed before application | Closed | 2026-10-05 |
 | Skipped: geo restriction | [REWORK Digital — Technical Support & Platform Operations Specialist](<https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist>) · job-0630 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Astra — Technical Account Manager (EU)](<https://wellfound.com/jobs/3839785-technical-account-manager-eu>) · job-0629 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Tango — Technical Support Engineer](<https://wellfound.com/jobs/4797218-technical-support-engineer>) · job-0628 | geo restriction | Not checked | 2026-10-04 |
