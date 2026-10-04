@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-05** · Jobs: **650**
+Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (42)](#to-verify) · [Archive (555)](#archive)
+[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (42)](#to-verify) · [Archive (558)](#archive)
 
 ## Action now
 
@@ -120,10 +120,13 @@ Dataset updated: **2026-10-05** · Jobs: **650**
 
 <details>
 
-<summary>Archive (555)</summary>
+<summary>Archive (558)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Mindee — Technical Content & Developer Experience Lead](<https://www.welcometothejungle.com/en/companies/mindee/jobs/technical-content-developer-experience-lead_paris>) · job-0653 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: stack mismatch | [Axelera AI — Developer Relations and Community Manager](<https://www.welcometothejungle.com/en/companies/axelera-ai/jobs/developer-relations-and-community-manager_gb_2fki22mw>) · job-0652 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: stack mismatch | [Slice — Software Developer (Services)](<https://www.welcometothejungle.com/en/companies/slice-1/jobs/software-developer-services_londres_gyidsk4c>) · job-0651 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Doximity — Marketing Coordinator](<https://weworkremotely.com/remote-jobs/doximity-marketing-coordinator>) · job-0649 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: stack mismatch | [Icarus Digital Marketing — Performance Creative Strategist and AI Producer](<https://weworkremotely.com/remote-jobs/icarus-digital-marketing-performance-creative-strategist-and-ai-producer>) · job-0648 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Webflow — IT Support Specialist](<https://weworkremotely.com/remote-jobs/webflow-it-support-specialist>) · job-0645 | geo restriction | Not checked | 2026-10-05 |

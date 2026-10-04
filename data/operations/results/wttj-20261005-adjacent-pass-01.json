@@ -1,0 +1,80 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T22:24:13Z",
+  "jobs": [],
+  "operation_id": "wttj-20261005-adjacent-pass-01",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:slice-software-developer-services",
+        "command": "add",
+        "job_id": "job-0651",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0651",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/slice-1/jobs/software-developer-services_londres_gyidsk4c"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:axelera-devrel-community",
+        "command": "add",
+        "job_id": "job-0652",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0652",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/axelera-ai/jobs/developer-relations-and-community-manager_gb_2fki22mw"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:mindee-technical-content-devex",
+        "command": "add",
+        "job_id": "job-0653",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0653",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/mindee/jobs/technical-content-developer-experience-lead_paris"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
