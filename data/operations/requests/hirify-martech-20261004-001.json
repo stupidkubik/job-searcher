@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "operation_id": "hirify-martech-20261004-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:1142301",
+      "args": {
+        "company": "Undisclosed (hirify-1142301)",
+        "role": "Marketing Operations Developer (MarTech)",
+        "source": "Hirify",
+        "source_job_id": "1142301",
+        "source_url": "https://hirify.me/jobs/1142301-marketing-operations-developer-martech",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Serbia",
+        "match_score": 9,
+        "notes": "Strong Serbia-compatible MarTech lead: landing pages/advertorials, S2S postbacks, pixels, webhooks, CRM/affiliate/lead API integrations, DNS, SSL, hosting and redirects; requires 2–4 years web development. Hirify source is a gated Telegram post and exact employer/ATS listing could not be resolved, so current Apply and first-party status remain unknown.",
+        "stack": "PHP; JavaScript; HTML; CSS; APIs; Webhooks; S2S postbacks; CRM integrations; DNS; SSL; Tracking"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1158608",
+      "args": {
+        "company": "Undisclosed (hirify-1158608)",
+        "role": "Marketing Operations Specialist (AI)",
+        "source": "Hirify",
+        "source_job_id": "1158608",
+        "source_url": "https://hirify.me/jobs/1158608-marketing-operations-ai",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "decision_reason": "stack_mismatch",
+        "salary": "$86,000–$144,000 OTE/year",
+        "notes": "Technical scope is attractive, but the role requires 3–5 years specifically in B2B SaaS Marketing Ops/RevOps plus hands-on marketing automation-to-CRM sync, ABM/routing, funnel lifecycle and attribution ownership; those domain credentials are not in the candidate profile.",
+        "stack": "Marketing automation; CRM; ABM; REST APIs; Webhooks; LLM workflows; Lead scoring; Attribution"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1127326",
+      "args": {
+        "company": "MAP / WPP Enterprise Solutions",
+        "role": "Campaign Specialist",
+        "source": "Hirify",
+        "source_job_id": "1127326",
+        "source_url": "https://hirify.me/jobs/1127326-campaign-specialist-marketing-operations",
+        "original_url": "https://job-boards.greenhouse.io/map/jobs/8826905002",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "location": "Copenhagen, Denmark",
+        "remote_policy": "Unclear",
+        "level": "Graduate",
+        "decision_reason": "work_authorization",
+        "notes": "Live MAP Greenhouse listing and application form verified. Excellent entry-level Marketing Ops role: campaign content, audiences, workflow automation, QA, metrics, Salesforce Marketing Cloud, Adobe and Jira; platform experience is explicitly a plus rather than prerequisite. Application asks for lawful authorization in the job country and future sponsorship; candidate has Serbian, not Danish, work authorization.",
+        "stack": "Salesforce Marketing Cloud; Adobe; Jira; Campaign automation; QA; CRM; Marketing operations"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1171154",
+      "args": {
+        "company": "Undisclosed (hirify-1171154)",
+        "role": "Marketing Operations Specialist (Marketing Automation)",
+        "source": "Hirify",
+        "source_job_id": "1171154",
+        "source_url": "https://hirify.me/jobs/1171154-marketing-operations-automation",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "United Kingdom",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Relevant automation scope across MCAE/Pardot, Salesforce, forms, workflows, HTML email, data hygiene, reporting and integrations, but the exact card explicitly requires candidates to be based in the United Kingdom.",
+        "stack": "Marketing Cloud Account Engagement; Salesforce; HubSpot; Marketo; HTML email; Forms; Workflows; Reporting"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1159416",
+      "args": {
+        "company": "Undisclosed (hirify-1159416)",
+        "role": "Marketing Operations Manager (MarTech)",
+        "source": "Hirify",
+        "source_job_id": "1159416",
+        "source_url": "https://hirify.me/jobs/1159416-marketing-operations-martech",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Bogotá, Colombia",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Hybrid Bogotá role requiring 2 onsite days/week; it also asks for 5–8 years of Marketing/Revenue Operations ownership across Marketo, Dynamics, lead lifecycle, attribution and analytics, making it too senior as well as geographically incompatible.",
+        "stack": "Marketo; Microsoft Dynamics 365; Apollo; Make; GTM; GA4; Attribution; Lead lifecycle"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1156486",
+      "args": {
+        "company": "Undisclosed (hirify-1156486)",
+        "role": "Marketing Operations Manager",
+        "source": "Hirify",
+        "source_job_id": "1156486",
+        "source_url": "https://hirify.me/jobs/1156486-marketing-operations-manager-jira",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Manila, Philippines",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Process-heavy Marketing Ops role around Jira workflows, briefs, launch coordination, calendars, SLAs and cross-functional dependencies; Hirify explicitly says hybrid in Manila with relocation required.",
+        "stack": "Jira; Marketing operations; Project coordination; Workflow automation; Documentation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1192802",
+      "args": {
+        "company": "ReliaQuest",
+        "role": "Marketing Automation Specialist",
+        "source": "Hirify",
+        "source_job_id": "1192802",
+        "source_url": "https://hirify.me/jobs/1192802-marketing-automation-ai-specialist",
+        "original_url": "https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "location": "Tampa, FL, USA",
+        "remote_policy": "Unclear",
+        "level": "Junior+",
+        "match_score": 8.5,
+        "notes": "Live first-party Workday requisition R15228, posted 3 days ago. Strong transition fit: 1–3 years, APIs/webhooks, system integrations, AI-powered workflows, CRM reporting and campaign QA; coding is explicitly not required. First-party page lists Tampa, FL but does not state remote eligibility; Browser exposes Apply only as an unclickable button, so remote and form eligibility remain unresolved.",
+        "stack": "MarTech; APIs; Webhooks; CRM; AI automation; Marketing automation; QA; Reporting"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1160356",
+      "args": {
+        "company": "Undisclosed (hirify-1160356)",
+        "role": "Marketing Automation Specialist (Fintech)",
+        "source": "Hirify",
+        "source_job_id": "1160356",
+        "source_url": "https://hirify.me/jobs/1160356-marketing-automation-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Warsaw, Poland",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Role covers nurture workflows, multichannel campaigns, personalization, Salesforce Marketing Cloud/CRM, attribution and privacy, but it is explicitly hybrid in Warsaw and asks for 3+ years in a similar role.",
+        "stack": "Salesforce Marketing Cloud; Salesforce CRM; Marketing automation; Segmentation; Attribution; GDPR"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:854498",
+      "args": {
+        "company": "Undisclosed (hirify-854498)",
+        "role": "Marketing Automation Specialist (HubSpot, Marketo & CRM Automation)",
+        "source": "Hirify",
+        "source_job_id": "854498",
+        "source_url": "https://hirify.me/jobs/854498-marketing-automation-crm-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Colombia / Brazil / Mexico / Costa Rica",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Hands-on automation role across HubSpot/Marketo/Pardot, CRM, lifecycle workflows, lead scoring, dashboards, API/webhook troubleshooting and attribution; remote is explicitly limited to Colombia, Brazil, Mexico or Costa Rica.",
+        "stack": "HubSpot; Marketo; Pardot; Salesforce; CRM; APIs; Webhooks; Lead scoring; Lifecycle automation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:900382",
+      "args": {
+        "company": "Undisclosed (hirify-900382)",
+        "role": "Marketing Automation Specialist (Pardot)",
+        "source": "Hirify",
+        "source_job_id": "900382",
+        "source_url": "https://hirify.me/jobs/900382-marketing-automation-pardot-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Mississauga, Canada",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "salary": "CAD 65,000–70,000/year",
+        "notes": "Good entry-level family evidence: 1–2 years, Pardot/Salesforce, nurture flows, forms, landing pages, tracking, A/B tests and HTML/CSS. Exact role is hybrid in Mississauga, Canada.",
+        "stack": "Pardot; Salesforce; Email marketing; Landing pages; Forms; A/B testing; HTML; CSS; Attribution"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1084180",
+      "args": {
+        "company": "Undisclosed (hirify-1084180)",
+        "role": "Marketing Technology Specialist (Crypto)",
+        "source": "Hirify",
+        "source_job_id": "1084180",
+        "source_url": "https://hirify.me/jobs/1084180-marketing-technology-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Technical MarTech role across GTM, Segment, Adjust, GA4, data layers, attribution, consent and JS/Python/SQL automation. Hirify describes a primarily office-based hybrid model with only scheduled home-office flexibility, incompatible with mandatory remote.",
+        "stack": "GTM; GA4; Segment; Adjust; JavaScript; Python; SQL; Data layer; Attribution; OneTrust; Server-side tagging"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:746223",
+      "args": {
+        "company": "Undisclosed (hirify-746223)",
+        "role": "Marketing Technology Specialist (MarTech)",
+        "source": "Hirify",
+        "source_job_id": "746223",
+        "source_url": "https://hirify.me/jobs/746223-marketing-technology-specialist-martech",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "United States",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Very relevant developer-to-MarTech scope: JavaScript/Node/AWS, REST APIs/webhooks, CRM integrations, server-side tracking, GA4/GTM and automated reporting. Hirify marks the source card archived and explicitly requires the candidate to be based in the U.S.; no canonical closure claim is made.",
+        "stack": "JavaScript; Node.js; AWS; REST APIs; Webhooks; CRM; GA4; GTM; Server-side tracking"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:783811",
+      "args": {
+        "company": "Undisclosed (hirify-783811)",
+        "role": "Marketing Technology Specialist",
+        "source": "Hirify",
+        "source_job_id": "783811",
+        "source_url": "https://hirify.me/jobs/783811-marketing-technology-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Berlin, Germany",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "GA4/GTM/server-side conversion tracking, data layer, consent management and QA are relevant MarTech skills, but Hirify marks the card archived and requires being based in or relocating to Berlin for a hybrid role.",
+        "stack": "GA4; GTM; Server-side tracking; Data layer; Consent management; GDPR; QA"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1201091",
+      "args": {
+        "company": "Undisclosed (hirify-1201091)",
+        "role": "Marketing Operations Specialist (AI)",
+        "source": "Hirify",
+        "source_job_id": "1201091",
+        "source_url": "https://hirify.me/jobs/1201091-marketing-operations-ai",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Mexico",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Tracking-architecture role spanning GA/Adobe Analytics, GTM, JS/HTML/JSON/DOM, Segment/RudderStack, CDP and data QA. Exact Hirify card resolves to Mexico with hybrid CDMX/GDL or other local remote options, despite discovery snippets surfacing it under Europe.",
+        "stack": "Google Analytics; Adobe Analytics; GTM; JavaScript; HTML; JSON; Segment; RudderStack; CDP; Tracking QA"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1124519",
+      "args": {
+        "company": "Undisclosed (hirify-1124519)",
+        "role": "MarTech / Marketing Analyst",
+        "source": "Hirify",
+        "source_job_id": "1124519",
+        "source_url": "https://hirify.me/jobs/1124519-martech-marketing-analyst-ga4",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Global",
+        "decision_reason": "stack_mismatch",
+        "salary": "EUR 2,100–3,600 gross/month",
+        "notes": "Global-remote discovery lead with solid compensation, but it requires 3+ years hands-on GTM/GA4 including server-side tracking, Consent Mode v2/CMP, dataLayer specs, SQL/BigQuery and analytics audits. Search did not resolve an exact first-party employer listing.",
+        "stack": "GTM; GA4; Server-side tracking; Consent Mode v2; DataLayer; SQL; BigQuery; Looker Studio; Attribution"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1082930",
+      "args": {
+        "company": "Undisclosed (hirify-1082930)",
+        "role": "Marketing Operations Manager - Associate",
+        "source": "Hirify",
+        "source_job_id": "1082930",
+        "source_url": "https://hirify.me/jobs/1082930-marketing-operations-manager",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Lisbon, Portugal",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Associate-level Marketing Ops role focused on budgets, vendors, reporting and cross-regional coordination rather than technical MarTech; it requires four office days per week in Lisbon.",
+        "stack": "Marketing operations; Budget tracking; Vendor administration; Reporting; Project coordination; CRM"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:908612",
+      "args": {
+        "company": "Undisclosed (hirify-908612)",
+        "role": "Marketing Operations Specialist (Fintech)",
+        "source": "Hirify",
+        "source_job_id": "908612",
+        "source_url": "https://hirify.me/jobs/908612-marketing-operations-fintech",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Limassol, Cyprus / Tbilisi, Georgia",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Content-heavy Marketing Ops scope with CMS/admin panels, project trackers, release timelines, reporting, knowledge base and process automation; Hirify marks the card archived and specifies hybrid work in Limassol or Tbilisi.",
+        "stack": "CMS; Marketing operations; Jira; Confluence; Figma; Miro; Reporting; Process automation"
+      }
+    }
+  ]
+}
