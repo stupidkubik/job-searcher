@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-tracker-cleanup-0480-0588-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0480",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed the vacancy is closed. Browser opening of the exact Himalayas URL now redirects to the generic Himalayas jobs page, so the source card is no longer available."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0581",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card identifies Lumana and states Remote within the United States Eastern Time Zone; candidates must reside in the U.S. Eastern Time Zone. NYC candidates are hybrid."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0582",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card states work format remote (only USA) and location Remote in the United States."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0583",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card states work format remote (only Australia), country Australia, and location Work from home in Australia."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0584",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card states onsite work format and location Las Vegas, NV, US."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0585",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card requires working from the London or Paris office at least 3 days per week; source work format is hybrid/onsite."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0586",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card is hybrid in the New York Metro Area, United States, with 2–3 days per week in the NYC office required."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0587",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card states Sydney, New South Wales, Australia; hybrid with at least 3 days per week in the Sydney office."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0588",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card identifies Float and states hybrid in downtown Toronto, Canada, with office attendance 3 days per week."
+      }
+    }
+  ]
+}
