@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-04T18:26:04Z",
+  "job_id": "job-0255",
+  "operation_id": "hirify-content-production-20261004-002",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0255",
+    "listing_status": "unknown",
+    "outcome": "source_reference_added",
+    "source_reference": {
+      "created": false,
+      "reference": {
+        "found_at": "2026-08-17",
+        "job_id": "job-0255",
+        "source": "Hirify",
+        "source_job_id": "849749",
+        "source_url": "https://hirify.me/jobs/849749-remote-website-developer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
