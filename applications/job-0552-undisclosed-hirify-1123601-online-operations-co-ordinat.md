@@ -4,10 +4,10 @@ company: Undisclosed (hirify-1123601)
 role: Online Operations Co-Ordinator (E-commerce)
 cv_version: 
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-10-05
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)

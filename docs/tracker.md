@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (582)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (10)](#to-verify) · [Archive (589)](#archive)
 
 ## Action now
 
@@ -79,15 +79,8 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
 | Reviewing | [accelerate agency — Brand Content Manager](<https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager>) · job-0650 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
-| Reviewing | [Clipboard — Client Support Specialist (Workplaces - B2B)](<https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b>) · job-0638 | First party + Apply | 8.5 | verify first-party | 2026-10-05 |
-| Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
-| Reviewing | [Cheil Adriatic d.o.o. — Technical Project Manager](<https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067>) · job-0600 | First party + Apply + Listing | 7 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
-| Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-979984) — Web Project Coordinator (WordPress)](<https://hirify.me/jobs/979984-web-project-coordinator-wordpress>) · job-0553 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (hirify-748246) — Website Manager](<https://hirify.me/jobs/748246-website-manager>) · job-0554 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
@@ -96,7 +89,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 
 <details>
 
-<summary>Archive (582)</summary>
+<summary>Archive (589)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -112,11 +105,13 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: geo restriction | [Humane World for Animals — Web Designer, eCRM](<https://weworkremotely.com/remote-jobs/humane-world-for-animals-web-designer-ecrm-1>) · job-0641 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [HR Plus — Web Developer (Fresh graduate welcome, WFH policy, on-job-training)](<https://weworkremotely.com/remote-jobs/hr-plus-web-developer-fresh-graduate-welcome-wfh-policy-on-job-training>) · job-0640 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Air Apps — Framer Website Designer](<https://weworkremotely.com/remote-jobs/air-apps-framer-website-designer-1>) · job-0639 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: work authorization | [Clipboard — Client Support Specialist (Workplaces - B2B)](<https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b>) · job-0638 | work authorization | Open | 2026-10-05 |
 | Skipped: stack mismatch | [Gooseworks — Design Engineer](<https://www.ycombinator.com/companies/gooseworks/jobs/XZRrah7-design-engineer>) · job-0636 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [LightSprint — Product Marketing / GTM Engineer](<https://lightsprint.ai/careers/product-marketing>) · job-0635 | geo restriction | Open | 2026-10-05 |
 | Skipped: stack mismatch | [Educato — UGC Campaign Manager - Entry level marketing role](<https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable>) · job-0634 | stack mismatch | Not checked | 2026-10-05 |
 | Closed | [Clipboard — Client Support Specialist (Healthcare Facilities - B2B)](<https://grnh.se/95f68d9b4us>) · job-0633 | closed before application | Closed | 2026-10-05 |
 | Skipped: stack mismatch | [Porter — DevOps Support Engineer](<https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer>) · job-0632 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Cheil Adriatic d.o.o. — Technical Project Manager](<https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067>) · job-0600 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: seniority too high | [Codelogix — Next.js Developer](<https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992>) · job-0589 | seniority too high | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | geo restriction | Not checked | 2026-10-05 |
@@ -126,8 +121,13 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: geo restriction | [Undisclosed (hirify-1182245) — Technical Support Engineer I (WordPress)](<https://hirify.me/jobs/1182245-technical-support-engineer-wordpress>) · job-0583 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Undisclosed (hirify-1137410) — Technical Support Engineer (TypeScript)](<https://hirify.me/jobs/1137410-technical-support-engineer-typescript>) · job-0582 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [Undisclosed (hirify-1195826) — Technical Support Engineer (AI)](<https://hirify.me/jobs/1195826-technical-support-engineer-ai>) · job-0581 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: already applied | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | already applied | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Undisclosed (hirify-748246) — Website Manager](<https://hirify.me/jobs/748246-website-manager>) · job-0554 | geo restriction | Not checked | 2026-10-05 |
+| Closed | [Undisclosed (hirify-979984) — Web Project Coordinator (WordPress)](<https://hirify.me/jobs/979984-web-project-coordinator-wordpress>) · job-0553 | closed before application | Closed | 2026-10-05 |
+| Closed | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | closed before application | Closed | 2026-10-05 |
 | Skipped: geo restriction | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | geo restriction | Open | 2026-10-05 |
+| Closed | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | closed before application | Closed | 2026-10-05 |
 | Skipped: role not frontend | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | role not frontend | Open | 2026-10-05 |
 | Skipped: geo restriction | [Viewline Ventures — Internal Tools Engineer](<https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures>) · job-0523 | geo restriction | Open | 2026-10-05 |
 | Closed | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | closed before application | Closed | 2026-10-05 |

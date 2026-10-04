@@ -1,0 +1,95 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T23:44:43Z",
+  "jobs": [
+    "job-0553",
+    "job-0552",
+    "job-0541",
+    "job-0574",
+    "job-0554",
+    "job-0600",
+    "job-0638"
+  ],
+  "operation_id": "op-20261005-tracker-cleanup-0541-0638-001",
+  "result": {
+    "count": 7,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0553",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0552",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0541",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0574",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0554",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0600",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0638",
+        "listing_status": "open",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 7,
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
