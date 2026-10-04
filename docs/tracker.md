@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-05** · Jobs: **638**
+Dataset updated: **2026-10-05** · Jobs: **650**
 
-[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (39)](#to-verify) · [Archive (546)](#archive)
+[Action now (5)](#action-now) · [Applications (48)](#applications) · [To verify (42)](#to-verify) · [Archive (555)](#archive)
 
 ## Action now
 
@@ -75,8 +75,11 @@ Dataset updated: **2026-10-05** · Jobs: **638**
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
+| Reviewing | [Animalz — (Developmental) Content Editor](<https://weworkremotely.com/remote-jobs/animalz-developmental-content-editor>) · job-0646 | First party + Apply + Listing | 9 | verify first-party | Never |
+| Reviewing | [DesignFiles — Content Marketing Coordinator](<https://weworkremotely.com/remote-jobs/designfiles-content-marketing-coordinator>) · job-0647 | First party + Apply + Listing | 9 | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | First party + Apply + Listing | 9 | verify first-party | Never |
 | Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
+| Reviewing | [accelerate agency — Brand Content Manager](<https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager>) · job-0650 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
 | Reviewing | [Clipboard — Client Support Specialist (Workplaces - B2B)](<https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b>) · job-0638 | First party + Apply | 8.5 | verify first-party | 2026-10-05 |
@@ -117,10 +120,19 @@ Dataset updated: **2026-10-05** · Jobs: **638**
 
 <details>
 
-<summary>Archive (546)</summary>
+<summary>Archive (555)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Doximity — Marketing Coordinator](<https://weworkremotely.com/remote-jobs/doximity-marketing-coordinator>) · job-0649 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: stack mismatch | [Icarus Digital Marketing — Performance Creative Strategist and AI Producer](<https://weworkremotely.com/remote-jobs/icarus-digital-marketing-performance-creative-strategist-and-ai-producer>) · job-0648 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Webflow — IT Support Specialist](<https://weworkremotely.com/remote-jobs/webflow-it-support-specialist>) · job-0645 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: seniority too high | [Shout About Us — Technical Account Manager, API Partnerships](<https://weworkremotely.com/remote-jobs/shout-about-us-technical-account-manager-api-partnerships>) · job-0644 | seniority too high | Not checked | 2026-10-05 |
+| Skipped: stack mismatch | [Neo Group — CRM Automation Manager](<https://weworkremotely.com/remote-jobs/neo-group-crm-automation-manager>) · job-0643 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: stack mismatch | [Wisevu — Web Development Project Manager](<https://weworkremotely.com/remote-jobs/wisevu-web-development-project-manager>) · job-0642 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Humane World for Animals — Web Designer, eCRM](<https://weworkremotely.com/remote-jobs/humane-world-for-animals-web-designer-ecrm-1>) · job-0641 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [HR Plus — Web Developer (Fresh graduate welcome, WFH policy, on-job-training)](<https://weworkremotely.com/remote-jobs/hr-plus-web-developer-fresh-graduate-welcome-wfh-policy-on-job-training>) · job-0640 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [Air Apps — Framer Website Designer](<https://weworkremotely.com/remote-jobs/air-apps-framer-website-designer-1>) · job-0639 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: stack mismatch | [Gooseworks — Design Engineer](<https://www.ycombinator.com/companies/gooseworks/jobs/XZRrah7-design-engineer>) · job-0636 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [LightSprint — Product Marketing / GTM Engineer](<https://lightsprint.ai/careers/product-marketing>) · job-0635 | geo restriction | Open | 2026-10-05 |
 | Skipped: stack mismatch | [Educato — UGC Campaign Manager - Entry level marketing role](<https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable>) · job-0634 | stack mismatch | Not checked | 2026-10-05 |

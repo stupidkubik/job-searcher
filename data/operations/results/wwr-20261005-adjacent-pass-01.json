@@ -1,0 +1,290 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T22:17:49Z",
+  "jobs": [],
+  "operation_id": "wwr-20261005-adjacent-pass-01",
+  "result": {
+    "count": 13,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:air-apps-framer-website-designer-1",
+        "command": "add",
+        "job_id": "job-0639",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0639",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/air-apps-framer-website-designer-1"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:hr-plus-web-developer-fresh-graduate-welcome-wfh-policy-on-job-training",
+        "command": "add",
+        "job_id": "job-0640",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0640",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/hr-plus-web-developer-fresh-graduate-welcome-wfh-policy-on-job-training"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:humane-world-for-animals-web-designer-ecrm-1",
+        "command": "add",
+        "job_id": "job-0641",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0641",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/humane-world-for-animals-web-designer-ecrm-1"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:wisevu-web-development-project-manager",
+        "command": "add",
+        "job_id": "job-0642",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0642",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/wisevu-web-development-project-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:crae-group-ltd-customer-support-agent-remote",
+        "command": "add",
+        "job_id": "job-0601",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0601",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/crae-group-ltd-customer-support-agent-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:neo-group-crm-automation-manager",
+        "command": "add",
+        "job_id": "job-0643",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0643",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/neo-group-crm-automation-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:shout-about-us-technical-account-manager-api-partnerships",
+        "command": "add",
+        "job_id": "job-0644",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0644",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/shout-about-us-technical-account-manager-api-partnerships"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:webflow-it-support-specialist",
+        "command": "add",
+        "job_id": "job-0645",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0645",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/webflow-it-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0646-animalz-developmental-content-editor.md",
+        "application_status": "reviewing",
+        "client_ref": "wwr:animalz-developmental-content-editor",
+        "command": "add",
+        "job_id": "job-0646",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0646",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/animalz-developmental-content-editor"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0647-designfiles-content-marketing-coordinato.md",
+        "application_status": "reviewing",
+        "client_ref": "wwr:designfiles-content-marketing-coordinator",
+        "command": "add",
+        "job_id": "job-0647",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0647",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/designfiles-content-marketing-coordinator"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:icarus-digital-marketing-performance-creative-strategist-and-ai-producer",
+        "command": "add",
+        "job_id": "job-0648",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0648",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/icarus-digital-marketing-performance-creative-strategist-and-ai-producer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:doximity-marketing-coordinator",
+        "command": "add",
+        "job_id": "job-0649",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0649",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/doximity-marketing-coordinator"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0650-accelerate-agency-brand-content-manager.md",
+        "application_status": "reviewing",
+        "client_ref": "wwr:accelerate-agency-brand-content-manager",
+        "command": "add",
+        "job_id": "job-0650",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-05",
+            "job_id": "job-0650",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 13,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
