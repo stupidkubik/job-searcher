@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "operation_id": "wttj-20261005-adjacent-pass-01",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wttj:slice-software-developer-services",
+      "args": {
+        "company": "Slice",
+        "role": "Software Developer (Services)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/slice-1/jobs/software-developer-services_londres_gyidsk4c",
+        "found_at": "2026-10-05",
+        "posted_at": "2026-09-30",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "London; Fully-remote",
+        "remote_policy": "Unclear",
+        "decision_reason": "stack_mismatch",
+        "stack": "Python; Flask; Backend Services; Databases; Cloud; Go; Ruby; Monitoring; Logging; DevOps; Testing",
+        "notes": "WTTJ lists >1 year and fully remote, but the exact role is explicitly backend/services-heavy with Python/Flask, databases, cloud, monitoring and DevOps. The external Apply route points to Slice careers, but a source-level stack blocker is already decisive."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:axelera-devrel-community",
+      "args": {
+        "company": "Axelera AI",
+        "role": "Developer Relations and Community Manager",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/axelera-ai/jobs/developer-relations-and-community-manager_gb_2fki22mw",
+        "found_at": "2026-10-05",
+        "posted_at": "2026-09-26",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "United Kingdom; Fully-remote",
+        "remote_policy": "Country-specific",
+        "decision_reason": "stack_mismatch",
+        "stack": "Developer Relations; Community Management; GitHub; SDK Support; Technical Content; Tutorials; Newsletters; Discord; AI Tools; Edge AI; Raspberry Pi; Arduino",
+        "notes": "Interesting content/support adjacency, but the exact card requires >3 years plus prior technical community/DevRel credibility and working knowledge of AI hardware, SDK deployment, drivers and performance tuning. The role is also presented as UK fully remote."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:mindee-technical-content-devex",
+      "args": {
+        "company": "Mindee",
+        "role": "Technical Content & Developer Experience Lead",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/mindee/jobs/technical-content-developer-experience-lead_paris",
+        "found_at": "2026-10-05",
+        "posted_at": "2026-09-18",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Paris; a few days at home",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "stack": "Technical Writing; API Documentation; SDKs; Tutorials; Developer Experience; AI Coding Agents; llms.txt; MCP; n8n; Make; Zapier; Documentation QA; Product Marketing",
+        "notes": "Thematically a very strong adjacent role spanning docs, APIs, automation and technical content, but WTTJ explicitly marks Paris with only a few days at home, while fully remote is mandatory. The card also states Experience >3y."
+      }
+    }
+  ]
+}
