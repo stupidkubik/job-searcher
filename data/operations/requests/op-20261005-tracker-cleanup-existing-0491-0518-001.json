@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-tracker-cleanup-existing-0491-0518-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0518",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed; HelloWorld.rs card 756601 shows Job listing has expired."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0517",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "HelloWorld.rs shows Beograd | Hibrid."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0516",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "HelloWorld.rs shows Beograd | Hibrid; source card is also expired."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0515",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0511",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0505",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0498",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User requested exclusion because of trust concerns."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0494",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed; Geekjob marks the card as archival."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0491",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed closed; Remote OK card remains visible as stale discovery evidence."
+      }
+    }
+  ]
+}
