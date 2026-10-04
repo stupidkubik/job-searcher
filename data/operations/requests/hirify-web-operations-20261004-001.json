@@ -1,0 +1,298 @@
+{
+  "version": 1,
+  "operation_id": "hirify-web-operations-20261004-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:1049645",
+      "args": {
+        "company": "Visa",
+        "role": "Web Operations & Production Analyst (AEM)",
+        "source": "Hirify",
+        "source_job_id": "1049645",
+        "source_url": "https://hirify.me/jobs/1049645-web-operations-aem-analyst",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Austin, TX, USA",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "salary": "$98,700–$153,200 USD/year",
+        "notes": "Excellent Web Operations fit: AEM publishing, QA, web governance, accessibility, SEO/GEO, analytics validation, migrations, documentation and AI-enabled automation. Hirify explicitly requires at least 3 days/week in the Austin, TX office.",
+        "stack": "Adobe Experience Manager; CMS; Web publishing; QA; Accessibility; SEO; Analytics; Wrike; Jira; AI automation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1201970",
+      "args": {
+        "company": "Undisclosed (hirify-1201970)",
+        "role": "Website Support Specialist (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "1201970",
+        "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Colombia",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong Web Operations scope: WordPress admin, DNS/domains, SSL/TLS, backups, hosting security, forms/CRM/webhooks, GA4/Search Console and ticket support. Hirify explicitly limits remote work to Colombia with 08:00–17:00 EST availability.",
+        "stack": "WordPress; DNS; SSL/TLS; Hosting; HTML; CSS; GA4; Search Console; GTM; Webhooks; APIs"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1111819",
+      "args": {
+        "company": "Undisclosed (hirify-1111819)",
+        "role": "Front-End Web Specialist (Storyblok)",
+        "source": "Hirify",
+        "source_job_id": "1111819",
+        "source_url": "https://hirify.me/jobs/1111819-front-end-web-specialist-storyblok",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "London, United Kingdom",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Very strong target-title fit: Storyblok page production, request triage, backlog/sprints, technical release QA, CRO/A-B tests, Core Web Vitals and SEO. Hirify requires residence within commuting distance of London and in-person work 3 days/week.",
+        "stack": "Storyblok; Headless CMS; HTML; CSS; QA; CRO; A/B testing; SEO; Core Web Vitals; AI tools"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1168716",
+      "args": {
+        "company": "Undisclosed (hirify-1168716)",
+        "role": "Associate E-Commerce Professional (Magento/Shopify)",
+        "source": "Hirify",
+        "source_job_id": "1168716",
+        "source_url": "https://hirify.me/jobs/1168716-associate-ecommerce-magento-shopify",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "London, United Kingdom",
+        "remote_policy": "Hybrid",
+        "decision_reason": "work_authorization",
+        "notes": "Relevant website-operations scope across Magento/Shopify: content updates, releases, roadmap tickets, SEO, site speed, analytics and A/B testing. Hirify explicitly requires unrestricted UK work authorization and 3 days/week in the London office.",
+        "stack": "Magento; Shopify; Ecommerce operations; SEO; Analytics; A/B testing; Website releases"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1131014",
+      "args": {
+        "company": "Kontoor Brands",
+        "role": "Digital Operations Coordinator",
+        "source": "Hirify",
+        "source_job_id": "1131014",
+        "source_url": "https://hirify.me/jobs/1131014-digital-operations-coordinator",
+        "original_url": "https://kbi.wd5.myworkdayjobs.com/en-US/Kontoor/job/Greensboro-NC/Digital-Operations-Coordinator_R-20260918-0009",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "location": "Greensboro, NC, USA",
+        "remote_policy": "Unclear",
+        "decision_reason": "geo_restriction",
+        "notes": "First-party Workday requisition R-20260918-0009 is open. Excellent operations fit: Salesforce Commerce Cloud content/SEO updates, UAT/E2E testing, accessibility, documentation and sprint/release communications. Exact listing gives Greensboro, NC as the location; Browser exposes Apply as a button but the connector has no click action, so the application form could not be verified.",
+        "stack": "Salesforce Commerce Cloud; Ecommerce operations; UAT; E2E testing; Accessibility; SEO; HTML; Release coordination"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1143993",
+      "args": {
+        "company": "NCR Voyix",
+        "role": "Digital Experience Specialist",
+        "source": "Hirify",
+        "source_job_id": "1143993",
+        "source_url": "https://hirify.me/jobs/1143993-digital-experience-javascript",
+        "original_url": "https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "location": "Belgrade, Serbia",
+        "remote_policy": "Unclear",
+        "level": "Junior+",
+        "match_score": 9.5,
+        "notes": "First-party NCR Voyix Workday requisition R0158531 is open in Belgrade and explicitly early-career. Near-direct profile match: 1-3 years, JavaScript, HTML/CSS, CMS/publishing, DevTools troubleshooting, QA; Webflow, GTM, GA4, accessibility, SEO, APIs and automation are preferred. Browser shows an Apply button but Opera connector cannot click buttons, so the actual application form remains unverified.",
+        "stack": "JavaScript; HTML; CSS; CMS; Web publishing; Webflow; GTM; GA4; Accessibility; SEO; APIs; Automation; DevTools; QA"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1082385",
+      "args": {
+        "company": "Undisclosed (hirify-1082385)",
+        "role": "Website Onboarding Specialist (Website Design)",
+        "source": "Hirify",
+        "source_job_id": "1082385",
+        "source_url": "https://hirify.me/jobs/1082385-website-onboarding-designer",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Asia & Pacific",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Relevant website-operations/onboarding work: build hospitality sites, manage launch projects, troubleshoot errors, coordinate clients, use HTML/CSS and CMS tools. Hirify lists the role as remote for Asia & Pacific, which does not cover Serbia.",
+        "stack": "Website builder; HTML; CSS; WordPress; Drupal; Duda; Photoshop; Canva; Customer onboarding"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:946322",
+      "args": {
+        "company": "Undisclosed (hirify-946322)",
+        "role": "Travel Operations & WordPress Content Coordinator",
+        "source": "Hirify",
+        "source_job_id": "946322",
+        "source_url": "https://hirify.me/jobs/946322-travel-wordpress-content-coordinator",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Manila, Philippines",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "salary": "₱35,000–₱45,000/month",
+        "notes": "Extremely relevant content-operations scope for travel: WordPress product/tour publishing, pricing and itinerary maintenance, SEO articles, newsletters and operational coordination. Hirify marks the card archived and limits it to the Philippines; no first-party closure claim is made.",
+        "stack": "WordPress; Travel content; SEO; Newsletters; Content operations; Google Workspace"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1200136",
+      "args": {
+        "company": "Universal Destinations & Experiences",
+        "role": "Analyst, Adobe Target",
+        "source": "Hirify",
+        "source_job_id": "1200136",
+        "source_url": "https://hirify.me/jobs/1200136-adobe-target-analyst",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "São Paulo, Brazil",
+        "remote_policy": "Unclear",
+        "decision_reason": "geo_restriction",
+        "notes": "Interesting junior adjacent Web Operations role: Adobe Target experiences, A/B testing, personalization, cross-browser QA, release validation and production sustainment; 0-2+ years plus basic HTML/CSS/JS/DevTools. Hirify lists São Paulo, Brazil and mentions possible in-person interview; no Serbia-compatible remote evidence.",
+        "stack": "Adobe Target; A/B testing; Personalization; QA; HTML; CSS; JavaScript; DevTools"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1133562",
+      "args": {
+        "company": "Undisclosed (hirify-1133562)",
+        "role": "CMS Website Specialist (HTML/CSS)",
+        "source": "Hirify",
+        "source_job_id": "1133562",
+        "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Chester, United Kingdom",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong fit for the target family: CMS support, HTML/CSS website improvements, restyling/onboarding projects, usability/performance and internal process documentation. Hirify explicitly lists hybrid work in Chester, UK.",
+        "stack": "CMS; HTML; CSS; Website support; Onboarding; Customer success; Documentation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1123601",
+      "args": {
+        "company": "Undisclosed (hirify-1123601)",
+        "role": "Online Operations Co-Ordinator (E-commerce)",
+        "source": "Hirify",
+        "source_job_id": "1123601",
+        "source_url": "https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened during the Web Operations pass but returned 'Too many requests' before description, employer, geo or status could be read. Per the Hirify playbook the source pass stopped without retrying the rate limit."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:979984",
+      "args": {
+        "company": "Undisclosed (hirify-979984)",
+        "role": "Web Project Coordinator (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "979984",
+        "source_url": "https://hirify.me/jobs/979984-web-project-coordinator-wordpress",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened in the same batch after the source began returning 'Too many requests'; content could not be inspected and no retry/probing was performed. Employer, geo and current status remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:748246",
+      "args": {
+        "company": "Undisclosed (hirify-748246)",
+        "role": "Website Manager",
+        "source": "Hirify",
+        "source_job_id": "748246",
+        "source_url": "https://hirify.me/jobs/748246-website-manager",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened in the same batch after the source began returning 'Too many requests'; content could not be inspected and no retry/probing was performed. Employer, geo and current status remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:956703",
+      "args": {
+        "company": "Undisclosed (hirify-956703)",
+        "role": "eCommerce Operations Specialist, EMEA",
+        "source": "Hirify",
+        "source_job_id": "956703",
+        "source_url": "https://hirify.me/jobs/956703-ecommerce-operations-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Amsterdam, Netherlands",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Relevant digital-operations scope: order and website monitoring, incident triage, UAT, release readiness, reporting, SOPs and cross-functional coordination. Hirify marks the card archived and lists a hybrid Amsterdam workplace; no first-party closure claim is made.",
+        "stack": "Ecommerce operations; UAT; QA; Jira; CMS; Salesforce Commerce Cloud; Shopify; Magento; Reporting; SOPs"
+      }
+    }
+  ]
+}
