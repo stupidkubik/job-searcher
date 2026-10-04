@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-screen-codelogix-0589-001",
+  "command": "screen",
+  "job_id": "job-0589",
+  "expected": {
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "last_update": "2026-10-04"
+  },
+  "args": {
+    "decision_reason": "seniority_too_high",
+    "notes": "Exact HelloWorld.rs card 758992 is Novi Sad hybrid and otherwise aligned, but Required Qualifications explicitly demand 3 years of professional experience with React and Next.js, above the candidate's documented commercial React/Next experience."
+  }
+}
