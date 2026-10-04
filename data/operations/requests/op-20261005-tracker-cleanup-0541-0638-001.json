@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-tracker-cleanup-0541-0638-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0553",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed the vacancy is closed and identified the location as Cape Town, South Africa. The exact Hirify card is now marked 'This vacancy is archived'."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0552",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed the vacancy is closed. The exact Hirify card is marked 'This vacancy is archived' and lists work format onsite."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0541",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed the vacancy is closed. The exact Hirify card is now marked 'This vacancy is archived'."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0574",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card states work format 'remote (only USA)'; the description also says visa sponsorship is not available."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0554",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact Hirify card lists country UK and location Milton Keynes, United Kingdom."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0600",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Exact HelloWorld.rs card lists 'Beograd | Hibrid', incompatible with the remote/Novi Sad work-location requirement."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0638",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "work_authorization",
+        "notes": "Exact YC card lists 'Remote (US)' and explicitly states 'US citizen/visa only'."
+      }
+    }
+  ]
+}
