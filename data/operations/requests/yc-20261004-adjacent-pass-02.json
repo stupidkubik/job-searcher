@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "operation_id": "yc-20261004-adjacent-pass-02",
+  "command": "add",
+  "args": {
+    "company": "Clipboard",
+    "role": "Client Support Specialist (Workplaces - B2B)",
+    "source": "YC Work at a Startup",
+    "source_job_id": "Jqqde6G",
+    "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b",
+    "found_at": "2026-10-04",
+    "force": true,
+    "application_status": "reviewing",
+    "listing_status": "open",
+    "first_party_verified": "yes",
+    "apply_verified": "unknown",
+    "original_url": "https://www.clipboard.com/careers#open-roles",
+    "level": "Junior",
+    "location": "Remote; current employer board includes Non-U.S. and Canada/UK/EU variants",
+    "remote_policy": "Global",
+    "match_score": 8.5,
+    "stack": "B2B Client Support; Zendesk; Platform Troubleshooting; Documentation; Cross-functional Operations",
+    "notes": "Strong lower-transition support option. Current employer board lists exact-title Non-U.S. and Canada/UK/EU variants. YC metadata is stale/contradictory; the first-party board is authoritative. Individual embedded Ashby Apply URL was not exposed by Browser."
+  }
+}
