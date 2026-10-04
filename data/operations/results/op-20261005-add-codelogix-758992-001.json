@@ -1,0 +1,55 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-04T23:14:49Z",
+  "operation_id": "op-20261005-add-codelogix-758992-001",
+  "result": {
+    "candidates": [
+      {
+        "application_status": "reviewing",
+        "company": "Codelogix",
+        "id": "job-0589",
+        "listing_status": "unknown",
+        "reason": "looks similar: company 1.00, role 1.00",
+        "role": "Next.js Developer"
+      }
+    ],
+    "reason": "unresolved_duplicate",
+    "retry": {
+      "as_duplicate": {
+        "args": {
+          "company": "Codelogix",
+          "duplicate_of": "job-0589",
+          "role": "Next.js Developer",
+          "source": "HelloWorld.rs",
+          "source_job_id": "758992",
+          "source_url": "https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992"
+        },
+        "command": "add"
+      },
+      "as_separate": {
+        "args": {
+          "application_status": "not_started",
+          "apply_verified": "unknown",
+          "company": "Codelogix",
+          "decision_reason": "seniority_too_high",
+          "first_party_verified": "unknown",
+          "force": true,
+          "level": "Middle",
+          "listing_status": "unknown",
+          "location": "Novi Sad, Serbia; hybrid",
+          "notes": "Exact HelloWorld.rs card is Novi Sad hybrid and otherwise aligned, but Required Qualifications explicitly demand 3 years of professional experience with React and Next.js, above the candidate's documented commercial React/Next experience.",
+          "remote_policy": "Hybrid",
+          "role": "Next.js Developer",
+          "source": "HelloWorld.rs",
+          "source_job_id": "758992",
+          "source_url": "https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992",
+          "stack": "React; Next.js; JavaScript; TypeScript; HTML; CSS; REST APIs; Git; GitFlow; Cypress; CI/CD; AWS; Azure; GCP; Accessibility; SEO"
+        },
+        "command": "add"
+      }
+    }
+  },
+  "risk": "medium",
+  "status": "conflict",
+  "version": 1
+}
