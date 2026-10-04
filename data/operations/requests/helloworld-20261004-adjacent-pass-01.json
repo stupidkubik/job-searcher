@@ -1,0 +1,308 @@
+{
+  "version": 1,
+  "operation_id": "helloworld-20261004-adjacent-pass-01",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "helloworld:758992",
+      "args": {
+        "company": "Codelogix",
+        "role": "Next.js Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "758992",
+        "source_url": "https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Novi Sad, Serbia; hybrid per HelloWorld.rs",
+        "remote_policy": "Hybrid",
+        "stack": "React; Next.js; TypeScript; JavaScript; HTML; CSS; REST APIs; Git; Accessibility; SEO; CI/CD",
+        "found_at": "2026-10-04",
+        "notes": "Strong frontend fit and explicit growth framing, but the exact HelloWorld.rs card requires 3 years of professional React/Next.js experience and labels the role Novi Sad | Hybrid. Remote work is mandatory for the search; employer work-mode and Apply route were not first-party verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:745109",
+      "args": {
+        "company": "Growth Leads",
+        "role": "Front End Engineer (Twig/Vue)",
+        "source": "HelloWorld.rs",
+        "source_job_id": "745109",
+        "source_url": "https://www.helloworld.rs/posao/Front-End-Engineer-TwigVue/Growth-Leads/745109",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Senior",
+        "location": "Remote; Malta office optional",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; HTML; CSS; Vue.js; Nuxt.js; Tailwind CSS; Twig; PHP; Symfony; APIs; Analytics; i18n",
+        "found_at": "2026-10-04",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact card requires 6+ years with JavaScript/CSS/HTML/Twig, 3+ years Vue/Nuxt and 3+ years PHP; this is well above the target level despite a strong web/MarTech-adjacent scope."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:754588",
+      "args": {
+        "company": "IGT D&B d.o.o.",
+        "role": "Frontend TypeScript Game Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "754588",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-TypeScript-Game-Developer/IGT-DB-d.o.o/754588",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Senior",
+        "location": "Belgrade, Serbia",
+        "remote_policy": "Unclear",
+        "stack": "JavaScript; C++; C#; Java; OOP; PhaserJS; Unity; Unreal; TDD; BDD",
+        "found_at": "2026-10-04",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact card asks for a seasoned game/web developer with 8+ years of development experience and a portfolio of published games; well above the target level."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:758762",
+      "args": {
+        "company": "Clarivate",
+        "role": "Associate Development Operations Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "758762",
+        "source_url": "https://www.helloworld.rs/posao/Associate-Development-Operations-Engineer/Clarivate/758762",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Associate",
+        "location": "Belgrade, Serbia; hybrid",
+        "remote_policy": "Hybrid",
+        "stack": "AWS; Terraform; Linux; Networking; Jenkins; GitHub Actions; Docker; Python; Shell; CI/CD",
+        "found_at": "2026-10-04",
+        "decision_reason": "role_not_frontend",
+        "notes": "Despite the Operations title, the exact role is infrastructure/DevOps: AWS, Terraform, Jenkins, Docker, Linux and on-call. It also requires Belgrade hybrid attendance 3 days every other week, so it is outside the adjacent web-operations cluster."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:700403",
+      "args": {
+        "company": "++hellohello",
+        "role": "WebFlow Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "700403",
+        "source_url": "https://www.helloworld.rs/posao/WebFlow-Engineer/hellohello/700403",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "stack": "Webflow; Framer; Figma; JavaScript; React; Low-code; No-code",
+        "found_at": "2026-10-04",
+        "decision_reason": "stack_mismatch",
+        "notes": "Interesting web-production shape, but hands-on Webflow knowledge is the core required skill; Framer/custom code are secondary. Current profile has no commercial Webflow experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:710797",
+      "args": {
+        "company": "B12",
+        "role": "Web Designer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "710797",
+        "source_url": "https://www.helloworld.rs/posao/Web-Designer/B12/710797",
+        "original_url": "https://job-boards.greenhouse.io/b12/jobs/2259130",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "level": "Junior/Middle",
+        "location": "Anywhere",
+        "remote_policy": "Global",
+        "stack": "Web Design; HTML; CSS; HTML5; WYSIWYG; Content Production; AI-assisted Website Building; Customer Delivery",
+        "match_score": 8,
+        "found_at": "2026-10-04",
+        "notes": "First-party B12 Greenhouse requisition 2259130 is open and the application form is live. Role combines customer briefs, AI-generated drafts, WYSIWYG site production, HTML/CSS overrides and enhancement requests. It asks for 3-5 years web design but explicitly says years are flexible; part-time 10-20 hours/week."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:706654",
+      "args": {
+        "company": "Zoftify — Travel Software Development",
+        "role": "WordPress Developer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "706654",
+        "source_url": "https://www.helloworld.rs/posao/WordPress-Developer/Zoftify-Travel-Software-Development/706654",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Work from home",
+        "remote_policy": "Unclear",
+        "stack": "WordPress; PHP; JavaScript; HTML; CSS; REST APIs; Figma; SEO; Performance; Plugins; Custom Themes",
+        "found_at": "2026-10-04",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact card requires 2+ years commercial WordPress plus strong PHP and hands-on custom theme/plugin development. Current WordPress experience is much lighter and PHP is basic."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:694700",
+      "args": {
+        "company": "20four7VA",
+        "role": "PHP Developer (WordPress)",
+        "source": "HelloWorld.rs",
+        "source_job_id": "694700",
+        "source_url": "https://www.helloworld.rs/posao/PHP-Developer-WordPress/20four7VA/694700",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; EST morning hours preferred",
+        "remote_policy": "Unclear",
+        "stack": "PHP; WordPress; Laravel; CodeIgniter; JavaScript; HTML; CSS; SQL; MySQL",
+        "found_at": "2026-10-04",
+        "decision_reason": "stack_mismatch",
+        "notes": "Exact card requires at least 2 years of PHP and WordPress plus Laravel/CodeIgniter and database work. This exceeds the current PHP/WordPress depth despite remote part-time availability."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:712370",
+      "args": {
+        "company": "CoinsPaid",
+        "role": "Frontend Engineer (Design core team)",
+        "source": "HelloWorld.rs",
+        "source_job_id": "712370",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer-Design-core-team/CoinsPaid/712370",
+        "found_at": "2026-10-04",
+        "duplicate_of": "job-0268"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:712369",
+      "args": {
+        "company": "CoinsPaid",
+        "role": "Frontend Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "712369",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer/CoinsPaid/712369",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "stack": "React; Redux Toolkit; TypeScript; JavaScript; HTML; CSS; Material UI; Testing; APIs",
+        "found_at": "2026-10-04",
+        "decision_reason": "seniority_too_high",
+        "notes": "Exact card requires 4+ years as a Frontend Developer with deep React/TypeScript architecture and independent ownership; above the target level."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:727544",
+      "args": {
+        "company": "Collectly, Inc.",
+        "role": "Frontend Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "727544",
+        "source_url": "https://www.helloworld.rs/posao/Frontend-Engineer/Collectly-Inc/727544",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Senior",
+        "location": "Remote; candidates must be within GMT-0 to GMT+4",
+        "remote_policy": "Unclear",
+        "stack": "React; Redux; TypeScript; UI/UX; Performance; Product Engineering",
+        "salary": "USD 72,000-90,000/year",
+        "found_at": "2026-10-04",
+        "decision_reason": "seniority_too_high",
+        "notes": "Timezone is compatible with Serbia, but the exact card requires 5+ years with React/Redux/TypeScript and strong independent product ownership."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:758965",
+      "args": {
+        "company": "PWO SEE d.o.o.",
+        "role": "IT Support Specialist",
+        "source": "HelloWorld.rs",
+        "source_job_id": "758965",
+        "source_url": "https://www.helloworld.rs/posao/IT-Support-Specialist/PWO-SEE-d.o.o/758965",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Čačak, Serbia; hybrid",
+        "remote_policy": "Hybrid",
+        "stack": "Windows; Microsoft 365; Active Directory; Entra ID; Intune; VPN; SAP; Service Desk; Endpoint Management",
+        "found_at": "2026-10-04",
+        "decision_reason": "role_not_frontend",
+        "notes": "This is classic workplace/service-desk support rather than website/product support: Windows, M365, AD/Entra, Intune, VPN and endpoint administration, with 2-5 years relevant support experience."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:757067",
+      "args": {
+        "company": "Cheil Adriatic d.o.o.",
+        "role": "Technical Project Manager",
+        "source": "HelloWorld.rs",
+        "source_job_id": "757067",
+        "source_url": "https://www.helloworld.rs/posao/Technical-Project-Manager/Cheil-Adriatic-d.o.o/757067",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "Belgrade, Serbia; hybrid per HelloWorld.rs",
+        "remote_policy": "Hybrid",
+        "stack": "Technical Project Coordination; Digital Production; Web; Project Management; Client Delivery",
+        "match_score": 7,
+        "found_at": "2026-10-04",
+        "notes": "Adjacent digital-production possibility: 2+ years project coordination is preferred, with technical/digital projects and basic web/software production understanding. Exact source labels the role Belgrade | Hybrid, which conflicts with the mandatory-remote preference; employer work-mode is not first-party verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:754091",
+      "args": {
+        "company": "Crae Group Ltd",
+        "role": "Customer Support Agent",
+        "source": "HelloWorld.rs",
+        "source_job_id": "754091",
+        "source_url": "https://www.helloworld.rs/posao/Customer-Support-Agent/Crae-Group-Ltd/754091",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "salary": "EUR 1,400-2,000 gross/month + performance bonus",
+        "found_at": "2026-10-04",
+        "decision_reason": "other",
+        "notes": "Remote and salary clear the minimum, but the exact card makes 2+ years of online customer support mandatory. The role is chat/email customer service rather than website or technical product support."
+      }
+    }
+  ]
+}
