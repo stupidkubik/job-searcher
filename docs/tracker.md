@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **555**
+Dataset updated: **2026-10-04** · Jobs: **572**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (22)](#to-verify) · [Archive (482)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (24)](#to-verify) · [Archive (497)](#archive)
 
 ## Action now
 
@@ -73,6 +73,8 @@ Dataset updated: **2026-10-04** · Jobs: **555**
 | --- | --- | --- | --- | --- | --- |
 | Reviewing | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
+| Reviewing | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | First party + Apply + Listing | 9 | verify first-party | Never |
+| Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
@@ -98,10 +100,25 @@ Dataset updated: **2026-10-04** · Jobs: **555**
 
 <details>
 
-<summary>Archive (482)</summary>
+<summary>Archive (497)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Undisclosed (hirify-908612) — Marketing Operations Specialist (Fintech)](<https://hirify.me/jobs/908612-marketing-operations-fintech>) · job-0572 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1082930) — Marketing Operations Manager - Associate](<https://hirify.me/jobs/1082930-marketing-operations-manager>) · job-0571 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: stack mismatch | [Undisclosed (hirify-1124519) — MarTech / Marketing Analyst](<https://hirify.me/jobs/1124519-martech-marketing-analyst-ga4>) · job-0570 | stack mismatch | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1201091) — Marketing Operations Specialist (AI)](<https://hirify.me/jobs/1201091-marketing-operations-ai>) · job-0569 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-783811) — Marketing Technology Specialist](<https://hirify.me/jobs/783811-marketing-technology-specialist>) · job-0568 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-746223) — Marketing Technology Specialist (MarTech)](<https://hirify.me/jobs/746223-marketing-technology-specialist-martech>) · job-0567 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1084180) — Marketing Technology Specialist (Crypto)](<https://hirify.me/jobs/1084180-marketing-technology-specialist>) · job-0566 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-900382) — Marketing Automation Specialist (Pardot)](<https://hirify.me/jobs/900382-marketing-automation-pardot-specialist>) · job-0565 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-854498) — Marketing Automation Specialist (HubSpot, Marketo & CRM Automation)](<https://hirify.me/jobs/854498-marketing-automation-crm-specialist>) · job-0564 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1160356) — Marketing Automation Specialist (Fintech)](<https://hirify.me/jobs/1160356-marketing-automation-specialist>) · job-0563 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1156486) — Marketing Operations Manager](<https://hirify.me/jobs/1156486-marketing-operations-manager-jira>) · job-0561 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1159416) — Marketing Operations Manager (MarTech)](<https://hirify.me/jobs/1159416-marketing-operations-martech>) · job-0560 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1171154) — Marketing Operations Specialist (Marketing Automation)](<https://hirify.me/jobs/1171154-marketing-operations-automation>) · job-0559 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: work authorization | [MAP / WPP Enterprise Solutions — Campaign Specialist](<https://job-boards.greenhouse.io/map/jobs/8826905002>) · job-0558 | work authorization | Open | 2026-10-04 |
+| Skipped: stack mismatch | [Undisclosed (hirify-1158608) — Marketing Operations Specialist (AI)](<https://hirify.me/jobs/1158608-marketing-operations-ai>) · job-0557 | stack mismatch | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-956703) — eCommerce Operations Specialist, EMEA](<https://hirify.me/jobs/956703-ecommerce-operations-specialist>) · job-0555 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-1133562) — CMS Website Specialist (HTML/CSS)](<https://hirify.me/jobs/1133562-cms-website-specialist-html-css>) · job-0551 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Universal Destinations & Experiences — Analyst, Adobe Target](<https://hirify.me/jobs/1200136-adobe-target-analyst>) · job-0550 | geo restriction | Not checked | 2026-10-04 |

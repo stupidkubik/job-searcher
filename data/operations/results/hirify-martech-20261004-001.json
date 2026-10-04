@@ -1,0 +1,374 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T18:55:56Z",
+  "jobs": [],
+  "operation_id": "hirify-martech-20261004-001",
+  "result": {
+    "count": 17,
+    "operations": [
+      {
+        "application_path": "applications/job-0556-undisclosed-hirify-1142301-marketing-operations-develop.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1142301",
+        "command": "add",
+        "job_id": "job-0556",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0556",
+            "source": "Hirify",
+            "source_job_id": "1142301",
+            "source_url": "https://hirify.me/jobs/1142301-marketing-operations-developer-martech"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1158608",
+        "command": "add",
+        "job_id": "job-0557",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0557",
+            "source": "Hirify",
+            "source_job_id": "1158608",
+            "source_url": "https://hirify.me/jobs/1158608-marketing-operations-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1127326",
+        "command": "add",
+        "job_id": "job-0558",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0558",
+            "source": "Hirify",
+            "source_job_id": "1127326",
+            "source_url": "https://hirify.me/jobs/1127326-campaign-specialist-marketing-operations"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1171154",
+        "command": "add",
+        "job_id": "job-0559",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0559",
+            "source": "Hirify",
+            "source_job_id": "1171154",
+            "source_url": "https://hirify.me/jobs/1171154-marketing-operations-automation"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1159416",
+        "command": "add",
+        "job_id": "job-0560",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0560",
+            "source": "Hirify",
+            "source_job_id": "1159416",
+            "source_url": "https://hirify.me/jobs/1159416-marketing-operations-martech"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1156486",
+        "command": "add",
+        "job_id": "job-0561",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0561",
+            "source": "Hirify",
+            "source_job_id": "1156486",
+            "source_url": "https://hirify.me/jobs/1156486-marketing-operations-manager-jira"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0562-reliaquest-marketing-automation-special.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1192802",
+        "command": "add",
+        "job_id": "job-0562",
+        "listing_status": "open",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0562",
+            "source": "Hirify",
+            "source_job_id": "1192802",
+            "source_url": "https://hirify.me/jobs/1192802-marketing-automation-ai-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1160356",
+        "command": "add",
+        "job_id": "job-0563",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0563",
+            "source": "Hirify",
+            "source_job_id": "1160356",
+            "source_url": "https://hirify.me/jobs/1160356-marketing-automation-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:854498",
+        "command": "add",
+        "job_id": "job-0564",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0564",
+            "source": "Hirify",
+            "source_job_id": "854498",
+            "source_url": "https://hirify.me/jobs/854498-marketing-automation-crm-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:900382",
+        "command": "add",
+        "job_id": "job-0565",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0565",
+            "source": "Hirify",
+            "source_job_id": "900382",
+            "source_url": "https://hirify.me/jobs/900382-marketing-automation-pardot-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1084180",
+        "command": "add",
+        "job_id": "job-0566",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0566",
+            "source": "Hirify",
+            "source_job_id": "1084180",
+            "source_url": "https://hirify.me/jobs/1084180-marketing-technology-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:746223",
+        "command": "add",
+        "job_id": "job-0567",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0567",
+            "source": "Hirify",
+            "source_job_id": "746223",
+            "source_url": "https://hirify.me/jobs/746223-marketing-technology-specialist-martech"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:783811",
+        "command": "add",
+        "job_id": "job-0568",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0568",
+            "source": "Hirify",
+            "source_job_id": "783811",
+            "source_url": "https://hirify.me/jobs/783811-marketing-technology-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1201091",
+        "command": "add",
+        "job_id": "job-0569",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0569",
+            "source": "Hirify",
+            "source_job_id": "1201091",
+            "source_url": "https://hirify.me/jobs/1201091-marketing-operations-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1124519",
+        "command": "add",
+        "job_id": "job-0570",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0570",
+            "source": "Hirify",
+            "source_job_id": "1124519",
+            "source_url": "https://hirify.me/jobs/1124519-martech-marketing-analyst-ga4"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1082930",
+        "command": "add",
+        "job_id": "job-0571",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0571",
+            "source": "Hirify",
+            "source_job_id": "1082930",
+            "source_url": "https://hirify.me/jobs/1082930-marketing-operations-manager"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:908612",
+        "command": "add",
+        "job_id": "job-0572",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0572",
+            "source": "Hirify",
+            "source_job_id": "908612",
+            "source_url": "https://hirify.me/jobs/908612-marketing-operations-fintech"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 17,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
