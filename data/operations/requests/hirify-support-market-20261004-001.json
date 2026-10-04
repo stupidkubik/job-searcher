@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "operation_id": "hirify-support-market-20261004-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "hirify:1201970",
+      "args": {
+        "company": "Undisclosed (hirify-1201970)",
+        "role": "Website Support Specialist (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "1201970",
+        "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Colombia",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "salary": "COP 55,956,245–60,132,084/year",
+        "notes": "Very strong Website Support fit: WordPress administration, DNS, SSL/TLS, backups, hosting, HTML/CSS, forms, CRM, analytics and API/webhook integrations; exact card limits remote work to Colombia and EST hours.",
+        "stack": "WordPress; DNS; SSL/TLS; HTML; CSS; GA4; Search Console; APIs; Webhooks; CRM; Hosting"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1076424",
+      "args": {
+        "company": "Undisclosed (hirify-1076424)",
+        "role": "Web Platform Support Specialist",
+        "source": "Hirify",
+        "source_job_id": "1076424",
+        "source_url": "https://hirify.me/jobs/1076424-web-platform-support-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Pune / Mohali / Hyderabad, India",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "Strong content-platform support family: CMS publishing, platform requests, bug testing, website launches, documentation and internal client support; exact card is India-location specific and Hirify marks it archived.",
+        "stack": "Web CMS; HTML; ServiceNow; Jira; Adobe Analytics; Hotjar; Confluence; Google Tag Manager; QA"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1174300",
+      "args": {
+        "company": "Undisclosed (hirify-1174300)",
+        "role": "Technical Support Specialist I (SQL/Web Applications)",
+        "source": "Hirify",
+        "source_job_id": "1174300",
+        "source_url": "https://hirify.me/jobs/1174300-technical-support-specialist-sql",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "level": "Junior",
+        "match_score": 8,
+        "salary": "USD 47,000–56,000/year",
+        "notes": "Strong junior technical-support fit: web application troubleshooting, SQL, logs, browser devtools, HTML/JavaScript, documentation and Engineering/Product escalation. Source says Remote and no visa sponsorship but the exact allowed country was not resolved before Hirify rate limiting blocked further Browser verification.",
+        "stack": "SQL; Web applications; Browser DevTools; Logs; HTML; JavaScript; Technical documentation; SaaS support"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1133562",
+      "args": {
+        "company": "Undisclosed (hirify-1133562)",
+        "role": "CMS Website Specialist (HTML/CSS)",
+        "source": "Hirify",
+        "source_job_id": "1133562",
+        "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Chester, United Kingdom",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Excellent experience fit: customer CMS support, website improvements, onboarding, restyling projects, HTML/CSS, performance and documentation; requires hybrid work in Chester, UK.",
+        "stack": "CMS; HTML; CSS; Website support; Customer onboarding; Documentation; Web performance"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1195192",
+      "args": {
+        "company": "Undisclosed (hirify-1195192)",
+        "role": "Technical Support Specialist - Tier 2 (Software)",
+        "source": "Hirify",
+        "source_job_id": "1195192",
+        "source_url": "https://hirify.me/jobs/1195192-tier-2-technical-support",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Dallas, TX, USA",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "salary": "USD 56,900–68,100/year",
+        "notes": "Relevant troubleshooting/bug reproduction/documentation work, but the exact role requires 3 days per week in the Dallas office and at least 2 years of technical-support experience.",
+        "stack": "Technical support; Bug reproduction; CRM; Windows; Documentation; Ticketing"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1061312",
+      "args": {
+        "company": "Undisclosed (hirify-1061312)",
+        "role": "WordPress Live Support Specialist",
+        "source": "Hirify",
+        "source_job_id": "1061312",
+        "source_url": "https://hirify.me/jobs/1061312-wordpress-live-support-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "decision_reason": "other",
+        "notes": "Strong WordPress/customer-support family evidence, but Hirify explicitly describes this as a talent pool for future openings rather than an active hire; exact current location and remote eligibility are unresolved.",
+        "stack": "WordPress; Plugins; Themes; Elementor; Divi; Page builders; Web hosting; Customer support"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1071952",
+      "args": {
+        "company": "Undisclosed (hirify-1071952)",
+        "role": "Technical Support Engineer (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "1071952",
+        "source_url": "https://hirify.me/jobs/1071952-wordpress-support-engineer",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Latin America",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "salary": "USD 25,000–40,000/year",
+        "notes": "Technically relevant high-end WordPress support role covering HTTP, browser devtools, HTML/JS/CSS, Git, PHP, monitoring, security and performance, but remote is limited to Latin America; Hirify marks the card archived.",
+        "stack": "WordPress; PHP; HTTP; Browser DevTools; HTML; JavaScript; CSS; Git; Grafana; Security; Performance"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1197008",
+      "args": {
+        "company": "Undisclosed (hirify-1197008)",
+        "role": "Technical Support Specialist (Travel Tech)",
+        "source": "Hirify",
+        "source_job_id": "1197008",
+        "source_url": "https://hirify.me/jobs/1197008-technical-support-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Serbia / Kazakhstan / Uzbekistan",
+        "remote_policy": "Serbia",
+        "match_score": 8.5,
+        "notes": "Very promising Serbia-remote support pivot: investigate availability issues, analyze alerts and metrics, test hypotheses, work with integrations, HTTP/APIs, JSON/XML, basic SQL, logs/monitoring, Product coordination and AI automation. First-party employer and Apply route could not be resolved before Hirify began rate limiting Browser.",
+        "stack": "HTTP; APIs; JSON; XML; SQL; Logs; Monitoring; Grafana; Integrations; AI automation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1077501",
+      "args": {
+        "company": "Undisclosed (hirify-1077501)",
+        "role": "Technical Support Specialist (AI)",
+        "source": "Hirify",
+        "source_job_id": "1077501",
+        "source_url": "https://hirify.me/jobs/1077501-technical-support-specialist-ai",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Ukraine",
+        "remote_policy": "Country-specific",
+        "decision_reason": "geo_restriction",
+        "notes": "General hardware/software/network support rather than web/product support; exact role is remote only from Ukraine with US-aligned shifts, and Hirify marks the card archived.",
+        "stack": "Technical support; Hardware; Software; Networking; ChatGPT; Microsoft Copilot; Documentation"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1097910",
+      "args": {
+        "company": "Undisclosed (hirify-1097910)",
+        "role": "Technical Support Specialist (SaaS)",
+        "source": "Hirify",
+        "source_job_id": "1097910",
+        "source_url": "https://hirify.me/jobs/1097910-technical-support-specialist-saas",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "location": "Eastern Europe",
+        "remote_policy": "Hybrid",
+        "decision_reason": "geo_restriction",
+        "notes": "Good SaaS-support skill family: APIs, integrations, XML/JSON, logs, SQL, Engineering/Product escalation and knowledge-base work, but exact role requires 3 office days and only 2 remote days per week.",
+        "stack": "APIs; XML; JSON; SQL; Logs; Integrations; SaaS support; ITIL; Knowledge base"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1195826",
+      "args": {
+        "company": "Undisclosed (hirify-1195826)",
+        "role": "Technical Support Engineer (AI)",
+        "source": "Hirify",
+        "source_job_id": "1195826",
+        "source_url": "https://hirify.me/jobs/1195826-technical-support-engineer-ai",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. Per source rules no cached/search-snippet substitute was used; description, geo, current status and Apply route remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1137410",
+      "args": {
+        "company": "Undisclosed (hirify-1137410)",
+        "role": "Technical Support Engineer (TypeScript)",
+        "source": "Hirify",
+        "source_job_id": "1137410",
+        "source_url": "https://hirify.me/jobs/1137410-technical-support-engineer-typescript",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. No snippet-based analysis was substituted; TypeScript/API/integration scope, geo and Apply eligibility require a later Browser pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1182245",
+      "args": {
+        "company": "Undisclosed (hirify-1182245)",
+        "role": "Technical Support Engineer I (WordPress)",
+        "source": "Hirify",
+        "source_job_id": "1182245",
+        "source_url": "https://hirify.me/jobs/1182245-technical-support-engineer-wordpress",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. No cached/search-snippet substitute was used; description, geo and Apply eligibility remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1186630",
+      "args": {
+        "company": "Undisclosed (hirify-1186630)",
+        "role": "Product Support Specialist I (iGaming)",
+        "source": "Hirify",
+        "source_job_id": "1186630",
+        "source_url": "https://hirify.me/jobs/1186630-product-support-specialist-igaming",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. Product-support requirements, geo and remote eligibility remain unresolved and were not inferred from snippets."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1127645",
+      "args": {
+        "company": "Undisclosed (hirify-1127645)",
+        "role": "Product Support Specialist (SaaS)",
+        "source": "Hirify",
+        "source_job_id": "1127645",
+        "source_url": "https://hirify.me/jobs/1127645-product-support-specialist-saas",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. No cached/search-snippet substitute was used; requirements, geo and Apply route remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1129433",
+      "args": {
+        "company": "Undisclosed (hirify-1129433)",
+        "role": "Product Support Specialist (SaaS)",
+        "source": "Hirify",
+        "source_job_id": "1129433",
+        "source_url": "https://hirify.me/jobs/1129433-product-support-specialist-saas",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. No snippet-based screening was substituted; requirements, geo and Apply route remain unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1191166",
+      "args": {
+        "company": "Undisclosed (hirify-1191166)",
+        "role": "Product Support Specialist (SaaS)",
+        "source": "Hirify",
+        "source_job_id": "1191166",
+        "source_url": "https://hirify.me/jobs/1191166-product-support-specialist-saas",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. Product-support experience requirements, remote geo and first-party Apply status require a later Browser pass."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "hirify:1181839",
+      "args": {
+        "company": "Undisclosed (hirify-1181839)",
+        "role": "Product Support Associate (AI/Fintech)",
+        "source": "Hirify",
+        "source_job_id": "1181839",
+        "source_url": "https://hirify.me/jobs/1181839-product-support-ai-fintech",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "remote_policy": "Unclear",
+        "notes": "Exact Hirify card was opened but returned 'Too many requests' after the source rate limit was hit. Associate-level product-support scope looks relevant by title only, but no description, geo or Apply facts were inferred from search snippets."
+      }
+    }
+  ]
+}
