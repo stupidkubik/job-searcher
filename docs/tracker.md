@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (36)](#to-verify) · [Archive (563)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (27)](#to-verify) · [Archive (572)](#archive)
 
 ## Action now
 
@@ -101,21 +101,12 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed via Recruiter Maria — Frontend разработчик](<https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d>) · job-0494 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [PREAX — Стажер Frontend-разработчик по React](<https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/>) · job-0498 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Undisclosed (TalentMove 278294) — Frontend Developer по Next.js + React](<https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/>) · job-0505 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [X4Apps — Web Developer / Верстальщик](<https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/>) · job-0511 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [IT-WORK — Frontend Developer по JavaScript + React](<https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/>) · job-0515 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [s360 — Frontend Designer, Tech Solutions](<https://www.helloworld.rs/posao/Frontend-Designer-Tech-Solutions/s360/756364>) · job-0516 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [netcare d.o.o. — Web Content Manager](<https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927>) · job-0517 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Digistore24/Eklektika — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601>) · job-0518 | First party + Apply + Listing | — | verify first-party | Never |
 
 ## Archive
 
 <details>
 
-<summary>Archive (563)</summary>
+<summary>Archive (572)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -141,6 +132,15 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: role not frontend | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | role not frontend | Open | 2026-10-05 |
 | Skipped: geo restriction | [Viewline Ventures — Internal Tools Engineer](<https://jobs.workable.com/view/5SYa5KkMqGC15VfCN8FBYU/remote-internal-tools-engineer-in-kyiv-at-viewline-ventures>) · job-0523 | geo restriction | Open | 2026-10-05 |
 | Closed | [telmi — Full Stack Engineer (Next.js / Supabase / AI-Native Workflow)](<https://wellfound.com/jobs/4079967-full-stack-engineer-next-js-supabase-ai-native-workflow>) · job-0520 | closed before application | Closed | 2026-10-05 |
+| Closed | [Digistore24/Eklektika — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Digistore24Eklektika/756601>) · job-0518 | closed before application | Closed | 2026-10-05 |
+| Skipped: geo restriction | [netcare d.o.o. — Web Content Manager](<https://www.helloworld.rs/posao/Web-Content-Manager/netcare-d.o.o/755927>) · job-0517 | geo restriction | Not checked | 2026-10-05 |
+| Skipped: geo restriction | [s360 — Frontend Designer, Tech Solutions](<https://www.helloworld.rs/posao/Frontend-Designer-Tech-Solutions/s360/756364>) · job-0516 | geo restriction | Not checked | 2026-10-05 |
+| Closed | [IT-WORK — Frontend Developer по JavaScript + React](<https://talent-move.ru/jobs/frontend-developer-it-work-remote-250926-278081/>) · job-0515 | closed before application | Closed | 2026-10-05 |
+| Closed | [X4Apps — Web Developer / Верстальщик](<https://talent-move.ru/jobs/web-developer-verstalschik-x4apps-100926-271489/>) · job-0511 | closed before application | Closed | 2026-10-05 |
+| Closed | [Undisclosed (TalentMove 278294) — Frontend Developer по Next.js + React](<https://talent-move.ru/jobs/frontend-developer-nextjs-react-260926-278294/>) · job-0505 | closed before application | Closed | 2026-10-05 |
+| Skipped: other | [PREAX — Стажер Frontend-разработчик по React](<https://talent-move.ru/jobs/stazher-frontend-razrabotchik-react-280926-279196/>) · job-0498 | other | Not checked | 2026-10-05 |
+| Closed | [Undisclosed via Recruiter Maria — Frontend разработчик](<https://geekjob.ru/vacancy/6abbc9b03a1b58f7cf049f5d>) · job-0494 | closed before application | Closed | 2026-10-05 |
+| Closed | [Bjak — Frontend Engineer](<https://remoteok.com/remote-jobs/remote-frontend-engineer-bjak-1137410>) · job-0491 | closed before application | Closed | 2026-10-05 |
 | Skipped: geo restriction | [REWORK Digital — Technical Support & Platform Operations Specialist](<https://wellfound.com/jobs/4714833-technical-support-platform-operations-specialist>) · job-0630 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Astra — Technical Account Manager (EU)](<https://wellfound.com/jobs/3839785-technical-account-manager-eu>) · job-0629 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Tango — Technical Support Engineer](<https://wellfound.com/jobs/4797218-technical-support-engineer>) · job-0628 | geo restriction | Not checked | 2026-10-04 |

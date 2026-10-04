@@ -4,10 +4,10 @@ company: X4Apps
 role: Web Developer / Верстальщик
 cv_version: 
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-10-05
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # X4Apps — Web Developer / Верстальщик

@@ -1,0 +1,117 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T23:13:21Z",
+  "jobs": [
+    "job-0518",
+    "job-0517",
+    "job-0516",
+    "job-0515",
+    "job-0511",
+    "job-0505",
+    "job-0498",
+    "job-0494",
+    "job-0491"
+  ],
+  "operation_id": "op-20261005-tracker-cleanup-existing-0491-0518-001",
+  "result": {
+    "count": 9,
+    "operations": [
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0518",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0517",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0516",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0515",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0511",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0505",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "screen",
+        "job_id": "job-0498",
+        "listing_status": "unknown",
+        "outcome": "screened_out",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0494",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_status": "not_started",
+        "command": "verify",
+        "job_id": "job-0491",
+        "listing_status": "closed",
+        "outcome": "blocked",
+        "stage_reached": "None",
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 9,
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}

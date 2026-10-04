@@ -4,10 +4,10 @@ company: IT-WORK
 role: Frontend Developer по JavaScript + React
 cv_version: 
 original_url: 
-verified_at: 
-listing_status: unknown
-first_party_verified: unknown
-apply_verified: unknown
+verified_at: 2026-10-05
+listing_status: closed
+first_party_verified: no
+apply_verified: no
 ---
 
 # IT-WORK — Frontend Developer по JavaScript + React
