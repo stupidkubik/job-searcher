@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "operation_id": "op-20261005-tracker-cleanup-0520-0578-001",
+  "command": "batch",
+  "atomic": true,
+  "operations": [
+    {
+      "command": "verify",
+      "job_id": "job-0520",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "listing_status": "closed",
+        "first_party_verified": "no",
+        "apply_verified": "no",
+        "decision_reason": "closed_before_application",
+        "notes": "User confirmed the vacancy is closed. Live Browser check of exact Wellfound job 4079967 shows: 'The job listing was recently taken down and is no longer available for applications.'"
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0523",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Current Workable listing is live and marked Remote, but the vacancy location is Kyiv, Kyiv city, Ukraine. User confirmed this Ukraine-only remote scope is not suitable."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0529",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "role_not_frontend",
+        "notes": "User reviewed the role and confirmed it does not fit the target profile."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0547",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "geo_restriction",
+        "notes": "Current NCR Voyix Workday listing shows location BELGRADE, SRB and no remote designation. User confirmed this is an office role, not remote."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0556",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "already_applied",
+        "notes": "User confirmed this Hirify vacancy is the same vacancy as job-0462, where an application has already been submitted."
+      }
+    },
+    {
+      "command": "verify",
+      "job_id": "job-0578",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://apply.workable.com/emerging-travel-group/j/FFA0294100/",
+        "remote_policy": "Serbia",
+        "match_score": 8.5,
+        "notes": "Resolved to Emerging Travel Group. Current Workable listing is live, Remote, and explicitly lists Serbia, Kazakhstan and Uzbekistan. Browser opened the exact application form successfully; it asks for CV, LinkedIn, expected gross salary/currency, years in technical support/integrations/IT operations, troubleshooting experience, tools/technologies, English level and messenger contact."
+      }
+    }
+  ]
+}
