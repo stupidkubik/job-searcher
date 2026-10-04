@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "hirify-content-production-20261004-002",
+  "command": "add",
+  "args": {
+    "company": "VyaparReady",
+    "duplicate_of": "job-0255",
+    "found_at": "2026-10-04",
+    "role": "Remote Website Developer (SEO)",
+    "source": "Hirify",
+    "source_job_id": "849749",
+    "source_url": "https://hirify.me/jobs/849749-remote-website-developer"
+  }
+}
