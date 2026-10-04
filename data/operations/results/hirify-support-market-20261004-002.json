@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T19:10:44Z",
+  "jobs": [],
+  "operation_id": "hirify-support-market-20261004-002",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1201970",
+        "command": "add",
+        "job_id": "job-0543",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": false,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0543",
+            "source": "Hirify",
+            "source_job_id": "1201970",
+            "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1133562",
+        "command": "add",
+        "job_id": "job-0551",
+        "listing_status": "unknown",
+        "outcome": "source_reference_added",
+        "source_reference": {
+          "created": false,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0551",
+            "source": "Hirify",
+            "source_job_id": "1133562",
+            "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "atomic_batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
