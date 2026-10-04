@@ -4,7 +4,7 @@
 
 Dataset updated: **2026-10-05** · Jobs: **653**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (27)](#to-verify) · [Archive (572)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (26)](#to-verify) · [Archive (573)](#archive)
 
 ## Action now
 
@@ -96,7 +96,6 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [Undisclosed (hirify-1129433) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1129433-product-support-specialist-saas>) · job-0586 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Codelogix — Next.js Developer](<https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992>) · job-0589 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
@@ -106,7 +105,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 
 <details>
 
-<summary>Archive (572)</summary>
+<summary>Archive (573)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
@@ -127,6 +126,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Skipped: stack mismatch | [Educato — UGC Campaign Manager - Entry level marketing role](<https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable>) · job-0634 | stack mismatch | Not checked | 2026-10-05 |
 | Closed | [Clipboard — Client Support Specialist (Healthcare Facilities - B2B)](<https://grnh.se/95f68d9b4us>) · job-0633 | closed before application | Closed | 2026-10-05 |
 | Skipped: stack mismatch | [Porter — DevOps Support Engineer](<https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer>) · job-0632 | stack mismatch | Not checked | 2026-10-05 |
+| Skipped: seniority too high | [Codelogix — Next.js Developer](<https://www.helloworld.rs/posao/Next.javascript-Developer/Codelogix/758992>) · job-0589 | seniority too high | Not checked | 2026-10-05 |
 | Skipped: already applied | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | already applied | Not checked | 2026-10-05 |
 | Skipped: geo restriction | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | geo restriction | Open | 2026-10-05 |
 | Skipped: role not frontend | [Туту — Креативный редактор](<https://hr.tutu.ru/vacancies/kreativnyy-redaktor>) · job-0529 | role not frontend | Open | 2026-10-05 |

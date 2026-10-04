@@ -1,0 +1,17 @@
+{
+  "command": "screen",
+  "executed_at": "2026-10-04T23:16:13Z",
+  "job_id": "job-0589",
+  "operation_id": "op-20261005-screen-codelogix-0589-001",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "listing_status": "unknown",
+    "outcome": "screened_out",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
