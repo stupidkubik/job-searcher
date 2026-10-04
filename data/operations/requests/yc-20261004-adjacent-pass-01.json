@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "operation_id": "yc-20261004-adjacent-pass-01",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "yc:o9R0IZV",
+      "args": {
+        "company": "Pocket",
+        "role": "Customer Support Specialist",
+        "source": "YC Work at a Startup",
+        "source_job_id": "o9R0IZV",
+        "source_url": "https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "San Francisco, CA / Remote",
+        "remote_policy": "Unclear",
+        "salary": "USD 10K-30K",
+        "match_score": 8,
+        "stack": "Customer Support; Hardware/Software Troubleshooting; Help Center; Knowledge Base; AI Support Agent; Product Feedback",
+        "notes": "Strong adjacent support fit: new grads OK, visa not required, device+software troubleshooting, knowledge-base ownership and product/engineering feedback loop. Employer site is live and its Join the Team link points back to YC, but no independent first-party requisition or employer Apply route was exposed; exact remote country eligibility remains unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:Fc0Rzny",
+      "args": {
+        "company": "Porter",
+        "role": "DevOps Support Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Fc0Rzny",
+        "source_url": "https://www.ycombinator.com/companies/porter/jobs/Fc0Rzny-devops-support-engineer",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Middle",
+        "location": "Remote; Eastern Time coverage required",
+        "remote_policy": "Unclear",
+        "salary": "USD 120K-180K",
+        "decision_reason": "stack_mismatch",
+        "notes": "Support role is heavily DevOps-focused: Kubernetes is essential, with Helm, Docker and AWS/GCP plus 3+ years. This is materially outside the current web/support transition profile."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:EYlMYBU",
+      "args": {
+        "company": "Clipboard",
+        "role": "Client Support Specialist (Healthcare Facilities - B2B)",
+        "source": "YC Work at a Startup",
+        "source_job_id": "EYlMYBU",
+        "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/EYlMYBU-client-support-specialist-healthcare-facilities-b2b",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "closed",
+        "first_party_verified": "yes",
+        "apply_verified": "no",
+        "original_url": "https://grnh.se/95f68d9b4us",
+        "level": "Junior",
+        "location": "Remote",
+        "remote_policy": "Global",
+        "decision_reason": "closed_before_application",
+        "notes": "YC card says work from anywhere and 1+ years, but its direct employer Greenhouse route now returns 'Sorry, but we can't find that page.' The current Clipboard employer board no longer lists the Healthcare Facilities title, so this exact requisition is closed/stale."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:wx7a1VE",
+      "args": {
+        "company": "Educato",
+        "role": "UGC Campaign Manager - Entry level marketing role",
+        "source": "YC Work at a Startup",
+        "source_job_id": "wx7a1VE",
+        "source_url": "https://www.ycombinator.com/companies/educato/jobs/wx7a1VE-ugc-campaign-manager-entry-level-marketing-role-experience-as-a-ugc-highly-desierable",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior",
+        "location": "Remote",
+        "remote_policy": "Unclear",
+        "salary": "USD 10K-45K",
+        "decision_reason": "stack_mismatch",
+        "notes": "Entry-level and remote, but core requirements are native-market UGC creator experience, TikTok/Instagram creator recruitment and campaign management rather than web/content operations or MarTech execution."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:f42QPiX",
+      "args": {
+        "company": "LightSprint",
+        "role": "Product Marketing / GTM Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "f42QPiX",
+        "source_url": "https://www.ycombinator.com/companies/lightsprint/jobs/f42QPiX-product-marketing-gtm-engineer",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "yes",
+        "original_url": "https://lightsprint.ai/careers/product-marketing",
+        "level": "Middle",
+        "location": "SF Bay Area / Remote (US)",
+        "remote_policy": "Country-specific",
+        "salary": "USD 130K-180K on YC",
+        "decision_reason": "geo_restriction",
+        "stack": "Product Marketing; GTM; React; TypeScript; Landing Pages; Lifecycle; SEO; Analytics; Attribution",
+        "notes": "Very relevant MarTech/web hybrid on YC, but the current employer careers page lists the role as Product Marketing and explicitly limits it to SF Bay Area / Remote (US). Employer Apply route is live via founders@lightsprint.ai."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:XZRrah7",
+      "args": {
+        "company": "Gooseworks",
+        "role": "Design Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "XZRrah7",
+        "source_url": "https://www.ycombinator.com/companies/gooseworks/jobs/XZRrah7-design-engineer",
+        "found_at": "2026-10-04",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "level": "Junior/Middle",
+        "location": "San Francisco, CA / Remote",
+        "remote_policy": "Unclear",
+        "salary": "USD 50K-200K",
+        "decision_reason": "stack_mismatch",
+        "stack": "Product Design; React; Next.js; Tailwind; AI Coding Agents",
+        "notes": "Interesting frontend/design hybrid and new grads are allowed, but the role is explicitly designer-first and expects a strong shipped design portfolio plus end-to-end product/UX ownership. Employer site is live but exposes no careers listing for this exact role."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:NDw5A2m",
+      "args": {
+        "company": "Clipboard",
+        "role": "Technical Support Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "NDw5A2m",
+        "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/NDw5A2m-technical-support-engineer",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "original_url": "https://www.clipboard.com/careers#open-roles",
+        "level": "Junior/Middle",
+        "location": "Remote (Non-U.S.)",
+        "remote_policy": "Global",
+        "match_score": 9,
+        "stack": "Technical Support; Zendesk; Datadog; SQL; APIs; Logs; Bug Reproduction; Incident Response; Documentation; AI-assisted Fixes",
+        "notes": "Excellent engineering-adjacent support fit. Exact title is currently visible on Clipboard's first-party embedded Ashby board as Remote (Non-U.S.); YC description also says Remote Global - Non U.S. Role covers APIs, SQL/logs, observability, bug reproduction, incident handling and documentation. Browser could not expose the individual embedded Ashby Apply URL, so Apply route remains unresolved."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:Jqqde6G",
+      "args": {
+        "company": "Clipboard",
+        "role": "Client Support Specialist (Workplaces - B2B)",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Jqqde6G",
+        "source_url": "https://www.ycombinator.com/companies/clipboard/jobs/Jqqde6G-client-support-specialist-workplaces-b2b",
+        "found_at": "2026-10-04",
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "first_party_verified": "yes",
+        "apply_verified": "unknown",
+        "original_url": "https://www.clipboard.com/careers#open-roles",
+        "level": "Junior",
+        "location": "Remote; current employer board includes Non-U.S. and Canada/UK/EU variants",
+        "remote_policy": "Global",
+        "match_score": 8.5,
+        "stack": "B2B Client Support; Zendesk; Platform Troubleshooting; Documentation; Cross-functional Operations",
+        "notes": "Strong lower-transition support option: all experience levels, no degree requirement, voice/email troubleshooting, Zendesk and platform support. Current employer board lists exact-title Non-U.S. and Canada/UK/EU variants. YC bottom metadata is stale/contradictory; first-party board is authoritative. Individual embedded Ashby Apply URL was not exposed by Browser."
+      }
+    }
+  ]
+}
