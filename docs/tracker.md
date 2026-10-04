@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-04** · Jobs: **572**
+Dataset updated: **2026-10-04** · Jobs: **588**
 
-[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (24)](#to-verify) · [Archive (497)](#archive)
+[Action now (3)](#action-now) · [Applications (48)](#applications) · [To verify (34)](#to-verify) · [Archive (503)](#archive)
 
 ## Action now
 
@@ -75,11 +75,21 @@ Dataset updated: **2026-10-04** · Jobs: **572**
 | Reviewing | [NCR Voyix — Digital Experience Specialist](<https://ncr.wd1.myworkdayjobs.com/en-US/ext_non_us/job/Digital-Experience-Specialist_R0158531>) · job-0547 | Apply | 9.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Undisclosed (hirify-1142301) — Marketing Operations Developer (MarTech)](<https://hirify.me/jobs/1142301-marketing-operations-developer-martech>) · job-0556 | First party + Apply + Listing | 9 | verify first-party | Never |
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
+| Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://hirify.me/jobs/1197008-technical-support-specialist>) · job-0578 | First party + Apply + Listing | 8.5 | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1174300) — Technical Support Specialist I (SQL/Web Applications)](<https://hirify.me/jobs/1174300-technical-support-specialist-sql>) · job-0574 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Unknown employer — Digital Content Specialist](<https://hirify.me/jobs/826309-digital-content-specialist>) · job-0541 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-1123601) — Online Operations Co-Ordinator (E-commerce)](<https://hirify.me/jobs/1123601-online-operations-coordinator-ecommerce>) · job-0552 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-979984) — Web Project Coordinator (WordPress)](<https://hirify.me/jobs/979984-web-project-coordinator-wordpress>) · job-0553 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Undisclosed (hirify-748246) — Website Manager](<https://hirify.me/jobs/748246-website-manager>) · job-0554 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1195826) — Technical Support Engineer (AI)](<https://hirify.me/jobs/1195826-technical-support-engineer-ai>) · job-0581 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1137410) — Technical Support Engineer (TypeScript)](<https://hirify.me/jobs/1137410-technical-support-engineer-typescript>) · job-0582 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1182245) — Technical Support Engineer I (WordPress)](<https://hirify.me/jobs/1182245-technical-support-engineer-wordpress>) · job-0583 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1186630) — Product Support Specialist I (iGaming)](<https://hirify.me/jobs/1186630-product-support-specialist-igaming>) · job-0584 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1127645) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1127645-product-support-specialist-saas>) · job-0585 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1129433) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1129433-product-support-specialist-saas>) · job-0586 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1191166) — Product Support Specialist (SaaS)](<https://hirify.me/jobs/1191166-product-support-specialist-saas>) · job-0587 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Undisclosed (hirify-1181839) — Product Support Associate (AI/Fintech)](<https://hirify.me/jobs/1181839-product-support-ai-fintech>) · job-0588 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [ZIRA — DEV ZIRA Talent Academy 2026](<https://himalayas.app/companies/zira/jobs/dev-zira-talent-academy-2026>) · job-0480 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
@@ -100,10 +110,16 @@ Dataset updated: **2026-10-04** · Jobs: **572**
 
 <details>
 
-<summary>Archive (497)</summary>
+<summary>Archive (503)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Undisclosed (hirify-1097910) — Technical Support Specialist (SaaS)](<https://hirify.me/jobs/1097910-technical-support-specialist-saas>) · job-0580 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1077501) — Technical Support Specialist (AI)](<https://hirify.me/jobs/1077501-technical-support-specialist-ai>) · job-0579 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1071952) — Technical Support Engineer (WordPress)](<https://hirify.me/jobs/1071952-wordpress-support-engineer>) · job-0577 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: other | [Undisclosed (hirify-1061312) — WordPress Live Support Specialist](<https://hirify.me/jobs/1061312-wordpress-live-support-specialist>) · job-0576 | other | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1195192) — Technical Support Specialist - Tier 2 (Software)](<https://hirify.me/jobs/1195192-tier-2-technical-support>) · job-0575 | geo restriction | Not checked | 2026-10-04 |
+| Skipped: geo restriction | [Undisclosed (hirify-1076424) — Web Platform Support Specialist](<https://hirify.me/jobs/1076424-web-platform-support-specialist>) · job-0573 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-908612) — Marketing Operations Specialist (Fintech)](<https://hirify.me/jobs/908612-marketing-operations-fintech>) · job-0572 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: geo restriction | [Undisclosed (hirify-1082930) — Marketing Operations Manager - Associate](<https://hirify.me/jobs/1082930-marketing-operations-manager>) · job-0571 | geo restriction | Not checked | 2026-10-04 |
 | Skipped: stack mismatch | [Undisclosed (hirify-1124519) — MarTech / Marketing Analyst](<https://hirify.me/jobs/1124519-martech-marketing-analyst-ga4>) · job-0570 | stack mismatch | Not checked | 2026-10-04 |

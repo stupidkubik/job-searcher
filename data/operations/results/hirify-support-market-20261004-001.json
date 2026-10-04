@@ -1,0 +1,460 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-04T19:08:57Z",
+  "jobs": [],
+  "operation_id": "hirify-support-market-20261004-001",
+  "result": {
+    "count": 16,
+    "operations": [
+      {
+        "client_ref": "hirify:1201970",
+        "command": "add",
+        "conflict": {
+          "existing": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0543",
+            "source": "Hirify",
+            "source_job_id": "1201970",
+            "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist"
+          },
+          "message": "source + source_job_id already belong to job-0543",
+          "reason": "source_reference_conflict",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "Undisclosed (hirify-1201970)",
+                "duplicate_of": "job-0543",
+                "found_at": "2026-10-04",
+                "role": "Website Support Specialist (WordPress)",
+                "source": "Hirify",
+                "source_job_id": "1201970",
+                "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist"
+              },
+              "client_ref": "hirify:1201970",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "not_started",
+                "apply_verified": "unknown",
+                "company": "Undisclosed (hirify-1201970)",
+                "decision_reason": "geo_restriction",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-04",
+                "listing_status": "unknown",
+                "location": "Colombia",
+                "notes": "Very strong Website Support fit: WordPress administration, DNS, SSL/TLS, backups, hosting, HTML/CSS, forms, CRM, analytics and API/webhook integrations; exact card limits remote work to Colombia and EST hours.",
+                "remote_policy": "Country-specific",
+                "role": "Website Support Specialist (WordPress)",
+                "salary": "COP 55,956,245–60,132,084/year",
+                "source": "Hirify",
+                "source_job_id": "1201970",
+                "source_url": "https://hirify.me/jobs/1201970-website-support-wordpress-specialist",
+                "stack": "WordPress; DNS; SSL/TLS; HTML; CSS; GA4; Search Console; APIs; Webhooks; CRM; Hosting"
+              },
+              "client_ref": "hirify:1201970",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1076424",
+        "command": "add",
+        "job_id": "job-0573",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0573",
+            "source": "Hirify",
+            "source_job_id": "1076424",
+            "source_url": "https://hirify.me/jobs/1076424-web-platform-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0574-undisclosed-hirify-1174300-technical-support-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1174300",
+        "command": "add",
+        "job_id": "job-0574",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0574",
+            "source": "Hirify",
+            "source_job_id": "1174300",
+            "source_url": "https://hirify.me/jobs/1174300-technical-support-specialist-sql"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "client_ref": "hirify:1133562",
+        "command": "add",
+        "conflict": {
+          "existing": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0551",
+            "source": "Hirify",
+            "source_job_id": "1133562",
+            "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css"
+          },
+          "message": "source + source_job_id already belong to job-0551",
+          "reason": "source_reference_conflict",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "Undisclosed (hirify-1133562)",
+                "duplicate_of": "job-0551",
+                "found_at": "2026-10-04",
+                "role": "CMS Website Specialist (HTML/CSS)",
+                "source": "Hirify",
+                "source_job_id": "1133562",
+                "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css"
+              },
+              "client_ref": "hirify:1133562",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "not_started",
+                "apply_verified": "unknown",
+                "company": "Undisclosed (hirify-1133562)",
+                "decision_reason": "geo_restriction",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-04",
+                "listing_status": "unknown",
+                "location": "Chester, United Kingdom",
+                "notes": "Excellent experience fit: customer CMS support, website improvements, onboarding, restyling projects, HTML/CSS, performance and documentation; requires hybrid work in Chester, UK.",
+                "remote_policy": "Hybrid",
+                "role": "CMS Website Specialist (HTML/CSS)",
+                "source": "Hirify",
+                "source_job_id": "1133562",
+                "source_url": "https://hirify.me/jobs/1133562-cms-website-specialist-html-css",
+                "stack": "CMS; HTML; CSS; Website support; Customer onboarding; Documentation; Web performance"
+              },
+              "client_ref": "hirify:1133562",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1195192",
+        "command": "add",
+        "job_id": "job-0575",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0575",
+            "source": "Hirify",
+            "source_job_id": "1195192",
+            "source_url": "https://hirify.me/jobs/1195192-tier-2-technical-support"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1061312",
+        "command": "add",
+        "job_id": "job-0576",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0576",
+            "source": "Hirify",
+            "source_job_id": "1061312",
+            "source_url": "https://hirify.me/jobs/1061312-wordpress-live-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1071952",
+        "command": "add",
+        "job_id": "job-0577",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0577",
+            "source": "Hirify",
+            "source_job_id": "1071952",
+            "source_url": "https://hirify.me/jobs/1071952-wordpress-support-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0578-undisclosed-hirify-1197008-technical-support-specialist.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1197008",
+        "command": "add",
+        "job_id": "job-0578",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0578",
+            "source": "Hirify",
+            "source_job_id": "1197008",
+            "source_url": "https://hirify.me/jobs/1197008-technical-support-specialist"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1077501",
+        "command": "add",
+        "job_id": "job-0579",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0579",
+            "source": "Hirify",
+            "source_job_id": "1077501",
+            "source_url": "https://hirify.me/jobs/1077501-technical-support-specialist-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "hirify:1097910",
+        "command": "add",
+        "job_id": "job-0580",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0580",
+            "source": "Hirify",
+            "source_job_id": "1097910",
+            "source_url": "https://hirify.me/jobs/1097910-technical-support-specialist-saas"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0581-undisclosed-hirify-1195826-technical-support-engineer-a.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1195826",
+        "command": "add",
+        "job_id": "job-0581",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0581",
+            "source": "Hirify",
+            "source_job_id": "1195826",
+            "source_url": "https://hirify.me/jobs/1195826-technical-support-engineer-ai"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0582-undisclosed-hirify-1137410-technical-support-engineer-t.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1137410",
+        "command": "add",
+        "job_id": "job-0582",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0582",
+            "source": "Hirify",
+            "source_job_id": "1137410",
+            "source_url": "https://hirify.me/jobs/1137410-technical-support-engineer-typescript"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0583-undisclosed-hirify-1182245-technical-support-engineer-i.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1182245",
+        "command": "add",
+        "job_id": "job-0583",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0583",
+            "source": "Hirify",
+            "source_job_id": "1182245",
+            "source_url": "https://hirify.me/jobs/1182245-technical-support-engineer-wordpress"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0584-undisclosed-hirify-1186630-product-support-specialist-i.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1186630",
+        "command": "add",
+        "job_id": "job-0584",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0584",
+            "source": "Hirify",
+            "source_job_id": "1186630",
+            "source_url": "https://hirify.me/jobs/1186630-product-support-specialist-igaming"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0585-undisclosed-hirify-1127645-product-support-specialist-s.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1127645",
+        "command": "add",
+        "job_id": "job-0585",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0585",
+            "source": "Hirify",
+            "source_job_id": "1127645",
+            "source_url": "https://hirify.me/jobs/1127645-product-support-specialist-saas"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0586-undisclosed-hirify-1129433-product-support-specialist-s.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1129433",
+        "command": "add",
+        "job_id": "job-0586",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0586",
+            "source": "Hirify",
+            "source_job_id": "1129433",
+            "source_url": "https://hirify.me/jobs/1129433-product-support-specialist-saas"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0587-undisclosed-hirify-1191166-product-support-specialist-s.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1191166",
+        "command": "add",
+        "job_id": "job-0587",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0587",
+            "source": "Hirify",
+            "source_job_id": "1191166",
+            "source_url": "https://hirify.me/jobs/1191166-product-support-specialist-saas"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0588-undisclosed-hirify-1181839-product-support-associate-ai.md",
+        "application_status": "reviewing",
+        "client_ref": "hirify:1181839",
+        "command": "add",
+        "job_id": "job-0588",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-04",
+            "job_id": "job-0588",
+            "source": "Hirify",
+            "source_job_id": "1181839",
+            "source_url": "https://hirify.me/jobs/1181839-product-support-ai-fintech"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 18,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}
