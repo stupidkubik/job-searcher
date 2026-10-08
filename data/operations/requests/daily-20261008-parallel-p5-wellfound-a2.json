@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261008-parallel-p5-wellfound-a2",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wellfound:4516236",
+      "args": {
+        "company": "ARCLOGIQ Software",
+        "role": "Frontend Engineer | React.js | Next.js | React Native | Multilingual UI",
+        "source": "Wellfound",
+        "source_job_id": "4516236",
+        "source_url": "https://wellfound.com/jobs/4516236-frontend-engineer-react-js-next-js-react-native-multilingual-ui",
+        "found_at": "2026-10-08",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: Delhi/Noida office, WFH flexibility only, IST hours; no Serbia remote route."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:3833423",
+      "args": {
+        "company": "Stackera",
+        "role": "Frontend Developer (React / Next.js)",
+        "source": "Wellfound",
+        "source_job_id": "3833423",
+        "source_url": "https://wellfound.com/jobs/3833423-frontend-developer-react-next-js",
+        "found_at": "2026-10-08",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: Hires remotely in India only, Pune onsite or remote."
+      }
+    }
+  ]
+}
