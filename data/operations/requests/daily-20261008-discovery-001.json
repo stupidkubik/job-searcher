@@ -1,0 +1,266 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261008-discovery-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "daily20261008:01",
+      "args": {
+        "company": "Loxala",
+        "role": "Frontend Developer",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4262832-frontend-developer",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Global",
+        "notes": "Wellfound exact text: remote Everywhere, 2 years metadata, React/Next.js/TypeScript, Figma, APIs, $120k-$140k/year. Strong fit; employer exact requisition, Serbia eligibility, salary realism and Apply route require Browser verification.",
+        "source_job_id": "4262832"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:02",
+      "args": {
+        "company": "Simplview",
+        "role": "Founding Engineer (React/TypeScript/GenAI) — Part-Time / Remote",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4408605-founding-engineer-react-typescript-genai-part-time-remote",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "Wellfound exact full text: Hires remotely in India only; also explicitly requires 8+ years of production full-stack experience. Serbia not eligible.",
+        "source_job_id": "4408605",
+        "decision_reason": "geo_restriction"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:03",
+      "args": {
+        "company": "iDelsoft",
+        "role": "Full Stack Developer (EU based) Node.js+React",
+        "source": "Wellfound",
+        "source_url": "https://wellfound.com/jobs/4606997-full-stack-developer-eu-based-node-js-react",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Europe",
+        "notes": "Wellfound exact full text: 5+ years of full-stack experience and strong backend Node.js/PostgreSQL/Elasticsearch depth required, beyond junior frontend profile.",
+        "source_job_id": "4606997",
+        "decision_reason": "seniority_too_high"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:04",
+      "args": {
+        "company": "REVER",
+        "role": "Junior Software Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/rever/jobs/TkoX6t1-junior-software-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "On-site",
+        "notes": "YC exact full text: team seeks developers to join in Barcelona; says work happens in office in Barcelona; no Serbia remote arrangement offered.",
+        "source_job_id": "TkoX6t1",
+        "decision_reason": "geo_restriction"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:05",
+      "args": {
+        "company": "Mintlify",
+        "role": "Support Engineer (Remote)",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/mintlify/jobs/GSrfEcW-support-engineer-remote",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "YC exact full text: Remote (US) and US citizen/visa only; incompatible with Serbia residence and authorization.",
+        "source_job_id": "GSrfEcW",
+        "decision_reason": "work_authorization"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:06",
+      "args": {
+        "company": "Shaped",
+        "role": "Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_url": "https://www.ycombinator.com/companies/shaped/jobs/QEhJEQC-frontend-engineer",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "YC exact full text: New York location, US citizen/visa only, and 4-6 years full-stack/frontend engineering experience.",
+        "source_job_id": "QEhJEQC",
+        "decision_reason": "work_authorization"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:07",
+      "args": {
+        "company": "FFTAE d.o.o.",
+        "role": "Full-Stack Developer (Go + React)",
+        "source": "HelloWorld.rs",
+        "source_url": "https://www.helloworld.rs/posao/Full-Stack-Developer-Go-React/FFTAE-d.o.o/743204",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Serbia",
+        "notes": "HelloWorld exact full text: must build Go backend services, design APIs and architecture, 2-5 years and Go/Rust/Kotlin backend experience. Backend-heavy vs junior web frontend. Source card says expired; employer status not verified.",
+        "source_job_id": "743204",
+        "decision_reason": "stack_mismatch"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:08",
+      "args": {
+        "company": "Relio d.o.o.",
+        "role": "Front-End Developer",
+        "source": "HelloWorld.rs",
+        "source_url": "https://www.helloworld.rs/posao/Front-End-Developer/Relio-d.o.o/732290",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Hybrid",
+        "notes": "HelloWorld exact full text: requires 3+ years professional frontend development, deep SSR and extensive React expertise, plus CS degree; hybrid Belgrade. Source card expired, employer status unverified.",
+        "source_job_id": "732290",
+        "decision_reason": "seniority_too_high"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:09",
+      "args": {
+        "company": "Welcome to the Jungle",
+        "role": "Frontend Engineer (JavaScript / React)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/wttj/jobs/frontend-engineer-javascript-react_paris",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Hybrid",
+        "notes": "WTTJ exact full text: permanent contract Paris, only a few days at home (hybrid France); requires 3-5 years professional frontend. WTTJ marks source card no longer available, not first-party closure.",
+        "decision_reason": "geo_restriction"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:10",
+      "args": {
+        "company": "Descript",
+        "role": "Senior Frontend Engineer (Marketing Web)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/descript/jobs/senior-frontend-engineer_fr_r4vacu5g",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Unclear",
+        "notes": "WTTJ exact full text: requires 5+ years professional software engineering, senior ownership of marketing website CMS, analytics and experimentation platform. Geo first-party not checked.",
+        "decision_reason": "seniority_too_high"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:11",
+      "args": {
+        "company": "Squarespace",
+        "role": "Customer Support Associate (Remote)",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/squarespace-customer-support-associate-remote",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "WWR exact full text: applicants must reside in DE/FL/GA/KS/MI/MO/OH/OR/TN/UT USA; explicitly excludes international work arrangements. Serbia incompatible.",
+        "decision_reason": "geo_restriction"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:12",
+      "args": {
+        "company": "Proxify AB",
+        "role": "Senior Frontend Developer (React.js / Next.js)",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/proxify-ab-senior-frontend-developer-react-js-next-js-1",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Europe",
+        "notes": "WWR exact full text: minimum 5 years frontend development with React/Next.js, CET +/-3 hours. WWR Apply-before Aug 12 is source-only deadline; employer status not verified.",
+        "decision_reason": "seniority_too_high"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:13",
+      "args": {
+        "company": "CRAE GROUP LTD",
+        "role": "Customer Support Agent (Remote)",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/crae-group-ltd-customer-support-agent-remote",
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "WWR exact full text: Serbia listed among allowed countries, EUR 1400-2000 gross monthly, 4-on/4-off 12-hour shifts, requires 2+ years online customer support (mandatory). Borderline adjacent role; first-party employer exact listing, actual Serbia eligibility and Apply route need Browser verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "daily20261008:14",
+      "args": {
+        "company": "Wingman Group PTY",
+        "role": "CRM Administrator & Technical Support (Night Shift)",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/wingman-group-pty-crm-administrator-technical-support-night-shift",
+        "application_status": "not_started",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "found_at": "2026-10-08",
+        "remote_policy": "Country-specific",
+        "notes": "WWR exact full text explicitly specifies Remote Philippines and Philippine contractor prerequisites (BIR/NBI), not Serbia.",
+        "decision_reason": "geo_restriction"
+      }
+    }
+  ]
+}
