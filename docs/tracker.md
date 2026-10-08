@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-08** · Jobs: **666**
+Dataset updated: **2026-10-08** · Jobs: **667**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (11)](#to-verify) · [Archive (601)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (12)](#to-verify) · [Archive (601)](#archive)
 
 ## Action now
 
@@ -82,6 +82,7 @@ Dataset updated: **2026-10-08** · Jobs: **666**
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Loxala — Frontend Developer](<https://wellfound.com/jobs/4262832-frontend-developer>) · job-0654 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Codebuddy — React JS Developer](<https://wellfound.com/jobs/3057097-react-js-developer>) · job-0667 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
