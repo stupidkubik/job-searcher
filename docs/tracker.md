@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-08** · Jobs: **667**
+Dataset updated: **2026-10-08** · Jobs: **669**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (12)](#to-verify) · [Archive (601)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (12)](#to-verify) · [Archive (603)](#archive)
 
 ## Action now
 
@@ -91,10 +91,12 @@ Dataset updated: **2026-10-08** · Jobs: **667**
 
 <details>
 
-<summary>Archive (601)</summary>
+<summary>Archive (603)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Stackera — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/3833423-frontend-developer-react-next-js>) · job-0669 | geo restriction | Not checked | 2026-10-08 |
+| Skipped: geo restriction | [ARCLOGIQ Software — Frontend Engineer \| React.js \| Next.js \| React Native \| Multilingual UI](<https://wellfound.com/jobs/4516236-frontend-engineer-react-js-next-js-react-native-multilingual-ui>) · job-0668 | geo restriction | Not checked | 2026-10-08 |
 | Skipped: geo restriction | [Wingman Group PTY — CRM Administrator & Technical Support (Night Shift)](<https://weworkremotely.com/remote-jobs/wingman-group-pty-crm-administrator-technical-support-night-shift>) · job-0666 | geo restriction | Not checked | 2026-10-08 |
 | Skipped: seniority too high | [Proxify AB — Senior Frontend Developer (React.js / Next.js)](<https://weworkremotely.com/remote-jobs/proxify-ab-senior-frontend-developer-react-js-next-js-1>) · job-0665 | seniority too high | Not checked | 2026-10-08 |
 | Skipped: geo restriction | [Squarespace — Customer Support Associate (Remote)](<https://weworkremotely.com/remote-jobs/squarespace-customer-support-associate-remote>) · job-0664 | geo restriction | Not checked | 2026-10-08 |

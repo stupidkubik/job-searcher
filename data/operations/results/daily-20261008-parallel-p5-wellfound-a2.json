@@ -1,0 +1,59 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-08T06:43:38Z",
+  "jobs": [],
+  "operation_id": "daily-20261008-parallel-p5-wellfound-a2",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4516236",
+        "command": "add",
+        "job_id": "job-0668",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0668",
+            "source": "Wellfound",
+            "source_job_id": "4516236",
+            "source_url": "https://wellfound.com/jobs/4516236-frontend-engineer-react-js-next-js-react-native-multilingual-ui"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:3833423",
+        "command": "add",
+        "job_id": "job-0669",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0669",
+            "source": "Wellfound",
+            "source_job_id": "3833423",
+            "source_url": "https://wellfound.com/jobs/3833423-frontend-developer-react-next-js"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 2,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
