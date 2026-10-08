@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261008-parallel-p5-single-001",
+  "command": "add",
+  "args": {
+    "company": "Codebuddy",
+    "role": "React JS Developer",
+    "source": "Wellfound",
+    "source_url": "https://wellfound.com/jobs/3057097-react-js-developer",
+    "source_job_id": "3057097",
+    "found_at": "2026-10-08",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "remote_policy": "Unclear",
+    "notes": "Parallel full exact Wellfound text: at least 1 year React; metadata says 3 years; source Remote Everywhere but Kolkata location. Browser must verify Serbia eligibility, employer listing and Apply."
+  }
+}
