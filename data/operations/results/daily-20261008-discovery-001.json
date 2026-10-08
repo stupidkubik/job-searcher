@@ -1,0 +1,340 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-08T06:34:12Z",
+  "jobs": [],
+  "operation_id": "daily-20261008-discovery-001",
+  "result": {
+    "count": 13,
+    "operations": [
+      {
+        "application_path": "applications/job-0654-loxala-frontend-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "daily20261008:01",
+        "command": "add",
+        "job_id": "job-0654",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0654",
+            "source": "Wellfound",
+            "source_job_id": "4262832",
+            "source_url": "https://wellfound.com/jobs/4262832-frontend-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:02",
+        "command": "add",
+        "job_id": "job-0655",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0655",
+            "source": "Wellfound",
+            "source_job_id": "4408605",
+            "source_url": "https://wellfound.com/jobs/4408605-founding-engineer-react-typescript-genai-part-time-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:03",
+        "command": "add",
+        "job_id": "job-0656",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0656",
+            "source": "Wellfound",
+            "source_job_id": "4606997",
+            "source_url": "https://wellfound.com/jobs/4606997-full-stack-developer-eu-based-node-js-react"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:04",
+        "command": "add",
+        "job_id": "job-0657",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0657",
+            "source": "YC Work at a Startup",
+            "source_job_id": "TkoX6t1",
+            "source_url": "https://www.ycombinator.com/companies/rever/jobs/TkoX6t1-junior-software-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:05",
+        "command": "add",
+        "job_id": "job-0658",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0658",
+            "source": "YC Work at a Startup",
+            "source_job_id": "GSrfEcW",
+            "source_url": "https://www.ycombinator.com/companies/mintlify/jobs/GSrfEcW-support-engineer-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:06",
+        "command": "add",
+        "job_id": "job-0659",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0659",
+            "source": "YC Work at a Startup",
+            "source_job_id": "QEhJEQC",
+            "source_url": "https://www.ycombinator.com/companies/shaped/jobs/QEhJEQC-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:07",
+        "command": "add",
+        "job_id": "job-0660",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0660",
+            "source": "HelloWorld.rs",
+            "source_job_id": "743204",
+            "source_url": "https://www.helloworld.rs/posao/Full-Stack-Developer-Go-React/FFTAE-d.o.o/743204"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:08",
+        "command": "add",
+        "job_id": "job-0661",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0661",
+            "source": "HelloWorld.rs",
+            "source_job_id": "732290",
+            "source_url": "https://www.helloworld.rs/posao/Front-End-Developer/Relio-d.o.o/732290"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:09",
+        "command": "add",
+        "job_id": "job-0662",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0662",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/wttj/jobs/frontend-engineer-javascript-react_paris"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:10",
+        "command": "add",
+        "job_id": "job-0663",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0663",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/descript/jobs/senior-frontend-engineer_fr_r4vacu5g"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:11",
+        "command": "add",
+        "job_id": "job-0664",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0664",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/squarespace-customer-support-associate-remote"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:12",
+        "command": "add",
+        "job_id": "job-0665",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0665",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/proxify-ab-senior-frontend-developer-react-js-next-js-1"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "client_ref": "daily20261008:13",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "not_started",
+              "company": "Crae Group Ltd",
+              "id": "job-0601",
+              "listing_status": "unknown",
+              "reason": "looks similar: company 1.00, role 1.00",
+              "role": "Customer Support Agent"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "CRAE GROUP LTD",
+                "duplicate_of": "job-0601",
+                "found_at": "2026-10-08",
+                "role": "Customer Support Agent (Remote)",
+                "source": "We Work Remotely",
+                "source_url": "https://weworkremotely.com/remote-jobs/crae-group-ltd-customer-support-agent-remote"
+              },
+              "client_ref": "daily20261008:13",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "reviewing",
+                "apply_verified": "unknown",
+                "company": "CRAE GROUP LTD",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-08",
+                "listing_status": "unknown",
+                "notes": "WWR exact full text: Serbia listed among allowed countries, EUR 1400-2000 gross monthly, 4-on/4-off 12-hour shifts, requires 2+ years online customer support (mandatory). Borderline adjacent role; first-party employer exact listing, actual Serbia eligibility and Apply route need Browser verification.",
+                "remote_policy": "Country-specific",
+                "role": "Customer Support Agent (Remote)",
+                "source": "We Work Remotely",
+                "source_url": "https://weworkremotely.com/remote-jobs/crae-group-ltd-customer-support-agent-remote"
+              },
+              "client_ref": "daily20261008:13",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "daily20261008:14",
+        "command": "add",
+        "job_id": "job-0666",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-08",
+            "job_id": "job-0666",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/wingman-group-pty-crm-administrator-technical-support-night-shift"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 14,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}

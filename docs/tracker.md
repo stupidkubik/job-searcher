@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-05** · Jobs: **653**
+Dataset updated: **2026-10-08** · Jobs: **666**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (10)](#to-verify) · [Archive (589)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (11)](#to-verify) · [Archive (601)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Loxala — Frontend Developer](<https://wellfound.com/jobs/4262832-frontend-developer>) · job-0654 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
@@ -89,10 +90,22 @@ Dataset updated: **2026-10-05** · Jobs: **653**
 
 <details>
 
-<summary>Archive (589)</summary>
+<summary>Archive (601)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Wingman Group PTY — CRM Administrator & Technical Support (Night Shift)](<https://weworkremotely.com/remote-jobs/wingman-group-pty-crm-administrator-technical-support-night-shift>) · job-0666 | geo restriction | Not checked | 2026-10-08 |
+| Skipped: seniority too high | [Proxify AB — Senior Frontend Developer (React.js / Next.js)](<https://weworkremotely.com/remote-jobs/proxify-ab-senior-frontend-developer-react-js-next-js-1>) · job-0665 | seniority too high | Not checked | 2026-10-08 |
+| Skipped: geo restriction | [Squarespace — Customer Support Associate (Remote)](<https://weworkremotely.com/remote-jobs/squarespace-customer-support-associate-remote>) · job-0664 | geo restriction | Not checked | 2026-10-08 |
+| Skipped: seniority too high | [Descript — Senior Frontend Engineer (Marketing Web)](<https://www.welcometothejungle.com/en/companies/descript/jobs/senior-frontend-engineer_fr_r4vacu5g>) · job-0663 | seniority too high | Not checked | 2026-10-08 |
+| Skipped: geo restriction | [Welcome to the Jungle — Frontend Engineer (JavaScript / React)](<https://www.welcometothejungle.com/en/companies/wttj/jobs/frontend-engineer-javascript-react_paris>) · job-0662 | geo restriction | Not checked | 2026-10-08 |
+| Skipped: seniority too high | [Relio d.o.o. — Front-End Developer](<https://www.helloworld.rs/posao/Front-End-Developer/Relio-d.o.o/732290>) · job-0661 | seniority too high | Not checked | 2026-10-08 |
+| Skipped: stack mismatch | [FFTAE d.o.o. — Full-Stack Developer (Go + React)](<https://www.helloworld.rs/posao/Full-Stack-Developer-Go-React/FFTAE-d.o.o/743204>) · job-0660 | stack mismatch | Not checked | 2026-10-08 |
+| Skipped: work authorization | [Shaped — Frontend Engineer](<https://www.ycombinator.com/companies/shaped/jobs/QEhJEQC-frontend-engineer>) · job-0659 | work authorization | Not checked | 2026-10-08 |
+| Skipped: work authorization | [Mintlify — Support Engineer (Remote)](<https://www.ycombinator.com/companies/mintlify/jobs/GSrfEcW-support-engineer-remote>) · job-0658 | work authorization | Not checked | 2026-10-08 |
+| Skipped: geo restriction | [REVER — Junior Software Engineer](<https://www.ycombinator.com/companies/rever/jobs/TkoX6t1-junior-software-engineer>) · job-0657 | geo restriction | Not checked | 2026-10-08 |
+| Skipped: seniority too high | [iDelsoft — Full Stack Developer (EU based) Node.js+React](<https://wellfound.com/jobs/4606997-full-stack-developer-eu-based-node-js-react>) · job-0656 | seniority too high | Not checked | 2026-10-08 |
+| Skipped: geo restriction | [Simplview — Founding Engineer (React/TypeScript/GenAI) — Part-Time / Remote](<https://wellfound.com/jobs/4408605-founding-engineer-react-typescript-genai-part-time-remote>) · job-0655 | geo restriction | Not checked | 2026-10-08 |
 | Skipped: geo restriction | [Mindee — Technical Content & Developer Experience Lead](<https://www.welcometothejungle.com/en/companies/mindee/jobs/technical-content-developer-experience-lead_paris>) · job-0653 | geo restriction | Not checked | 2026-10-05 |
 | Skipped: stack mismatch | [Axelera AI — Developer Relations and Community Manager](<https://www.welcometothejungle.com/en/companies/axelera-ai/jobs/developer-relations-and-community-manager_gb_2fki22mw>) · job-0652 | stack mismatch | Not checked | 2026-10-05 |
 | Skipped: stack mismatch | [Slice — Software Developer (Services)](<https://www.welcometothejungle.com/en/companies/slice-1/jobs/software-developer-services_londres_gyidsk4c>) · job-0651 | stack mismatch | Not checked | 2026-10-05 |

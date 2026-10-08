@@ -88,6 +88,8 @@ job-0598	727544
 job-0599	758965
 job-0600	757067
 job-0601	754091
+job-0660	743204
+job-0661	732290
 # Himalayas	prefix=
 job-0081	https://himalayas.app/companies/choice/jobs/frontend-developer
 job-0082	https://himalayas.app/companies/kdci/jobs/web-developer
@@ -578,6 +580,9 @@ job-0647	designfiles-content-marketing-coordinator
 job-0648	icarus-digital-marketing-performance-creative-strategist-and-ai-producer
 job-0649	doximity-marketing-coordinator
 job-0650	accelerate-agency-brand-content-manager
+job-0664	squarespace-customer-support-associate-remote
+job-0665	proxify-ab-senior-frontend-developer-react-js-next-js-1
+job-0666	wingman-group-pty-crm-administrator-technical-support-night-shift
 # Welcome to the Jungle	prefix=https://
 job-0015	app.welcometothejungle.com/jobs/M9_8nKrY
 job-0016	app.welcometothejungle.com/jobs/DfDP1lsv
@@ -600,6 +605,8 @@ job-0458	www.welcometothejungle.com/en/companies/girasole/jobs/commercial-bess-h
 job-0651	www.welcometothejungle.com/en/companies/slice-1/jobs/software-developer-services_londres_gyidsk4c
 job-0652	www.welcometothejungle.com/en/companies/axelera-ai/jobs/developer-relations-and-community-manager_gb_2fki22mw
 job-0653	www.welcometothejungle.com/en/companies/mindee/jobs/technical-content-developer-experience-lead_paris
+job-0662	www.welcometothejungle.com/en/companies/wttj/jobs/frontend-engineer-javascript-react_paris
+job-0663	www.welcometothejungle.com/en/companies/descript/jobs/senior-frontend-engineer_fr_r4vacu5g
 # Wellfound	prefix=
 job-0065	https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript
 job-0066	https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end
@@ -652,6 +659,9 @@ job-0627	4751244
 job-0628	4797218
 job-0629	3839785
 job-0630	4714833
+job-0654	4262832
+job-0655	4408605
+job-0656	4606997
 # YC Work at a Startup	prefix=
 job-0142	https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm
 job-0143	https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product
@@ -690,3 +700,6 @@ job-0635	f42QPiX
 job-0636	XZRrah7
 job-0637	NDw5A2m
 job-0638	Jqqde6G
+job-0657	TkoX6t1
+job-0658	GSrfEcW
+job-0659	QEhJEQC
