@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261009-firecrawl-001",
+  "command": "add",
+  "args": {
+    "company": "Firecrawl",
+    "role": "Frontend Engineer",
+    "source": "YC Work at a Startup",
+    "source_job_id": "m5K7dTP",
+    "source_url": "https://www.ycombinator.com/companies/firecrawl/jobs/m5K7dTP-frontend-engineer",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "remote_policy": "Unclear",
+    "found_at": "2026-10-09",
+    "notes": "Parallel exact YC description: remote contract with visa N/A for remote, but metadata says US-only. Requires 3+ years; React/Next.js/Tailwind and marketing web. Browser verification required for Serbia eligibility and first-party Apply."
+  }
+}
