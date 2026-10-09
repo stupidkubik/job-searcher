@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-09T06:35:49Z",
+  "job_id": "job-0670",
+  "operation_id": "daily-20261009-firecrawl-001",
+  "result": {
+    "application_path": "applications/job-0670-firecrawl-frontend-engineer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0670",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-09",
+        "job_id": "job-0670",
+        "source": "YC Work at a Startup",
+        "source_job_id": "m5K7dTP",
+        "source_url": "https://www.ycombinator.com/companies/firecrawl/jobs/m5K7dTP-frontend-engineer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
