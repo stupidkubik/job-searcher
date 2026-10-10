@@ -1,0 +1,185 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-10T06:28:31Z",
+  "jobs": [],
+  "operation_id": "daily-20261010-discovery-a07-001",
+  "result": {
+    "count": 8,
+    "operations": [
+      {
+        "application_path": "applications/job-0671-allinonetools-frontend-developer-react-ui.md",
+        "application_status": "reviewing",
+        "client_ref": "wellfound:4143150",
+        "command": "add",
+        "job_id": "job-0671",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0671",
+            "source": "Wellfound",
+            "source_job_id": "4143150",
+            "source_url": "https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0672-terra-api-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "yc:8DAaBMS",
+        "command": "add",
+        "job_id": "job-0672",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0672",
+            "source": "YC Work at a Startup",
+            "source_job_id": "8DAaBMS",
+            "source_url": "https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0673-hadrian-frontend-software-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "wttj:hadrian-pisc24u2",
+        "command": "add",
+        "job_id": "job-0673",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0673",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4287548",
+        "command": "add",
+        "job_id": "job-0674",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0674",
+            "source": "Wellfound",
+            "source_job_id": "4287548",
+            "source_url": "https://wellfound.com/jobs/4287548-frontend-systems-engineer-react-next-js-ai-first-startup"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4085503",
+        "command": "add",
+        "job_id": "job-0675",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0675",
+            "source": "Wellfound",
+            "source_job_id": "4085503",
+            "source_url": "https://wellfound.com/jobs/4085503-frontend-engineer-next-js-high-ownership-system-ui"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0676-upsunday-frontend-developer-next-js-r.md",
+        "application_status": "reviewing",
+        "client_ref": "wellfound:4772699",
+        "command": "add",
+        "job_id": "job-0676",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0676",
+            "source": "Wellfound",
+            "source_job_id": "4772699",
+            "source_url": "https://wellfound.com/jobs/4772699-video-editor-remote-project-based-clone"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wwr:storyblok-developer-relations-engineer-uk",
+        "command": "add",
+        "job_id": "job-0677",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0677",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/storyblok-developer-relations-engineer-uk"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wttj:netomi-toronto-s4khz2xy",
+        "command": "add",
+        "job_id": "job-0678",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-10",
+            "job_id": "job-0678",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 8,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

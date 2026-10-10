@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-09** · Jobs: **670**
+Dataset updated: **2026-10-10** · Jobs: **678**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (13)](#to-verify) · [Archive (603)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (607)](#archive)
 
 ## Action now
 
@@ -81,6 +81,10 @@ Dataset updated: **2026-10-09** · Jobs: **670**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [AllInOneTools — Frontend Developer (React / UI-focused)](<https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused>) · job-0671 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Terra API — Frontend Engineer](<https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer>) · job-0672 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Hadrian — Frontend Software Engineer](<https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2>) · job-0673 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [UpSunday — Frontend Developer, Next.js (Remote, project based)](<https://wellfound.com/jobs/4772699-video-editor-remote-project-based-clone>) · job-0676 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Firecrawl — Frontend Engineer](<https://www.ycombinator.com/companies/firecrawl/jobs/m5K7dTP-frontend-engineer>) · job-0670 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Loxala — Frontend Developer](<https://wellfound.com/jobs/4262832-frontend-developer>) · job-0654 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Codebuddy — React JS Developer](<https://wellfound.com/jobs/3057097-react-js-developer>) · job-0667 | First party + Apply + Listing | — | verify first-party | Never |
@@ -92,10 +96,14 @@ Dataset updated: **2026-10-09** · Jobs: **670**
 
 <details>
 
-<summary>Archive (603)</summary>
+<summary>Archive (607)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Netomi — Software Development Engineer (Frontend)](<https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy>) · job-0678 | seniority too high | Not checked | 2026-10-10 |
+| Skipped: seniority too high | [Storyblok — Developer Relations Engineer - UK](<https://weworkremotely.com/remote-jobs/storyblok-developer-relations-engineer-uk>) · job-0677 | seniority too high | Not checked | 2026-10-10 |
+| Skipped: seniority too high | [DeepSense — Frontend Engineer (Next.js / High Ownership / System UI)](<https://wellfound.com/jobs/4085503-frontend-engineer-next-js-high-ownership-system-ui>) · job-0675 | seniority too high | Not checked | 2026-10-10 |
+| Skipped: seniority too high | [DeepSense — Frontend Systems Engineer (React / Next.js / AI-First Startup)](<https://wellfound.com/jobs/4287548-frontend-systems-engineer-react-next-js-ai-first-startup>) · job-0674 | seniority too high | Not checked | 2026-10-10 |
 | Skipped: geo restriction | [Stackera — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/3833423-frontend-developer-react-next-js>) · job-0669 | geo restriction | Not checked | 2026-10-08 |
 | Skipped: geo restriction | [ARCLOGIQ Software — Frontend Engineer \| React.js \| Next.js \| React Native \| Multilingual UI](<https://wellfound.com/jobs/4516236-frontend-engineer-react-js-next-js-react-native-multilingual-ui>) · job-0668 | geo restriction | Not checked | 2026-10-08 |
 | Skipped: geo restriction | [Wingman Group PTY — CRM Administrator & Technical Support (Night Shift)](<https://weworkremotely.com/remote-jobs/wingman-group-pty-crm-administrator-technical-support-night-shift>) · job-0666 | geo restriction | Not checked | 2026-10-08 |
