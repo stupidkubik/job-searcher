@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261010-discovery-a07-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wellfound:4143150",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "AllInOneTools",
+        "role": "Frontend Developer (React / UI-focused)",
+        "source": "Wellfound",
+        "source_job_id": "4143150",
+        "source_url": "https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused",
+        "application_status": "reviewing",
+        "remote_policy": "Global",
+        "salary": "$12K-$25K/year",
+        "stack": "React; JavaScript; HTML; CSS; Web Performance",
+        "notes": "Parallel full exact Wellfound text: Remote Everywhere; 3 years only in metadata, body asks React/HTML/CSS/JS and performance, no hard years threshold. Company says async-first; salary lower bound $12K/year. First-party employer requisition, Serbia eligibility and Apply require Browser verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:8DAaBMS",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "Terra API",
+        "role": "Frontend Engineer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "8DAaBMS",
+        "source_url": "https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer",
+        "application_status": "reviewing",
+        "remote_policy": "Unclear",
+        "location": "London, England, UK (YC)",
+        "salary": "GBP 33K-80K/year",
+        "stack": "Next.js; TypeScript; Tailwind CSS; HTML; CSS; AWS; GCP",
+        "notes": "Parallel full exact YC text: 1+ year frontend, Next.js/TypeScript and UI/UX; London job location but YC visa metadata says US citizen/visa only, conflicting with London. Remote eligibility from Serbia and employer Apply must be resolved by Browser; no first-party verification."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:hadrian-pisc24u2",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "Hadrian",
+        "role": "Frontend Software Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2",
+        "application_status": "reviewing",
+        "remote_policy": "Unclear",
+        "location": "Torrance, California, USA",
+        "salary": "$120K-$250K/year",
+        "stack": "React; TypeScript; REST; gRPC; C++; C#; Go; Python",
+        "notes": "Parallel full exact WTTJ text: role based in Torrance, relocation stipend and broad fullstack/manufacturing scope; no explicit remote eligibility or mandatory onsite wording. Browser needed to confirm Serbia remote eligibility and exact Ashby Apply; do not infer geo blocker from office alone."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4287548",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "DeepSense",
+        "role": "Frontend Systems Engineer (React / Next.js / AI-First Startup)",
+        "source": "Wellfound",
+        "source_job_id": "4287548",
+        "source_url": "https://wellfound.com/jobs/4287548-frontend-systems-engineer-react-next-js-ai-first-startup",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "remote_policy": "Global",
+        "salary": "$70K-$90K/year",
+        "stack": "React; Next.js; TypeScript; Tailwind CSS",
+        "notes": "Parallel full exact Wellfound requirements explicitly demand 5+ years of frontend experience, production Next.js and architecture/product ownership; exceeds Junior/Junior+ profile. Remote Everywhere source label only; listing/Apply unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4085503",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "DeepSense",
+        "role": "Frontend Engineer (Next.js / High Ownership / System UI)",
+        "source": "Wellfound",
+        "source_job_id": "4085503",
+        "source_url": "https://wellfound.com/jobs/4085503-frontend-engineer-next-js-high-ownership-system-ui",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "remote_policy": "Global",
+        "salary": "$70K-$90K/year",
+        "stack": "Next.js; React; TypeScript; Tailwind CSS; SEO",
+        "notes": "Parallel full exact Wellfound description explicitly says NOT looking for juniors or safe mid-level; 5 years experience in source metadata and independent frontend architecture ownership. Hard seniority blocker; employer/Apply not verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:4772699",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "UpSunday",
+        "role": "Frontend Developer, Next.js (Remote, project based)",
+        "source": "Wellfound",
+        "source_job_id": "4772699",
+        "source_url": "https://wellfound.com/jobs/4772699-video-editor-remote-project-based-clone",
+        "application_status": "reviewing",
+        "remote_policy": "Global",
+        "location": "Remote Everywhere; company San Diego",
+        "stack": "Next.js; TypeScript; Tailwind CSS; GSAP; Lenis; Vercel; Web Performance",
+        "notes": "Parallel full exact Wellfound page is a Frontend Developer despite misleading video-editor slug. Remote Everywhere paid per project, Next.js App Router, Figma, animations and Core Web Vitals; metadata says 3 years but body has no fixed years threshold. Employer email project@upsunday.co appears on source; verify employer ownership, Serbia eligibility and application route via Browser."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wwr:storyblok-developer-relations-engineer-uk",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "Storyblok",
+        "role": "Developer Relations Engineer - UK",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/storyblok-developer-relations-engineer-uk",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Senior",
+        "remote_policy": "Unclear",
+        "location": "UK in title; WWR Anywhere in the World badge",
+        "stack": "Headless CMS; React; Next.js; Astro; REST APIs; GraphQL; Technical Writing",
+        "notes": "Parallel full exact WWR requirements demand 5+ years of web development plus public speaking/workshops/DevRel ownership; exceeds Junior/Junior+ profile. UK in title conflicts with WWR Anywhere in World label; source-side Apply gated, employer listing unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:netomi-toronto-s4khz2xy",
+      "args": {
+        "found_at": "2026-10-10",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "company": "Netomi",
+        "role": "Software Development Engineer (Frontend)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "level": "Middle",
+        "remote_policy": "Unclear",
+        "location": "Toronto, Canada; WTTJ Fully-remote",
+        "stack": "React; TypeScript; JavaScript; HTML; CSS; REST; Jest; Cypress",
+        "force": true,
+        "notes": "Parallel full exact WTTJ requires 3-6 years UI-heavy B2B SaaS development, beyond Junior/Junior+ profile. Employer Lever URL from source has distinct Toronto requisition f7f10a4a-e776-4b13-8024-d24d92af69c9; known job-0116 is Himalayas India-only SDE II Frontend with different geo/requirements, so intentionally separate location requisition. First-party/Apply verification not performed."
+      }
+    }
+  ]
+}
