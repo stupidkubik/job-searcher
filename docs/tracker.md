@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-11** · Jobs: **680**
+Dataset updated: **2026-10-11** · Jobs: **681**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (609)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (18)](#to-verify) · [Archive (609)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-11** · Jobs: **680**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [AllInOneTools — Frontend Developer (React / UI-focused)](<https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused>) · job-0671 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Terra API — Frontend Engineer](<https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer>) · job-0672 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Hadrian — Frontend Software Engineer](<https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2>) · job-0673 | First party + Apply + Listing | — | verify first-party | Never |

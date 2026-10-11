@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-11T06:41:32Z",
+  "job_id": "job-0681",
+  "operation_id": "daily-20261011-rentalcircle-006",
+  "result": {
+    "application_path": "applications/job-0681-the-rental-circle-frontend-developer-react-nex.md",
+    "application_status": "reviewing",
+    "job_id": "job-0681",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-11",
+        "job_id": "job-0681",
+        "source": "Wellfound",
+        "source_job_id": "4532105",
+        "source_url": "https://wellfound.com/jobs/4532105-frontend-developer-react-next-js"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
