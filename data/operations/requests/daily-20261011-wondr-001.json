@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261011-wondr-001",
+  "command": "add",
+  "args": {
+    "company": "Wondr",
+    "role": "Frontend Engineer",
+    "source": "Wellfound",
+    "source_job_id": "4204814",
+    "source_url": "https://wellfound.com/jobs/4204814-frontend-engineer",
+    "application_status": "not_started",
+    "decision_reason": "seniority_too_high",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Parallel full job text requires 4+ years of production React and Next.js; above Junior/Junior+ profile. Browser verification not performed."
+  }
+}
