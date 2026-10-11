@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-11** · Jobs: **679**
+Dataset updated: **2026-10-11** · Jobs: **680**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (608)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (609)](#archive)
 
 ## Action now
 
@@ -96,10 +96,11 @@ Dataset updated: **2026-10-11** · Jobs: **679**
 
 <details>
 
-<summary>Archive (608)</summary>
+<summary>Archive (609)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Box — Front End Developer](<https://www.welcometothejungle.com/en/companies/box/jobs/front-end-developer_warsaw_givsgo7f>) · job-0680 | seniority too high | Not checked | 2026-10-11 |
 | Skipped: seniority too high | [Wondr — Frontend Engineer](<https://wellfound.com/jobs/4204814-frontend-engineer>) · job-0679 | seniority too high | Not checked | 2026-10-11 |
 | Skipped: seniority too high | [Netomi — Software Development Engineer (Frontend)](<https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy>) · job-0678 | seniority too high | Not checked | 2026-10-10 |
 | Skipped: seniority too high | [Storyblok — Developer Relations Engineer - UK](<https://weworkremotely.com/remote-jobs/storyblok-developer-relations-engineer-uk>) · job-0677 | seniority too high | Not checked | 2026-10-10 |

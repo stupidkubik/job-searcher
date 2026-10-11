@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-11T06:39:36Z",
+  "job_id": "job-0680",
+  "operation_id": "daily-20261011-box-003",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0680",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-11",
+        "job_id": "job-0680",
+        "source": "Welcome to the Jungle",
+        "source_job_id": "",
+        "source_url": "https://www.welcometothejungle.com/en/companies/box/jobs/front-end-developer_warsaw_givsgo7f"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
