@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-11T06:43:24Z",
+  "job_id": "job-0682",
+  "operation_id": "daily-20261011-wwr-009",
+  "result": {
+    "application_path": "applications/job-0682-remotely-full-stack-developer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0682",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-11",
+        "job_id": "job-0682",
+        "source": "We Work Remotely",
+        "source_job_id": "",
+        "source_url": "https://weworkremotely.com/remote-jobs/remotely-full-stack-developer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
