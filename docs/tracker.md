@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-10** · Jobs: **678**
+Dataset updated: **2026-10-11** · Jobs: **679**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (607)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (17)](#to-verify) · [Archive (608)](#archive)
 
 ## Action now
 
@@ -96,10 +96,11 @@ Dataset updated: **2026-10-10** · Jobs: **678**
 
 <details>
 
-<summary>Archive (607)</summary>
+<summary>Archive (608)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Wondr — Frontend Engineer](<https://wellfound.com/jobs/4204814-frontend-engineer>) · job-0679 | seniority too high | Not checked | 2026-10-11 |
 | Skipped: seniority too high | [Netomi — Software Development Engineer (Frontend)](<https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy>) · job-0678 | seniority too high | Not checked | 2026-10-10 |
 | Skipped: seniority too high | [Storyblok — Developer Relations Engineer - UK](<https://weworkremotely.com/remote-jobs/storyblok-developer-relations-engineer-uk>) · job-0677 | seniority too high | Not checked | 2026-10-10 |
 | Skipped: seniority too high | [DeepSense — Frontend Engineer (Next.js / High Ownership / System UI)](<https://wellfound.com/jobs/4085503-frontend-engineer-next-js-high-ownership-system-ui>) · job-0675 | seniority too high | Not checked | 2026-10-10 |

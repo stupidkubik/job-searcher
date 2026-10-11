@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-11T06:37:44Z",
+  "job_id": "job-0679",
+  "operation_id": "daily-20261011-wondr-001",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0679",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-11",
+        "job_id": "job-0679",
+        "source": "Wellfound",
+        "source_job_id": "4204814",
+        "source_url": "https://wellfound.com/jobs/4204814-frontend-engineer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
