@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-11T06:44:33Z",
+  "job_id": "job-0683",
+  "operation_id": "daily-20261011-nodalview-010",
+  "result": {
+    "application_path": "applications/job-0683-nodalview-frontend-developer-junior-or.md",
+    "application_status": "reviewing",
+    "job_id": "job-0683",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-11",
+        "job_id": "job-0683",
+        "source": "Welcome to the Jungle",
+        "source_job_id": "",
+        "source_url": "https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
