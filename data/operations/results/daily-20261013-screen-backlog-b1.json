@@ -1,0 +1,101 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-13T06:25:11Z",
+  "jobs": [],
+  "operation_id": "daily-20261013-screen-backlog-b1",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "b1-1",
+        "command": "add",
+        "job_id": "job-0693",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0693",
+            "source": "HelloWorld.rs",
+            "source_job_id": "398459",
+            "source_url": "https://www.helloworld.rs/posao/Junior-Frontend-Developer/Extremum/398459"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "b1-2",
+        "command": "add",
+        "job_id": "job-0694",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0694",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/curri/jobs/software-engineer_us_5udquxjp"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0695-stackai-senior-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "b1-3",
+        "command": "add",
+        "job_id": "job-0695",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0695",
+            "source": "YC Work at a Startup",
+            "source_job_id": "C1rOopy",
+            "source_url": "https://www.ycombinator.com/companies/stackai/jobs/C1rOopy-senior-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0696-tempo-frontend-engineer-react.md",
+        "application_status": "reviewing",
+        "client_ref": "b1-4",
+        "command": "add",
+        "job_id": "job-0696",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0696",
+            "source": "YC Work at a Startup",
+            "source_job_id": "KmJpjx9",
+            "source_url": "https://www.ycombinator.com/companies/tempo-2/jobs/KmJpjx9-frontend-engineer-react"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

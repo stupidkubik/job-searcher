@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-13** · Jobs: **692**
+Dataset updated: **2026-10-13** · Jobs: **696**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (21)](#to-verify) · [Archive (617)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (23)](#to-verify) · [Archive (619)](#archive)
 
 ## Action now
 
@@ -82,6 +82,8 @@ Dataset updated: **2026-10-13** · Jobs: **692**
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
 | Reviewing | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [StackAI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/stackai/jobs/C1rOopy-senior-frontend-engineer>) · job-0695 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Tempo — Frontend Engineer (React)](<https://www.ycombinator.com/companies/tempo-2/jobs/KmJpjx9-frontend-engineer-react>) · job-0696 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Remotely — Full Stack Developer](<https://weworkremotely.com/remote-jobs/remotely-full-stack-developer>) · job-0682 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Nodalview — Frontend Developer Junior or Intern](<https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles>) · job-0683 | First party + Apply + Listing | — | verify first-party | Never |
@@ -100,10 +102,12 @@ Dataset updated: **2026-10-13** · Jobs: **692**
 
 <details>
 
-<summary>Archive (617)</summary>
+<summary>Archive (619)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Curri — Software Engineer](<https://www.welcometothejungle.com/en/companies/curri/jobs/software-engineer_us_5udquxjp>) · job-0694 | stack mismatch | Not checked | 2026-10-13 |
+| Skipped: geo restriction | [Extremum — Junior Frontend Developer](<https://www.helloworld.rs/posao/Junior-Frontend-Developer/Extremum/398459>) · job-0693 | geo restriction | Not checked | 2026-10-13 |
 | Skipped: seniority too high | [Inspired Thinking Group — Lead Frontend Developer (3-6 Month Contract)](<https://www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7>) · job-0692 | seniority too high | Not checked | 2026-10-13 |
 | Skipped: seniority too high | [PIXID — Frontend Developer (H/F) - React & React Native](<https://www.welcometothejungle.com/en/companies/pixid/jobs/frontend-developer-h-f-react_courbevoie>) · job-0691 | seniority too high | Not checked | 2026-10-13 |
 | Skipped: geo restriction | [Meelance — Senior Frontend Developer (SDE-3) - Next.js](<https://wellfound.com/jobs/3233038-senior-frontend-developer-sde-3-mandatory-next-js-full-time-on-site>) · job-0690 | geo restriction | Not checked | 2026-10-13 |
