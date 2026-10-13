@@ -1,0 +1,101 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-13T06:26:53Z",
+  "jobs": [],
+  "operation_id": "daily-20261013-screen-backlog-b2",
+  "result": {
+    "count": 4,
+    "operations": [
+      {
+        "application_path": "applications/job-0697-leadbay-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "b2-1",
+        "command": "add",
+        "job_id": "job-0697",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0697",
+            "source": "YC Work at a Startup",
+            "source_job_id": "d0KXTOi",
+            "source_url": "https://www.ycombinator.com/companies/leadbay/jobs/d0KXTOi-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0698-mobena-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "b2-2",
+        "command": "add",
+        "job_id": "job-0698",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0698",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/mobena-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0699-servicetitan-web-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "b2-3",
+        "command": "add",
+        "job_id": "job-0699",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0699",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/servicetitan-web-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0700-broworks-studio-webflow-developer.md",
+        "application_status": "reviewing",
+        "client_ref": "b2-4",
+        "command": "add",
+        "job_id": "job-0700",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0700",
+            "source": "HelloWorld.rs",
+            "source_job_id": "415757",
+            "source_url": "https://www.helloworld.rs/posao/Webflow-Developer/Broworks-Studio/415757"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 4,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

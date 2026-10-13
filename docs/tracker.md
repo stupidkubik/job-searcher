@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-13** · Jobs: **696**
+Dataset updated: **2026-10-13** · Jobs: **700**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (23)](#to-verify) · [Archive (619)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (27)](#to-verify) · [Archive (619)](#archive)
 
 ## Action now
 
@@ -84,6 +84,10 @@ Dataset updated: **2026-10-13** · Jobs: **696**
 | Reviewing | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [StackAI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/stackai/jobs/C1rOopy-senior-frontend-engineer>) · job-0695 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Tempo — Frontend Engineer (React)](<https://www.ycombinator.com/companies/tempo-2/jobs/KmJpjx9-frontend-engineer-react>) · job-0696 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Leadbay — Frontend Engineer](<https://www.ycombinator.com/companies/leadbay/jobs/d0KXTOi-frontend-engineer>) · job-0697 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Mobena — Frontend Engineer](<https://weworkremotely.com/remote-jobs/mobena-frontend-engineer>) · job-0698 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [ServiceTitan — Web Developer](<https://weworkremotely.com/remote-jobs/servicetitan-web-developer>) · job-0699 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Broworks Studio — Webflow Developer](<https://www.helloworld.rs/posao/Webflow-Developer/Broworks-Studio/415757>) · job-0700 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Remotely — Full Stack Developer](<https://weworkremotely.com/remote-jobs/remotely-full-stack-developer>) · job-0682 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Nodalview — Frontend Developer Junior or Intern](<https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles>) · job-0683 | First party + Apply + Listing | — | verify first-party | Never |
