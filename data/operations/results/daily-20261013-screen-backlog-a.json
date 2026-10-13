@@ -1,0 +1,185 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-13T06:23:30Z",
+  "jobs": [],
+  "operation_id": "daily-20261013-screen-backlog-a",
+  "result": {
+    "count": 8,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a1",
+        "command": "add",
+        "job_id": "job-0685",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0685",
+            "source": "Wellfound",
+            "source_job_id": "4446069",
+            "source_url": "https://wellfound.com/jobs/4446069-frontend-developer-next-js-react-js"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a2",
+        "command": "add",
+        "job_id": "job-0686",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0686",
+            "source": "YC Work at a Startup",
+            "source_job_id": "C7azkEz",
+            "source_url": "https://www.ycombinator.com/companies/emergent/jobs/C7azkEz-frontend-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a3",
+        "command": "add",
+        "job_id": "job-0687",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0687",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/proxify-ab-senior-next-js-developer-5"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a4",
+        "command": "add",
+        "job_id": "job-0688",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0688",
+            "source": "Wellfound",
+            "source_job_id": "4779711",
+            "source_url": "https://wellfound.com/jobs/4779711-senior-next-js-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a5",
+        "command": "add",
+        "job_id": "job-0689",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0689",
+            "source": "Wellfound",
+            "source_job_id": "4823875",
+            "source_url": "https://wellfound.com/jobs/4823875-senior-software-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a6",
+        "command": "add",
+        "job_id": "job-0690",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0690",
+            "source": "Wellfound",
+            "source_job_id": "3233038",
+            "source_url": "https://wellfound.com/jobs/3233038-senior-frontend-developer-sde-3-mandatory-next-js-full-time-on-site"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a7",
+        "command": "add",
+        "job_id": "job-0691",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0691",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/pixid/jobs/frontend-developer-h-f-react_courbevoie"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "a8",
+        "command": "add",
+        "job_id": "job-0692",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-13",
+            "job_id": "job-0692",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 8,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

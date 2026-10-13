@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-13** · Jobs: **684**
+Dataset updated: **2026-10-13** · Jobs: **692**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (21)](#to-verify) · [Archive (609)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (21)](#to-verify) · [Archive (617)](#archive)
 
 ## Action now
 
@@ -100,10 +100,18 @@ Dataset updated: **2026-10-13** · Jobs: **684**
 
 <details>
 
-<summary>Archive (609)</summary>
+<summary>Archive (617)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Inspired Thinking Group — Lead Frontend Developer (3-6 Month Contract)](<https://www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7>) · job-0692 | seniority too high | Not checked | 2026-10-13 |
+| Skipped: seniority too high | [PIXID — Frontend Developer (H/F) - React & React Native](<https://www.welcometothejungle.com/en/companies/pixid/jobs/frontend-developer-h-f-react_courbevoie>) · job-0691 | seniority too high | Not checked | 2026-10-13 |
+| Skipped: geo restriction | [Meelance — Senior Frontend Developer (SDE-3) - Next.js](<https://wellfound.com/jobs/3233038-senior-frontend-developer-sde-3-mandatory-next-js-full-time-on-site>) · job-0690 | geo restriction | Not checked | 2026-10-13 |
+| Skipped: work authorization | [wisp — Senior Software Engineer](<https://wellfound.com/jobs/4823875-senior-software-engineer>) · job-0689 | work authorization | Not checked | 2026-10-13 |
+| Skipped: geo restriction | [Makai Labs — Senior Next.js Developer](<https://wellfound.com/jobs/4779711-senior-next-js-developer>) · job-0688 | geo restriction | Not checked | 2026-10-13 |
+| Skipped: seniority too high | [Proxify AB — Senior Next.js Developer](<https://weworkremotely.com/remote-jobs/proxify-ab-senior-next-js-developer-5>) · job-0687 | seniority too high | Not checked | 2026-10-13 |
+| Skipped: seniority too high | [Emergent — Frontend Engineer](<https://www.ycombinator.com/companies/emergent/jobs/C7azkEz-frontend-engineer>) · job-0686 | seniority too high | Not checked | 2026-10-13 |
+| Skipped: geo restriction | [ULTIMEZ TECHNOLOGY — Frontend Developer - Next Js, React Js](<https://wellfound.com/jobs/4446069-frontend-developer-next-js-react-js>) · job-0685 | geo restriction | Not checked | 2026-10-13 |
 | Skipped: seniority too high | [Box — Front End Developer](<https://www.welcometothejungle.com/en/companies/box/jobs/front-end-developer_warsaw_givsgo7f>) · job-0680 | seniority too high | Not checked | 2026-10-11 |
 | Skipped: seniority too high | [Wondr — Frontend Engineer](<https://wellfound.com/jobs/4204814-frontend-engineer>) · job-0679 | seniority too high | Not checked | 2026-10-11 |
 | Skipped: seniority too high | [Netomi — Software Development Engineer (Frontend)](<https://www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy>) · job-0678 | seniority too high | Not checked | 2026-10-10 |

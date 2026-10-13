@@ -586,6 +586,7 @@ job-0666	wingman-group-pty-crm-administrator-technical-support-night-shift
 job-0677	storyblok-developer-relations-engineer-uk
 job-0682	remotely-full-stack-developer
 job-0684	snapscale-wp-dev-remote
+job-0687	proxify-ab-senior-next-js-developer-5
 # Welcome to the Jungle	prefix=https://
 job-0015	app.welcometothejungle.com/jobs/M9_8nKrY
 job-0016	app.welcometothejungle.com/jobs/DfDP1lsv
@@ -614,6 +615,8 @@ job-0673	www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-
 job-0678	www.welcometothejungle.com/en/companies/netomi/jobs/software-development-engineer-frontend_toronto_s4khz2xy
 job-0680	www.welcometothejungle.com/en/companies/box/jobs/front-end-developer_warsaw_givsgo7f
 job-0683	www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles
+job-0691	www.welcometothejungle.com/en/companies/pixid/jobs/frontend-developer-h-f-react_courbevoie
+job-0692	www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7
 # Wellfound	prefix=
 job-0065	https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript
 job-0066	https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end
@@ -678,6 +681,10 @@ job-0675	4085503
 job-0676	4772699
 job-0679	4204814
 job-0681	4532105
+job-0685	4446069
+job-0688	4779711
+job-0689	4823875
+job-0690	3233038
 # YC Work at a Startup	prefix=
 job-0142	https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm
 job-0143	https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product
@@ -721,3 +728,4 @@ job-0658	GSrfEcW
 job-0659	QEhJEQC
 job-0670	m5K7dTP
 job-0672	8DAaBMS
+job-0686	C7azkEz
