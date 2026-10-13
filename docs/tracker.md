@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-11** · Jobs: **683**
+Dataset updated: **2026-10-13** · Jobs: **684**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (20)](#to-verify) · [Archive (609)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (21)](#to-verify) · [Archive (609)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-11** · Jobs: **683**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Remotely — Full Stack Developer](<https://weworkremotely.com/remote-jobs/remotely-full-stack-developer>) · job-0682 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Nodalview — Frontend Developer Junior or Intern](<https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles>) · job-0683 | First party + Apply + Listing | — | verify first-party | Never |
