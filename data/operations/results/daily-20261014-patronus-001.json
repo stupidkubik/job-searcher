@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-14T06:47:48Z",
+  "job_id": "job-0706",
+  "operation_id": "daily-20261014-patronus-001",
+  "result": {
+    "application_path": "applications/job-0706-patronus-frontend-engineer-nextjs-dev.md",
+    "application_status": "reviewing",
+    "job_id": "job-0706",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-14",
+        "job_id": "job-0706",
+        "source": "Wellfound",
+        "source_job_id": "2992515",
+        "source_url": "https://wellfound.com/jobs/2992515-frontend-engineer-nextjs-developer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
