@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-14T06:46:03Z",
+  "job_id": "job-0705",
+  "operation_id": "daily-20261014-perdiem-001",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0705",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-14",
+        "job_id": "job-0705",
+        "source": "YC Work at a Startup",
+        "source_job_id": "Ep5mOGJ",
+        "source_url": "https://www.ycombinator.com/companies/per-diem/jobs/Ep5mOGJ-per-diem-is-expanding-and-looking-for-a-next-js-experience-developer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
