@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-autowisdom-001",
+  "command": "add",
+  "args": {
+    "company": "Auto Wisdom",
+    "role": "Frontend Engineering Intern (React/Next.js)",
+    "source": "Wellfound",
+    "source_job_id": "3534348",
+    "source_url": "https://wellfound.com/jobs/3534348-software-developer-frontend-intern-1-b-tech-2027-28",
+    "decision_reason": "salary_too_low",
+    "notes": "Parallel full description: INR 5,000/month stipend, 20-30h/week, remote limited to Indian cities."
+  }
+}
