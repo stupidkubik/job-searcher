@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-14** · Jobs: **703**
+Dataset updated: **2026-10-14** · Jobs: **704**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (28)](#to-verify) · [Archive (621)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (28)](#to-verify) · [Archive (622)](#archive)
 
 ## Action now
 
@@ -107,10 +107,11 @@ Dataset updated: **2026-10-14** · Jobs: **703**
 
 <details>
 
-<summary>Archive (621)</summary>
+<summary>Archive (622)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Fuse AI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/fuse-ai/jobs/AS9hfmv-senior-frontend-engineer>) · job-0704 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: geo restriction | [Mistral AI — Software Engineer, Frontend](<https://www.welcometothejungle.com/en/companies/mistral-ai/jobs/software-engineer-frontend_paris>) · job-0703 | geo restriction | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Lago — Senior Frontend Engineer](<https://www.ycombinator.com/companies/lago/jobs/6rU2ISL-senior-frontend-engineer>) · job-0701 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: stack mismatch | [Curri — Software Engineer](<https://www.welcometothejungle.com/en/companies/curri/jobs/software-engineer_us_5udquxjp>) · job-0694 | stack mismatch | Not checked | 2026-10-13 |
