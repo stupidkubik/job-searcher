@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-13** · Jobs: **700**
+Dataset updated: **2026-10-14** · Jobs: **701**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (27)](#to-verify) · [Archive (619)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (27)](#to-verify) · [Archive (620)](#archive)
 
 ## Action now
 
@@ -106,10 +106,11 @@ Dataset updated: **2026-10-13** · Jobs: **700**
 
 <details>
 
-<summary>Archive (619)</summary>
+<summary>Archive (620)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Lago — Senior Frontend Engineer](<https://www.ycombinator.com/companies/lago/jobs/6rU2ISL-senior-frontend-engineer>) · job-0701 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: stack mismatch | [Curri — Software Engineer](<https://www.welcometothejungle.com/en/companies/curri/jobs/software-engineer_us_5udquxjp>) · job-0694 | stack mismatch | Not checked | 2026-10-13 |
 | Skipped: geo restriction | [Extremum — Junior Frontend Developer](<https://www.helloworld.rs/posao/Junior-Frontend-Developer/Extremum/398459>) · job-0693 | geo restriction | Not checked | 2026-10-13 |
 | Skipped: seniority too high | [Inspired Thinking Group — Lead Frontend Developer (3-6 Month Contract)](<https://www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7>) · job-0692 | seniority too high | Not checked | 2026-10-13 |
