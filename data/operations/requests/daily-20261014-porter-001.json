@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-porter-001",
+  "command": "add",
+  "args": {
+    "company": "Porter",
+    "role": "Frontend Engineer",
+    "source": "YC Work at a Startup",
+    "source_job_id": "GD7hwtI",
+    "source_url": "https://www.ycombinator.com/companies/porter/jobs/GD7hwtI-frontend-engineer",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "remote_policy": "Unclear",
+    "notes": "Parallel full description conflicts: 'strictly in-person in NYC' but also says remote may be possible depending on circumstances. Browser verification required for Serbia eligibility, exact employer listing and Apply."
+  }
+}
