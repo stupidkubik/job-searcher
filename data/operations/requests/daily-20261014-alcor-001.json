@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-alcor-001",
+  "command": "add",
+  "args": {
+    "company": "Alcor",
+    "role": "Senior Frontend Developer (web, mobile, desktop)_Remote",
+    "source": "Wellfound",
+    "source_job_id": "4215043",
+    "source_url": "https://wellfound.com/jobs/4215043-senior-frontend-developer-web-mobile-desktop-_remote",
+    "decision_reason": "seniority_too_high",
+    "notes": "Parallel full description: minimum 5 years professional frontend; remote hiring Romania, Poland, Ukraine only."
+  }
+}
