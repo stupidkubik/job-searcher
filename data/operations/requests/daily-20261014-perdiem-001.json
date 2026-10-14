@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-perdiem-001",
+  "command": "add",
+  "args": {
+    "company": "Per Diem",
+    "role": "Next.js experience developer",
+    "source": "YC Work at a Startup",
+    "source_job_id": "Ep5mOGJ",
+    "source_url": "https://www.ycombinator.com/companies/per-diem/jobs/Ep5mOGJ-per-diem-is-expanding-and-looking-for-a-next-js-experience-developer",
+    "decision_reason": "seniority_too_high",
+    "notes": "Parallel full description requires 6+ years of web development. YC lists Remote US and US visa only."
+  }
+}
