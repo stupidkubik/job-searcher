@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-14** · Jobs: **706**
+Dataset updated: **2026-10-14** · Jobs: **707**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (623)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (624)](#archive)
 
 ## Action now
 
@@ -108,10 +108,11 @@ Dataset updated: **2026-10-14** · Jobs: **706**
 
 <details>
 
-<summary>Archive (623)</summary>
+<summary>Archive (624)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: seniority too high | [Alcor — Senior Frontend Developer (web, mobile, desktop)\_Remote](<https://wellfound.com/jobs/4215043-senior-frontend-developer-web-mobile-desktop-_remote>) · job-0707 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Per Diem — Next.js experience developer](<https://www.ycombinator.com/companies/per-diem/jobs/Ep5mOGJ-per-diem-is-expanding-and-looking-for-a-next-js-experience-developer>) · job-0705 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Fuse AI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/fuse-ai/jobs/AS9hfmv-senior-frontend-engineer>) · job-0704 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: geo restriction | [Mistral AI — Software Engineer, Frontend](<https://www.welcometothejungle.com/en/companies/mistral-ai/jobs/software-engineer-frontend_paris>) · job-0703 | geo restriction | Not checked | 2026-10-14 |
