@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-14T06:55:27Z",
+  "job_id": "job-0710",
+  "operation_id": "daily-20261014-backlog-answerthis-001",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0710",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-14",
+        "job_id": "job-0710",
+        "source": "Wellfound",
+        "source_job_id": "3284965",
+        "source_url": "https://wellfound.com/jobs/3284965-product-engineer-full-time-remote"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

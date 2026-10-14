@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-14** · Jobs: **709**
+Dataset updated: **2026-10-14** · Jobs: **710**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (626)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (627)](#archive)
 
 ## Action now
 
@@ -108,10 +108,11 @@ Dataset updated: **2026-10-14** · Jobs: **709**
 
 <details>
 
-<summary>Archive (626)</summary>
+<summary>Archive (627)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [AnswerThis — Product Engineer (Full-Time, Remote)](<https://wellfound.com/jobs/3284965-product-engineer-full-time-remote>) · job-0710 | stack mismatch | Not checked | 2026-10-14 |
 | Skipped: geo restriction | Saral Recruitments — Frontend Developer (Next.js & Redux) · job-0709 | geo restriction | Not checked | 2026-10-14 |
 | Skipped: salary too low | [Auto Wisdom — Frontend Engineering Intern (React/Next.js)](<https://wellfound.com/jobs/3534348-software-developer-frontend-intern-1-b-tech-2027-28>) · job-0708 | salary too low | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Alcor — Senior Frontend Developer (web, mobile, desktop)\_Remote](<https://wellfound.com/jobs/4215043-senior-frontend-developer-web-mobile-desktop-_remote>) · job-0707 | seniority too high | Not checked | 2026-10-14 |
