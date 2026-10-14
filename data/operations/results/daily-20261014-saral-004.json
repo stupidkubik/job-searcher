@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-14T06:53:29Z",
+  "job_id": "job-0709",
+  "operation_id": "daily-20261014-saral-004",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0709",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-14",
+        "job_id": "job-0709",
+        "source": "Wellfound",
+        "source_job_id": "4697809",
+        "source_url": ""
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

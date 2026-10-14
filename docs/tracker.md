@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-14** · Jobs: **708**
+Dataset updated: **2026-10-14** · Jobs: **709**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (625)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (626)](#archive)
 
 ## Action now
 
@@ -108,10 +108,11 @@ Dataset updated: **2026-10-14** · Jobs: **708**
 
 <details>
 
-<summary>Archive (625)</summary>
+<summary>Archive (626)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | Saral Recruitments — Frontend Developer (Next.js & Redux) · job-0709 | geo restriction | Not checked | 2026-10-14 |
 | Skipped: salary too low | [Auto Wisdom — Frontend Engineering Intern (React/Next.js)](<https://wellfound.com/jobs/3534348-software-developer-frontend-intern-1-b-tech-2027-28>) · job-0708 | salary too low | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Alcor — Senior Frontend Developer (web, mobile, desktop)\_Remote](<https://wellfound.com/jobs/4215043-senior-frontend-developer-web-mobile-desktop-_remote>) · job-0707 | seniority too high | Not checked | 2026-10-14 |
 | Skipped: seniority too high | [Per Diem — Next.js experience developer](<https://www.ycombinator.com/companies/per-diem/jobs/Ep5mOGJ-per-diem-is-expanding-and-looking-for-a-next-js-experience-developer>) · job-0705 | seniority too high | Not checked | 2026-10-14 |
