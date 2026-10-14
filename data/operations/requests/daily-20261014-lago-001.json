@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-lago-001",
+  "command": "add",
+  "args": {
+    "company": "Lago",
+    "role": "Senior Frontend Engineer",
+    "source": "YC Work at a Startup",
+    "source_job_id": "6rU2ISL",
+    "source_url": "https://www.ycombinator.com/companies/lago/jobs/6rU2ISL-senior-frontend-engineer",
+    "application_status": "not_started",
+    "decision_reason": "seniority_too_high",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Parallel full exact job description requires 5+ years of professional frontend experience and expert React. First-party and Apply not verified."
+  }
+}
