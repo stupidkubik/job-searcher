@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-fuse-001",
+  "command": "add",
+  "args": {
+    "company": "Fuse AI",
+    "role": "Senior Frontend Engineer",
+    "source": "YC Work at a Startup",
+    "source_job_id": "AS9hfmv",
+    "source_url": "https://www.ycombinator.com/companies/fuse-ai/jobs/AS9hfmv-senior-frontend-engineer",
+    "decision_reason": "seniority_too_high",
+    "notes": "Parallel full description requires 4+ years professional frontend development and senior ownership."
+  }
+}
