@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-patronus-001",
+  "command": "add",
+  "args": {
+    "company": "Patronus",
+    "role": "Frontend Engineer/NextJs Developer",
+    "source": "Wellfound",
+    "source_job_id": "2992515",
+    "source_url": "https://wellfound.com/jobs/2992515-frontend-engineer-nextjs-developer",
+    "application_status": "reviewing",
+    "notes": "Parallel search showed Remote India and 2 years experience, but full exact fetch failed and free-tier limit blocked retry. Browser verification required for full text, Serbia eligibility and Apply."
+  }
+}
