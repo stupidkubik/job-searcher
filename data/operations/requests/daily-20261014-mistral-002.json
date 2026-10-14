@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261014-mistral-002",
+  "command": "add",
+  "args": {
+    "company": "Mistral AI",
+    "role": "Software Engineer, Frontend",
+    "source": "Welcome to the Jungle",
+    "source_url": "https://www.welcometothejungle.com/en/companies/mistral-ai/jobs/software-engineer-frontend_paris",
+    "decision_reason": "geo_restriction",
+    "notes": "Parallel full description lists Paris and No remote work."
+  }
+}
