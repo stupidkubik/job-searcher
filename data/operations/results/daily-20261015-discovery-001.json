@@ -1,0 +1,143 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-15T06:48:51Z",
+  "jobs": [],
+  "operation_id": "daily-20261015-discovery-001",
+  "result": {
+    "count": 6,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "wellfound:4809485",
+        "command": "add",
+        "job_id": "job-0711",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0711",
+            "source": "Wellfound",
+            "source_job_id": "4809485",
+            "source_url": "https://wellfound.com/jobs/4809485-frontend-developer-react-next-js"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:DCDqHARrt",
+        "command": "add",
+        "job_id": "job-0712",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0712",
+            "source": "YC Work at a Startup",
+            "source_job_id": "DCDqHARrt",
+            "source_url": "https://www.ycombinator.com/companies/flockjay/jobs/DCDqHARrt-software-engineer-frontend"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "yc:2pX4srY",
+        "command": "add",
+        "job_id": "job-0713",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0713",
+            "source": "YC Work at a Startup",
+            "source_job_id": "2pX4srY",
+            "source_url": "https://www.ycombinator.com/companies/merlin-ai/jobs/2pX4srY-frontend-react-developer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "helloworld:739429",
+        "command": "add",
+        "job_id": "job-0714",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0714",
+            "source": "HelloWorld.rs",
+            "source_job_id": "739429",
+            "source_url": "https://www.helloworld.rs/posao/Junior-Software-Engineer/Dynata/739429"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0715-talon-one-frontend-engineer.md",
+        "application_status": "reviewing",
+        "client_ref": "wttj:talon-one:4917445101",
+        "command": "add",
+        "job_id": "job-0715",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0715",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": "applications/job-0716-insider-front-end-developer-react-js.md",
+        "application_status": "reviewing",
+        "client_ref": "wellfound:3070064",
+        "command": "add",
+        "job_id": "job-0716",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-15",
+            "job_id": "job-0716",
+            "source": "Wellfound",
+            "source_job_id": "3070064",
+            "source_url": "https://wellfound.com/jobs/3070064-front-end-developer-react-js"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 6,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

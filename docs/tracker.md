@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-14** · Jobs: **710**
+Dataset updated: **2026-10-15** · Jobs: **716**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (29)](#to-verify) · [Archive (627)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (31)](#to-verify) · [Archive (631)](#archive)
 
 ## Action now
 
@@ -81,6 +81,8 @@ Dataset updated: **2026-10-14** · Jobs: **710**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Talon.One — Frontend Engineer](<https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta>) · job-0715 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Insider — Front-End Developer (React.js)](<https://wellfound.com/jobs/3070064-front-end-developer-react-js>) · job-0716 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Porter — Frontend Engineer](<https://www.ycombinator.com/companies/porter/jobs/GD7hwtI-frontend-engineer>) · job-0702 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Patronus — Frontend Engineer/NextJs Developer](<https://wellfound.com/jobs/2992515-frontend-engineer-nextjs-developer>) · job-0706 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | First party + Apply + Listing | — | verify first-party | Never |
@@ -108,10 +110,14 @@ Dataset updated: **2026-10-14** · Jobs: **710**
 
 <details>
 
-<summary>Archive (627)</summary>
+<summary>Archive (631)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: stack mismatch | [Dynata — Junior Software Engineer](<https://www.helloworld.rs/posao/Junior-Software-Engineer/Dynata/739429>) · job-0714 | stack mismatch | Not checked | 2026-10-15 |
+| Skipped: seniority too high | [Merlin AI — Frontend React Developer](<https://www.ycombinator.com/companies/merlin-ai/jobs/2pX4srY-frontend-react-developer>) · job-0713 | seniority too high | Not checked | 2026-10-15 |
+| Skipped: work authorization | [Flockjay — Software Engineer, Frontend](<https://www.ycombinator.com/companies/flockjay/jobs/DCDqHARrt-software-engineer-frontend>) · job-0712 | work authorization | Not checked | 2026-10-15 |
+| Skipped: geo restriction | [flintzy — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4809485-frontend-developer-react-next-js>) · job-0711 | geo restriction | Not checked | 2026-10-15 |
 | Skipped: stack mismatch | [AnswerThis — Product Engineer (Full-Time, Remote)](<https://wellfound.com/jobs/3284965-product-engineer-full-time-remote>) · job-0710 | stack mismatch | Not checked | 2026-10-14 |
 | Skipped: geo restriction | Saral Recruitments — Frontend Developer (Next.js & Redux) · job-0709 | geo restriction | Not checked | 2026-10-14 |
 | Skipped: salary too low | [Auto Wisdom — Frontend Engineering Intern (React/Next.js)](<https://wellfound.com/jobs/3534348-software-developer-frontend-intern-1-b-tech-2027-28>) · job-0708 | salary too low | Not checked | 2026-10-14 |

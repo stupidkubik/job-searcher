@@ -92,6 +92,7 @@ job-0660	743204
 job-0661	732290
 job-0693	398459
 job-0700	415757
+job-0714	739429
 # Himalayas	prefix=
 job-0081	https://himalayas.app/companies/choice/jobs/frontend-developer
 job-0082	https://himalayas.app/companies/kdci/jobs/web-developer
@@ -623,6 +624,7 @@ job-0691	www.welcometothejungle.com/en/companies/pixid/jobs/frontend-developer-h
 job-0692	www.welcometothejungle.com/en/companies/inspired-thinking-group/jobs/lead-frontend-developer-3-6-month-contract_birmingham_6znf4pp7
 job-0694	www.welcometothejungle.com/en/companies/curri/jobs/software-engineer_us_5udquxjp
 job-0703	www.welcometothejungle.com/en/companies/mistral-ai/jobs/software-engineer-frontend_paris
+job-0715	www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta
 # Wellfound	prefix=
 job-0065	https://wellfound.com/jobs/3802484-frontend-developer-intern-next-js-typescript
 job-0066	https://wellfound.com/jobs/4497124-website-development-intern-ui-ux-full-stack-end-to-end
@@ -696,6 +698,8 @@ job-0707	4215043
 job-0708	3534348
 job-0709	4697809
 job-0710	3284965
+job-0711	4809485
+job-0716	3070064
 # YC Work at a Startup	prefix=
 job-0142	https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm
 job-0143	https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product
@@ -747,3 +751,5 @@ job-0701	6rU2ISL
 job-0702	GD7hwtI
 job-0704	AS9hfmv
 job-0705	Ep5mOGJ
+job-0712	DCDqHARrt
+job-0713	2pX4srY
