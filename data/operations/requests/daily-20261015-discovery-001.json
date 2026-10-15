@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261015-discovery-001",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "wellfound:4809485",
+      "args": {
+        "company": "flintzy",
+        "role": "Frontend Developer (React / Next.js)",
+        "source": "Wellfound",
+        "source_job_id": "4809485",
+        "source_url": "https://wellfound.com/jobs/4809485-frontend-developer-react-next-js",
+        "found_at": "2026-10-15",
+        "application_status": "not_started",
+        "decision_reason": "geo_restriction",
+        "location": "Hyderabad, India",
+        "remote_policy": "On-site",
+        "level": "Middle",
+        "stack": "React; Next.js; TypeScript; Tailwind CSS; REST APIs",
+        "salary": "INR 10-14 LPA",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel full exact description: Job Location Hyderabad, Remote Work Policy In office - WFH flexibility; requires 3-5 years frontend and 2+ years React. Serbia remote not offered. Employer/Apply not Browser verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:DCDqHARrt",
+      "args": {
+        "company": "Flockjay",
+        "role": "Software Engineer, Frontend",
+        "source": "YC Work at a Startup",
+        "source_job_id": "DCDqHARrt",
+        "source_url": "https://www.ycombinator.com/companies/flockjay/jobs/DCDqHARrt-software-engineer-frontend",
+        "found_at": "2026-10-15",
+        "application_status": "not_started",
+        "decision_reason": "work_authorization",
+        "location": "San Francisco, USA / Remote US",
+        "remote_policy": "Country-specific",
+        "level": "Middle",
+        "stack": "React; JavaScript; HTML; CSS",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel full exact YC description: Remote (US), Visa US citizen/visa only, 3+ years web engineering and SF office; incompatible with Serbian-only work authorization. Employer/Apply not Browser verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "yc:2pX4srY",
+      "args": {
+        "company": "Merlin AI",
+        "role": "Frontend React Developer",
+        "source": "YC Work at a Startup",
+        "source_job_id": "2pX4srY",
+        "source_url": "https://www.ycombinator.com/companies/merlin-ai/jobs/2pX4srY-frontend-react-developer",
+        "found_at": "2026-10-15",
+        "application_status": "not_started",
+        "decision_reason": "seniority_too_high",
+        "location": "Bengaluru, India (description also says fully remote)",
+        "remote_policy": "Unclear",
+        "level": "Middle",
+        "stack": "React; Next.js; JavaScript",
+        "salary": "INR 600K-1M (period unspecified)",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel full exact description explicitly requires 3-5 years frontend despite YC metadata 1+; beyond Junior/Junior+. Description says fully remote but Bangalore location and Serbia eligibility unresolved. Employer/Apply not Browser verified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "helloworld:739429",
+      "args": {
+        "company": "Dynata",
+        "role": "Junior Software Engineer",
+        "source": "HelloWorld.rs",
+        "source_job_id": "739429",
+        "source_url": "https://www.helloworld.rs/posao/Junior-Software-Engineer/Dynata/739429",
+        "found_at": "2026-10-15",
+        "application_status": "not_started",
+        "decision_reason": "stack_mismatch",
+        "location": "Remote (region unclear)",
+        "remote_policy": "Unclear",
+        "level": "Junior",
+        "stack": "Java; SQL; HTML; Express; OpenSearch",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel full exact description: feasibility APIs, pricing logic and OpenSearch; basic Java and SQL, fluency in Hungarian and English required. Backend/algorithm scope not frontend focus; Hungarian not in candidate languages. HelloWorld source says deactivated, not canonical employer closure; employer/Apply unverified."
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wttj:talon-one:4917445101",
+      "args": {
+        "company": "Talon.One",
+        "role": "Frontend Engineer",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta",
+        "found_at": "2026-10-15",
+        "application_status": "reviewing",
+        "location": "Berlin, Germany",
+        "remote_policy": "Unclear",
+        "level": "Unknown",
+        "stack": "React; TypeScript; Redux; CSS Modules; Cypress",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel full exact WTTJ: React/TypeScript/Redux UI, experience >1 year, mentorship/full-stack attitude. Berlin workplace; remote policy and Serbia eligibility unclear. Apply link points to employer gh_jid=4917445101, different from tracked Talon.One job-0377 key 4456493770; needs Browser identity/geo/Apply verification, not first-party verified.",
+        "force": true
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "wellfound:3070064",
+      "args": {
+        "company": "Insider",
+        "role": "Front-End Developer (React.js)",
+        "source": "Wellfound",
+        "source_job_id": "3070064",
+        "source_url": "https://wellfound.com/jobs/3070064-front-end-developer-react-js",
+        "found_at": "2026-10-15",
+        "application_status": "reviewing",
+        "location": "Istanbul, Turkey (search metadata)",
+        "remote_policy": "Unclear",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown",
+        "notes": "Parallel discovery returned exact Wellfound card but live full exact web_fetch failed. No screening decision: complete description, Serbia eligibility, employer and Apply route require Browser verification."
+      }
+    }
+  ]
+}
