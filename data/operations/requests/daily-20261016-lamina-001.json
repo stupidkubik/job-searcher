@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-lamina-001",
+  "command": "add",
+  "args": {
+    "company": "Lamina",
+    "role": "Frontend Software Engineer",
+    "source": "Wellfound",
+    "source_job_id": "4589345",
+    "source_url": "https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years",
+    "application_status": "reviewing",
+    "found_at": "2026-10-16",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "notes": "Parallel exact job description: global remote, 2-5 years browser apps, complex interactive UI. Browser verification required for Serbia eligibility and Apply."
+  }
+}
