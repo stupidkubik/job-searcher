@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-discovery-b1",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "oct16-b1-1",
+      "args": {
+        "company": "HelioAI",
+        "role": "Senior Frontend Engineer",
+        "source": "Wellfound",
+        "source_job_id": "4185197",
+        "source_url": "https://wellfound.com/jobs/4185197-senior-frontend-engineer",
+        "decision_reason": "seniority_too_high",
+        "notes": "Parallel full exact description requires 4+ years production React, 2+ Next.js, senior architecture ownership and mentoring.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "oct16-b1-2",
+      "args": {
+        "company": "AveryIQ",
+        "role": "NextJS / React / Node Engineer - Remote Contractor",
+        "source": "YC Work at a Startup",
+        "source_job_id": "dkd9SA8",
+        "source_url": "https://www.ycombinator.com/companies/averyiq/jobs/dkd9SA8-nextjs-react-node-engineer-remote-contractor",
+        "decision_reason": "seniority_too_high",
+        "notes": "Parallel full exact YC description requires 6+ years engineering, Next.js/Node/Postgres, React Native; country list excludes Serbia.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "oct16-b1-3",
+      "args": {
+        "company": "Piramidal",
+        "role": "Front End Engineer - User Interface",
+        "source": "YC Work at a Startup",
+        "source_job_id": "EBwEaGc",
+        "source_url": "https://www.ycombinator.com/companies/piramidal/jobs/EBwEaGc-front-end-engineer-user-interface",
+        "decision_reason": "work_authorization",
+        "notes": "Parallel full exact YC description: US citizen/visa only, New York role, and 4+ years practical frontend engineering.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16",
+        "listing_status": "unknown",
+        "first_party_verified": "unknown",
+        "apply_verified": "unknown"
+      }
+    }
+  ]
+}
