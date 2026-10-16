@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-16** · Jobs: **725**
+Dataset updated: **2026-10-16** · Jobs: **726**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (639)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (640)](#archive)
 
 ## Action now
 
@@ -111,10 +111,11 @@ Dataset updated: **2026-10-16** · Jobs: **725**
 
 <details>
 
-<summary>Archive (639)</summary>
+<summary>Archive (640)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: role not frontend | [Koast.ai — Head of Technical Support](<https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai>) · job-0726 | role not frontend | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Doss — Frontend Engineer](<https://wellfound.com/jobs/3046538-frontend-engineer>) · job-0725 | geo restriction | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Gumb — Freelance Next.js Developer - Marketing Site & Landing Pages](<https://wellfound.com/jobs/4589412-freelance-next-js-developer-marketing-site-landing-pages>) · job-0724 | geo restriction | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Basikon — Junior Consultant Developer JavaScript (M/F)](<https://www.welcometothejungle.com/en/companies/basikon/jobs/senior-javascript-consultant-developer-m-f_vienna>) · job-0723 | geo restriction | Not checked | 2026-10-16 |
