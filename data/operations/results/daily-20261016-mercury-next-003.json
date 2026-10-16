@@ -1,0 +1,17 @@
+{
+  "command": "set",
+  "executed_at": "2026-10-16T06:34:09Z",
+  "job_id": "job-0728",
+  "operation_id": "daily-20261016-mercury-next-003",
+  "result": {
+    "application_path": null,
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "outcome": "updated",
+    "stage_reached": "None",
+    "warnings": []
+  },
+  "risk": "low",
+  "status": "completed",
+  "version": 1
+}
