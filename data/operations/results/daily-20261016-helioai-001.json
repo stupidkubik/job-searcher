@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-16T06:20:33Z",
+  "job_id": "job-0720",
+  "operation_id": "daily-20261016-helioai-001",
+  "result": {
+    "application_path": null,
+    "application_status": "not_started",
+    "job_id": "job-0720",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-16",
+        "job_id": "job-0720",
+        "source": "Wellfound",
+        "source_job_id": "4185197",
+        "source_url": "https://wellfound.com/jobs/4185197-senior-frontend-engineer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
