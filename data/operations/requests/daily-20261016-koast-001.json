@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-koast-001",
+  "command": "add",
+  "args": {
+    "company": "Koast.ai",
+    "role": "Head of Technical Support",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai",
+    "application_status": "not_started",
+    "decision_reason": "role_not_frontend",
+    "found_at": "2026-10-16",
+    "notes": "Parallel full exact description: Head of Technical Support, 3+ years B2B SaaS support and required practical Meta advertising campaign management experience."
+  }
+}
