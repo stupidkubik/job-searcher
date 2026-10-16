@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-helioai-001",
+  "command": "add",
+  "args": {
+    "company": "HelioAI",
+    "role": "Senior Frontend Engineer",
+    "source": "Wellfound",
+    "source_job_id": "4185197",
+    "source_url": "https://wellfound.com/jobs/4185197-senior-frontend-engineer",
+    "force": true,
+    "application_status": "not_started",
+    "decision_reason": "seniority_too_high",
+    "found_at": "2026-10-16",
+    "notes": "Distinct vacancy from HelioAI internship. Full job text requires 4+ years production React."
+  }
+}
