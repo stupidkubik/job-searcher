@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-mercury-next-003",
+  "command": "set",
+  "job_id": "job-0728",
+  "expected": {
+    "last_update": "2026-10-16",
+    "application_status": "reviewing"
+  },
+  "args": {
+    "next_action": "Verify exact employer job and Serbia eligibility in Browser."
+  }
+}
