@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-cai-001",
+  "command": "add",
+  "args": {
+    "company": "CAI",
+    "role": "Senior Frontend Web Developer",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/cai-senior-frontend-web-developer",
+    "application_status": "reviewing",
+    "found_at": "2026-10-16",
+    "notes": "Parallel exact fetch redirected to WWR general search page; full requirements and source status unknown. Browser verification needed before decision."
+  }
+}
