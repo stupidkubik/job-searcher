@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-mercury-002",
+  "command": "add",
+  "args": {
+    "company": "Mercury",
+    "role": "Content Marketer",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/mercury-content-marketer",
+    "application_status": "reviewing",
+    "found_at": "2026-10-16"
+  }
+}
