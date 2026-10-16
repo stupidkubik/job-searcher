@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-lebanon-001",
+  "command": "add",
+  "args": {
+    "company": "Jobs for Lebanon",
+    "role": "web developer",
+    "source": "We Work Remotely",
+    "source_url": "https://weworkremotely.com/remote-jobs/jobs-for-lebanon-web-developer",
+    "application_status": "not_started",
+    "decision_reason": "role_not_frontend",
+    "found_at": "2026-10-16",
+    "notes": "Parallel full exact description: supervisory-level web management and backend PHP, Python, Java, Ruby with databases. Not junior frontend."
+  }
+}
