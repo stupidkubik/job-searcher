@@ -1,0 +1,111 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-16T06:18:52Z",
+  "jobs": [],
+  "operation_id": "daily-20261016-discovery-b1",
+  "result": {
+    "count": 2,
+    "operations": [
+      {
+        "client_ref": "oct16-b1-1",
+        "command": "add",
+        "conflict": {
+          "candidates": [
+            {
+              "application_status": "not_started",
+              "company": "HelioAI",
+              "id": "job-0606",
+              "listing_status": "unknown",
+              "reason": "looks similar: company 1.00, role 1.00",
+              "role": "Frontend Engineer Intern"
+            }
+          ],
+          "reason": "unresolved_duplicate",
+          "retry": {
+            "as_duplicate": {
+              "args": {
+                "company": "HelioAI",
+                "duplicate_of": "job-0606",
+                "found_at": "2026-10-16",
+                "role": "Senior Frontend Engineer",
+                "source": "Wellfound",
+                "source_job_id": "4185197",
+                "source_url": "https://wellfound.com/jobs/4185197-senior-frontend-engineer"
+              },
+              "client_ref": "oct16-b1-1",
+              "command": "add"
+            },
+            "as_separate": {
+              "args": {
+                "application_status": "not_started",
+                "apply_verified": "unknown",
+                "company": "HelioAI",
+                "decision_reason": "seniority_too_high",
+                "first_party_verified": "unknown",
+                "force": true,
+                "found_at": "2026-10-16",
+                "listing_status": "unknown",
+                "notes": "Parallel full exact description requires 4+ years production React, 2+ Next.js, senior architecture ownership and mentoring.",
+                "role": "Senior Frontend Engineer",
+                "source": "Wellfound",
+                "source_job_id": "4185197",
+                "source_url": "https://wellfound.com/jobs/4185197-senior-frontend-engineer"
+              },
+              "client_ref": "oct16-b1-1",
+              "command": "add"
+            }
+          }
+        },
+        "status": "conflict"
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "oct16-b1-2",
+        "command": "add",
+        "job_id": "job-0718",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-16",
+            "job_id": "job-0718",
+            "source": "YC Work at a Startup",
+            "source_job_id": "dkd9SA8",
+            "source_url": "https://www.ycombinator.com/companies/averyiq/jobs/dkd9SA8-nextjs-react-node-engineer-remote-contractor"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "oct16-b1-3",
+        "command": "add",
+        "job_id": "job-0719",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-16",
+            "job_id": "job-0719",
+            "source": "YC Work at a Startup",
+            "source_job_id": "EBwEaGc",
+            "source_url": "https://www.ycombinator.com/companies/piramidal/jobs/EBwEaGc-front-end-engineer-user-interface"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "partial_batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "partial",
+  "version": 1
+}

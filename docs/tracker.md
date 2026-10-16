@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-16** · Jobs: **717**
+Dataset updated: **2026-10-16** · Jobs: **719**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (631)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (633)](#archive)
 
 ## Action now
 
@@ -111,10 +111,12 @@ Dataset updated: **2026-10-16** · Jobs: **717**
 
 <details>
 
-<summary>Archive (631)</summary>
+<summary>Archive (633)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: work authorization | [Piramidal — Front End Engineer - User Interface](<https://www.ycombinator.com/companies/piramidal/jobs/EBwEaGc-front-end-engineer-user-interface>) · job-0719 | work authorization | Not checked | 2026-10-16 |
+| Skipped: seniority too high | [AveryIQ — NextJS / React / Node Engineer - Remote Contractor](<https://www.ycombinator.com/companies/averyiq/jobs/dkd9SA8-nextjs-react-node-engineer-remote-contractor>) · job-0718 | seniority too high | Not checked | 2026-10-16 |
 | Skipped: stack mismatch | [Dynata — Junior Software Engineer](<https://www.helloworld.rs/posao/Junior-Software-Engineer/Dynata/739429>) · job-0714 | stack mismatch | Not checked | 2026-10-15 |
 | Skipped: seniority too high | [Merlin AI — Frontend React Developer](<https://www.ycombinator.com/companies/merlin-ai/jobs/2pX4srY-frontend-react-developer>) · job-0713 | seniority too high | Not checked | 2026-10-15 |
 | Skipped: work authorization | [Flockjay — Software Engineer, Frontend](<https://www.ycombinator.com/companies/flockjay/jobs/DCDqHARrt-software-engineer-frontend>) · job-0712 | work authorization | Not checked | 2026-10-15 |
