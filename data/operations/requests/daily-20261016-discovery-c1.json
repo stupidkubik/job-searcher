@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-discovery-c1",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "c1-0",
+      "args": {
+        "company": "Twilio",
+        "role": "Frontend Software Engineer",
+        "source": "We Work Remotely",
+        "source_url": "https://weworkremotely.com/remote-jobs/twilio-frontend-software-engineer",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: remote position must be based in UK.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "c1-1",
+      "args": {
+        "company": "Assembled",
+        "role": "Software Engineer (Product, Frontend-Leaning)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/assembled/jobs/software-engineer-product-frontend-leaning_us_ptyaltjz",
+        "decision_reason": "seniority_too_high",
+        "notes": "Parallel full description requires 4+ years production engineering and full-stack ownership.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "c1-2",
+      "args": {
+        "company": "Basikon",
+        "role": "Junior Consultant Developer JavaScript (M/F)",
+        "source": "Welcome to the Jungle",
+        "source_url": "https://www.welcometothejungle.com/en/companies/basikon/jobs/senior-javascript-consultant-developer-m-f_vienna",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: Vienna-based hybrid role, fluent German required.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16"
+      }
+    }
+  ]
+}
