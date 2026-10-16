@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-15** · Jobs: **716**
+Dataset updated: **2026-10-16** · Jobs: **717**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (31)](#to-verify) · [Archive (631)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (631)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-15** · Jobs: **716**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Lamina — Frontend Software Engineer](<https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years>) · job-0717 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Talon.One — Frontend Engineer](<https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta>) · job-0715 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Insider — Front-End Developer (React.js)](<https://wellfound.com/jobs/3070064-front-end-developer-react-js>) · job-0716 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Porter — Frontend Engineer](<https://www.ycombinator.com/companies/porter/jobs/GD7hwtI-frontend-engineer>) · job-0702 | First party + Apply + Listing | — | verify first-party | Never |
