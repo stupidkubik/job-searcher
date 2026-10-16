@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-16** · Jobs: **723**
+Dataset updated: **2026-10-16** · Jobs: **725**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (637)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (639)](#archive)
 
 ## Action now
 
@@ -111,10 +111,12 @@ Dataset updated: **2026-10-16** · Jobs: **723**
 
 <details>
 
-<summary>Archive (637)</summary>
+<summary>Archive (639)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Doss — Frontend Engineer](<https://wellfound.com/jobs/3046538-frontend-engineer>) · job-0725 | geo restriction | Not checked | 2026-10-16 |
+| Skipped: geo restriction | [Gumb — Freelance Next.js Developer - Marketing Site & Landing Pages](<https://wellfound.com/jobs/4589412-freelance-next-js-developer-marketing-site-landing-pages>) · job-0724 | geo restriction | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Basikon — Junior Consultant Developer JavaScript (M/F)](<https://www.welcometothejungle.com/en/companies/basikon/jobs/senior-javascript-consultant-developer-m-f_vienna>) · job-0723 | geo restriction | Not checked | 2026-10-16 |
 | Skipped: seniority too high | [Assembled — Software Engineer (Product, Frontend-Leaning)](<https://www.welcometothejungle.com/en/companies/assembled/jobs/software-engineer-product-frontend-leaning_us_ptyaltjz>) · job-0722 | seniority too high | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Twilio — Frontend Software Engineer](<https://weworkremotely.com/remote-jobs/twilio-frontend-software-engineer>) · job-0721 | geo restriction | Not checked | 2026-10-16 |
