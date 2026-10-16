@@ -1,0 +1,80 @@
+{
+  "command": "batch",
+  "executed_at": "2026-10-16T06:22:10Z",
+  "jobs": [],
+  "operation_id": "daily-20261016-discovery-c1",
+  "result": {
+    "count": 3,
+    "operations": [
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "c1-0",
+        "command": "add",
+        "job_id": "job-0721",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-16",
+            "job_id": "job-0721",
+            "source": "We Work Remotely",
+            "source_job_id": "",
+            "source_url": "https://weworkremotely.com/remote-jobs/twilio-frontend-software-engineer"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "c1-1",
+        "command": "add",
+        "job_id": "job-0722",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-16",
+            "job_id": "job-0722",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/assembled/jobs/software-engineer-product-frontend-leaning_us_ptyaltjz"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      },
+      {
+        "application_path": null,
+        "application_status": "not_started",
+        "client_ref": "c1-2",
+        "command": "add",
+        "job_id": "job-0723",
+        "listing_status": "unknown",
+        "outcome": "job_added",
+        "source_reference": {
+          "created": true,
+          "reference": {
+            "found_at": "2026-10-16",
+            "job_id": "job-0723",
+            "source": "Welcome to the Jungle",
+            "source_job_id": "",
+            "source_url": "https://www.welcometothejungle.com/en/companies/basikon/jobs/senior-javascript-consultant-developer-m-f_vienna"
+          }
+        },
+        "status": "completed",
+        "warnings": []
+      }
+    ],
+    "outcome": "batch_applied",
+    "total": 3,
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

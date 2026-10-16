@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-16** · Jobs: **720**
+Dataset updated: **2026-10-16** · Jobs: **723**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (634)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (32)](#to-verify) · [Archive (637)](#archive)
 
 ## Action now
 
@@ -111,10 +111,13 @@ Dataset updated: **2026-10-16** · Jobs: **720**
 
 <details>
 
-<summary>Archive (634)</summary>
+<summary>Archive (637)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: geo restriction | [Basikon — Junior Consultant Developer JavaScript (M/F)](<https://www.welcometothejungle.com/en/companies/basikon/jobs/senior-javascript-consultant-developer-m-f_vienna>) · job-0723 | geo restriction | Not checked | 2026-10-16 |
+| Skipped: seniority too high | [Assembled — Software Engineer (Product, Frontend-Leaning)](<https://www.welcometothejungle.com/en/companies/assembled/jobs/software-engineer-product-frontend-leaning_us_ptyaltjz>) · job-0722 | seniority too high | Not checked | 2026-10-16 |
+| Skipped: geo restriction | [Twilio — Frontend Software Engineer](<https://weworkremotely.com/remote-jobs/twilio-frontend-software-engineer>) · job-0721 | geo restriction | Not checked | 2026-10-16 |
 | Skipped: seniority too high | [HelioAI — Senior Frontend Engineer](<https://wellfound.com/jobs/4185197-senior-frontend-engineer>) · job-0720 | seniority too high | Not checked | 2026-10-16 |
 | Skipped: work authorization | [Piramidal — Front End Engineer - User Interface](<https://www.ycombinator.com/companies/piramidal/jobs/EBwEaGc-front-end-engineer-user-interface>) · job-0719 | work authorization | Not checked | 2026-10-16 |
 | Skipped: seniority too high | [AveryIQ — NextJS / React / Node Engineer - Remote Contractor](<https://www.ycombinator.com/companies/averyiq/jobs/dkd9SA8-nextjs-react-node-engineer-remote-contractor>) · job-0718 | seniority too high | Not checked | 2026-10-16 |
