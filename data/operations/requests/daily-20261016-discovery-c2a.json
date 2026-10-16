@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261016-discovery-c2a",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "add",
+      "client_ref": "c2a-0",
+      "args": {
+        "company": "Gumb",
+        "role": "Freelance Next.js Developer - Marketing Site & Landing Pages",
+        "source": "Wellfound",
+        "source_job_id": "4589412",
+        "source_url": "https://wellfound.com/jobs/4589412-freelance-next-js-developer-marketing-site-landing-pages",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: India or Pakistan only, $6-7/hour.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16"
+      }
+    },
+    {
+      "command": "add",
+      "client_ref": "c2a-1",
+      "args": {
+        "company": "Doss",
+        "role": "Frontend Engineer",
+        "source": "Wellfound",
+        "source_job_id": "3046538",
+        "source_url": "https://wellfound.com/jobs/3046538-frontend-engineer",
+        "decision_reason": "geo_restriction",
+        "notes": "Parallel full description: on-site San Francisco; relocation rather than remote.",
+        "application_status": "not_started",
+        "found_at": "2026-10-16"
+      }
+    }
+  ]
+}
