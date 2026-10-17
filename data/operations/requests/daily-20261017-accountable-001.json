@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "daily-20261017-accountable-001",
+  "command": "add",
+  "args": {
+    "company": "Accountable",
+    "role": "Junior Frontend Developer",
+    "source": "Wellfound",
+    "source_job_id": "4844584",
+    "source_url": "https://wellfound.com/jobs/4844584-junior-frontend-developer",
+    "application_status": "reviewing",
+    "listing_status": "unknown",
+    "first_party_verified": "unknown",
+    "apply_verified": "unknown",
+    "remote_policy": "Unclear",
+    "found_at": "2026-10-17",
+    "notes": "Parallel exact description: React/Vite/TypeScript, remote Europe and European timezone. Salary negotiable. Serbia eligibility and employer/Apply need Browser verification."
+  }
+}
