@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-16** · Jobs: **729**
+Dataset updated: **2026-10-17** · Jobs: **730**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (34)](#to-verify) · [Archive (641)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (35)](#to-verify) · [Archive (641)](#archive)
 
 ## Action now
 
@@ -81,6 +81,7 @@ Dataset updated: **2026-10-16** · Jobs: **729**
 | Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
 | Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
 | Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
+| Reviewing | [Accountable — Junior Frontend Developer](<https://wellfound.com/jobs/4844584-junior-frontend-developer>) · job-0730 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Lamina — Frontend Software Engineer](<https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years>) · job-0717 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Mercury — Content Marketer](<https://weworkremotely.com/remote-jobs/mercury-content-marketer>) · job-0728 | First party + Apply + Listing | — | Verify exact employer job and Serbia eligibility in Browser. | Never |
 | Reviewing | [CAI — Senior Frontend Web Developer](<https://weworkremotely.com/remote-jobs/cai-senior-frontend-web-developer>) · job-0729 | First party + Apply + Listing | — | verify first-party | Never |
