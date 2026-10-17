@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-17T06:15:44Z",
+  "job_id": "job-0734",
+  "operation_id": "daily-20261017-bolster-001",
+  "result": {
+    "application_path": "applications/job-0734-bolster-front-end-developer.md",
+    "application_status": "reviewing",
+    "job_id": "job-0734",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-17",
+        "job_id": "job-0734",
+        "source": "YC Work at a Startup",
+        "source_job_id": "uaEmw22",
+        "source_url": "https://www.ycombinator.com/companies/bolster/jobs/uaEmw22-front-end-developer"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}

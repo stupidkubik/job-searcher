@@ -2,9 +2,9 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-17** · Jobs: **733**
+Dataset updated: **2026-10-17** · Jobs: **734**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (38)](#to-verify) · [Archive (641)](#archive)
+[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (39)](#to-verify) · [Archive (641)](#archive)
 
 ## Action now
 
@@ -85,6 +85,7 @@ Dataset updated: **2026-10-17** · Jobs: **733**
 | Reviewing | [CirclePe — Frontend Developer](<https://wellfound.com/jobs/3372541-web-frontend-developer-jd-web-apps-and-website-apps-react-native-react-vue-angular>) · job-0731 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Motorola Solutions — Software Engineer Frontend](<https://www.welcometothejungle.com/en/companies/motorola-solutions/jobs/software-engineer-frontend-typescript_uxbridge_lywxh7ga>) · job-0732 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Lynxify — Junior Front-End Engineer React.js Headless CMS](<https://wellfound.com/jobs/4692199-senior-front-end-engineer-react-js-headless-cms-clone>) · job-0733 | First party + Apply + Listing | — | verify first-party | Never |
+| Reviewing | [Bolster — Front End Developer](<https://www.ycombinator.com/companies/bolster/jobs/uaEmw22-front-end-developer>) · job-0734 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Lamina — Frontend Software Engineer](<https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years>) · job-0717 | First party + Apply + Listing | — | verify first-party | Never |
 | Reviewing | [Mercury — Content Marketer](<https://weworkremotely.com/remote-jobs/mercury-content-marketer>) · job-0728 | First party + Apply + Listing | — | Verify exact employer job and Serbia eligibility in Browser. | Never |
 | Reviewing | [CAI — Senior Frontend Web Developer](<https://weworkremotely.com/remote-jobs/cai-senior-frontend-web-developer>) · job-0729 | First party + Apply + Listing | — | verify first-party | Never |
