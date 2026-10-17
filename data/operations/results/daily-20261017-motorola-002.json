@@ -1,0 +1,27 @@
+{
+  "command": "add",
+  "executed_at": "2026-10-17T06:12:02Z",
+  "job_id": "job-0732",
+  "operation_id": "daily-20261017-motorola-002",
+  "result": {
+    "application_path": "applications/job-0732-motorola-solutions-software-engineer-frontend.md",
+    "application_status": "reviewing",
+    "job_id": "job-0732",
+    "listing_status": "unknown",
+    "outcome": "job_added",
+    "source_reference": {
+      "created": true,
+      "reference": {
+        "found_at": "2026-10-17",
+        "job_id": "job-0732",
+        "source": "Welcome to the Jungle",
+        "source_job_id": "",
+        "source_url": "https://www.welcometothejungle.com/en/companies/motorola-solutions/jobs/software-engineer-frontend-typescript_uxbridge_lywxh7ga"
+      }
+    },
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
