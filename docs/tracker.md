@@ -28,7 +28,6 @@ No jobs.
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
 | Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
-| Applied | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
 | Applied | [ArtWod — Support Engineer](<https://careers.artwod.com/?pos=pos-1784984993718>) · job-0148 | Applied | 2026-08-13 | — | [Open](../applications/job-0148-artwod-support-engineer.md) |
 | Rejected | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Rejected | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | Applied | 2026-08-13 | — | [Open](../applications/job-0142-cogram-design-engineer-technical-de.md) |
 | Withdrawn | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | Applied | 2026-08-13 | — | [Open](../applications/job-0143-asim-software-engineer-front-end.md) |
 | Withdrawn | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
+| Withdrawn | [World Anvil — Entry/Junior React / JavaScript Developer](<https://discord.com/channels/102860784329052160/103882387330457600/1531942094728335522>) · job-0147 | Applied | 2026-08-13 | — | [Open](../applications/job-0147-world-anvil-entry-junior-react-javascrip.md) |
 
 ## To verify
 
