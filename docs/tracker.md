@@ -23,7 +23,6 @@ No jobs.
 | Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Applied | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | Applied | 2026-09-08 | — | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
-| Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
 | Rejected | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Rejected | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
 | Rejected | [kolum — Product Engineer](<https://www.kolum.earth/en/careers/product-engineer>) · job-0278 | Applied | 2026-09-08 | — | [Open](../applications/job-0278-kolum-product-engineer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | Applied | 2026-08-17 | — | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
 | Withdrawn | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Withdrawn | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
+| Withdrawn | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
 
 ## To verify
 

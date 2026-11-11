@@ -7,6 +7,7 @@ verified_at:
 listing_status: unknown
 first_party_verified: unknown
 apply_verified: unknown
+cv_version: 
 ---
 
 # Karma8 — Frontend-разработчик (Vanilla JavaScript)
