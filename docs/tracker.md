@@ -34,7 +34,6 @@ No jobs.
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
 | Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
-| Applied | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | — |
 | Applied | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | — |
 | Applied | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | [Open](../applications/job-0032-mixrank-junior-software-engineer-rem.md) |
 | Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [CVAT.ai — Frontend Developer](<https://www.cvat.ai/job/frontend-developer>) · job-0001 | Applied | 2026-08-09 | — | [Open](../applications/job-0001-cvat-ai-frontend-developer.md) |
 | Withdrawn | [Primer — Join our Talent Community](<https://jobs.ashbyhq.com/primer.io/6aaaf2e8-a90e-484f-a587-505f200d1927>) · job-0011 | Applied | 2026-08-09 | — | [Open](../applications/job-0011-primer-join-our-talent-community.md) |
 | Withdrawn | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | [Open](../applications/job-0012-yoko-co-front-end-wordpress-develope.md) |
+| Withdrawn | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | [Open](../applications/job-0014-onthegosystems-ai-native-software-developer.md) |
 
 ## To verify
 
