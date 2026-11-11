@@ -28,7 +28,6 @@ No jobs.
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
 | Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
-| Applied | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
 | Applied | [Cogram — Design Engineer, Technical Designer, or PM](<https://www.ycombinator.com/companies/cogram/jobs/W8Qj6kZ-design-engineer-technical-designer-or-pm>) · job-0142 | Applied | 2026-08-13 | — | [Open](../applications/job-0142-cogram-design-engineer-technical-de.md) |
 | Applied | [aSim — Software Engineer, Front End + Product](<https://www.ycombinator.com/companies/asim/jobs/lBbFyIl-software-engineer-front-end-product>) · job-0143 | Applied | 2026-08-13 | — | [Open](../applications/job-0143-asim-software-engineer-front-end.md) |
 | Applied | [SerpApi — Junior Fullstack Engineer](<https://serpapi.com/careers/junior-fullstack-engineer>) · job-0144 | Applied | 2026-08-13 | — | [Open](../applications/job-0144-serpapi-junior-fullstack-engineer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | — | [Open](../applications/job-0094-solutionlab-front-end-developer-react.md) |
 | Withdrawn | [Quinncia — Frontend Developer](<https://hirify.me/jobs/656267-frontend-developer-ai>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
 | Withdrawn | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
+| Withdrawn | [Maker — Product Engineer (Remote)](<https://maker.freshteam.com/jobs/kYarXZxgdAms/product-engineer-remote>) · job-0133 | Applied | 2026-08-12 | — | [Open](../applications/job-0133-maker-product-engineer-remote.md) |
 
 ## To verify
 
