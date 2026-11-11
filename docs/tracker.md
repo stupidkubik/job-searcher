@@ -33,7 +33,6 @@ No jobs.
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
 | Applied | [Unknown — Senior Frontend Engineer (Blockchain)](<https://hirify.me/jobs/851044-senior-frontend-engineer-blockchain>) · job-0259 | Applied | 2026-08-17 | — | [Open](../applications/job-0259-unknown-senior-frontend-engineer-blo.md) |
 | Applied | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
-| Applied | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
 | Applied | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
 | Applied | [Quinncia — Frontend Developer](<https://hirify.me/jobs/656267-frontend-developer-ai>) · job-0130 | Applied | 2026-08-12 | — | [Open](../applications/job-0130-quinncia-frontend-developer.md) |
 | Applied | [Zensors — Frontend Web Developer React/Typescript (Remote)](<https://careers.zensors.com/jobs/Qc_VY1AEfbC5/frontend-web-developer-react-typescript-remote>) · job-0132 | Applied | 2026-08-12 | — | [Open](../applications/job-0132-zensors-frontend-web-developer-react.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | [Open](../applications/job-0016-amplemarket-frontend-software-engineer.md) |
 | Withdrawn | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
 | Withdrawn | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | [Open](../applications/job-0032-mixrank-junior-software-engineer-rem.md) |
+| Withdrawn | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
 
 ## To verify
 
