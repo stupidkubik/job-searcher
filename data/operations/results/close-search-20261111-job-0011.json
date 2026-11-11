@@ -1,0 +1,18 @@
+{
+  "command": "event",
+  "executed_at": "2026-11-11T10:44:06Z",
+  "job_id": "job-0011",
+  "operation_id": "close-search-20261111-job-0011",
+  "result": {
+    "application_path": null,
+    "application_status": "withdrawn",
+    "event_id": "close-search-20261111-job-0011",
+    "listing_status": "unknown",
+    "outcome": "recorded",
+    "stage_reached": "Applied",
+    "warnings": []
+  },
+  "risk": "medium",
+  "status": "completed",
+  "version": 1
+}
