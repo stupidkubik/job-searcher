@@ -14,7 +14,6 @@ No jobs.
 
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
-| Applied | [CVAT.ai — Frontend Developer](<https://www.cvat.ai/job/frontend-developer>) · job-0001 | Applied | 2026-08-09 | follow-up · 2026-08-16 | — |
 | Applied | [TransPerfect / Avatria — Commerce & Content Front End Technical Consultant](<https://transperfect.recruitee.com/o/commerce-and-content-front-end-technical-consultant-contractor-freelancer>) · job-0064 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [Zoftify — Travel Software Development — Frontend Developer (React)](<https://zoftify.bamboohr.com/careers/29/>) · job-0078 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
@@ -62,6 +61,7 @@ No jobs.
 | Rejected | [Storyteller — AI Operations Manager](<https://storyteller.applytojob.com/apply/AIGgQqs3nE/AI-Operations-Manager>) · job-0053 | Applied | 2026-08-10 | — | [Open](../applications/job-0053-storyteller-ai-operations-manager.md) |
 | Rejected | [ElevenLabs — Full-Stack Engineer (Front-End Leaning)](<https://elevenlabs.io/careers/ada7cd2c-8b9f-4f19-a88b-7c2ca1be1fde/full-stack-engineer-front-end-leaning>) · job-0055 | Applied | 2026-08-10 | — | [Open](../applications/job-0055-elevenlabs-full-stack-engineer-front-en.md) |
 | Rejected | SOFTSWISS — Frontend Developer (React) - Middle · job-0151 | Applied | 2026-08-05 | — | [Open](../applications/job-0151-softswiss-frontend-developer-react-mid.md) |
+| Withdrawn | [CVAT.ai — Frontend Developer](<https://www.cvat.ai/job/frontend-developer>) · job-0001 | Applied | 2026-08-09 | — | [Open](../applications/job-0001-cvat-ai-frontend-developer.md) |
 
 ## To verify
 

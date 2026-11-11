@@ -1,5 +1,5 @@
 id	company	role	application_status	listing_status	decision_reason
-job-0001	CVAT.ai	Frontend Developer	applied	unknown	
+job-0001	CVAT.ai	Frontend Developer	withdrawn	unknown	withdrawn_by_me
 job-0002	iLogos Game Studios	Middle Pixi.JS/Playable Ads Developer	not_started	closed	closed_before_application
 job-0003	Almedia	Junior Frontend Engineer	not_started	unknown	geo_restriction
 job-0004	Primer	Frontend Engineer	not_started	open	geo_restriction
