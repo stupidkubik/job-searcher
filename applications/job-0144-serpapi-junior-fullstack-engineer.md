@@ -7,6 +7,7 @@ verified_at: 2026-08-12
 listing_status: open
 first_party_verified: yes
 apply_verified: yes
+cv_version: frontend-2026-08
 ---
 
 # SerpApi — Junior Fullstack Engineer
