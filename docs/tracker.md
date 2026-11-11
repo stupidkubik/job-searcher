@@ -14,7 +14,6 @@ No jobs.
 
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
-| Applied | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 | Applied | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | Applied | 2026-09-30 | — | [Open](../applications/job-0463-firebird-tours-digital-marketing-content-sp.md) |
 | Applied | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Zoftify — Travel Software Development — Frontend Developer (React)](<https://zoftify.bamboohr.com/careers/29/>) · job-0078 | Applied | 2026-08-11 | — | [Open](../applications/job-0078-zoftify-travel-software-deve-frontend-developer-react.md) |
 | Withdrawn | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | — | [Open](../applications/job-0079-stedi-frontend-engineer.md) |
 | Withdrawn | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | — | [Open](../applications/job-0088-defdone-software-development-fronten.md) |
+| Withdrawn | [SolutionLab — Front-end developer (React)](<https://solutionlab.net/careers/front-end-developer-react>) · job-0094 | Applied | 2026-08-11 | — | [Open](../applications/job-0094-solutionlab-front-end-developer-react.md) |
 
 ## To verify
 
