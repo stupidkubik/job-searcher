@@ -1,0 +1,638 @@
+{
+  "version": 1,
+  "operation_id": "close-search-preapplication-20261111-a",
+  "command": "batch",
+  "atomic": false,
+  "operations": [
+    {
+      "command": "screen",
+      "job_id": "job-0124",
+      "expected": {
+        "application_status": "apply",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-08-11"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Micro1 emails on 2026-08-05 and 2026-08-06 confirm an incomplete application and pending AI interview; do not submit a duplicate application. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0361",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Official global talent-pool listing and application form verified 2026-08-23. The form explicitly asks for area of expertise and desired role/seniority, making it the clearest route to request Junior/Junior+ frontend consideration. Requires CV and a short video covering goals, strengths, largest project and workplace values. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0362",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-09-30"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Habr Career listing is open and shows a guest application form. Employer website saldo.chat has no careers section. Part-time 5/2, 4 hours/day; high-risk niche; salary paid in USDT BEP20. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0475",
+      "expected": {
+        "application_status": "apply",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-01"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "User decided on 2026-10-01 to proceed with the Mayflower Talent Pool application. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0478",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Exact Himalayas page asks for around 1+ year and basic React/Redux/REST skills; source claims worldwide eligibility. Browser is unavailable, so employer/ATS listing and actual Apply route remain unverified. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0482",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Exact source asks for 3+ years frontend with strong Next.js/React, Redux/REST and optional testing/SEO. Strong stack overlap but experience and salary data need employer/ATS verification; Browser unavailable. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0487",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-02"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Engineering talent pool explicitly includes Frontend Engineering and is Serbia-eligible; source describes remote-first long-term B2B and heavy AI adoption. Exact frontend seniority and employer Apply route need first-party verification; Browser unavailable. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0562",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Live first-party Workday requisition R15228, posted 3 days ago. Strong transition fit: 1–3 years, APIs/webhooks, system integrations, AI-powered workflows, CRM reporting and campaign QA; coding is explicitly not required. First-party page lists Tampa, FL but does not state remote eligibility; Browser exposes Apply only as an unclickable button, so remote and form eligibility remain unresolved. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0578",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Resolved to Emerging Travel Group. Current Workable listing is live, Remote, and explicitly lists Serbia, Kazakhstan and Uzbekistan. Browser opened the exact application form successfully; it asks for CV, LinkedIn, expected gross salary/currency, years in technical support/integrations/IT operations, troubleshooting experience, tools/technologies, English level and messenger contact. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0594",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "First-party B12 Greenhouse requisition 2259130 is open and the application form is live. Role combines customer briefs, AI-generated drafts, WYSIWYG site production, HTML/CSS overrides and enhancement requests. It asks for 3-5 years web design but explicitly says years are flexible; part-time 10-20 hours/week. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0627",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-04"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Strong adjacent fit. Exact role is live on ArboStar's official careers page with fully remote work and recruiter@arbostar.com as the application route. Main caveats: C1 English requested, 16:00-00:00 Kyiv schedule initially, compensation undisclosed, and first-party page does not spell out country eligibility. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0631",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Strong adjacent support fit: new grads OK, visa not required, device+software troubleshooting, knowledge-base ownership and product/engineering feedback loop. Employer site is live and its Join the Team link points back to YC, but no independent first-party requisition or employer Apply route was exposed; exact remote country eligibility remains unresolved. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0637",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "open",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Excellent engineering-adjacent support fit. Exact title is currently visible on Clipboard's first-party embedded Ashby board as Remote (Non-U.S.); YC description also says Remote Global - Non U.S. Role covers APIs, SQL/logs, observability, bug reproduction, incident handling and documentation. Browser could not expose the individual embedded Ashby Apply URL, so Apply route remains unresolved. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0646",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Strong editorial/content-adjacent fit: long-form editing, tech/SaaS topics, SEO/AEO/GEO basics, landing-page review and writer coaching. WWR Apply is gated behind account registration; Browser navigation to the employer site did not yield a verifiable public exact requisition, so first-party and Apply verification remain unresolved. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0647",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Very strong adjacent content/digital-production role: write/edit emails and landing pages, coordinate assets and launches, publish campaigns, QA materials and maintain project documentation. No explicit years threshold. Employer site is live but did not expose a public careers/exact requisition route; WWR Apply is registration-gated. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0650",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-05"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Strong editorial/CMS/SEO adjacency with content audits, website content, WordPress, analytics, UX/CRO and web basics. Main unresolved issue is geography: the exact description titles it 'Brand Content Manager (Bosnia)' while also describing remote independent-contractor work and taxes in the country of residence. Public first-party exact requisition/Apply route was not exposed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0654",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-08"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Wellfound exact text: remote Everywhere, 2 years metadata, React/Next.js/TypeScript, Figma, APIs, $120k-$140k/year. Strong fit; employer exact requisition, Serbia eligibility, salary realism and Apply route require Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0667",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-08"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact Wellfound text: at least 1 year React; metadata says 3 years; source Remote Everywhere but Kolkata location. Browser must verify Serbia eligibility, employer listing and Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0670",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-09"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact YC description: remote contract with visa N/A for remote, but metadata says US-only. Requires 3+ years; React/Next.js/Tailwind and marketing web. Browser verification required for Serbia eligibility and first-party Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0671",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact Wellfound text: Remote Everywhere; 3 years only in metadata, body asks React/HTML/CSS/JS and performance, no hard years threshold. Company says async-first; salary lower bound $12K/year. First-party employer requisition, Serbia eligibility and Apply require Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0672",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact YC text: 1+ year frontend, Next.js/TypeScript and UI/UX; London job location but YC visa metadata says US citizen/visa only, conflicting with London. Remote eligibility from Serbia and employer Apply must be resolved by Browser; no first-party verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0673",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact WTTJ text: role based in Torrance, relocation stipend and broad fullstack/manufacturing scope; no explicit remote eligibility or mandatory onsite wording. Browser needed to confirm Serbia remote eligibility and exact Ashby Apply; do not infer geo blocker from office alone. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0676",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-10"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact Wellfound page is a Frontend Developer despite misleading video-editor slug. Remote Everywhere paid per project, Next.js App Router, Figma, animations and Core Web Vitals; metadata says 3 years but body has no fixed years threshold. Employer email project@upsunday.co appears on source; verify employer ownership, Serbia eligibility and application route via Browser. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0681",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-11"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact page fetch failed twice. Full requirements, Serbia eligibility and Apply route need Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0682",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-11"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full fetch redirects to generic search. Full description unavailable. Requires Browser employer and Apply verification; do not infer closure. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0683",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-11"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact fetch returns consent banner, not full job. Source preview suggests no remote and archived; neither canonical blocker nor employer closure verified. Browser needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0684",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full job: WordPress/PHP support, WooCommerce, HTML/CSS, APIs. Geo unknown; WWR apply gated and posted/deadline dates conflict. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0695",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full description: React, Next.js, TS, SEO, landing pages; 3+ years YC metadata, Senior title. Remote Serbia unclear. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0696",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact fetch returned 404; full job unavailable, employer status unknown. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0697",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full text: React/TS, new grads OK. YC lists Paris/San Francisco and US visa metadata; Serbia eligibility unclear. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0698",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact URL redirects to generic WWR search; job text unavailable. Employer status and Apply require Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0699",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact URL redirects to generic WWR search; marketing web scope in indexed lead only. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0700",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-13"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full text: Webflow sites, remote, 1-2+ years Webflow, 100-120k RSD/month. Source deactivated since 2022, employer closure unverified. Browser needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0702",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-14"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full description conflicts: 'strictly in-person in NYC' but also says remote may be possible depending on circumstances. Browser verification required for Serbia eligibility, exact employer listing and Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0706",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-14"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel search showed Remote India and 2 years experience, but full exact fetch failed and free-tier limit blocked retry. Browser verification required for full text, Serbia eligibility and Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0715",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-15"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact WTTJ: React/TypeScript/Redux UI, experience >1 year, mentorship/full-stack attitude. Berlin workplace; remote policy and Serbia eligibility unclear. Apply link points to employer gh_jid=4917445101, different from tracked Talon.One job-0377 key 4456493770; needs Browser identity/geo/Apply verification, not first-party verified. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0716",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-15"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel discovery returned exact Wellfound card but live full exact web_fetch failed. No screening decision: complete description, Serbia eligibility, employer and Apply route require Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0717",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-16"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact job description: global remote, 2-5 years browser apps, complex interactive UI. Browser verification required for Serbia eligibility and Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0728",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-16"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0729",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-16"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact fetch redirected to WWR general search page; full requirements and source status unknown. Browser verification needed before decision. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0730",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel exact description: React/Vite/TypeScript, remote Europe and European timezone. Salary negotiable. Serbia eligibility and employer/Apply need Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0731",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact: worldwide remote, 1-3 years, requires two frontend frameworks, Pacific collaboration hours. Serbia eligibility and Apply need Browser verification. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0732",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "UK workplace, remote Serbia eligibility unknown. Browser verification required. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0733",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel search title conflicts with URL slug; full exact fetch failed. Browser verification required for role, location and Apply. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    },
+    {
+      "command": "screen",
+      "job_id": "job-0734",
+      "expected": {
+        "application_status": "reviewing",
+        "listing_status": "unknown",
+        "decision_reason": "",
+        "last_update": "2026-10-17"
+      },
+      "args": {
+        "decision_reason": "other",
+        "notes": "Parallel full exact: 1-2 years in description but 3+ in metadata; Calgary/Cape Town location and downtown office, no explicit Serbia remote eligibility. Browser verification needed. Job search closed by candidate after finding a job (2026-11-11)."
+      }
+    }
+  ]
+}
