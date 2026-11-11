@@ -14,7 +14,6 @@ No jobs.
 
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
-| Applied | [TransPerfect / Avatria — Commerce & Content Front End Technical Consultant](<https://transperfect.recruitee.com/o/commerce-and-content-front-end-technical-consultant-contractor-freelancer>) · job-0064 | Applied | 2026-08-10 | follow-up · 2026-08-17 | — |
 | Applied | [Zoftify — Travel Software Development — Frontend Developer (React)](<https://zoftify.bamboohr.com/careers/29/>) · job-0078 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [Stedi — Frontend Engineer](<https://jobs.ashbyhq.com/Stedi/d0134d3b-915c-439a-994d-28124fa90fe6>) · job-0079 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
 | Applied | [defdone — Software development Frontend Developer](<https://www.defdone.com/careers-job-post/frontend-developer>) · job-0088 | Applied | 2026-08-11 | follow-up · 2026-08-18 | — |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [MixRank — Junior Software Engineer - Remote (Global), Full-Time](<https://app.dover.com/apply/MixRank/52f862a9-5a5a-48b7-aabd-680524a42f51/?rs=76643084>) · job-0032 | Applied | 2026-08-10 | — | [Open](../applications/job-0032-mixrank-junior-software-engineer-rem.md) |
 | Withdrawn | [Storyteller — Operations Associate](<https://storyteller.applytojob.com/apply/Sn1A4hvNvv/Operations-Associate>) · job-0052 | Applied | 2026-08-10 | — | [Open](../applications/job-0052-storyteller-operations-associate.md) |
 | Withdrawn | [SuperPlane — Product Engineer](<https://jobs.ashbyhq.com/superplane/ee9d219f-f5e9-4893-8f1a-7c25b5d20b3e>) · job-0054 | Applied | 2026-08-12 | — | [Open](../applications/job-0054-superplane-product-engineer.md) |
+| Withdrawn | [TransPerfect / Avatria — Commerce & Content Front End Technical Consultant](<https://transperfect.recruitee.com/o/commerce-and-content-front-end-technical-consultant-contractor-freelancer>) · job-0064 | Applied | 2026-08-10 | — | [Open](../applications/job-0064-transperfect-avatria-commerce-content-front-end-t.md) |
 
 ## To verify
 
