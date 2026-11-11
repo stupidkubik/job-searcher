@@ -28,7 +28,6 @@ No jobs.
 | Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Applied | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | Applied | 2026-09-08 | — | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
-| Applied | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
 | Applied | [Monetha — Front-End Engineer (Web3)](<https://hirify.me/jobs/186478-front-end-engineer-web3>) · job-0217 | Applied | 2026-08-17 | — | [Open](../applications/job-0217-monetha-front-end-engineer-web3.md) |
 | Applied | [Provable — Senior Frontend Engineer (Web3)](<https://jobs.ashbyhq.com/provable/4479fd25-0a0c-4d58-851e-a66165d11a54>) · job-0249 | Applied | 2026-08-17 | — | [Open](../applications/job-0249-provable-senior-frontend-engineer-web.md) |
 | Applied | [Codekeeper — Frontend Developer (React)](<https://codekeeper.applytojob.com/apply/2yjyAPQKA6/Frontend-Developer-React>) · job-0250 | Applied | 2026-08-17 | — | [Open](../applications/job-0250-codekeeper-frontend-developer-react.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Yoko Co — Front-End WordPress Developer](<https://weworkremotely.com/remote-jobs/yoko-co-front-end-wordpress-developer>) · job-0012 | Applied | 2026-08-10 | — | [Open](../applications/job-0012-yoko-co-front-end-wordpress-develope.md) |
 | Withdrawn | [OnTheGoSystems — AI-Native Software Developer](<https://weworkremotely.com/remote-jobs/onthegosystems-ai-native-software-developer>) · job-0014 | Applied | 2026-08-10 | — | [Open](../applications/job-0014-onthegosystems-ai-native-software-developer.md) |
 | Withdrawn | [Amplemarket — Frontend Software Engineer](<https://job-boards.greenhouse.io/amplemarket/jobs/4488062101>) · job-0016 | Applied | 2026-08-10 | — | [Open](../applications/job-0016-amplemarket-frontend-software-engineer.md) |
+| Withdrawn | [Sigma Software — Junior JavaScript Developer](<https://career.sigma.software/uk/vacancy/junior-javascript-developer-4/>) · job-0026 | Applied | 2026-08-10 | — | [Open](../applications/job-0026-sigma-software-junior-javascript-developer.md) |
 
 ## To verify
 
