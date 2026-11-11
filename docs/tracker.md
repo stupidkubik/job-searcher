@@ -2,20 +2,13 @@
 
 > Generated from [`data/jobs.csv`](../data/jobs.csv). Do not edit manually.
 
-Dataset updated: **2026-10-17** · Jobs: **734**
+Dataset updated: **2026-11-11** · Jobs: **734**
 
-[Action now (6)](#action-now) · [Applications (48)](#applications) · [To verify (39)](#to-verify) · [Archive (641)](#archive)
+[Action now (0)](#action-now) · [Applications (48)](#applications) · [To verify (0)](#to-verify) · [Archive (686)](#archive)
 
 ## Action now
 
-| Status | Vacancy | Match | Next action | Listing | Card |
-| --- | --- | --- | --- | --- | --- |
-| Ready to apply | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | 9 | complete micro1 AI interview | Open | [Open](../applications/job-0124-micro1-frontend-software-engineer.md) |
-| Ready to apply | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | — | Submit the Mayflower Talent Pool application with tailored CV, cover letter PDF, B2 English level, and salary expectation. | Open | [Open](../applications/job-0475-mayflower-talent-pool.md) |
-| Reviewing | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://apply.workable.com/emerging-travel-group/j/FFA0294100/>) · job-0578 | 8.5 | — | Open | [Open](../applications/job-0578-undisclosed-hirify-1197008-technical-support-specialist.md) |
-| Reviewing | [ArboStar — Technical Support Specialist](<https://arbostar.com/careers>) · job-0627 | 8.5 | — | Open | [Open](../applications/job-0627-arbostar-technical-support-specialist.md) |
-| Reviewing | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | 8 | Prepare Junior/Junior+ Frontend general application to Make; CV plus required short video on goals, strengths, largest project, and workplace values. | Open | [Open](../applications/job-0361-make-general-application-remote-g.md) |
-| Reviewing | [B12 — Web Designer](<https://job-boards.greenhouse.io/b12/jobs/2259130>) · job-0594 | 8 | — | Open | [Open](../applications/job-0594-b12-web-designer.md) |
+No jobs.
 
 ## Applications
 
@@ -72,56 +65,61 @@ Dataset updated: **2026-10-17** · Jobs: **734**
 
 ## To verify
 
-| Status | Vacancy | Need | Match | Next action | Last checked |
-| --- | --- | --- | --- | --- | --- |
-| Reviewing | [Animalz — (Developmental) Content Editor](<https://weworkremotely.com/remote-jobs/animalz-developmental-content-editor>) · job-0646 | First party + Apply + Listing | 9 | verify first-party | Never |
-| Reviewing | [DesignFiles — Content Marketing Coordinator](<https://weworkremotely.com/remote-jobs/designfiles-content-marketing-coordinator>) · job-0647 | First party + Apply + Listing | 9 | verify first-party | Never |
-| Reviewing | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | Apply | 9 | verify first-party | 2026-10-05 |
-| Reviewing | [accelerate agency — Brand Content Manager](<https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager>) · job-0650 | First party + Apply + Listing | 8.5 | verify first-party | Never |
-| Reviewing | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | Apply | 8.5 | verify first-party | 2026-10-04 |
-| Reviewing | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | First party + Apply + Listing | 8 | verify first-party | Never |
-| Reviewing | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | First party + Apply | 6.5 | Test task assigned 2026-09-24 and completed; awaiting recruiter feedback. | 2026-08-23 |
-| Reviewing | [Accountable — Junior Frontend Developer](<https://wellfound.com/jobs/4844584-junior-frontend-developer>) · job-0730 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [CirclePe — Frontend Developer](<https://wellfound.com/jobs/3372541-web-frontend-developer-jd-web-apps-and-website-apps-react-native-react-vue-angular>) · job-0731 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Motorola Solutions — Software Engineer Frontend](<https://www.welcometothejungle.com/en/companies/motorola-solutions/jobs/software-engineer-frontend-typescript_uxbridge_lywxh7ga>) · job-0732 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Lynxify — Junior Front-End Engineer React.js Headless CMS](<https://wellfound.com/jobs/4692199-senior-front-end-engineer-react-js-headless-cms-clone>) · job-0733 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Bolster — Front End Developer](<https://www.ycombinator.com/companies/bolster/jobs/uaEmw22-front-end-developer>) · job-0734 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Lamina — Frontend Software Engineer](<https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years>) · job-0717 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Mercury — Content Marketer](<https://weworkremotely.com/remote-jobs/mercury-content-marketer>) · job-0728 | First party + Apply + Listing | — | Verify exact employer job and Serbia eligibility in Browser. | Never |
-| Reviewing | [CAI — Senior Frontend Web Developer](<https://weworkremotely.com/remote-jobs/cai-senior-frontend-web-developer>) · job-0729 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Talon.One — Frontend Engineer](<https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta>) · job-0715 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Insider — Front-End Developer (React.js)](<https://wellfound.com/jobs/3070064-front-end-developer-react-js>) · job-0716 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Porter — Frontend Engineer](<https://www.ycombinator.com/companies/porter/jobs/GD7hwtI-frontend-engineer>) · job-0702 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Patronus — Frontend Engineer/NextJs Developer](<https://wellfound.com/jobs/2992515-frontend-engineer-nextjs-developer>) · job-0706 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [StackAI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/stackai/jobs/C1rOopy-senior-frontend-engineer>) · job-0695 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Tempo — Frontend Engineer (React)](<https://www.ycombinator.com/companies/tempo-2/jobs/KmJpjx9-frontend-engineer-react>) · job-0696 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Leadbay — Frontend Engineer](<https://www.ycombinator.com/companies/leadbay/jobs/d0KXTOi-frontend-engineer>) · job-0697 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Mobena — Frontend Engineer](<https://weworkremotely.com/remote-jobs/mobena-frontend-engineer>) · job-0698 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [ServiceTitan — Web Developer](<https://weworkremotely.com/remote-jobs/servicetitan-web-developer>) · job-0699 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Broworks Studio — Webflow Developer](<https://www.helloworld.rs/posao/Webflow-Developer/Broworks-Studio/415757>) · job-0700 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Remotely — Full Stack Developer](<https://weworkremotely.com/remote-jobs/remotely-full-stack-developer>) · job-0682 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Nodalview — Frontend Developer Junior or Intern](<https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles>) · job-0683 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [AllInOneTools — Frontend Developer (React / UI-focused)](<https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused>) · job-0671 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Terra API — Frontend Engineer](<https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer>) · job-0672 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Hadrian — Frontend Software Engineer](<https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2>) · job-0673 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [UpSunday — Frontend Developer, Next.js (Remote, project based)](<https://wellfound.com/jobs/4772699-video-editor-remote-project-based-clone>) · job-0676 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Firecrawl — Frontend Engineer](<https://www.ycombinator.com/companies/firecrawl/jobs/m5K7dTP-frontend-engineer>) · job-0670 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Loxala — Frontend Developer](<https://wellfound.com/jobs/4262832-frontend-developer>) · job-0654 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Codebuddy — React JS Developer](<https://wellfound.com/jobs/3057097-react-js-developer>) · job-0667 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | First party + Apply + Listing | — | verify first-party | Never |
-| Reviewing | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | First party + Apply + Listing | — | verify first-party | Never |
+No jobs.
 
 ## Archive
 
 <details>
 
-<summary>Archive (641)</summary>
+<summary>Archive (686)</summary>
 
 | Status | Vacancy | Decision | Listing | Updated |
 | --- | --- | --- | --- | --- |
+| Skipped: other | [Bolster — Front End Developer](<https://www.ycombinator.com/companies/bolster/jobs/uaEmw22-front-end-developer>) · job-0734 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Lynxify — Junior Front-End Engineer React.js Headless CMS](<https://wellfound.com/jobs/4692199-senior-front-end-engineer-react-js-headless-cms-clone>) · job-0733 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Motorola Solutions — Software Engineer Frontend](<https://www.welcometothejungle.com/en/companies/motorola-solutions/jobs/software-engineer-frontend-typescript_uxbridge_lywxh7ga>) · job-0732 | other | Not checked | 2026-11-11 |
+| Skipped: other | [CirclePe — Frontend Developer](<https://wellfound.com/jobs/3372541-web-frontend-developer-jd-web-apps-and-website-apps-react-native-react-vue-angular>) · job-0731 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Accountable — Junior Frontend Developer](<https://wellfound.com/jobs/4844584-junior-frontend-developer>) · job-0730 | other | Not checked | 2026-11-11 |
+| Skipped: other | [CAI — Senior Frontend Web Developer](<https://weworkremotely.com/remote-jobs/cai-senior-frontend-web-developer>) · job-0729 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Mercury — Content Marketer](<https://weworkremotely.com/remote-jobs/mercury-content-marketer>) · job-0728 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Lamina — Frontend Software Engineer](<https://wellfound.com/jobs/4589345-frontend-software-engineer-remote-global-full-time-2-5-years>) · job-0717 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Insider — Front-End Developer (React.js)](<https://wellfound.com/jobs/3070064-front-end-developer-react-js>) · job-0716 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Talon.One — Frontend Engineer](<https://www.welcometothejungle.com/en/companies/talon-one/jobs/frontend-engineer_berlin_62ddv6ta>) · job-0715 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Patronus — Frontend Engineer/NextJs Developer](<https://wellfound.com/jobs/2992515-frontend-engineer-nextjs-developer>) · job-0706 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Porter — Frontend Engineer](<https://www.ycombinator.com/companies/porter/jobs/GD7hwtI-frontend-engineer>) · job-0702 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Broworks Studio — Webflow Developer](<https://www.helloworld.rs/posao/Webflow-Developer/Broworks-Studio/415757>) · job-0700 | other | Not checked | 2026-11-11 |
+| Skipped: other | [ServiceTitan — Web Developer](<https://weworkremotely.com/remote-jobs/servicetitan-web-developer>) · job-0699 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Mobena — Frontend Engineer](<https://weworkremotely.com/remote-jobs/mobena-frontend-engineer>) · job-0698 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Leadbay — Frontend Engineer](<https://www.ycombinator.com/companies/leadbay/jobs/d0KXTOi-frontend-engineer>) · job-0697 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Tempo — Frontend Engineer (React)](<https://www.ycombinator.com/companies/tempo-2/jobs/KmJpjx9-frontend-engineer-react>) · job-0696 | other | Not checked | 2026-11-11 |
+| Skipped: other | [StackAI — Senior Frontend Engineer](<https://www.ycombinator.com/companies/stackai/jobs/C1rOopy-senior-frontend-engineer>) · job-0695 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Snapscale — WP dev (remote)](<https://weworkremotely.com/remote-jobs/snapscale-wp-dev-remote>) · job-0684 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Nodalview — Frontend Developer Junior or Intern](<https://www.welcometothejungle.com/en/companies/nodalview/jobs/frontend-developer-junior-or-intern_bruxelles>) · job-0683 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Remotely — Full Stack Developer](<https://weworkremotely.com/remote-jobs/remotely-full-stack-developer>) · job-0682 | other | Not checked | 2026-11-11 |
+| Skipped: other | [The Rental Circle — Frontend Developer (React / Next.js)](<https://wellfound.com/jobs/4532105-frontend-developer-react-next-js>) · job-0681 | other | Not checked | 2026-11-11 |
+| Skipped: other | [UpSunday — Frontend Developer, Next.js (Remote, project based)](<https://wellfound.com/jobs/4772699-video-editor-remote-project-based-clone>) · job-0676 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Hadrian — Frontend Software Engineer](<https://www.welcometothejungle.com/en/companies/hadrian/jobs/frontend-software-engineer_los-angeles_pisc24u2>) · job-0673 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Terra API — Frontend Engineer](<https://www.ycombinator.com/companies/terra-api/jobs/8DAaBMS-frontend-engineer>) · job-0672 | other | Not checked | 2026-11-11 |
+| Skipped: other | [AllInOneTools — Frontend Developer (React / UI-focused)](<https://wellfound.com/jobs/4143150-frontend-developer-react-ui-focused>) · job-0671 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Firecrawl — Frontend Engineer](<https://www.ycombinator.com/companies/firecrawl/jobs/m5K7dTP-frontend-engineer>) · job-0670 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Codebuddy — React JS Developer](<https://wellfound.com/jobs/3057097-react-js-developer>) · job-0667 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Loxala — Frontend Developer](<https://wellfound.com/jobs/4262832-frontend-developer>) · job-0654 | other | Not checked | 2026-11-11 |
+| Skipped: other | [accelerate agency — Brand Content Manager](<https://weworkremotely.com/remote-jobs/accelerate-agency-brand-content-manager>) · job-0650 | other | Not checked | 2026-11-11 |
+| Skipped: other | [DesignFiles — Content Marketing Coordinator](<https://weworkremotely.com/remote-jobs/designfiles-content-marketing-coordinator>) · job-0647 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Animalz — (Developmental) Content Editor](<https://weworkremotely.com/remote-jobs/animalz-developmental-content-editor>) · job-0646 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Clipboard — Technical Support Engineer](<https://www.clipboard.com/careers#open-roles>) · job-0637 | other | Open | 2026-11-11 |
+| Skipped: other | [Pocket — Customer Support Specialist](<https://www.ycombinator.com/companies/pocket/jobs/o9R0IZV-customer-support-specialist>) · job-0631 | other | Not checked | 2026-11-11 |
+| Skipped: other | [ArboStar — Technical Support Specialist](<https://arbostar.com/careers>) · job-0627 | other | Open | 2026-11-11 |
+| Skipped: other | [B12 — Web Designer](<https://job-boards.greenhouse.io/b12/jobs/2259130>) · job-0594 | other | Open | 2026-11-11 |
+| Skipped: other | [Undisclosed (hirify-1197008) — Technical Support Specialist (Travel Tech)](<https://apply.workable.com/emerging-travel-group/j/FFA0294100/>) · job-0578 | other | Open | 2026-11-11 |
+| Skipped: other | [ReliaQuest — Marketing Automation Specialist](<https://reliaquest.wd5.myworkdayjobs.com/ReliaQuest_Careers/job/Tampa-FL/Marketing-Automation-Specialist_R15228>) · job-0562 | other | Open | 2026-11-11 |
+| Skipped: other | [MEDvidi — Join MEDvidi Engineering Talent Pool](<https://himalayas.app/companies/medvidi/jobs/join-medvidi-engineering-talent-pool>) · job-0487 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Ultahost — Front-End Developer (Next.js & React.js)](<https://himalayas.app/companies/ultahost/jobs/front-end-developer-next-js-react-js>) · job-0482 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Pixibo — Junior Frontend Engineer - Remote](<https://himalayas.app/companies/pixibo/jobs/junior-frontend-engineer-remote-6296108737>) · job-0478 | other | Not checked | 2026-11-11 |
+| Skipped: other | [Mayflower — Talent Pool](<https://mayflower.recruitee.com/o/talent-pool>) · job-0475 | other | Open | 2026-11-11 |
+| Skipped: other | [Сальдо — AI Junior+ Full-stack Developer](<https://career.habr.com/vacancies/1000168143>) · job-0362 | other | Open | 2026-11-11 |
+| Skipped: other | [Make — General Application - Remote (global)](<https://make.recruitee.com/o/general-application>) · job-0361 | other | Open | 2026-11-11 |
+| Skipped: other | [micro1 — Frontend Software Engineer](<https://jobs.micro1.ai/post/aa022f40-ca04-4794-8791-5f9378400f4f>) · job-0124 | other | Open | 2026-11-11 |
 | Skipped: role not frontend | [Jobs for Lebanon — web developer](<https://weworkremotely.com/remote-jobs/jobs-for-lebanon-web-developer>) · job-0727 | role not frontend | Not checked | 2026-10-16 |
 | Skipped: role not frontend | [Koast.ai — Head of Technical Support](<https://weworkremotely.com/remote-jobs/koast-ai-head-of-technical-support-koast-ai>) · job-0726 | role not frontend | Not checked | 2026-10-16 |
 | Skipped: geo restriction | [Doss — Frontend Engineer](<https://wellfound.com/jobs/3046538-frontend-engineer>) · job-0725 | geo restriction | Not checked | 2026-10-16 |

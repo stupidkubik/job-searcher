@@ -122,7 +122,7 @@ job-0120	Clera	Full Stack Frontend Engineer	not_started	unknown	geo_restriction
 job-0121	Careerswift	Frontend Developer (React) – Junior / Middle	not_started	unknown	geo_restriction
 job-0122	AI2CYBER	Frontend Developer	not_started	unknown	geo_restriction
 job-0123	Black Financial Consult	FRONTEND ENGINEER	not_started	unknown	geo_restriction
-job-0124	micro1	Frontend Software Engineer	apply	open	
+job-0124	micro1	Frontend Software Engineer	not_started	open	other
 job-0125	Freelancerprox	Frontend Developer - Intern	not_started	unknown	geo_restriction
 job-0126	Mactores	Full Stack Product Engineer, Agent Native	not_started	unknown	geo_restriction
 job-0127	ElevenLabs	Growth Engineer, Website	not_started	open	other
@@ -359,8 +359,8 @@ job-0357	Tether Operations Limited	P2P Node.js Engineer - Holepunch (100% Remote
 job-0358	Tether Operations Limited	Software Engineer P2P - Search Team (100% Remote, Worldwide)	not_started	open	role_not_frontend
 job-0359	Make	Frontend Engineer	not_started	closed	closed_before_application
 job-0360	Make	Frontend Engineer (Freelance)	not_started	closed	closed_before_application
-job-0361	Make	General Application - Remote (global)	reviewing	open	
-job-0362	Сальдо	AI Junior+ Full-stack Developer	reviewing	open	
+job-0361	Make	General Application - Remote (global)	not_started	open	other
+job-0362	Сальдо	AI Junior+ Full-stack Developer	not_started	open	other
 job-0363	Undisclosed healthcare / biotech company	Junior SharePoint Dashboard Developer	not_started	unknown	geo_restriction
 job-0364	Interview Copilot AI	Frontend Engineer	not_started	closed	closed_before_application
 job-0365	Scanwick	Founding Frontend Engineer	not_started	open	salary_too_low
@@ -473,19 +473,19 @@ job-0471	Mayflower	SEO Specialist	not_started	unknown	stack_mismatch
 job-0472	Mayflower	Brand Copywriter	not_started	unknown	other
 job-0473	Mayflower	Brand Designer	not_started	unknown	stack_mismatch
 job-0474	Mayflower	Technical Support Specialist	not_started	unknown	stack_mismatch
-job-0475	Mayflower	Talent Pool	apply	open	
+job-0475	Mayflower	Talent Pool	not_started	open	other
 job-0476	Mayflower	Design System Designer	not_started	unknown	other
 job-0477	Mayflower	Customer Support Specialist	not_started	unknown	other
-job-0478	Pixibo	Junior Frontend Engineer - Remote	reviewing	unknown	
+job-0478	Pixibo	Junior Frontend Engineer - Remote	not_started	unknown	other
 job-0479	Appetiser Apps	Junior Full-Stack Developer	not_started	unknown	salary_too_low
 job-0480	ZIRA	DEV ZIRA Talent Academy 2026	not_started	closed	closed_before_application
 job-0481	DualEntry	Frontend Software Engineer (Mid-Level)	not_started	unknown	seniority_too_high
-job-0482	Ultahost	Front-End Developer (Next.js & React.js)	reviewing	unknown	
+job-0482	Ultahost	Front-End Developer (Next.js & React.js)	not_started	unknown	other
 job-0483	Novakid School	Low-code / No-code Automation Developer	not_started	unknown	seniority_too_high
 job-0484	Binance	React Frontend Engineer, BigPay (Fully Remote)	not_started	unknown	geo_restriction
 job-0485	Full Circle	Full Stack Developer (AI-First)	not_started	unknown	role_not_frontend
 job-0486	Storyblok	Documentation Engineer II - Europe	not_started	unknown	seniority_too_high
-job-0487	MEDvidi	Join MEDvidi Engineering Talent Pool	reviewing	unknown	
+job-0487	MEDvidi	Join MEDvidi Engineering Talent Pool	not_started	unknown	other
 job-0488	ZooStation	Lead Frontend Developer – React / TypeScript	not_started	unknown	seniority_too_high
 job-0489	Arabian Private Holdings	Junior React Developer	not_started	unknown	other
 job-0490	PULSEMEDIA (APAC)	Junior Front End Developer	not_started	unknown	geo_restriction
@@ -560,7 +560,7 @@ job-0558	MAP / WPP Enterprise Solutions	Campaign Specialist	not_started	open	wor
 job-0559	Undisclosed (hirify-1171154)	Marketing Operations Specialist (Marketing Automation)	not_started	unknown	geo_restriction
 job-0560	Undisclosed (hirify-1159416)	Marketing Operations Manager (MarTech)	not_started	unknown	geo_restriction
 job-0561	Undisclosed (hirify-1156486)	Marketing Operations Manager	not_started	unknown	geo_restriction
-job-0562	ReliaQuest	Marketing Automation Specialist	reviewing	open	
+job-0562	ReliaQuest	Marketing Automation Specialist	not_started	open	other
 job-0563	Undisclosed (hirify-1160356)	Marketing Automation Specialist (Fintech)	not_started	unknown	geo_restriction
 job-0564	Undisclosed (hirify-854498)	Marketing Automation Specialist (HubSpot, Marketo & CRM Automation)	not_started	unknown	geo_restriction
 job-0565	Undisclosed (hirify-900382)	Marketing Automation Specialist (Pardot)	not_started	unknown	geo_restriction
@@ -576,7 +576,7 @@ job-0574	Undisclosed (hirify-1174300)	Technical Support Specialist I (SQL/Web Ap
 job-0575	Undisclosed (hirify-1195192)	Technical Support Specialist - Tier 2 (Software)	not_started	unknown	geo_restriction
 job-0576	Undisclosed (hirify-1061312)	WordPress Live Support Specialist	not_started	unknown	other
 job-0577	Undisclosed (hirify-1071952)	Technical Support Engineer (WordPress)	not_started	unknown	geo_restriction
-job-0578	Undisclosed (hirify-1197008)	Technical Support Specialist (Travel Tech)	reviewing	open	
+job-0578	Undisclosed (hirify-1197008)	Technical Support Specialist (Travel Tech)	not_started	open	other
 job-0579	Undisclosed (hirify-1077501)	Technical Support Specialist (AI)	not_started	unknown	geo_restriction
 job-0580	Undisclosed (hirify-1097910)	Technical Support Specialist (SaaS)	not_started	unknown	geo_restriction
 job-0581	Undisclosed (hirify-1195826)	Technical Support Engineer (AI)	not_started	unknown	geo_restriction
@@ -592,7 +592,7 @@ job-0590	Growth Leads	Front End Engineer (Twig/Vue)	not_started	unknown	seniorit
 job-0591	IGT D&B d.o.o.	Frontend TypeScript Game Developer	not_started	unknown	seniority_too_high
 job-0592	Clarivate	Associate Development Operations Engineer	not_started	unknown	role_not_frontend
 job-0593	++hellohello	WebFlow Engineer	not_started	unknown	stack_mismatch
-job-0594	B12	Web Designer	reviewing	open	
+job-0594	B12	Web Designer	not_started	open	other
 job-0595	Zoftify — Travel Software Development	WordPress Developer	not_started	unknown	stack_mismatch
 job-0596	20four7VA	PHP Developer (WordPress)	not_started	unknown	stack_mismatch
 job-0597	CoinsPaid	Frontend Engineer	not_started	unknown	seniority_too_high
@@ -625,17 +625,17 @@ job-0623	Cyberhaven	Technical Support Engineer	not_started	unknown	geo_restricti
 job-0624	Algoworks	Technical Support Engineer	not_started	unknown	geo_restriction
 job-0625	DoseSpot	Technical Account Specialist	not_started	unknown	geo_restriction
 job-0626	Agave API	Technical Support Engineer (TSE)	not_started	unknown	geo_restriction
-job-0627	ArboStar	Technical Support Specialist	reviewing	open	
+job-0627	ArboStar	Technical Support Specialist	not_started	open	other
 job-0628	Tango	Technical Support Engineer	not_started	unknown	geo_restriction
 job-0629	Astra	Technical Account Manager (EU)	not_started	unknown	geo_restriction
 job-0630	REWORK Digital	Technical Support & Platform Operations Specialist	not_started	unknown	geo_restriction
-job-0631	Pocket	Customer Support Specialist	reviewing	unknown	
+job-0631	Pocket	Customer Support Specialist	not_started	unknown	other
 job-0632	Porter	DevOps Support Engineer	not_started	unknown	stack_mismatch
 job-0633	Clipboard	Client Support Specialist (Healthcare Facilities - B2B)	not_started	closed	closed_before_application
 job-0634	Educato	UGC Campaign Manager - Entry level marketing role	not_started	unknown	stack_mismatch
 job-0635	LightSprint	Product Marketing / GTM Engineer	not_started	open	geo_restriction
 job-0636	Gooseworks	Design Engineer	not_started	unknown	stack_mismatch
-job-0637	Clipboard	Technical Support Engineer	reviewing	open	
+job-0637	Clipboard	Technical Support Engineer	not_started	open	other
 job-0638	Clipboard	Client Support Specialist (Workplaces - B2B)	not_started	open	work_authorization
 job-0639	Air Apps	Framer Website Designer	not_started	unknown	geo_restriction
 job-0640	HR Plus	Web Developer (Fresh graduate welcome, WFH policy, on-job-training)	not_started	unknown	geo_restriction
@@ -644,15 +644,15 @@ job-0642	Wisevu	Web Development Project Manager	not_started	unknown	stack_mismat
 job-0643	Neo Group	CRM Automation Manager	not_started	unknown	stack_mismatch
 job-0644	Shout About Us	Technical Account Manager, API Partnerships	not_started	unknown	seniority_too_high
 job-0645	Webflow	IT Support Specialist	not_started	unknown	geo_restriction
-job-0646	Animalz	(Developmental) Content Editor	reviewing	unknown	
-job-0647	DesignFiles	Content Marketing Coordinator	reviewing	unknown	
+job-0646	Animalz	(Developmental) Content Editor	not_started	unknown	other
+job-0647	DesignFiles	Content Marketing Coordinator	not_started	unknown	other
 job-0648	Icarus Digital Marketing	Performance Creative Strategist and AI Producer	not_started	unknown	stack_mismatch
 job-0649	Doximity	Marketing Coordinator	not_started	unknown	geo_restriction
-job-0650	accelerate agency	Brand Content Manager	reviewing	unknown	
+job-0650	accelerate agency	Brand Content Manager	not_started	unknown	other
 job-0651	Slice	Software Developer (Services)	not_started	unknown	stack_mismatch
 job-0652	Axelera AI	Developer Relations and Community Manager	not_started	unknown	stack_mismatch
 job-0653	Mindee	Technical Content & Developer Experience Lead	not_started	unknown	geo_restriction
-job-0654	Loxala	Frontend Developer	reviewing	unknown	
+job-0654	Loxala	Frontend Developer	not_started	unknown	other
 job-0655	Simplview	Founding Engineer (React/TypeScript/GenAI) — Part-Time / Remote	not_started	unknown	geo_restriction
 job-0656	iDelsoft	Full Stack Developer (EU based) Node.js+React	not_started	unknown	seniority_too_high
 job-0657	REVER	Junior Software Engineer	not_started	unknown	geo_restriction
@@ -665,24 +665,24 @@ job-0663	Descript	Senior Frontend Engineer (Marketing Web)	not_started	unknown	s
 job-0664	Squarespace	Customer Support Associate (Remote)	not_started	unknown	geo_restriction
 job-0665	Proxify AB	Senior Frontend Developer (React.js / Next.js)	not_started	unknown	seniority_too_high
 job-0666	Wingman Group PTY	CRM Administrator & Technical Support (Night Shift)	not_started	unknown	geo_restriction
-job-0667	Codebuddy	React JS Developer	reviewing	unknown	
+job-0667	Codebuddy	React JS Developer	not_started	unknown	other
 job-0668	ARCLOGIQ Software	Frontend Engineer | React.js | Next.js | React Native | Multilingual UI	not_started	unknown	geo_restriction
 job-0669	Stackera	Frontend Developer (React / Next.js)	not_started	unknown	geo_restriction
-job-0670	Firecrawl	Frontend Engineer	reviewing	unknown	
-job-0671	AllInOneTools	Frontend Developer (React / UI-focused)	reviewing	unknown	
-job-0672	Terra API	Frontend Engineer	reviewing	unknown	
-job-0673	Hadrian	Frontend Software Engineer	reviewing	unknown	
+job-0670	Firecrawl	Frontend Engineer	not_started	unknown	other
+job-0671	AllInOneTools	Frontend Developer (React / UI-focused)	not_started	unknown	other
+job-0672	Terra API	Frontend Engineer	not_started	unknown	other
+job-0673	Hadrian	Frontend Software Engineer	not_started	unknown	other
 job-0674	DeepSense	Frontend Systems Engineer (React / Next.js / AI-First Startup)	not_started	unknown	seniority_too_high
 job-0675	DeepSense	Frontend Engineer (Next.js / High Ownership / System UI)	not_started	unknown	seniority_too_high
-job-0676	UpSunday	Frontend Developer, Next.js (Remote, project based)	reviewing	unknown	
+job-0676	UpSunday	Frontend Developer, Next.js (Remote, project based)	not_started	unknown	other
 job-0677	Storyblok	Developer Relations Engineer - UK	not_started	unknown	seniority_too_high
 job-0678	Netomi	Software Development Engineer (Frontend)	not_started	unknown	seniority_too_high
 job-0679	Wondr	Frontend Engineer	not_started	unknown	seniority_too_high
 job-0680	Box	Front End Developer	not_started	unknown	seniority_too_high
-job-0681	The Rental Circle	Frontend Developer (React / Next.js)	reviewing	unknown	
-job-0682	Remotely	Full Stack Developer	reviewing	unknown	
-job-0683	Nodalview	Frontend Developer Junior or Intern	reviewing	unknown	
-job-0684	Snapscale	WP dev (remote)	reviewing	unknown	
+job-0681	The Rental Circle	Frontend Developer (React / Next.js)	not_started	unknown	other
+job-0682	Remotely	Full Stack Developer	not_started	unknown	other
+job-0683	Nodalview	Frontend Developer Junior or Intern	not_started	unknown	other
+job-0684	Snapscale	WP dev (remote)	not_started	unknown	other
 job-0685	ULTIMEZ TECHNOLOGY	Frontend Developer - Next Js, React Js	not_started	unknown	geo_restriction
 job-0686	Emergent	Frontend Engineer	not_started	unknown	seniority_too_high
 job-0687	Proxify AB	Senior Next.js Developer	not_started	unknown	seniority_too_high
@@ -693,18 +693,18 @@ job-0691	PIXID	Frontend Developer (H/F) - React & React Native	not_started	unkno
 job-0692	Inspired Thinking Group	Lead Frontend Developer (3-6 Month Contract)	not_started	unknown	seniority_too_high
 job-0693	Extremum	Junior Frontend Developer	not_started	unknown	geo_restriction
 job-0694	Curri	Software Engineer	not_started	unknown	stack_mismatch
-job-0695	StackAI	Senior Frontend Engineer	reviewing	unknown	
-job-0696	Tempo	Frontend Engineer (React)	reviewing	unknown	
-job-0697	Leadbay	Frontend Engineer	reviewing	unknown	
-job-0698	Mobena	Frontend Engineer	reviewing	unknown	
-job-0699	ServiceTitan	Web Developer	reviewing	unknown	
-job-0700	Broworks Studio	Webflow Developer	reviewing	unknown	
+job-0695	StackAI	Senior Frontend Engineer	not_started	unknown	other
+job-0696	Tempo	Frontend Engineer (React)	not_started	unknown	other
+job-0697	Leadbay	Frontend Engineer	not_started	unknown	other
+job-0698	Mobena	Frontend Engineer	not_started	unknown	other
+job-0699	ServiceTitan	Web Developer	not_started	unknown	other
+job-0700	Broworks Studio	Webflow Developer	not_started	unknown	other
 job-0701	Lago	Senior Frontend Engineer	not_started	unknown	seniority_too_high
-job-0702	Porter	Frontend Engineer	reviewing	unknown	
+job-0702	Porter	Frontend Engineer	not_started	unknown	other
 job-0703	Mistral AI	Software Engineer, Frontend	not_started	unknown	geo_restriction
 job-0704	Fuse AI	Senior Frontend Engineer	not_started	unknown	seniority_too_high
 job-0705	Per Diem	Next.js experience developer	not_started	unknown	seniority_too_high
-job-0706	Patronus	Frontend Engineer/NextJs Developer	reviewing	unknown	
+job-0706	Patronus	Frontend Engineer/NextJs Developer	not_started	unknown	other
 job-0707	Alcor	Senior Frontend Developer (web, mobile, desktop)_Remote	not_started	unknown	seniority_too_high
 job-0708	Auto Wisdom	Frontend Engineering Intern (React/Next.js)	not_started	unknown	salary_too_low
 job-0709	Saral Recruitments	Frontend Developer (Next.js & Redux)	not_started	unknown	geo_restriction
@@ -713,9 +713,9 @@ job-0711	flintzy	Frontend Developer (React / Next.js)	not_started	unknown	geo_re
 job-0712	Flockjay	Software Engineer, Frontend	not_started	unknown	work_authorization
 job-0713	Merlin AI	Frontend React Developer	not_started	unknown	seniority_too_high
 job-0714	Dynata	Junior Software Engineer	not_started	unknown	stack_mismatch
-job-0715	Talon.One	Frontend Engineer	reviewing	unknown	
-job-0716	Insider	Front-End Developer (React.js)	reviewing	unknown	
-job-0717	Lamina	Frontend Software Engineer	reviewing	unknown	
+job-0715	Talon.One	Frontend Engineer	not_started	unknown	other
+job-0716	Insider	Front-End Developer (React.js)	not_started	unknown	other
+job-0717	Lamina	Frontend Software Engineer	not_started	unknown	other
 job-0718	AveryIQ	NextJS / React / Node Engineer - Remote Contractor	not_started	unknown	seniority_too_high
 job-0719	Piramidal	Front End Engineer - User Interface	not_started	unknown	work_authorization
 job-0720	HelioAI	Senior Frontend Engineer	not_started	unknown	seniority_too_high
@@ -726,10 +726,10 @@ job-0724	Gumb	Freelance Next.js Developer - Marketing Site & Landing Pages	not_s
 job-0725	Doss	Frontend Engineer	not_started	unknown	geo_restriction
 job-0726	Koast.ai	Head of Technical Support	not_started	unknown	role_not_frontend
 job-0727	Jobs for Lebanon	web developer	not_started	unknown	role_not_frontend
-job-0728	Mercury	Content Marketer	reviewing	unknown	
-job-0729	CAI	Senior Frontend Web Developer	reviewing	unknown	
-job-0730	Accountable	Junior Frontend Developer	reviewing	unknown	
-job-0731	CirclePe	Frontend Developer	reviewing	unknown	
-job-0732	Motorola Solutions	Software Engineer Frontend	reviewing	unknown	
-job-0733	Lynxify	Junior Front-End Engineer React.js Headless CMS	reviewing	unknown	
-job-0734	Bolster	Front End Developer	reviewing	unknown	
+job-0728	Mercury	Content Marketer	not_started	unknown	other
+job-0729	CAI	Senior Frontend Web Developer	not_started	unknown	other
+job-0730	Accountable	Junior Frontend Developer	not_started	unknown	other
+job-0731	CirclePe	Frontend Developer	not_started	unknown	other
+job-0732	Motorola Solutions	Software Engineer Frontend	not_started	unknown	other
+job-0733	Lynxify	Junior Front-End Engineer React.js Headless CMS	not_started	unknown	other
+job-0734	Bolster	Front End Developer	not_started	unknown	other
