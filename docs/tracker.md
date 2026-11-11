@@ -16,7 +16,6 @@ No jobs.
 | --- | --- | --- | --- | --- | --- |
 | Applied | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 | Applied | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | Applied | 2026-09-30 | — | [Open](../applications/job-0463-firebird-tours-digital-marketing-content-sp.md) |
-| Applied | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | Applied | 2026-09-08 | — | [Open](../applications/job-0380-talent-sam-front-end-developer.md) |
 | Applied | [Umbrel — Customer Support (technical)](<https://jobs.ashbyhq.com/umbrel/127412b8-7730-4311-9be2-2977806a0474>) · job-0394 | Applied | 2026-09-08 | — | [Open](../applications/job-0394-umbrel-customer-support-technical.md) |
 | Applied | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Applied | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Karma8 — Frontend-разработчик (Vanilla JavaScript)](<https://hirify.me/jobs/822371-senior-frontend-vanilla-javascript>) · job-0261 | Applied | 2026-08-17 | — | [Open](../applications/job-0261-karma8-frontend-%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA-vanilla.md) |
 | Withdrawn | [Metrikflow — Full Stack Engineer](<https://join.com/companies/metrikflow/16595184-full-stack-engineer>) · job-0285 | Applied | 2026-09-08 | — | [Open](../applications/job-0285-metrikflow-full-stack-engineer.md) |
 | Withdrawn | [Synechron — Angular Software Engineer](<https://synechron.wd1.myworkdayjobs.com/en-US/SynechronCareers/details/Angular-Software-Engineer_JR1043272>) · job-0314 | Applied | 2026-09-08 | — | [Open](../applications/job-0314-synechron-angular-software-engineer.md) |
+| Withdrawn | [Talent Sam — Front-End Developer](<https://himalayas.app/companies/talent-sam/jobs/front-end-developer>) · job-0380 | Applied | 2026-09-08 | — | [Open](../applications/job-0380-talent-sam-front-end-developer.md) |
 
 ## To verify
 

@@ -7,6 +7,7 @@ verified_at: 2026-08-24
 listing_status: open
 first_party_verified: unknown
 apply_verified: unknown
+cv_version: 
 ---
 
 # Talent Sam — Front-End Developer
