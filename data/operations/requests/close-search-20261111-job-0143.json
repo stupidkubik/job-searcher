@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "operation_id": "close-search-20261111-job-0143",
+  "command": "event",
+  "job_id": "job-0143",
+  "expected": {
+    "application_status": "applied",
+    "last_update": "2026-08-16",
+    "listing_status": "unknown"
+  },
+  "args": {
+    "event_type": "candidate_withdrew",
+    "occurred_at": "2026-11-11",
+    "precision": "date",
+    "payload": {},
+    "confirmed_by_user": true,
+    "evidence_ref": "User requested closing active tracker entries after finding a job."
+  }
+}
