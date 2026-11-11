@@ -7,6 +7,7 @@ verified_at: 2026-08-12
 listing_status: unknown
 first_party_verified: no
 apply_verified: no
+cv_version: frontend-2026-08
 ---
 
 # aSim — Software Engineer, Front End + Product
