@@ -2,11 +2,12 @@
 id: job-0130
 company: Quinncia
 role: Frontend Developer
-original_url: https://wellfound.com/jobs/1029763-frontend-developer
-verified_at: 2026-08-12
+original_url: 
+verified_at: 2026-08-16
 listing_status: open
-first_party_verified: yes
-apply_verified: yes
+first_party_verified: unknown
+apply_verified: unknown
+cv_version: frontend-2026-08
 ---
 
 # Quinncia — Frontend Developer
