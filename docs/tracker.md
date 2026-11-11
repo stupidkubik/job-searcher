@@ -14,7 +14,6 @@ No jobs.
 
 | Status | Vacancy | Stage | Applied | Next action | Card |
 | --- | --- | --- | --- | --- | --- |
-| Applied | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 | Applied | [Firebird Tours — Digital Marketing Content Specialist](<https://t.me/it_jobs_serbia/7326>) · job-0463 | Applied | 2026-09-30 | — | [Open](../applications/job-0463-firebird-tours-digital-marketing-content-sp.md) |
 | Rejected | [Storyteller — Content Operations Analyst](<https://storyteller.applytojob.com/apply/lc7mOBzgd9/Content-Operations-Analyst>) · job-0051 | Applied | 2026-08-10 | — | [Open](../applications/job-0051-storyteller-content-operations-analyst.md) |
 | Rejected | [Sticker Mule — Fullstack Software Engineer (AI)](<https://hirify.me/jobs/852653-fullstack-software-engineer-ai>) · job-0251 | Applied | 2026-08-17 | — | [Open](../applications/job-0251-sticker-mule-fullstack-software-engineer.md) |
@@ -62,6 +61,7 @@ No jobs.
 | Withdrawn | [Constructor — FullStack Engineer - Prospect UI Solutions](<https://jobs.ashbyhq.com/constructor/bdc3ed45-16f8-4e57-8d4c-a29a99729a4f>) · job-0414 | Applied | 2026-09-08 | — | [Open](../applications/job-0414-constructor-fullstack-engineer-prospect.md) |
 | Withdrawn | [AICerts.ai — Frontend Developer](<https://www.aicerts.ai/jobs/frontend-developers/>) · job-0415 | Applied | 2026-09-08 | — | [Open](../applications/job-0415-aicerts-ai-frontend-developer.md) |
 | Withdrawn | [Atorline — Junior Frontend Developer](<https://atorline.com/careers/junior-frontend-developer/>) · job-0422 | Applied | 2026-09-08 | — | [Open](../applications/job-0422-atorline-junior-frontend-developer.md) |
+| Withdrawn | [HH Agency Ltd — Marketing Operations Developer (MarTech)](<https://t.me/it_jobs_serbia/7358>) · job-0462 | Applied | 2026-09-30 | — | [Open](../applications/job-0462-hh-agency-ltd-marketing-operations-develop.md) |
 
 ## To verify
 
